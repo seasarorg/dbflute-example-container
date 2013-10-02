@@ -1,0 +1,325 @@
+##
+## Copyright 2004-2013 the Seasar Foundation and the Others.
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+## either express or implied. See the License for the specific language
+## governing permissions and limitations under the License.
+##
+${database.allClassCopyright}package ${glPackageCIQ};
+#set ($myClassName = "${myConditionInlineQueryClassName}")
+#set ($myCQClassName = "${myBaseConditionQueryClassName}")
+
+import java.util.Map;
+import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.ckey.*;
+import org.seasar.dbflute.cbean.coption.ConditionOption;
+import org.seasar.dbflute.cbean.cvalue.ConditionValue;
+import org.seasar.dbflute.cbean.sqlclause.SqlClause;
+import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
+import ${glPackageCB}.*;
+import ${glPackageBaseCQ}.*;
+import ${glPackageCQ}.*;
+
+/**
+ * The condition-query for in-line of ${table.tableDbName}.
+ * @author ${database.classAuthor}
+ */
+public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    protected ${myCQClassName} _myCQ;
+
+    // ===================================================================================
+    //                                                                         Constructor
+    //                                                                         ===========
+    public ${myClassName}(ConditionQuery childQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, ${myCQClassName} myCQ) {
+        super(childQuery, sqlClause, aliasName, nestLevel);
+        _myCQ = myCQ;
+        _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
+        _relationPath = _myCQ.xgetRelationPath(); // accept relation path
+        _inline = true;
+    }
+
+    // ===================================================================================
+    //                                                             Override about Register
+    //                                                             =======================
+    @Override
+    protected void reflectRelationOnUnionQuery(ConditionQuery bq, ConditionQuery uq) {
+        String msg = "InlineView must not need UNION method: " + bq + " : " + uq;
+        throw new IllegalConditionBeanOperationException(msg);
+    }
+
+    @Override
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col) {
+        regIQ(k, v, cv, col);
+    }
+
+    @Override
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col, ConditionOption op) {
+        regIQ(k, v, cv, col, op);
+    }
+
+    @Override
+    protected void registerWhereClause(String wc) {
+        registerInlineWhereClause(wc);
+    }
+
+    @Override
+    protected boolean isInScopeRelationSuppressLocalAliasName() {
+        if (_onClause) {
+            throw new IllegalConditionBeanOperationException("InScopeRelation on OnClause is unsupported.");
+        }
+        return true;
+    }
+
+    // ===================================================================================
+    //                                                                Override about Query
+    //                                                                ====================
+#foreach ($col in $table.columns)
+#set ($tmpJavaName = "${col.JavaName}")
+#set ($tmpUncapitalisedJavaName = "${col.uncapitalisedJavaName}")
+#set ($fk = $col.foreignKey)
+    protected ConditionValue getCValue${tmpJavaName}() { return _myCQ.get${tmpJavaName}(); }
+#if (${col.isJavaNativeStringObject()})
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+#end
+#end
+#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#end
+#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+#end
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keep${subQueryPropertyNameInitCap}Parameter(Object pv)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+#end
+#end
+#end
+#end
+#if (${col.isJavaNativeNumberObject()})
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+#end
+#end
+#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#end
+#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+#end
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+    public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keep${subQueryPropertyNameInitCap}Parameter(Object pv)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+#end
+#end
+#end
+#end
+#end
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
+#if ($table.hasSinglePrimaryKey())
+    public String keepScalarCondition(${myConditionQueryClassName} subQuery)
+    { throwIICBOE("ScalarCondition"); return null; }
+    public String keepSpecifyMyselfDerived(${myConditionQueryClassName} subQuery)
+    { throwIICBOE("(Specify)MyselfDerived"); return null;}
+    public String keepQueryMyselfDerived(${myConditionQueryClassName} subQuery)
+    { throwIICBOE("(Query)MyselfDerived"); return null;}
+    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    { throwIICBOE("(Query)MyselfDerived"); return null;}
+    public String keepMyselfExists(${myConditionQueryClassName} subQuery)
+    { throwIICBOE("MyselfExists"); return null;}
+    public String keepMyselfInScope(${myConditionQueryClassName} subQuery)
+    { throwIICBOE("MyselfInScope"); return null;}
+#end
+
+    protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
+        throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");
+    }
+
+    // ===================================================================================
+    //                                                                       Very Internal
+    //                                                                       =============
+    // very internal (for suppressing warn about 'Not Use Import')
+    protected String xinCB() { return ${myConditionBeanClassName}.class.getName(); }
+    protected String xinCQ() { return ${myConditionQueryClassName}.class.getName(); }
+}

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd"
+>
+<beans default-lazy-init="true">
+    <!-- The components of DBFlute Runtime. -->
+    <bean id="introduction" class="com.example.dbflute.spring.dbflute.allcommon.DBFluteInitializer">
+        <constructor-arg index="0"><ref bean="dataSource"/></constructor-arg>
+    </bean>
+    <bean id="invokerAssistant" class="com.example.dbflute.spring.dbflute.allcommon.ImplementedInvokerAssistant" autowire="byType">
+        <property name="dataSource"><ref bean="dataSource"/></property>
+        <property name="introduction"><ref bean="introduction"/></property>
+    </bean>
+    <bean id="commonColumnAutoSetupper" class="com.example.dbflute.spring.dbflute.allcommon.ImplementedCommonColumnAutoSetupper" autowire="byType"/>
+    <bean id="behaviorSelector" class="com.example.dbflute.spring.dbflute.allcommon.ImplementedBehaviorSelector" autowire="byType"/>
+    <bean id="behaviorCommandInvoker" class="org.seasar.dbflute.bhv.core.BehaviorCommandInvoker" autowire="byType">
+        <property name="invokerAssistant"><ref bean="invokerAssistant"/></property>
+    </bean>
+
+    <!-- The components of Behavior. -->
+	<bean id="memberBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberAddressBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberAddressBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberFollowingBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberFollowingBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberLoginBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberLoginBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberSecurityBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberSecurityBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberServiceBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberServiceBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberStatusBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberStatusBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="memberWithdrawalBhv" class="com.example.dbflute.spring.dbflute.exbhv.MemberWithdrawalBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="productBhv" class="com.example.dbflute.spring.dbflute.exbhv.ProductBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="productCategoryBhv" class="com.example.dbflute.spring.dbflute.exbhv.ProductCategoryBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="productStatusBhv" class="com.example.dbflute.spring.dbflute.exbhv.ProductStatusBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="purchaseBhv" class="com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="regionBhv" class="com.example.dbflute.spring.dbflute.exbhv.RegionBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="serviceRankBhv" class="com.example.dbflute.spring.dbflute.exbhv.ServiceRankBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorDollarBhv" class="com.example.dbflute.spring.dbflute.exbhv.Vendor$DollarBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorCheckBhv" class="com.example.dbflute.spring.dbflute.exbhv.VendorCheckBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorIdentityOnlyBhv" class="com.example.dbflute.spring.dbflute.exbhv.VendorIdentityOnlyBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorPrimaryKeyOnlyBhv" class="com.example.dbflute.spring.dbflute.exbhv.VendorPrimaryKeyOnlyBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorTheLongAndWindingTableAndColumnBhv" class="com.example.dbflute.spring.dbflute.exbhv.VendorTheLongAndWindingTableAndColumnBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="vendorTheLongAndWindingTableAndColumnRefBhv" class="com.example.dbflute.spring.dbflute.exbhv.VendorTheLongAndWindingTableAndColumnRefBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="withdrawalReasonBhv" class="com.example.dbflute.spring.dbflute.exbhv.WithdrawalReasonBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="summaryProductBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryProductBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="summaryWithdrawalBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryWithdrawalBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+    </bean>
+</beans>
