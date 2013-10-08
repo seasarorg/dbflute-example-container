@@ -1,0 +1,9 @@
+map:{
+; REGISTER_DATETIME = sysdate
+; REGISTER_USER     = foo
+; REGISTER_PROCESS  = bar
+; UPDATE_DATETIME   = sysdate
+; UPDATE_USER       = foo
+; UPDATE_PROCESS    = bar
+; VERSION_NO        = 0
+}

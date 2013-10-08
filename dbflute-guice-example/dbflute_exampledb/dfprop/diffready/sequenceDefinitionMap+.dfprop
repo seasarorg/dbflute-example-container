@@ -1,0 +1,3 @@
+map:{
+    ; MEMBER_LOGIN = DIFFWORLDDB.PUBLIC.SEQ_MEMBER_LOGIN:dfcache(12) # batch way (increment=3)
+}

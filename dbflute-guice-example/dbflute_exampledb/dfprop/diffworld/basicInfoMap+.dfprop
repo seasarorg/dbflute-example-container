@@ -1,0 +1,4 @@
+map:{
+    ; projectSchemaXMLFilePath = ./schema/diffworld-project-schema.xml
+    ; projectSchemaHistoryFilePath = ./schema/diffworld-project-history.diffmap
+}

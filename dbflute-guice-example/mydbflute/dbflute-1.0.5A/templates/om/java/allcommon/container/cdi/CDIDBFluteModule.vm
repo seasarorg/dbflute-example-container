@@ -1,0 +1,212 @@
+##
+## Copyright 2004-2013 the Seasar Foundation and the Others.
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+## either express or implied. See the License for the specific language
+## governing permissions and limitations under the License.
+##
+${database.allClassCopyright}package ${glPackageBaseCommon};
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.AfterDeploymentValidation;
+import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.Extension;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.spi.InjectionTarget;
+import javax.enterprise.util.AnnotationLiteral;
+
+import org.seasar.dbflute.BehaviorSelector;
+import org.seasar.dbflute.bhv.core.BehaviorCommandInvoker;
+import org.seasar.dbflute.bhv.core.CommonColumnAutoSetupper;
+import org.seasar.dbflute.bhv.core.InvokerAssistant;
+import org.seasar.dbflute.cbean.sqlclause.SqlClauseCreator;
+
+import ${glPackageExtendedBhv}.*;
+
+/**
+ * {@link Extension} for DBFlute.
+ * @author ${database.classAuthor}
+ */
+public class ${glDBFluteModule} implements Extension {
+
+    /**
+     * Register DBFlute beans to container.
+     * @param event event
+     * @param beanManager bean manager
+     */
+    public void afterBeanDiscovery(@Observes final AfterBeanDiscovery event, final BeanManager beanManager) {
+        this.setupDfComponents(event, beanManager);
+        this.setupBehaviors(event, beanManager);
+    }
+
+    /**
+     * Register environment dependent implementations to container.
+     * @param event
+     * @param beanManager
+     */
+    @SuppressWarnings("unchecked")
+    protected void setupDfComponents(final AfterBeanDiscovery event, final BeanManager beanManager) {
+        event.addBean(new DBFluteBean<${database.implementedInvokerAssistantClass}>(beanManager, ${database.implementedInvokerAssistantClass}.class, InvokerAssistant.class));
+        event.addBean(new DBFluteBean<${database.implementedCommonColumnAutoSetupperClass}>(beanManager, ${database.implementedCommonColumnAutoSetupperClass}.class, CommonColumnAutoSetupper.class));
+        event.addBean(new DBFluteBean<${glImplementedBehaviorSelector}>(beanManager, ${glImplementedBehaviorSelector}.class, BehaviorSelector.class));
+        event.addBean(new DBFluteBean<${glImplementedSqlClauseCreator}>(beanManager, ${glImplementedSqlClauseCreator}.class, SqlClauseCreator.class));
+
+        event.addBean(new DBFluteBean<BehaviorCommandInvoker>(beanManager, BehaviorCommandInvoker.class) {
+            @SuppressWarnings("serial")
+            @Override
+            protected void postInject(final BehaviorCommandInvoker instance) {
+                final Bean<?> iaBean = beanManager.resolve(beanManager.getBeans(
+                        InvokerAssistant.class, new AnnotationLiteral<Default>() {}));
+                instance.setInvokerAssistant((InvokerAssistant) beanManager.getReference(
+                        iaBean, iaBean.getBeanClass(), beanManager.createCreationalContext(iaBean)));
+            }
+        });
+    }
+
+    /**
+     * Register behaviors to container.
+     * @param event
+     * @param beanManager
+     */
+    protected void setupBehaviors(final AfterBeanDiscovery event, final BeanManager beanManager) {
+#foreach ($table in $database.tables)
+        event.addBean(new DBFluteBean<${table.extendedBehaviorClassName}>(beanManager, ${table.extendedBehaviorClassName}.class));
+#end
+    }
+
+    /**
+     * Initialize DBFlute.
+     * @param event
+     */
+    public void afterDeploymentValidation(@Observes final AfterDeploymentValidation event) {
+        new ${database.DBFluteInitializerClass}();
+    }
+
+    /**
+     * Simple implementation of {@link Bean}.
+     *
+     * @param <T>
+     */
+    public class DBFluteBean<T> implements Bean<T> {
+        private final Class<T> beanClass;
+        private final Class<? super T>[] superTypes;
+        private final AnnotatedType<T> at;
+        private final InjectionTarget<T> it;
+
+        public DBFluteBean(final BeanManager beanManager, final Class<T> beanClass, final Class<? super T>... superTypes) {
+            this.beanClass = beanClass;
+            this.superTypes = superTypes;
+            this.at = beanManager.createAnnotatedType(beanClass);
+            this.it = beanManager.createInjectionTarget(this.at);
+        }
+
+        @Override
+        public T create(final CreationalContext<T> cc) {
+            final T instance = this.it.produce(cc);
+            this.it.inject(instance, cc);
+            this.postInject(instance);
+            this.it.postConstruct(instance);
+            return instance;
+        }
+
+        /**
+         * Bean customization point.
+         * @param instance
+         */
+        protected void postInject(final T instance) {
+        }
+
+        @Override
+        public void destroy(final T instance, final CreationalContext<T> cc) {
+            this.it.preDestroy(instance);
+            this.it.dispose(instance);
+            cc.release();
+        };
+
+        @Override
+        public Class<?> getBeanClass() {
+            return this.beanClass;
+        }
+
+        @Override
+        public Set<InjectionPoint> getInjectionPoints() {
+            return this.it.getInjectionPoints();
+        }
+
+        @Override
+        public String getName() {
+            String className = this.beanClass.getName();
+            final int index = className.lastIndexOf('.');
+            if (0 < index) {
+                className = className.substring(index + 1);
+            }
+            final char[] chars = className.toCharArray();
+            if (Character.isUpperCase(chars[0])) {
+                chars[0] = Character.toLowerCase(chars[0]);
+            }
+            return new String(chars);
+        }
+
+        @Override
+        @SuppressWarnings("serial")
+        public Set<Annotation> getQualifiers() {
+            final Set<Annotation> qualifiers = new HashSet<Annotation>();
+            qualifiers.add(new AnnotationLiteral<Default>() {});
+            qualifiers.add(new AnnotationLiteral<Any>() {});
+            return qualifiers;
+        }
+
+        @Override
+        public Class<? extends Annotation> getScope() {
+            return ApplicationScoped.class;
+        }
+
+        @Override
+        public Set<Class<? extends Annotation>> getStereotypes() {
+            return Collections.emptySet();
+        }
+
+        @Override
+        public Set<Type> getTypes() {
+            final Set<Type> types = new HashSet<Type>();
+            types.add(this.beanClass);
+            types.add(Object.class);
+            if (this.superTypes != null) {
+                types.addAll(Arrays.asList(this.superTypes));
+            }
+            return types;
+        }
+
+        @Override
+        public boolean isAlternative() {
+            return false;
+        }
+
+        @Override
+        public boolean isNullable() {
+            return false;
+        }
+    }
+}

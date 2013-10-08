@@ -1,0 +1,405 @@
+package com.example.dbflute.guice.simpleflute.dto.bs;
+
+import java.io.Serializable;
+import java.util.*;
+
+import net.arnx.jsonic.JSONHint;
+import net.vvakame.util.jsonpullparser.annotation.*;
+import com.example.dbflute.guice.simpleflute.dto.*;
+
+/**
+ * The simple DTO of (会員住所情報)MEMBER_ADDRESS as TABLE. <br />
+ * <pre>
+ * [primary-key]
+ *     MEMBER_ADDRESS_ID
+ * 
+ * [column]
+ *     MEMBER_ADDRESS_ID, MEMBER_ID, VALID_BEGIN_DATE, VALID_END_DATE, ADDRESS, REGION_ID, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ * 
+ * [sequence]
+ *     
+ * 
+ * [identity]
+ *     MEMBER_ADDRESS_ID
+ * 
+ * [version-no]
+ *     VERSION_NO
+ * 
+ * [foreign-table]
+ *     MEMBER, REGION
+ * 
+ * [referrer-table]
+ *     
+ * 
+ * [foreign-property]
+ *     member, region
+ * 
+ * [referrer-property]
+ *     
+ * </pre>
+ * @author DBFlute(AutoGenerator)
+ */
+@JsonModel(decamelize = false)
+public abstract class BsMemberAddressDto implements Serializable {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    /** Serial version UID. (Default) */
+    private static final long serialVersionUID = 1L;
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    // -----------------------------------------------------
+    //                                                Column
+    //                                                ------
+    /** (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} */
+    @JsonKey
+    protected Integer _memberAddressId;
+
+    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    @JsonKey
+    protected Integer _memberId;
+
+    /** (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} */
+    @JsonKey
+    protected java.util.Date _validBeginDate;
+
+    /** (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} */
+    @JsonKey
+    protected java.util.Date _validEndDate;
+
+    /** (住所)ADDRESS: {NotNull, VARCHAR(200)} */
+    @JsonKey
+    protected String _address;
+
+    /** (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} */
+    @JsonKey
+    protected Integer _regionId;
+
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    @JsonKey
+    protected java.sql.Timestamp _registerDatetime;
+
+    /** REGISTER_USER: {NotNull, VARCHAR(200)} */
+    @JsonKey
+    protected String _registerUser;
+
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    @JsonKey
+    protected java.sql.Timestamp _updateDatetime;
+
+    /** UPDATE_USER: {NotNull, VARCHAR(200)} */
+    @JsonKey
+    protected String _updateUser;
+
+    /** VERSION_NO: {NotNull, BIGINT(19)} */
+    @JsonKey
+    protected Long _versionNo;
+
+    // -----------------------------------------------------
+    //                                              Internal
+    //                                              --------
+    /** The modified properties for this DTO. */
+    protected final Set<String> __modifiedProperties = new LinkedHashSet<String>();
+
+    // ===================================================================================
+    //                                                                         Constructor
+    //                                                                         ===========
+    public BsMemberAddressDto() {
+    }
+
+    // ===================================================================================
+    //                                                                       Foreign Table
+    //                                                                       =============
+    protected MemberDto _member;
+
+    public MemberDto getMember() {
+        return _member;
+    }
+
+    public void setMember(MemberDto member) {
+        this._member = member;
+    }
+
+    protected RegionDto _region;
+
+    public RegionDto getRegion() {
+        return _region;
+    }
+
+    public void setRegion(RegionDto region) {
+        this._region = region;
+    }
+
+    // ===================================================================================
+    //                                                                      Referrer Table
+    //                                                                      ==============
+    // ===================================================================================
+    //                                                                 Modified Properties
+    //                                                                 ===================
+    public Set<String> modifiedProperties() {
+        return __modifiedProperties;
+    }
+
+    public void clearModifiedInfo() {
+        __modifiedProperties.clear();
+    }
+
+    public boolean hasModification() {
+        return !__modifiedProperties.isEmpty();
+    }
+
+    // ===================================================================================
+    //                                                                      Basic Override
+    //                                                                      ==============
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof BsMemberAddressDto)) { return false; }
+        final BsMemberAddressDto otherEntity = (BsMemberAddressDto)other;
+        if (!helpComparingValue(getMemberAddressId(), otherEntity.getMemberAddressId())) { return false; }
+        return true;
+    }
+
+    protected boolean helpComparingValue(Object value1, Object value2) {
+        if (value1 == null && value2 == null) { return true; }
+        return value1 != null && value2 != null && value1.equals(value2);
+    }
+
+    public int hashCode() {
+        int result = 17;
+        result = xCH(result, "MEMBER_ADDRESS");
+        result = xCH(result, getMemberAddressId());
+        return result;
+    }
+    protected int xCH(int result, Object value) { // calculateHashcode()
+        if (value == null) {
+            return result;
+        }
+        return (31 * result) + (value instanceof byte[] ? ((byte[]) value).length : value.hashCode());
+    }
+
+    public int instanceHash() {
+        return super.hashCode();
+    }
+
+    public String toString() {
+        String c = ", ";
+        StringBuilder sb = new StringBuilder();
+        sb.append(c).append(getMemberAddressId());
+        sb.append(c).append(getMemberId());
+        sb.append(c).append(xfUD(getValidBeginDate()));
+        sb.append(c).append(xfUD(getValidEndDate()));
+        sb.append(c).append(getAddress());
+        sb.append(c).append(getRegionId());
+        sb.append(c).append(getRegisterDatetime());
+        sb.append(c).append(getRegisterUser());
+        sb.append(c).append(getUpdateDatetime());
+        sb.append(c).append(getUpdateUser());
+        sb.append(c).append(getVersionNo());
+        if (sb.length() > 0) { sb.delete(0, c.length()); }
+        sb.insert(0, "{").append("}");
+        return sb.toString();
+    }
+    protected String xfUD(java.util.Date date) { // formatUtilDate()
+        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
+    }
+    protected String xgDP() { // getDatePattern
+        return "yyyy-MM-dd";
+    }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    /**
+     * [get] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * @return The value of the column 'MEMBER_ADDRESS_ID'. (NullAllowed)
+     */
+    public Integer getMemberAddressId() {
+        return _memberAddressId;
+    }
+
+    /**
+     * [set] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * @param memberAddressId The value of the column 'MEMBER_ADDRESS_ID'. (NullAllowed)
+     */
+    public void setMemberAddressId(Integer memberAddressId) {
+        __modifiedProperties.add("memberAddressId");
+        this._memberAddressId = memberAddressId;
+    }
+
+    /**
+     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * @return The value of the column 'MEMBER_ID'. (NullAllowed)
+     */
+    public Integer getMemberId() {
+        return _memberId;
+    }
+
+    /**
+     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
+     */
+    public void setMemberId(Integer memberId) {
+        __modifiedProperties.add("memberId");
+        this._memberId = memberId;
+    }
+
+    /**
+     * [get] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * @return The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
+     */
+    @JSONHint(format="yyyy-MM-dd")
+    public java.util.Date getValidBeginDate() {
+        return _validBeginDate;
+    }
+
+    /**
+     * [set] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
+     */
+    public void setValidBeginDate(java.util.Date validBeginDate) {
+        __modifiedProperties.add("validBeginDate");
+        this._validBeginDate = validBeginDate;
+    }
+
+    /**
+     * [get] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
+     * @return The value of the column 'VALID_END_DATE'. (NullAllowed)
+     */
+    @JSONHint(format="yyyy-MM-dd")
+    public java.util.Date getValidEndDate() {
+        return _validEndDate;
+    }
+
+    /**
+     * [set] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
+     * @param validEndDate The value of the column 'VALID_END_DATE'. (NullAllowed)
+     */
+    public void setValidEndDate(java.util.Date validEndDate) {
+        __modifiedProperties.add("validEndDate");
+        this._validEndDate = validEndDate;
+    }
+
+    /**
+     * [get] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br />
+     * @return The value of the column 'ADDRESS'. (NullAllowed)
+     */
+    public String getAddress() {
+        return _address;
+    }
+
+    /**
+     * [set] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br />
+     * @param address The value of the column 'ADDRESS'. (NullAllowed)
+     */
+    public void setAddress(String address) {
+        __modifiedProperties.add("address");
+        this._address = address;
+    }
+
+    /**
+     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * @return The value of the column 'REGION_ID'. (NullAllowed)
+     */
+    public Integer getRegionId() {
+        return _regionId;
+    }
+
+    /**
+     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * @param regionId The value of the column 'REGION_ID'. (NullAllowed)
+     */
+    public void setRegionId(Integer regionId) {
+        __modifiedProperties.add("regionId");
+        this._regionId = regionId;
+    }
+
+    /**
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
+     */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    public java.sql.Timestamp getRegisterDatetime() {
+        return _registerDatetime;
+    }
+
+    /**
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
+     */
+    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+        __modifiedProperties.add("registerDatetime");
+        this._registerDatetime = registerDatetime;
+    }
+
+    /**
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * @return The value of the column 'REGISTER_USER'. (NullAllowed)
+     */
+    public String getRegisterUser() {
+        return _registerUser;
+    }
+
+    /**
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed)
+     */
+    public void setRegisterUser(String registerUser) {
+        __modifiedProperties.add("registerUser");
+        this._registerUser = registerUser;
+    }
+
+    /**
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
+     */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    public java.sql.Timestamp getUpdateDatetime() {
+        return _updateDatetime;
+    }
+
+    /**
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
+     */
+    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+        __modifiedProperties.add("updateDatetime");
+        this._updateDatetime = updateDatetime;
+    }
+
+    /**
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * @return The value of the column 'UPDATE_USER'. (NullAllowed)
+     */
+    public String getUpdateUser() {
+        return _updateUser;
+    }
+
+    /**
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed)
+     */
+    public void setUpdateUser(String updateUser) {
+        __modifiedProperties.add("updateUser");
+        this._updateUser = updateUser;
+    }
+
+    /**
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * @return The value of the column 'VERSION_NO'. (NullAllowed)
+     */
+    public Long getVersionNo() {
+        return _versionNo;
+    }
+
+    /**
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * @param versionNo The value of the column 'VERSION_NO'. (NullAllowed)
+     */
+    public void setVersionNo(Long versionNo) {
+        __modifiedProperties.add("versionNo");
+        this._versionNo = versionNo;
+    }
+
+}

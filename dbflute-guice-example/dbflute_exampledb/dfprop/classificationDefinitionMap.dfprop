@@ -1,0 +1,56 @@
+# /---------------------------------------------------------------------------
+# classificationDefinitionMap: (NotRequired - Default map:{})
+#
+# The definition of classification.
+#
+# Specification:
+# map: {
+#     [classification-name] = list:{
+#         ; map:{
+#             ; topComment=[comment]; codeType=[String(default) or Number or Boolean]}
+#             ; isCheckImplicitSet=[true or false(default)]
+#             ; isUseDocumentOnly=[true or false(default)]
+#             ; isSuppressAutoDeploy=[true or false(default)]
+#         ; map:{code=[code]; name=[name]; alias=[alias]; comment=[comment]}
+#         ; map:{
+#             ; table=[table-name]
+#             ; code=[column-name for code]; name=[column-name for name]
+#             ; alias=[column-name for alias]; comment=[column-name for comment]}
+#             ; where=[condition for select]; orderBy=[column-name for ordering]
+#             ; exceptCodeList=[the list of except code]
+#         }
+#     }
+# }
+#
+# *The line that starts with '#' means comment-out.
+#
+map:{
+    ; Flg = list:{
+        ; map:{
+            ; topComment=general boolean classification for every flg-column
+            ; codeType=Number; isCheckImplicitSet=true
+        }
+        ; map:{code=1;name=True ;alias=Yes ;comment=means valid; subItemMap=map:{key1=value1}}
+        ; map:{code=0;name=False;alias=No  ;comment=means invalid; subItemMap=map:{key1=value1}}
+    }
+    ; MemberStatus = list:{
+        # for the test of default code type
+        ; map:{topComment=status of member from entry to withdrawal}
+        ; map:{
+            ; table=MEMBER_STATUS
+            ; code=MEMBER_STATUS_CODE; name=MEMBER_STATUS_NAME
+            ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
+            ; subItemMap=map:{key1=DISPLAY_ORDER;key2=DESCRIPTION}
+        }
+    }
+    ; ServiceRank = list:{
+        ; map:{topComment=rank of service member gets; codeType=Number}
+        ; map:{
+            ; table=SERVICE_RANK
+            ; code=SERVICE_RANK_CODE; name=SERVICE_RANK_NAME
+            ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
+        }
+    }
+}
+# ----------------/
+

@@ -1,0 +1,32 @@
+
+* * * * * * * * * * *
+*                   *
+* Load Data Reverse *
+*                   *
+* * * * * * * * * * *
+...Outputting load data: tables=22
+[Section 1]: misc
+  MEMBER_STATUS (3)
+  PRODUCT_CATEGORY (5)
+  PRODUCT_STATUS (3)
+  REGION (4)
+  SERVICE_RANK (5)
+  WITHDRAWAL_REASON (4)
+[Section 2]: VENDOR
+  VENDOR_$_DOLLAR (0)
+  VENDOR_CHECK (5)
+  VENDOR_IDENTITY_ONLY (0)
+  VENDOR_PRIMARY_KEY_ONLY (0)
+  VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN (0)
+  VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF (0)
+[Section 3]: MEMBER-plus
+  MEMBER (10)
+  MEMBER_ADDRESS (10)
+  MEMBER_LOGIN (10)
+  MEMBER_SECURITY (10)
+  MEMBER_SERVICE (10)
+  MEMBER_WITHDRAWAL (4)
+  PRODUCT (10)
+  PURCHASE (10)
+
+Output Date: 2013/03/29 12:12:08

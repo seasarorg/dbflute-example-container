@@ -1,0 +1,81 @@
+map:{
+    ; JsonListMapNameGen = map:{
+        ; resourceMap = map:{
+            ; resourceType = JSON_KEY
+            ; resourceFile = ../src/main/resources/json/freegen_list_map_name.json
+        }
+        ; outputMap = map:{
+            ; templateFile = JsonKey.vm
+            ; outputDirectory = ../src/main/java
+            ; package = com.example.dbflute.guice.freeflute.json
+            ; className = JsonListMapName
+        }
+        ; tableMap = map:{
+            ; keyPath = simpleKey -> list.map.code
+        }
+    }
+    ; JsonMapKeysGen = map:{
+        ; resourceMap = map:{
+            ; resourceType = JSON_KEY
+            ; resourceFile = ../src/main/resources/json/freegen_map_keys.json
+        }
+        ; outputMap = map:{
+            ; templateFile = JsonKey.vm
+            ; outputDirectory = ../src/main/java
+            ; package = com.example.dbflute.guice.freeflute.json
+            ; className = JsonMapKeys
+        }
+        ; tableMap = map:{
+            ; keyPath = basicKey -> map.keys
+        }
+    }
+    ; JsonMapNameMapKeysGen = map:{
+        ; resourceMap = map:{
+            ; resourceType = JSON_KEY
+            ; resourceFile = ../src/main/resources/json/freegen_map_name_map_keys.json
+        }
+        ; outputMap = map:{
+            ; templateFile = JsonKey.vm
+            ; outputDirectory = ../src/main/java
+            ; package = com.example.dbflute.guice.freeflute.json
+            ; className = JsonMapNameMapKeys
+        }
+        ; tableMap = map:{
+            ; keyPath = topKey -> map.fooBarStatus -> map.keys
+        }
+    }
+    ; JsonMapValuesGen = map:{
+        ; resourceMap = map:{
+            ; resourceType = JSON_KEY
+            ; resourceFile = ../src/main/resources/json/freegen_map_values_list.json
+        }
+        ; outputMap = map:{
+            ; templateFile = JsonKey.vm
+            ; outputDirectory = ../src/main/java
+            ; package = com.example.dbflute.guice.freeflute.json
+            ; className = JsonMapValuesListKey
+        }
+        ; tableMap = map:{
+            ; keyPath = clarinetKey -> map.values -> list.elements
+        }
+    }
+    ; MongoBeanGen = map:{
+        ; resourceMap = map:{
+        	; baseDir = ../src/main
+            ; resourceType = JSON_SCHEMA
+            ; resourceFile = $$baseDir$$/resources/mongodb/mongo_schema.json
+        }
+        ; outputMap = map:{
+            ; templateFile = unused
+            ; outputDirectory = $$baseDir$$/java
+            ; package = com.example.dbflute.guice.freeflute.mongodb
+            ; className = unused
+        }
+        ; tableMap = map:{
+        	; tablePath = map
+            ; mappingMap = map:{
+                ; type = map:{ numeric = Integer ; varchar = String }
+            }
+        }
+    }
+}

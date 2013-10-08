@@ -1,0 +1,104 @@
+# /---------------------------------------------------------------------------
+# simpleDtoDefinitionMap: (Default map:{})
+#
+# The settings about generation of simple DTO
+# that is basically for data transfer.
+# 
+# *The line that starts with '#' means comment-out.
+#
+map:{
+    # OutputDirectory settings: relative path from generate-output-path
+    # (if the specified path starts with "~/", path from DBFlute clinent)
+    #simpleDtoOutputDirectory = ../
+    #dtoMapperOutputDirectory = ../
+    #simpleCDefOutputDirectory = ../
+
+    # Package for DTO
+	; baseDtoPackage = com.example.dbflute.guice.simpleflute.dto.bs
+	; extendedDtoPackage = com.example.dbflute.guice.simpleflute.dto
+
+	# Prefix/Suffix for DTO
+	; baseDtoPrefix = Bs
+	; baseDtoSuffix = Dto
+	; extendedDtoPrefix = 
+	; extendedDtoSuffix = Dto
+
+    # Package and Options for Mapper
+    ; baseMapperPackage = com.example.dbflute.guice.dbflute.dtomapper.bs
+	; extendedMapperPackage = com.example.dbflute.guice.dbflute.dtomapper
+	#; isMappingReverseReference = true
+
+    # Class and Package for CDef
+    ; simpleCDefClass = AppCDef
+    ; simpleCDefPackage = com.example.dbflute.guice.simpleflute
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o simpleCDefTargetList: (NotRequired - Default all classifications)
+    #  You can specify classifications defined on the SimpleCDef.
+    #
+    #; simpleCDefTargetList = list:{ MemberStatus }
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o isClassificationDeployment: (NotRequired - Default false)
+    #   [true]
+    #     SimpleDto classes are related to classifications. 
+    #
+    #   [false]
+    #     Non.
+    #
+    ; isClassificationDeployment = true
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o jsonicDecorationMap: (NotRequired - Default map:{})
+    #  You can decarate for JSONIC. (for example, using JSONHint annotaton)
+    #   o datePattern: format pattern of DATE type (NotRequired - Default null)
+    #   o timestampPattern: format pattern of TIMESTAMP type (NotRequired - Default null)
+    #   o timePattern: format pattern of TIME type (NotRequired - Default null)
+    #
+    ; jsonicDecorationMap = map:{
+        ; datePattern = yyyy-MM-dd
+        ; timestampPattern = yyyy-MM-dd HH:mm:ss.SSS
+        ; timePattern = HH:mm:ss
+    }
+    # - - - - - - - - - -/
+
+    ; jsonPullParserDecorationMap = map:{
+        ; isBasicDecorate = true
+    }
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o gwtDecorationMap: (NotRequired - Default map:{})
+    #  You can decarate for GWT.
+    #   o isSuppressJavaDependency:
+    #      suppress Java API use not allowed (NotRequired - Default false)
+    #
+    #; gwtDecorationMap = map:{
+    #    ; isSuppressJavaDependency = false
+    #}
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o fieldInitCharType: (NotRequired - Default UNCAP)
+    #  The rule of initial characters for field names in DTO.
+    #    BEANS = 'MEMBER_NAME' to '_memberName', 'T_MEMBER_NAME' to '_TMemberName'
+    #    CAP   = 'MEMBER_NAME' to '_MemberName', 'T_MEMBER_NAME' to '_TMemberName'
+    #    UNCAP = 'MEMBER_NAME' to '_memberName', 'T_MEMBER_NAME' to '_tMemberName'
+    #
+    #; fieldInitCharType = UNCAP
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o isFieldNonPrefix: (NotRequired - Default false)
+    #   [true]
+    #     Field names in DTO do not have their prefixes '_'.
+    #     For example, '_memberName' to 'memberName'.
+    #
+    #   [false]
+    #     Non.
+    #
+    #; isFieldNonPrefix = false
+    # - - - - - - - - - -/
+}
+# ----------------/

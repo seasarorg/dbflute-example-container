@@ -1,0 +1,3 @@
+map:{
+    ; url      = jdbc:h2:file:./dfprop/diffworld/diffworlddb
+}

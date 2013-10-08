@@ -1,0 +1,726 @@
+package com.example.dbflute.guice.dbflute.dtomapper.bs;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+
+import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.bhv.DtoMapper;
+import org.seasar.dbflute.bhv.InstanceKeyDto;
+import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
+import com.example.dbflute.guice.dbflute.exentity.*;
+import com.example.dbflute.guice.simpleflute.dto.*;
+import com.example.dbflute.guice.dbflute.dtomapper.*;
+
+/**
+ * The DTO mapper of (会員)MEMBER as TABLE. <br />
+ * <pre>
+ * [primary-key]
+ *     MEMBER_ID
+ * 
+ * [column]
+ *     MEMBER_ID, MEMBER_NAME, MEMBER_ACCOUNT, MEMBER_STATUS_CODE, FORMALIZED_DATETIME, BIRTHDATE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ * 
+ * [sequence]
+ *     SEQ_MEMBER
+ * 
+ * [identity]
+ *     MEMBER_ID
+ * 
+ * [version-no]
+ *     VERSION_NO
+ * 
+ * [foreign-table]
+ *     MEMBER_STATUS, MEMBER_ADDRESS(AsValid), MEMBER_SECURITY(AsOne), MEMBER_SERVICE(AsOne), MEMBER_WITHDRAWAL(AsOne)
+ * 
+ * [referrer-table]
+ *     MEMBER_ADDRESS, MEMBER_FOLLOWING, MEMBER_LOGIN, PURCHASE, MEMBER_SECURITY, MEMBER_SERVICE, MEMBER_WITHDRAWAL
+ * 
+ * [foreign-property]
+ *     memberStatus, memberAddressAsValid, memberSecurityAsOne, memberServiceAsOne, memberWithdrawalAsOne
+ * 
+ * [referrer-property]
+ *     memberAddressList, memberFollowingByMyMemberIdList, memberFollowingByYourMemberIdList, memberLoginList, purchaseList
+ * </pre>
+ * @author DBFlute(AutoGenerator)
+ */
+public abstract class BsMemberDtoMapper implements DtoMapper<Member, MemberDto>, Serializable {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    /** Serial version UID. (Default) */
+    private static final long serialVersionUID = 1L;
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    protected final Map<Entity, Object> _relationDtoMap;
+    protected final Map<Object, Entity> _relationEntityMap;
+    protected boolean _reverseReference; // default: one-way reference
+    protected boolean _instanceCache = true; // default: cached
+    protected boolean _suppressMemberStatus;
+    protected boolean _suppressMemberAddressAsValid;
+    protected boolean _suppressMemberAddressList;
+    protected boolean _suppressMemberFollowingByMyMemberIdList;
+    protected boolean _suppressMemberFollowingByYourMemberIdList;
+    protected boolean _suppressMemberLoginList;
+    protected boolean _suppressMemberSecurityAsOne;
+    protected boolean _suppressMemberServiceAsOne;
+    protected boolean _suppressMemberWithdrawalAsOne;
+    protected boolean _suppressPurchaseList;
+
+    // ===================================================================================
+    //                                                                         Constructor
+    //                                                                         ===========
+    public BsMemberDtoMapper() {
+        _relationDtoMap = new HashMap<Entity, Object>();
+        _relationEntityMap = new HashMap<Object, Entity>();
+    }
+
+    public BsMemberDtoMapper(Map<Entity, Object> relationDtoMap, Map<Object, Entity> relationEntityMap) {
+        _relationDtoMap = relationDtoMap;
+        _relationEntityMap = relationEntityMap;
+    }
+
+    // ===================================================================================
+    //                                                                             Mapping
+    //                                                                             =======
+    // -----------------------------------------------------
+    //                                                to DTO
+    //                                                ------
+    /**
+     * {@inheritDoc}
+     */
+    public MemberDto mappingToDto(Member entity) {
+        if (entity == null) {
+            return null;
+        }
+        boolean instanceCache = _instanceCache;
+        Entity localKey = createInstanceKeyEntity(entity);
+        Object cachedLocalDto = instanceCache ? _relationDtoMap.get(localKey) : null;
+        if (cachedLocalDto != null) {
+            return (MemberDto)cachedLocalDto;
+        }
+        MemberDto dto = new MemberDto();
+        dto.setMemberId(entity.getMemberId());
+        dto.setMemberName(entity.getMemberName());
+        dto.setMemberAccount(entity.getMemberAccount());
+        dto.setMemberStatusCode(entity.getMemberStatusCode());
+        dto.setFormalizedDatetime(entity.getFormalizedDatetime());
+        dto.setBirthdate(entity.getBirthdate());
+        dto.setRegisterDatetime(entity.getRegisterDatetime());
+        dto.setRegisterUser(entity.getRegisterUser());
+        dto.setUpdateDatetime(entity.getUpdateDatetime());
+        dto.setUpdateUser(entity.getUpdateUser());
+        dto.setVersionNo(entity.getVersionNo());
+        if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only a DTO that has a primary key value
+            _relationDtoMap.put(localKey, dto);
+        }
+        boolean reverseReference = _reverseReference;
+        if (!_suppressMemberStatus && entity.getMemberStatus() != null) {
+            MemberStatus relationEntity = entity.getMemberStatus();
+            Entity relationKey = createInstanceKeyEntity(relationEntity);
+            Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
+            if (cachedDto != null) {
+                MemberStatusDto relationDto = (MemberStatusDto)cachedDto;
+                dto.setMemberStatus(relationDto);
+                if (reverseReference) {
+                    relationDto.getMemberList().add(dto);
+                }
+            } else {
+                MemberStatusDtoMapper mapper = new MemberStatusDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMemberList();
+                MemberStatusDto relationDto = mapper.mappingToDto(relationEntity);
+                dto.setMemberStatus(relationDto);
+                if (reverseReference) {
+                    relationDto.getMemberList().add(dto);
+                }
+                if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
+                    _relationDtoMap.put(relationKey, dto.getMemberStatus());
+                }
+            }
+        };
+        if (!_suppressMemberAddressAsValid && entity.getMemberAddressAsValid() != null) {
+            MemberAddress relationEntity = entity.getMemberAddressAsValid();
+            Entity relationKey = createInstanceKeyEntity(relationEntity);
+            Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
+            if (cachedDto != null) {
+                MemberAddressDto relationDto = (MemberAddressDto)cachedDto;
+                dto.setMemberAddressAsValid(relationDto);
+                if (reverseReference) {
+                }
+            } else {
+                MemberAddressDtoMapper mapper = new MemberAddressDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                MemberAddressDto relationDto = mapper.mappingToDto(relationEntity);
+                dto.setMemberAddressAsValid(relationDto);
+                if (reverseReference) {
+                }
+                if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
+                    _relationDtoMap.put(relationKey, dto.getMemberAddressAsValid());
+                }
+            }
+        };
+        if (!_suppressMemberAddressList && !entity.getMemberAddressList().isEmpty()) {
+            MemberAddressDtoMapper mapper = new MemberAddressDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<MemberAddressDto> relationDtoList = mapper.mappingToDtoList(entity.getMemberAddressList());
+            dto.setMemberAddressList(relationDtoList);
+            if (reverseReference) {
+                for (MemberAddressDto relationDto : relationDtoList) {
+                    relationDto.setMember(dto);
+                }
+            }
+        };
+        if (!_suppressMemberFollowingByMyMemberIdList && !entity.getMemberFollowingByMyMemberIdList().isEmpty()) {
+            MemberFollowingDtoMapper mapper = new MemberFollowingDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMemberByMyMemberId();
+            List<MemberFollowingDto> relationDtoList = mapper.mappingToDtoList(entity.getMemberFollowingByMyMemberIdList());
+            dto.setMemberFollowingByMyMemberIdList(relationDtoList);
+            if (reverseReference) {
+                for (MemberFollowingDto relationDto : relationDtoList) {
+                    relationDto.setMemberByMyMemberId(dto);
+                }
+            }
+        };
+        if (!_suppressMemberFollowingByYourMemberIdList && !entity.getMemberFollowingByYourMemberIdList().isEmpty()) {
+            MemberFollowingDtoMapper mapper = new MemberFollowingDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMemberByYourMemberId();
+            List<MemberFollowingDto> relationDtoList = mapper.mappingToDtoList(entity.getMemberFollowingByYourMemberIdList());
+            dto.setMemberFollowingByYourMemberIdList(relationDtoList);
+            if (reverseReference) {
+                for (MemberFollowingDto relationDto : relationDtoList) {
+                    relationDto.setMemberByYourMemberId(dto);
+                }
+            }
+        };
+        if (!_suppressMemberLoginList && !entity.getMemberLoginList().isEmpty()) {
+            MemberLoginDtoMapper mapper = new MemberLoginDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<MemberLoginDto> relationDtoList = mapper.mappingToDtoList(entity.getMemberLoginList());
+            dto.setMemberLoginList(relationDtoList);
+            if (reverseReference) {
+                for (MemberLoginDto relationDto : relationDtoList) {
+                    relationDto.setMember(dto);
+                }
+            }
+        };
+        if (!_suppressMemberSecurityAsOne && entity.getMemberSecurityAsOne() != null) {
+            MemberSecurity relationEntity = entity.getMemberSecurityAsOne();
+            Entity relationKey = createInstanceKeyEntity(relationEntity);
+            Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
+            if (cachedDto != null) {
+                MemberSecurityDto relationDto = (MemberSecurityDto)cachedDto;
+                dto.setMemberSecurityAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+            } else {
+                MemberSecurityDtoMapper mapper = new MemberSecurityDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberSecurityDto relationDto = mapper.mappingToDto(relationEntity);
+                dto.setMemberSecurityAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+                if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
+                    _relationDtoMap.put(relationKey, dto.getMemberSecurityAsOne());
+                }
+            }
+        };
+        if (!_suppressMemberServiceAsOne && entity.getMemberServiceAsOne() != null) {
+            MemberService relationEntity = entity.getMemberServiceAsOne();
+            Entity relationKey = createInstanceKeyEntity(relationEntity);
+            Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
+            if (cachedDto != null) {
+                MemberServiceDto relationDto = (MemberServiceDto)cachedDto;
+                dto.setMemberServiceAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+            } else {
+                MemberServiceDtoMapper mapper = new MemberServiceDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberServiceDto relationDto = mapper.mappingToDto(relationEntity);
+                dto.setMemberServiceAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+                if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
+                    _relationDtoMap.put(relationKey, dto.getMemberServiceAsOne());
+                }
+            }
+        };
+        if (!_suppressMemberWithdrawalAsOne && entity.getMemberWithdrawalAsOne() != null) {
+            MemberWithdrawal relationEntity = entity.getMemberWithdrawalAsOne();
+            Entity relationKey = createInstanceKeyEntity(relationEntity);
+            Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
+            if (cachedDto != null) {
+                MemberWithdrawalDto relationDto = (MemberWithdrawalDto)cachedDto;
+                dto.setMemberWithdrawalAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+            } else {
+                MemberWithdrawalDtoMapper mapper = new MemberWithdrawalDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberWithdrawalDto relationDto = mapper.mappingToDto(relationEntity);
+                dto.setMemberWithdrawalAsOne(relationDto);
+                if (reverseReference) {
+                    relationDto.setMember(dto);
+                }
+                if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
+                    _relationDtoMap.put(relationKey, dto.getMemberWithdrawalAsOne());
+                }
+            }
+        };
+        if (!_suppressPurchaseList && !entity.getPurchaseList().isEmpty()) {
+            PurchaseDtoMapper mapper = new PurchaseDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<PurchaseDto> relationDtoList = mapper.mappingToDtoList(entity.getPurchaseList());
+            dto.setPurchaseList(relationDtoList);
+            if (reverseReference) {
+                for (PurchaseDto relationDto : relationDtoList) {
+                    relationDto.setMember(dto);
+                }
+            }
+        };
+        return dto;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<MemberDto> mappingToDtoList(List<Member> entityList) {
+        if (entityList == null) {
+            throw new IllegalArgumentException("The argument 'entityList' should not be null.");
+        }
+        List<MemberDto> dtoList = new ArrayList<MemberDto>();
+        for (Member entity : entityList) {
+            MemberDto dto = mappingToDto(entity);
+            if (dto != null) {
+                dtoList.add(dto);
+            } else {
+                if (isAcceptNullElementOnList()) {
+                    dtoList.add(null);
+                }
+            }
+        }
+        return dtoList;
+    }
+
+    // -----------------------------------------------------
+    //                                             to Entity
+    //                                             ---------
+    /**
+     * {@inheritDoc}
+     */
+    public Member mappingToEntity(MemberDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        boolean instanceCache = _instanceCache;
+        Object localKey = createInstanceKeyDto(dto, dto.instanceHash());
+        Entity cachedLocalEntity = instanceCache ? _relationEntityMap.get(localKey) : null;
+        if (cachedLocalEntity != null) {
+            return (Member)cachedLocalEntity;
+        }
+        Member entity = new Member();
+        if (needsMapping(dto, dto.getMemberId(), "memberId")) {
+            entity.setMemberId(dto.getMemberId());
+        }
+        if (needsMapping(dto, dto.getMemberName(), "memberName")) {
+            entity.setMemberName(dto.getMemberName());
+        }
+        if (needsMapping(dto, dto.getMemberAccount(), "memberAccount")) {
+            entity.setMemberAccount(dto.getMemberAccount());
+        }
+        if (needsMapping(dto, dto.getMemberStatusCode(), "memberStatusCode")) {
+            entity.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.codeOf(dto.getMemberStatusCode()));
+        }
+        if (needsMapping(dto, dto.getFormalizedDatetime(), "formalizedDatetime")) {
+            entity.setFormalizedDatetime(dto.getFormalizedDatetime());
+        }
+        if (needsMapping(dto, dto.getBirthdate(), "birthdate")) {
+            entity.setBirthdate(dto.getBirthdate());
+        }
+        if (needsMapping(dto, dto.getRegisterDatetime(), "registerDatetime")) {
+            entity.setRegisterDatetime(dto.getRegisterDatetime());
+        }
+        if (needsMapping(dto, dto.getRegisterUser(), "registerUser")) {
+            entity.setRegisterUser(dto.getRegisterUser());
+        }
+        if (needsMapping(dto, dto.getUpdateDatetime(), "updateDatetime")) {
+            entity.setUpdateDatetime(dto.getUpdateDatetime());
+        }
+        if (needsMapping(dto, dto.getUpdateUser(), "updateUser")) {
+            entity.setUpdateUser(dto.getUpdateUser());
+        }
+        if (needsMapping(dto, dto.getVersionNo(), "versionNo")) {
+            entity.setVersionNo(dto.getVersionNo());
+        }
+        if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only an entity that has a primary key value
+            _relationEntityMap.put(localKey, entity);
+        }
+        boolean reverseReference = _reverseReference;
+        if (!_suppressMemberStatus && dto.getMemberStatus() != null) {
+            MemberStatusDto relationDto = dto.getMemberStatus();
+            Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
+            Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
+            if (cachedEntity != null) {
+                MemberStatus relationEntity = (MemberStatus)cachedEntity;
+                entity.setMemberStatus(relationEntity);
+                if (reverseReference) {
+                    relationEntity.getMemberList().add(entity);
+                }
+            } else {
+                MemberStatusDtoMapper mapper = new MemberStatusDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMemberList();
+                MemberStatus relationEntity = mapper.mappingToEntity(relationDto);
+                entity.setMemberStatus(relationEntity);
+                if (reverseReference) {
+                    relationEntity.getMemberList().add(entity);
+                }
+                if (instanceCache && entity.getMemberStatus().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberStatus());
+                }
+            }
+        };
+        if (!_suppressMemberAddressAsValid && dto.getMemberAddressAsValid() != null) {
+            MemberAddressDto relationDto = dto.getMemberAddressAsValid();
+            Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
+            Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
+            if (cachedEntity != null) {
+                MemberAddress relationEntity = (MemberAddress)cachedEntity;
+                entity.setMemberAddressAsValid(relationEntity);
+                if (reverseReference) {
+                }
+            } else {
+                MemberAddressDtoMapper mapper = new MemberAddressDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                MemberAddress relationEntity = mapper.mappingToEntity(relationDto);
+                entity.setMemberAddressAsValid(relationEntity);
+                if (reverseReference) {
+                }
+                if (instanceCache && entity.getMemberAddressAsValid().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberAddressAsValid());
+                }
+            }
+        };
+        if (!_suppressMemberAddressList && !dto.getMemberAddressList().isEmpty()) {
+            MemberAddressDtoMapper mapper = new MemberAddressDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<MemberAddress> relationEntityList = mapper.mappingToEntityList(dto.getMemberAddressList());
+            entity.setMemberAddressList(relationEntityList);
+            if (reverseReference) {
+                for (MemberAddress relationEntity : relationEntityList) {
+                    relationEntity.setMember(entity);
+                }
+            }
+        };
+        if (!_suppressMemberFollowingByMyMemberIdList && !dto.getMemberFollowingByMyMemberIdList().isEmpty()) {
+            MemberFollowingDtoMapper mapper = new MemberFollowingDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMemberByMyMemberId();
+            List<MemberFollowing> relationEntityList = mapper.mappingToEntityList(dto.getMemberFollowingByMyMemberIdList());
+            entity.setMemberFollowingByMyMemberIdList(relationEntityList);
+            if (reverseReference) {
+                for (MemberFollowing relationEntity : relationEntityList) {
+                    relationEntity.setMemberByMyMemberId(entity);
+                }
+            }
+        };
+        if (!_suppressMemberFollowingByYourMemberIdList && !dto.getMemberFollowingByYourMemberIdList().isEmpty()) {
+            MemberFollowingDtoMapper mapper = new MemberFollowingDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMemberByYourMemberId();
+            List<MemberFollowing> relationEntityList = mapper.mappingToEntityList(dto.getMemberFollowingByYourMemberIdList());
+            entity.setMemberFollowingByYourMemberIdList(relationEntityList);
+            if (reverseReference) {
+                for (MemberFollowing relationEntity : relationEntityList) {
+                    relationEntity.setMemberByYourMemberId(entity);
+                }
+            }
+        };
+        if (!_suppressMemberLoginList && !dto.getMemberLoginList().isEmpty()) {
+            MemberLoginDtoMapper mapper = new MemberLoginDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<MemberLogin> relationEntityList = mapper.mappingToEntityList(dto.getMemberLoginList());
+            entity.setMemberLoginList(relationEntityList);
+            if (reverseReference) {
+                for (MemberLogin relationEntity : relationEntityList) {
+                    relationEntity.setMember(entity);
+                }
+            }
+        };
+        if (!_suppressMemberSecurityAsOne && dto.getMemberSecurityAsOne() != null) {
+            MemberSecurityDto relationDto = dto.getMemberSecurityAsOne();
+            Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
+            Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
+            if (cachedEntity != null) {
+                MemberSecurity relationEntity = (MemberSecurity)cachedEntity;
+                entity.setMemberSecurityAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+            } else {
+                MemberSecurityDtoMapper mapper = new MemberSecurityDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberSecurity relationEntity = mapper.mappingToEntity(relationDto);
+                entity.setMemberSecurityAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+                if (instanceCache && entity.getMemberSecurityAsOne().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberSecurityAsOne());
+                }
+            }
+        };
+        if (!_suppressMemberServiceAsOne && dto.getMemberServiceAsOne() != null) {
+            MemberServiceDto relationDto = dto.getMemberServiceAsOne();
+            Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
+            Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
+            if (cachedEntity != null) {
+                MemberService relationEntity = (MemberService)cachedEntity;
+                entity.setMemberServiceAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+            } else {
+                MemberServiceDtoMapper mapper = new MemberServiceDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberService relationEntity = mapper.mappingToEntity(relationDto);
+                entity.setMemberServiceAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+                if (instanceCache && entity.getMemberServiceAsOne().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberServiceAsOne());
+                }
+            }
+        };
+        if (!_suppressMemberWithdrawalAsOne && dto.getMemberWithdrawalAsOne() != null) {
+            MemberWithdrawalDto relationDto = dto.getMemberWithdrawalAsOne();
+            Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
+            Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
+            if (cachedEntity != null) {
+                MemberWithdrawal relationEntity = (MemberWithdrawal)cachedEntity;
+                entity.setMemberWithdrawalAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+            } else {
+                MemberWithdrawalDtoMapper mapper = new MemberWithdrawalDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setReverseReference(reverseReference);
+                if (!instanceCache) { mapper.disableInstanceCache(); }
+                mapper.suppressMember();
+                MemberWithdrawal relationEntity = mapper.mappingToEntity(relationDto);
+                entity.setMemberWithdrawalAsOne(relationEntity);
+                if (reverseReference) {
+                    relationEntity.setMember(entity);
+                }
+                if (instanceCache && entity.getMemberWithdrawalAsOne().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberWithdrawalAsOne());
+                }
+            }
+        };
+        if (!_suppressPurchaseList && !dto.getPurchaseList().isEmpty()) {
+            PurchaseDtoMapper mapper = new PurchaseDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressMember();
+            List<Purchase> relationEntityList = mapper.mappingToEntityList(dto.getPurchaseList());
+            entity.setPurchaseList(relationEntityList);
+            if (reverseReference) {
+                for (Purchase relationEntity : relationEntityList) {
+                    relationEntity.setMember(entity);
+                }
+            }
+        };
+        return entity;
+    }
+
+    /**
+     * Does the property need to be mapped to an entity? <br />
+     * If modified info of DTO has at least one property, only modified properties are mapped.
+     * And if no property is modified, all properties are mapped (but the other option exists).
+     * @param dto The instance of DTO. (NotNull)
+     * @param value The value of DTO's property. (NotNull)
+     * @param propName The property name of DTO. (NotNull)
+     * @return The determination, true or false.
+     */
+    protected boolean needsMapping(MemberDto dto, Object value, String propName) {
+        Set<String> modifiedProperties = dto.modifiedProperties();
+        if (modifiedProperties.isEmpty()) {
+            return isMappingToEntityContainsNull() || value != null;
+        }
+        return modifiedProperties.contains(propName);
+    }
+
+    /**
+     * Does the mapping to an entity contain null values? (when no property is modified) <br />
+     * Default is true that means a setter is called if the value is null.
+     * But this method is valid only when no property is modified. 
+     * @return The determination, true or false.
+     */
+    protected boolean isMappingToEntityContainsNull() { // for extension
+        return true; // as default
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Member> mappingToEntityList(List<MemberDto> dtoList) {
+        if (dtoList == null) {
+            throw new IllegalArgumentException("The argument 'dtoList' should not be null.");
+        }
+        List<Member> entityList = new ArrayList<Member>();
+        for (MemberDto dto : dtoList) {
+            Member entity = mappingToEntity(dto);
+            if (entity != null) {
+                entityList.add(entity);
+            } else {
+                if (isAcceptNullElementOnList()) {
+                    entityList.add(null);
+                }
+            }
+        }
+        return entityList;
+    }
+
+    protected boolean isAcceptNullElementOnList() {
+        return true; // as default
+    }
+
+    // -----------------------------------------------------
+    //                                          Instance Key
+    //                                          ------------
+    protected Object createInstanceKeyDto(final Object dto, final int instanceHash) {
+        return new InstanceKeyDto(dto, instanceHash);
+    }
+
+    protected InstanceKeyEntity createInstanceKeyEntity(Entity entity) {
+        return new InstanceKeyEntity(entity);
+    }
+
+    public void disableInstanceCache() { // internal option
+        _instanceCache = false;
+    }
+
+    // ===================================================================================
+    //                                                                   Suppress Relation
+    //                                                                   =================
+    // (basically) to suppress infinity loop
+    public void suppressMemberStatus() {
+        _suppressMemberStatus = true;
+    }
+    public void suppressMemberAddressAsValid() {
+        _suppressMemberAddressAsValid = true;
+    }
+    public void suppressMemberAddressList() {
+        _suppressMemberAddressList = true;
+    }
+    public void suppressMemberFollowingByMyMemberIdList() {
+        _suppressMemberFollowingByMyMemberIdList = true;
+    }
+    public void suppressMemberFollowingByYourMemberIdList() {
+        _suppressMemberFollowingByYourMemberIdList = true;
+    }
+    public void suppressMemberLoginList() {
+        _suppressMemberLoginList = true;
+    }
+    public void suppressMemberSecurityAsOne() {
+        _suppressMemberSecurityAsOne = true;
+    }
+    public void suppressMemberServiceAsOne() {
+        _suppressMemberServiceAsOne = true;
+    }
+    public void suppressMemberWithdrawalAsOne() {
+        _suppressMemberWithdrawalAsOne = true;
+    }
+    public void suppressPurchaseList() {
+        _suppressPurchaseList = true;
+    }
+    protected void doSuppressAll() { // internal
+        suppressMemberStatus();
+        suppressMemberAddressAsValid();
+        suppressMemberAddressList();
+        suppressMemberFollowingByMyMemberIdList();
+        suppressMemberFollowingByYourMemberIdList();
+        suppressMemberLoginList();
+        suppressMemberSecurityAsOne();
+        suppressMemberServiceAsOne();
+        suppressMemberWithdrawalAsOne();
+        suppressPurchaseList();
+    }
+    protected void doSuppressClear() { // internal
+        _suppressMemberStatus = false;
+        _suppressMemberAddressAsValid = false;
+        _suppressMemberAddressList = false;
+        _suppressMemberFollowingByMyMemberIdList = false;
+        _suppressMemberFollowingByYourMemberIdList = false;
+        _suppressMemberLoginList = false;
+        _suppressMemberSecurityAsOne = false;
+        _suppressMemberServiceAsOne = false;
+        _suppressMemberWithdrawalAsOne = false;
+        _suppressPurchaseList = false;
+    }
+
+    // ===================================================================================
+    //                                                                      Mapping Option
+    //                                                                      ==============
+    /**
+     * {@inheritDoc}
+     */
+    public void setBaseOnlyMapping(boolean baseOnlyMapping) {
+        if (baseOnlyMapping) {
+            doSuppressAll();
+        } else {
+            doSuppressClear();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setReverseReference(boolean reverseReference) {
+        _reverseReference = reverseReference;
+    }
+}

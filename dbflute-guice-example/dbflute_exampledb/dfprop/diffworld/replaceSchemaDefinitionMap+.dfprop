@@ -1,0 +1,21 @@
+map:{
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o dataLoadingType: (NotRequired - Default 'ut')
+    #  The type of data loading.
+    #  If the value is 'ut', the target is './playsql/data/ut/...'.
+    #
+    ; dataLoadingType = diffworld
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o arrangeBeforeRepsMap: (NotRequired - Default map:{})
+    #  You can arrange resource files before ReplaceSchema.
+    #
+    ; arrangeBeforeRepsMap = map:{
+        ; copy = map:{
+            ; ./playsql/data/ut/xls/*.xls = ./playsql/data/diffworld/xls
+            ; ./playsql/data/ut/xls/*.dataprop = ./playsql/data/diffworld/xls
+        }
+    }
+    # - - - - - - - - - -/
+}

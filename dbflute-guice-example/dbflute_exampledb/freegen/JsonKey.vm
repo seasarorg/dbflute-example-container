@@ -1,0 +1,20 @@
+package ${request.package};
+
+import java.io.Serializable;
+
+/**
+ * <pre>
+ * resourceFile: ${request.resourceFile}
+ * resourceFilePureName: ${request.resourceFilePureName}
+ * </pre>
+ * @author FreeGen
+ */
+public class ${request.className} implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+#foreach ($column in $request.columnList)
+
+    /** name=${column.uncapCamelName}, ${column.capCamelName} */
+    public static final String ${column.defName} = "${column.key}";
+#end
+}

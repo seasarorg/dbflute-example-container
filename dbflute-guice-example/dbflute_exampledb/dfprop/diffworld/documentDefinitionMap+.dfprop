@@ -1,0 +1,14 @@
+map:{
+    ; schemaHtmlFileName = diffworld-schema-exampledb.html
+    ; historyHtmlFileName = diffworld-history-exampledb.html
+    ; coreCraftMetaDirPath = $$DEFAULT$$/diffworld
+
+    ; schemaSyncCheckMap = map:{
+        ; url = jdbc:h2:file:../src/main/resources/exampledb/exampledb
+        ; schema = PUBLIC
+        ; user = sa
+        ; password = 
+        ; resultHtmlFileName = diffworld-sync-check-result.html
+        ; craftMetaDirPath = $$DEFAULT$$/diffworld
+    }
+}

@@ -1,0 +1,4 @@
+"PRODUCT_STATUS_CODE"	"PRODUCT_STATUS_NAME"	"DISPLAY_ORDER"
+"ONS"	"生産販売可能"	"1"
+"PST"	"生産中止"	"2"
+"SST"	"販売中止"	"3"
