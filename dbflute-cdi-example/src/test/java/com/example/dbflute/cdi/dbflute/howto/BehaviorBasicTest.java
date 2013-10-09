@@ -1,4 +1,4 @@
-package com.example.dbflute.cdi.dbflute.howto.jp;
+package com.example.dbflute.cdi.dbflute.howto;
 
 import static org.junit.Assert.*;
 
@@ -55,20 +55,6 @@ public class BehaviorBasicTest extends ContainerTestCase {
     // [Description]
     // A. Seasar-2.4の場合はプロパティ名が「クラス名に先頭を小文字にしたもの」であること。
     // B. Spring-2.5の場合は型でインジェクションされる。
-
-    @Test
-    public void testname() throws Exception {
-        final MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberSecurityAsOne();
-
-        final ListResultBean<Member> selectList = this.memberBhv.selectList(cb);
-
-        for (final Member member : selectList) {
-            this.log(member.getMemberSecurityAsOne());
-
-        }
-
-    }
 
     // ===================================================================================
     //                                                                       Entity Select

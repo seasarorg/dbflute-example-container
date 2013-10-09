@@ -1,4 +1,4 @@
-package com.example.dbflute.cdi.dbflute.howto.jp;
+package com.example.dbflute.cdi.dbflute.howto;
 
 import static org.junit.Assert.*;
 
