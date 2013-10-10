@@ -154,12 +154,14 @@ map:{
     #   o sql2EntityOutputDirectory: source output directory from as a relative path from the application directory
     #     (NotRequired - Default Java:'src/main/java' CSharp:'source')
     #
-    ; applicationOutsideSqlMap = map:{
-        ; ../../dbflute-sqlap-example = map:{
-            #; sqlDirectory = src/main/resources
-            #; sql2EntityOutputDirectory = src/main/java
-        }
-    }
+    # *moved to envType 'sqlap'
+    #; applicationOutsideSqlMap = map:{
+    #    ; ../../../dbflute-example-referrer/dbflute-sqlap-example = map:{
+    #        # default setting here
+    #        #; sqlDirectory = src/main/resources
+    #        #; sql2EntityOutputDirectory = src/main/java
+    #    }
+    #}
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

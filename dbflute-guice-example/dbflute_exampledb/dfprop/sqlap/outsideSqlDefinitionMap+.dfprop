@@ -1,0 +1,20 @@
+map:{
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o applicationOutsideSqlMap: (NotRequired - Default map:{})
+    #  You can set additional users.
+    #  Elements of this map are as below:
+    #   o key of map: a relative path to the application project from DBFlute client
+    #   o sqlDirectory: SQL directory as a relative path from the application directory 
+    #     (NotRequired - Default Java:'src/main/java' & 'src/main/resources' CSharp:'source')
+    #   o sql2EntityOutputDirectory: source output directory from as a relative path from the application directory
+    #     (NotRequired - Default Java:'src/main/java' CSharp:'source')
+    #
+    ; applicationOutsideSqlMap = map:{
+        ; ../../../dbflute-example-referrerpj/dbflute-sqlap-example = map:{
+            # default setting here
+            #; sqlDirectory = src/main/resources
+            #; sql2EntityOutputDirectory = src/main/java
+        }
+    }
+    # - - - - - - - - - -/
+}

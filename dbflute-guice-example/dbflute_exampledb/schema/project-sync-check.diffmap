@@ -1,0 +1,132 @@
+map:{
+    ; 2013/10/11 01:18:31 = map:{
+        ; diffDate = 2013/10/11 01:18:31
+        ; tableDiff = map:{
+            ; MEMBER = map:{
+                ; tableName = MEMBER
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_ACCOUNT = map:{
+                        ; columnName = MEMBER_ACCOUNT
+                        ; diffType = CHANGE
+                        ; columnSizeDiff = map:{
+                            ; next = 80
+                            ; previous = 50
+                        }
+                    }
+                }
+            }
+            ; MEMBER_LOGIN = map:{
+                ; tableName = MEMBER_LOGIN
+                ; diffType = CHANGE
+                ; columnDefOrderDiff = map:{
+                    ; next = MOBILE_LOGIN_FLG(2)
+                    ; previous = MOBILE_LOGIN_FLG(4)
+                }
+                ; indexDiff = map:{
+                    ; IX_MEMBER_LOGIN_DATETIME = map:{
+                        ; constraintName = IX_MEMBER_LOGIN_DATETIME
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; DIFFWORLDDB.PUBLIC.SEQ_DIFFWORLD = map:{
+                ; sequenceName = DIFFWORLDDB.PUBLIC.SEQ_DIFFWORLD
+                ; diffType = ADD
+            }
+            ; DIFFWORLDDB.PUBLIC.SEQ_PURCHASE = map:{
+                ; sequenceName = DIFFWORLDDB.PUBLIC.SEQ_PURCHASE
+                ; diffType = CHANGE
+                ; incrementSizeDiff = map:{
+                    ; next = 99
+                    ; previous = 8
+                }
+            }
+        }
+        ; procedureDiff = map:{
+            ; DIFFWORLDDB.PUBLIC.FN_DIFF_WORLD = map:{
+                ; procedureName = DIFFWORLDDB.PUBLIC.FN_DIFF_WORLD
+                ; diffType = ADD
+            }
+            ; DIFFWORLDDB.PUBLIC.SP_NO_PARAMETER = map:{
+                ; procedureName = DIFFWORLDDB.PUBLIC.SP_NO_PARAMETER
+                ; diffType = CHANGE
+                ; sourceLineDiff = map:{
+                    ; next = "8"
+                    ; previous = "6"
+                }
+                ; sourceSizeDiff = map:{
+                    ; next = "161"
+                    ; previous = "120"
+                }
+                ; sourceHashDiff = map:{
+                    ; next = "a94a3ab2"
+                    ; previous = "57f9d752"
+                }
+            }
+            ; EXAMPLEDB.PUBLIC.FN_NO_PARAMETER = map:{
+                ; procedureName = EXAMPLEDB.PUBLIC.FN_NO_PARAMETER
+                ; diffType = DELETE
+            }
+        }
+        ; craftDiff = map:{
+            ; Member = map:{
+                ; craftTitle = Member
+                ; craftRowDiff = map:{
+                    ; Og2000 = map:{
+                        ; craftKeyName = Og2000
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "diffworld|null"
+                            ; previous = "Og2000|null"
+                        }
+                    }
+                    ; Maslovar = map:{
+                        ; craftKeyName = Maslovar
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "diff"	"world|1967-02-20"
+                            ; previous = "JEFUnited|1967-02-20"
+                        }
+                    }
+                }
+            }
+            ; MemberStatus = map:{
+                ; craftTitle = MemberStatus
+                ; craftRowDiff = map:{
+                    ; DIF = map:{
+                        ; craftKeyName = DIF
+                        ; diffType = ADD
+                    }
+                    ; FML = map:{
+                        ; craftKeyName = FML
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "Formalized|9"
+                            ; previous = "Formalized|1"
+                        }
+                    }
+                }
+            }
+            ; TableCls = map:{
+                ; craftTitle = TableCls
+                ; craftRowDiff = map:{
+                    ; MEMBER_STATUS::DIF = map:{
+                        ; craftKeyName = MEMBER_STATUS::DIF
+                        ; diffType = ADD
+                    }
+                    ; MEMBER_STATUS::FML = map:{
+                        ; craftKeyName = MEMBER_STATUS::FML
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "Formalized|9"
+                            ; previous = "Formalized|1"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
