@@ -61,6 +61,8 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("PURCHASE", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.PurchaseDbm");
         tmpMap.put("REGION", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.RegionDbm");
         tmpMap.put("SERVICE_RANK", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.ServiceRankDbm");
+        tmpMap.put("SUMMARY_PRODUCT", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.SummaryProductDbm");
+        tmpMap.put("SUMMARY_WITHDRAWAL", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm");
         tmpMap.put("VENDOR_$_DOLLAR", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.Vendor$DollarDbm");
         tmpMap.put("VENDOR_CHECK", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.VendorCheckDbm");
         tmpMap.put("VENDOR_IDENTITY_ONLY", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.VendorIdentityOnlyDbm");
@@ -68,8 +70,6 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.VendorTheLongAndWindingTableAndColumnDbm");
         tmpMap.put("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.VendorTheLongAndWindingTableAndColumnRefDbm");
         tmpMap.put("WITHDRAWAL_REASON", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
-        tmpMap.put("SUMMARY_PRODUCT", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.SummaryProductDbm");
-        tmpMap.put("SUMMARY_WITHDRAWAL", "com.example.dbflute.spring.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);
     }
 

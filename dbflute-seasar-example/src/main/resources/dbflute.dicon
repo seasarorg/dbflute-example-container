@@ -27,7 +27,7 @@
     <component name="purchaseBhv" class="com.example.dbflute.basic.dbflute.exbhv.PurchaseBhv"/>
     <component name="regionBhv" class="com.example.dbflute.basic.dbflute.exbhv.RegionBhv"/>
     <component name="serviceRankBhv" class="com.example.dbflute.basic.dbflute.exbhv.ServiceRankBhv"/>
-    <component name="withdrawalReasonBhv" class="com.example.dbflute.basic.dbflute.exbhv.WithdrawalReasonBhv"/>
     <component name="summaryProductBhv" class="com.example.dbflute.basic.dbflute.exbhv.SummaryProductBhv"/>
     <component name="summaryWithdrawalBhv" class="com.example.dbflute.basic.dbflute.exbhv.SummaryWithdrawalBhv"/>
+    <component name="withdrawalReasonBhv" class="com.example.dbflute.basic.dbflute.exbhv.WithdrawalReasonBhv"/>
 </components>

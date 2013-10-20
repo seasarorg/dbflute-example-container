@@ -8,7 +8,7 @@
         <column autoIncrement="true"
             comment="会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_DA0C2760_512D_46CD_8C38_D3F8A228D382"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_645CDC28_5769_4C2F_9642_A6D2782630D3"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -72,7 +72,7 @@
         <column autoIncrement="true"
             comment="会員住所ID: 会員住所を識別するID。&#xa;期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6542FF53_A9E9_4862_8A7D_2CF46AEF5FF8"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BC37790C_2C78_4E67_AE99_7EDF8ADCE6F2"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -129,7 +129,7 @@
         name="MEMBER_FOLLOWING" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員フォローイングID: 連番"
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F9E7DC16_A3F6_4B16_A888_CAE6560D2986"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0CC3C0A7_D01A_4891_9FB7_6B9ADD2AFB67"
             javaType="Long" name="MEMBER_FOLLOWING_ID"
             pkName="CONSTRAINT_BD" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -173,7 +173,7 @@
         name="MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員ログインID: "
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4F104D8E_74A0_4A57_A357_03BE4801F239"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_661E02E1_94A6_43AF_999E_3F0DEAB35D2C"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BDA" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -255,7 +255,7 @@
         <column autoIncrement="true"
             comment="会員サービスID: 独立した主キーとなるが、実質的に会員IDとは one-to-one である。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B67A18BD_03D0_4C1D_A0B4_EE57BA81E6C1"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2BEE74AD_BFAD_42F6_BDF5_D4593EA2EC8A"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -369,7 +369,7 @@
     </table>
     <table comment="商品:" name="PRODUCT" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2CF08AAA_A498_45CB_B06B_AE353F154882"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_35AC7EEE_A068_474E_9F87_7941BECBE5D7"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -459,7 +459,7 @@
         comment="購入: 一つの商品に対する購入を表現する(購入履歴とも言える)。&#xa;実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。"
         name="PURCHASE" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_368CE32D_30D0_4C48_B53C_79A9FAC7F136"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_917DD6B2_2400_4135_8506_B7CF480CE6EB"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column
@@ -564,6 +564,40 @@
             <unique-column name="DISPLAY_ORDER" position="1"/>
         </unique>
     </table>
+    <table name="SUMMARY_PRODUCT" schema="EXAMPLEDB.PUBLIC" type="VIEW">
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="PRODUCT_ID" size="10" type="INTEGER"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="PRODUCT_NAME" size="50" type="VARCHAR"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="PRODUCT_HANDLE_CODE" size="100" type="VARCHAR"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="PRODUCT_STATUS_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="TIMESTAMP"
+            javaType="java.sql.Timestamp"
+            name="LATEST_PURCHASE_DATETIME" size="23, 10" type="TIMESTAMP"/>
+    </table>
+    <table name="SUMMARY_WITHDRAWAL" schema="EXAMPLEDB.PUBLIC" type="VIEW">
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="MEMBER_ID" size="10" type="INTEGER"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="MEMBER_NAME" size="200" type="VARCHAR"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="WITHDRAWAL_REASON_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="CLOB" javaType="String"
+            name="WITHDRAWAL_REASON_TEXT" size="2147483647" type="CLOB"/>
+        <column comment="" dbType="CLOB" javaType="String"
+            name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
+        <column comment="" dbType="TIMESTAMP"
+            javaType="java.sql.Timestamp" name="WITHDRAWAL_DATETIME"
+            size="23, 10" type="TIMESTAMP"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="MEMBER_STATUS_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="MEMBER_STATUS_NAME" size="50" type="VARCHAR"/>
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="MAX_PURCHASE_PRICE" size="10" type="INTEGER"/>
+    </table>
     <table name="VENDOR_$_DOLLAR" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column comment="" dbType="INTEGER" javaType="Integer"
             name="VENDOR_$_DOLLAR_ID" pkName="CONSTRAINT_B4"
@@ -637,7 +671,7 @@
     </table>
     <table name="VENDOR_IDENTITY_ONLY" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_00CEC732_FBF8_4426_A5C3_EF30A87718F5"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0EDDA198_01CD_42C0_B129_94872C99CD90"
             javaType="Long" name="IDENTITY_ONLY_ID"
             pkName="CONSTRAINT_A3" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -705,61 +739,27 @@
             <unique-column name="DISPLAY_ORDER" position="1"/>
         </unique>
     </table>
-    <table name="SUMMARY_PRODUCT" schema="EXAMPLEDB.PUBLIC" type="VIEW">
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="PRODUCT_ID" size="10" type="INTEGER"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="PRODUCT_NAME" size="50" type="VARCHAR"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="PRODUCT_HANDLE_CODE" size="100" type="VARCHAR"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="PRODUCT_STATUS_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp"
-            name="LATEST_PURCHASE_DATETIME" size="23, 10" type="TIMESTAMP"/>
-    </table>
-    <table name="SUMMARY_WITHDRAWAL" schema="EXAMPLEDB.PUBLIC" type="VIEW">
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="MEMBER_ID" size="10" type="INTEGER"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="MEMBER_NAME" size="200" type="VARCHAR"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="WITHDRAWAL_REASON_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="CLOB" javaType="String"
-            name="WITHDRAWAL_REASON_TEXT" size="2147483647" type="CLOB"/>
-        <column comment="" dbType="CLOB" javaType="String"
-            name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
-        <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="WITHDRAWAL_DATETIME"
-            size="23, 10" type="TIMESTAMP"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="MEMBER_STATUS_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="MEMBER_STATUS_NAME" size="50" type="VARCHAR"/>
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="MAX_PURCHASE_PRICE" size="10" type="INTEGER"/>
-    </table>
     <sequenceGroup>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_F9E7DC16_A3F6_4B16_A888_CAE6560D2986" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_4F104D8E_74A0_4A57_A357_03BE4801F239" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_00CEC732_FBF8_4426_A5C3_EF30A87718F5" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_2BEE74AD_BFAD_42F6_BDF5_D4593EA2EC8A" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_NOT_RELATED_TO_TABLE" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_368CE32D_30D0_4C48_B53C_79A9FAC7F136" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_917DD6B2_2400_4135_8506_B7CF480CE6EB" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_DA0C2760_512D_46CD_8C38_D3F8A228D382" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_BC37790C_2C78_4E67_AE99_7EDF8ADCE6F2" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_B67A18BD_03D0_4C1D_A0B4_EE57BA81E6C1" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_2CF08AAA_A498_45CB_B06B_AE353F154882" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_661E02E1_94A6_43AF_999E_3F0DEAB35D2C" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="8" name="SEQ_PURCHASE" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_6542FF53_A9E9_4862_8A7D_2CF46AEF5FF8" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_35AC7EEE_A068_474E_9F87_7941BECBE5D7" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_MEMBER" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_645CDC28_5769_4C2F_9642_A6D2782630D3" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="3" name="SEQ_MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_0EDDA198_01CD_42C0_B129_94872C99CD90" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_0CC3C0A7_D01A_4891_9FB7_6B9ADD2AFB67" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="-1" name="SEQ_DECREMENT" schema="EXAMPLEDB.PUBLIC"/>
     </sequenceGroup>
     <procedureGroup>

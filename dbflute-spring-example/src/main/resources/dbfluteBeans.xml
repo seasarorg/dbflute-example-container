@@ -89,6 +89,15 @@
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
     </bean>
+	<bean id="summaryProductBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryProductBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="summaryWithdrawalBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryWithdrawalBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+    </bean>
 	<bean id="vendorDollarBhv" class="com.example.dbflute.spring.dbflute.exbhv.Vendor$DollarBhv" autowire="byType">
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
@@ -123,14 +132,5 @@
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
-    </bean>
-	<bean id="summaryProductBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryProductBhv" autowire="byType">
-        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
-        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
-        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
-    </bean>
-	<bean id="summaryWithdrawalBhv" class="com.example.dbflute.spring.dbflute.exbhv.SummaryWithdrawalBhv" autowire="byType">
-        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
-        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
     </bean>
 </beans>
