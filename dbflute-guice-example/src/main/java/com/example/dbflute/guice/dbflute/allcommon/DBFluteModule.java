@@ -138,6 +138,16 @@ public class DBFluteModule extends AbstractModule {
             bind(ServiceRankBhv.class).toInstance(bhv);
         }
         {
+            SummaryProductBhv bhv = new SummaryProductBhv();
+            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
+            bind(SummaryProductBhv.class).toInstance(bhv);
+        }
+        {
+            SummaryWithdrawalBhv bhv = new SummaryWithdrawalBhv();
+            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor);
+            bind(SummaryWithdrawalBhv.class).toInstance(bhv);
+        }
+        {
             Vendor$DollarBhv bhv = new Vendor$DollarBhv();
             bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
             bind(Vendor$DollarBhv.class).toInstance(bhv);
@@ -171,16 +181,6 @@ public class DBFluteModule extends AbstractModule {
             WithdrawalReasonBhv bhv = new WithdrawalReasonBhv();
             bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
             bind(WithdrawalReasonBhv.class).toInstance(bhv);
-        }
-        {
-            SummaryProductBhv bhv = new SummaryProductBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
-            bind(SummaryProductBhv.class).toInstance(bhv);
-        }
-        {
-            SummaryWithdrawalBhv bhv = new SummaryWithdrawalBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor);
-            bind(SummaryWithdrawalBhv.class).toInstance(bhv);
         }
     }
 }
