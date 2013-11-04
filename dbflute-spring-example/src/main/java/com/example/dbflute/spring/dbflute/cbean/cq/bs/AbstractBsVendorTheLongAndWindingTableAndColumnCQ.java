@@ -167,7 +167,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsVendorTheLongAndWindingTableAndColumnRefList</span>(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
-     *     public void query(VendorTheLongAndWindingTableAndColumnCB subCB) {
+     *     public void query(VendorTheLongAndWindingTableAndColumnRefCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -188,7 +188,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsVendorTheLongAndWindingTableAndColumnRefList</span>(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
-     *     public void query(VendorTheLongAndWindingTableAndColumnCB subCB) {
+     *     public void query(VendorTheLongAndWindingTableAndColumnRefCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });

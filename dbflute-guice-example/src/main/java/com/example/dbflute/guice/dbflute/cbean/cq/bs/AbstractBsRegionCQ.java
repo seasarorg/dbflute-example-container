@@ -152,7 +152,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
-     *     public void query(RegionCB subCB) {
+     *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -173,7 +173,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
-     *     public void query(RegionCB subCB) {
+     *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
