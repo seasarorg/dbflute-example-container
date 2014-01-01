@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2013 the Seasar Foundation and the Others.
+ * Copyright 2004-2014 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, true, "identityOnlyId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F0975EB1_A630_4C00_B561_10A838A82A61", false, null, null, null, null, null);
+    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, true, "identityOnlyId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_40128F25_81DC_40FA_BCEE_324382C5F3A7", false, null, null, null, null, null);
 
     public ColumnInfo columnIdentityOnlyId() { return _columnIdentityOnlyId; }
 

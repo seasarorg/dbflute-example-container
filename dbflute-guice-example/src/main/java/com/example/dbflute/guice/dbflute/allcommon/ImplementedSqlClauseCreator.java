@@ -60,7 +60,7 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
             sqlClause = createSqlClauseSqlite(tableDbName);
         } else if (isCurrentDBDef(DBDef.MSAccess)) {
             sqlClause = createSqlClauseMsAccess(tableDbName);
-        } else if (isCurrentDBDef(DBDef.FireBird)) {
+        } else if (isCurrentDBDef(DBDef.Firebird)) {
             sqlClause = createSqlClauseFirebird(tableDbName);
         } else if (isCurrentDBDef(DBDef.Sybase)) {
             sqlClause = createSqlClauseSybase(tableDbName);

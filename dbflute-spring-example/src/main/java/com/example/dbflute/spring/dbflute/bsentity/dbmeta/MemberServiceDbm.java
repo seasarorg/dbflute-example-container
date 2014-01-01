@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2013 the Seasar Foundation and the Others.
+ * Copyright 2004-2014 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", true, "memberServiceId", Integer.class, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_02906F0A_D9FC_4A15_82DF_69BA93D759EC", false, null, "独立した主キーとなるが、実質的に会員IDとは one-to-one である。", null, null, null);
+    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", true, "memberServiceId", Integer.class, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_21095BC2_36E5_4B09_814D_557C42A488B8", false, null, "独立した主キーとなるが、実質的に会員IDとは one-to-one である。", null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", true, "memberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "会員を参照するID。ユニークなので、会員とは one-to-one の関係に。", "member", null, null);
     protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", true, "servicePointCount", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "購入したら増えて使ったら減る。", null, null, null);
     protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", true, "serviceRankCode", String.class, false, false, "CHAR", 3, 0, null, false, null, "どんなランクがあるのかドキドキですね。", "serviceRank", null, CDef.DefMeta.ServiceRank);

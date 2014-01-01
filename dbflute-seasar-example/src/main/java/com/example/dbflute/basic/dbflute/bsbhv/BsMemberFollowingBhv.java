@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2013 the Seasar Foundation and the Others.
+ * Copyright 2004-2014 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -354,7 +354,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param <RESULT> The type of result.
      * @param resultType The type of result. (NotNull)
-     * @return The scalar value derived by a function. (NullAllowed)
+     * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<MemberFollowingCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newMyConditionBean());
@@ -363,7 +363,15 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     protected <RESULT, CB extends MemberFollowingCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
         assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
+        return createSLFunction(cb, resultType);
+    }
+
+    protected <RESULT, CB extends MemberFollowingCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
         return new SLFunction<CB, RESULT>(cb, resultType);
+    }
+
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newMyConditionBean());
     }
 
     // ===================================================================================

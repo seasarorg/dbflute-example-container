@@ -210,7 +210,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
+     *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -231,7 +231,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
+     *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });

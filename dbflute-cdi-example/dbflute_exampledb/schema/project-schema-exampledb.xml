@@ -513,6 +513,40 @@
             <unique-column name="DISPLAY_ORDER" position="1"/>
         </unique>
     </table>
+    <table name="SUMMARY_PRODUCT" schema="EXAMPLEDB.PUBLIC" type="VIEW">
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="PRODUCT_ID" size="10" type="INTEGER"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="PRODUCT_NAME" size="50" type="VARCHAR"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="PRODUCT_HANDLE_CODE" size="100" type="VARCHAR"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="PRODUCT_STATUS_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="TIMESTAMP"
+            javaType="java.sql.Timestamp"
+            name="LATEST_PURCHASE_DATETIME" size="23, 10" type="TIMESTAMP"/>
+    </table>
+    <table name="SUMMARY_WITHDRAWAL" schema="EXAMPLEDB.PUBLIC" type="VIEW">
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="MEMBER_ID" size="10" type="INTEGER"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="MEMBER_NAME" size="200" type="VARCHAR"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="WITHDRAWAL_REASON_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="CLOB" javaType="String"
+            name="WITHDRAWAL_REASON_TEXT" size="2147483647" type="CLOB"/>
+        <column comment="" dbType="CLOB" javaType="String"
+            name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
+        <column comment="" dbType="TIMESTAMP"
+            javaType="java.sql.Timestamp" name="WITHDRAWAL_DATETIME"
+            size="23, 10" type="TIMESTAMP"/>
+        <column comment="" dbType="CHAR" javaType="String"
+            name="MEMBER_STATUS_CODE" size="3" type="CHAR"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="MEMBER_STATUS_NAME" size="50" type="VARCHAR"/>
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="MAX_PURCHASE_PRICE" size="10" type="INTEGER"/>
+    </table>
     <table name="VENDOR_CHECK" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column comment="" dbType="DECIMAL" javaType="Long"
             name="VENDOR_CHECK_ID" pkName="CONSTRAINT_2"
@@ -569,40 +603,6 @@
         <unique name="UQ_WITHDRAWAL_REASON_DISPLAY_ORDER_INDEX_1">
             <unique-column name="DISPLAY_ORDER" position="1"/>
         </unique>
-    </table>
-    <table name="SUMMARY_PRODUCT" schema="EXAMPLEDB.PUBLIC" type="VIEW">
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="PRODUCT_ID" size="10" type="INTEGER"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="PRODUCT_NAME" size="50" type="VARCHAR"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="PRODUCT_HANDLE_CODE" size="100" type="VARCHAR"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="PRODUCT_STATUS_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp"
-            name="LATEST_PURCHASE_DATETIME" size="23, 10" type="TIMESTAMP"/>
-    </table>
-    <table name="SUMMARY_WITHDRAWAL" schema="EXAMPLEDB.PUBLIC" type="VIEW">
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="MEMBER_ID" size="10" type="INTEGER"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="MEMBER_NAME" size="200" type="VARCHAR"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="WITHDRAWAL_REASON_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="CLOB" javaType="String"
-            name="WITHDRAWAL_REASON_TEXT" size="2147483647" type="CLOB"/>
-        <column comment="" dbType="CLOB" javaType="String"
-            name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
-        <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="WITHDRAWAL_DATETIME"
-            size="23, 10" type="TIMESTAMP"/>
-        <column comment="" dbType="CHAR" javaType="String"
-            name="MEMBER_STATUS_CODE" size="3" type="CHAR"/>
-        <column comment="" dbType="VARCHAR" javaType="String"
-            name="MEMBER_STATUS_NAME" size="50" type="VARCHAR"/>
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="MAX_PURCHASE_PRICE" size="10" type="INTEGER"/>
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"

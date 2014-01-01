@@ -92,10 +92,10 @@ public class DBFluteModule implements Extension {
         event.addBean(new DBFluteBean<PurchaseBhv>(beanManager, PurchaseBhv.class));
         event.addBean(new DBFluteBean<RegionBhv>(beanManager, RegionBhv.class));
         event.addBean(new DBFluteBean<ServiceRankBhv>(beanManager, ServiceRankBhv.class));
-        event.addBean(new DBFluteBean<VendorCheckBhv>(beanManager, VendorCheckBhv.class));
-        event.addBean(new DBFluteBean<WithdrawalReasonBhv>(beanManager, WithdrawalReasonBhv.class));
         event.addBean(new DBFluteBean<SummaryProductBhv>(beanManager, SummaryProductBhv.class));
         event.addBean(new DBFluteBean<SummaryWithdrawalBhv>(beanManager, SummaryWithdrawalBhv.class));
+        event.addBean(new DBFluteBean<VendorCheckBhv>(beanManager, VendorCheckBhv.class));
+        event.addBean(new DBFluteBean<WithdrawalReasonBhv>(beanManager, WithdrawalReasonBhv.class));
     }
 
     /**

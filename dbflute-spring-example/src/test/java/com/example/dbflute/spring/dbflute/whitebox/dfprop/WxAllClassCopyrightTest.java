@@ -33,7 +33,7 @@ import org.seasar.dbflute.util.Srl;
  */
 public class WxAllClassCopyrightTest extends PlainTestCase {
 
-    private static final String COPYRIGHT = "Copyright 2004-2013 the Seasar Foundation and the Others.";
+    private static final String COPYRIGHT = "Copyright 2004-2014 the Seasar Foundation and the Others.";
 
     public void test_licensed_main() {
         // ## Arrange ##

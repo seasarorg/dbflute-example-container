@@ -2,8 +2,11 @@ package com.example.dbflute.spring.dbflute.whitebox.bhv;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.UpdateOption;
+import org.seasar.dbflute.cbean.ConditionBean;
+import org.seasar.dbflute.cbean.ScalarQuery;
 import org.seasar.dbflute.cbean.SpecifyQuery;
 
+import com.example.dbflute.spring.dbflute.bsentity.dbmeta.MemberDbm;
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
@@ -32,6 +35,28 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotNull(entity);
+    }
+
+    // ===================================================================================
+    //                                                                       Scalar Select
+    //                                                                       =============
+    public void test_readScalar_basic() {
+        // ## Arrange ##
+        Integer expected = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+            public void query(MemberCB cb) {
+                cb.specify().columnMemberId();
+            }
+        });
+
+        // ## Act ##
+        Integer max = memberBhv.readScalar(Integer.class).max(new ScalarQuery<ConditionBean>() {
+            public void query(ConditionBean cb) {
+                cb.localSp().xspecifyColumn(MemberDbm.getInstance().columnMemberId().getColumnDbName());
+            }
+        });
+
+        // ## Assert ##
+        assertEquals(expected, max);
     }
 
     // ===================================================================================

@@ -194,7 +194,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsMemberList</span>(new SubQuery&lt;MemberCB&gt;() {
-     *     public void query(MemberStatusCB subCB) {
+     *     public void query(MemberCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -215,7 +215,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsMemberLoginList</span>(new SubQuery&lt;MemberLoginCB&gt;() {
-     *     public void query(MemberStatusCB subCB) {
+     *     public void query(MemberLoginCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -236,7 +236,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsMemberList</span>(new SubQuery&lt;MemberCB&gt;() {
-     *     public void query(MemberStatusCB subCB) {
+     *     public void query(MemberCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -257,7 +257,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsMemberLoginList</span>(new SubQuery&lt;MemberLoginCB&gt;() {
-     *     public void query(MemberStatusCB subCB) {
+     *     public void query(MemberLoginCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });

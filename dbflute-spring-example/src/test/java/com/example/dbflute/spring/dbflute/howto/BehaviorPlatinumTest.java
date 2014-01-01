@@ -15,10 +15,8 @@ import org.seasar.dbflute.cbean.EntityRowHandler;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
 import org.seasar.dbflute.cbean.SpecifyQuery;
-import org.seasar.dbflute.cbean.grouping.GroupingOption;
-import org.seasar.dbflute.cbean.grouping.GroupingRowEndDeterminer;
-import org.seasar.dbflute.cbean.grouping.GroupingRowResource;
-import org.seasar.dbflute.cbean.grouping.GroupingRowSetupper;
+import org.seasar.dbflute.cbean.grouping.GroupingListDeterminer;
+import org.seasar.dbflute.cbean.grouping.GroupingListRowResource;
 import org.seasar.dbflute.cbean.pagenavi.group.PageGroupOption;
 import org.seasar.dbflute.cbean.pagenavi.range.PageRangeOption;
 import org.seasar.dbflute.exception.OutsideSqlNotFoundException;
@@ -905,8 +903,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
-    //                                                                    List Result Bean
-    //                                                                    ================
+    //                                                                      ListResultBean
+    //                                                                      ==============
     /**
      * Entityリストの件数ごとのグルーピング: ListResultBean.groupingList().
      * 会員リストを３件ずつのグループリストにする。
@@ -919,12 +917,11 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
-        GroupingOption<Member> groupingOption = new GroupingOption<Member>(3);
-        List<List<Member>> groupingList = memberList.groupingList(new GroupingRowSetupper<List<Member>, Member>() {
-            public List<Member> setup(GroupingRowResource<Member> groupingRowResource) {
-                return new ArrayList<Member>(groupingRowResource.getGroupingRowList());
+        List<ListResultBean<Member>> groupingList = memberList.groupingList(new GroupingListDeterminer<Member>() {
+            public boolean isBreakRow(GroupingListRowResource<Member> rowResource, Member nextEntity) {
+                return rowResource.getNextIndex() >= 3;
             }
-        }, groupingOption);
+        });
 
         // ## Assert ##
         assertFalse(groupingList.isEmpty());
@@ -952,20 +949,14 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
-        GroupingOption<Member> groupingOption = new GroupingOption<Member>(); // The breakCount is unnecessary in this case.
-        groupingOption.setGroupingRowEndDeterminer(new GroupingRowEndDeterminer<Member>() {
-            public boolean determine(GroupingRowResource<Member> rowResource, Member nextEntity) {
+        List<ListResultBean<Member>> groupingList = memberList.groupingList(new GroupingListDeterminer<Member>() {
+            public boolean isBreakRow(GroupingListRowResource<Member> rowResource, Member nextEntity) {
                 Member currentEntity = rowResource.getCurrentEntity();
                 String currentInitChar = currentEntity.getMemberName().substring(0, 1);
                 String nextInitChar = nextEntity.getMemberName().substring(0, 1);
                 return !currentInitChar.equalsIgnoreCase(nextInitChar);
             }
         });
-        List<List<Member>> groupingList = memberList.groupingList(new GroupingRowSetupper<List<Member>, Member>() {
-            public List<Member> setup(GroupingRowResource<Member> groupingRowResource) {
-                return new ArrayList<Member>(groupingRowResource.getGroupingRowList());
-            }
-        }, groupingOption);
 
         // ## Assert ##
         assertFalse(groupingList.isEmpty());

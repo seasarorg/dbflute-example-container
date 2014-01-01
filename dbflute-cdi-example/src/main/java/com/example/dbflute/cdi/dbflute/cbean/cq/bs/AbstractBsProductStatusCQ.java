@@ -194,7 +194,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsProductList</span>(new SubQuery&lt;ProductCB&gt;() {
-     *     public void query(ProductStatusCB subCB) {
+     *     public void query(ProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -215,7 +215,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">existsSummaryProductList</span>(new SubQuery&lt;SummaryProductCB&gt;() {
-     *     public void query(ProductStatusCB subCB) {
+     *     public void query(SummaryProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -236,7 +236,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsProductList</span>(new SubQuery&lt;ProductCB&gt;() {
-     *     public void query(ProductStatusCB subCB) {
+     *     public void query(ProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
@@ -257,7 +257,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
      * <pre>
      * cb.query().<span style="color: #FD4747">notExistsSummaryProductList</span>(new SubQuery&lt;SummaryProductCB&gt;() {
-     *     public void query(ProductStatusCB subCB) {
+     *     public void query(SummaryProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
      * });
