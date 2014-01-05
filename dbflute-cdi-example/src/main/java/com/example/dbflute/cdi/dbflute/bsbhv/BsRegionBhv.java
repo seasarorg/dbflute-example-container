@@ -4,12 +4,9 @@
 package com.example.dbflute.cdi.dbflute.bsbhv;
 
 import java.util.List;
-import javax.inject.Inject;
 
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
-import org.seasar.dbflute.bhv.core.BehaviorCommandInvoker;
-import org.seasar.dbflute.bhv.core.CommonColumnAutoSetupper;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.outsidesql.executor.*;
@@ -23,28 +20,28 @@ import com.example.dbflute.cdi.dbflute.cbean.*;
  * <pre>
  * [primary key]
  *     REGION_ID
- * 
+ *
  * [column]
  *     REGION_ID, REGION_NAME
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER_ADDRESS
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberAddressList
  * </pre>
@@ -106,7 +103,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(RegionCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(RegionCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -527,7 +524,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     regionBhv.<span style="color: #FD4747">update</span>(region);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param region The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -629,7 +626,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     regionBhv.<span style="color: #FD4747">delete</span>(region);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param region The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -762,14 +759,14 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * regionBhv.<span style="color: #FD4747">batchUpdate</span>(regionList, new SpecifyQuery<RegionCB>() {
      *     public void specify(RegionCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * regionBhv.<span style="color: #FD4747">batchUpdate</span>(regionList, new SpecifyQuery<RegionCB>() {
      *     public void specify(RegionCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -833,7 +830,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     public ConditionBean setup(region entity, RegionCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -844,7 +841,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -1085,7 +1082,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1099,7 +1096,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * Region region = new Region();
@@ -1156,27 +1153,27 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<RegionBhv> outsideSql() {
         return doOutsideSql();
@@ -1291,32 +1288,5 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<Region, RegionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
         return (QueryInsertSetupper<Region, RegionCB>)option;
-    }
-
-    /**
-     * Set the auto set-upper of common column.
-     * @param commonColumnAutoSetupper The auto set-upper of common column. (NotNull)
-     */
-    @Override @Inject
-    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
-        this._commonColumnAutoSetupper = commonColumnAutoSetupper;
-    }
-
-    /**
-     * Set the selector of behavior.
-     * @param behaviorSelector The selector of behavior. (NotNull)
-     */
-    @Override @Inject
-    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
-        this._behaviorSelector = behaviorSelector;
-    }
-
-    /**
-     * Set the invoker of behavior command.
-     * @param behaviorCommandInvoker The invoker of behavior command. (NotNull)
-     */
-    @Override @Inject
-    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
-        this._behaviorCommandInvoker = behaviorCommandInvoker;
     }
 }

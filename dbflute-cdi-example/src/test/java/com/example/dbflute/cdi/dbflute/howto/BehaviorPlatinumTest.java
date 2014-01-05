@@ -19,10 +19,6 @@ import org.seasar.dbflute.bhv.LoadReferrerOption;
 import org.seasar.dbflute.cbean.EntityRowHandler;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
-import org.seasar.dbflute.cbean.grouping.GroupingOption;
-import org.seasar.dbflute.cbean.grouping.GroupingRowEndDeterminer;
-import org.seasar.dbflute.cbean.grouping.GroupingRowResource;
-import org.seasar.dbflute.cbean.grouping.GroupingRowSetupper;
 import org.seasar.dbflute.cbean.pagenavi.group.PageGroupOption;
 import org.seasar.dbflute.cbean.pagenavi.range.PageRangeOption;
 import org.seasar.dbflute.exception.OutsideSqlNotFoundException;
@@ -1107,92 +1103,5 @@ public class BehaviorPlatinumTest extends ContainerTestCase {
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());
-    }
-
-    // ===================================================================================
-    //                                                                    List Result Bean
-    //                                                                    ================
-    /**
-     * Entityリストの件数ごとのグルーピング: ListResultBean.groupingList().
-     * 会員リストを３件ずつのグループリストにする。
-     */
-    @Test
-    @Transactional
-    public void test_selectList_ListResultBean_groupingList_count_Tx() {
-        // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        final ListResultBean<Member> memberList = this.memberBhv.selectList(cb);
-        this.log("ListResultBean.toString():" + getLineSeparator() + " " + memberList);
-
-        // ## Act ##
-        final GroupingOption<Member> groupingOption = new GroupingOption<Member>(3);
-        final List<List<Member>> groupingList = memberList.groupingList(
-                new GroupingRowSetupper<List<Member>, Member>() {
-                    public List<Member> setup(final GroupingRowResource<Member> groupingRowResource) {
-                        return new ArrayList<Member>(groupingRowResource.getGroupingRowList());
-                    }
-                }, groupingOption);
-
-        // ## Assert ##
-        assertFalse(groupingList.isEmpty());
-        int rowIndex = 0;
-        for (final List<Member> elementList : groupingList) {
-            assertTrue(elementList.size() <= 3);
-            this.log("[" + rowIndex + "]");
-            for (final Member member : elementList) {
-                this.log("  " + member);
-            }
-            ++rowIndex;
-        }
-    }
-
-    /**
-     * Entityリストのグルーピング(コントロールブレイク): ListResultBean.groupingList(), determine().
-     * 会員リストを会員名称の先頭文字ごとのグループリストにする。
-     * @since 0.8.2
-     */
-    @Test
-    @Transactional
-    public void test_selectList_ListResultBean_groupingList_determine_Tx() {
-        // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        final ListResultBean<Member> memberList = this.memberBhv.selectList(cb);
-        this.log("ListResultBean.toString():" + getLineSeparator() + " " + memberList);
-
-        // ## Act ##
-        final GroupingOption<Member> groupingOption = new GroupingOption<Member>(); // The breakCount is unnecessary in this case.
-        groupingOption.setGroupingRowEndDeterminer(new GroupingRowEndDeterminer<Member>() {
-            public boolean determine(final GroupingRowResource<Member> rowResource, final Member nextEntity) {
-                final Member currentEntity = rowResource.getCurrentEntity();
-                final String currentInitChar = currentEntity.getMemberName().substring(0, 1);
-                final String nextInitChar = nextEntity.getMemberName().substring(0, 1);
-                return !currentInitChar.equalsIgnoreCase(nextInitChar);
-            }
-        });
-        final List<List<Member>> groupingList = memberList.groupingList(
-                new GroupingRowSetupper<List<Member>, Member>() {
-                    public List<Member> setup(final GroupingRowResource<Member> groupingRowResource) {
-                        return new ArrayList<Member>(groupingRowResource.getGroupingRowList());
-                    }
-                }, groupingOption);
-
-        // ## Assert ##
-        assertFalse(groupingList.isEmpty());
-        int entityCount = 0;
-        for (final List<Member> elementList : groupingList) {
-            String currentInitChar = null;
-            for (final Member member : elementList) {
-                if (currentInitChar == null) {
-                    currentInitChar = member.getMemberName().substring(0, 1);
-                    this.log("[" + currentInitChar + "]");
-                }
-                this.log("  " + member.getMemberName() + ", " + member);
-                assertEquals(currentInitChar, member.getMemberName().substring(0, 1));
-                ++entityCount;
-            }
-        }
-        assertEquals(memberList.size(), entityCount);
     }
 }

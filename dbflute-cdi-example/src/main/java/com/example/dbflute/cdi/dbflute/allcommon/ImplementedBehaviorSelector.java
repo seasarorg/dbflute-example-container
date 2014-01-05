@@ -15,7 +15,6 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.util.DfTraceViewUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
 
-import javax.inject.Inject;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -202,7 +201,6 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    @Inject
     public void setContainer(BeanManager container) {
         this._container = container;
     }
