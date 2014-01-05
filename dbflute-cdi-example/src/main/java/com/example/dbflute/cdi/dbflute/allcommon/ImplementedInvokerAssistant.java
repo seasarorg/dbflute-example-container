@@ -3,7 +3,6 @@
  */
 package com.example.dbflute.cdi.dbflute.allcommon;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.seasar.dbflute.DBDef;
@@ -359,7 +358,6 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    @Inject
     public void setDataSource(DataSource dataSource) {
         _dataSource = dataSource;
     }

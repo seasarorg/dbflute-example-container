@@ -4,11 +4,9 @@
 package com.example.dbflute.cdi.dbflute.bsbhv;
 
 import java.util.List;
-import javax.inject.Inject;
 
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
-import org.seasar.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.outsidesql.executor.*;
@@ -22,28 +20,28 @@ import com.example.dbflute.cdi.dbflute.cbean.*;
  * <pre>
  * [primary key]
  *     
- * 
+ *
  * [column]
  *     MEMBER_ID, MEMBER_NAME, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, MAX_PURCHASE_PRICE
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     
  * </pre>
@@ -105,7 +103,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(SummaryWithdrawalCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(SummaryWithdrawalCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -355,27 +353,27 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<SummaryWithdrawalBhv> outsideSql() {
         return doOutsideSql();
@@ -428,23 +426,5 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     @SuppressWarnings("unchecked")
     protected List<SummaryWithdrawal> downcast(List<? extends Entity> entityList) {
         return (List<SummaryWithdrawal>)entityList;
-    }
-
-    /**
-     * Set the selector of behavior.
-     * @param behaviorSelector The selector of behavior. (NotNull)
-     */
-    @Override @Inject
-    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
-        this._behaviorSelector = behaviorSelector;
-    }
-
-    /**
-     * Set the invoker of behavior command.
-     * @param behaviorCommandInvoker The invoker of behavior command. (NotNull)
-     */
-    @Override @Inject
-    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
-        this._behaviorCommandInvoker = behaviorCommandInvoker;
     }
 }
