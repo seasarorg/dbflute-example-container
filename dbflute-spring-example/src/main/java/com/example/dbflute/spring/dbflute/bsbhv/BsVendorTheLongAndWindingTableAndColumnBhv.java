@@ -32,28 +32,28 @@ import com.example.dbflute.spring.dbflute.cbean.*;
  * <pre>
  * [primary key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
- * 
+ *
  * [column]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME, SHORT_NAME, SHORT_SIZE
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     vendorTheLongAndWindingTableAndColumnRefList
  * </pre>
@@ -115,7 +115,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(VendorTheLongAndWindingTableAndColumnCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(VendorTheLongAndWindingTableAndColumnCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -547,7 +547,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *     vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #FD4747">update</span>(vendorTheLongAndWindingTableAndColumn);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumn The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -649,7 +649,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *     vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #FD4747">delete</span>(vendorTheLongAndWindingTableAndColumn);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumn The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -782,14 +782,14 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #FD4747">batchUpdate</span>(vendorTheLongAndWindingTableAndColumnList, new SpecifyQuery<VendorTheLongAndWindingTableAndColumnCB>() {
      *     public void specify(VendorTheLongAndWindingTableAndColumnCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #FD4747">batchUpdate</span>(vendorTheLongAndWindingTableAndColumnList, new SpecifyQuery<VendorTheLongAndWindingTableAndColumnCB>() {
      *     public void specify(VendorTheLongAndWindingTableAndColumnCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -853,7 +853,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *     public ConditionBean setup(vendorTheLongAndWindingTableAndColumn entity, VendorTheLongAndWindingTableAndColumnCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -864,7 +864,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -1105,7 +1105,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1119,7 +1119,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumn();
@@ -1176,27 +1176,27 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<VendorTheLongAndWindingTableAndColumnBhv> outsideSql() {
         return doOutsideSql();

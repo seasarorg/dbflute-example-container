@@ -17,28 +17,28 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  * <pre>
  * [primary key]
  *     
- * 
+ *
  * [column]
  *     MEMBER_ID, MEMBER_NAME, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, MAX_PURCHASE_PRICE
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     
  * </pre>
@@ -100,7 +100,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(SummaryWithdrawalCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(SummaryWithdrawalCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -350,27 +350,27 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<SummaryWithdrawalBhv> outsideSql() {
         return doOutsideSql();
