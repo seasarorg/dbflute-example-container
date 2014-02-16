@@ -142,13 +142,6 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     }
     protected ConditionValue getCValueTypeOfClob() { return getTypeOfClob(); }
 
-    /** 
-     * Add order-by as ascend. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsVendorCheckCQ addOrderBy_TypeOfClob_Asc() { regOBA("TYPE_OF_CLOB"); return this; }
-
     /**
      * Add order-by as descend. <br />
      * TYPE_OF_CLOB: {CLOB(2147483647)}
@@ -162,13 +155,6 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
         return _typeOfText;
     }
     protected ConditionValue getCValueTypeOfText() { return getTypeOfText(); }
-
-    /** 
-     * Add order-by as ascend. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsVendorCheckCQ addOrderBy_TypeOfText_Asc() { regOBA("TYPE_OF_TEXT"); return this; }
 
     /**
      * Add order-by as descend. <br />

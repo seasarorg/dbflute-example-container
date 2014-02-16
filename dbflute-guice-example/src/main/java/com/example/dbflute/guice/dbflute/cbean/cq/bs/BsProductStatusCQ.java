@@ -238,13 +238,6 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
-    /**
-     * Add order-by as descend. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @return this. (NotNull)
-     */
-    public BsProductStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }
-
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================

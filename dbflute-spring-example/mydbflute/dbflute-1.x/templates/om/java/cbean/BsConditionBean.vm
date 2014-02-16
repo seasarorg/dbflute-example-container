@@ -622,6 +622,7 @@ public class ${myClassName} extends AbstractConditionBean {
 #end
 #end
 #if ($table.hasSinglePrimaryKey())
+#if ($table.isAvailableMyselfMyselfDerived())
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
@@ -632,6 +633,7 @@ public class ${myClassName} extends AbstractConditionBean {
                 public void setup(String fn, SubQuery<${myConditionBeanClassName}> sq, ${myConditionQueryClassName} cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
+#end
 #end
     }
 

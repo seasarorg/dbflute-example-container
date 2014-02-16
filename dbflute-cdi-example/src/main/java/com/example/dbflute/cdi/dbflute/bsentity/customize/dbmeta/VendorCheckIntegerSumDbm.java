@@ -43,8 +43,8 @@ public class VendorCheckIntegerSumDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgIntegerNonDigitSum implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorCheckIntegerSum)e).getIntegerNonDigitSum(); }
-        public void write(Entity e, Object v) { ((VendorCheckIntegerSum)e).setIntegerNonDigitSum(cti(v)); }
+        public Object read(Entity et) { return ((VendorCheckIntegerSum)et).getIntegerNonDigitSum(); }
+        public void write(Entity et, Object vl) { ((VendorCheckIntegerSum)et).setIntegerNonDigitSum(cti(vl)); }
     }
 
     // ===================================================================================
@@ -121,10 +121,10 @@ public class VendorCheckIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((VendorCheckIntegerSum)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((VendorCheckIntegerSum)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((VendorCheckIntegerSum)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((VendorCheckIntegerSum)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

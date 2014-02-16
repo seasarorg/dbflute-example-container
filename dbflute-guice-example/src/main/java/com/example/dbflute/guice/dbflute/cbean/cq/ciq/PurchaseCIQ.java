@@ -71,15 +71,7 @@ public class PurchaseCIQ extends AbstractBsPurchaseCQ {
     //                                                                ====================
     protected ConditionValue getCValuePurchaseId() { return _myCQ.getPurchaseId(); }
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueProductId() { return _myCQ.getProductId(); }
-    public String keepProductId_InScopeRelation_Product(ProductCQ sq)
-    { return _myCQ.keepProductId_InScopeRelation_Product(sq); }
-    public String keepProductId_NotInScopeRelation_Product(ProductCQ sq)
-    { return _myCQ.keepProductId_NotInScopeRelation_Product(sq); }
     protected ConditionValue getCValuePurchaseDatetime() { return _myCQ.getPurchaseDatetime(); }
     protected ConditionValue getCValuePurchaseCount() { return _myCQ.getPurchaseCount(); }
     protected ConditionValue getCValuePurchasePrice() { return _myCQ.getPurchasePrice(); }

@@ -147,34 +147,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     }
 
     /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
-     */
-    public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      */
@@ -213,42 +185,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     protected void doSetLoginPassword_NotEqual(String loginPassword) {
         regLoginPassword(CK_NES, loginPassword);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLoginPassword_GreaterThan(String loginPassword) {
-        regLoginPassword(CK_GT, fRES(loginPassword));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLoginPassword_LessThan(String loginPassword) {
-        regLoginPassword(CK_LT, fRES(loginPassword));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLoginPassword_GreaterEqual(String loginPassword) {
-        regLoginPassword(CK_GE, fRES(loginPassword));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLoginPassword_LessEqual(String loginPassword) {
-        regLoginPassword(CK_LE, fRES(loginPassword));
     }
 
     /**
@@ -338,42 +274,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderQuestion_GreaterThan(String reminderQuestion) {
-        regReminderQuestion(CK_GT, fRES(reminderQuestion));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderQuestion_LessThan(String reminderQuestion) {
-        regReminderQuestion(CK_LT, fRES(reminderQuestion));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderQuestion_GreaterEqual(String reminderQuestion) {
-        regReminderQuestion(CK_GE, fRES(reminderQuestion));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderQuestion_LessEqual(String reminderQuestion) {
-        regReminderQuestion(CK_LE, fRES(reminderQuestion));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
      * @param reminderQuestionList The collection of reminderQuestion as inScope. (NullAllowed: if null (or empty), no condition)
@@ -457,42 +357,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     protected void doSetReminderAnswer_NotEqual(String reminderAnswer) {
         regReminderAnswer(CK_NES, reminderAnswer);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderAnswer_GreaterThan(String reminderAnswer) {
-        regReminderAnswer(CK_GT, fRES(reminderAnswer));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderAnswer_LessThan(String reminderAnswer) {
-        regReminderAnswer(CK_LT, fRES(reminderAnswer));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderAnswer_GreaterEqual(String reminderAnswer) {
-        regReminderAnswer(CK_GE, fRES(reminderAnswer));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setReminderAnswer_LessEqual(String reminderAnswer) {
-        regReminderAnswer(CK_LE, fRES(reminderAnswer));
     }
 
     /**

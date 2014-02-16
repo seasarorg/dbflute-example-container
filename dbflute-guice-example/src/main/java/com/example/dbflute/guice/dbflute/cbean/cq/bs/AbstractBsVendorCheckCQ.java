@@ -188,42 +188,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CHAR: {CHAR(3)}
-     * @param typeOfChar The value of typeOfChar as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfChar_GreaterThan(String typeOfChar) {
-        regTypeOfChar(CK_GT, fRES(typeOfChar));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CHAR: {CHAR(3)}
-     * @param typeOfChar The value of typeOfChar as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfChar_LessThan(String typeOfChar) {
-        regTypeOfChar(CK_LT, fRES(typeOfChar));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CHAR: {CHAR(3)}
-     * @param typeOfChar The value of typeOfChar as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfChar_GreaterEqual(String typeOfChar) {
-        regTypeOfChar(CK_GE, fRES(typeOfChar));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CHAR: {CHAR(3)}
-     * @param typeOfChar The value of typeOfChar as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfChar_LessEqual(String typeOfChar) {
-        regTypeOfChar(CK_LE, fRES(typeOfChar));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * TYPE_OF_CHAR: {CHAR(3)}
      * @param typeOfCharList The collection of typeOfChar as inScope. (NullAllowed: if null (or empty), no condition)
@@ -328,42 +292,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_VARCHAR: {VARCHAR(32)}
-     * @param typeOfVarchar The value of typeOfVarchar as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfVarchar_GreaterThan(String typeOfVarchar) {
-        regTypeOfVarchar(CK_GT, fRES(typeOfVarchar));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_VARCHAR: {VARCHAR(32)}
-     * @param typeOfVarchar The value of typeOfVarchar as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfVarchar_LessThan(String typeOfVarchar) {
-        regTypeOfVarchar(CK_LT, fRES(typeOfVarchar));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_VARCHAR: {VARCHAR(32)}
-     * @param typeOfVarchar The value of typeOfVarchar as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfVarchar_GreaterEqual(String typeOfVarchar) {
-        regTypeOfVarchar(CK_GE, fRES(typeOfVarchar));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_VARCHAR: {VARCHAR(32)}
-     * @param typeOfVarchar The value of typeOfVarchar as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfVarchar_LessEqual(String typeOfVarchar) {
-        regTypeOfVarchar(CK_LE, fRES(typeOfVarchar));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * TYPE_OF_VARCHAR: {VARCHAR(32)}
      * @param typeOfVarcharList The collection of typeOfVarchar as inScope. (NullAllowed: if null (or empty), no condition)
@@ -455,90 +383,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_NotEqual(String typeOfClob) {
-        doSetTypeOfClob_NotEqual(fRES(typeOfClob));
-    }
-
-    protected void doSetTypeOfClob_NotEqual(String typeOfClob) {
-        regTypeOfClob(CK_NES, typeOfClob);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_GreaterThan(String typeOfClob) {
-        regTypeOfClob(CK_GT, fRES(typeOfClob));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_LessThan(String typeOfClob) {
-        regTypeOfClob(CK_LT, fRES(typeOfClob));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_GreaterEqual(String typeOfClob) {
-        regTypeOfClob(CK_GE, fRES(typeOfClob));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_LessEqual(String typeOfClob) {
-        regTypeOfClob(CK_LE, fRES(typeOfClob));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClobList The collection of typeOfClob as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_InScope(Collection<String> typeOfClobList) {
-        doSetTypeOfClob_InScope(typeOfClobList);
-    }
-
-    public void doSetTypeOfClob_InScope(Collection<String> typeOfClobList) {
-        regINS(CK_INS, cTL(typeOfClobList), getCValueTypeOfClob(), "TYPE_OF_CLOB");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClobList The collection of typeOfClob as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_NotInScope(Collection<String> typeOfClobList) {
-        doSetTypeOfClob_NotInScope(typeOfClobList);
-    }
-
-    public void doSetTypeOfClob_NotInScope(Collection<String> typeOfClobList) {
-        regINS(CK_NINS, cTL(typeOfClobList), getCValueTypeOfClob(), "TYPE_OF_CLOB");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_PrefixSearch(String typeOfClob) {
-        setTypeOfClob_LikeSearch(typeOfClob, cLSOP());
-    }
-
-    /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_CLOB: {CLOB(2147483647)} <br />
      * <pre>e.g. setTypeOfClob_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
@@ -592,90 +436,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void doSetTypeOfText_Equal(String typeOfText) {
         regTypeOfText(CK_EQ, typeOfText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_NotEqual(String typeOfText) {
-        doSetTypeOfText_NotEqual(fRES(typeOfText));
-    }
-
-    protected void doSetTypeOfText_NotEqual(String typeOfText) {
-        regTypeOfText(CK_NES, typeOfText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_GreaterThan(String typeOfText) {
-        regTypeOfText(CK_GT, fRES(typeOfText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_LessThan(String typeOfText) {
-        regTypeOfText(CK_LT, fRES(typeOfText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_GreaterEqual(String typeOfText) {
-        regTypeOfText(CK_GE, fRES(typeOfText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_LessEqual(String typeOfText) {
-        regTypeOfText(CK_LE, fRES(typeOfText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfTextList The collection of typeOfText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_InScope(Collection<String> typeOfTextList) {
-        doSetTypeOfText_InScope(typeOfTextList);
-    }
-
-    public void doSetTypeOfText_InScope(Collection<String> typeOfTextList) {
-        regINS(CK_INS, cTL(typeOfTextList), getCValueTypeOfText(), "TYPE_OF_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfTextList The collection of typeOfText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_NotInScope(Collection<String> typeOfTextList) {
-        doSetTypeOfText_NotInScope(typeOfTextList);
-    }
-
-    public void doSetTypeOfText_NotInScope(Collection<String> typeOfTextList) {
-        regINS(CK_NINS, cTL(typeOfTextList), getCValueTypeOfText(), "TYPE_OF_TEXT");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_PrefixSearch(String typeOfText) {
-        setTypeOfText_LikeSearch(typeOfText, cLSOP());
     }
 
     /**
@@ -2445,42 +2205,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_ARRAY: {ARRAY}
-     * @param typeOfArray The value of typeOfArray as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfArray_GreaterThan(String typeOfArray) {
-        regTypeOfArray(CK_GT, fRES(typeOfArray));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_ARRAY: {ARRAY}
-     * @param typeOfArray The value of typeOfArray as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfArray_LessThan(String typeOfArray) {
-        regTypeOfArray(CK_LT, fRES(typeOfArray));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_ARRAY: {ARRAY}
-     * @param typeOfArray The value of typeOfArray as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfArray_GreaterEqual(String typeOfArray) {
-        regTypeOfArray(CK_GE, fRES(typeOfArray));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_ARRAY: {ARRAY}
-     * @param typeOfArray The value of typeOfArray as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfArray_LessEqual(String typeOfArray) {
-        regTypeOfArray(CK_LE, fRES(typeOfArray));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * TYPE_OF_ARRAY: {ARRAY}
      * @param typeOfArrayList The collection of typeOfArray as inScope. (NullAllowed: if null (or empty), no condition)
@@ -2582,42 +2306,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void doSetTypeOfOther_NotEqual(String typeOfOther) {
         regTypeOfOther(CK_NES, typeOfOther);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_OTHER: {OTHER(2147483647)}
-     * @param typeOfOther The value of typeOfOther as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfOther_GreaterThan(String typeOfOther) {
-        regTypeOfOther(CK_GT, fRES(typeOfOther));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_OTHER: {OTHER(2147483647)}
-     * @param typeOfOther The value of typeOfOther as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfOther_LessThan(String typeOfOther) {
-        regTypeOfOther(CK_LT, fRES(typeOfOther));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_OTHER: {OTHER(2147483647)}
-     * @param typeOfOther The value of typeOfOther as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfOther_GreaterEqual(String typeOfOther) {
-        regTypeOfOther(CK_GE, fRES(typeOfOther));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_OTHER: {OTHER(2147483647)}
-     * @param typeOfOther The value of typeOfOther as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfOther_LessEqual(String typeOfOther) {
-        regTypeOfOther(CK_LE, fRES(typeOfOther));
     }
 
     /**
@@ -2725,42 +2413,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jAVABeansProperty The value of jAVABeansProperty as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJAVABeansProperty_GreaterThan(String jAVABeansProperty) {
-        regJAVABeansProperty(CK_GT, fRES(jAVABeansProperty));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jAVABeansProperty The value of jAVABeansProperty as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJAVABeansProperty_LessThan(String jAVABeansProperty) {
-        regJAVABeansProperty(CK_LT, fRES(jAVABeansProperty));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jAVABeansProperty The value of jAVABeansProperty as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJAVABeansProperty_GreaterEqual(String jAVABeansProperty) {
-        regJAVABeansProperty(CK_GE, fRES(jAVABeansProperty));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jAVABeansProperty The value of jAVABeansProperty as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJAVABeansProperty_LessEqual(String jAVABeansProperty) {
-        regJAVABeansProperty(CK_LE, fRES(jAVABeansProperty));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
      * @param jAVABeansPropertyList The collection of jAVABeansProperty as inScope. (NullAllowed: if null (or empty), no condition)
@@ -2862,42 +2514,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void doSetJPopBeansProperty_NotEqual(String jPopBeansProperty) {
         regJPopBeansProperty(CK_NES, jPopBeansProperty);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jPopBeansProperty The value of jPopBeansProperty as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJPopBeansProperty_GreaterThan(String jPopBeansProperty) {
-        regJPopBeansProperty(CK_GT, fRES(jPopBeansProperty));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jPopBeansProperty The value of jPopBeansProperty as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJPopBeansProperty_LessThan(String jPopBeansProperty) {
-        regJPopBeansProperty(CK_LT, fRES(jPopBeansProperty));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jPopBeansProperty The value of jPopBeansProperty as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJPopBeansProperty_GreaterEqual(String jPopBeansProperty) {
-        regJPopBeansProperty(CK_GE, fRES(jPopBeansProperty));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jPopBeansProperty The value of jPopBeansProperty as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJPopBeansProperty_LessEqual(String jPopBeansProperty) {
-        regJPopBeansProperty(CK_LE, fRES(jPopBeansProperty));
     }
 
     /**

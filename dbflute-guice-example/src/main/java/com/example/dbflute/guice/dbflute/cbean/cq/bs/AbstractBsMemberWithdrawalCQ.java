@@ -147,34 +147,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     }
 
     /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
-     */
-    public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      */
@@ -346,34 +318,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     }
 
     /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select WITHDRAWAL_REASON_CODE from WITHDRAWAL_REASON where ...)} <br />
-     * (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
-     * @param subQuery The sub-query of WithdrawalReason for 'in-scope'. (NotNull)
-     */
-    public void inScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
-    }
-    public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select WITHDRAWAL_REASON_CODE from WITHDRAWAL_REASON where ...)} <br />
-     * (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
-     * @param subQuery The sub-query of WithdrawalReason for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
-    }
-    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
      */
@@ -405,90 +349,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     protected void doSetWithdrawalReasonInputText_Equal(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_EQ, withdrawalReasonInputText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        doSetWithdrawalReasonInputText_NotEqual(fRES(withdrawalReasonInputText));
-    }
-
-    protected void doSetWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_NES, withdrawalReasonInputText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_PrefixSearch(String withdrawalReasonInputText) {
-        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, cLSOP());
     }
 
     /**

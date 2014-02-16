@@ -342,90 +342,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
-    }
-
-    protected void doSetWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_NES, withdrawalReasonText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_PrefixSearch(String withdrawalReasonText) {
-        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, cLSOP());
-    }
-
-    /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br />
      * <pre>e.g. setWithdrawalReasonText_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
@@ -464,55 +380,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as notEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_NotEqual(Integer displayOrder) {
-        doSetDisplayOrder_NotEqual(displayOrder);
-    }
-
-    protected void doSetDisplayOrder_NotEqual(Integer displayOrder) {
-        regDisplayOrder(CK_NES, displayOrder);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterThan(Integer displayOrder) {
-        regDisplayOrder(CK_GT, displayOrder);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessThan(Integer displayOrder) {
-        regDisplayOrder(CK_LT, displayOrder);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterEqual(Integer displayOrder) {
-        regDisplayOrder(CK_GE, displayOrder);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessEqual(Integer displayOrder) {
-        regDisplayOrder(CK_LE, displayOrder);
-    }
-
-    /**
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
@@ -523,32 +390,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, getCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_InScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_NotInScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        regINS(CK_NINS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
     protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }

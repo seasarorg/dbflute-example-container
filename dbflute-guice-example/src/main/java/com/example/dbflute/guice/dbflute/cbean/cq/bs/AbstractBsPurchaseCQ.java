@@ -262,34 +262,6 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(memberIdList), getCValueMemberId(), "MEMBER_ID");
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
-     */
-    public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
-
     protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
     protected abstract ConditionValue getCValueMemberId();
     
@@ -393,34 +365,6 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     protected void doSetProductId_NotInScope(Collection<Integer> productIdList) {
         regINS(CK_NINS, cTL(productIdList), getCValueProductId(), "PRODUCT_ID");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_ID from PRODUCT where ...)} <br />
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
-     * @param subQuery The sub-query of Product for 'in-scope'. (NotNull)
-     */
-    public void inScopeProduct(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductId_InScopeRelation_Product(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "product");
-    }
-    public abstract String keepProductId_InScopeRelation_Product(ProductCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_ID from PRODUCT where ...)} <br />
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
-     * @param subQuery The sub-query of Product for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeProduct(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductId_NotInScopeRelation_Product(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "product");
-    }
-    public abstract String keepProductId_NotInScopeRelation_Product(ProductCQ sq);
 
     protected void regProductId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductId(), "PRODUCT_ID"); }
     protected abstract ConditionValue getCValueProductId();

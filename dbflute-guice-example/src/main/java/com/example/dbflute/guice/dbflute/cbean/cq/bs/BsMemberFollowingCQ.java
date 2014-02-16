@@ -100,22 +100,6 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     }
     protected ConditionValue getCValueMyMemberId() { return getMyMemberId(); }
 
-    protected Map<String, MemberCQ> _myMemberId_InScopeRelation_MemberByMyMemberIdMap;
-    public Map<String, MemberCQ> getMyMemberId_InScopeRelation_MemberByMyMemberId() { return _myMemberId_InScopeRelation_MemberByMyMemberIdMap; }
-    public String keepMyMemberId_InScopeRelation_MemberByMyMemberId(MemberCQ sq) {
-        if (_myMemberId_InScopeRelation_MemberByMyMemberIdMap == null) { _myMemberId_InScopeRelation_MemberByMyMemberIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myMemberId_InScopeRelation_MemberByMyMemberIdMap.size() + 1);
-        _myMemberId_InScopeRelation_MemberByMyMemberIdMap.put(ky, sq); return "myMemberId_InScopeRelation_MemberByMyMemberId." + ky;
-    }
-
-    protected Map<String, MemberCQ> _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap;
-    public Map<String, MemberCQ> getMyMemberId_NotInScopeRelation_MemberByMyMemberId() { return _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap; }
-    public String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ sq) {
-        if (_myMemberId_NotInScopeRelation_MemberByMyMemberIdMap == null) { _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.size() + 1);
-        _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.put(ky, sq); return "myMemberId_NotInScopeRelation_MemberByMyMemberId." + ky;
-    }
-
     /** 
      * Add order-by as ascend. <br />
      * (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -136,22 +120,6 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
         return _yourMemberId;
     }
     protected ConditionValue getCValueYourMemberId() { return getYourMemberId(); }
-
-    protected Map<String, MemberCQ> _yourMemberId_InScopeRelation_MemberByYourMemberIdMap;
-    public Map<String, MemberCQ> getYourMemberId_InScopeRelation_MemberByYourMemberId() { return _yourMemberId_InScopeRelation_MemberByYourMemberIdMap; }
-    public String keepYourMemberId_InScopeRelation_MemberByYourMemberId(MemberCQ sq) {
-        if (_yourMemberId_InScopeRelation_MemberByYourMemberIdMap == null) { _yourMemberId_InScopeRelation_MemberByYourMemberIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_yourMemberId_InScopeRelation_MemberByYourMemberIdMap.size() + 1);
-        _yourMemberId_InScopeRelation_MemberByYourMemberIdMap.put(ky, sq); return "yourMemberId_InScopeRelation_MemberByYourMemberId." + ky;
-    }
-
-    protected Map<String, MemberCQ> _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap;
-    public Map<String, MemberCQ> getYourMemberId_NotInScopeRelation_MemberByYourMemberId() { return _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap; }
-    public String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ sq) {
-        if (_yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap == null) { _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.size() + 1);
-        _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.put(ky, sq); return "yourMemberId_NotInScopeRelation_MemberByYourMemberId." + ky;
-    }
 
     /** 
      * Add order-by as ascend. <br />

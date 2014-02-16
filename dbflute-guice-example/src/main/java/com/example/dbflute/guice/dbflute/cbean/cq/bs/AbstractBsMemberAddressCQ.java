@@ -262,34 +262,6 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(memberIdList), getCValueMemberId(), "MEMBER_ID");
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
-     */
-    public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
-
     protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
     protected abstract ConditionValue getCValueMemberId();
 
@@ -469,42 +441,6 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     protected void doSetAddress_NotEqual(String address) {
         regAddress(CK_NES, address);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
-     * @param address The value of address as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAddress_GreaterThan(String address) {
-        regAddress(CK_GT, fRES(address));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
-     * @param address The value of address as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAddress_LessThan(String address) {
-        regAddress(CK_LT, fRES(address));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
-     * @param address The value of address as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAddress_GreaterEqual(String address) {
-        regAddress(CK_GE, fRES(address));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
-     * @param address The value of address as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAddress_LessEqual(String address) {
-        regAddress(CK_LE, fRES(address));
     }
 
     /**
@@ -722,34 +658,6 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     protected void doSetRegionId_NotInScope(Collection<Integer> regionIdList) {
         regINS(CK_NINS, cTL(regionIdList), getCValueRegionId(), "REGION_ID");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select REGION_ID from REGION where ...)} <br />
-     * (地域)REGION by my REGION_ID, named 'region'.
-     * @param subQuery The sub-query of Region for 'in-scope'. (NotNull)
-     */
-    public void inScopeRegion(SubQuery<RegionCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        RegionCB cb = new RegionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepRegionId_InScopeRelation_Region(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "region");
-    }
-    public abstract String keepRegionId_InScopeRelation_Region(RegionCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select REGION_ID from REGION where ...)} <br />
-     * (地域)REGION by my REGION_ID, named 'region'.
-     * @param subQuery The sub-query of Region for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeRegion(SubQuery<RegionCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        RegionCB cb = new RegionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepRegionId_NotInScopeRelation_Region(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "region");
-    }
-    public abstract String keepRegionId_NotInScopeRelation_Region(RegionCQ sq);
 
     protected void regRegionId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionId(), "REGION_ID"); }
     protected abstract ConditionValue getCValueRegionId();

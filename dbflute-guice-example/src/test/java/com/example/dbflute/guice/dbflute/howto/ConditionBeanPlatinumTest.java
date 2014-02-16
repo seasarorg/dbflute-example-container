@@ -21,8 +21,6 @@ import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.cbean.MemberAddressCB;
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.cbean.MemberLoginCB;
-import com.example.dbflute.guice.dbflute.cbean.MemberStatusCB;
-import com.example.dbflute.guice.dbflute.cbean.MemberWithdrawalCB;
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.guice.dbflute.exbhv.MemberWithdrawalBhv;
@@ -609,10 +607,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull();
 
         // 会員退会情報が存在する会員だけを取得するようにする
-        cb.query().inScopeMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-            public void query(MemberWithdrawalCB subCB) {
-            }
-        });
+        cb.query().queryMemberWithdrawalAsOne().setMemberId_IsNotNull();
         cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
 
         // ## Act ##
@@ -640,7 +635,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         }
         // 両方のパターンのデータがないとテストにならないので確認
         assertTrue(existsMemberWithdrawal);
-        assertTrue(notExistsMemberWithdrawal);
+        assertFalse(notExistsMemberWithdrawal); // because of setMemberId_IsNotNull()
         // MemberWithdrawalを取得できなかった会員の会員退会情報がちゃんとあるかどうか確認
         for (Integer memberId : notExistsMemberIdList) {
             memberWithdrawalBhv.selectByPKValueWithDeletedCheck(memberId);// Expected no exception
@@ -1236,58 +1231,5 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(3, memberList.size());
-    }
-
-    // ===================================================================================
-    //                                                                         Display SQL
-    //                                                                         ===========
-    /**
-     * どんなにSubQueryやUnionの連打をしてもSQLが綺麗にフォーマット: toDisplaySql().
-     * ログでSQLが綺麗にフォーマットされていることを確認するだけ。
-     * <p>
-     * デバッグのし易さの徹底と、ConditionBeanから外だしSQLへの移行時にスムーズにできるように
-     * ログのフォーマットを重視している。相関サブクエリなどはConditionBeanで書いてから出力された
-     * SQLをベースに実装した方が外だしSQLでありがちなケアレスバグも無くなる。
-     * </p>
-     */
-    public void test_toDisplaySql_Check_FormattedSQL() {
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        // 単にフォーマットされていることがみたいだけなので条件はかなり無茶苦茶
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        final MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setDisplayOrder_Equal(3);
-        cb.query().existsMemberList(new SubQuery<MemberCB>() {
-            public void query(MemberCB memberCB) {
-                memberCB.query().setBirthdate_LessEqual(new Date());
-                memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB purchaseCB) {
-                        purchaseCB.query().setPurchaseCount_GreaterEqual(2);
-                    }
-                });
-                memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-                    public void query(MemberWithdrawalCB subCB) {
-                        final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
-                        subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
-                        subCB.union(new UnionQuery<MemberWithdrawalCB>() {
-                            public void query(MemberWithdrawalCB unionCB) {
-                                unionCB.query().setWithdrawalReasonInputText_IsNotNull();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().inScopeMember(new SubQuery<MemberCB>() {
-                    public void query(MemberCB subCB) {
-                        subCB.query().setBirthdate_GreaterEqual(new Date());
-                    }
-                });
-            }
-        });
-        cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
-        log(getLineSeparator() + cb.toDisplaySql());
     }
 }

@@ -332,5 +332,11 @@ map:{
 
     # the test of suppressing behavior for table classification
     ; isSuppressTableClassificationDBAccessClass = true
+
+    # the test of suppressing to-one ExistsReferrer
+    ; isMakeConditionQueryExistsReferrerToOne = false
+
+    # the test of suppressing to-one InScopeRelation
+    ; isMakeConditionQueryInScopeRelationToOne = false
 }
 # ----------------/

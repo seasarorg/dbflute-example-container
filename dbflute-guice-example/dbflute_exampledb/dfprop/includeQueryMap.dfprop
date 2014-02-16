@@ -39,24 +39,20 @@ map:{
         # [Include]
         # String columns may not be needed
         # to be set these condition-keys basically.
-        #; GreaterThan = map:{}
-        #; LessThan = map:{}
-        #; GreaterEqual = map:{}
-        #; LessEqual = map:{}
+        ; GreaterThan = map:{}
+        ; LessThan = map:{}
+        ; GreaterEqual = map:{}
+        ; LessEqual = map:{}
 
         # [Exclude]
         # Common columns of String type may not be needed
         # to be set these condition-keys basically.
-        ; !NotEqual = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !GreaterThan = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !LessThan = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !GreaterEqual = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !LessEqual = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !InScope = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !NotInScope = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !PrefixSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !LikeSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
-        ; !NotLikeSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
+        ; !NotEqual = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION ; suffix:_NAME ; type:CLOB } }
+        ; !InScope = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION ; suffix:_NAME ; type:CLOB } }
+        ; !NotInScope = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION ; suffix:_NAME ; type:CLOB } }
+        ; !PrefixSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION ; type:CLOB } }
+        ; !LikeSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION } }
+        ; !NotLikeSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; DESCRIPTION } }
     }
     ; Number = map:{
         # [Include]
@@ -65,13 +61,13 @@ map:{
         # [Exclude]
         # VersionNo column may not be needed
         # to be set these condition-keys basically.
-        ; !NotEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !GreaterThan = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !LessThan = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !GreaterEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !LessEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !InScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
-        ; !NotInScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
+        ; !NotEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !GreaterThan = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !LessThan = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !GreaterEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !LessEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !InScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
+        ; !NotInScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ ; DISPLAY_ORDER } }
     }
     ; Date = map:{
         # [Include]
@@ -90,6 +86,16 @@ map:{
         ; !LessEqual = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
         ; !FromTo = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
         ; !DateFromTo = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
+    }
+    ; OrderBy = map:{
+        ; !Asc = map:{ $$ALL$$ = list:{ DESCRIPTION ; type:CLOB } }
+        ; !Desc = map:{ $$ALL$$ = list:{ suffix:_ORDER ; DESCRIPTION } }
+    }
+    ; Myself = map:{
+        ; !ScalarCondition = map:{ suffix:_STATUS = list:{} }
+        ; !MyselfDerived = map:{ prefix:PRODUCT_ST = list:{} ; suffix:_STATUS = list:{ dummy } }
+        ; !MyselfExists = map:{ suffix:_STATUS = list:{} ; SERVICE_RANK = list:{} }
+        ; !MyselfInScope = map:{ suffix:_STATUS = list:{} ; SERVICE_RANK = list:{ SERVICE_RANK_CODE } }
     }
 }
 # ----------------/

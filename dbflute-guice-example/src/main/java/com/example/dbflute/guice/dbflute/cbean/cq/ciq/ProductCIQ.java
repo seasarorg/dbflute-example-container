@@ -87,15 +87,7 @@ public class ProductCIQ extends AbstractBsProductCQ {
     protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
     protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
     protected ConditionValue getCValueProductCategoryCode() { return _myCQ.getProductCategoryCode(); }
-    public String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq)
-    { return _myCQ.keepProductCategoryCode_InScopeRelation_ProductCategory(sq); }
-    public String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq)
-    { return _myCQ.keepProductCategoryCode_NotInScopeRelation_ProductCategory(sq); }
     protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_ProductStatus(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_ProductStatus(sq); }
     protected ConditionValue getCValueRegularPrice() { return _myCQ.getRegularPrice(); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
     protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }

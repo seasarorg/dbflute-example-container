@@ -287,81 +287,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productName The value of productName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_NotEqual(String productName) {
-        doSetProductName_NotEqual(fRES(productName));
-    }
-
-    protected void doSetProductName_NotEqual(String productName) {
-        regProductName(CK_NES, productName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productName The value of productName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_GreaterThan(String productName) {
-        regProductName(CK_GT, fRES(productName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productName The value of productName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_LessThan(String productName) {
-        regProductName(CK_LT, fRES(productName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productName The value of productName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_GreaterEqual(String productName) {
-        regProductName(CK_GE, fRES(productName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productName The value of productName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_LessEqual(String productName) {
-        regProductName(CK_LE, fRES(productName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productNameList The collection of productName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_InScope(Collection<String> productNameList) {
-        doSetProductName_InScope(productNameList);
-    }
-
-    public void doSetProductName_InScope(Collection<String> productNameList) {
-        regINS(CK_INS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
-     * @param productNameList The collection of productName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_NotInScope(Collection<String> productNameList) {
-        doSetProductName_NotInScope(productNameList);
-    }
-
-    public void doSetProductName_NotInScope(Collection<String> productNameList) {
-        regINS(CK_NINS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
-    }
-
-    /**
      * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
      * @param productName The value of productName as prefixSearch. (NullAllowed: if null (or empty), no condition)
@@ -419,42 +344,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     protected void doSetProductHandleCode_NotEqual(String productHandleCode) {
         regProductHandleCode(CK_NES, productHandleCode);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_GreaterThan(String productHandleCode) {
-        regProductHandleCode(CK_GT, fRES(productHandleCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_LessThan(String productHandleCode) {
-        regProductHandleCode(CK_LT, fRES(productHandleCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_GreaterEqual(String productHandleCode) {
-        regProductHandleCode(CK_GE, fRES(productHandleCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_LessEqual(String productHandleCode) {
-        regProductHandleCode(CK_LE, fRES(productHandleCode));
     }
 
     /**
@@ -544,42 +433,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param productCategoryCode The value of productCategoryCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_GreaterThan(String productCategoryCode) {
-        regProductCategoryCode(CK_GT, fRES(productCategoryCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param productCategoryCode The value of productCategoryCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_LessThan(String productCategoryCode) {
-        regProductCategoryCode(CK_LT, fRES(productCategoryCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param productCategoryCode The value of productCategoryCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_GreaterEqual(String productCategoryCode) {
-        regProductCategoryCode(CK_GE, fRES(productCategoryCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param productCategoryCode The value of productCategoryCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_LessEqual(String productCategoryCode) {
-        regProductCategoryCode(CK_LE, fRES(productCategoryCode));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
      * @param productCategoryCodeList The collection of productCategoryCode as inScope. (NullAllowed: if null (or empty), no condition)
@@ -635,34 +488,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     public void setProductCategoryCode_NotLikeSearch(String productCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productCategoryCode), getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE", likeSearchOption);
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
-     * @param subQuery The sub-query of ProductCategory for 'in-scope'. (NotNull)
-     */
-    public void inScopeProductCategory(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductCategoryCode_InScopeRelation_ProductCategory(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
-    }
-    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
-     * @param subQuery The sub-query of ProductCategory for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeProductCategory(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductCategoryCode_NotInScopeRelation_ProductCategory(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
-    }
-    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq);
 
     protected void regProductCategoryCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
     protected abstract ConditionValue getCValueProductCategoryCode();
@@ -806,34 +631,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_STATUS_CODE from PRODUCT_STATUS where ...)} <br />
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @param subQuery The sub-query of ProductStatus for 'in-scope'. (NotNull)
-     */
-    public void inScopeProductStatus(SubQuery<ProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductStatusCode_InScopeRelation_ProductStatus(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
-    }
-    public abstract String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_STATUS_CODE from PRODUCT_STATUS where ...)} <br />
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @param subQuery The sub-query of ProductStatus for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeProductStatus(SubQuery<ProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductStatusCode_NotInScopeRelation_ProductStatus(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
-    }
-    public abstract String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq);
 
     protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
     protected abstract ConditionValue getCValueProductStatusCode();

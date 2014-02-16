@@ -348,7 +348,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -386,7 +386,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -423,7 +423,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCBClassName = "${fk.foreignTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -444,7 +444,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -474,7 +474,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCBClassName = "${fk.foreignTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -495,7 +495,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -823,7 +823,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -861,7 +861,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -898,7 +898,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCBClassName = "${fk.foreignTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -919,7 +919,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -949,7 +949,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCBClassName = "${fk.foreignTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -970,7 +970,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq);
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #if (${referrer.isOneToOne()})
@@ -1270,7 +1270,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     protected abstract ConditionValue getCValue${tmpJavaName}();
 #end
 #if ($table.hasSinglePrimaryKey())
-#if ($table.isAvailablePrimaryScalarCondition())
+#if ($table.isAvailableMyselfScalarCondition())
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1406,7 +1406,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         return cb;
     }
 #end
-#if ($table.isAvailablePrimaryMyselfDerived())
+#if ($table.isAvailableMyselfMyselfDerived())
 
     // ===================================================================================
     //                                                                       MyselfDerived
@@ -1445,7 +1445,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public abstract String keepQueryMyselfDerived(${myConditionQueryClassName} sq);
     public abstract String keepQueryMyselfDerivedParameter(Object vl);
 #end
-#if ($table.isAvailablePrimaryMyselfExists())
+#if ($table.isAvailableMyselfMyselfExists())
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1462,7 +1462,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
     public abstract String keepMyselfExists(${myConditionQueryClassName} sq);
 #end
-#if ($table.isAvailablePrimaryMyselfInScope())
+#if ($table.isAvailableMyselfMyselfInScope())
 
     // ===================================================================================
     //                                                                       MyselfInScope

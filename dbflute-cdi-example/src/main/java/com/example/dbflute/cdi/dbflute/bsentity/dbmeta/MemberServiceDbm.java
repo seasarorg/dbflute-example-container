@@ -51,40 +51,40 @@ public class MemberServiceDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberServiceId implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getMemberServiceId(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setMemberServiceId(cti(v)); }
+        public Object read(Entity et) { return ((MemberService)et).getMemberServiceId(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setMemberServiceId(cti(vl)); }
     }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MemberService)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setMemberId(cti(vl)); }
     }
     public static class EpgServicePointCount implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getServicePointCount(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setServicePointCount(cti(v)); }
+        public Object read(Entity et) { return ((MemberService)et).getServicePointCount(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setServicePointCount(cti(vl)); }
     }
     public static class EpgServiceRankCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getServiceRankCode(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setServiceRankCode((String)v); }
+        public Object read(Entity et) { return ((MemberService)et).getServiceRankCode(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setServiceRankCode((String)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MemberService)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MemberService)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MemberService)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MemberService)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberService)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MemberService)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MemberService)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MemberService)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -158,12 +158,12 @@ public class MemberServiceDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_SERVICE_MEMBER", "member", this, MemberDbm.getInstance(), map, 0, true, false, false, false, null, null, false, "memberServiceAsOne");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_SERVICE_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, true, false, false, false, null, null, false, "memberServiceAsOne");
     }
     public ForeignInfo foreignServiceRank() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnServiceRankCode(), ServiceRankDbm.getInstance().columnServiceRankCode());
-        return cfi("FK_MEMBER_SERVICE_SERVICE_RANK_CODE", "serviceRank", this, ServiceRankDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "memberServiceList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnServiceRankCode(), ServiceRankDbm.getInstance().columnServiceRankCode());
+        return cfi("FK_MEMBER_SERVICE_SERVICE_RANK_CODE", "serviceRank", this, ServiceRankDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberServiceList");
     }
 
     // -----------------------------------------------------
@@ -205,10 +205,10 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MemberService)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MemberService)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MemberService)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MemberService)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

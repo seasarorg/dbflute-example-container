@@ -231,22 +231,6 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     }
     protected ConditionValue getCValueParentCategoryCode() { return getParentCategoryCode(); }
 
-    protected Map<String, ProductCategoryCQ> _parentCategoryCode_InScopeRelation_ProductCategorySelfMap;
-    public Map<String, ProductCategoryCQ> getParentCategoryCode_InScopeRelation_ProductCategorySelf() { return _parentCategoryCode_InScopeRelation_ProductCategorySelfMap; }
-    public String keepParentCategoryCode_InScopeRelation_ProductCategorySelf(ProductCategoryCQ sq) {
-        if (_parentCategoryCode_InScopeRelation_ProductCategorySelfMap == null) { _parentCategoryCode_InScopeRelation_ProductCategorySelfMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_parentCategoryCode_InScopeRelation_ProductCategorySelfMap.size() + 1);
-        _parentCategoryCode_InScopeRelation_ProductCategorySelfMap.put(ky, sq); return "parentCategoryCode_InScopeRelation_ProductCategorySelf." + ky;
-    }
-
-    protected Map<String, ProductCategoryCQ> _parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap;
-    public Map<String, ProductCategoryCQ> getParentCategoryCode_NotInScopeRelation_ProductCategorySelf() { return _parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap; }
-    public String keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(ProductCategoryCQ sq) {
-        if (_parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap == null) { _parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap.size() + 1);
-        _parentCategoryCode_NotInScopeRelation_ProductCategorySelfMap.put(ky, sq); return "parentCategoryCode_NotInScopeRelation_ProductCategorySelf." + ky;
-    }
-
     /** 
      * Add order-by as ascend. <br />
      * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}

@@ -87,10 +87,6 @@ public class SummaryProductCIQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
     protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
     protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_ProductStatus(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_ProductStatus(sq); }
     protected ConditionValue getCValueLatestPurchaseDatetime() { return _myCQ.getLatestPurchaseDatetime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(SummaryProductCQ sq)

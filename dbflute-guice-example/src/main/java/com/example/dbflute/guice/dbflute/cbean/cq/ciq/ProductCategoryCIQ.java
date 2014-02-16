@@ -100,10 +100,6 @@ public class ProductCategoryCIQ extends AbstractBsProductCategoryCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueProductCategoryName() { return _myCQ.getProductCategoryName(); }
     protected ConditionValue getCValueParentCategoryCode() { return _myCQ.getParentCategoryCode(); }
-    public String keepParentCategoryCode_InScopeRelation_ProductCategorySelf(ProductCategoryCQ sq)
-    { return _myCQ.keepParentCategoryCode_InScopeRelation_ProductCategorySelf(sq); }
-    public String keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(ProductCategoryCQ sq)
-    { return _myCQ.keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(sq); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(ProductCategoryCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

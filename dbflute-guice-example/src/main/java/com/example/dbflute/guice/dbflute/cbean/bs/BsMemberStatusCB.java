@@ -358,16 +358,6 @@ public class BsMemberStatusCB extends AbstractConditionBean {
                 public void setup(String fn, SubQuery<MemberLoginCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveMemberLoginList(fn, sq, al, op); } }, _dbmetaProvider);
         }
-        /**
-         * Prepare for (Specify)MyselfDerived (SubQuery).
-         * @return The object to set up a function for myself table. (NotNull)
-         */
-        public HpSDRFunction<MemberStatusCB, MemberStatusCQ> myselfDerived() {
-            assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<MemberStatusCB, MemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberStatusCB, MemberStatusCQ>() {
-                public void setup(String fn, SubQuery<MemberStatusCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
-        }
     }
 
     // [DBFlute-0.9.5.3]

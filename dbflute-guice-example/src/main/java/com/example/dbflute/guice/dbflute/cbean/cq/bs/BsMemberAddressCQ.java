@@ -100,22 +100,6 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    protected Map<String, MemberCQ> _memberId_InScopeRelation_MemberMap;
-    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return _memberId_InScopeRelation_MemberMap; }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) {
-        if (_memberId_InScopeRelation_MemberMap == null) { _memberId_InScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberMap.size() + 1);
-        _memberId_InScopeRelation_MemberMap.put(ky, sq); return "memberId_InScopeRelation_Member." + ky;
-    }
-
-    protected Map<String, MemberCQ> _memberId_NotInScopeRelation_MemberMap;
-    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return _memberId_NotInScopeRelation_MemberMap; }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberMap == null) { _memberId_NotInScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberMap.put(ky, sq); return "memberId_NotInScopeRelation_Member." + ky;
-    }
-
     /** 
      * Add order-by as ascend. <br />
      * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -199,22 +183,6 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
         return _regionId;
     }
     protected ConditionValue getCValueRegionId() { return getRegionId(); }
-
-    protected Map<String, RegionCQ> _regionId_InScopeRelation_RegionMap;
-    public Map<String, RegionCQ> getRegionId_InScopeRelation_Region() { return _regionId_InScopeRelation_RegionMap; }
-    public String keepRegionId_InScopeRelation_Region(RegionCQ sq) {
-        if (_regionId_InScopeRelation_RegionMap == null) { _regionId_InScopeRelation_RegionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_InScopeRelation_RegionMap.size() + 1);
-        _regionId_InScopeRelation_RegionMap.put(ky, sq); return "regionId_InScopeRelation_Region." + ky;
-    }
-
-    protected Map<String, RegionCQ> _regionId_NotInScopeRelation_RegionMap;
-    public Map<String, RegionCQ> getRegionId_NotInScopeRelation_Region() { return _regionId_NotInScopeRelation_RegionMap; }
-    public String keepRegionId_NotInScopeRelation_Region(RegionCQ sq) {
-        if (_regionId_NotInScopeRelation_RegionMap == null) { _regionId_NotInScopeRelation_RegionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_NotInScopeRelation_RegionMap.size() + 1);
-        _regionId_NotInScopeRelation_RegionMap.put(ky, sq); return "regionId_NotInScopeRelation_Region." + ky;
-    }
 
     /** 
      * Add order-by as ascend. <br />

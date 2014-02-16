@@ -197,22 +197,6 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     }
     protected ConditionValue getCValueProductStatusCode() { return getProductStatusCode(); }
 
-    protected Map<String, ProductStatusCQ> _productStatusCode_InScopeRelation_ProductStatusMap;
-    public Map<String, ProductStatusCQ> getProductStatusCode_InScopeRelation_ProductStatus() { return _productStatusCode_InScopeRelation_ProductStatusMap; }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq) {
-        if (_productStatusCode_InScopeRelation_ProductStatusMap == null) { _productStatusCode_InScopeRelation_ProductStatusMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_InScopeRelation_ProductStatusMap.size() + 1);
-        _productStatusCode_InScopeRelation_ProductStatusMap.put(ky, sq); return "productStatusCode_InScopeRelation_ProductStatus." + ky;
-    }
-
-    protected Map<String, ProductStatusCQ> _productStatusCode_NotInScopeRelation_ProductStatusMap;
-    public Map<String, ProductStatusCQ> getProductStatusCode_NotInScopeRelation_ProductStatus() { return _productStatusCode_NotInScopeRelation_ProductStatusMap; }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq) {
-        if (_productStatusCode_NotInScopeRelation_ProductStatusMap == null) { _productStatusCode_NotInScopeRelation_ProductStatusMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_NotInScopeRelation_ProductStatusMap.size() + 1);
-        _productStatusCode_NotInScopeRelation_ProductStatusMap.put(ky, sq); return "productStatusCode_NotInScopeRelation_ProductStatus." + ky;
-    }
-
     /** 
      * Add order-by as ascend. <br />
      * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}

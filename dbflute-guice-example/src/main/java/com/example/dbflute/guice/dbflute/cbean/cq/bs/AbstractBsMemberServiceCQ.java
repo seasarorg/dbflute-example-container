@@ -262,34 +262,6 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(memberIdList), getCValueMemberId(), "MEMBER_ID");
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
-     */
-    public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
-
     protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
     protected abstract ConditionValue getCValueMemberId();
     
@@ -568,34 +540,6 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void doSetServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
         regINS(CK_NINS, cTL(serviceRankCodeList), getCValueServiceRankCode(), "SERVICE_RANK_CODE");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select SERVICE_RANK_CODE from SERVICE_RANK where ...)} <br />
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
-     * @param subQuery The sub-query of ServiceRank for 'in-scope'. (NotNull)
-     */
-    public void inScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepServiceRankCode_InScopeRelation_ServiceRank(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
-    }
-    public abstract String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select SERVICE_RANK_CODE from SERVICE_RANK where ...)} <br />
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
-     * @param subQuery The sub-query of ServiceRank for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepServiceRankCode_NotInScopeRelation_ServiceRank(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
-    }
-    public abstract String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq);
 
     protected void regServiceRankCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueServiceRankCode(), "SERVICE_RANK_CODE"); }
     protected abstract ConditionValue getCValueServiceRankCode();

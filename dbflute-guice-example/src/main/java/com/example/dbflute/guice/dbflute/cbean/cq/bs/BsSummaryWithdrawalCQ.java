@@ -142,13 +142,6 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     }
     protected ConditionValue getCValueWithdrawalReasonText() { return getWithdrawalReasonText(); }
 
-    /** 
-     * Add order-by as ascend. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonText_Asc() { regOBA("WITHDRAWAL_REASON_TEXT"); return this; }
-
     /**
      * Add order-by as descend. <br />
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
@@ -162,13 +155,6 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
         return _withdrawalReasonInputText;
     }
     protected ConditionValue getCValueWithdrawalReasonInputText() { return getWithdrawalReasonInputText(); }
-
-    /** 
-     * Add order-by as ascend. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Asc() { regOBA("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
 
     /**
      * Add order-by as descend. <br />

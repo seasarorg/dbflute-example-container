@@ -262,34 +262,6 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
         regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnIdList), getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN where ...)} <br />
-     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
-     * @param subQuery The sub-query of VendorTheLongAndWindingTableAndColumn for 'in-scope'. (NotNull)
-     */
-    public void inScopeVendorTheLongAndWindingTableAndColumn(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumn");
-    }
-    public abstract String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN where ...)} <br />
-     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
-     * @param subQuery The sub-query of VendorTheLongAndWindingTableAndColumn for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeVendorTheLongAndWindingTableAndColumn(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumn");
-    }
-    public abstract String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq);
-
     protected void regTheLongAndWindingTableAndColumnId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
     protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnId();
 

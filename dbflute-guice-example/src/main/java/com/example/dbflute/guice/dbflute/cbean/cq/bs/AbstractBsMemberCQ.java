@@ -232,69 +232,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
 
     /**
      * Set up ExistsReferrer (co-related sub-query). <br />
-     * {exists (select MEMBER_ID from MEMBER_SECURITY where ...)} <br />
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">existsMemberSecurityAsOne</span>(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberSecurityAsOne for 'exists'. (NotNull)
-     */
-    public void existsMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_ExistsReferrer_MemberSecurityAsOne(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
-    }
-    public abstract String keepMemberId_ExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq);
-
-    /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
-     * {exists (select MEMBER_ID from MEMBER_SERVICE where ...)} <br />
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">existsMemberServiceAsOne</span>(new SubQuery&lt;MemberServiceCB&gt;() {
-     *     public void query(MemberServiceCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberServiceAsOne for 'exists'. (NotNull)
-     */
-    public void existsMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_ExistsReferrer_MemberServiceAsOne(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
-    }
-    public abstract String keepMemberId_ExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq);
-
-    /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
-     * {exists (select MEMBER_ID from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">existsMemberWithdrawalAsOne</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-     *     public void query(MemberWithdrawalCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberWithdrawalAsOne for 'exists'. (NotNull)
-     */
-    public void existsMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
-    }
-    public abstract String keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
-
-    /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
      * {exists (select MEMBER_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * <pre>
@@ -400,69 +337,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
-     * {not exists (select MEMBER_ID from MEMBER_SECURITY where ...)} <br />
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsMemberSecurityAsOne</span>(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberSecurityAsOne for 'not exists'. (NotNull)
-     */
-    public void notExistsMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_NotExistsReferrer_MemberSecurityAsOne(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
-    }
-    public abstract String keepMemberId_NotExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
-     * {not exists (select MEMBER_ID from MEMBER_SERVICE where ...)} <br />
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsMemberServiceAsOne</span>(new SubQuery&lt;MemberServiceCB&gt;() {
-     *     public void query(MemberServiceCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberServiceAsOne for 'not exists'. (NotNull)
-     */
-    public void notExistsMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_NotExistsReferrer_MemberServiceAsOne(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
-    }
-    public abstract String keepMemberId_NotExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
-     * {not exists (select MEMBER_ID from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsMemberWithdrawalAsOne</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-     *     public void query(MemberWithdrawalCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
-     * });
-     * </pre>
-     * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberWithdrawalAsOne for 'not exists'. (NotNull)
-     */
-    public void notExistsMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
-    }
-    public abstract String keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
      * {not exists (select MEMBER_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * <pre>
@@ -540,48 +414,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
 
     /**
      * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER_SECURITY where ...)} <br />
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
-     * @param subQuery The sub-query of MemberSecurityAsOne for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_MemberSecurityAsOne(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
-    }
-    public abstract String keepMemberId_InScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER_SERVICE where ...)} <br />
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
-     * @param subQuery The sub-query of MemberServiceAsOne for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_MemberServiceAsOne(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
-    }
-    public abstract String keepMemberId_InScopeRelation_MemberServiceAsOne(MemberServiceCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_ID from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
-     * @param subQuery The sub-query of MemberWithdrawalAsOne for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_MemberWithdrawalAsOne(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
-    }
-    public abstract String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
      * {in (select MEMBER_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * @param subQuery The sub-query of PurchaseList for 'in-scope'. (NotNull)
@@ -649,48 +481,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER_SECURITY where ...)} <br />
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
-     * @param subQuery The sub-query of MemberSecurityAsOne for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_MemberSecurityAsOne(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER_SERVICE where ...)} <br />
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
-     * @param subQuery The sub-query of MemberServiceAsOne for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_MemberServiceAsOne(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MemberServiceCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_ID from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
-     * @param subQuery The sub-query of MemberWithdrawalAsOne for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
-    }
-    public abstract String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -945,81 +735,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberName The value of memberName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_NotEqual(String memberName) {
-        doSetMemberName_NotEqual(fRES(memberName));
-    }
-
-    protected void doSetMemberName_NotEqual(String memberName) {
-        regMemberName(CK_NES, memberName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberName The value of memberName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_GreaterThan(String memberName) {
-        regMemberName(CK_GT, fRES(memberName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberName The value of memberName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_LessThan(String memberName) {
-        regMemberName(CK_LT, fRES(memberName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberName The value of memberName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_GreaterEqual(String memberName) {
-        regMemberName(CK_GE, fRES(memberName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberName The value of memberName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_LessEqual(String memberName) {
-        regMemberName(CK_LE, fRES(memberName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberNameList The collection of memberName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_InScope(Collection<String> memberNameList) {
-        doSetMemberName_InScope(memberNameList);
-    }
-
-    public void doSetMemberName_InScope(Collection<String> memberNameList) {
-        regINS(CK_INS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
-     * @param memberNameList The collection of memberName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_NotInScope(Collection<String> memberNameList) {
-        doSetMemberName_NotInScope(memberNameList);
-    }
-
-    public void doSetMemberName_NotInScope(Collection<String> memberNameList) {
-        regINS(CK_NINS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
-    }
-
-    /**
      * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}
      * @param memberName The value of memberName as prefixSearch. (NullAllowed: if null (or empty), no condition)
@@ -1077,42 +792,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
 
     protected void doSetMemberAccount_NotEqual(String memberAccount) {
         regMemberAccount(CK_NES, memberAccount);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)}
-     * @param memberAccount The value of memberAccount as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberAccount_GreaterThan(String memberAccount) {
-        regMemberAccount(CK_GT, fRES(memberAccount));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)}
-     * @param memberAccount The value of memberAccount as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberAccount_LessThan(String memberAccount) {
-        regMemberAccount(CK_LT, fRES(memberAccount));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)}
-     * @param memberAccount The value of memberAccount as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberAccount_GreaterEqual(String memberAccount) {
-        regMemberAccount(CK_GE, fRES(memberAccount));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)}
-     * @param memberAccount The value of memberAccount as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberAccount_LessEqual(String memberAccount) {
-        regMemberAccount(CK_LE, fRES(memberAccount));
     }
 
     /**
@@ -1314,34 +993,6 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void doSetMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
         regINS(CK_NINS, cTL(memberStatusCodeList), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MEMBER_STATUS_CODE from MEMBER_STATUS where ...)} <br />
-     * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
-     * @param subQuery The sub-query of MemberStatus for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberStatusCode_InScopeRelation_MemberStatus(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
-    }
-    public abstract String keepMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MEMBER_STATUS_CODE from MEMBER_STATUS where ...)} <br />
-     * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
-     * @param subQuery The sub-query of MemberStatus for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberStatusCode_NotInScopeRelation_MemberStatus(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
-    }
-    public abstract String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq);
 
     protected void regMemberStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberStatusCode(), "MEMBER_STATUS_CODE"); }
     protected abstract ConditionValue getCValueMemberStatusCode();

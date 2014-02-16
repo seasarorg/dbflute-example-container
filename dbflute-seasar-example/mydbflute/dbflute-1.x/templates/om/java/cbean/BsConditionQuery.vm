@@ -100,7 +100,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     protected ConditionValue getCValue${tmpJavaName}() { return get${tmpJavaName}(); }
 #if (${col.isJavaNativeStringObject()})
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -121,7 +121,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -141,7 +141,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -156,7 +156,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -176,7 +176,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -191,7 +191,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -259,7 +259,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
 #if (${col.isJavaNativeNumberObject()})
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -280,7 +280,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.existsReferrerReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -319,7 +319,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -334,7 +334,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
@@ -354,7 +354,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #end
-#if (${col.isInScopeAllowedForeignKey()})
+#if (${col.isInScopeRelationAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -369,7 +369,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     }
 #end
 #if (${col.hasSingleKeyReferrer()})
-#foreach ($referrer in $col.singleKeyReferrers)
+#foreach ($referrer in $col.inScopeRelationReferrers)
 #set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
 #set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
 #if (${referrer.isOneToOne()})
