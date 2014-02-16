@@ -60,28 +60,28 @@ public class PrimaryKeyCommentDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setMemberName((String)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((PrimaryKeyComment)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((PrimaryKeyComment)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((PrimaryKeyComment)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setUpdateUser((String)vl); }
     }
 
     // ===================================================================================
@@ -178,10 +178,10 @@ public class PrimaryKeyCommentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((PrimaryKeyComment)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((PrimaryKeyComment)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((PrimaryKeyComment)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((PrimaryKeyComment)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -60,28 +60,28 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setMemberName((String)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((SurpriseSimilarPKComment)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((SurpriseSimilarPKComment)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setUpdateUser((String)vl); }
     }
 
     // ===================================================================================
@@ -173,10 +173,10 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((SurpriseSimilarPKComment)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((SurpriseSimilarPKComment)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((SurpriseSimilarPKComment)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((SurpriseSimilarPKComment)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

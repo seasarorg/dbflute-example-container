@@ -11,6 +11,7 @@ import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
@@ -158,7 +159,7 @@ public abstract class BsRegionDtoMapper implements DtoMapper<Region, RegionDto>,
         }
         Region entity = new Region();
         if (needsMapping(dto, dto.getRegionId(), "regionId")) {
-            entity.setRegionId(dto.getRegionId());
+            entity.setRegionIdAsRegion(CDef.Region.codeOf(dto.getRegionId()));
         }
         if (needsMapping(dto, dto.getRegionName(), "regionName")) {
             entity.setRegionName(dto.getRegionName());

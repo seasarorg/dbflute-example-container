@@ -70,18 +70,18 @@ public class VendorIdentityOnlyCIQ extends AbstractBsVendorIdentityOnlyCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue getCValueIdentityOnlyId() { return _myCQ.getIdentityOnlyId(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(VendorIdentityOnlyCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(VendorIdentityOnlyCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(VendorIdentityOnlyCQ subQuery)
+    public String keepSpecifyMyselfDerived(VendorIdentityOnlyCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(VendorIdentityOnlyCQ subQuery)
+    public String keepQueryMyselfDerived(VendorIdentityOnlyCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(VendorIdentityOnlyCQ subQuery)
+    public String keepMyselfExists(VendorIdentityOnlyCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(VendorIdentityOnlyCQ subQuery)
+    public String keepMyselfInScope(VendorIdentityOnlyCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

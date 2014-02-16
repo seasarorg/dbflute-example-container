@@ -58,20 +58,20 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberFollowingId implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberFollowing)e).getMemberFollowingId(); }
-        public void write(Entity e, Object v) { ((MemberFollowing)e).setMemberFollowingId(ctl(v)); }
+        public Object read(Entity et) { return ((MemberFollowing)et).getMemberFollowingId(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setMemberFollowingId(ctl(vl)); }
     }
     public static class EpgMyMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberFollowing)e).getMyMemberId(); }
-        public void write(Entity e, Object v) { ((MemberFollowing)e).setMyMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MemberFollowing)et).getMyMemberId(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setMyMemberId(cti(vl)); }
     }
     public static class EpgYourMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberFollowing)e).getYourMemberId(); }
-        public void write(Entity e, Object v) { ((MemberFollowing)e).setYourMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MemberFollowing)et).getYourMemberId(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setYourMemberId(cti(vl)); }
     }
     public static class EpgFollowDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MemberFollowing)e).getFollowDatetime(); }
-        public void write(Entity e, Object v) { ((MemberFollowing)e).setFollowDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MemberFollowing)et).getFollowDatetime(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setFollowDatetime((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -92,7 +92,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", true, "memberFollowingId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_89C70383_6045_42E9_BF40_7DFDE318E31B", false, null, "連番", null, null, null);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", true, "memberFollowingId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C6CE50C3_3B8B_4A91_AFE8_9C8126653514", false, null, "連番", null, null, null);
     protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", true, "myMemberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "気になった人がいて...勇気を振り絞った会員のID。", "memberByMyMemberId", null, null);
     protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", true, "yourMemberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "いきなりのアクションに...ちょっと心揺らいだ会員のID。", "memberByYourMemberId", null, null);
     protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", true, "followDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, false, null, "ふりかえるとちょっと恥ずかしい気持ちになる日時", null, null, null);
@@ -130,12 +130,12 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMemberByMyMemberId() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMyMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_FOLLOWING_MY_MEMBER", "memberByMyMemberId", this, MemberDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "memberFollowingByMyMemberIdList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyMemberId(), MemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_FOLLOWING_MY_MEMBER", "memberByMyMemberId", this, MemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberFollowingByMyMemberIdList");
     }
     public ForeignInfo foreignMemberByYourMemberId() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnYourMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_FOLLOWING_YOUR_MEMBER", "memberByYourMemberId", this, MemberDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "memberFollowingByYourMemberIdList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnYourMemberId(), MemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_FOLLOWING_YOUR_MEMBER", "memberByYourMemberId", this, MemberDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberFollowingByYourMemberIdList");
     }
 
     // -----------------------------------------------------
@@ -168,10 +168,10 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MemberFollowing)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MemberFollowing)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MemberFollowing)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MemberFollowing)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -157,10 +157,10 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, MemberStatus.class);
     }
 
-    protected <ENTITY extends MemberStatus> ENTITY doSelectEntity(final MemberStatusCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends MemberStatus> ENTITY doSelectEntity(final MemberStatusCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, MemberStatusCB>() {
-            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, MemberStatusCB>() {
+            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -186,10 +186,10 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, MemberStatus.class);
     }
 
-    protected <ENTITY extends MemberStatus> ENTITY doSelectEntityWithDeletedCheck(final MemberStatusCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends MemberStatus> ENTITY doSelectEntityWithDeletedCheck(final MemberStatusCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MemberStatusCB>() {
-            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MemberStatusCB>() {
+            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -257,11 +257,11 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, MemberStatus.class);
     }
 
-    protected <ENTITY extends MemberStatus> ListResultBean<ENTITY> doSelectList(MemberStatusCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, MemberStatusCB>() {
-            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends MemberStatus> ListResultBean<ENTITY> doSelectList(MemberStatusCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, MemberStatusCB>() {
+            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -298,11 +298,11 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, MemberStatus.class);
     }
 
-    protected <ENTITY extends MemberStatus> PagingResultBean<ENTITY> doSelectPage(MemberStatusCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, MemberStatusCB>() {
+    protected <ENTITY extends MemberStatus> PagingResultBean<ENTITY> doSelectPage(MemberStatusCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, MemberStatusCB>() {
             public int callbackSelectCount(MemberStatusCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -332,12 +332,12 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, MemberStatus.class);
     }
 
-    protected <ENTITY extends MemberStatus> void doSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<MemberStatus>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, MemberStatusCB>() {
-            public void callbackSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends MemberStatus> void doSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, MemberStatusCB>() {
+            public void callbackSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(MemberStatusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -363,18 +363,18 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends MemberStatusCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends MemberStatusCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends MemberStatusCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends MemberStatusCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -445,17 +445,17 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         if (memberStatusList.isEmpty()) { return; }
         final MemberBhv referrerBhv = xgetBSFLR().select(MemberBhv.class);
         helpLoadReferrerInternally(memberStatusList, loadReferrerOption, new InternalLoadReferrerCallback<MemberStatus, String, MemberCB, Member>() {
-            public String getPKVal(MemberStatus e)
-            { return e.getMemberStatusCode(); }
-            public void setRfLs(MemberStatus e, List<Member> ls)
-            { e.setMemberList(ls); }
+            public String getPKVal(MemberStatus et)
+            { return et.getMemberStatusCode(); }
+            public void setRfLs(MemberStatus et, List<Member> ls)
+            { et.setMemberList(ls); }
             public MemberCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(MemberCB cb, List<String> ls)
             { cb.query().setMemberStatusCode_InScope(ls); }
             public void qyOdFKAsc(MemberCB cb) { cb.query().addOrderBy_MemberStatusCode_Asc(); }
             public void spFKCol(MemberCB cb) { cb.specify().columnMemberStatusCode(); }
             public List<Member> selRfLs(MemberCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(Member e) { return e.getMemberStatusCode(); }
+            public String getFKVal(Member re) { return re.getMemberStatusCode(); }
             public void setlcEt(Member re, MemberStatus le)
             { re.setMemberStatus(le); }
             public String getRfPrNm() { return "memberList"; }
@@ -518,17 +518,17 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         if (memberStatusList.isEmpty()) { return; }
         final MemberLoginBhv referrerBhv = xgetBSFLR().select(MemberLoginBhv.class);
         helpLoadReferrerInternally(memberStatusList, loadReferrerOption, new InternalLoadReferrerCallback<MemberStatus, String, MemberLoginCB, MemberLogin>() {
-            public String getPKVal(MemberStatus e)
-            { return e.getMemberStatusCode(); }
-            public void setRfLs(MemberStatus e, List<MemberLogin> ls)
-            { e.setMemberLoginList(ls); }
+            public String getPKVal(MemberStatus et)
+            { return et.getMemberStatusCode(); }
+            public void setRfLs(MemberStatus et, List<MemberLogin> ls)
+            { et.setMemberLoginList(ls); }
             public MemberLoginCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(MemberLoginCB cb, List<String> ls)
             { cb.query().setLoginMemberStatusCode_InScope(ls); }
             public void qyOdFKAsc(MemberLoginCB cb) { cb.query().addOrderBy_LoginMemberStatusCode_Asc(); }
             public void spFKCol(MemberLoginCB cb) { cb.specify().columnLoginMemberStatusCode(); }
             public List<MemberLogin> selRfLs(MemberLoginCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MemberLogin e) { return e.getLoginMemberStatusCode(); }
+            public String getFKVal(MemberLogin re) { return re.getLoginMemberStatusCode(); }
             public void setlcEt(MemberLogin re, MemberStatus le)
             { re.setMemberStatus(le); }
             public String getRfPrNm() { return "memberLoginList"; }
@@ -549,7 +549,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      */
     public List<String> extractMemberStatusCodeList(List<MemberStatus> memberStatusList) {
         return helpExtractListInternally(memberStatusList, new InternalExtractCallback<MemberStatus, String>() {
-            public String getCV(MemberStatus e) { return e.getMemberStatusCode(); }
+            public String getCV(MemberStatus et) { return et.getMemberStatusCode(); }
         });
     }
 
@@ -560,7 +560,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      */
     public List<Integer> extractDisplayOrderList(List<MemberStatus> memberStatusList) {
         return helpExtractListInternally(memberStatusList, new InternalExtractCallback<MemberStatus, Integer>() {
-            public Integer getCV(MemberStatus e) { return e.getDisplayOrder(); }
+            public Integer getCV(MemberStatus et) { return et.getDisplayOrder(); }
         });
     }
 
@@ -588,24 +588,24 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         doInsert(memberStatus, null);
     }
 
-    protected void doInsert(MemberStatus memberStatus, InsertOption<MemberStatusCB> option) {
+    protected void doInsert(MemberStatus memberStatus, InsertOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatus", memberStatus);
-        prepareInsertOption(option);
-        delegateInsert(memberStatus, option);
+        prepareInsertOption(op);
+        delegateInsert(memberStatus, op);
     }
 
-    protected void prepareInsertOption(InsertOption<MemberStatusCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<MemberStatusCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -634,21 +634,21 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         doUpdate(memberStatus, null);
     }
 
-    protected void doUpdate(MemberStatus memberStatus, final UpdateOption<MemberStatusCB> option) {
+    protected void doUpdate(MemberStatus memberStatus, final UpdateOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatus", memberStatus);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(memberStatus, new InternalUpdateCallback<MemberStatus>() {
-            public int callbackDelegateUpdate(MemberStatus entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(MemberStatus et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<MemberStatusCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<MemberStatusCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -665,14 +665,14 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -688,30 +688,28 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdate(memberStatus, null, null);
     }
 
-    protected void doInesrtOrUpdate(MemberStatus memberStatus, final InsertOption<MemberStatusCB> insertOption, final UpdateOption<MemberStatusCB> updateOption) {
+    protected void doInesrtOrUpdate(MemberStatus memberStatus, final InsertOption<MemberStatusCB> iop, final UpdateOption<MemberStatusCB> uop) {
         helpInsertOrUpdateInternally(memberStatus, new InternalInsertOrUpdateCallback<MemberStatus, MemberStatusCB>() {
-            public void callbackInsert(MemberStatus entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(MemberStatus entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(MemberStatus et) { doInsert(et, iop); }
+            public void callbackUpdate(MemberStatus et) { doUpdate(et, uop); }
             public MemberStatusCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(MemberStatusCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<MemberStatusCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<MemberStatusCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<MemberStatusCB>();
+            uop = uop != null ? uop : new UpdateOption<MemberStatusCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -735,27 +733,27 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         doDelete(memberStatus, null);
     }
 
-    protected void doDelete(MemberStatus memberStatus, final DeleteOption<MemberStatusCB> option) {
+    protected void doDelete(MemberStatus memberStatus, final DeleteOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatus", memberStatus);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(memberStatus, new InternalDeleteCallback<MemberStatus>() {
-            public int callbackDelegateDelete(MemberStatus entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(MemberStatus et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<MemberStatusCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<MemberStatusCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -786,26 +784,26 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<MemberStatus> memberStatusList) {
-        InsertOption<MemberStatusCB> option = createInsertUpdateOption();
-        return doBatchInsert(memberStatusList, option);
+        InsertOption<MemberStatusCB> op = createInsertUpdateOption();
+        return doBatchInsert(memberStatusList, op);
     }
 
-    protected int[] doBatchInsert(List<MemberStatus> memberStatusList, InsertOption<MemberStatusCB> option) {
+    protected int[] doBatchInsert(List<MemberStatus> memberStatusList, InsertOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatusList", memberStatusList);
-        prepareBatchInsertOption(memberStatusList, option);
-        return delegateBatchInsert(memberStatusList, option);
+        prepareBatchInsertOption(memberStatusList, op);
+        return delegateBatchInsert(memberStatusList, op);
     }
 
-    protected void prepareBatchInsertOption(List<MemberStatus> memberStatusList, InsertOption<MemberStatusCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(memberStatusList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<MemberStatus> memberStatusList, InsertOption<MemberStatusCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(memberStatusList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -833,25 +831,25 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MemberStatus> memberStatusList) {
-        UpdateOption<MemberStatusCB> option = createPlainUpdateOption();
-        return doBatchUpdate(memberStatusList, option);
+        UpdateOption<MemberStatusCB> op = createPlainUpdateOption();
+        return doBatchUpdate(memberStatusList, op);
     }
 
-    protected int[] doBatchUpdate(List<MemberStatus> memberStatusList, UpdateOption<MemberStatusCB> option) {
+    protected int[] doBatchUpdate(List<MemberStatus> memberStatusList, UpdateOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatusList", memberStatusList);
-        prepareBatchUpdateOption(memberStatusList, option);
-        return delegateBatchUpdate(memberStatusList, option);
+        prepareBatchUpdateOption(memberStatusList, op);
+        return delegateBatchUpdate(memberStatusList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<MemberStatus> memberStatusList, UpdateOption<MemberStatusCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(memberStatusList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<MemberStatus> memberStatusList, UpdateOption<MemberStatusCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(memberStatusList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -887,8 +885,8 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -902,21 +900,21 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doBatchDelete(memberStatusList, null);
     }
 
-    protected int[] doBatchDelete(List<MemberStatus> memberStatusList, DeleteOption<MemberStatusCB> option) {
+    protected int[] doBatchDelete(List<MemberStatus> memberStatusList, DeleteOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatusList", memberStatusList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(memberStatusList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(memberStatusList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -952,13 +950,12 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<MemberStatus, MemberStatusCB> setupper, InsertOption<MemberStatusCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        MemberStatus entity = new MemberStatus();
-        MemberStatusCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<MemberStatus, MemberStatusCB> sp, InsertOption<MemberStatusCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        MemberStatus e = new MemberStatus();
+        MemberStatusCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected MemberStatusCB createCBForQueryInsert() {
@@ -999,16 +996,16 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(memberStatus, cb, null);
     }
 
-    protected int doQueryUpdate(MemberStatus memberStatus, MemberStatusCB cb, UpdateOption<MemberStatusCB> option) {
+    protected int doQueryUpdate(MemberStatus memberStatus, MemberStatusCB cb, UpdateOption<MemberStatusCB> op) {
         assertObjectNotNull("memberStatus", memberStatus); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(memberStatus, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(memberStatus, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (MemberStatusCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (MemberStatusCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (MemberStatusCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (MemberStatusCB)cb, downcast(op)); }
     }
 
     /**
@@ -1026,16 +1023,16 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(MemberStatusCB cb, DeleteOption<MemberStatusCB> option) {
+    protected int doQueryDelete(MemberStatusCB cb, DeleteOption<MemberStatusCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((MemberStatusCB)cb); }
-        else { return varyingQueryDelete((MemberStatusCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((MemberStatusCB)cb); }
+        else { return varyingQueryDelete((MemberStatusCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1287,29 +1284,29 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     //                                                ------
     protected int delegateSelectCountUniquely(MemberStatusCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(MemberStatusCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends MemberStatus> void delegateSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends MemberStatus> List<ENTITY> delegateSelectList(MemberStatusCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends MemberStatus> void delegateSelectCursor(MemberStatusCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends MemberStatus> List<ENTITY> delegateSelectList(MemberStatusCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(MemberStatus e, InsertOption<MemberStatusCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(MemberStatus e, UpdateOption<MemberStatusCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(MemberStatus e, UpdateOption<MemberStatusCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(MemberStatus e, DeleteOption<MemberStatusCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(MemberStatus e, DeleteOption<MemberStatusCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(MemberStatus et, InsertOption<MemberStatusCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(MemberStatus et, UpdateOption<MemberStatusCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(MemberStatus et, UpdateOption<MemberStatusCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(MemberStatus et, DeleteOption<MemberStatusCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(MemberStatus et, DeleteOption<MemberStatusCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<MemberStatus> ls, InsertOption<MemberStatusCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1327,10 +1324,10 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(MemberStatus e, MemberStatusCB inCB, ConditionBean resCB, InsertOption<MemberStatusCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(MemberStatus e, MemberStatusCB cb, UpdateOption<MemberStatusCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(MemberStatus et, MemberStatusCB inCB, ConditionBean resCB, InsertOption<MemberStatusCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(MemberStatus et, MemberStatusCB cb, UpdateOption<MemberStatusCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(MemberStatusCB cb, DeleteOption<MemberStatusCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1341,7 +1338,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1349,15 +1346,15 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected MemberStatus downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, MemberStatus.class);
+    protected MemberStatus downcast(Entity et) {
+        return helpEntityDowncastInternally(et, MemberStatus.class);
     }
 
     protected MemberStatusCB downcast(ConditionBean cb) {
@@ -1365,27 +1362,27 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<MemberStatus> downcast(List<? extends Entity> entityList) {
-        return (List<MemberStatus>)entityList;
+    protected List<MemberStatus> downcast(List<? extends Entity> ls) {
+        return (List<MemberStatus>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberStatusCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<MemberStatusCB>)option;
+    protected InsertOption<MemberStatusCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<MemberStatusCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberStatusCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<MemberStatusCB>)option;
+    protected UpdateOption<MemberStatusCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<MemberStatusCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberStatusCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<MemberStatusCB>)option;
+    protected DeleteOption<MemberStatusCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<MemberStatusCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberStatus, MemberStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<MemberStatus, MemberStatusCB>)option;
+    protected QueryInsertSetupper<MemberStatus, MemberStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<MemberStatus, MemberStatusCB>)sp;
     }
 }

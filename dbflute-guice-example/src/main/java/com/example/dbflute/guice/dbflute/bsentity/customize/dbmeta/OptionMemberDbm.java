@@ -48,48 +48,40 @@ public class OptionMemberDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((OptionMember)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((OptionMember)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberName((String)vl); }
     }
     public static class EpgBirthdate implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getBirthdate(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setBirthdate((java.util.Date)v); }
+        public Object read(Entity et) { return ((OptionMember)et).getBirthdate(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setBirthdate((java.util.Date)vl); }
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getFormalizedDatetime(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setFormalizedDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((OptionMember)et).getFormalizedDatetime(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
     }
-    public class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getMemberStatusCode(); }
-        public void write(Entity e, Object v) {
-            ColumnInfo col = columnMemberStatusCode();
-            ccls(col, v);
-            ((OptionMember)e).setMemberStatusCodeAsMemberStatus((CDef.MemberStatus)gcls(col, v));
-        }
+    public static class EpgMemberStatusCode implements PropertyGateway {
+        public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusCode((String)vl); }
     }
     public static class EpgStatusDisplayOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getStatusDisplayOrder(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setStatusDisplayOrder(cti(v)); }
+        public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setStatusDisplayOrder(cti(vl)); }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getMemberStatusName(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setMemberStatusName((String)v); }
+        public Object read(Entity et) { return ((OptionMember)et).getMemberStatusName(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusName((String)vl); }
     }
-    public class EpgDummyFlg implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getDummyFlg(); }
-        public void write(Entity e, Object v) {
-            ColumnInfo col = columnDummyFlg();
-            ccls(col, v);
-            ((OptionMember)e).setDummyFlgAsFlg((CDef.Flg)gcls(col, v));
-        }
+    public static class EpgDummyFlg implements PropertyGateway {
+        public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setDummyFlg(cti(vl)); }
     }
     public static class EpgDummyNoflg implements PropertyGateway {
-        public Object read(Entity e) { return ((OptionMember)e).getDummyNoflg(); }
-        public void write(Entity e, Object v) { ((OptionMember)e).setDummyNoflg(cti(v)); }
+        public Object read(Entity et) { return ((OptionMember)et).getDummyNoflg(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setDummyNoflg(cti(vl)); }
     }
 
     // ===================================================================================
@@ -190,10 +182,10 @@ public class OptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((OptionMember)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((OptionMember)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((OptionMember)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((OptionMember)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

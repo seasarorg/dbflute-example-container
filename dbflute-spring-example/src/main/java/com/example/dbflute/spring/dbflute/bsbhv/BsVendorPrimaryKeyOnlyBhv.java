@@ -154,10 +154,10 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectEntity(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntity(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntity(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectEntityWithDeletedCheck(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntityWithDeletedCheck(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntityWithDeletedCheck(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -254,11 +254,11 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectList(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> ListResultBean<ENTITY> doSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends VendorPrimaryKeyOnly> ListResultBean<ENTITY> doSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -295,11 +295,11 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectPage(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> PagingResultBean<ENTITY> doSelectPage(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
+    protected <ENTITY extends VendorPrimaryKeyOnly> PagingResultBean<ENTITY> doSelectPage(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
             public int callbackSelectCount(VendorPrimaryKeyOnlyCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -329,12 +329,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         doSelectCursor(cb, entityRowHandler, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> void doSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<VendorPrimaryKeyOnly>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public void callbackSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends VendorPrimaryKeyOnly> void doSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
+            public void callbackSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -360,18 +360,18 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends VendorPrimaryKeyOnlyCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends VendorPrimaryKeyOnlyCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends VendorPrimaryKeyOnlyCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends VendorPrimaryKeyOnlyCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -397,7 +397,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      */
     public List<Long> extractPrimaryKeyOnlyIdList(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList) {
         return helpExtractListInternally(vendorPrimaryKeyOnlyList, new InternalExtractCallback<VendorPrimaryKeyOnly, Long>() {
-            public Long getCV(VendorPrimaryKeyOnly e) { return e.getPrimaryKeyOnlyId(); }
+            public Long getCV(VendorPrimaryKeyOnly et) { return et.getPrimaryKeyOnlyId(); }
         });
     }
 
@@ -425,24 +425,24 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         doInsert(vendorPrimaryKeyOnly, null);
     }
 
-    protected void doInsert(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, InsertOption<VendorPrimaryKeyOnlyCB> option) {
+    protected void doInsert(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, InsertOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnly", vendorPrimaryKeyOnly);
-        prepareInsertOption(option);
-        delegateInsert(vendorPrimaryKeyOnly, option);
+        prepareInsertOption(op);
+        delegateInsert(vendorPrimaryKeyOnly, op);
     }
 
-    protected void prepareInsertOption(InsertOption<VendorPrimaryKeyOnlyCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<VendorPrimaryKeyOnlyCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -471,21 +471,21 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         doUpdate(vendorPrimaryKeyOnly, null);
     }
 
-    protected void doUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final UpdateOption<VendorPrimaryKeyOnlyCB> option) {
+    protected void doUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final UpdateOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnly", vendorPrimaryKeyOnly);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(vendorPrimaryKeyOnly, new InternalUpdateCallback<VendorPrimaryKeyOnly>() {
-            public int callbackDelegateUpdate(VendorPrimaryKeyOnly entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(VendorPrimaryKeyOnly et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<VendorPrimaryKeyOnlyCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<VendorPrimaryKeyOnlyCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -502,14 +502,14 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -525,30 +525,28 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         doInesrtOrUpdate(vendorPrimaryKeyOnly, null, null);
     }
 
-    protected void doInesrtOrUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final InsertOption<VendorPrimaryKeyOnlyCB> insertOption, final UpdateOption<VendorPrimaryKeyOnlyCB> updateOption) {
+    protected void doInesrtOrUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final InsertOption<VendorPrimaryKeyOnlyCB> iop, final UpdateOption<VendorPrimaryKeyOnlyCB> uop) {
         helpInsertOrUpdateInternally(vendorPrimaryKeyOnly, new InternalInsertOrUpdateCallback<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB>() {
-            public void callbackInsert(VendorPrimaryKeyOnly entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(VendorPrimaryKeyOnly entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(VendorPrimaryKeyOnly et) { doInsert(et, iop); }
+            public void callbackUpdate(VendorPrimaryKeyOnly et) { doUpdate(et, uop); }
             public VendorPrimaryKeyOnlyCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(VendorPrimaryKeyOnlyCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<VendorPrimaryKeyOnlyCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<VendorPrimaryKeyOnlyCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<VendorPrimaryKeyOnlyCB>();
+            uop = uop != null ? uop : new UpdateOption<VendorPrimaryKeyOnlyCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -572,27 +570,27 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         doDelete(vendorPrimaryKeyOnly, null);
     }
 
-    protected void doDelete(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final DeleteOption<VendorPrimaryKeyOnlyCB> option) {
+    protected void doDelete(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, final DeleteOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnly", vendorPrimaryKeyOnly);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(vendorPrimaryKeyOnly, new InternalDeleteCallback<VendorPrimaryKeyOnly>() {
-            public int callbackDelegateDelete(VendorPrimaryKeyOnly entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(VendorPrimaryKeyOnly et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<VendorPrimaryKeyOnlyCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<VendorPrimaryKeyOnlyCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -623,26 +621,26 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList) {
-        InsertOption<VendorPrimaryKeyOnlyCB> option = createInsertUpdateOption();
-        return doBatchInsert(vendorPrimaryKeyOnlyList, option);
+        InsertOption<VendorPrimaryKeyOnlyCB> op = createInsertUpdateOption();
+        return doBatchInsert(vendorPrimaryKeyOnlyList, op);
     }
 
-    protected int[] doBatchInsert(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, InsertOption<VendorPrimaryKeyOnlyCB> option) {
+    protected int[] doBatchInsert(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, InsertOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnlyList", vendorPrimaryKeyOnlyList);
-        prepareBatchInsertOption(vendorPrimaryKeyOnlyList, option);
-        return delegateBatchInsert(vendorPrimaryKeyOnlyList, option);
+        prepareBatchInsertOption(vendorPrimaryKeyOnlyList, op);
+        return delegateBatchInsert(vendorPrimaryKeyOnlyList, op);
     }
 
-    protected void prepareBatchInsertOption(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, InsertOption<VendorPrimaryKeyOnlyCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorPrimaryKeyOnlyList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, InsertOption<VendorPrimaryKeyOnlyCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorPrimaryKeyOnlyList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -670,25 +668,25 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList) {
-        UpdateOption<VendorPrimaryKeyOnlyCB> option = createPlainUpdateOption();
-        return doBatchUpdate(vendorPrimaryKeyOnlyList, option);
+        UpdateOption<VendorPrimaryKeyOnlyCB> op = createPlainUpdateOption();
+        return doBatchUpdate(vendorPrimaryKeyOnlyList, op);
     }
 
-    protected int[] doBatchUpdate(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, UpdateOption<VendorPrimaryKeyOnlyCB> option) {
+    protected int[] doBatchUpdate(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, UpdateOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnlyList", vendorPrimaryKeyOnlyList);
-        prepareBatchUpdateOption(vendorPrimaryKeyOnlyList, option);
-        return delegateBatchUpdate(vendorPrimaryKeyOnlyList, option);
+        prepareBatchUpdateOption(vendorPrimaryKeyOnlyList, op);
+        return delegateBatchUpdate(vendorPrimaryKeyOnlyList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, UpdateOption<VendorPrimaryKeyOnlyCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorPrimaryKeyOnlyList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, UpdateOption<VendorPrimaryKeyOnlyCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorPrimaryKeyOnlyList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -724,8 +722,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -739,21 +737,21 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doBatchDelete(vendorPrimaryKeyOnlyList, null);
     }
 
-    protected int[] doBatchDelete(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, DeleteOption<VendorPrimaryKeyOnlyCB> option) {
+    protected int[] doBatchDelete(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList, DeleteOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnlyList", vendorPrimaryKeyOnlyList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(vendorPrimaryKeyOnlyList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(vendorPrimaryKeyOnlyList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -789,13 +787,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> setupper, InsertOption<VendorPrimaryKeyOnlyCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        VendorPrimaryKeyOnly entity = new VendorPrimaryKeyOnly();
-        VendorPrimaryKeyOnlyCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> sp, InsertOption<VendorPrimaryKeyOnlyCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        VendorPrimaryKeyOnly e = new VendorPrimaryKeyOnly();
+        VendorPrimaryKeyOnlyCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected VendorPrimaryKeyOnlyCB createCBForQueryInsert() {
@@ -836,16 +833,16 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doQueryUpdate(vendorPrimaryKeyOnly, cb, null);
     }
 
-    protected int doQueryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB cb, UpdateOption<VendorPrimaryKeyOnlyCB> option) {
+    protected int doQueryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB cb, UpdateOption<VendorPrimaryKeyOnlyCB> op) {
         assertObjectNotNull("vendorPrimaryKeyOnly", vendorPrimaryKeyOnly); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorPrimaryKeyOnly, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorPrimaryKeyOnly, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (VendorPrimaryKeyOnlyCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (VendorPrimaryKeyOnlyCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (VendorPrimaryKeyOnlyCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (VendorPrimaryKeyOnlyCB)cb, downcast(op)); }
     }
 
     /**
@@ -863,16 +860,16 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(VendorPrimaryKeyOnlyCB cb, DeleteOption<VendorPrimaryKeyOnlyCB> option) {
+    protected int doQueryDelete(VendorPrimaryKeyOnlyCB cb, DeleteOption<VendorPrimaryKeyOnlyCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((VendorPrimaryKeyOnlyCB)cb); }
-        else { return varyingQueryDelete((VendorPrimaryKeyOnlyCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((VendorPrimaryKeyOnlyCB)cb); }
+        else { return varyingQueryDelete((VendorPrimaryKeyOnlyCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1124,29 +1121,29 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     //                                                ------
     protected int delegateSelectCountUniquely(VendorPrimaryKeyOnlyCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(VendorPrimaryKeyOnlyCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends VendorPrimaryKeyOnly> void delegateSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends VendorPrimaryKeyOnly> List<ENTITY> delegateSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends VendorPrimaryKeyOnly> void delegateSelectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends VendorPrimaryKeyOnly> List<ENTITY> delegateSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(VendorPrimaryKeyOnly e, InsertOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(VendorPrimaryKeyOnly e, UpdateOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(VendorPrimaryKeyOnly e, UpdateOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(VendorPrimaryKeyOnly e, DeleteOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(VendorPrimaryKeyOnly e, DeleteOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(VendorPrimaryKeyOnly et, InsertOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(VendorPrimaryKeyOnly et, UpdateOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(VendorPrimaryKeyOnly et, UpdateOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(VendorPrimaryKeyOnly et, DeleteOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(VendorPrimaryKeyOnly et, DeleteOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<VendorPrimaryKeyOnly> ls, InsertOption<VendorPrimaryKeyOnlyCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1164,10 +1161,10 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(VendorPrimaryKeyOnly e, VendorPrimaryKeyOnlyCB inCB, ConditionBean resCB, InsertOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(VendorPrimaryKeyOnly e, VendorPrimaryKeyOnlyCB cb, UpdateOption<VendorPrimaryKeyOnlyCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(VendorPrimaryKeyOnly et, VendorPrimaryKeyOnlyCB inCB, ConditionBean resCB, InsertOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(VendorPrimaryKeyOnly et, VendorPrimaryKeyOnlyCB cb, UpdateOption<VendorPrimaryKeyOnlyCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(VendorPrimaryKeyOnlyCB cb, DeleteOption<VendorPrimaryKeyOnlyCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1178,7 +1175,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1186,15 +1183,15 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected VendorPrimaryKeyOnly downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, VendorPrimaryKeyOnly.class);
+    protected VendorPrimaryKeyOnly downcast(Entity et) {
+        return helpEntityDowncastInternally(et, VendorPrimaryKeyOnly.class);
     }
 
     protected VendorPrimaryKeyOnlyCB downcast(ConditionBean cb) {
@@ -1202,27 +1199,27 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     }
 
     @SuppressWarnings("unchecked")
-    protected List<VendorPrimaryKeyOnly> downcast(List<? extends Entity> entityList) {
-        return (List<VendorPrimaryKeyOnly>)entityList;
+    protected List<VendorPrimaryKeyOnly> downcast(List<? extends Entity> ls) {
+        return (List<VendorPrimaryKeyOnly>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<VendorPrimaryKeyOnlyCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<VendorPrimaryKeyOnlyCB>)option;
+    protected InsertOption<VendorPrimaryKeyOnlyCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<VendorPrimaryKeyOnlyCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorPrimaryKeyOnlyCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<VendorPrimaryKeyOnlyCB>)option;
+    protected UpdateOption<VendorPrimaryKeyOnlyCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<VendorPrimaryKeyOnlyCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorPrimaryKeyOnlyCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<VendorPrimaryKeyOnlyCB>)option;
+    protected DeleteOption<VendorPrimaryKeyOnlyCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<VendorPrimaryKeyOnlyCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB>)option;
+    protected QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB>)sp;
     }
 }

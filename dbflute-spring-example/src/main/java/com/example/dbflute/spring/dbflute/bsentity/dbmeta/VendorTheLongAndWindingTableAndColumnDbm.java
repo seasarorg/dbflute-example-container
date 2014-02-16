@@ -58,20 +58,20 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgTheLongAndWindingTableAndColumnId implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorTheLongAndWindingTableAndColumn)e).getTheLongAndWindingTableAndColumnId(); }
-        public void write(Entity e, Object v) { ((VendorTheLongAndWindingTableAndColumn)e).setTheLongAndWindingTableAndColumnId(ctl(v)); }
+        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnId(); }
+        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnId(ctl(vl)); }
     }
     public static class EpgTheLongAndWindingTableAndColumnName implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorTheLongAndWindingTableAndColumn)e).getTheLongAndWindingTableAndColumnName(); }
-        public void write(Entity e, Object v) { ((VendorTheLongAndWindingTableAndColumn)e).setTheLongAndWindingTableAndColumnName((String)v); }
+        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnName(); }
+        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnName((String)vl); }
     }
     public static class EpgShortName implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorTheLongAndWindingTableAndColumn)e).getShortName(); }
-        public void write(Entity e, Object v) { ((VendorTheLongAndWindingTableAndColumn)e).setShortName((String)v); }
+        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getShortName(); }
+        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setShortName((String)vl); }
     }
     public static class EpgShortSize implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorTheLongAndWindingTableAndColumn)e).getShortSize(); }
-        public void write(Entity e, Object v) { ((VendorTheLongAndWindingTableAndColumn)e).setShortSize(cti(v)); }
+        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getShortSize(); }
+        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setShortSize(cti(vl)); }
     }
 
     // ===================================================================================
@@ -130,8 +130,8 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerVendorTheLongAndWindingTableAndColumnRefList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnTheLongAndWindingTableAndColumnId(), VendorTheLongAndWindingTableAndColumnRefDbm.getInstance().columnTheLongAndWindingTableAndColumnId());
-        return cri("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumnRefList", this, VendorTheLongAndWindingTableAndColumnRefDbm.getInstance(), map, false, "vendorTheLongAndWindingTableAndColumn");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnTheLongAndWindingTableAndColumnId(), VendorTheLongAndWindingTableAndColumnRefDbm.getInstance().columnTheLongAndWindingTableAndColumnId());
+        return cri("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumnRefList", this, VendorTheLongAndWindingTableAndColumnRefDbm.getInstance(), mp, false, "vendorTheLongAndWindingTableAndColumn");
     }
 
     // ===================================================================================
@@ -159,10 +159,10 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((VendorTheLongAndWindingTableAndColumn)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((VendorTheLongAndWindingTableAndColumn)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((VendorTheLongAndWindingTableAndColumn)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((VendorTheLongAndWindingTableAndColumn)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -41,12 +41,12 @@ public class Vendor$DollarDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgVendor$DollarId implements PropertyGateway {
-        public Object read(Entity e) { return ((Vendor$Dollar)e).getVendor$DollarId(); }
-        public void write(Entity e, Object v) { ((Vendor$Dollar)e).setVendor$DollarId(cti(v)); }
+        public Object read(Entity et) { return ((Vendor$Dollar)et).getVendor$DollarId(); }
+        public void write(Entity et, Object vl) { ((Vendor$Dollar)et).setVendor$DollarId(cti(vl)); }
     }
     public static class EpgVendor$DollarName implements PropertyGateway {
-        public Object read(Entity e) { return ((Vendor$Dollar)e).getVendor$DollarName(); }
-        public void write(Entity e, Object v) { ((Vendor$Dollar)e).setVendor$DollarName((String)v); }
+        public Object read(Entity et) { return ((Vendor$Dollar)et).getVendor$DollarName(); }
+        public void write(Entity et, Object vl) { ((Vendor$Dollar)et).setVendor$DollarName((String)vl); }
     }
 
     // ===================================================================================
@@ -124,10 +124,10 @@ public class Vendor$DollarDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((Vendor$Dollar)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((Vendor$Dollar)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((Vendor$Dollar)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((Vendor$Dollar)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

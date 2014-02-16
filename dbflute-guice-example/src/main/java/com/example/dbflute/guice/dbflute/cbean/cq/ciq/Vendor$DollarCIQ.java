@@ -71,18 +71,18 @@ public class Vendor$DollarCIQ extends AbstractBsVendor$DollarCQ {
     //                                                                ====================
     protected ConditionValue getCValueVendor$DollarId() { return _myCQ.getVendor$DollarId(); }
     protected ConditionValue getCValueVendor$DollarName() { return _myCQ.getVendor$DollarName(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(Vendor$DollarCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(Vendor$DollarCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(Vendor$DollarCQ subQuery)
+    public String keepSpecifyMyselfDerived(Vendor$DollarCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(Vendor$DollarCQ subQuery)
+    public String keepQueryMyselfDerived(Vendor$DollarCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(Vendor$DollarCQ subQuery)
+    public String keepMyselfExists(Vendor$DollarCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(Vendor$DollarCQ subQuery)
+    public String keepMyselfInScope(Vendor$DollarCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

@@ -103,18 +103,18 @@ public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
     protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
     protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MemberAddressCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MemberAddressCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MemberAddressCQ subQuery)
+    public String keepSpecifyMyselfDerived(MemberAddressCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MemberAddressCQ subQuery)
+    public String keepQueryMyselfDerived(MemberAddressCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MemberAddressCQ subQuery)
+    public String keepMyselfExists(MemberAddressCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberAddressCQ subQuery)
+    public String keepMyselfInScope(MemberAddressCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

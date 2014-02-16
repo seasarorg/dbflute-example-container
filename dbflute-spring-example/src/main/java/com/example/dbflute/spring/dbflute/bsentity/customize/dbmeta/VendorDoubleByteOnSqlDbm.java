@@ -57,16 +57,16 @@ public class VendorDoubleByteOnSqlDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorDoubleByteOnSql)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((VendorDoubleByteOnSql)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((VendorDoubleByteOnSql)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((VendorDoubleByteOnSql)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberNameWithSpace implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorDoubleByteOnSql)e).getMemberNameWithSpace(); }
-        public void write(Entity e, Object v) { ((VendorDoubleByteOnSql)e).setMemberNameWithSpace((String)v); }
+        public Object read(Entity et) { return ((VendorDoubleByteOnSql)et).getMemberNameWithSpace(); }
+        public void write(Entity et, Object vl) { ((VendorDoubleByteOnSql)et).setMemberNameWithSpace((String)vl); }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((VendorDoubleByteOnSql)e).getMemberStatusName(); }
-        public void write(Entity e, Object v) { ((VendorDoubleByteOnSql)e).setMemberStatusName((String)v); }
+        public Object read(Entity et) { return ((VendorDoubleByteOnSql)et).getMemberStatusName(); }
+        public void write(Entity et, Object vl) { ((VendorDoubleByteOnSql)et).setMemberStatusName((String)vl); }
     }
 
     // ===================================================================================
@@ -149,10 +149,10 @@ public class VendorDoubleByteOnSqlDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((VendorDoubleByteOnSql)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((VendorDoubleByteOnSql)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((VendorDoubleByteOnSql)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((VendorDoubleByteOnSql)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -56,12 +56,12 @@ public class RegionDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgRegionId implements PropertyGateway {
-        public Object read(Entity e) { return ((Region)e).getRegionId(); }
-        public void write(Entity e, Object v) { ((Region)e).setRegionId(cti(v)); }
+        public Object read(Entity et) { return ((Region)et).getRegionId(); }
+        public void write(Entity et, Object vl) { ((Region)et).setRegionId(cti(vl)); }
     }
     public static class EpgRegionName implements PropertyGateway {
-        public Object read(Entity e) { return ((Region)e).getRegionName(); }
-        public void write(Entity e, Object v) { ((Region)e).setRegionName((String)v); }
+        public Object read(Entity et) { return ((Region)et).getRegionName(); }
+        public void write(Entity et, Object vl) { ((Region)et).setRegionName((String)vl); }
     }
 
     // ===================================================================================
@@ -118,8 +118,8 @@ public class RegionDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerMemberAddressList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnRegionId(), MemberAddressDbm.getInstance().columnRegionId());
-        return cri("FK_MEMBER_ADDRESS_REGION", "memberAddressList", this, MemberAddressDbm.getInstance(), map, false, "region");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRegionId(), MemberAddressDbm.getInstance().columnRegionId());
+        return cri("FK_MEMBER_ADDRESS_REGION", "memberAddressList", this, MemberAddressDbm.getInstance(), mp, false, "region");
     }
 
     // ===================================================================================
@@ -147,10 +147,10 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((Region)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((Region)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((Region)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((Region)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

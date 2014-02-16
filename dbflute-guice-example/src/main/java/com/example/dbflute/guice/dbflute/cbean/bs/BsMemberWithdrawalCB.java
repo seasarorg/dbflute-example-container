@@ -348,7 +348,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
          */
         public HpSpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON}
+         * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnWithdrawalReasonCode() { return doColumn("WITHDRAWAL_REASON_CODE"); }
@@ -448,8 +448,8 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
         public HpSDRFunction<MemberWithdrawalCB, MemberWithdrawalCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberWithdrawalCB, MemberWithdrawalCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberWithdrawalCB, MemberWithdrawalCQ>() {
-                public void setup(String function, SubQuery<MemberWithdrawalCB> subQuery, MemberWithdrawalCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MemberWithdrawalCB> sq, MemberWithdrawalCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

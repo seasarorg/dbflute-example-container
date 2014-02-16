@@ -82,25 +82,25 @@ public class ServiceRankCIQ extends AbstractBsServiceRankCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object pv)
+    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueServiceRankName() { return _myCQ.getServiceRankName(); }
     protected ConditionValue getCValueServicePointIncidence() { return _myCQ.getServicePointIncidence(); }
     protected ConditionValue getCValueNewAcceptableFlg() { return _myCQ.getNewAcceptableFlg(); }
     protected ConditionValue getCValueDescription() { return _myCQ.getDescription(); }
     protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(ServiceRankCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(ServiceRankCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(ServiceRankCQ subQuery)
+    public String keepSpecifyMyselfDerived(ServiceRankCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(ServiceRankCQ subQuery)
+    public String keepQueryMyselfDerived(ServiceRankCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(ServiceRankCQ subQuery)
+    public String keepMyselfExists(ServiceRankCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(ServiceRankCQ subQuery)
+    public String keepMyselfInScope(ServiceRankCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

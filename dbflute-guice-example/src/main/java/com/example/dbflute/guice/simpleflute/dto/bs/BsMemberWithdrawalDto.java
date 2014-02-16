@@ -5,6 +5,7 @@ import java.util.*;
 
 import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
@@ -58,7 +59,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
     @JsonKey
     protected Integer _memberId;
 
-    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} */
+    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} */
     @JsonKey
     protected String _withdrawalReasonCode;
 
@@ -100,6 +101,110 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
     //                                                                         Constructor
     //                                                                         ===========
     public BsMemberWithdrawalDto() {
+    }
+
+    // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br />
+     * reason for member withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public void setWithdrawalReasonCodeAsWithdrawalReason(AppCDef.WithdrawalReason cdef) {
+        setWithdrawalReasonCode(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br />
+     * reason for member withdrawal
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public AppCDef.WithdrawalReason getWithdrawalReasonCodeAsWithdrawalReason() {
+        return AppCDef.WithdrawalReason.codeOf(getWithdrawalReasonCode());
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of withdrawalReasonCode as Sit. <br />
+     * SIT: サイトが使いにくいから
+     */
+    public void setWithdrawalReasonCode_Sit() {
+        setWithdrawalReasonCodeAsWithdrawalReason(AppCDef.WithdrawalReason.Sit);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Prd. <br />
+     * PRD: 商品に魅力がないから
+     */
+    public void setWithdrawalReasonCode_Prd() {
+        setWithdrawalReasonCodeAsWithdrawalReason(AppCDef.WithdrawalReason.Prd);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Frt. <br />
+     * FRT: フリテンだから
+     */
+    public void setWithdrawalReasonCode_Frt() {
+        setWithdrawalReasonCodeAsWithdrawalReason(AppCDef.WithdrawalReason.Frt);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Oth. <br />
+     * OTH: その他理由
+     */
+    public void setWithdrawalReasonCode_Oth() {
+        setWithdrawalReasonCodeAsWithdrawalReason(AppCDef.WithdrawalReason.Oth);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of withdrawalReasonCode 'Sit'? <br />
+     * SIT: サイトが使いにくいから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeSit() {
+        AppCDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(AppCDef.WithdrawalReason.Sit) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode 'Prd'? <br />
+     * PRD: 商品に魅力がないから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodePrd() {
+        AppCDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(AppCDef.WithdrawalReason.Prd) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode 'Frt'? <br />
+     * FRT: フリテンだから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeFrt() {
+        AppCDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(AppCDef.WithdrawalReason.Frt) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode 'Oth'? <br />
+     * OTH: その他理由
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeOth() {
+        AppCDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(AppCDef.WithdrawalReason.Oth) : false;
     }
 
     // ===================================================================================
@@ -213,7 +318,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} <br />
+     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br />
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public String getWithdrawalReasonCode() {
@@ -221,7 +326,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} <br />
+     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br />
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {

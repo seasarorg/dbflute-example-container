@@ -11,6 +11,7 @@ import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
@@ -220,7 +221,7 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
             entity.setAddress(dto.getAddress());
         }
         if (needsMapping(dto, dto.getRegionId(), "regionId")) {
-            entity.setRegionId(dto.getRegionId());
+            entity.setRegionIdAsRegion(CDef.Region.codeOf(dto.getRegionId()));
         }
         if (needsMapping(dto, dto.getRegisterDatetime(), "registerDatetime")) {
             entity.setRegisterDatetime(dto.getRegisterDatetime());

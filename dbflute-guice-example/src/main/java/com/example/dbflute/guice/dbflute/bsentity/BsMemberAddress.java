@@ -10,6 +10,7 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
@@ -99,7 +100,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     /** (住所)ADDRESS: {NotNull, VARCHAR(200)} */
     protected String _address;
 
-    /** (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} */
+    /** (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} */
     protected Integer _regionId;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
@@ -167,6 +168,115 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         return true;
     }
 
+    // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of regionId as the classification of Region. <br />
+     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
+     * mainly region of member address
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.Region getRegionIdAsRegion() {
+        return CDef.Region.codeOf(getRegionId());
+    }
+
+    /**
+     * Set the value of regionId as the classification of Region. <br />
+     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
+     * mainly region of member address
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setRegionIdAsRegion(CDef.Region cdef) {
+        setRegionId(cdef != null ? InternalUtil.toNumber(cdef.code(), Integer.class) : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of regionId as America (1). <br />
+     * AMERICA
+     */
+    public void setRegionId_America() {
+        setRegionIdAsRegion(CDef.Region.America);
+    }
+
+    /**
+     * Set the value of regionId as Canada (2). <br />
+     * CANADA
+     */
+    public void setRegionId_Canada() {
+        setRegionIdAsRegion(CDef.Region.Canada);
+    }
+
+    /**
+     * Set the value of regionId as China (3). <br />
+     * CHINA
+     */
+    public void setRegionId_China() {
+        setRegionIdAsRegion(CDef.Region.China);
+    }
+
+    /**
+     * Set the value of regionId as Chiba (4). <br />
+     * CHIBA
+     */
+    public void setRegionId_Chiba() {
+        setRegionIdAsRegion(CDef.Region.Chiba);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of regionId America? <br />
+     * AMERICA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdAmerica() {
+        CDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(CDef.Region.America) : false;
+    }
+
+    /**
+     * Is the value of regionId Canada? <br />
+     * CANADA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdCanada() {
+        CDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(CDef.Region.Canada) : false;
+    }
+
+    /**
+     * Is the value of regionId China? <br />
+     * CHINA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdChina() {
+        CDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(CDef.Region.China) : false;
+    }
+
+    /**
+     * Is the value of regionId Chiba? <br />
+     * CHIBA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdChiba() {
+        CDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(CDef.Region.Chiba) : false;
+    }
+
+    // ===================================================================================
+    //                                                           Classification Name/Alias
+    //                                                           =========================
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -498,7 +608,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
@@ -506,7 +616,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     public void setRegionId(Integer regionId) {

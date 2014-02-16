@@ -92,18 +92,18 @@ public class VendorTheLongAndWindingTableAndColumnRefCIQ extends AbstractBsVendo
     { return _myCQ.keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(sq); }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefDate() { return _myCQ.getTheLongAndWindingTableAndColumnRefDate(); }
     protected ConditionValue getCValueShortDate() { return _myCQ.getShortDate(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ subQuery)
+    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ subQuery)
+    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ subQuery)
+    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ subQuery)
+    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

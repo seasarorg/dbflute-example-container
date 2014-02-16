@@ -96,57 +96,57 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
 
     protected Map<String, MemberAddressCQ> _regionId_ExistsReferrer_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_ExistsReferrer_MemberAddressList() { return _regionId_ExistsReferrer_MemberAddressListMap; }
-    public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_ExistsReferrer_MemberAddressListMap == null) { _regionId_ExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_ExistsReferrer_MemberAddressListMap.size() + 1);
-        _regionId_ExistsReferrer_MemberAddressListMap.put(key, subQuery); return "regionId_ExistsReferrer_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_ExistsReferrer_MemberAddressListMap.size() + 1);
+        _regionId_ExistsReferrer_MemberAddressListMap.put(ky, sq); return "regionId_ExistsReferrer_MemberAddressList." + ky;
     }
 
     protected Map<String, MemberAddressCQ> _regionId_NotExistsReferrer_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_NotExistsReferrer_MemberAddressList() { return _regionId_NotExistsReferrer_MemberAddressListMap; }
-    public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_NotExistsReferrer_MemberAddressListMap == null) { _regionId_NotExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_NotExistsReferrer_MemberAddressListMap.size() + 1);
-        _regionId_NotExistsReferrer_MemberAddressListMap.put(key, subQuery); return "regionId_NotExistsReferrer_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_NotExistsReferrer_MemberAddressListMap.size() + 1);
+        _regionId_NotExistsReferrer_MemberAddressListMap.put(ky, sq); return "regionId_NotExistsReferrer_MemberAddressList." + ky;
     }
 
     protected Map<String, MemberAddressCQ> _regionId_SpecifyDerivedReferrer_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_SpecifyDerivedReferrer_MemberAddressList() { return _regionId_SpecifyDerivedReferrer_MemberAddressListMap; }
-    public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_SpecifyDerivedReferrer_MemberAddressListMap == null) { _regionId_SpecifyDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_SpecifyDerivedReferrer_MemberAddressListMap.size() + 1);
-        _regionId_SpecifyDerivedReferrer_MemberAddressListMap.put(key, subQuery); return "regionId_SpecifyDerivedReferrer_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_SpecifyDerivedReferrer_MemberAddressListMap.size() + 1);
+        _regionId_SpecifyDerivedReferrer_MemberAddressListMap.put(ky, sq); return "regionId_SpecifyDerivedReferrer_MemberAddressList." + ky;
     }
 
     protected Map<String, MemberAddressCQ> _regionId_InScopeRelation_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_InScopeRelation_MemberAddressList() { return _regionId_InScopeRelation_MemberAddressListMap; }
-    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_InScopeRelation_MemberAddressListMap == null) { _regionId_InScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_InScopeRelation_MemberAddressListMap.size() + 1);
-        _regionId_InScopeRelation_MemberAddressListMap.put(key, subQuery); return "regionId_InScopeRelation_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_InScopeRelation_MemberAddressListMap.size() + 1);
+        _regionId_InScopeRelation_MemberAddressListMap.put(ky, sq); return "regionId_InScopeRelation_MemberAddressList." + ky;
     }
 
     protected Map<String, MemberAddressCQ> _regionId_NotInScopeRelation_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_NotInScopeRelation_MemberAddressList() { return _regionId_NotInScopeRelation_MemberAddressListMap; }
-    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_NotInScopeRelation_MemberAddressListMap == null) { _regionId_NotInScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_NotInScopeRelation_MemberAddressListMap.size() + 1);
-        _regionId_NotInScopeRelation_MemberAddressListMap.put(key, subQuery); return "regionId_NotInScopeRelation_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_NotInScopeRelation_MemberAddressListMap.size() + 1);
+        _regionId_NotInScopeRelation_MemberAddressListMap.put(ky, sq); return "regionId_NotInScopeRelation_MemberAddressList." + ky;
     }
 
     protected Map<String, MemberAddressCQ> _regionId_QueryDerivedReferrer_MemberAddressListMap;
     public Map<String, MemberAddressCQ> getRegionId_QueryDerivedReferrer_MemberAddressList() { return _regionId_QueryDerivedReferrer_MemberAddressListMap; }
-    public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ subQuery) {
+    public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq) {
         if (_regionId_QueryDerivedReferrer_MemberAddressListMap == null) { _regionId_QueryDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_regionId_QueryDerivedReferrer_MemberAddressListMap.size() + 1);
-        _regionId_QueryDerivedReferrer_MemberAddressListMap.put(key, subQuery); return "regionId_QueryDerivedReferrer_MemberAddressList." + key;
+        String ky = "subQueryMapKey" + (_regionId_QueryDerivedReferrer_MemberAddressListMap.size() + 1);
+        _regionId_QueryDerivedReferrer_MemberAddressListMap.put(ky, sq); return "regionId_QueryDerivedReferrer_MemberAddressList." + ky;
     }
     protected Map<String, Object> _regionId_QueryDerivedReferrer_MemberAddressListParameterMap;
     public Map<String, Object> getRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return _regionId_QueryDerivedReferrer_MemberAddressListParameterMap; }
-    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object parameterValue) {
+    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object vl) {
         if (_regionId_QueryDerivedReferrer_MemberAddressListParameterMap == null) { _regionId_QueryDerivedReferrer_MemberAddressListParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_regionId_QueryDerivedReferrer_MemberAddressListParameterMap.size() + 1);
-        _regionId_QueryDerivedReferrer_MemberAddressListParameterMap.put(key, parameterValue); return "regionId_QueryDerivedReferrer_MemberAddressListParameter." + key;
+        String ky = "subQueryParameterKey" + (_regionId_QueryDerivedReferrer_MemberAddressListParameterMap.size() + 1);
+        _regionId_QueryDerivedReferrer_MemberAddressListParameterMap.put(ky, vl); return "regionId_QueryDerivedReferrer_MemberAddressListParameter." + ky;
     }
 
     /** 
@@ -224,7 +224,7 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
     }
 
     // ===================================================================================
@@ -239,10 +239,10 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                     ===============
     protected Map<String, RegionCQ> _scalarConditionMap;
     public Map<String, RegionCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(RegionCQ subQuery) {
+    public String keepScalarCondition(RegionCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -250,25 +250,25 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                       =============
     protected Map<String, RegionCQ> _specifyMyselfDerivedMap;
     public Map<String, RegionCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(RegionCQ subQuery) {
+    public String keepSpecifyMyselfDerived(RegionCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, RegionCQ> _queryMyselfDerivedMap;
     public Map<String, RegionCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(RegionCQ subQuery) {
+    public String keepQueryMyselfDerived(RegionCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -276,10 +276,10 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                        ============
     protected Map<String, RegionCQ> _myselfExistsMap;
     public Map<String, RegionCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(RegionCQ subQuery) {
+    public String keepMyselfExists(RegionCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -287,10 +287,10 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                       =============
     protected Map<String, RegionCQ> _myselfInScopeMap;
     public Map<String, RegionCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(RegionCQ subQuery) {
+    public String keepMyselfInScope(RegionCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

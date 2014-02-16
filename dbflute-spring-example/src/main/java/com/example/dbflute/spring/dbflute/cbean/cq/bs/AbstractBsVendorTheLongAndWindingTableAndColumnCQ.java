@@ -175,12 +175,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The sub-query of VendorTheLongAndWindingTableAndColumnRefList for 'exists'. (NotNull)
      */
     public void existsVendorTheLongAndWindingTableAndColumnRefList(SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList");
+        String pp = keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumnRefList");
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
+    public abstract String keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -196,12 +196,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The sub-query of TheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList for 'not exists'. (NotNull)
      */
     public void notExistsVendorTheLongAndWindingTableAndColumnRefList(SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList");
+        String pp = keepTheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumnRefList");
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
+    public abstract String keepTheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -210,12 +210,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The sub-query of VendorTheLongAndWindingTableAndColumnRefList for 'in-scope'. (NotNull)
      */
     public void inScopeVendorTheLongAndWindingTableAndColumnRefList(SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList");
+        String pp = keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumnRefList");
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
+    public abstract String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -224,20 +224,20 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The sub-query of VendorTheLongAndWindingTableAndColumnRefList for 'not in-scope'. (NotNull)
      */
     public void notInScopeVendorTheLongAndWindingTableAndColumnRefList(SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList");
+        String pp = keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumnRefList");
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
+    public abstract String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
-    public void xsderiveVendorTheLongAndWindingTableAndColumnRefList(String function, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList", aliasName, option);
+    public void xsderiveVendorTheLongAndWindingTableAndColumnRefList(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", pp, "vendorTheLongAndWindingTableAndColumnRefList", al, op);
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
+    public abstract String keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -258,20 +258,20 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
     protected HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB> xcreateQDRFunctionVendorTheLongAndWindingTableAndColumnRefList() {
         return new HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB>(new HpQDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void setup(String function, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveVendorTheLongAndWindingTableAndColumnRefList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveVendorTheLongAndWindingTableAndColumnRefList(String function, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnRefCB>", subQuery);
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "vendorTheLongAndWindingTableAndColumnRefList", operand, value, parameterPropertyName, option);
+    public void xqderiveVendorTheLongAndWindingTableAndColumnRefList(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(cb.query()); // for saving query-value.
+        String prpp = keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", sqpp, "vendorTheLongAndWindingTableAndColumnRefList", rd, vl, prpp, op);
     }
-    public abstract String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ subQuery);
-    public abstract String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object parameterValue);
+    public abstract String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
+    public abstract String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -285,8 +285,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      */
     public void setTheLongAndWindingTableAndColumnId_IsNotNull() { regTheLongAndWindingTableAndColumnId(CK_ISNN, DOBJ); }
 
-    protected void regTheLongAndWindingTableAndColumnId(ConditionKey k, Object v) { regQ(k, v, getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
-    abstract protected ConditionValue getCValueTheLongAndWindingTableAndColumnId();
+    protected void regTheLongAndWindingTableAndColumnId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
+    protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -407,8 +407,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         regLSQ(CK_NLS, fRES(theLongAndWindingTableAndColumnName), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
-    protected void regTheLongAndWindingTableAndColumnName(ConditionKey k, Object v) { regQ(k, v, getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); }
-    abstract protected ConditionValue getCValueTheLongAndWindingTableAndColumnName();
+    protected void regTheLongAndWindingTableAndColumnName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); }
+    protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -529,8 +529,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         regLSQ(CK_NLS, fRES(shortName), getCValueShortName(), "SHORT_NAME", likeSearchOption);
     }
 
-    protected void regShortName(ConditionKey k, Object v) { regQ(k, v, getCValueShortName(), "SHORT_NAME"); }
-    abstract protected ConditionValue getCValueShortName();
+    protected void regShortName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortName(), "SHORT_NAME"); }
+    protected abstract ConditionValue getCValueShortName();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -633,8 +633,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         regINS(CK_NINS, cTL(shortSizeList), getCValueShortSize(), "SHORT_SIZE");
     }
 
-    protected void regShortSize(ConditionKey k, Object v) { regQ(k, v, getCValueShortSize(), "SHORT_SIZE"); }
-    abstract protected ConditionValue getCValueShortSize();
+    protected void regShortSize(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortSize(), "SHORT_SIZE"); }
+    protected abstract ConditionValue getCValueShortSize();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -741,22 +741,22 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<VendorTheLongAndWindingTableAndColumnCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<VendorTheLongAndWindingTableAndColumnCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<VendorTheLongAndWindingTableAndColumnCB>(new HpSSQSetupper<VendorTheLongAndWindingTableAndColumnCB>() {
-            public void setup(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, HpSSQOption<VendorTheLongAndWindingTableAndColumnCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, HpSSQOption<VendorTheLongAndWindingTableAndColumnCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, String operand, HpSSQOption<VendorTheLongAndWindingTableAndColumnCB> option) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnCB>", subQuery);
-        VendorTheLongAndWindingTableAndColumnCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, String rd, HpSSQOption<VendorTheLongAndWindingTableAndColumnCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorTheLongAndWindingTableAndColumnCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(VendorTheLongAndWindingTableAndColumnCQ subQuery);
+    public abstract String keepScalarCondition(VendorTheLongAndWindingTableAndColumnCQ sq);
 
     protected VendorTheLongAndWindingTableAndColumnCB xcreateScalarConditionCB() {
         VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB();
@@ -773,13 +773,14 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnCB>", subQuery);
-        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -790,20 +791,21 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
     protected HpQDRFunction<VendorTheLongAndWindingTableAndColumnCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<VendorTheLongAndWindingTableAndColumnCB>(new HpQDRSetupper<VendorTheLongAndWindingTableAndColumnCB>() {
-            public void setup(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnCB>", subQuery);
-        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -813,12 +815,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(VendorTheLongAndWindingTableAndColumnCQ subQuery);
+    public abstract String keepMyselfExists(VendorTheLongAndWindingTableAndColumnCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -828,12 +830,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorTheLongAndWindingTableAndColumnCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnCQ subQuery);
+    public abstract String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

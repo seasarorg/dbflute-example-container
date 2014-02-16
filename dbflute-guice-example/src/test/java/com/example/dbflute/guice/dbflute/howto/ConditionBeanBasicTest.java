@@ -341,7 +341,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
     public void test_query_queryForeign_Equal() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");// *Point!
+        cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal_Prd();// *Point!
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb);

@@ -158,8 +158,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      */
     public void setMemberLoginId_IsNotNull() { regMemberLoginId(CK_ISNN, DOBJ); }
 
-    protected void regMemberLoginId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberLoginId(), "MEMBER_LOGIN_ID"); }
-    abstract protected ConditionValue getCValueMemberLoginId();
+    protected void regMemberLoginId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberLoginId(), "MEMBER_LOGIN_ID"); }
+    protected abstract ConditionValue getCValueMemberLoginId();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -269,12 +269,12 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -283,15 +283,15 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
 
-    protected void regMemberId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberId(), "MEMBER_ID"); }
-    abstract protected ConditionValue getCValueMemberId();
+    protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
+    protected abstract ConditionValue getCValueMemberId();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -347,7 +347,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setLoginDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueLoginDatetime(), "LOGIN_DATETIME", fromToOption);
     }
 
@@ -362,19 +362,19 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of loginDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of loginDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setLoginDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setLoginDatetime_DateFromTo(Date fromDate, Date toDate) {
         setLoginDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
-    protected void regLoginDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueLoginDatetime(), "LOGIN_DATETIME"); }
-    abstract protected ConditionValue getCValueLoginDatetime();
+    protected void regLoginDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLoginDatetime(), "LOGIN_DATETIME"); }
+    protected abstract ConditionValue getCValueLoginDatetime();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param mobileLoginFlg The value of mobileLoginFlg as equal. (NullAllowed: if null, no condition)
      */
-    protected void setMobileLoginFlg_Equal(Integer mobileLoginFlg) {
+    public void setMobileLoginFlg_Equal(Integer mobileLoginFlg) {
         doSetMobileLoginFlg_Equal(mobileLoginFlg);
     }
 
@@ -413,7 +413,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param mobileLoginFlg The value of mobileLoginFlg as notEqual. (NullAllowed: if null, no condition)
      */
-    protected void setMobileLoginFlg_NotEqual(Integer mobileLoginFlg) {
+    public void setMobileLoginFlg_NotEqual(Integer mobileLoginFlg) {
         doSetMobileLoginFlg_NotEqual(mobileLoginFlg);
     }
 
@@ -493,15 +493,15 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(mobileLoginFlgList), getCValueMobileLoginFlg(), "MOBILE_LOGIN_FLG");
     }
 
-    protected void regMobileLoginFlg(ConditionKey k, Object v) { regQ(k, v, getCValueMobileLoginFlg(), "MOBILE_LOGIN_FLG"); }
-    abstract protected ConditionValue getCValueMobileLoginFlg();
+    protected void regMobileLoginFlg(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMobileLoginFlg(), "MOBILE_LOGIN_FLG"); }
+    protected abstract ConditionValue getCValueMobileLoginFlg();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @param loginMemberStatusCode The value of loginMemberStatusCode as equal. (NullAllowed: if null (or empty), no condition)
      */
-    protected void setLoginMemberStatusCode_Equal(String loginMemberStatusCode) {
+    public void setLoginMemberStatusCode_Equal(String loginMemberStatusCode) {
         doSetLoginMemberStatusCode_Equal(fRES(loginMemberStatusCode));
     }
 
@@ -548,7 +548,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @param loginMemberStatusCode The value of loginMemberStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
-    protected void setLoginMemberStatusCode_NotEqual(String loginMemberStatusCode) {
+    public void setLoginMemberStatusCode_NotEqual(String loginMemberStatusCode) {
         doSetLoginMemberStatusCode_NotEqual(fRES(loginMemberStatusCode));
     }
 
@@ -643,12 +643,12 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of MemberStatus for 'in-scope'. (NotNull)
      */
     public void inScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLoginMemberStatusCode_InScopeRelation_MemberStatus(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "LOGIN_MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", subQueryPropertyName, "memberStatus");
+        String pp = keepLoginMemberStatusCode_InScopeRelation_MemberStatus(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "LOGIN_MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
     }
-    public abstract String keepLoginMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ subQuery);
+    public abstract String keepLoginMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -657,15 +657,15 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of MemberStatus for 'not in-scope'. (NotNull)
      */
     public void notInScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "LOGIN_MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", subQueryPropertyName, "memberStatus");
+        String pp = keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "LOGIN_MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
     }
-    public abstract String keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ subQuery);
+    public abstract String keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq);
 
-    protected void regLoginMemberStatusCode(ConditionKey k, Object v) { regQ(k, v, getCValueLoginMemberStatusCode(), "LOGIN_MEMBER_STATUS_CODE"); }
-    abstract protected ConditionValue getCValueLoginMemberStatusCode();
+    protected void regLoginMemberStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLoginMemberStatusCode(), "LOGIN_MEMBER_STATUS_CODE"); }
+    protected abstract ConditionValue getCValueLoginMemberStatusCode();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -772,22 +772,22 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<MemberLoginCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<MemberLoginCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<MemberLoginCB>(new HpSSQSetupper<MemberLoginCB>() {
-            public void setup(String function, SubQuery<MemberLoginCB> subQuery, HpSSQOption<MemberLoginCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<MemberLoginCB> sq, HpSSQOption<MemberLoginCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<MemberLoginCB> subQuery, String operand, HpSSQOption<MemberLoginCB> option) {
-        assertObjectNotNull("subQuery<MemberLoginCB>", subQuery);
-        MemberLoginCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<MemberLoginCB> sq, String rd, HpSSQOption<MemberLoginCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberLoginCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(MemberLoginCQ subQuery);
+    public abstract String keepScalarCondition(MemberLoginCQ sq);
 
     protected MemberLoginCB xcreateScalarConditionCB() {
         MemberLoginCB cb = new MemberLoginCB();
@@ -804,13 +804,14 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<MemberLoginCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberLoginCB>", subQuery);
-        MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<MemberLoginCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_LOGIN_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(MemberLoginCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(MemberLoginCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -821,20 +822,21 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<MemberLoginCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<MemberLoginCB>(new HpQDRSetupper<MemberLoginCB>() {
-            public void setup(String function, SubQuery<MemberLoginCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MemberLoginCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<MemberLoginCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberLoginCB>", subQuery);
-        MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<MemberLoginCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_LOGIN_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(MemberLoginCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(MemberLoginCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -844,12 +846,12 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<MemberLoginCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberLoginCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(MemberLoginCQ subQuery);
+    public abstract String keepMyselfExists(MemberLoginCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -859,12 +861,12 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<MemberLoginCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberLoginCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(MemberLoginCQ subQuery);
+    public abstract String keepMyselfInScope(MemberLoginCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

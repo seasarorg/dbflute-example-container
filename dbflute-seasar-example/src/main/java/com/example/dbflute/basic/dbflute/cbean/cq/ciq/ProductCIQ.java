@@ -97,7 +97,7 @@ public class ProductCIQ extends AbstractBsProductCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object pv)
+    public String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
     protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
@@ -117,18 +117,18 @@ public class ProductCIQ extends AbstractBsProductCQ {
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
     protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
     protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(ProductCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(ProductCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(ProductCQ subQuery)
+    public String keepSpecifyMyselfDerived(ProductCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(ProductCQ subQuery)
+    public String keepQueryMyselfDerived(ProductCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(ProductCQ subQuery)
+    public String keepMyselfExists(ProductCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(ProductCQ subQuery)
+    public String keepMyselfInScope(ProductCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

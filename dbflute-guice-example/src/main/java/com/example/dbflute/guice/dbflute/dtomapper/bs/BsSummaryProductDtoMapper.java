@@ -11,6 +11,7 @@ import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
@@ -196,7 +197,7 @@ public abstract class BsSummaryProductDtoMapper implements DtoMapper<SummaryProd
             entity.setProductHandleCode(dto.getProductHandleCode());
         }
         if (needsMapping(dto, dto.getProductStatusCode(), "productStatusCode")) {
-            entity.setProductStatusCode(dto.getProductStatusCode());
+            entity.setProductStatusCodeAsProductStatus(CDef.ProductStatus.codeOf(dto.getProductStatusCode()));
         }
         if (needsMapping(dto, dto.getLatestPurchaseDatetime(), "latestPurchaseDatetime")) {
             entity.setLatestPurchaseDatetime(dto.getLatestPurchaseDatetime());

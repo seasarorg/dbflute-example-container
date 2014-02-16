@@ -41,12 +41,12 @@ public class PmCommentHintDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((PmCommentHint)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((PmCommentHint)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((PmCommentHint)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((PmCommentHint)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((PmCommentHint)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((PmCommentHint)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((PmCommentHint)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((PmCommentHint)et).setMemberName((String)vl); }
     }
 
     // ===================================================================================
@@ -126,10 +126,10 @@ public class PmCommentHintDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((PmCommentHint)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((PmCommentHint)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((PmCommentHint)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((PmCommentHint)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

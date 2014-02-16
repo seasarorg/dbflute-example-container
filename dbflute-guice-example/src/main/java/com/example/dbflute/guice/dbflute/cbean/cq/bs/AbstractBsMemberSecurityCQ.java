@@ -153,12 +153,12 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -167,12 +167,12 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -186,8 +186,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      */
     public void setMemberId_IsNotNull() { regMemberId(CK_ISNN, DOBJ); }
 
-    protected void regMemberId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberId(), "MEMBER_ID"); }
-    abstract protected ConditionValue getCValueMemberId();
+    protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
+    protected abstract ConditionValue getCValueMemberId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -308,8 +308,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regLSQ(CK_NLS, fRES(loginPassword), getCValueLoginPassword(), "LOGIN_PASSWORD", likeSearchOption);
     }
 
-    protected void regLoginPassword(ConditionKey k, Object v) { regQ(k, v, getCValueLoginPassword(), "LOGIN_PASSWORD"); }
-    abstract protected ConditionValue getCValueLoginPassword();
+    protected void regLoginPassword(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLoginPassword(), "LOGIN_PASSWORD"); }
+    protected abstract ConditionValue getCValueLoginPassword();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -430,8 +430,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regLSQ(CK_NLS, fRES(reminderQuestion), getCValueReminderQuestion(), "REMINDER_QUESTION", likeSearchOption);
     }
 
-    protected void regReminderQuestion(ConditionKey k, Object v) { regQ(k, v, getCValueReminderQuestion(), "REMINDER_QUESTION"); }
-    abstract protected ConditionValue getCValueReminderQuestion();
+    protected void regReminderQuestion(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueReminderQuestion(), "REMINDER_QUESTION"); }
+    protected abstract ConditionValue getCValueReminderQuestion();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -552,8 +552,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regLSQ(CK_NLS, fRES(reminderAnswer), getCValueReminderAnswer(), "REMINDER_ANSWER", likeSearchOption);
     }
 
-    protected void regReminderAnswer(ConditionKey k, Object v) { regQ(k, v, getCValueReminderAnswer(), "REMINDER_ANSWER"); }
-    abstract protected ConditionValue getCValueReminderAnswer();
+    protected void regReminderAnswer(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueReminderAnswer(), "REMINDER_ANSWER"); }
+    protected abstract ConditionValue getCValueReminderAnswer();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -656,8 +656,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regINS(CK_NINS, cTL(reminderUseCountList), getCValueReminderUseCount(), "REMINDER_USE_COUNT");
     }
 
-    protected void regReminderUseCount(ConditionKey k, Object v) { regQ(k, v, getCValueReminderUseCount(), "REMINDER_USE_COUNT"); }
-    abstract protected ConditionValue getCValueReminderUseCount();
+    protected void regReminderUseCount(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueReminderUseCount(), "REMINDER_USE_COUNT"); }
+    protected abstract ConditionValue getCValueReminderUseCount();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -668,8 +668,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
-    protected void regRegisterDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
-    abstract protected ConditionValue getCValueRegisterDatetime();
+    protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
+    protected abstract ConditionValue getCValueRegisterDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -684,8 +684,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regRegisterUser(CK_EQ, registerUser);
     }
 
-    protected void regRegisterUser(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterUser(), "REGISTER_USER"); }
-    abstract protected ConditionValue getCValueRegisterUser();
+    protected void regRegisterUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterUser(), "REGISTER_USER"); }
+    protected abstract ConditionValue getCValueRegisterUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -696,8 +696,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
-    protected void regUpdateDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
-    abstract protected ConditionValue getCValueUpdateDatetime();
+    protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
+    protected abstract ConditionValue getCValueUpdateDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -712,8 +712,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regUpdateUser(CK_EQ, updateUser);
     }
 
-    protected void regUpdateUser(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateUser(), "UPDATE_USER"); }
-    abstract protected ConditionValue getCValueUpdateUser();
+    protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
+    protected abstract ConditionValue getCValueUpdateUser();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -741,8 +741,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         regROO(minNumber, maxNumber, getCValueVersionNo(), "VERSION_NO", rangeOfOption);
     }
 
-    protected void regVersionNo(ConditionKey k, Object v) { regQ(k, v, getCValueVersionNo(), "VERSION_NO"); }
-    abstract protected ConditionValue getCValueVersionNo();
+    protected void regVersionNo(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVersionNo(), "VERSION_NO"); }
+    protected abstract ConditionValue getCValueVersionNo();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -849,22 +849,22 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<MemberSecurityCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<MemberSecurityCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<MemberSecurityCB>(new HpSSQSetupper<MemberSecurityCB>() {
-            public void setup(String function, SubQuery<MemberSecurityCB> subQuery, HpSSQOption<MemberSecurityCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<MemberSecurityCB> sq, HpSSQOption<MemberSecurityCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<MemberSecurityCB> subQuery, String operand, HpSSQOption<MemberSecurityCB> option) {
-        assertObjectNotNull("subQuery<MemberSecurityCB>", subQuery);
-        MemberSecurityCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<MemberSecurityCB> sq, String rd, HpSSQOption<MemberSecurityCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberSecurityCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(MemberSecurityCQ subQuery);
+    public abstract String keepScalarCondition(MemberSecurityCQ sq);
 
     protected MemberSecurityCB xcreateScalarConditionCB() {
         MemberSecurityCB cb = new MemberSecurityCB();
@@ -881,13 +881,14 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<MemberSecurityCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberSecurityCB>", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<MemberSecurityCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(MemberSecurityCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(MemberSecurityCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -898,20 +899,21 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     }
     protected HpQDRFunction<MemberSecurityCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<MemberSecurityCB>(new HpQDRSetupper<MemberSecurityCB>() {
-            public void setup(String function, SubQuery<MemberSecurityCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MemberSecurityCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<MemberSecurityCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberSecurityCB>", subQuery);
-        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<MemberSecurityCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(MemberSecurityCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(MemberSecurityCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -921,12 +923,12 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberSecurityCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(MemberSecurityCQ subQuery);
+    public abstract String keepMyselfExists(MemberSecurityCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -936,12 +938,12 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberSecurityCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(MemberSecurityCQ subQuery);
+    public abstract String keepMyselfInScope(MemberSecurityCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

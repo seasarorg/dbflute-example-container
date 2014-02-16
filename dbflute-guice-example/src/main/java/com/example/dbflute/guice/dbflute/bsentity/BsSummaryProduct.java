@@ -8,6 +8,7 @@ import java.util.Set;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
@@ -79,7 +80,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     /** PRODUCT_HANDLE_CODE: {VARCHAR(100)} */
     protected String _productHandleCode;
 
-    /** PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} */
+    /** PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} */
     protected String _productStatusCode;
 
     /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} */
@@ -132,6 +133,96 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
         return true;
     }
 
+    // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of productStatusCode as the classification of ProductStatus. <br />
+     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.ProductStatus getProductStatusCodeAsProductStatus() {
+        return CDef.ProductStatus.codeOf(getProductStatusCode());
+    }
+
+    /**
+     * Set the value of productStatusCode as the classification of ProductStatus. <br />
+     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setProductStatusCodeAsProductStatus(CDef.ProductStatus cdef) {
+        setProductStatusCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of productStatusCode as 生産販売可能 (ONS). <br />
+     * 生産販売可能
+     */
+    public void setProductStatusCode_生産販売可能() {
+        setProductStatusCodeAsProductStatus(CDef.ProductStatus.生産販売可能);
+    }
+
+    /**
+     * Set the value of productStatusCode as 生産中止 (PST). <br />
+     * 生産中止
+     */
+    public void setProductStatusCode_生産中止() {
+        setProductStatusCodeAsProductStatus(CDef.ProductStatus.生産中止);
+    }
+
+    /**
+     * Set the value of productStatusCode as 販売中止 (SST). <br />
+     * 販売中止
+     */
+    public void setProductStatusCode_販売中止() {
+        setProductStatusCodeAsProductStatus(CDef.ProductStatus.販売中止);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of productStatusCode 生産販売可能? <br />
+     * 生産販売可能
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode生産販売可能() {
+        CDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(CDef.ProductStatus.生産販売可能) : false;
+    }
+
+    /**
+     * Is the value of productStatusCode 生産中止? <br />
+     * 生産中止
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode生産中止() {
+        CDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(CDef.ProductStatus.生産中止) : false;
+    }
+
+    /**
+     * Is the value of productStatusCode 販売中止? <br />
+     * 販売中止
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode販売中止() {
+        CDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(CDef.ProductStatus.販売中止) : false;
+    }
+
+    // ===================================================================================
+    //                                                           Classification Name/Alias
+    //                                                           =========================
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -395,7 +486,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     /**
-     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} <br />
+     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductStatusCode() {
@@ -403,7 +494,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     /**
-     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} <br />
+     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductStatusCode(String productStatusCode) {

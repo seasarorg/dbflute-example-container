@@ -98,18 +98,18 @@ public class MemberSecurityCIQ extends AbstractBsMemberSecurityCQ {
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
     protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
     protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MemberSecurityCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MemberSecurityCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MemberSecurityCQ subQuery)
+    public String keepSpecifyMyselfDerived(MemberSecurityCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MemberSecurityCQ subQuery)
+    public String keepQueryMyselfDerived(MemberSecurityCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MemberSecurityCQ subQuery)
+    public String keepMyselfExists(MemberSecurityCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberSecurityCQ subQuery)
+    public String keepMyselfInScope(MemberSecurityCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

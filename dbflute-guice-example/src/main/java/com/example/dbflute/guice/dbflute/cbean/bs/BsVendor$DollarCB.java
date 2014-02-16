@@ -315,8 +315,8 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
         public HpSDRFunction<Vendor$DollarCB, Vendor$DollarCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<Vendor$DollarCB, Vendor$DollarCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<Vendor$DollarCB, Vendor$DollarCQ>() {
-                public void setup(String function, SubQuery<Vendor$DollarCB> subQuery, Vendor$DollarCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<Vendor$DollarCB> sq, Vendor$DollarCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

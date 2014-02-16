@@ -160,12 +160,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of PurchaseList for 'exists'. (NotNull)
      */
     public void existsPurchaseList(SubQuery<PurchaseCB> subQuery) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_ExistsReferrer_PurchaseList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList");
+        String pp = keepProductId_ExistsReferrer_PurchaseList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
     }
-    public abstract String keepProductId_ExistsReferrer_PurchaseList(PurchaseCQ subQuery);
+    public abstract String keepProductId_ExistsReferrer_PurchaseList(PurchaseCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -181,12 +181,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of ProductId_NotExistsReferrer_PurchaseList for 'not exists'. (NotNull)
      */
     public void notExistsPurchaseList(SubQuery<PurchaseCB> subQuery) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_NotExistsReferrer_PurchaseList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList");
+        String pp = keepProductId_NotExistsReferrer_PurchaseList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
     }
-    public abstract String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ subQuery);
+    public abstract String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -195,12 +195,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of PurchaseList for 'in-scope'. (NotNull)
      */
     public void inScopePurchaseList(SubQuery<PurchaseCB> subQuery) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_InScopeRelation_PurchaseList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList");
+        String pp = keepProductId_InScopeRelation_PurchaseList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
     }
-    public abstract String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ subQuery);
+    public abstract String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -209,20 +209,20 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of PurchaseList for 'not in-scope'. (NotNull)
      */
     public void notInScopePurchaseList(SubQuery<PurchaseCB> subQuery) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_NotInScopeRelation_PurchaseList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList");
+        String pp = keepProductId_NotInScopeRelation_PurchaseList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
     }
-    public abstract String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ subQuery);
+    public abstract String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ sq);
 
-    public void xsderivePurchaseList(String function, SubQuery<PurchaseCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_SpecifyDerivedReferrer_PurchaseList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList", aliasName, option);
+    public void xsderivePurchaseList(String fn, SubQuery<PurchaseCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepProductId_SpecifyDerivedReferrer_PurchaseList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList", al, op);
     }
-    public abstract String keepProductId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ subQuery);
+    public abstract String keepProductId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -243,20 +243,20 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionPurchaseList() {
         return new HpQDRFunction<PurchaseCB>(new HpQDRSetupper<PurchaseCB>() {
-            public void setup(String function, SubQuery<PurchaseCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderivePurchaseList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<PurchaseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderivePurchaseList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderivePurchaseList(String function, SubQuery<PurchaseCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<PurchaseCB>", subQuery);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductId_QueryDerivedReferrer_PurchaseList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepProductId_QueryDerivedReferrer_PurchaseListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "purchaseList", operand, value, parameterPropertyName, option);
+    public void xqderivePurchaseList(String fn, SubQuery<PurchaseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepProductId_QueryDerivedReferrer_PurchaseList(cb.query()); // for saving query-value.
+        String prpp = keepProductId_QueryDerivedReferrer_PurchaseListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "PRODUCT_ID", "PRODUCT_ID", sqpp, "purchaseList", rd, vl, prpp, op);
     }
-    public abstract String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ subQuery);
-    public abstract String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object parameterValue);
+    public abstract String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq);
+    public abstract String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -270,8 +270,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      */
     public void setProductId_IsNotNull() { regProductId(CK_ISNN, DOBJ); }
 
-    protected void regProductId(ConditionKey k, Object v) { regQ(k, v, getCValueProductId(), "PRODUCT_ID"); }
-    abstract protected ConditionValue getCValueProductId();
+    protected void regProductId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductId(), "PRODUCT_ID"); }
+    protected abstract ConditionValue getCValueProductId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -392,8 +392,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(productName), getCValueProductName(), "PRODUCT_NAME", likeSearchOption);
     }
 
-    protected void regProductName(ConditionKey k, Object v) { regQ(k, v, getCValueProductName(), "PRODUCT_NAME"); }
-    abstract protected ConditionValue getCValueProductName();
+    protected void regProductName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductName(), "PRODUCT_NAME"); }
+    protected abstract ConditionValue getCValueProductName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -514,8 +514,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(productHandleCode), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE", likeSearchOption);
     }
 
-    protected void regProductHandleCode(ConditionKey k, Object v) { regQ(k, v, getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE"); }
-    abstract protected ConditionValue getCValueProductHandleCode();
+    protected void regProductHandleCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE"); }
+    protected abstract ConditionValue getCValueProductHandleCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -643,12 +643,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of ProductCategory for 'in-scope'. (NotNull)
      */
     public void inScopeProductCategory(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_InScopeRelation_ProductCategory(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productCategory");
+        String pp = keepProductCategoryCode_InScopeRelation_ProductCategory(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
     }
-    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -657,23 +657,57 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of ProductCategory for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductCategory(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_NotInScopeRelation_ProductCategory(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productCategory");
+        String pp = keepProductCategoryCode_NotInScopeRelation_ProductCategory(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
     }
-    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq);
 
-    protected void regProductCategoryCode(ConditionKey k, Object v) { regQ(k, v, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
-    abstract protected ConditionValue getCValueProductCategoryCode();
+    protected void regProductCategoryCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
+    protected abstract ConditionValue getCValueProductCategoryCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setProductStatusCode_Equal(String productStatusCode) {
         doSetProductStatusCode_Equal(fRES(productStatusCode));
+    }
+
+    /**
+     * Equal(=). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     */
+    public void setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus cdef) {
+        doSetProductStatusCode_Equal(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * Equal(=). As 生産販売可能 (ONS). And OnlyOnceRegistered. <br />
+     * 生産販売可能
+     */
+    public void setProductStatusCode_Equal_生産販売可能() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.生産販売可能);
+    }
+
+    /**
+     * Equal(=). As 生産中止 (PST). And OnlyOnceRegistered. <br />
+     * 生産中止
+     */
+    public void setProductStatusCode_Equal_生産中止() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.生産中止);
+    }
+
+    /**
+     * Equal(=). As 販売中止 (SST). And OnlyOnceRegistered. <br />
+     * 販売中止
+     */
+    public void setProductStatusCode_Equal_販売中止() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.販売中止);
     }
 
     protected void doSetProductStatusCode_Equal(String productStatusCode) {
@@ -682,11 +716,45 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setProductStatusCode_NotEqual(String productStatusCode) {
         doSetProductStatusCode_NotEqual(fRES(productStatusCode));
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     */
+    public void setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus cdef) {
+        doSetProductStatusCode_NotEqual(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As 生産販売可能 (ONS). And OnlyOnceRegistered. <br />
+     * 生産販売可能
+     */
+    public void setProductStatusCode_NotEqual_生産販売可能() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.生産販売可能);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As 生産中止 (PST). And OnlyOnceRegistered. <br />
+     * 生産中止
+     */
+    public void setProductStatusCode_NotEqual_生産中止() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.生産中止);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As 販売中止 (SST). And OnlyOnceRegistered. <br />
+     * 販売中止
+     */
+    public void setProductStatusCode_NotEqual_販売中止() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.販売中止);
     }
 
     protected void doSetProductStatusCode_NotEqual(String productStatusCode) {
@@ -694,48 +762,22 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusCode_GreaterThan(String productStatusCode) {
-        regProductStatusCode(CK_GT, fRES(productStatusCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusCode_LessThan(String productStatusCode) {
-        regProductStatusCode(CK_LT, fRES(productStatusCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusCode_GreaterEqual(String productStatusCode) {
-        regProductStatusCode(CK_GE, fRES(productStatusCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusCode_LessEqual(String productStatusCode) {
-        regProductStatusCode(CK_LE, fRES(productStatusCode));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCodeList The collection of productStatusCode as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setProductStatusCode_InScope(Collection<String> productStatusCodeList) {
         doSetProductStatusCode_InScope(productStatusCodeList);
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     */
+    public void setProductStatusCode_InScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {
+        doSetProductStatusCode_InScope(cTStrL(cdefList));
     }
 
     public void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
@@ -744,46 +786,25 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCodeList The collection of productStatusCode as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         doSetProductStatusCode_NotInScope(productStatusCodeList);
     }
 
+    /**
+     * NotInScope {not in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * status for product
+     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     */
+    public void setProductStatusCode_NotInScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {
+        doSetProductStatusCode_NotInScope(cTStrL(cdefList));
+    }
+
     public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusCode_PrefixSearch(String productStatusCode) {
-        setProductStatusCode_LikeSearch(productStatusCode, cLSOP());
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS} <br />
-     * <pre>e.g. setProductStatusCode_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param productStatusCode The value of productStatusCode as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    public void setProductStatusCode_LikeSearch(String productStatusCode, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(productStatusCode), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS}
-     * @param productStatusCode The value of productStatusCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    public void setProductStatusCode_NotLikeSearch(String productStatusCode, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(productStatusCode), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE", likeSearchOption);
     }
 
     /**
@@ -793,12 +814,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of ProductStatus for 'in-scope'. (NotNull)
      */
     public void inScopeProductStatus(SubQuery<ProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_InScopeRelation_ProductStatus(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productStatus");
+        String pp = keepProductStatusCode_InScopeRelation_ProductStatus(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
     }
-    public abstract String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ subQuery);
+    public abstract String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -807,15 +828,15 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of ProductStatus for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductStatus(SubQuery<ProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_NotInScopeRelation_ProductStatus(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productStatus");
+        String pp = keepProductStatusCode_NotInScopeRelation_ProductStatus(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
     }
-    public abstract String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ subQuery);
+    public abstract String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq);
 
-    protected void regProductStatusCode(ConditionKey k, Object v) { regQ(k, v, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
-    abstract protected ConditionValue getCValueProductStatusCode();
+    protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
+    protected abstract ConditionValue getCValueProductStatusCode();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -918,8 +939,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(regularPriceList), getCValueRegularPrice(), "REGULAR_PRICE");
     }
 
-    protected void regRegularPrice(ConditionKey k, Object v) { regQ(k, v, getCValueRegularPrice(), "REGULAR_PRICE"); }
-    abstract protected ConditionValue getCValueRegularPrice();
+    protected void regRegularPrice(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegularPrice(), "REGULAR_PRICE"); }
+    protected abstract ConditionValue getCValueRegularPrice();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -930,8 +951,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
-    protected void regRegisterDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
-    abstract protected ConditionValue getCValueRegisterDatetime();
+    protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
+    protected abstract ConditionValue getCValueRegisterDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -946,8 +967,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regRegisterUser(CK_EQ, registerUser);
     }
 
-    protected void regRegisterUser(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterUser(), "REGISTER_USER"); }
-    abstract protected ConditionValue getCValueRegisterUser();
+    protected void regRegisterUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterUser(), "REGISTER_USER"); }
+    protected abstract ConditionValue getCValueRegisterUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -958,8 +979,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
-    protected void regUpdateDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
-    abstract protected ConditionValue getCValueUpdateDatetime();
+    protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
+    protected abstract ConditionValue getCValueUpdateDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -974,8 +995,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regUpdateUser(CK_EQ, updateUser);
     }
 
-    protected void regUpdateUser(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateUser(), "UPDATE_USER"); }
-    abstract protected ConditionValue getCValueUpdateUser();
+    protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
+    protected abstract ConditionValue getCValueUpdateUser();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1003,8 +1024,8 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         regROO(minNumber, maxNumber, getCValueVersionNo(), "VERSION_NO", rangeOfOption);
     }
 
-    protected void regVersionNo(ConditionKey k, Object v) { regQ(k, v, getCValueVersionNo(), "VERSION_NO"); }
-    abstract protected ConditionValue getCValueVersionNo();
+    protected void regVersionNo(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVersionNo(), "VERSION_NO"); }
+    protected abstract ConditionValue getCValueVersionNo();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1111,22 +1132,22 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<ProductCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<ProductCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<ProductCB>(new HpSSQSetupper<ProductCB>() {
-            public void setup(String function, SubQuery<ProductCB> subQuery, HpSSQOption<ProductCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<ProductCB> sq, HpSSQOption<ProductCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<ProductCB> subQuery, String operand, HpSSQOption<ProductCB> option) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
-        ProductCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<ProductCB> sq, String rd, HpSSQOption<ProductCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(ProductCQ subQuery);
+    public abstract String keepScalarCondition(ProductCQ sq);
 
     protected ProductCB xcreateScalarConditionCB() {
         ProductCB cb = new ProductCB();
@@ -1143,13 +1164,14 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<ProductCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<ProductCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRODUCT_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(ProductCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(ProductCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1160,20 +1182,21 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<ProductCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<ProductCB>(new HpQDRSetupper<ProductCB>() {
-            public void setup(String function, SubQuery<ProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<ProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "PRODUCT_ID", "PRODUCT_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRODUCT_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(ProductCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(ProductCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1183,12 +1206,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(ProductCQ subQuery);
+    public abstract String keepMyselfExists(ProductCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1198,12 +1221,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(ProductCQ subQuery);
+    public abstract String keepMyselfInScope(ProductCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

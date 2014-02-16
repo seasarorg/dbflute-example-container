@@ -20,7 +20,7 @@ import com.example.dbflute.spring.dbflute.bsbhv.pmbean.BsPurchaseChangedToPaymen
 /**
  * <!-- df:beginClassDescription -->
  * The typed parameter-bean of PurchaseChangedToPaymentComplete. <span style="color: #AD4747">(typed to execute)</span><br />
- * This is related to "<span style="color: #AD4747">whitebox:runtime:updatePurchaseChangedToPaymentComplete</span>" on PurchaseBhv.
+ * This is related to "<span style="color: #AD4747">whitebox:runtime:updatePurchaseChangedToPaymentComplete</span>" on PurchaseBhv. <br />
  * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.

@@ -154,10 +154,10 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> ENTITY doSelectEntity(final SummaryProductCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends SummaryProduct> ENTITY doSelectEntity(final SummaryProductCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, SummaryProductCB>() {
-            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, SummaryProductCB>() {
+            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> ENTITY doSelectEntityWithDeletedCheck(final SummaryProductCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends SummaryProduct> ENTITY doSelectEntityWithDeletedCheck(final SummaryProductCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, SummaryProductCB>() {
-            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, SummaryProductCB>() {
+            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -254,11 +254,11 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> ListResultBean<ENTITY> doSelectList(SummaryProductCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, SummaryProductCB>() {
-            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends SummaryProduct> ListResultBean<ENTITY> doSelectList(SummaryProductCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, SummaryProductCB>() {
+            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -295,11 +295,11 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> PagingResultBean<ENTITY> doSelectPage(SummaryProductCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, SummaryProductCB>() {
+    protected <ENTITY extends SummaryProduct> PagingResultBean<ENTITY> doSelectPage(SummaryProductCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, SummaryProductCB>() {
             public int callbackSelectCount(SummaryProductCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -329,12 +329,12 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> void doSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<SummaryProduct>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, SummaryProductCB>() {
-            public void callbackSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends SummaryProduct> void doSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, SummaryProductCB>() {
+            public void callbackSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(SummaryProductCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -360,18 +360,18 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends SummaryProductCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends SummaryProductCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends SummaryProductCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends SummaryProductCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -442,17 +442,17 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         if (summaryProductList.isEmpty()) { return; }
         final PurchaseBhv referrerBhv = xgetBSFLR().select(PurchaseBhv.class);
         helpLoadReferrerInternally(summaryProductList, loadReferrerOption, new InternalLoadReferrerCallback<SummaryProduct, Integer, PurchaseCB, Purchase>() {
-            public Integer getPKVal(SummaryProduct e)
-            { return e.getProductId(); }
-            public void setRfLs(SummaryProduct e, List<Purchase> ls)
-            { e.setPurchaseList(ls); }
+            public Integer getPKVal(SummaryProduct et)
+            { return et.getProductId(); }
+            public void setRfLs(SummaryProduct et, List<Purchase> ls)
+            { et.setPurchaseList(ls); }
             public PurchaseCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(PurchaseCB cb, List<Integer> ls)
             { cb.query().setProductId_InScope(ls); }
             public void qyOdFKAsc(PurchaseCB cb) { cb.query().addOrderBy_ProductId_Asc(); }
             public void spFKCol(PurchaseCB cb) { cb.specify().columnProductId(); }
             public List<Purchase> selRfLs(PurchaseCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(Purchase e) { return e.getProductId(); }
+            public Integer getFKVal(Purchase re) { return re.getProductId(); }
             public void setlcEt(Purchase re, SummaryProduct le)
             { re.setSummaryProduct(le); }
             public String getRfPrNm() { return "purchaseList"; }
@@ -469,10 +469,10 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      */
     public List<ProductStatus> pulloutProductStatus(List<SummaryProduct> summaryProductList) {
         return helpPulloutInternally(summaryProductList, new InternalPulloutCallback<SummaryProduct, ProductStatus>() {
-            public ProductStatus getFr(SummaryProduct e) { return e.getProductStatus(); }
+            public ProductStatus getFr(SummaryProduct et) { return et.getProductStatus(); }
             public boolean hasRf() { return true; }
-            public void setRfLs(ProductStatus e, List<SummaryProduct> ls)
-            { e.setSummaryProductList(ls); }
+            public void setRfLs(ProductStatus et, List<SummaryProduct> ls)
+            { et.setSummaryProductList(ls); }
         });
     }
 
@@ -486,7 +486,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      */
     public List<Integer> extractProductIdList(List<SummaryProduct> summaryProductList) {
         return helpExtractListInternally(summaryProductList, new InternalExtractCallback<SummaryProduct, Integer>() {
-            public Integer getCV(SummaryProduct e) { return e.getProductId(); }
+            public Integer getCV(SummaryProduct et) { return et.getProductId(); }
         });
     }
 
@@ -497,7 +497,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      */
     public List<String> extractProductHandleCodeList(List<SummaryProduct> summaryProductList) {
         return helpExtractListInternally(summaryProductList, new InternalExtractCallback<SummaryProduct, String>() {
-            public String getCV(SummaryProduct e) { return e.getProductHandleCode(); }
+            public String getCV(SummaryProduct et) { return et.getProductHandleCode(); }
         });
     }
 
@@ -525,24 +525,24 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         doInsert(summaryProduct, null);
     }
 
-    protected void doInsert(SummaryProduct summaryProduct, InsertOption<SummaryProductCB> option) {
+    protected void doInsert(SummaryProduct summaryProduct, InsertOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProduct", summaryProduct);
-        prepareInsertOption(option);
-        delegateInsert(summaryProduct, option);
+        prepareInsertOption(op);
+        delegateInsert(summaryProduct, op);
     }
 
-    protected void prepareInsertOption(InsertOption<SummaryProductCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<SummaryProductCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -571,21 +571,21 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         doUpdate(summaryProduct, null);
     }
 
-    protected void doUpdate(SummaryProduct summaryProduct, final UpdateOption<SummaryProductCB> option) {
+    protected void doUpdate(SummaryProduct summaryProduct, final UpdateOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProduct", summaryProduct);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(summaryProduct, new InternalUpdateCallback<SummaryProduct>() {
-            public int callbackDelegateUpdate(SummaryProduct entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(SummaryProduct et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<SummaryProductCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<SummaryProductCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -602,14 +602,14 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -625,30 +625,28 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdate(summaryProduct, null, null);
     }
 
-    protected void doInesrtOrUpdate(SummaryProduct summaryProduct, final InsertOption<SummaryProductCB> insertOption, final UpdateOption<SummaryProductCB> updateOption) {
+    protected void doInesrtOrUpdate(SummaryProduct summaryProduct, final InsertOption<SummaryProductCB> iop, final UpdateOption<SummaryProductCB> uop) {
         helpInsertOrUpdateInternally(summaryProduct, new InternalInsertOrUpdateCallback<SummaryProduct, SummaryProductCB>() {
-            public void callbackInsert(SummaryProduct entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(SummaryProduct entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(SummaryProduct et) { doInsert(et, iop); }
+            public void callbackUpdate(SummaryProduct et) { doUpdate(et, uop); }
             public SummaryProductCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(SummaryProductCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<SummaryProductCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<SummaryProductCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<SummaryProductCB>();
+            uop = uop != null ? uop : new UpdateOption<SummaryProductCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -672,27 +670,27 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         doDelete(summaryProduct, null);
     }
 
-    protected void doDelete(SummaryProduct summaryProduct, final DeleteOption<SummaryProductCB> option) {
+    protected void doDelete(SummaryProduct summaryProduct, final DeleteOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProduct", summaryProduct);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(summaryProduct, new InternalDeleteCallback<SummaryProduct>() {
-            public int callbackDelegateDelete(SummaryProduct entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(SummaryProduct et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<SummaryProductCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<SummaryProductCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -723,26 +721,26 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<SummaryProduct> summaryProductList) {
-        InsertOption<SummaryProductCB> option = createInsertUpdateOption();
-        return doBatchInsert(summaryProductList, option);
+        InsertOption<SummaryProductCB> op = createInsertUpdateOption();
+        return doBatchInsert(summaryProductList, op);
     }
 
-    protected int[] doBatchInsert(List<SummaryProduct> summaryProductList, InsertOption<SummaryProductCB> option) {
+    protected int[] doBatchInsert(List<SummaryProduct> summaryProductList, InsertOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProductList", summaryProductList);
-        prepareBatchInsertOption(summaryProductList, option);
-        return delegateBatchInsert(summaryProductList, option);
+        prepareBatchInsertOption(summaryProductList, op);
+        return delegateBatchInsert(summaryProductList, op);
     }
 
-    protected void prepareBatchInsertOption(List<SummaryProduct> summaryProductList, InsertOption<SummaryProductCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(summaryProductList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<SummaryProduct> summaryProductList, InsertOption<SummaryProductCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(summaryProductList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -770,25 +768,25 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<SummaryProduct> summaryProductList) {
-        UpdateOption<SummaryProductCB> option = createPlainUpdateOption();
-        return doBatchUpdate(summaryProductList, option);
+        UpdateOption<SummaryProductCB> op = createPlainUpdateOption();
+        return doBatchUpdate(summaryProductList, op);
     }
 
-    protected int[] doBatchUpdate(List<SummaryProduct> summaryProductList, UpdateOption<SummaryProductCB> option) {
+    protected int[] doBatchUpdate(List<SummaryProduct> summaryProductList, UpdateOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProductList", summaryProductList);
-        prepareBatchUpdateOption(summaryProductList, option);
-        return delegateBatchUpdate(summaryProductList, option);
+        prepareBatchUpdateOption(summaryProductList, op);
+        return delegateBatchUpdate(summaryProductList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<SummaryProduct> summaryProductList, UpdateOption<SummaryProductCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(summaryProductList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<SummaryProduct> summaryProductList, UpdateOption<SummaryProductCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(summaryProductList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -824,8 +822,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -839,21 +837,21 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doBatchDelete(summaryProductList, null);
     }
 
-    protected int[] doBatchDelete(List<SummaryProduct> summaryProductList, DeleteOption<SummaryProductCB> option) {
+    protected int[] doBatchDelete(List<SummaryProduct> summaryProductList, DeleteOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProductList", summaryProductList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(summaryProductList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(summaryProductList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -889,13 +887,12 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<SummaryProduct, SummaryProductCB> setupper, InsertOption<SummaryProductCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        SummaryProduct entity = new SummaryProduct();
-        SummaryProductCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<SummaryProduct, SummaryProductCB> sp, InsertOption<SummaryProductCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        SummaryProduct e = new SummaryProduct();
+        SummaryProductCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected SummaryProductCB createCBForQueryInsert() {
@@ -936,16 +933,16 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(summaryProduct, cb, null);
     }
 
-    protected int doQueryUpdate(SummaryProduct summaryProduct, SummaryProductCB cb, UpdateOption<SummaryProductCB> option) {
+    protected int doQueryUpdate(SummaryProduct summaryProduct, SummaryProductCB cb, UpdateOption<SummaryProductCB> op) {
         assertObjectNotNull("summaryProduct", summaryProduct); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(summaryProduct, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(summaryProduct, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (SummaryProductCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (SummaryProductCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (SummaryProductCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (SummaryProductCB)cb, downcast(op)); }
     }
 
     /**
@@ -963,16 +960,16 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(SummaryProductCB cb, DeleteOption<SummaryProductCB> option) {
+    protected int doQueryDelete(SummaryProductCB cb, DeleteOption<SummaryProductCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((SummaryProductCB)cb); }
-        else { return varyingQueryDelete((SummaryProductCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((SummaryProductCB)cb); }
+        else { return varyingQueryDelete((SummaryProductCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1224,29 +1221,29 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     //                                                ------
     protected int delegateSelectCountUniquely(SummaryProductCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(SummaryProductCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends SummaryProduct> void delegateSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends SummaryProduct> List<ENTITY> delegateSelectList(SummaryProductCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends SummaryProduct> void delegateSelectCursor(SummaryProductCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends SummaryProduct> List<ENTITY> delegateSelectList(SummaryProductCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(SummaryProduct e, InsertOption<SummaryProductCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(SummaryProduct e, UpdateOption<SummaryProductCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(SummaryProduct e, UpdateOption<SummaryProductCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(SummaryProduct e, DeleteOption<SummaryProductCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(SummaryProduct e, DeleteOption<SummaryProductCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(SummaryProduct et, InsertOption<SummaryProductCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(SummaryProduct et, UpdateOption<SummaryProductCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(SummaryProduct et, UpdateOption<SummaryProductCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(SummaryProduct et, DeleteOption<SummaryProductCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(SummaryProduct et, DeleteOption<SummaryProductCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<SummaryProduct> ls, InsertOption<SummaryProductCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1264,10 +1261,10 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(SummaryProduct e, SummaryProductCB inCB, ConditionBean resCB, InsertOption<SummaryProductCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(SummaryProduct e, SummaryProductCB cb, UpdateOption<SummaryProductCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(SummaryProduct et, SummaryProductCB inCB, ConditionBean resCB, InsertOption<SummaryProductCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(SummaryProduct et, SummaryProductCB cb, UpdateOption<SummaryProductCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(SummaryProductCB cb, DeleteOption<SummaryProductCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1278,7 +1275,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1286,15 +1283,15 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected SummaryProduct downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, SummaryProduct.class);
+    protected SummaryProduct downcast(Entity et) {
+        return helpEntityDowncastInternally(et, SummaryProduct.class);
     }
 
     protected SummaryProductCB downcast(ConditionBean cb) {
@@ -1302,27 +1299,27 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<SummaryProduct> downcast(List<? extends Entity> entityList) {
-        return (List<SummaryProduct>)entityList;
+    protected List<SummaryProduct> downcast(List<? extends Entity> ls) {
+        return (List<SummaryProduct>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<SummaryProductCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<SummaryProductCB>)option;
+    protected InsertOption<SummaryProductCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<SummaryProductCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<SummaryProductCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<SummaryProductCB>)option;
+    protected UpdateOption<SummaryProductCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<SummaryProductCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<SummaryProductCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<SummaryProductCB>)option;
+    protected DeleteOption<SummaryProductCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<SummaryProductCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<SummaryProduct, SummaryProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<SummaryProduct, SummaryProductCB>)option;
+    protected QueryInsertSetupper<SummaryProduct, SummaryProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<SummaryProduct, SummaryProductCB>)sp;
     }
 }

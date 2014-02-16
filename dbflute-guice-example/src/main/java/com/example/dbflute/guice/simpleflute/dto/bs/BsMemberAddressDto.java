@@ -5,6 +5,7 @@ import java.util.*;
 
 import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
@@ -74,7 +75,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     @JsonKey
     protected String _address;
 
-    /** (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} */
+    /** (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} */
     @JsonKey
     protected Integer _regionId;
 
@@ -108,6 +109,110 @@ public abstract class BsMemberAddressDto implements Serializable {
     //                                                                         Constructor
     //                                                                         ===========
     public BsMemberAddressDto() {
+    }
+
+    // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Set the value of regionId as the classification of Region. <br />
+     * mainly region of member address
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public void setRegionIdAsRegion(AppCDef.Region cdef) {
+        setRegionId(cdef != null ? Integer.valueOf(cdef.code()) : null);
+    }
+
+    /**
+     * Get the value of regionId as the classification of Region. <br />
+     * mainly region of member address
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public AppCDef.Region getRegionIdAsRegion() {
+        return AppCDef.Region.codeOf(getRegionId());
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of regionId as America. <br />
+     * AMERICA
+     */
+    public void setRegionId_America() {
+        setRegionIdAsRegion(AppCDef.Region.America);
+    }
+
+    /**
+     * Set the value of regionId as Canada. <br />
+     * CANADA
+     */
+    public void setRegionId_Canada() {
+        setRegionIdAsRegion(AppCDef.Region.Canada);
+    }
+
+    /**
+     * Set the value of regionId as China. <br />
+     * CHINA
+     */
+    public void setRegionId_China() {
+        setRegionIdAsRegion(AppCDef.Region.China);
+    }
+
+    /**
+     * Set the value of regionId as Chiba. <br />
+     * CHIBA
+     */
+    public void setRegionId_Chiba() {
+        setRegionIdAsRegion(AppCDef.Region.Chiba);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of regionId 'America'? <br />
+     * AMERICA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdAmerica() {
+        AppCDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(AppCDef.Region.America) : false;
+    }
+
+    /**
+     * Is the value of regionId 'Canada'? <br />
+     * CANADA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdCanada() {
+        AppCDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(AppCDef.Region.Canada) : false;
+    }
+
+    /**
+     * Is the value of regionId 'China'? <br />
+     * CHINA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdChina() {
+        AppCDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(AppCDef.Region.China) : false;
+    }
+
+    /**
+     * Is the value of regionId 'Chiba'? <br />
+     * CHIBA
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isRegionIdChiba() {
+        AppCDef.Region cdef = getRegionIdAsRegion();
+        return cdef != null ? cdef.equals(AppCDef.Region.Chiba) : false;
     }
 
     // ===================================================================================
@@ -299,7 +404,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
      * @return The value of the column 'REGION_ID'. (NullAllowed)
      */
     public Integer getRegionId() {
@@ -307,7 +412,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION} <br />
+     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
      * @param regionId The value of the column 'REGION_ID'. (NullAllowed)
      */
     public void setRegionId(Integer regionId) {

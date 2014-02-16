@@ -14,7 +14,6 @@ import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.cbean.sqlclause.SqlClauseCreator;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
 import org.seasar.dbflute.twowaysql.factory.SqlAnalyzerFactory;
-import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.ImplementedInvokerAssistant;
@@ -78,10 +77,10 @@ public class BsServiceRankCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
-    public void acceptPrimaryKey(CDef.ServiceRank serviceRankCode) {
+    public void acceptPrimaryKey(String serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
         BsServiceRankCB cb = this;
-        cb.query().setServiceRankCode_Equal_AsServiceRank(serviceRankCode);
+        cb.query().setServiceRankCode_Equal(serviceRankCode);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -346,8 +345,8 @@ public class BsServiceRankCB extends AbstractConditionBean {
         public HpSDRFunction<MemberServiceCB, ServiceRankCQ> derivedMemberServiceList() {
             assertDerived("memberServiceList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberServiceCB, ServiceRankCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberServiceCB, ServiceRankCQ>() {
-                public void setup(String function, SubQuery<MemberServiceCB> subQuery, ServiceRankCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberServiceList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MemberServiceCB> sq, ServiceRankCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberServiceList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -356,8 +355,8 @@ public class BsServiceRankCB extends AbstractConditionBean {
         public HpSDRFunction<ServiceRankCB, ServiceRankCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<ServiceRankCB, ServiceRankCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ServiceRankCB, ServiceRankCQ>() {
-                public void setup(String function, SubQuery<ServiceRankCB> subQuery, ServiceRankCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<ServiceRankCB> sq, ServiceRankCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

@@ -154,10 +154,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectEntity(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntity(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntity(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectEntityWithDeletedCheck(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntityWithDeletedCheck(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntityWithDeletedCheck(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -254,11 +254,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectList(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ListResultBean<ENTITY> doSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ListResultBean<ENTITY> doSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -295,11 +295,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectPage(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> PagingResultBean<ENTITY> doSelectPage(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> PagingResultBean<ENTITY> doSelectPage(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
             public int callbackSelectCount(VendorTheLongAndWindingTableAndColumnRefCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -329,12 +329,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         doSelectCursor(cb, entityRowHandler, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> void doSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<VendorTheLongAndWindingTableAndColumnRef>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void callbackSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> void doSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
+            public void callbackSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -360,18 +360,18 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends VendorTheLongAndWindingTableAndColumnRefCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends VendorTheLongAndWindingTableAndColumnRefCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends VendorTheLongAndWindingTableAndColumnRefCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends VendorTheLongAndWindingTableAndColumnRefCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -393,10 +393,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      */
     public List<VendorTheLongAndWindingTableAndColumn> pulloutVendorTheLongAndWindingTableAndColumn(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
         return helpPulloutInternally(vendorTheLongAndWindingTableAndColumnRefList, new InternalPulloutCallback<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumn>() {
-            public VendorTheLongAndWindingTableAndColumn getFr(VendorTheLongAndWindingTableAndColumnRef e) { return e.getVendorTheLongAndWindingTableAndColumn(); }
+            public VendorTheLongAndWindingTableAndColumn getFr(VendorTheLongAndWindingTableAndColumnRef et) { return et.getVendorTheLongAndWindingTableAndColumn(); }
             public boolean hasRf() { return true; }
-            public void setRfLs(VendorTheLongAndWindingTableAndColumn e, List<VendorTheLongAndWindingTableAndColumnRef> ls)
-            { e.setVendorTheLongAndWindingTableAndColumnRefList(ls); }
+            public void setRfLs(VendorTheLongAndWindingTableAndColumn et, List<VendorTheLongAndWindingTableAndColumnRef> ls)
+            { et.setVendorTheLongAndWindingTableAndColumnRefList(ls); }
         });
     }
 
@@ -410,7 +410,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      */
     public List<Long> extractTheLongAndWindingTableAndColumnRefIdList(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
         return helpExtractListInternally(vendorTheLongAndWindingTableAndColumnRefList, new InternalExtractCallback<VendorTheLongAndWindingTableAndColumnRef, Long>() {
-            public Long getCV(VendorTheLongAndWindingTableAndColumnRef e) { return e.getTheLongAndWindingTableAndColumnRefId(); }
+            public Long getCV(VendorTheLongAndWindingTableAndColumnRef et) { return et.getTheLongAndWindingTableAndColumnRefId(); }
         });
     }
 
@@ -438,24 +438,24 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         doInsert(vendorTheLongAndWindingTableAndColumnRef, null);
     }
 
-    protected void doInsert(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected void doInsert(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRef", vendorTheLongAndWindingTableAndColumnRef);
-        prepareInsertOption(option);
-        delegateInsert(vendorTheLongAndWindingTableAndColumnRef, option);
+        prepareInsertOption(op);
+        delegateInsert(vendorTheLongAndWindingTableAndColumnRef, op);
     }
 
-    protected void prepareInsertOption(InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -484,21 +484,21 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         doUpdate(vendorTheLongAndWindingTableAndColumnRef, null);
     }
 
-    protected void doUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected void doUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRef", vendorTheLongAndWindingTableAndColumnRef);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(vendorTheLongAndWindingTableAndColumnRef, new InternalUpdateCallback<VendorTheLongAndWindingTableAndColumnRef>() {
-            public int callbackDelegateUpdate(VendorTheLongAndWindingTableAndColumnRef entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(VendorTheLongAndWindingTableAndColumnRef et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -515,14 +515,14 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -538,30 +538,28 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         doInesrtOrUpdate(vendorTheLongAndWindingTableAndColumnRef, null, null);
     }
 
-    protected void doInesrtOrUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> insertOption, final UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> updateOption) {
+    protected void doInesrtOrUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> iop, final UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> uop) {
         helpInsertOrUpdateInternally(vendorTheLongAndWindingTableAndColumnRef, new InternalInsertOrUpdateCallback<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void callbackInsert(VendorTheLongAndWindingTableAndColumnRef entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(VendorTheLongAndWindingTableAndColumnRef entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(VendorTheLongAndWindingTableAndColumnRef et) { doInsert(et, iop); }
+            public void callbackUpdate(VendorTheLongAndWindingTableAndColumnRef et) { doUpdate(et, uop); }
             public VendorTheLongAndWindingTableAndColumnRefCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(VendorTheLongAndWindingTableAndColumnRefCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>();
+            uop = uop != null ? uop : new UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -585,27 +583,27 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         doDelete(vendorTheLongAndWindingTableAndColumnRef, null);
     }
 
-    protected void doDelete(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected void doDelete(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, final DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRef", vendorTheLongAndWindingTableAndColumnRef);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(vendorTheLongAndWindingTableAndColumnRef, new InternalDeleteCallback<VendorTheLongAndWindingTableAndColumnRef>() {
-            public int callbackDelegateDelete(VendorTheLongAndWindingTableAndColumnRef entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(VendorTheLongAndWindingTableAndColumnRef et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -636,26 +634,26 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
-        InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option = createInsertUpdateOption();
-        return doBatchInsert(vendorTheLongAndWindingTableAndColumnRefList, option);
+        InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op = createInsertUpdateOption();
+        return doBatchInsert(vendorTheLongAndWindingTableAndColumnRefList, op);
     }
 
-    protected int[] doBatchInsert(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected int[] doBatchInsert(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRefList", vendorTheLongAndWindingTableAndColumnRefList);
-        prepareBatchInsertOption(vendorTheLongAndWindingTableAndColumnRefList, option);
-        return delegateBatchInsert(vendorTheLongAndWindingTableAndColumnRefList, option);
+        prepareBatchInsertOption(vendorTheLongAndWindingTableAndColumnRefList, op);
+        return delegateBatchInsert(vendorTheLongAndWindingTableAndColumnRefList, op);
     }
 
-    protected void prepareBatchInsertOption(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorTheLongAndWindingTableAndColumnRefList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorTheLongAndWindingTableAndColumnRefList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -683,25 +681,25 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
-        UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option = createPlainUpdateOption();
-        return doBatchUpdate(vendorTheLongAndWindingTableAndColumnRefList, option);
+        UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op = createPlainUpdateOption();
+        return doBatchUpdate(vendorTheLongAndWindingTableAndColumnRefList, op);
     }
 
-    protected int[] doBatchUpdate(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected int[] doBatchUpdate(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRefList", vendorTheLongAndWindingTableAndColumnRefList);
-        prepareBatchUpdateOption(vendorTheLongAndWindingTableAndColumnRefList, option);
-        return delegateBatchUpdate(vendorTheLongAndWindingTableAndColumnRefList, option);
+        prepareBatchUpdateOption(vendorTheLongAndWindingTableAndColumnRefList, op);
+        return delegateBatchUpdate(vendorTheLongAndWindingTableAndColumnRefList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorTheLongAndWindingTableAndColumnRefList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorTheLongAndWindingTableAndColumnRefList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -737,8 +735,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -752,21 +750,21 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doBatchDelete(vendorTheLongAndWindingTableAndColumnRefList, null);
     }
 
-    protected int[] doBatchDelete(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected int[] doBatchDelete(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRefList", vendorTheLongAndWindingTableAndColumnRefList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(vendorTheLongAndWindingTableAndColumnRefList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(vendorTheLongAndWindingTableAndColumnRefList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -802,13 +800,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB> setupper, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        VendorTheLongAndWindingTableAndColumnRef entity = new VendorTheLongAndWindingTableAndColumnRef();
-        VendorTheLongAndWindingTableAndColumnRefCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB> sp, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        VendorTheLongAndWindingTableAndColumnRef e = new VendorTheLongAndWindingTableAndColumnRef();
+        VendorTheLongAndWindingTableAndColumnRefCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected VendorTheLongAndWindingTableAndColumnRefCB createCBForQueryInsert() {
@@ -849,16 +846,16 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, cb, null);
     }
 
-    protected int doQueryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB cb, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected int doQueryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB cb, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertObjectNotNull("vendorTheLongAndWindingTableAndColumnRef", vendorTheLongAndWindingTableAndColumnRef); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (VendorTheLongAndWindingTableAndColumnRefCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (VendorTheLongAndWindingTableAndColumnRefCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (VendorTheLongAndWindingTableAndColumnRefCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (VendorTheLongAndWindingTableAndColumnRefCB)cb, downcast(op)); }
     }
 
     /**
@@ -876,16 +873,16 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(VendorTheLongAndWindingTableAndColumnRefCB cb, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> option) {
+    protected int doQueryDelete(VendorTheLongAndWindingTableAndColumnRefCB cb, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((VendorTheLongAndWindingTableAndColumnRefCB)cb); }
-        else { return varyingQueryDelete((VendorTheLongAndWindingTableAndColumnRefCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((VendorTheLongAndWindingTableAndColumnRefCB)cb); }
+        else { return varyingQueryDelete((VendorTheLongAndWindingTableAndColumnRefCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1137,29 +1134,29 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     //                                                ------
     protected int delegateSelectCountUniquely(VendorTheLongAndWindingTableAndColumnRefCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(VendorTheLongAndWindingTableAndColumnRefCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> void delegateSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> List<ENTITY> delegateSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> void delegateSelectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> List<ENTITY> delegateSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(VendorTheLongAndWindingTableAndColumnRef e, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(VendorTheLongAndWindingTableAndColumnRef e, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(VendorTheLongAndWindingTableAndColumnRef e, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(VendorTheLongAndWindingTableAndColumnRef e, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(VendorTheLongAndWindingTableAndColumnRef e, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(VendorTheLongAndWindingTableAndColumnRef et, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(VendorTheLongAndWindingTableAndColumnRef et, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(VendorTheLongAndWindingTableAndColumnRef et, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(VendorTheLongAndWindingTableAndColumnRef et, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(VendorTheLongAndWindingTableAndColumnRef et, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<VendorTheLongAndWindingTableAndColumnRef> ls, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1177,10 +1174,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(VendorTheLongAndWindingTableAndColumnRef e, VendorTheLongAndWindingTableAndColumnRefCB inCB, ConditionBean resCB, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(VendorTheLongAndWindingTableAndColumnRef e, VendorTheLongAndWindingTableAndColumnRefCB cb, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(VendorTheLongAndWindingTableAndColumnRef et, VendorTheLongAndWindingTableAndColumnRefCB inCB, ConditionBean resCB, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(VendorTheLongAndWindingTableAndColumnRef et, VendorTheLongAndWindingTableAndColumnRefCB cb, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(VendorTheLongAndWindingTableAndColumnRefCB cb, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1191,7 +1188,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1199,15 +1196,15 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected VendorTheLongAndWindingTableAndColumnRef downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, VendorTheLongAndWindingTableAndColumnRef.class);
+    protected VendorTheLongAndWindingTableAndColumnRef downcast(Entity et) {
+        return helpEntityDowncastInternally(et, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
     protected VendorTheLongAndWindingTableAndColumnRefCB downcast(ConditionBean cb) {
@@ -1215,27 +1212,27 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     }
 
     @SuppressWarnings("unchecked")
-    protected List<VendorTheLongAndWindingTableAndColumnRef> downcast(List<? extends Entity> entityList) {
-        return (List<VendorTheLongAndWindingTableAndColumnRef>)entityList;
+    protected List<VendorTheLongAndWindingTableAndColumnRef> downcast(List<? extends Entity> ls) {
+        return (List<VendorTheLongAndWindingTableAndColumnRef>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>)option;
+    protected InsertOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>)option;
+    protected UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>)option;
+    protected DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB>)option;
+    protected QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB>)sp;
     }
 }

@@ -9,7 +9,7 @@ import com.example.dbflute.basic.dbflute.bsbhv.pmbean.BsMemberNamePmb;
  * <!-- df:beginClassDescription -->
  * The typed parameter-bean of MemberName. <span style="color: #AD4747">(typed to list, entity)</span><br />
  * This is related to "<span style="color: #AD4747">selectMemberName</span>" on MemberBhv, <br />
- * described as "Select句が一個だけの検索のExample".
+ * described as "Select句が一個だけの検索のExample". <br />
  * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.

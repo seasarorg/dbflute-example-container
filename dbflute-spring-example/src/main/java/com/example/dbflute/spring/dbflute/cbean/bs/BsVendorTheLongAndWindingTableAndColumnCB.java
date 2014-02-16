@@ -350,8 +350,8 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ> derivedVendorTheLongAndWindingTableAndColumnRefList() {
             assertDerived("vendorTheLongAndWindingTableAndColumnRefList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>() {
-                public void setup(String function, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> subQuery, VendorTheLongAndWindingTableAndColumnCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveVendorTheLongAndWindingTableAndColumnRefList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -360,8 +360,8 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>() {
-                public void setup(String function, SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery, VendorTheLongAndWindingTableAndColumnCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

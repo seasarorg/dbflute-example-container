@@ -291,7 +291,7 @@ public class BsRegionCB extends AbstractConditionBean {
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
         /**
-         * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10)}
+         * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnRegionId() { return doColumn("REGION_ID"); }
@@ -325,8 +325,8 @@ public class BsRegionCB extends AbstractConditionBean {
         public HpSDRFunction<MemberAddressCB, RegionCQ> derivedMemberAddressList() {
             assertDerived("memberAddressList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberAddressCB, RegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberAddressCB, RegionCQ>() {
-                public void setup(String function, SubQuery<MemberAddressCB> subQuery, RegionCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberAddressList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MemberAddressCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberAddressList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -335,8 +335,8 @@ public class BsRegionCB extends AbstractConditionBean {
         public HpSDRFunction<RegionCB, RegionCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<RegionCB, RegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<RegionCB, RegionCQ>() {
-                public void setup(String function, SubQuery<RegionCB> subQuery, RegionCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<RegionCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

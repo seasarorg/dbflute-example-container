@@ -25,6 +25,9 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    # ====================================================================================
+    #                                                                               Common
+    #                                                                               ======
     ; Flg = list:{
         ; map:{
             ; topComment=general boolean classification for every flg-column
@@ -33,14 +36,68 @@ map:{
         ; map:{code=1;name=True ;alias=Yes ;comment=means valid; subItemMap=map:{key1=value1}}
         ; map:{code=0;name=False;alias=No  ;comment=means invalid; subItemMap=map:{key1=value1}}
     }
+
+    # ====================================================================================
+    #                                                                               Member
+    #                                                                               ======
     ; MemberStatus = list:{
         # for the test of default code type
-        ; map:{topComment=status of member from entry to withdrawal}
+        ; map:{
+            ; topComment=status of member from entry to withdrawal
+            # because this has its own outsideSql
+            ; isSuppressDBAccessClass=false
+        }
         ; map:{
             ; table=MEMBER_STATUS
             ; code=MEMBER_STATUS_CODE; name=MEMBER_STATUS_NAME
             ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
             ; subItemMap=map:{key1=DISPLAY_ORDER;key2=DESCRIPTION}
+        }
+    }
+    ; ServiceRank = list:{
+        ; map:{topComment=rank of service member gets; codeType=Number}
+        ; map:{
+            ; table=SERVICE_RANK
+            ; code=SERVICE_RANK_CODE; name=SERVICE_RANK_NAME
+            ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
+        }
+    }
+    ; Region = list:{
+        ; map:{topComment=mainly region of member address; codeType=Number}
+        ; map:{
+            ; table=REGION
+            ; code=REGION_ID; name=REGION_NAME
+            ; orderBy=REGION_ID
+        }
+    }
+    ; WithdrawalReason = list:{
+        ; map:{topComment=reason for member withdrawal; codeType=String}
+        ; map:{
+            ; table=WITHDRAWAL_REASON
+            ; code=WITHDRAWAL_REASON_CODE; name=WITHDRAWAL_REASON_CODE
+            ; comment=WITHDRAWAL_REASON_TEXT; orderBy=DISPLAY_ORDER
+        }
+    }
+
+    # ====================================================================================
+    #                                                                              Product
+    #                                                                              =======
+    ; ProductCategory = list:{
+        ; map:{topComment=category of product. self reference; codeType=String}
+        ; map:{
+            ; table=$sql:
+ PRODUCT_CATEGORY loc left outer join PRODUCT_CATEGORY rel on loc.PARENT_CATEGORY_CODE = rel.PRODUCT_CATEGORY_CODE
+            ; code=$sql: loc.PRODUCT_CATEGORY_CODE
+            ; name=$sql: loc.PRODUCT_CATEGORY_NAME
+            ; comment=$sql: 'of ' || rel.PRODUCT_CATEGORY_NAME
+            ; orderBy=loc.PARENT_CATEGORY_CODE is not null, loc.PARENT_CATEGORY_CODE
+        }
+    }
+    ; ProductStatus = list:{
+        ; map:{topComment=status for product; codeType=String}
+        ; map:{
+            ; table=PRODUCT_STATUS
+            ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME
         }
     }
     ; ServiceRank = list:{

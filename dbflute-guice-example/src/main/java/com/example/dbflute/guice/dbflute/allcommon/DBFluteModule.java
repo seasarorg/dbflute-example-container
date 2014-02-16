@@ -118,24 +118,9 @@ public class DBFluteModule extends AbstractModule {
             bind(ProductCategoryBhv.class).toInstance(bhv);
         }
         {
-            ProductStatusBhv bhv = new ProductStatusBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
-            bind(ProductStatusBhv.class).toInstance(bhv);
-        }
-        {
             PurchaseBhv bhv = new PurchaseBhv();
             bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
             bind(PurchaseBhv.class).toInstance(bhv);
-        }
-        {
-            RegionBhv bhv = new RegionBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
-            bind(RegionBhv.class).toInstance(bhv);
-        }
-        {
-            ServiceRankBhv bhv = new ServiceRankBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
-            bind(ServiceRankBhv.class).toInstance(bhv);
         }
         {
             SummaryProductBhv bhv = new SummaryProductBhv();
@@ -176,11 +161,6 @@ public class DBFluteModule extends AbstractModule {
             VendorTheLongAndWindingTableAndColumnRefBhv bhv = new VendorTheLongAndWindingTableAndColumnRefBhv();
             bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
             bind(VendorTheLongAndWindingTableAndColumnRefBhv.class).toInstance(bhv);
-        }
-        {
-            WithdrawalReasonBhv bhv = new WithdrawalReasonBhv();
-            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
-            bind(WithdrawalReasonBhv.class).toInstance(bhv);
         }
     }
 }

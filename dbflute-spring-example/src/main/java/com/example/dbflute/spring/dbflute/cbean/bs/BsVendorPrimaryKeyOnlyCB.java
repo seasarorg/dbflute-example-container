@@ -325,8 +325,8 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
         public HpSDRFunction<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ>() {
-                public void setup(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, VendorPrimaryKeyOnlyCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, VendorPrimaryKeyOnlyCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

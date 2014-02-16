@@ -442,7 +442,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br />
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    protected void setMemberStatusCode(String memberStatusCode) {
+    public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
         this._memberStatusCode = memberStatusCode;
     }

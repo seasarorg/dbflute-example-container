@@ -3,7 +3,10 @@ package com.example.dbflute.guice.dbflute.exbhv.pmbean;
 import com.example.dbflute.guice.dbflute.bsbhv.pmbean.BsOptionMemberPmb;
 
 /**
- * The parameter-bean of OptionMemberPmb.
+ * <!-- df:beginClassDescription -->
+ * The typed parameter-bean of OptionMember. <span style="color: #AD4747">(typed to list, entity)</span><br />
+ * This is related to "<span style="color: #AD4747">selectOptionMember</span>" on MemberBhv. <br />
+ * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.
  * This class remains when re-generating.
@@ -11,14 +14,4 @@ import com.example.dbflute.guice.dbflute.bsbhv.pmbean.BsOptionMemberPmb;
  * @author DBFlute(AutoGenerator)
  */
 public class OptionMemberPmb extends BsOptionMemberPmb {
-
-    // setters below are to test shortChar
-
-    public void setMemberStatusCode(String statusCode) {
-        _memberStatusCode = statusCode;
-    }
-
-    public void setStatus(String status) {
-        _status = status;
-    }
 }

@@ -139,10 +139,10 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectEntity(cb, SummaryWithdrawal.class);
     }
 
-    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(final SummaryWithdrawalCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(final SummaryWithdrawalCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, SummaryWithdrawalCB>() {
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, SummaryWithdrawalCB>() {
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -168,10 +168,10 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectEntityWithDeletedCheck(cb, SummaryWithdrawal.class);
     }
 
-    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntityWithDeletedCheck(final SummaryWithdrawalCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntityWithDeletedCheck(final SummaryWithdrawalCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, SummaryWithdrawalCB>() {
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, SummaryWithdrawalCB>() {
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -201,11 +201,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectList(cb, SummaryWithdrawal.class);
     }
 
-    protected <ENTITY extends SummaryWithdrawal> ListResultBean<ENTITY> doSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, SummaryWithdrawalCB>() {
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends SummaryWithdrawal> ListResultBean<ENTITY> doSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, SummaryWithdrawalCB>() {
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -242,11 +242,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectPage(cb, SummaryWithdrawal.class);
     }
 
-    protected <ENTITY extends SummaryWithdrawal> PagingResultBean<ENTITY> doSelectPage(SummaryWithdrawalCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, SummaryWithdrawalCB>() {
+    protected <ENTITY extends SummaryWithdrawal> PagingResultBean<ENTITY> doSelectPage(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, SummaryWithdrawalCB>() {
             public int callbackSelectCount(SummaryWithdrawalCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -276,12 +276,12 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         doSelectCursor(cb, entityRowHandler, SummaryWithdrawal.class);
     }
 
-    protected <ENTITY extends SummaryWithdrawal> void doSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<SummaryWithdrawal>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, SummaryWithdrawalCB>() {
-            public void callbackSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends SummaryWithdrawal> void doSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, SummaryWithdrawalCB>() {
+            public void callbackSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -307,18 +307,18 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends SummaryWithdrawalCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends SummaryWithdrawalCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends SummaryWithdrawalCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends SummaryWithdrawalCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -385,10 +385,10 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     //                                                ------
     protected int delegateSelectCountUniquely(SummaryWithdrawalCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(SummaryWithdrawalCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends SummaryWithdrawal> void delegateSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends SummaryWithdrawal> List<ENTITY> delegateSelectList(SummaryWithdrawalCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends SummaryWithdrawal> void delegateSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends SummaryWithdrawal> List<ENTITY> delegateSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // ===================================================================================
     //                                                                Optimistic Lock Info
@@ -397,7 +397,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -405,15 +405,15 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected SummaryWithdrawal downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, SummaryWithdrawal.class);
+    protected SummaryWithdrawal downcast(Entity et) {
+        return helpEntityDowncastInternally(et, SummaryWithdrawal.class);
     }
 
     protected SummaryWithdrawalCB downcast(ConditionBean cb) {
@@ -421,7 +421,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<SummaryWithdrawal> downcast(List<? extends Entity> entityList) {
-        return (List<SummaryWithdrawal>)entityList;
+    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls) {
+        return (List<SummaryWithdrawal>)ls;
     }
 }

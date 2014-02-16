@@ -58,20 +58,20 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgUnpaidManId implements PropertyGateway {
-        public Object read(Entity e) { return ((UnpaidSummaryMember)e).getUnpaidManId(); }
-        public void write(Entity e, Object v) { ((UnpaidSummaryMember)e).setUnpaidManId(cti(v)); }
+        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidManId(); }
+        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidManId(cti(vl)); }
     }
     public static class EpgUnpaidManName implements PropertyGateway {
-        public Object read(Entity e) { return ((UnpaidSummaryMember)e).getUnpaidManName(); }
-        public void write(Entity e, Object v) { ((UnpaidSummaryMember)e).setUnpaidManName((String)v); }
+        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidManName(); }
+        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidManName((String)vl); }
     }
     public static class EpgUnpaidPriceSummary implements PropertyGateway {
-        public Object read(Entity e) { return ((UnpaidSummaryMember)e).getUnpaidPriceSummary(); }
-        public void write(Entity e, Object v) { ((UnpaidSummaryMember)e).setUnpaidPriceSummary(ctl(v)); }
+        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidPriceSummary(); }
+        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidPriceSummary(ctl(vl)); }
     }
     public static class EpgStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((UnpaidSummaryMember)e).getStatusName(); }
-        public void write(Entity e, Object v) { ((UnpaidSummaryMember)e).setStatusName((String)v); }
+        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getStatusName(); }
+        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setStatusName((String)vl); }
     }
 
     // ===================================================================================
@@ -155,10 +155,10 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((UnpaidSummaryMember)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((UnpaidSummaryMember)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((UnpaidSummaryMember)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((UnpaidSummaryMember)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

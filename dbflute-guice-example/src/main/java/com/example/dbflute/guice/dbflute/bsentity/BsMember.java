@@ -752,7 +752,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    protected void setMemberStatusCode(String memberStatusCode) {
+    public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
         this._memberStatusCode = memberStatusCode;
     }

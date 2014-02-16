@@ -345,8 +345,8 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
         public HpSDRFunction<MemberWithdrawalCB, WithdrawalReasonCQ> derivedMemberWithdrawalList() {
             assertDerived("memberWithdrawalList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberWithdrawalCB, WithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberWithdrawalCB, WithdrawalReasonCQ>() {
-                public void setup(String function, SubQuery<MemberWithdrawalCB> subQuery, WithdrawalReasonCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberWithdrawalList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MemberWithdrawalCB> sq, WithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberWithdrawalList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -355,8 +355,8 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
         public HpSDRFunction<WithdrawalReasonCB, WithdrawalReasonCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<WithdrawalReasonCB, WithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<WithdrawalReasonCB, WithdrawalReasonCQ>() {
-                public void setup(String function, SubQuery<WithdrawalReasonCB> subQuery, WithdrawalReasonCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<WithdrawalReasonCB> sq, WithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

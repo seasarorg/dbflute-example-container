@@ -78,7 +78,7 @@ public class SummaryWithdrawalCIQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue getCValueMemberStatusCode() { return _myCQ.getMemberStatusCode(); }
     protected ConditionValue getCValueMemberStatusName() { return _myCQ.getMemberStatusName(); }
     protected ConditionValue getCValueMaxPurchasePrice() { return _myCQ.getMaxPurchasePrice(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

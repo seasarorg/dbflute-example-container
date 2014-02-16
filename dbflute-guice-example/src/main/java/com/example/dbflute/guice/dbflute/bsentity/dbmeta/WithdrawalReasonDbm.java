@@ -42,16 +42,16 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgWithdrawalReasonCode implements PropertyGateway {
-        public Object read(Entity e) { return ((WithdrawalReason)e).getWithdrawalReasonCode(); }
-        public void write(Entity e, Object v) { ((WithdrawalReason)e).setWithdrawalReasonCode((String)v); }
+        public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonCode(); }
+        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setWithdrawalReasonCode((String)vl); }
     }
     public static class EpgWithdrawalReasonText implements PropertyGateway {
-        public Object read(Entity e) { return ((WithdrawalReason)e).getWithdrawalReasonText(); }
-        public void write(Entity e, Object v) { ((WithdrawalReason)e).setWithdrawalReasonText((String)v); }
+        public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonText(); }
+        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setWithdrawalReasonText((String)vl); }
     }
     public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((WithdrawalReason)e).getDisplayOrder(); }
-        public void write(Entity e, Object v) { ((WithdrawalReason)e).setDisplayOrder(cti(v)); }
+        public Object read(Entity et) { return ((WithdrawalReason)et).getDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setDisplayOrder(cti(vl)); }
     }
 
     // ===================================================================================
@@ -70,7 +70,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", true, "withdrawalReasonCode", String.class, true, false, "CHAR", 3, 0, null, false, null, null, null, "memberWithdrawalList", null);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", true, "withdrawalReasonCode", String.class, true, false, "CHAR", 3, 0, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason);
     protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, "退会理由テキスト", true, "withdrawalReasonText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, true, "displayOrder", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
@@ -109,8 +109,8 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerMemberWithdrawalList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnWithdrawalReasonCode(), MemberWithdrawalDbm.getInstance().columnWithdrawalReasonCode());
-        return cri("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "memberWithdrawalList", this, MemberWithdrawalDbm.getInstance(), map, false, "withdrawalReason");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnWithdrawalReasonCode(), MemberWithdrawalDbm.getInstance().columnWithdrawalReasonCode());
+        return cri("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "memberWithdrawalList", this, MemberWithdrawalDbm.getInstance(), mp, false, "withdrawalReason");
     }
 
     // ===================================================================================
@@ -138,10 +138,10 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((WithdrawalReason)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((WithdrawalReason)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((WithdrawalReason)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((WithdrawalReason)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -328,7 +328,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         }
         assertTrue(border);
     }
-    
+
     // -----------------------------------------------------
     //                                          Manual Order
     //                                          ------------
@@ -362,11 +362,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertEquals(CDef.MemberStatus.Withdrawal.code(), list.get(0));
         assertEquals(CDef.MemberStatus.Formalized.code(), list.get(1));
         assertEquals(CDef.MemberStatus.Provisional.code(), list.get(2));
-        
+
         // [Description]
         // A. Unionと共演できない(UnsupportedOperationException)
     }
-    
+
     // ===================================================================================
     //                                                                               Union
     //                                                                               =====
@@ -406,8 +406,8 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             String memberName = member.getMemberName();
             String memberAccount = member.getMemberAccount();
             log(memberName + "(" + memberAccount + ")");
-            assertTrue("Unexpected memberAccount = " + memberAccount, memberAccount.startsWith("S")
-                    || memberAccount.startsWith("M") || memberAccount.startsWith("D"));
+            assertTrue("Unexpected memberAccount = " + memberAccount,
+                    memberAccount.startsWith("S") || memberAccount.startsWith("M") || memberAccount.startsWith("D"));
         }
         log("* * * * * * * * * */");
     }
@@ -907,7 +907,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         }
         assertTrue(cb.toDisplaySql().contains("count(distinct"));
     }
-    
+
     // ===================================================================================
     //                                                              (Query)DerivedReferrer
     //                                                              ======================
@@ -951,7 +951,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             }
             assertTrue(exists);
         }
-        
+
         // [SQL]
         // select dflocal.MEMBER_NAME as MEMBER_NAME, ... 
         //   from MEMBER dflocal 
@@ -961,7 +961,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         //          where dfsublocal_0.MEMBER_ID = dflocal.MEMBER_ID
         //            and dfsublocal_0.PAYMENT_COMPLETE_FLG = 1
         //        ) >= 1800
-        
+
         // [Description]
         // A. 比較演算子には、{=, >=, >, <=, <}が利用可能である。
         // 
@@ -1267,7 +1267,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
                     public void query(MemberWithdrawalCB subCB) {
                         final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
-                        subCB.query().queryWithdrawalReason().setWithdrawalReasonCode_LikeSearch("xxx", option);
+                        subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
                         subCB.union(new UnionQuery<MemberWithdrawalCB>() {
                             public void query(MemberWithdrawalCB unionCB) {
                                 unionCB.query().setWithdrawalReasonInputText_IsNotNull();

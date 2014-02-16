@@ -17,22 +17,23 @@ public class MemberStatusCQ extends BsMemberStatusCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
+	// You should NOT touch with this constructor.
     /**
      * Constructor.
-     * @param childQuery Child query as abstract class. (Nullable: If null, this is base instance.)
-     * @param sqlClause SQL clause instance. (NotNull)
-     * @param aliasName My alias name. (NotNull)
-     * @param nestLevel Nest level.
+     * @param referrerQuery The instance of referrer query. (NullAllowed: If null, this is base query)
+     * @param sqlClause The instance of SQL clause. (NotNull)
+     * @param aliasName The alias name for this query. (NotNull)
+     * @param nestLevel The nest level of this query. (If zero, this is base query)
      */
-    public MemberStatusCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MemberStatusCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
-	
+
     // ===================================================================================
-    //                                                                      Arrange Method
-    //                                                                      ==============
-	// You can make original arrange query methods here.
-	// public void arrangeXxx() {
-	//     ...
-	// }
+    //                                                                       Arrange Query
+    //                                                                       =============
+    // You can make your arranged query methods here.
+    //public void arrangeXxx() {
+    //    ...
+    //}
 }

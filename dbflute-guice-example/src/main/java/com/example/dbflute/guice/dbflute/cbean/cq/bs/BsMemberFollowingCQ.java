@@ -102,18 +102,18 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
 
     protected Map<String, MemberCQ> _myMemberId_InScopeRelation_MemberByMyMemberIdMap;
     public Map<String, MemberCQ> getMyMemberId_InScopeRelation_MemberByMyMemberId() { return _myMemberId_InScopeRelation_MemberByMyMemberIdMap; }
-    public String keepMyMemberId_InScopeRelation_MemberByMyMemberId(MemberCQ subQuery) {
+    public String keepMyMemberId_InScopeRelation_MemberByMyMemberId(MemberCQ sq) {
         if (_myMemberId_InScopeRelation_MemberByMyMemberIdMap == null) { _myMemberId_InScopeRelation_MemberByMyMemberIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myMemberId_InScopeRelation_MemberByMyMemberIdMap.size() + 1);
-        _myMemberId_InScopeRelation_MemberByMyMemberIdMap.put(key, subQuery); return "myMemberId_InScopeRelation_MemberByMyMemberId." + key;
+        String ky = "subQueryMapKey" + (_myMemberId_InScopeRelation_MemberByMyMemberIdMap.size() + 1);
+        _myMemberId_InScopeRelation_MemberByMyMemberIdMap.put(ky, sq); return "myMemberId_InScopeRelation_MemberByMyMemberId." + ky;
     }
 
     protected Map<String, MemberCQ> _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap;
     public Map<String, MemberCQ> getMyMemberId_NotInScopeRelation_MemberByMyMemberId() { return _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap; }
-    public String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ subQuery) {
+    public String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ sq) {
         if (_myMemberId_NotInScopeRelation_MemberByMyMemberIdMap == null) { _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.size() + 1);
-        _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.put(key, subQuery); return "myMemberId_NotInScopeRelation_MemberByMyMemberId." + key;
+        String ky = "subQueryMapKey" + (_myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.size() + 1);
+        _myMemberId_NotInScopeRelation_MemberByMyMemberIdMap.put(ky, sq); return "myMemberId_NotInScopeRelation_MemberByMyMemberId." + ky;
     }
 
     /** 
@@ -139,18 +139,18 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
 
     protected Map<String, MemberCQ> _yourMemberId_InScopeRelation_MemberByYourMemberIdMap;
     public Map<String, MemberCQ> getYourMemberId_InScopeRelation_MemberByYourMemberId() { return _yourMemberId_InScopeRelation_MemberByYourMemberIdMap; }
-    public String keepYourMemberId_InScopeRelation_MemberByYourMemberId(MemberCQ subQuery) {
+    public String keepYourMemberId_InScopeRelation_MemberByYourMemberId(MemberCQ sq) {
         if (_yourMemberId_InScopeRelation_MemberByYourMemberIdMap == null) { _yourMemberId_InScopeRelation_MemberByYourMemberIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_yourMemberId_InScopeRelation_MemberByYourMemberIdMap.size() + 1);
-        _yourMemberId_InScopeRelation_MemberByYourMemberIdMap.put(key, subQuery); return "yourMemberId_InScopeRelation_MemberByYourMemberId." + key;
+        String ky = "subQueryMapKey" + (_yourMemberId_InScopeRelation_MemberByYourMemberIdMap.size() + 1);
+        _yourMemberId_InScopeRelation_MemberByYourMemberIdMap.put(ky, sq); return "yourMemberId_InScopeRelation_MemberByYourMemberId." + ky;
     }
 
     protected Map<String, MemberCQ> _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap;
     public Map<String, MemberCQ> getYourMemberId_NotInScopeRelation_MemberByYourMemberId() { return _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap; }
-    public String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ subQuery) {
+    public String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ sq) {
         if (_yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap == null) { _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.size() + 1);
-        _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.put(key, subQuery); return "yourMemberId_NotInScopeRelation_MemberByYourMemberId." + key;
+        String ky = "subQueryMapKey" + (_yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.size() + 1);
+        _yourMemberId_NotInScopeRelation_MemberByYourMemberIdMap.put(ky, sq); return "yourMemberId_NotInScopeRelation_MemberByYourMemberId." + ky;
     }
 
     /** 
@@ -228,14 +228,14 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        MemberFollowingCQ baseQuery = (MemberFollowingCQ)baseQueryAsSuper;
-        MemberFollowingCQ unionQuery = (MemberFollowingCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryMemberByMyMemberId()) {
-            unionQuery.queryMemberByMyMemberId().reflectRelationOnUnionQuery(baseQuery.queryMemberByMyMemberId(), unionQuery.queryMemberByMyMemberId());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MemberFollowingCQ bq = (MemberFollowingCQ)bqs;
+        MemberFollowingCQ uq = (MemberFollowingCQ)uqs;
+        if (bq.hasConditionQueryMemberByMyMemberId()) {
+            uq.queryMemberByMyMemberId().reflectRelationOnUnionQuery(bq.queryMemberByMyMemberId(), uq.queryMemberByMyMemberId());
         }
-        if (baseQuery.hasConditionQueryMemberByYourMemberId()) {
-            unionQuery.queryMemberByYourMemberId().reflectRelationOnUnionQuery(baseQuery.queryMemberByYourMemberId(), unionQuery.queryMemberByYourMemberId());
+        if (bq.hasConditionQueryMemberByYourMemberId()) {
+            uq.queryMemberByYourMemberId().reflectRelationOnUnionQuery(bq.queryMemberByYourMemberId(), uq.queryMemberByYourMemberId());
         }
     }
 
@@ -319,10 +319,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                     ===============
     protected Map<String, MemberFollowingCQ> _scalarConditionMap;
     public Map<String, MemberFollowingCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(MemberFollowingCQ subQuery) {
+    public String keepScalarCondition(MemberFollowingCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -330,25 +330,25 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                       =============
     protected Map<String, MemberFollowingCQ> _specifyMyselfDerivedMap;
     public Map<String, MemberFollowingCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(MemberFollowingCQ subQuery) {
+    public String keepSpecifyMyselfDerived(MemberFollowingCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, MemberFollowingCQ> _queryMyselfDerivedMap;
     public Map<String, MemberFollowingCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(MemberFollowingCQ subQuery) {
+    public String keepQueryMyselfDerived(MemberFollowingCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -356,10 +356,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                        ============
     protected Map<String, MemberFollowingCQ> _myselfExistsMap;
     public Map<String, MemberFollowingCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(MemberFollowingCQ subQuery) {
+    public String keepMyselfExists(MemberFollowingCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -367,10 +367,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                       =============
     protected Map<String, MemberFollowingCQ> _myselfInScopeMap;
     public Map<String, MemberFollowingCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(MemberFollowingCQ subQuery) {
+    public String keepMyselfInScope(MemberFollowingCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

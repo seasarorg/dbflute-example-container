@@ -97,23 +97,23 @@ public class VendorTheLongAndWindingTableAndColumnCIQ extends AbstractBsVendorTh
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object pv)
+    public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnName() { return _myCQ.getTheLongAndWindingTableAndColumnName(); }
     protected ConditionValue getCValueShortName() { return _myCQ.getShortName(); }
     protected ConditionValue getCValueShortSize() { return _myCQ.getShortSize(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ subQuery)
+    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ subQuery)
+    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnCQ subQuery)
+    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnCQ subQuery)
+    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

@@ -11,6 +11,7 @@ import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
@@ -206,7 +207,7 @@ public abstract class BsMemberWithdrawalDtoMapper implements DtoMapper<MemberWit
             entity.setMemberId(dto.getMemberId());
         }
         if (needsMapping(dto, dto.getWithdrawalReasonCode(), "withdrawalReasonCode")) {
-            entity.setWithdrawalReasonCode(dto.getWithdrawalReasonCode());
+            entity.setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.codeOf(dto.getWithdrawalReasonCode()));
         }
         if (needsMapping(dto, dto.getWithdrawalReasonInputText(), "withdrawalReasonInputText")) {
             entity.setWithdrawalReasonInputText(dto.getWithdrawalReasonInputText());

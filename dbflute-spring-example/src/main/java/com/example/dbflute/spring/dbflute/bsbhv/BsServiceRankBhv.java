@@ -154,10 +154,10 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, ServiceRank.class);
     }
 
-    protected <ENTITY extends ServiceRank> ENTITY doSelectEntity(final ServiceRankCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends ServiceRank> ENTITY doSelectEntity(final ServiceRankCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, ServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, ServiceRankCB>() {
+            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, ServiceRank.class);
     }
 
-    protected <ENTITY extends ServiceRank> ENTITY doSelectEntityWithDeletedCheck(final ServiceRankCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends ServiceRank> ENTITY doSelectEntityWithDeletedCheck(final ServiceRankCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, ServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, ServiceRankCB>() {
+            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -254,11 +254,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, ServiceRank.class);
     }
 
-    protected <ENTITY extends ServiceRank> ListResultBean<ENTITY> doSelectList(ServiceRankCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, ServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends ServiceRank> ListResultBean<ENTITY> doSelectList(ServiceRankCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, ServiceRankCB>() {
+            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -295,11 +295,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, ServiceRank.class);
     }
 
-    protected <ENTITY extends ServiceRank> PagingResultBean<ENTITY> doSelectPage(ServiceRankCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, ServiceRankCB>() {
+    protected <ENTITY extends ServiceRank> PagingResultBean<ENTITY> doSelectPage(ServiceRankCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, ServiceRankCB>() {
             public int callbackSelectCount(ServiceRankCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -329,12 +329,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, ServiceRank.class);
     }
 
-    protected <ENTITY extends ServiceRank> void doSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<ServiceRank>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, ServiceRankCB>() {
-            public void callbackSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends ServiceRank> void doSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, ServiceRankCB>() {
+            public void callbackSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(ServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -360,18 +360,18 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -442,17 +442,17 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         if (serviceRankList.isEmpty()) { return; }
         final MemberServiceBhv referrerBhv = xgetBSFLR().select(MemberServiceBhv.class);
         helpLoadReferrerInternally(serviceRankList, loadReferrerOption, new InternalLoadReferrerCallback<ServiceRank, String, MemberServiceCB, MemberService>() {
-            public String getPKVal(ServiceRank e)
-            { return e.getServiceRankCode(); }
-            public void setRfLs(ServiceRank e, List<MemberService> ls)
-            { e.setMemberServiceList(ls); }
+            public String getPKVal(ServiceRank et)
+            { return et.getServiceRankCode(); }
+            public void setRfLs(ServiceRank et, List<MemberService> ls)
+            { et.setMemberServiceList(ls); }
             public MemberServiceCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(MemberServiceCB cb, List<String> ls)
             { cb.query().setServiceRankCode_InScope(ls); }
             public void qyOdFKAsc(MemberServiceCB cb) { cb.query().addOrderBy_ServiceRankCode_Asc(); }
             public void spFKCol(MemberServiceCB cb) { cb.specify().columnServiceRankCode(); }
             public List<MemberService> selRfLs(MemberServiceCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MemberService e) { return e.getServiceRankCode(); }
+            public String getFKVal(MemberService re) { return re.getServiceRankCode(); }
             public void setlcEt(MemberService re, ServiceRank le)
             { re.setServiceRank(le); }
             public String getRfPrNm() { return "memberServiceList"; }
@@ -473,7 +473,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      */
     public List<String> extractServiceRankCodeList(List<ServiceRank> serviceRankList) {
         return helpExtractListInternally(serviceRankList, new InternalExtractCallback<ServiceRank, String>() {
-            public String getCV(ServiceRank e) { return e.getServiceRankCode(); }
+            public String getCV(ServiceRank et) { return et.getServiceRankCode(); }
         });
     }
 
@@ -484,7 +484,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      */
     public List<Integer> extractDisplayOrderList(List<ServiceRank> serviceRankList) {
         return helpExtractListInternally(serviceRankList, new InternalExtractCallback<ServiceRank, Integer>() {
-            public Integer getCV(ServiceRank e) { return e.getDisplayOrder(); }
+            public Integer getCV(ServiceRank et) { return et.getDisplayOrder(); }
         });
     }
 
@@ -512,24 +512,24 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doInsert(serviceRank, null);
     }
 
-    protected void doInsert(ServiceRank serviceRank, InsertOption<ServiceRankCB> option) {
+    protected void doInsert(ServiceRank serviceRank, InsertOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRank", serviceRank);
-        prepareInsertOption(option);
-        delegateInsert(serviceRank, option);
+        prepareInsertOption(op);
+        delegateInsert(serviceRank, op);
     }
 
-    protected void prepareInsertOption(InsertOption<ServiceRankCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<ServiceRankCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -558,21 +558,21 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doUpdate(serviceRank, null);
     }
 
-    protected void doUpdate(ServiceRank serviceRank, final UpdateOption<ServiceRankCB> option) {
+    protected void doUpdate(ServiceRank serviceRank, final UpdateOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRank", serviceRank);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(serviceRank, new InternalUpdateCallback<ServiceRank>() {
-            public int callbackDelegateUpdate(ServiceRank entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(ServiceRank et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<ServiceRankCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<ServiceRankCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -589,14 +589,14 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -612,30 +612,28 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdate(serviceRank, null, null);
     }
 
-    protected void doInesrtOrUpdate(ServiceRank serviceRank, final InsertOption<ServiceRankCB> insertOption, final UpdateOption<ServiceRankCB> updateOption) {
+    protected void doInesrtOrUpdate(ServiceRank serviceRank, final InsertOption<ServiceRankCB> iop, final UpdateOption<ServiceRankCB> uop) {
         helpInsertOrUpdateInternally(serviceRank, new InternalInsertOrUpdateCallback<ServiceRank, ServiceRankCB>() {
-            public void callbackInsert(ServiceRank entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(ServiceRank entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(ServiceRank et) { doInsert(et, iop); }
+            public void callbackUpdate(ServiceRank et) { doUpdate(et, uop); }
             public ServiceRankCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(ServiceRankCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<ServiceRankCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<ServiceRankCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<ServiceRankCB>();
+            uop = uop != null ? uop : new UpdateOption<ServiceRankCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -659,27 +657,27 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doDelete(serviceRank, null);
     }
 
-    protected void doDelete(ServiceRank serviceRank, final DeleteOption<ServiceRankCB> option) {
+    protected void doDelete(ServiceRank serviceRank, final DeleteOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRank", serviceRank);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(serviceRank, new InternalDeleteCallback<ServiceRank>() {
-            public int callbackDelegateDelete(ServiceRank entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(ServiceRank et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<ServiceRankCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<ServiceRankCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -710,26 +708,26 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<ServiceRank> serviceRankList) {
-        InsertOption<ServiceRankCB> option = createInsertUpdateOption();
-        return doBatchInsert(serviceRankList, option);
+        InsertOption<ServiceRankCB> op = createInsertUpdateOption();
+        return doBatchInsert(serviceRankList, op);
     }
 
-    protected int[] doBatchInsert(List<ServiceRank> serviceRankList, InsertOption<ServiceRankCB> option) {
+    protected int[] doBatchInsert(List<ServiceRank> serviceRankList, InsertOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRankList", serviceRankList);
-        prepareBatchInsertOption(serviceRankList, option);
-        return delegateBatchInsert(serviceRankList, option);
+        prepareBatchInsertOption(serviceRankList, op);
+        return delegateBatchInsert(serviceRankList, op);
     }
 
-    protected void prepareBatchInsertOption(List<ServiceRank> serviceRankList, InsertOption<ServiceRankCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(serviceRankList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<ServiceRank> serviceRankList, InsertOption<ServiceRankCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(serviceRankList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -757,25 +755,25 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ServiceRank> serviceRankList) {
-        UpdateOption<ServiceRankCB> option = createPlainUpdateOption();
-        return doBatchUpdate(serviceRankList, option);
+        UpdateOption<ServiceRankCB> op = createPlainUpdateOption();
+        return doBatchUpdate(serviceRankList, op);
     }
 
-    protected int[] doBatchUpdate(List<ServiceRank> serviceRankList, UpdateOption<ServiceRankCB> option) {
+    protected int[] doBatchUpdate(List<ServiceRank> serviceRankList, UpdateOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRankList", serviceRankList);
-        prepareBatchUpdateOption(serviceRankList, option);
-        return delegateBatchUpdate(serviceRankList, option);
+        prepareBatchUpdateOption(serviceRankList, op);
+        return delegateBatchUpdate(serviceRankList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<ServiceRank> serviceRankList, UpdateOption<ServiceRankCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(serviceRankList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<ServiceRank> serviceRankList, UpdateOption<ServiceRankCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(serviceRankList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -811,8 +809,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -826,21 +824,21 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doBatchDelete(serviceRankList, null);
     }
 
-    protected int[] doBatchDelete(List<ServiceRank> serviceRankList, DeleteOption<ServiceRankCB> option) {
+    protected int[] doBatchDelete(List<ServiceRank> serviceRankList, DeleteOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRankList", serviceRankList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(serviceRankList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(serviceRankList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -876,13 +874,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<ServiceRank, ServiceRankCB> setupper, InsertOption<ServiceRankCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        ServiceRank entity = new ServiceRank();
-        ServiceRankCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<ServiceRank, ServiceRankCB> sp, InsertOption<ServiceRankCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        ServiceRank e = new ServiceRank();
+        ServiceRankCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected ServiceRankCB createCBForQueryInsert() {
@@ -923,16 +920,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(serviceRank, cb, null);
     }
 
-    protected int doQueryUpdate(ServiceRank serviceRank, ServiceRankCB cb, UpdateOption<ServiceRankCB> option) {
+    protected int doQueryUpdate(ServiceRank serviceRank, ServiceRankCB cb, UpdateOption<ServiceRankCB> op) {
         assertObjectNotNull("serviceRank", serviceRank); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(serviceRank, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(serviceRank, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (ServiceRankCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (ServiceRankCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (ServiceRankCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (ServiceRankCB)cb, downcast(op)); }
     }
 
     /**
@@ -950,16 +947,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(ServiceRankCB cb, DeleteOption<ServiceRankCB> option) {
+    protected int doQueryDelete(ServiceRankCB cb, DeleteOption<ServiceRankCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((ServiceRankCB)cb); }
-        else { return varyingQueryDelete((ServiceRankCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((ServiceRankCB)cb); }
+        else { return varyingQueryDelete((ServiceRankCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1211,29 +1208,29 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     //                                                ------
     protected int delegateSelectCountUniquely(ServiceRankCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(ServiceRankCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends ServiceRank> void delegateSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends ServiceRank> List<ENTITY> delegateSelectList(ServiceRankCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends ServiceRank> void delegateSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends ServiceRank> List<ENTITY> delegateSelectList(ServiceRankCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(ServiceRank e, InsertOption<ServiceRankCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(ServiceRank e, UpdateOption<ServiceRankCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(ServiceRank e, UpdateOption<ServiceRankCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(ServiceRank e, DeleteOption<ServiceRankCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(ServiceRank e, DeleteOption<ServiceRankCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(ServiceRank et, InsertOption<ServiceRankCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(ServiceRank et, UpdateOption<ServiceRankCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(ServiceRank et, UpdateOption<ServiceRankCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(ServiceRank et, DeleteOption<ServiceRankCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(ServiceRank et, DeleteOption<ServiceRankCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<ServiceRank> ls, InsertOption<ServiceRankCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1251,10 +1248,10 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(ServiceRank e, ServiceRankCB inCB, ConditionBean resCB, InsertOption<ServiceRankCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(ServiceRank e, ServiceRankCB cb, UpdateOption<ServiceRankCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(ServiceRank et, ServiceRankCB inCB, ConditionBean resCB, InsertOption<ServiceRankCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(ServiceRank et, ServiceRankCB cb, UpdateOption<ServiceRankCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(ServiceRankCB cb, DeleteOption<ServiceRankCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1265,7 +1262,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1273,15 +1270,15 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected ServiceRank downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, ServiceRank.class);
+    protected ServiceRank downcast(Entity et) {
+        return helpEntityDowncastInternally(et, ServiceRank.class);
     }
 
     protected ServiceRankCB downcast(ConditionBean cb) {
@@ -1289,27 +1286,27 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<ServiceRank> downcast(List<? extends Entity> entityList) {
-        return (List<ServiceRank>)entityList;
+    protected List<ServiceRank> downcast(List<? extends Entity> ls) {
+        return (List<ServiceRank>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<ServiceRankCB>)option;
+    protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<ServiceRankCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<ServiceRankCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<ServiceRankCB>)option;
+    protected UpdateOption<ServiceRankCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<ServiceRankCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<ServiceRankCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<ServiceRankCB>)option;
+    protected DeleteOption<ServiceRankCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<ServiceRankCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<ServiceRank, ServiceRankCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<ServiceRank, ServiceRankCB>)option;
+    protected QueryInsertSetupper<ServiceRank, ServiceRankCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<ServiceRank, ServiceRankCB>)sp;
     }
 }

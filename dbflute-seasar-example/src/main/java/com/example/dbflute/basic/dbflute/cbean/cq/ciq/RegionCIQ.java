@@ -97,21 +97,21 @@ public class RegionCIQ extends AbstractBsRegionCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object pv)
+    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueRegionName() { return _myCQ.getRegionName(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(RegionCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(RegionCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(RegionCQ subQuery)
+    public String keepSpecifyMyselfDerived(RegionCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(RegionCQ subQuery)
+    public String keepQueryMyselfDerived(RegionCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(RegionCQ subQuery)
+    public String keepMyselfExists(RegionCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(RegionCQ subQuery)
+    public String keepMyselfInScope(RegionCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

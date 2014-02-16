@@ -832,7 +832,7 @@ dl.procedurelist dd.column pre {
 		<td class="sizecell"> 10 </td>
 		<td class="relcell"><a href="#region" title="FK_MEMBER_ADDRESS_REGION">REGION</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#RegionCls">Region</a></td>
 		<td class="commentcell"> 地域を参照するID。かなり漠然とした地域。</td>
 		<td class="subcell">regionId</td>
 		<td class="subcell">Integer</td>
@@ -1691,7 +1691,7 @@ dl.procedurelist dd.column pre {
 		<td class="sizecell"> 3 </td>
 		<td class="relcell"><a href="#withdrawal_reason" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">WITHDRAWAL_REASON</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#WithdrawalReasonCls">WithdrawalReason</a></td>
 		<td class="commentcell"> 定型的な退会した理由を参照するコード。<br />何も言わずに退会する会員もいるので必須項目ではない。</td>
 		<td class="subcell">withdrawalReasonCode</td>
 		<td class="subcell">String</td>
@@ -1932,7 +1932,7 @@ dl.procedurelist dd.column pre {
 		<td class="sizecell"> 3 </td>
 		<td class="relcell"><a href="#product_status" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT_STATUS</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#ProductStatusCls">ProductStatus</a></td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">productStatusCode</td>
 		<td class="subcell">String</td>
@@ -2164,7 +2164,7 @@ dl.procedurelist dd.column pre {
 		<td class="sizecell"> 3 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#product" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT</a>,<br /><a href="#summary_product" class="additionalfk" title="FK_SUMMARY_PRODUCT_PRODUCT_STATUS">SUMMARY_PRODUCT</a>&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#ProductStatusCls">ProductStatus</a></td>
 		<td class="commentcell"> 商品ステータスを識別するコード。</td>
 		<td class="subcell">productStatusCode</td>
 		<td class="subcell">String</td>
@@ -2486,7 +2486,7 @@ dl.procedurelist dd.column pre {
 		<td class="sizecell"> 10 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#member_address" title="FK_MEMBER_ADDRESS_REGION">MEMBER_ADDRESS</a>&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#RegionCls">Region</a></td>
 		<td class="commentcell"> 地域をしっかりと識別するID。<br />珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。</td>
 		<td class="subcell">regionId</td>
 		<td class="subcell">Integer</td>
@@ -3507,7 +3507,7 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="sizecell"> 3 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#member_withdrawal" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">MEMBER_WITHDRAWAL</a>&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#WithdrawalReasonCls">WithdrawalReason</a></td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">withdrawalReasonCode</td>
 		<td class="subcell">String</td>
@@ -3636,7 +3636,7 @@ SUMMARY_PRODUCT
 		<td class="sizecell"> 3 </td>
 		<td class="relcell"><a href="#product_status" class="additionalfk" title="FK_SUMMARY_PRODUCT_PRODUCT_STATUS">PRODUCT_STATUS</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
+		<td class="relcell"><a href="#ProductStatusCls">ProductStatus</a></td>
 		<td class="subcell">productStatusCode</td>
 		<td class="subcell">String</td>
 	</tr>
@@ -3945,6 +3945,142 @@ SUMMARY_WITHDRAWAL
 				<td>PLS</td>
 				<td>Plastic</td>
 				<td class="commentcell">plastic&nbsp;rank</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>Region</td>
+		<td class="clstypecell">table</td>
+		<td>mainly&nbsp;region&nbsp;of&nbsp;member&nbsp;address</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="RegionCls">Code</th>
+				<th>Name</th>
+				<th>Comment</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>America</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Canada</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>China</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Chiba</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>WithdrawalReason</td>
+		<td class="clstypecell">table</td>
+		<td>reason&nbsp;for&nbsp;member&nbsp;withdrawal</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="WithdrawalReasonCls">Code</th>
+				<th>Name</th>
+				<th>Comment</th>
+			</tr>
+			<tr>
+				<td>SIT</td>
+				<td>Sit</td>
+				<td class="commentcell">サイトが使いにくいから</td>
+			</tr>
+			<tr>
+				<td>PRD</td>
+				<td>Prd</td>
+				<td class="commentcell">商品に魅力がないから</td>
+			</tr>
+			<tr>
+				<td>FRT</td>
+				<td>Frt</td>
+				<td class="commentcell">フリテンだから</td>
+			</tr>
+			<tr>
+				<td>OTH</td>
+				<td>Oth</td>
+				<td class="commentcell">その他理由</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>ProductCategory</td>
+		<td class="clstypecell">table</td>
+		<td>category&nbsp;of&nbsp;product.&nbsp;self&nbsp;reference</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="ProductCategoryCls">Code</th>
+				<th>Name</th>
+				<th>Comment</th>
+			</tr>
+			<tr>
+				<td>MSC</td>
+				<td>音楽</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>FOD</td>
+				<td>食品</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>HEB</td>
+				<td>ハーブ</td>
+				<td class="commentcell">of&nbsp;食品</td>
+			</tr>
+			<tr>
+				<td>MCD</td>
+				<td>音楽cd</td>
+				<td class="commentcell">of&nbsp;音楽</td>
+			</tr>
+			<tr>
+				<td>INS</td>
+				<td>楽器</td>
+				<td class="commentcell">of&nbsp;音楽</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>ProductStatus</td>
+		<td class="clstypecell">table</td>
+		<td>status&nbsp;for&nbsp;product</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="ProductStatusCls">Code</th>
+				<th>Name</th>
+				<th>Comment</th>
+			</tr>
+			<tr>
+				<td>ONS</td>
+				<td>生産販売可能</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>PST</td>
+				<td>生産中止</td>
+				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>SST</td>
+				<td>販売中止</td>
+				<td class="commentcell"> &nbsp;</td>
 			</tr>
 			</table>
 		</td>

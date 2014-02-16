@@ -581,7 +581,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br />
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
-    protected void setMemberStatusCode(String memberStatusCode) {
+    public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
         this._memberStatusCode = memberStatusCode;
     }
@@ -632,7 +632,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * [set] DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
      * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed: null update allowed for no constraint)
      */
-    protected void setDummyFlg(Integer dummyFlg) {
+    public void setDummyFlg(Integer dummyFlg) {
         checkImplicitSet("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
         __modifiedProperties.addPropertyName("dummyFlg");
         this._dummyFlg = dummyFlg;

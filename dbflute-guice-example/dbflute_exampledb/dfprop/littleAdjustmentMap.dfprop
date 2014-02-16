@@ -103,7 +103,7 @@ map:{
     #   [false]
     #     Non.
     #
-    ; isCheckSelectedClassification = true
+    #; isCheckSelectedClassification = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -116,7 +116,7 @@ map:{
     #   [false]
     #     Non.
     #
-    ; isForceClassificationSetting = true
+    #; isForceClassificationSetting = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -329,5 +329,8 @@ map:{
     #
     ; cursorSelectFetchSize = 17
     # - - - - - - - - - -/
+
+    # the test of suppressing behavior for table classification
+    ; isSuppressTableClassificationDBAccessClass = true
 }
 # ----------------/

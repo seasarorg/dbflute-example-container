@@ -117,18 +117,18 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
 
     protected Map<String, VendorTheLongAndWindingTableAndColumnCQ> _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn() { return _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap; }
-    public String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ subQuery) {
+    public String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) {
         if (_theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap == null) { _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
-        _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(key, subQuery); return "theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn." + key;
+        String ky = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
+        _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(ky, sq); return "theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn." + ky;
     }
 
     protected Map<String, VendorTheLongAndWindingTableAndColumnCQ> _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn() { return _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap; }
-    public String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ subQuery) {
+    public String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) {
         if (_theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap == null) { _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
-        _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(key, subQuery); return "theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn." + key;
+        String ky = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
+        _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(ky, sq); return "theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn." + ky;
     }
 
     /** 
@@ -227,11 +227,11 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        VendorTheLongAndWindingTableAndColumnRefCQ baseQuery = (VendorTheLongAndWindingTableAndColumnRefCQ)baseQueryAsSuper;
-        VendorTheLongAndWindingTableAndColumnRefCQ unionQuery = (VendorTheLongAndWindingTableAndColumnRefCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryVendorTheLongAndWindingTableAndColumn()) {
-            unionQuery.queryVendorTheLongAndWindingTableAndColumn().reflectRelationOnUnionQuery(baseQuery.queryVendorTheLongAndWindingTableAndColumn(), unionQuery.queryVendorTheLongAndWindingTableAndColumn());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        VendorTheLongAndWindingTableAndColumnRefCQ bq = (VendorTheLongAndWindingTableAndColumnRefCQ)bqs;
+        VendorTheLongAndWindingTableAndColumnRefCQ uq = (VendorTheLongAndWindingTableAndColumnRefCQ)uqs;
+        if (bq.hasConditionQueryVendorTheLongAndWindingTableAndColumn()) {
+            uq.queryVendorTheLongAndWindingTableAndColumn().reflectRelationOnUnionQuery(bq.queryVendorTheLongAndWindingTableAndColumn(), uq.queryVendorTheLongAndWindingTableAndColumn());
         }
     }
 
@@ -281,10 +281,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                     ===============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _scalarConditionMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ subQuery) {
+    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -292,25 +292,25 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                       =============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _specifyMyselfDerivedMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ subQuery) {
+    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _queryMyselfDerivedMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ subQuery) {
+    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -318,10 +318,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                        ============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _myselfExistsMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ subQuery) {
+    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -329,10 +329,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                       =============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _myselfInScopeMap;
     public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ subQuery) {
+    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

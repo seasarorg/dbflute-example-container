@@ -122,7 +122,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     { throwIICBOE("NotExistsReferrer"); return null; }
 #end
 #end
-#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#if (${col.isInScopeAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -144,7 +144,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
 #end
 #end
-#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#if (${col.isInScopeAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -187,7 +187,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
     public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keep${subQueryPropertyNameInitCap}Parameter(Object pv)
+    public String keep${subQueryPropertyNameInitCap}Parameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
 #end
 #end
@@ -224,7 +224,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     { throwIICBOE("NotExistsReferrer"); return null; }
 #end
 #end
-#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#if (${col.isInScopeAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -246,7 +246,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     { return _myCQ.keep${subQueryPropertyNameInitCap}(sq); }
 #end
 #end
-#if (${col.isSingleKeyForeignKey()} && !${fk.hasFixedCondition()})
+#if (${col.isInScopeAllowedForeignKey()})
 #set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
 #set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
@@ -289,26 +289,26 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
     public String keep${subQueryPropertyNameInitCap}(${relatedCQClassName} sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keep${subQueryPropertyNameInitCap}Parameter(Object pv)
+    public String keep${subQueryPropertyNameInitCap}Parameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
 #end
 #end
 #end
 #end
 #end
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
 #if ($table.hasSinglePrimaryKey())
-    public String keepScalarCondition(${myConditionQueryClassName} subQuery)
+    public String keepScalarCondition(${myConditionQueryClassName} sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(${myConditionQueryClassName} subQuery)
+    public String keepSpecifyMyselfDerived(${myConditionQueryClassName} sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(${myConditionQueryClassName} subQuery)
+    public String keepQueryMyselfDerived(${myConditionQueryClassName} sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(${myConditionQueryClassName} subQuery)
+    public String keepMyselfExists(${myConditionQueryClassName} sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(${myConditionQueryClassName} subQuery)
+    public String keepMyselfInScope(${myConditionQueryClassName} sq)
     { throwIICBOE("MyselfInScope"); return null;}
 #end
 

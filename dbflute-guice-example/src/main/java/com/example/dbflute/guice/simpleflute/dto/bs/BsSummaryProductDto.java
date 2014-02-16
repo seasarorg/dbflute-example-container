@@ -5,6 +5,7 @@ import java.util.*;
 
 import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
@@ -66,7 +67,7 @@ public abstract class BsSummaryProductDto implements Serializable {
     @JsonKey
     protected String _productHandleCode;
 
-    /** PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} */
+    /** PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} */
     @JsonKey
     protected String _productStatusCode;
 
@@ -84,6 +85,91 @@ public abstract class BsSummaryProductDto implements Serializable {
     //                                                                         Constructor
     //                                                                         ===========
     public BsSummaryProductDto() {
+    }
+
+    // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Set the value of productStatusCode as the classification of ProductStatus. <br />
+     * status for product
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public void setProductStatusCodeAsProductStatus(AppCDef.ProductStatus cdef) {
+        setProductStatusCode(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * Get the value of productStatusCode as the classification of ProductStatus. <br />
+     * status for product
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed)
+     */
+    public AppCDef.ProductStatus getProductStatusCodeAsProductStatus() {
+        return AppCDef.ProductStatus.codeOf(getProductStatusCode());
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of productStatusCode as 生産販売可能. <br />
+     * 生産販売可能
+     */
+    public void setProductStatusCode_生産販売可能() {
+        setProductStatusCodeAsProductStatus(AppCDef.ProductStatus.生産販売可能);
+    }
+
+    /**
+     * Set the value of productStatusCode as 生産中止. <br />
+     * 生産中止
+     */
+    public void setProductStatusCode_生産中止() {
+        setProductStatusCodeAsProductStatus(AppCDef.ProductStatus.生産中止);
+    }
+
+    /**
+     * Set the value of productStatusCode as 販売中止. <br />
+     * 販売中止
+     */
+    public void setProductStatusCode_販売中止() {
+        setProductStatusCodeAsProductStatus(AppCDef.ProductStatus.販売中止);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of productStatusCode '生産販売可能'? <br />
+     * 生産販売可能
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode生産販売可能() {
+        AppCDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(AppCDef.ProductStatus.生産販売可能) : false;
+    }
+
+    /**
+     * Is the value of productStatusCode '生産中止'? <br />
+     * 生産中止
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode生産中止() {
+        AppCDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(AppCDef.ProductStatus.生産中止) : false;
+    }
+
+    /**
+     * Is the value of productStatusCode '販売中止'? <br />
+     * 販売中止
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isProductStatusCode販売中止() {
+        AppCDef.ProductStatus cdef = getProductStatusCodeAsProductStatus();
+        return cdef != null ? cdef.equals(AppCDef.ProductStatus.販売中止) : false;
     }
 
     // ===================================================================================
@@ -228,7 +314,7 @@ public abstract class BsSummaryProductDto implements Serializable {
     }
 
     /**
-     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} <br />
+     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public String getProductStatusCode() {
@@ -236,7 +322,7 @@ public abstract class BsSummaryProductDto implements Serializable {
     }
 
     /**
-     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS} <br />
+     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public void setProductStatusCode(String productStatusCode) {

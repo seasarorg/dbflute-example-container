@@ -158,8 +158,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      */
     public void setPrimaryKeyOnlyId_IsNotNull() { regPrimaryKeyOnlyId(CK_ISNN, DOBJ); }
 
-    protected void regPrimaryKeyOnlyId(ConditionKey k, Object v) { regQ(k, v, getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID"); }
-    abstract protected ConditionValue getCValuePrimaryKeyOnlyId();
+    protected void regPrimaryKeyOnlyId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID"); }
+    protected abstract ConditionValue getCValuePrimaryKeyOnlyId();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -266,22 +266,22 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<VendorPrimaryKeyOnlyCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<VendorPrimaryKeyOnlyCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<VendorPrimaryKeyOnlyCB>(new HpSSQSetupper<VendorPrimaryKeyOnlyCB>() {
-            public void setup(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, HpSSQOption<VendorPrimaryKeyOnlyCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, HpSSQOption<VendorPrimaryKeyOnlyCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, String operand, HpSSQOption<VendorPrimaryKeyOnlyCB> option) {
-        assertObjectNotNull("subQuery<VendorPrimaryKeyOnlyCB>", subQuery);
-        VendorPrimaryKeyOnlyCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, HpSSQOption<VendorPrimaryKeyOnlyCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorPrimaryKeyOnlyCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(VendorPrimaryKeyOnlyCQ subQuery);
+    public abstract String keepScalarCondition(VendorPrimaryKeyOnlyCQ sq);
 
     protected VendorPrimaryKeyOnlyCB xcreateScalarConditionCB() {
         VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
@@ -298,13 +298,14 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorPrimaryKeyOnlyCB>", subQuery);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRIMARY_KEY_ONLY_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(VendorPrimaryKeyOnlyCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(VendorPrimaryKeyOnlyCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -315,20 +316,21 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     }
     protected HpQDRFunction<VendorPrimaryKeyOnlyCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<VendorPrimaryKeyOnlyCB>(new HpQDRSetupper<VendorPrimaryKeyOnlyCB>() {
-            public void setup(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<VendorPrimaryKeyOnlyCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<VendorPrimaryKeyOnlyCB>", subQuery);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRIMARY_KEY_ONLY_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(VendorPrimaryKeyOnlyCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(VendorPrimaryKeyOnlyCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -338,12 +340,12 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorPrimaryKeyOnlyCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(VendorPrimaryKeyOnlyCQ subQuery);
+    public abstract String keepMyselfExists(VendorPrimaryKeyOnlyCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -353,12 +355,12 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
-        assertObjectNotNull("subQuery<VendorPrimaryKeyOnlyCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(VendorPrimaryKeyOnlyCQ subQuery);
+    public abstract String keepMyselfInScope(VendorPrimaryKeyOnlyCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

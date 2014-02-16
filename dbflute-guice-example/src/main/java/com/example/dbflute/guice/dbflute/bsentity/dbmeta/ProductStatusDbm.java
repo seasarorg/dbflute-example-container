@@ -42,16 +42,16 @@ public class ProductStatusDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((ProductStatus)e).getProductStatusCode(); }
-        public void write(Entity e, Object v) { ((ProductStatus)e).setProductStatusCode((String)v); }
+        public Object read(Entity et) { return ((ProductStatus)et).getProductStatusCode(); }
+        public void write(Entity et, Object vl) { ((ProductStatus)et).setProductStatusCode((String)vl); }
     }
     public static class EpgProductStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((ProductStatus)e).getProductStatusName(); }
-        public void write(Entity e, Object v) { ((ProductStatus)e).setProductStatusName((String)v); }
+        public Object read(Entity et) { return ((ProductStatus)et).getProductStatusName(); }
+        public void write(Entity et, Object vl) { ((ProductStatus)et).setProductStatusName((String)vl); }
     }
     public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((ProductStatus)e).getDisplayOrder(); }
-        public void write(Entity e, Object v) { ((ProductStatus)e).setDisplayOrder(cti(v)); }
+        public Object read(Entity et) { return ((ProductStatus)et).getDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((ProductStatus)et).setDisplayOrder(cti(vl)); }
     }
 
     // ===================================================================================
@@ -70,7 +70,7 @@ public class ProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, "商品ステータスコード", true, "productStatusCode", String.class, true, false, "CHAR", 3, 0, null, false, null, null, null, "productList,summaryProductList", null);
+    protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, "商品ステータスコード", true, "productStatusCode", String.class, true, false, "CHAR", 3, 0, null, false, null, null, null, "productList,summaryProductList", CDef.DefMeta.ProductStatus);
     protected final ColumnInfo _columnProductStatusName = cci("PRODUCT_STATUS_NAME", "PRODUCT_STATUS_NAME", null, "商品ステータス名称", true, "productStatusName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", true, "displayOrder", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
@@ -109,12 +109,12 @@ public class ProductStatusDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerProductList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductStatusCode(), ProductDbm.getInstance().columnProductStatusCode());
-        return cri("FK_PRODUCT_PRODUCT_STATUS", "productList", this, ProductDbm.getInstance(), map, false, "productStatus");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), ProductDbm.getInstance().columnProductStatusCode());
+        return cri("FK_PRODUCT_PRODUCT_STATUS", "productList", this, ProductDbm.getInstance(), mp, false, "productStatus");
     }
     public ReferrerInfo referrerSummaryProductList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductStatusCode(), SummaryProductDbm.getInstance().columnProductStatusCode());
-        return cri("FK_SUMMARY_PRODUCT_PRODUCT_STATUS", "summaryProductList", this, SummaryProductDbm.getInstance(), map, false, "productStatus");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), SummaryProductDbm.getInstance().columnProductStatusCode());
+        return cri("FK_SUMMARY_PRODUCT_PRODUCT_STATUS", "summaryProductList", this, SummaryProductDbm.getInstance(), mp, false, "productStatus");
     }
 
     // ===================================================================================
@@ -142,10 +142,10 @@ public class ProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((ProductStatus)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((ProductStatus)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((ProductStatus)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((ProductStatus)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -259,6 +259,254 @@ public interface AppCDef {
         @Override public String toString() { return code(); }
     }
 
+    /**
+     * mainly region of member address
+     */
+    public enum Region implements AppCDef {
+        /** AMERICA */
+        America("1", "AMERICA", EMPTY_SISTERS)
+        ,
+        /** CANADA */
+        Canada("2", "CANADA", EMPTY_SISTERS)
+        ,
+        /** CHINA */
+        China("3", "CHINA", EMPTY_SISTERS)
+        ,
+        /** CHIBA */
+        Chiba("4", "CHIBA", EMPTY_SISTERS)
+        ;
+        private static final Map<String, Region> _codeValueMap = new HashMap<String, Region>();
+        static {
+            for (Region value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private Region(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public DefMeta meta() { return DefMeta.Region; }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static Region codeOf(Object code) {
+            if (code == null) { return null; } if (code instanceof Region) { return (Region)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static Region nameOf(String name) { // null allowed
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<Region> listAll() {
+            return new ArrayList<Region>(Arrays.asList(values()));
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
+    /**
+     * reason for member withdrawal
+     */
+    public enum WithdrawalReason implements AppCDef {
+        /** SIT: サイトが使いにくいから */
+        Sit("SIT", "SIT", EMPTY_SISTERS)
+        ,
+        /** PRD: 商品に魅力がないから */
+        Prd("PRD", "PRD", EMPTY_SISTERS)
+        ,
+        /** FRT: フリテンだから */
+        Frt("FRT", "FRT", EMPTY_SISTERS)
+        ,
+        /** OTH: その他理由 */
+        Oth("OTH", "OTH", EMPTY_SISTERS)
+        ;
+        private static final Map<String, WithdrawalReason> _codeValueMap = new HashMap<String, WithdrawalReason>();
+        static {
+            for (WithdrawalReason value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private WithdrawalReason(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public DefMeta meta() { return DefMeta.WithdrawalReason; }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static WithdrawalReason codeOf(Object code) {
+            if (code == null) { return null; } if (code instanceof WithdrawalReason) { return (WithdrawalReason)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static WithdrawalReason nameOf(String name) { // null allowed
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<WithdrawalReason> listAll() {
+            return new ArrayList<WithdrawalReason>(Arrays.asList(values()));
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
+    /**
+     * category of product. self reference
+     */
+    public enum ProductCategory implements AppCDef {
+        /** 音楽 */
+        音楽("MSC", "音楽", EMPTY_SISTERS)
+        ,
+        /** 食品 */
+        食品("FOD", "食品", EMPTY_SISTERS)
+        ,
+        /** ハーブ: of 食品 */
+        ハーブ("HEB", "ハーブ", EMPTY_SISTERS)
+        ,
+        /** 音楽CD: of 音楽 */
+        音楽cd("MCD", "音楽CD", EMPTY_SISTERS)
+        ,
+        /** 楽器: of 音楽 */
+        楽器("INS", "楽器", EMPTY_SISTERS)
+        ;
+        private static final Map<String, ProductCategory> _codeValueMap = new HashMap<String, ProductCategory>();
+        static {
+            for (ProductCategory value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private ProductCategory(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public DefMeta meta() { return DefMeta.ProductCategory; }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static ProductCategory codeOf(Object code) {
+            if (code == null) { return null; } if (code instanceof ProductCategory) { return (ProductCategory)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static ProductCategory nameOf(String name) { // null allowed
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<ProductCategory> listAll() {
+            return new ArrayList<ProductCategory>(Arrays.asList(values()));
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
+    /**
+     * status for product
+     */
+    public enum ProductStatus implements AppCDef {
+        /** 生産販売可能 */
+        生産販売可能("ONS", "生産販売可能", EMPTY_SISTERS)
+        ,
+        /** 生産中止 */
+        生産中止("PST", "生産中止", EMPTY_SISTERS)
+        ,
+        /** 販売中止 */
+        販売中止("SST", "販売中止", EMPTY_SISTERS)
+        ;
+        private static final Map<String, ProductStatus> _codeValueMap = new HashMap<String, ProductStatus>();
+        static {
+            for (ProductStatus value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private ProductStatus(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public DefMeta meta() { return DefMeta.ProductStatus; }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static ProductStatus codeOf(Object code) {
+            if (code == null) { return null; } if (code instanceof ProductStatus) { return (ProductStatus)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static ProductStatus nameOf(String name) { // null allowed
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<ProductStatus> listAll() {
+            return new ArrayList<ProductStatus>(Arrays.asList(values()));
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
     public enum DefMeta {
         /** general boolean classification for every flg-column */
         Flg
@@ -268,6 +516,18 @@ public interface AppCDef {
         ,
         /** rank of service member gets */
         ServiceRank
+        ,
+        /** mainly region of member address */
+        Region
+        ,
+        /** reason for member withdrawal */
+        WithdrawalReason
+        ,
+        /** category of product. self reference */
+        ProductCategory
+        ,
+        /** status for product */
+        ProductStatus
         ;
 
         /**
@@ -279,6 +539,10 @@ public interface AppCDef {
             if ("Flg".equals(name())) { return AppCDef.Flg.codeOf(code); }
             if ("MemberStatus".equals(name())) { return AppCDef.MemberStatus.codeOf(code); }
             if ("ServiceRank".equals(name())) { return AppCDef.ServiceRank.codeOf(code); }
+            if ("Region".equals(name())) { return AppCDef.Region.codeOf(code); }
+            if ("WithdrawalReason".equals(name())) { return AppCDef.WithdrawalReason.codeOf(code); }
+            if ("ProductCategory".equals(name())) { return AppCDef.ProductCategory.codeOf(code); }
+            if ("ProductStatus".equals(name())) { return AppCDef.ProductStatus.codeOf(code); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -291,6 +555,10 @@ public interface AppCDef {
             if ("Flg".equals(name())) { return AppCDef.Flg.valueOf(name); }
             if ("MemberStatus".equals(name())) { return AppCDef.MemberStatus.valueOf(name); }
             if ("ServiceRank".equals(name())) { return AppCDef.ServiceRank.valueOf(name); }
+            if ("Region".equals(name())) { return AppCDef.Region.valueOf(name); }
+            if ("WithdrawalReason".equals(name())) { return AppCDef.WithdrawalReason.valueOf(name); }
+            if ("ProductCategory".equals(name())) { return AppCDef.ProductCategory.valueOf(name); }
+            if ("ProductStatus".equals(name())) { return AppCDef.ProductStatus.valueOf(name); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -302,6 +570,10 @@ public interface AppCDef {
             if ("Flg".equals(name())) { return toClassificationList(AppCDef.Flg.listAll()); }
             if ("MemberStatus".equals(name())) { return toClassificationList(AppCDef.MemberStatus.listAll()); }
             if ("ServiceRank".equals(name())) { return toClassificationList(AppCDef.ServiceRank.listAll()); }
+            if ("Region".equals(name())) { return toClassificationList(AppCDef.Region.listAll()); }
+            if ("WithdrawalReason".equals(name())) { return toClassificationList(AppCDef.WithdrawalReason.listAll()); }
+            if ("ProductCategory".equals(name())) { return toClassificationList(AppCDef.ProductCategory.listAll()); }
+            if ("ProductStatus".equals(name())) { return toClassificationList(AppCDef.ProductStatus.listAll()); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
