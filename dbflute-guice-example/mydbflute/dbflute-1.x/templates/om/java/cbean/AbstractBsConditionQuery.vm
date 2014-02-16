@@ -1270,6 +1270,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     protected abstract ConditionValue getCValue${tmpJavaName}();
 #end
 #if ($table.hasSinglePrimaryKey())
+#if ($table.isAvailablePrimaryScalarCondition())
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1404,6 +1405,8 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         cb.xsetupForScalarConditionPartitionBy(this);
         return cb;
     }
+#end
+#if ($table.isAvailablePrimaryMyselfDerived())
 
     // ===================================================================================
     //                                                                       MyselfDerived
@@ -1441,6 +1444,8 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
     public abstract String keepQueryMyselfDerived(${myConditionQueryClassName} sq);
     public abstract String keepQueryMyselfDerivedParameter(Object vl);
+#end
+#if ($table.isAvailablePrimaryMyselfExists())
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1456,6 +1461,8 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(${myConditionQueryClassName} sq);
+#end
+#if ($table.isAvailablePrimaryMyselfInScope())
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1471,6 +1478,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(${myConditionQueryClassName} sq);
+#end
 #end
 #if ($database.isAvailableDatabaseDependency())
 #if ($database.isDatabaseMySQL())

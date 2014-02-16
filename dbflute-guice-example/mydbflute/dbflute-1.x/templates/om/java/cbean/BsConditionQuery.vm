@@ -416,6 +416,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
 #end
 #end
+#if ($col.isAvailableOrderByAsc())
 
     /** 
      * Add order-by as ascend. <br />
@@ -423,6 +424,8 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
      * @return this. (NotNull)
      */
     public ${myClassName} addOrderBy_${tmpJavaName}_Asc() { regOBA("${col.name}"); return this; }
+#end
+#if ($col.isAvailableOrderByDesc())
 
     /**
      * Add order-by as descend. <br />
@@ -430,6 +433,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
      * @return this. (NotNull)
      */
     public ${myClassName} addOrderBy_${tmpJavaName}_Desc() { regOBD("${col.name}"); return this; }
+#end
 #end
 
     // ===================================================================================
