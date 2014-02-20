@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.seasar.dbflute.BehaviorSelector;
 import org.seasar.dbflute.bhv.BehaviorReadable;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.IllegalBehaviorStateException;
 import org.seasar.dbflute.util.DfTraceViewUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
 
@@ -55,7 +56,7 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     //                                                                          Initialize
     //                                                                          ==========
     /**
-     * Initialize condition-bean meta data. <br />
+     * Initialize condition-bean meta data.
      */
     public void initializeConditionBeanMetaData() {
         final Map<String, DBMeta> dbmetaMap = DBMetaInstanceHandler.getUnmodifiableDBMetaMap();
@@ -63,16 +64,23 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
         long before = 0;
         if (_log.isInfoEnabled()) {
             before = System.currentTimeMillis();
-            _log.info("/= = = = = = = = = = = = = = = = = initializeConditionBeanMetaData()");
+            _log.info("...Initializing condition-bean meta data");
         }
+        int count = 0;
         for (DBMeta dbmeta : dbmetas) {
-            final BehaviorReadable bhv = byName(dbmeta.getTableDbName());
-            bhv.warmUpCommand();
+            try {
+                final BehaviorReadable bhv = byName(dbmeta.getTableDbName());
+                bhv.warmUpCommand();
+                ++count;
+            } catch (IllegalBehaviorStateException ignored) { // means the behavior is suppressed
+                if (_log.isDebugEnabled()) {
+                    _log.debug("No behavior for " + dbmeta.getTableDbName());
+                }
+            }
         }
         if (_log.isInfoEnabled()) {
             long after = System.currentTimeMillis();
-            _log.info("Initialized Count: " + dbmetas.size());
-            _log.info("= = = = = = = = = =/ [" + DfTraceViewUtil.convertToPerformanceView(after - before) + "]");
+            _log.info("CB initialized: " + count + " [" + DfTraceViewUtil.convertToPerformanceView(after - before) + "]");
         }
     }
 
@@ -80,10 +88,10 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     //                                                                            Selector
     //                                                                            ========
     /**
-     * Select behavior.
+     * Select behavior instance by the type.
      * @param <BEHAVIOR> The type of behavior.
      * @param behaviorType Behavior type. (NotNull)
-     * @return Behavior. (NotNull)
+     * @return The selected instance of the behavior. (NotNull)
      */
     @SuppressWarnings("unchecked")
     public <BEHAVIOR extends BehaviorReadable> BEHAVIOR select(Class<BEHAVIOR> behaviorType) {
@@ -105,9 +113,11 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     }
 
     /**
-     * Select behavior-readable by name.
-     * @param tableFlexibleName Table flexible-name. (NotNull)
-     * @return Behavior-readable. (NotNull)
+     * Select behavior (as readable type) by name.
+     * @param tableFlexibleName The flexible-name of table. (NotNull)
+     * @return The instance of found behavior. (NotNull)
+     * @throws org.seasar.dbflute.exception.DBMetaNotFoundException When the table is not found.
+     * @throws org.seasar.dbflute.exception.IllegalBehaviorStateException When the behavior class is suppressed.
      */
     public BehaviorReadable byName(String tableFlexibleName) {
         assertStringNotNullAndNotTrimmedEmpty("tableFlexibleName", tableFlexibleName);
@@ -117,8 +127,9 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
 
     /**
      * Get behavior-type by DB meta.
-     * @param dbmeta DB meta. (NotNull)
-     * @return Behavior-type. (NotNull)
+     * @param dbmeta The instance of DB meta for the behavior. (NotNull)
+     * @return The type of behavior (as readable type). (NotNull)
+     * @throws org.seasar.dbflute.exception.IllegalBehaviorStateException When the behavior class is suppressed.
      */
     @SuppressWarnings("unchecked")
     protected Class<BehaviorReadable> getBehaviorType(DBMeta dbmeta) {
@@ -131,7 +142,7 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
         try {
             behaviorType = (Class<BehaviorReadable>) Class.forName(behaviorTypeName);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("The class does not exist: " + behaviorTypeName, e);
+            throw new IllegalBehaviorStateException("The class does not exist: " + behaviorTypeName, e);
         }
         return behaviorType;
     }

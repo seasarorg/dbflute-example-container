@@ -8,7 +8,7 @@
         <column autoIncrement="true"
             comment="会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B6314AA9_0148_4057_8036_F24BB56F2E9D"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8E9193C3_FF61_400C_B5D0_435143C91538"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -72,7 +72,7 @@
         <column autoIncrement="true"
             comment="会員住所ID: 会員住所を識別するID。&#xa;期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7B561CF0_A6E2_4927_9D2E_005DA1F73714"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_754FC4E3_B7DE_4182_AAAA_01343DB48F3B"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -129,7 +129,7 @@
         name="MEMBER_FOLLOWING" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員フォローイングID: 連番"
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A813F445_D178_492B_B3C9_63E61CFB5D9E"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_EC8298D2_1E9D_445F_8484_39ED2A7D63A8"
             javaType="Long" name="MEMBER_FOLLOWING_ID"
             pkName="CONSTRAINT_BD" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -173,7 +173,7 @@
         name="MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員ログインID: "
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A0CBD5B1_3984_4967_AED1_E258BDFD31A6"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_97B08D58_9DFB_43B5_82F3_4B2F812B4265"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BDA" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -255,7 +255,7 @@
         <column autoIncrement="true"
             comment="会員サービスID: 独立した主キーとなるが、実質的に会員IDとは one-to-one である。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B3049AF1_2291_4630_926F_5BFF88438F2E"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_61D83180_1603_4D44_9C51_B078370BF47A"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -369,7 +369,7 @@
     </table>
     <table comment="商品:" name="PRODUCT" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1E0460BF_1460_4FDD_9162_4DB219EE2BCA"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_19D40645_0B88_4041_BD0C_C0C395EEECCA"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -459,7 +459,7 @@
         comment="購入: 一つの商品に対する購入を表現する(購入履歴とも言える)。&#xa;実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。"
         name="PURCHASE" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6E598D12_B922_4E39_93DD_5682F764987F"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7AD3F84A_4F70_4223_851D_AD68B349FB51"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column
@@ -671,7 +671,7 @@
     </table>
     <table name="VENDOR_IDENTITY_ONLY" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_ADDFD67F_62A6_4B18_A4A9_B41137B087C8"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D4F97A34_340F_4023_916C_01DE1400835E"
             javaType="Long" name="IDENTITY_ONLY_ID"
             pkName="CONSTRAINT_A3" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -741,25 +741,25 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_7B561CF0_A6E2_4927_9D2E_005DA1F73714" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_8E9193C3_FF61_400C_B5D0_435143C91538" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_NOT_RELATED_TO_TABLE" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_6E598D12_B922_4E39_93DD_5682F764987F" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_7AD3F84A_4F70_4223_851D_AD68B349FB51" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_B3049AF1_2291_4630_926F_5BFF88438F2E" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_D4F97A34_340F_4023_916C_01DE1400835E" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_61D83180_1603_4D44_9C51_B078370BF47A" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_19D40645_0B88_4041_BD0C_C0C395EEECCA" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="8" name="SEQ_PURCHASE" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_A813F445_D178_492B_B3C9_63E61CFB5D9E" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_ADDFD67F_62A6_4B18_A4A9_B41137B087C8" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_MEMBER" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_A0CBD5B1_3984_4967_AED1_E258BDFD31A6" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_754FC4E3_B7DE_4182_AAAA_01343DB48F3B" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_B6314AA9_0148_4057_8036_F24BB56F2E9D" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_1E0460BF_1460_4FDD_9162_4DB219EE2BCA" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_97B08D58_9DFB_43B5_82F3_4B2F812B4265" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="3" name="SEQ_MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_EC8298D2_1E9D_445F_8484_39ED2A7D63A8" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="-1" name="SEQ_DECREMENT" schema="EXAMPLEDB.PUBLIC"/>
     </sequenceGroup>
     <procedureGroup>
