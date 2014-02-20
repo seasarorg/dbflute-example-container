@@ -2,4 +2,5 @@
 /bin
 /*.epoch
 /tm.out
+/tm.out.*
 /tm*.log
