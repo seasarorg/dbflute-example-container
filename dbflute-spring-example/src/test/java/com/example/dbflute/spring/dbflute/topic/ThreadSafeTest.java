@@ -6,6 +6,9 @@ import java.util.Set;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.exception.EntityAlreadyUpdatedException;
+import org.seasar.dbflute.unit.core.cannonball.CannonballCar;
+import org.seasar.dbflute.unit.core.cannonball.CannonballOption;
+import org.seasar.dbflute.unit.core.cannonball.CannonballRun;
 import org.seasar.dbflute.unit.core.thread.ThreadFireExecution;
 import org.seasar.dbflute.unit.core.thread.ThreadFireOption;
 import org.seasar.dbflute.unit.core.thread.ThreadFireResource;
@@ -35,9 +38,9 @@ public class ThreadSafeTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       ConditionBean
     //                                                                       =============
-    public void test_ThreadSafe_conditionBean_sameExecution() {
-        threadFire(new ThreadFireExecution<List<Member>>() {
-            public List<Member> execute(ThreadFireResource resource) {
+    public void test_ThreadSafe_ConditionBean_sameExecution() {
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
                 // ## Arrange ##
                 MemberCB cb = new MemberCB();
                 cb.setupSelect_MemberStatus();
@@ -52,15 +55,15 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                 for (Member member : memberList) {
                     assertTrue(member.getMemberName().startsWith("S"));
                 }
-                return memberList;
+                car.goal(memberList);
             }
-        }, new ThreadFireOption().expectSameResult());
+        }, new CannonballOption().expectSameResult());
     }
 
     // ===================================================================================
     //                                                                          OutsideSql
     //                                                                          ==========
-    public void test_ThreadSafe_outsideSql_sameExecution() {
+    public void test_ThreadSafe_OutsideSql_sameExecution() {
         threadFire(new ThreadFireExecution<List<SimpleMember>>() {
             public List<SimpleMember> execute(ThreadFireResource resource) {
                 // ## Arrange ##
@@ -95,12 +98,11 @@ public class ThreadSafeTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                              Update
     //                                                                              ======
-    public void test_ThreadSafe_update_sameExecution() { // uses original transactions
+    public void test_ThreadSafe_update_sameExecution() {
         final int memberId = 3;
         final Member before = memberBhv.selectByPKValue(memberId);
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
-
         threadFire(new ThreadFireExecution<Void>() {
             public Void execute(ThreadFireResource resource) {
                 Member member = new Member();
@@ -127,12 +129,11 @@ public class ThreadSafeTest extends UnitContainerTestCase {
         log(markSet);
     }
 
-    public void test_ThreadSafe_update_Deadlock() { // uses original transactions
+    public void test_ThreadSafe_update_after_insert() {
         final int memberId = 3;
         final Member before = memberBhv.selectByPKValue(memberId);
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
-
         threadFire(new ThreadFireExecution<Void>() {
             public Void execute(ThreadFireResource resource) {
                 long threadId = resource.getThreadId();
