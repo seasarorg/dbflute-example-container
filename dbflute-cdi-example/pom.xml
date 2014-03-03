@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.example.dbflute</groupId>
 	<artifactId>dbflute-cdi-example</artifactId>
 	<version>1.0.0</version>
@@ -9,6 +9,13 @@
 
 	<name>dbflute-cdi-example</name>
 	<description>DBFlute example for JSR-299 (Context Dependency Injection)</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<dbflute.version>1.0.5C</dbflute.version>
+		<slf4j.version>1.6.1</slf4j.version>
+	</properties>
+
 	<url>http://dbflute.sandbox.seasar.org</url>
 	<inceptionYear>2011</inceptionYear>
 	<licenses>
@@ -58,12 +65,6 @@
 		<url>http://www.seasar.org/source/browse/sandbox.dbflute/trunk/dbflute-cdi-example/
 		</url>
 	</scm>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dbflute.version>1.0.5B</dbflute.version>
-		<slf4j.version>1.6.1</slf4j.version>
-	</properties>
 
 	<build>
 		<pluginManagement>

@@ -477,7 +477,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
     /**
@@ -494,7 +494,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
     /**
@@ -511,7 +511,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
     /**
@@ -528,7 +528,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
     /**
@@ -545,7 +545,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
     /**
@@ -562,36 +562,25 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
 
-    protected HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<VendorTheLongAndWindingTableAndColumnRefCB>(new HpSSQSetupper<VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, HpSSQOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, HpSSQOption<VendorTheLongAndWindingTableAndColumnRefCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        VendorTheLongAndWindingTableAndColumnRefCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        VendorTheLongAndWindingTableAndColumnRefCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     protected VendorTheLongAndWindingTableAndColumnRefCB xcreateScalarConditionCB() {
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        VendorTheLongAndWindingTableAndColumnRefCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected VendorTheLongAndWindingTableAndColumnRefCB xcreateScalarConditionPartitionByCB() {
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        VendorTheLongAndWindingTableAndColumnRefCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -611,18 +600,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCB.class);
     }
-    protected HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB>(new HpQDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -664,8 +647,10 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected VendorTheLongAndWindingTableAndColumnRefCB newMyCB() {
+        return new VendorTheLongAndWindingTableAndColumnRefCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return VendorTheLongAndWindingTableAndColumnRefCB.class.getName(); }
     protected String xabCQ() { return VendorTheLongAndWindingTableAndColumnRefCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

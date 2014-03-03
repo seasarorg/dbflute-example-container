@@ -3010,7 +3010,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), VendorCheckCB.class);
     }
 
     /**
@@ -3027,7 +3027,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), VendorCheckCB.class);
     }
 
     /**
@@ -3044,7 +3044,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), VendorCheckCB.class);
     }
 
     /**
@@ -3061,7 +3061,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), VendorCheckCB.class);
     }
 
     /**
@@ -3078,7 +3078,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), VendorCheckCB.class);
     }
 
     /**
@@ -3095,36 +3095,25 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorCheckCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), VendorCheckCB.class);
     }
 
-    protected HpSSQFunction<VendorCheckCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<VendorCheckCB>(new HpSSQSetupper<VendorCheckCB>() {
-            public void setup(String fn, SubQuery<VendorCheckCB> sq, HpSSQOption<VendorCheckCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<VendorCheckCB> sq, String rd, HpSSQOption<VendorCheckCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        VendorCheckCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        VendorCheckCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(VendorCheckCQ sq);
 
     protected VendorCheckCB xcreateScalarConditionCB() {
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        VendorCheckCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected VendorCheckCB xcreateScalarConditionPartitionByCB() {
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        VendorCheckCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -3144,18 +3133,12 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<VendorCheckCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(VendorCheckCB.class);
     }
-    protected HpQDRFunction<VendorCheckCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<VendorCheckCB>(new HpQDRSetupper<VendorCheckCB>() {
-            public void setup(String fn, SubQuery<VendorCheckCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<VendorCheckCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "VENDOR_CHECK_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -3197,8 +3180,10 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected VendorCheckCB newMyCB() {
+        return new VendorCheckCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return VendorCheckCB.class.getName(); }
     protected String xabCQ() { return VendorCheckCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

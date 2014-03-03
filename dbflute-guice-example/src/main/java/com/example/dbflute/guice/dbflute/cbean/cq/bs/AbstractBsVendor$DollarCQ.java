@@ -243,7 +243,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), Vendor$DollarCB.class);
     }
 
     /**
@@ -260,7 +260,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), Vendor$DollarCB.class);
     }
 
     /**
@@ -277,7 +277,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), Vendor$DollarCB.class);
     }
 
     /**
@@ -294,7 +294,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), Vendor$DollarCB.class);
     }
 
     /**
@@ -311,7 +311,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), Vendor$DollarCB.class);
     }
 
     /**
@@ -328,36 +328,25 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<Vendor$DollarCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), Vendor$DollarCB.class);
     }
 
-    protected HpSSQFunction<Vendor$DollarCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<Vendor$DollarCB>(new HpSSQSetupper<Vendor$DollarCB>() {
-            public void setup(String fn, SubQuery<Vendor$DollarCB> sq, HpSSQOption<Vendor$DollarCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<Vendor$DollarCB> sq, String rd, HpSSQOption<Vendor$DollarCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        Vendor$DollarCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        Vendor$DollarCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(Vendor$DollarCQ sq);
 
     protected Vendor$DollarCB xcreateScalarConditionCB() {
-        Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        Vendor$DollarCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected Vendor$DollarCB xcreateScalarConditionPartitionByCB() {
-        Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        Vendor$DollarCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -377,18 +366,12 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<Vendor$DollarCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(Vendor$DollarCB.class);
     }
-    protected HpQDRFunction<Vendor$DollarCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<Vendor$DollarCB>(new HpQDRSetupper<Vendor$DollarCB>() {
-            public void setup(String fn, SubQuery<Vendor$DollarCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<Vendor$DollarCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "VENDOR_$_DOLLAR_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -430,8 +413,10 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected Vendor$DollarCB newMyCB() {
+        return new Vendor$DollarCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return Vendor$DollarCB.class.getName(); }
     protected String xabCQ() { return Vendor$DollarCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

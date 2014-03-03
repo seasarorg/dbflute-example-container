@@ -1223,8 +1223,10 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected SummaryWithdrawalCB newMyCB() {
+        return new SummaryWithdrawalCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return SummaryWithdrawalCB.class.getName(); }
     protected String xabCQ() { return SummaryWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

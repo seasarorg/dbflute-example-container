@@ -193,7 +193,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
     /**
@@ -210,7 +210,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
     /**
@@ -227,7 +227,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
     /**
@@ -244,7 +244,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
     /**
@@ -261,7 +261,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
     /**
@@ -278,36 +278,25 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<VendorPrimaryKeyOnlyCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), VendorPrimaryKeyOnlyCB.class);
     }
 
-    protected HpSSQFunction<VendorPrimaryKeyOnlyCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<VendorPrimaryKeyOnlyCB>(new HpSSQSetupper<VendorPrimaryKeyOnlyCB>() {
-            public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, HpSSQOption<VendorPrimaryKeyOnlyCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, HpSSQOption<VendorPrimaryKeyOnlyCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        VendorPrimaryKeyOnlyCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        VendorPrimaryKeyOnlyCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(VendorPrimaryKeyOnlyCQ sq);
 
     protected VendorPrimaryKeyOnlyCB xcreateScalarConditionCB() {
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        VendorPrimaryKeyOnlyCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected VendorPrimaryKeyOnlyCB xcreateScalarConditionPartitionByCB() {
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        VendorPrimaryKeyOnlyCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -327,18 +316,12 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<VendorPrimaryKeyOnlyCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(VendorPrimaryKeyOnlyCB.class);
     }
-    protected HpQDRFunction<VendorPrimaryKeyOnlyCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<VendorPrimaryKeyOnlyCB>(new HpQDRSetupper<VendorPrimaryKeyOnlyCB>() {
-            public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "PRIMARY_KEY_ONLY_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -380,8 +363,10 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected VendorPrimaryKeyOnlyCB newMyCB() {
+        return new VendorPrimaryKeyOnlyCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return VendorPrimaryKeyOnlyCB.class.getName(); }
     protected String xabCQ() { return VendorPrimaryKeyOnlyCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

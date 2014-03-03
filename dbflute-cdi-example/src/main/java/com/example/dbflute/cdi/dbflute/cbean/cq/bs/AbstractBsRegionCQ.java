@@ -434,7 +434,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), RegionCB.class);
     }
 
     /**
@@ -451,7 +451,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), RegionCB.class);
     }
 
     /**
@@ -468,7 +468,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), RegionCB.class);
     }
 
     /**
@@ -485,7 +485,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), RegionCB.class);
     }
 
     /**
@@ -502,7 +502,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), RegionCB.class);
     }
 
     /**
@@ -519,36 +519,25 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), RegionCB.class);
     }
 
-    protected HpSSQFunction<RegionCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<RegionCB>(new HpSSQSetupper<RegionCB>() {
-            public void setup(String fn, SubQuery<RegionCB> sq, HpSSQOption<RegionCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<RegionCB> sq, String rd, HpSSQOption<RegionCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        RegionCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        RegionCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(RegionCQ sq);
 
     protected RegionCB xcreateScalarConditionCB() {
-        RegionCB cb = new RegionCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        RegionCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected RegionCB xcreateScalarConditionPartitionByCB() {
-        RegionCB cb = new RegionCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        RegionCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -568,18 +557,12 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<RegionCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(RegionCB.class);
     }
-    protected HpQDRFunction<RegionCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<RegionCB>(new HpQDRSetupper<RegionCB>() {
-            public void setup(String fn, SubQuery<RegionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<RegionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "REGION_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -621,8 +604,10 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected RegionCB newMyCB() {
+        return new RegionCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return RegionCB.class.getName(); }
     protected String xabCQ() { return RegionCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

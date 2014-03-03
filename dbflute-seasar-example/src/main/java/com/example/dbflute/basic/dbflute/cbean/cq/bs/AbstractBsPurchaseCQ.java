@@ -1378,7 +1378,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), PurchaseCB.class);
     }
 
     /**
@@ -1395,7 +1395,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), PurchaseCB.class);
     }
 
     /**
@@ -1412,7 +1412,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), PurchaseCB.class);
     }
 
     /**
@@ -1429,7 +1429,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), PurchaseCB.class);
     }
 
     /**
@@ -1446,7 +1446,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), PurchaseCB.class);
     }
 
     /**
@@ -1463,36 +1463,25 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<PurchaseCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), PurchaseCB.class);
     }
 
-    protected HpSSQFunction<PurchaseCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<PurchaseCB>(new HpSSQSetupper<PurchaseCB>() {
-            public void setup(String fn, SubQuery<PurchaseCB> sq, HpSSQOption<PurchaseCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<PurchaseCB> sq, String rd, HpSSQOption<PurchaseCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        PurchaseCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        PurchaseCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(PurchaseCQ sq);
 
     protected PurchaseCB xcreateScalarConditionCB() {
-        PurchaseCB cb = new PurchaseCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        PurchaseCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected PurchaseCB xcreateScalarConditionPartitionByCB() {
-        PurchaseCB cb = new PurchaseCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        PurchaseCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1512,18 +1501,12 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<PurchaseCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(PurchaseCB.class);
     }
-    protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<PurchaseCB>(new HpQDRSetupper<PurchaseCB>() {
-            public void setup(String fn, SubQuery<PurchaseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<PurchaseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "PURCHASE_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1565,8 +1548,10 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected PurchaseCB newMyCB() {
+        return new PurchaseCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return PurchaseCB.class.getName(); }
     protected String xabCQ() { return PurchaseCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

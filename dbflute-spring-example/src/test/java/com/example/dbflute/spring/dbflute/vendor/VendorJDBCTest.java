@@ -15,9 +15,9 @@ import org.seasar.dbflute.exception.EntityAlreadyUpdatedException;
 import org.seasar.dbflute.jdbc.SqlLogHandler;
 import org.seasar.dbflute.jdbc.SqlLogInfo;
 import org.seasar.dbflute.jdbc.StatementConfig;
-import org.seasar.dbflute.unit.core.thread.ThreadFireExecution;
-import org.seasar.dbflute.unit.core.thread.ThreadFireOption;
-import org.seasar.dbflute.unit.core.thread.ThreadFireResource;
+import org.seasar.dbflute.unit.core.cannonball.CannonballCar;
+import org.seasar.dbflute.unit.core.cannonball.CannonballOption;
+import org.seasar.dbflute.unit.core.cannonball.CannonballRun;
 import org.seasar.dbflute.util.DfCollectionUtil;
 
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.MemberDbm;
@@ -50,8 +50,8 @@ public class VendorJDBCTest extends UnitContainerTestCase {
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
 
-        threadFire(new ThreadFireExecution<Void>() {
-            public Void execute(ThreadFireResource resource) {
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
                 Member member = new Member();
                 member.setMemberId(memberId);
                 member.setVersionNo(versionNo);
@@ -70,9 +70,8 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                     purchaseBhv.insert(purchase);
                 }
                 markSet.add("success: " + threadId);
-                return null;
             }
-        }, new ThreadFireOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
+        }, new CannonballOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
         log(markSet);
     }
 
@@ -80,8 +79,8 @@ public class VendorJDBCTest extends UnitContainerTestCase {
     //                                                                       Query Timeout
     //                                                                       =============
     public void test_QueryTimeout_insert() throws Exception {
-        threadFire(new ThreadFireExecution<Void>() {
-            public Void execute(ThreadFireResource resource) {
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
                 final long threadId = Thread.currentThread().getId();
                 if (threadId % 2 == 0) {
                     Member member = new Member();
@@ -100,9 +99,8 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                     option.configure(new StatementConfig().queryTimeout(1));
                     memberBhv.varyingInsert(member, option);
                 }
-                return null;
             }
-        }, new ThreadFireOption().threadCount(2).repeatCount(1).expectExceptionAny("Timeout"));
+        }, new CannonballOption().threadCount(2).expectExceptionAny("Timeout"));
     }
 
     // ===================================================================================

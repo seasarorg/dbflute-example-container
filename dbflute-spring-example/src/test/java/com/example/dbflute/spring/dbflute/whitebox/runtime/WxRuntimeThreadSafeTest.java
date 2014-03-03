@@ -4,8 +4,9 @@ import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.jdbc.ValueType;
 import org.seasar.dbflute.resource.ResourceContext;
 import org.seasar.dbflute.s2dao.valuetype.TnValueTypes;
-import org.seasar.dbflute.unit.core.thread.ThreadFireExecution;
-import org.seasar.dbflute.unit.core.thread.ThreadFireResource;
+import org.seasar.dbflute.unit.core.cannonball.CannonballCar;
+import org.seasar.dbflute.unit.core.cannonball.CannonballOption;
+import org.seasar.dbflute.unit.core.cannonball.CannonballRun;
 
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
@@ -19,9 +20,9 @@ public class WxRuntimeThreadSafeTest extends UnitContainerTestCase {
     //                                                                           Framework
     //                                                                           =========
     public void test_ThreadSafe_ValueType_getValueType() {
-        threadFire(new ThreadFireExecution<Void>() {
-            public Void execute(ThreadFireResource resource) {
-                long id = Thread.currentThread().getId();
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
+                long id = car.getThreadId();
                 boolean foo = (id % 2 == 0);
                 ResourceContext context = new ResourceContext();
                 if (foo) {
@@ -40,8 +41,7 @@ public class WxRuntimeThreadSafeTest extends UnitContainerTestCase {
                     assertNotNull(TnValueTypes.getValueType(java.sql.Timestamp.class));
                     assertNotNull(TnValueTypes.getValueType(java.util.UUID.class));
                 }
-                return null;
             }
-        });
+        }, new CannonballOption());
     }
 }

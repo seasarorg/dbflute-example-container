@@ -481,7 +481,7 @@ dl.procedurelist dd.column pre {
 
   <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
-&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=20)</a></span>
+&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=24)</a></span>
 </h2>
 <p class="tablecomment">会員のプロフィールやアカウントなどの基本情報を保持する。<br />基本的に物理削除はなく、退会したらステータスが退会会員になる。<br />ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。</p>
 <table summary="Columns in MEMBER">
@@ -4194,6 +4194,36 @@ SUMMARY_WITHDRAWAL
 	<dt>&nbsp;whitebox_wrongexample_selectIfCommentWrongExpression</dt>
 	<dd class="subinfo">
 		<span class="file">MemberBhv_selectIfCommentWrongExpression.sql</span>
+	</dd>
+	<dt>(Simple&nbsp;Member&nbsp;Select)selectSqlApBasicMember</dt>
+	<dd>
+		<pre class="commentdesc"> This SQL is the most basic example for outsideSql.
+ It uses CustomizeEntity and ParameterBean.</pre>
+	</dd>
+	<dd class="subinfo">
+        <span class="sqlap">(dbflute-sqlap-example)</span>
+		<span class="file">MemberBhv_selectSqlApBasicMember.sql</span>
+		<span class="ctet">(df:entity)</span>
+		<span class="pmb">(df:pmb)</span>
+	</dd>
+	<dt>&nbsp;selectSqlApCursorMember</dt>
+	<dd class="subinfo">
+        <span class="sqlap">(dbflute-sqlap-example)</span>
+		<span class="file">MemberBhv_selectSqlApCursorMember.sql</span>
+		<span class="ctet">(df:entity *cursor)</span>
+		<span class="pmb">(df:pmb)</span>
+	</dd>
+	<dt>&nbsp;selectSqlApNoMark</dt>
+	<dd class="subinfo">
+        <span class="sqlap">(dbflute-sqlap-example)</span>
+		<span class="file">MemberBhv_selectSqlApNoMark.sql</span>
+	</dd>
+	<dt>&nbsp;subdirectory_selectSqlApSubDirectoryCheck</dt>
+	<dd class="subinfo">
+        <span class="sqlap">(dbflute-sqlap-example)</span>
+		<span class="file">MemberBhv_selectSqlApSubDirectoryCheck.sql</span>
+		<span class="ctet">(df:entity)</span>
+		<span class="pmb">(df:pmb)</span>
 	</dd>
 </dl>
 <h3 id="member_status_sql"><a href="#member_status">MEMBER_STATUS</a></h3>
