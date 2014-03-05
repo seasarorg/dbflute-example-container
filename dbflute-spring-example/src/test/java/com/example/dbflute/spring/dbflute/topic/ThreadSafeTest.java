@@ -9,9 +9,6 @@ import org.seasar.dbflute.exception.EntityAlreadyUpdatedException;
 import org.seasar.dbflute.unit.core.cannonball.CannonballCar;
 import org.seasar.dbflute.unit.core.cannonball.CannonballOption;
 import org.seasar.dbflute.unit.core.cannonball.CannonballRun;
-import org.seasar.dbflute.unit.core.thread.ThreadFireExecution;
-import org.seasar.dbflute.unit.core.thread.ThreadFireOption;
-import org.seasar.dbflute.unit.core.thread.ThreadFireResource;
 import org.seasar.dbflute.util.DfCollectionUtil;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
@@ -64,21 +61,17 @@ public class ThreadSafeTest extends UnitContainerTestCase {
     //                                                                          OutsideSql
     //                                                                          ==========
     public void test_ThreadSafe_OutsideSql_sameExecution() {
-        threadFire(new ThreadFireExecution<List<SimpleMember>>() {
-            public List<SimpleMember> execute(ThreadFireResource resource) {
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
                 // ## Arrange ##
-                String path = MemberBhv.PATH_selectSimpleMember;
-
                 SimpleMemberPmb pmb = new SimpleMemberPmb();
                 pmb.setMemberName_PrefixSearch("S");
 
-                Class<SimpleMember> entityType = SimpleMember.class;
-
                 // ## Act ##
-                List<SimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+                List<SimpleMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
                 // ## Assert ##
-                assertNotSame(0, memberList.size());
+                assertHasAnyElement(memberList);
                 log("{SimpleMember}");
                 for (SimpleMember entity : memberList) {
                     Integer memberId = entity.getMemberId();
@@ -90,9 +83,9 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                     assertNotNull(memberStatusName);
                     assertTrue(memberName.startsWith("S"));
                 }
-                return memberList;
+                car.goal(memberList);
             }
-        }, new ThreadFireOption().expectSameResult());
+        }, new CannonballOption().expectSameResult());
     }
 
     // ===================================================================================
@@ -100,11 +93,11 @@ public class ThreadSafeTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_ThreadSafe_update_sameExecution() {
         final int memberId = 3;
-        final Member before = memberBhv.selectByPKValue(memberId);
+        final Member before = memberBhv.selectByPKValueWithDeletedCheck(memberId);
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
-        threadFire(new ThreadFireExecution<Void>() {
-            public Void execute(ThreadFireResource resource) {
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
                 Member member = new Member();
                 member.setMemberId(memberId);
                 member.setVersionNo(versionNo);
@@ -123,9 +116,8 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                     purchaseBhv.insert(purchase);
                 }
                 markSet.add("success: " + threadId);
-                return null;
             }
-        }, new ThreadFireOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
+        }, new CannonballOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
         log(markSet);
     }
 
@@ -134,9 +126,9 @@ public class ThreadSafeTest extends UnitContainerTestCase {
         final Member before = memberBhv.selectByPKValue(memberId);
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
-        threadFire(new ThreadFireExecution<Void>() {
-            public Void execute(ThreadFireResource resource) {
-                long threadId = resource.getThreadId();
+        cannonball(new CannonballRun() {
+            public void drive(CannonballCar car) {
+                long threadId = car.getThreadId();
                 Purchase purchase = new Purchase();
                 purchase.setMemberId(threadId % 2 == 1 ? 3 : 4);
                 purchase.setProductId(threadId % 3 == 1 ? 3 : (threadId % 3 == 2 ? 4 : 5));
@@ -153,9 +145,8 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                 member.setVersionNo(versionNo);
                 memberBhv.update(member);
                 markSet.add("success: " + threadId);
-                return null;
             }
-        }, new ThreadFireOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
+        }, new CannonballOption().commitTx().expectExceptionAny(EntityAlreadyUpdatedException.class));
         log(markSet);
     }
 }
