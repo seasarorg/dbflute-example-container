@@ -125,7 +125,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
                 boolean existsNext = page3.pageRange().isExistNextPageRange();
                 log("    page3: " + existsPre + " " + page3.pageRange().createPageNumberList() + " " + existsNext);
             }
-            log("PagingResultBean.toString():" + getLineSeparator() + " " + page2 + getLineSeparator() + " " + page3);
+            log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);
             log("");
         }
         log("{PageRange-fillLimit}");
@@ -145,7 +145,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
                 boolean existsNext = page3.pageRange().isExistNextPageRange();
                 log("    page3: " + existsPre + " " + page3.pageRange().createPageNumberList() + " " + existsNext);
             }
-            log("PagingResultBean.toString():" + getLineSeparator() + " " + page2 + getLineSeparator() + " " + page3);
+            log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);
             log("");
         }
         log("{PageGroup}");
@@ -164,7 +164,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
                 boolean existsNext = page3.pageGroup().isExistNextPageGroup();
                 log("    page3: " + existsPre + " " + page3.pageGroup().createPageNumberList() + " " + existsNext);
             }
-            log("PagingResultBean.toString():" + getLineSeparator() + " " + page2 + getLineSeparator() + " " + page3);
+            log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);
             log("");
         }
 

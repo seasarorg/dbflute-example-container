@@ -65,7 +65,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         List<MemberDto> dtoList = mapper.mappingToDtoList(memberList);
 
         // ## Assert ##
-        assertListNotEmpty(dtoList);
+        assertHasAnyElement(dtoList);
         StringBuilder sb = new StringBuilder();
         Set<String> statusCodeSet = new HashSet<String>();
         Set<Integer> statusHashSet = new HashSet<Integer>();

@@ -42,7 +42,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberSecurityAsOne();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
-        assertListNotEmpty(memberList);
+        assertHasAnyElement(memberList);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
@@ -58,7 +58,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
             assertNull(memberDto.getMemberStatus());
             assertNull(memberDto.getMemberSecurityAsOne());
             assertNull(memberDto.getMemberWithdrawalAsOne());
-            assertListEmpty(memberDto.getPurchaseList());
+            assertHasZeroElement(memberDto.getPurchaseList());
         }
     }
 
@@ -70,7 +70,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberSecurityAsOne();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
-        assertListNotEmpty(memberList);
+        assertHasAnyElement(memberList);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
@@ -105,7 +105,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberSecurityAsOne();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
-        assertListNotEmpty(memberList);
+        assertHasAnyElement(memberList);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
@@ -128,7 +128,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
                 existsPurchase = true;
                 assertEquals(memberDto, purchaseDto.getMember());
                 ProductDto productDto = purchaseDto.getProduct();
-                assertListNotEmpty(productDto.getPurchaseList());
+                assertHasAnyElement(productDto.getPurchaseList());
                 assertTrue(productDto.getPurchaseList().contains(purchaseDto));
             }
         }

@@ -3,8 +3,8 @@ package com.example.dbflute.guice.dbflute.whitebox.container;
 import java.util.List;
 
 import org.seasar.dbflute.cbean.ConditionBean;
+import org.seasar.dbflute.unit.core.PlainTestCase;
 
-import com.example.dbflute.guice.unit.PlainTestCase;
 import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
 import com.google.inject.Binding;

@@ -44,7 +44,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, page3.size());
-        log("PagingResultBean.toString():" + getLineSeparator() + " " + page3);
+        log("PagingResultBean.toString():" + ln() + " " + page3);
         for (Member member : page3) {
             log(member.toString());
         }
@@ -213,7 +213,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         MemberCB actualCB = new MemberCB();
         actualCB.query().setMemberStatusCode_Equal_Provisional();
         actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(accessUser);// Common Column
+        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());// Common Column
         ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
         assertEquals(actualList.size(), updatedCount);
 
@@ -394,7 +394,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                Paging
     //                                                ------
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_manualPaging_selectPage() {
         // ## Arrange ##
         String path = MemberBhv.PATH_selectPurchaseMaxPriceMember;
@@ -406,20 +405,20 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1);// 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, 2);// 2st page
-        PagingResultBean<PurchaseMaxPriceMember> page2 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page2 = memberBhv.outsideSql().manualPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, 3);// 3st page
-        PagingResultBean<PurchaseMaxPriceMember> page3 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page3 = memberBhv.outsideSql().manualPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, page1.getAllPageCount());// latest page
-        PagingResultBean<PurchaseMaxPriceMember> lastPage = memberBhv.outsideSql().manualPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<PurchaseMaxPriceMember> lastPage = memberBhv.outsideSql().manualPaging()
+                .selectPage(path, pmb, entityType);
 
         // ## Assert ##
         showPage(page1, page2, page3, lastPage);
@@ -441,7 +440,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         assertFalse(lastPage.isExistNextPage());
     }
 
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_autoPaging_selectPage() {
         // ## Arrange ##
         String path = MemberBhv.PATH_selectUnpaidSummaryMember;
@@ -454,20 +452,20 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1);// 1st page
-        PagingResultBean<UnpaidSummaryMember> page1 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> page1 = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, 2);// 2st page
-        PagingResultBean<UnpaidSummaryMember> page2 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> page2 = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, 3);// 3st page
-        PagingResultBean<UnpaidSummaryMember> page3 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> page3 = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
 
         pmb.paging(pageSize, page1.getAllPageCount());// latest page
-        PagingResultBean<UnpaidSummaryMember> lastPage = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> lastPage = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
 
         // ## Assert ##
         showPage(page1, page2, page3, lastPage);

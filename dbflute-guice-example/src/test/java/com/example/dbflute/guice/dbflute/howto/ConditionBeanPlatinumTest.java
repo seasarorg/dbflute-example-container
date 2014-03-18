@@ -430,7 +430,6 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      *   o などなど
      * </pre>
      */
-    @SuppressWarnings("unchecked")
     public void test_selectPage_union_existsSubQuery() {
         // ## Arrange ##
         int fetchSize = 3;
@@ -500,7 +499,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // 最後に目で確認するためにSQLをログへ
         log("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
         String displaySql = cb.toDisplaySql();
-        String newLine = getLineSeparator();
+        String newLine = ln();
         log(newLine + DfStringUtil.replace(displaySql, " union ", newLine + " union "));
         log("* * * * * * * * * */");
     }

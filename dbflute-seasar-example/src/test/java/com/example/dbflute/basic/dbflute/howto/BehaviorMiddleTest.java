@@ -301,7 +301,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      * o 外だしSQLの手動ページング検索: outsideSql().manualPaging().selectPage(). <br />
      * 最大購入価格の会員一覧を検索。
      */
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_manualPaging_selectPage() {
         // ## Arrange ##
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
@@ -348,7 +347,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      * o 外だしSQLの自動ページング検索: outsideSql().autoPaging().selectPage(). <br />
      * 未払い合計金額の会員一覧を検索。
      */
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_autoPaging_selectPage() {
         // ## Arrange ##
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();

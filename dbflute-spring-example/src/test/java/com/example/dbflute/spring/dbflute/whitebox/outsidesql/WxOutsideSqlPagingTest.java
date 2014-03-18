@@ -51,7 +51,6 @@ public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
         assert_outsideSql_manualPaging_selectPage(page1, page2, page3, lastPage);
     }
 
-    @SuppressWarnings("unchecked")
     protected void assert_outsideSql_manualPaging_selectPage(PagingResultBean<PurchaseMaxPriceMember> page1,
             PagingResultBean<PurchaseMaxPriceMember> page2, PagingResultBean<PurchaseMaxPriceMember> page3,
             PagingResultBean<PurchaseMaxPriceMember> lastPage) {
@@ -128,7 +127,6 @@ public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
         assert_outsideSql_autoPaging_selectPage(page1, page2, page3, lastPage);
     }
 
-    @SuppressWarnings("unchecked")
     protected void assert_outsideSql_autoPaging_selectPage(PagingResultBean<UnpaidSummaryMember> page1,
             PagingResultBean<UnpaidSummaryMember> page2, PagingResultBean<UnpaidSummaryMember> page3,
             PagingResultBean<UnpaidSummaryMember> lastPage) {

@@ -498,7 +498,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                Paging
     //                                                ------
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_manualPaging_selectPage() {
         // ## Arrange ##
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
@@ -563,7 +562,6 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      *   o などなど
      * </pre>
      */
-    @SuppressWarnings("unchecked")
     public void test_outsideSql_autoPaging_selectPage() {
         // ## Arrange ##
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();

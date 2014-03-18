@@ -2,11 +2,11 @@ package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
 import org.seasar.dbflute.dbmeta.info.ColumnInfo;
 import org.seasar.dbflute.exception.ConditionInvokingFailureException;
+import org.seasar.dbflute.unit.core.PlainTestCase;
 
 import com.example.dbflute.guice.dbflute.bsentity.dbmeta.ProductStatusDbm;
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.cbean.ProductCB;
-import com.example.dbflute.guice.unit.PlainTestCase;
 
 /**
  * @author jflute

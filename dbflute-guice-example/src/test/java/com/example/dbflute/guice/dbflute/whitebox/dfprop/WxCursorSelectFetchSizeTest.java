@@ -1,7 +1,8 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
+import org.seasar.dbflute.unit.core.PlainTestCase;
+
 import com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig;
-import com.example.dbflute.guice.unit.PlainTestCase;
 
 /**
  * @author jflute

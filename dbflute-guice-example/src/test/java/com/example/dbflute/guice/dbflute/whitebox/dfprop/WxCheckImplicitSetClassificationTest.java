@@ -1,10 +1,10 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
 import org.seasar.dbflute.exception.IllegalClassificationCodeException;
+import org.seasar.dbflute.unit.core.PlainTestCase;
 
 import com.example.dbflute.guice.dbflute.bsentity.dbmeta.PurchaseDbm;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
-import com.example.dbflute.guice.unit.PlainTestCase;
 
 /**
  * @author jflute

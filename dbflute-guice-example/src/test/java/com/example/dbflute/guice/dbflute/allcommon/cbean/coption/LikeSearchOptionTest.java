@@ -2,12 +2,10 @@ package com.example.dbflute.guice.dbflute.allcommon.cbean.coption;
 
 
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
-
-import com.example.dbflute.guice.unit.PlainTestCase;
+import org.seasar.dbflute.unit.core.PlainTestCase;
 
 /**
  * The test of likeSearchOption for Basic Example.
- * 
  * @author jflute
  * @since 0.5.9 (2007/12/20 Thursday)
  */

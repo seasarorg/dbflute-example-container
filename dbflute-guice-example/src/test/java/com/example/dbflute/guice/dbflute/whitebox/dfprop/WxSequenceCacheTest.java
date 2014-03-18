@@ -113,7 +113,7 @@ public class WxSequenceCacheTest extends UnitContainerTestCase {
                     }
                     resultAllSet.add(result);
                 }
-                sb.append(getLineSeparator()).append(resultList);
+                sb.append(ln()).append(resultList);
             }
         }
         List<Long> resultAllList = new ArrayList<Long>(resultAllSet);
@@ -150,7 +150,7 @@ public class WxSequenceCacheTest extends UnitContainerTestCase {
                     }
                     resultAllSet.add(result);
                 }
-                sb.append(getLineSeparator()).append(resultList);
+                sb.append(ln()).append(resultList);
             }
         }
         List<Integer> resultAllList = new ArrayList<Integer>(resultAllSet);
@@ -193,7 +193,7 @@ public class WxSequenceCacheTest extends UnitContainerTestCase {
                     }
                     resultAllSet.add(result);
                 }
-                sb.append(getLineSeparator()).append(loginList);
+                sb.append(ln()).append(loginList);
                 List<Long> productList = resultMap.get("product");
                 for (Long result : productList) {
                     if (resultAllSet.contains(result)) {
@@ -201,7 +201,7 @@ public class WxSequenceCacheTest extends UnitContainerTestCase {
                     }
                     resultAllSet.add(result);
                 }
-                sb.append(getLineSeparator()).append(productList);
+                sb.append(ln()).append(productList);
             }
         }
         List<Long> resultAllList = new ArrayList<Long>(resultAllSet);

@@ -1325,11 +1325,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
-        sb.append("{SQL}" + getLineSeparator());
+        sb.append("{SQL}" + ln());
         sb.append("***************************************************************");
-        sb.append(getLineSeparator());
+        sb.append(ln());
         sb.append(displaySql);
-        sb.append(getLineSeparator());
+        sb.append(ln());
         sb.append("**************************************************************");
         log(sb);
         assertTrue(displaySql.contains("'S%'"));
@@ -1361,9 +1361,9 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
-        sb.append("{SQL}" + getLineSeparator());
-        sb.append("*******************************************").append(getLineSeparator());
-        sb.append(displaySql + getLineSeparator());
+        sb.append("{SQL}" + ln());
+        sb.append("*******************************************").append(ln());
+        sb.append(displaySql + ln());
         sb.append("*******************************************");
         log(sb);
         assertTrue(displaySql.contains(">= 2"));
