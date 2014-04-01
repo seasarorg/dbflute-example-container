@@ -115,9 +115,6 @@ map:{
     #; isSuppressSchemaHtmlOutsideSql = false
     # - - - - - - - - - -/
 
-    # for the test of original style sheet as embedded
-    ; schemaHtmlStyleSheet = $./dfprop/style-schema.txt
-
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o historyHtmlFileName (NotRequired - Default 'history-[project-name].html')
     #  The file name (not contain path) of HistoryHtml.
@@ -148,9 +145,6 @@ map:{
     #
     ; isCheckProcedureDiff = true
     # - - - - - - - - - -/
-
-    # for the test of original style sheet as embedded
-    ; historyHtmlStyleSheet = $./dfprop/style-history.txt
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o loadDataReverseMap: (NotRequired - Default map:{})
@@ -187,6 +181,103 @@ map:{
         ; password = 
         # you can rename the result html
         #; resultHtmlFileName = sync-check-result-ut.html
+    }
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o propertiesHtmlMap: (NotRequired - Default map:{})
+    #  You can set PropertiesHtml settings.
+    #  Elements of this map are as below:
+    #   o key of map: Properties Title Name
+    #   o baseDir: base directory for directory property. (NotRequired)
+    #   o rootFile: root file to read properties (Required)
+    #   o environmentMap: map of environment files, the value is dir path (NotRequired)
+    #   o diffIgnoredKeyList: list of ignored keys for differences (NotRequired)
+    #   o maskedKeyList: list of masked keys for security (NotRequired)
+    #   o isEnvOnlyFloatLeft: is it environment only? (and show as float-left?) (NotRequired)
+    #   o extendsPropRequest: other request name of exnteds-properties (NotRequired)
+    #   o isCheckImplicitOverride: does it check implicit override? (NotRequired)
+    #
+    ; propertiesHtmlMap = map:{
+        ; BasicTestProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/prop_basic_ja.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{ doc.diff.ignored.property.value }
+            ; maskedKeyList = list:{ doc.masked.property.value ; doc.masked.env.only }
+            ; extendsPropRequest = null
+        }
+        ; CommonTestProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/prop_common.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{}
+            ; maskedKeyList = list:{}
+            ; extendsPropRequest = null
+        }
+        ; DomainTestProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/prop_domain.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{}
+            ; maskedKeyList = list:{}
+            ; extendsPropRequest = CommonTestProperties
+        }
+        ; EnvOnlyCommonTestProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/prop_common.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{}
+            ; maskedKeyList = list:{}
+            ; isEnvOnlyFloatLeft = true
+            ; extendsPropRequest = null
+        }
+        ; EnvOnlyDomainTestProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/prop_domain.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{}
+            ; maskedKeyList = list:{}
+            ; extendsPropRequest = EnvOnlyCommonTestProperties
+            ; isEnvOnlyFloatLeft = true
+        }
+        ; ApplicationProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/application_ja.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{ errors.already.delete ; errors.already.exist }
+            ; maskedKeyList = list:{ masked.property.value }
+            ; extendsPropRequest = null
+        }
+        ; Log4jProperties = map:{
+            ; baseDir = ../src
+            ; rootFile = $$baseDir$$/main/resources/log4j.properties
+            ; environmentMap = map:{
+                ; integration = $$baseDir$$/integration/resources
+                ; production = $$baseDir$$/production/resources
+            }
+            ; diffIgnoredKeyList = list:{}
+            ; maskedKeyList = list:{}
+            ; extendsPropRequest = null
+        }
     }
     # - - - - - - - - - -/
 }

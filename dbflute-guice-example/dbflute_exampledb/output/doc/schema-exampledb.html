@@ -12,7 +12,7 @@ body {
 	font-family: Verdana, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Meiryo, "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
 	font-size: 80%;
 	margin: 10px 5px 5px 15px;
-	background-color: #cceeaa;
+	background-color: #ffffe0;
 }
 
 /* heading */
@@ -52,8 +52,39 @@ h4 {
 .mainschema {
 	text-align: right;
 }
-.sublink {
+.navilinkarea {
 	text-align: right;
+}
+.sublink {
+	margin-top: 0.1em;
+}
+.sisterlink {
+	margin-top: 0.6em;
+	font-size: 110%;
+}
+.sistersublink {
+	margin-top: 0.6em;
+	font-size: 80%;
+}
+
+/* keyword search */
+.keywordsearch {
+	padding: 0.7em 0 0.7em 0;
+}
+.searchmemo {
+	font-size: 0.9em;
+	color: #114488;
+}
+.suggestionarea {
+	padding: 0 0.2em 0.2em 0.2em;
+	margin: 0;
+	position: absolute;
+	zindex: 100;
+	background-color: #DDFFDD;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #CCCCCC;
+	list-style-type: none;
 }
 
 /* table */
@@ -71,6 +102,11 @@ td {
 	border-bottom: 1px dotted #aaa;
 	border-left: 1px solid #555;
 	padding:2px;
+}
+.tablecomment {
+	font-size: 0.8em;
+	color: #3F7E5E;
+	padding:0 0 0.2em 1em;
 }
 .rownumhead {
 	text-align: center;
@@ -106,10 +142,11 @@ td {
 	font-size: 0.6em;
 }
 .relcell {
-	font-size: 0.6em;
+	font-size: 0.7em;
 }
 .commentcell {
 	font-size: 0.7em;
+	color: #3F7E5E;
 }
 .subcell {
 	font-size: 0.6em;
@@ -130,6 +167,9 @@ td {
 	text-align: center;
 	font-size: 0.8em;
 }
+.commentdesc {
+	color: #3F7E5E;
+}
 
 /* inner table */
 table.child {
@@ -143,6 +183,11 @@ table.child, table.child td, table.child th {
 	border-left: none;
 	border-bottom: 1px solid #aaa;
 	border-right: 1px solid #aaa;
+}
+.clsgroup {
+	font-size: 1.2em;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 /* table supplementary info */
@@ -216,15 +261,17 @@ dl.procedurelist dd.column span.type {
 dl.procedurelist dd.column pre {
 	padding-left: 1em;
 }
-
 	</style>
 </head>
 
 <body>
 <h1>Schema for exampledb (h2)</h1>
 <p class="mainschema">generated from <strong>EXAMPLEDB.PUBLIC</strong></p>
+<div class="navilinkarea">
 <p class="sublink"><a href="#cdef">Classification Definition</a></p>
 <p class="sublink"><a href="#outsidesql">OutsideSql List</a></p>
+<p class="sistersublink"><a href="./properties-exampledb.html">to PropertiesHTML</a></p>
+</div>
 
 <h2>Table List</h2>
 <div class="keywordsearch">
@@ -481,7 +528,7 @@ dl.procedurelist dd.column pre {
 
   <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
-&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=24)</a></span>
+&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=20)</a></span>
 </h2>
 <p class="tablecomment">会員のプロフィールやアカウントなどの基本情報を保持する。<br />基本的に物理削除はなく、退会したらステータスが退会会員になる。<br />ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。</p>
 <table summary="Columns in MEMBER">
@@ -4194,36 +4241,6 @@ SUMMARY_WITHDRAWAL
 	<dt>&nbsp;whitebox_wrongexample_selectIfCommentWrongExpression</dt>
 	<dd class="subinfo">
 		<span class="file">MemberBhv_selectIfCommentWrongExpression.sql</span>
-	</dd>
-	<dt>(Simple&nbsp;Member&nbsp;Select)selectSqlApBasicMember</dt>
-	<dd>
-		<pre class="commentdesc"> This SQL is the most basic example for outsideSql.
- It uses CustomizeEntity and ParameterBean.</pre>
-	</dd>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApBasicMember.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApCursorMember</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApCursorMember.sql</span>
-		<span class="ctet">(df:entity *cursor)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApNoMark</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApNoMark.sql</span>
-	</dd>
-	<dt>&nbsp;subdirectory_selectSqlApSubDirectoryCheck</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApSubDirectoryCheck.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
 	</dd>
 </dl>
 <h3 id="member_status_sql"><a href="#member_status">MEMBER_STATUS</a></h3>
