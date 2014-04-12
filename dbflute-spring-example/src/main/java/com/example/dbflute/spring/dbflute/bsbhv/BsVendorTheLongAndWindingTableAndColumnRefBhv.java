@@ -154,10 +154,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectEntity(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntity(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntity(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return doSelectEntityWithDeletedCheck(cb, VendorTheLongAndWindingTableAndColumnRef.class);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntityWithDeletedCheck(final VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectEntityWithDeletedCheck(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -258,7 +258,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnRefCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

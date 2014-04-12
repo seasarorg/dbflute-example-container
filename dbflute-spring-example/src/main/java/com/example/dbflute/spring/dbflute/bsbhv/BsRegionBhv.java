@@ -154,10 +154,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, Region.class);
     }
 
-    protected <ENTITY extends Region> ENTITY doSelectEntity(final RegionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends Region> ENTITY doSelectEntity(RegionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, RegionCB>() {
-            public List<ENTITY> callbackSelectList(RegionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(RegionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, Region.class);
     }
 
-    protected <ENTITY extends Region> ENTITY doSelectEntityWithDeletedCheck(final RegionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends Region> ENTITY doSelectEntityWithDeletedCheck(RegionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, RegionCB>() {
-            public List<ENTITY> callbackSelectList(RegionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(RegionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -258,7 +258,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, RegionCB>() {
-            public List<ENTITY> callbackSelectList(RegionCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(RegionCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

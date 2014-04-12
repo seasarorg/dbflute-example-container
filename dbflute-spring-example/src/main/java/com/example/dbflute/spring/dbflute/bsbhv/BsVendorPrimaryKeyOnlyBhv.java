@@ -154,10 +154,10 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectEntity(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntity(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntity(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectEntityWithDeletedCheck(cb, VendorPrimaryKeyOnly.class);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntityWithDeletedCheck(final VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectEntityWithDeletedCheck(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -258,7 +258,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, VendorPrimaryKeyOnlyCB>() {
-            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorPrimaryKeyOnlyCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

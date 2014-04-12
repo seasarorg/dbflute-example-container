@@ -154,10 +154,10 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, WithdrawalReason.class);
     }
 
-    protected <ENTITY extends WithdrawalReason> ENTITY doSelectEntity(final WithdrawalReasonCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends WithdrawalReason> ENTITY doSelectEntity(WithdrawalReasonCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, WithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(WithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(WithdrawalReasonCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -183,10 +183,10 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, WithdrawalReason.class);
     }
 
-    protected <ENTITY extends WithdrawalReason> ENTITY doSelectEntityWithDeletedCheck(final WithdrawalReasonCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends WithdrawalReason> ENTITY doSelectEntityWithDeletedCheck(WithdrawalReasonCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, WithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(WithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(WithdrawalReasonCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -258,7 +258,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, WithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(WithdrawalReasonCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(WithdrawalReasonCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override
