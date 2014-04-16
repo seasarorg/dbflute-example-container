@@ -11,6 +11,7 @@ import org.seasar.dbflute.exception.FixedConditionParameterNotFoundException;
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberLoginCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberStatusCB;
+import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
@@ -128,6 +129,27 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         for (Member member : memberList) {
             log(member.getMemberName() + ", " + member.getLatestLoginDatetime());
         }
+    }
+
+    public void test_derivedReferrer_union_derived_sameKey() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            public void query(PurchaseCB subCB) {
+                subCB.specify().columnMemberId();
+                subCB.union(new UnionQuery<PurchaseCB>() {
+                    public void query(PurchaseCB unionCB) {
+                    }
+                });
+            }
+        }, Member.ALIAS_highestPurchasePrice);
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+
     }
 
     // ===================================================================================

@@ -14,7 +14,7 @@
 
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<dbflute.version>1.0.5C</dbflute.version>
+		<dbflute.version>1.0.5D-RC1</dbflute.version>
 		<h2.jdbc.version>1.3.173</h2.jdbc.version>
 		<utflute.version>0.4.3</utflute.version>
 	</properties>
