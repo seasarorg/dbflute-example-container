@@ -110,7 +110,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, true, "productId", Integer.class, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_EC12EA29_1177_4CB0_817A_7C357CB79D0D", false, null, null, null, "purchaseList", null);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, true, "productId", Integer.class, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_ABD9A138_5CFB_4E02_9AA2_088DCCEFC7CC", false, null, null, null, "purchaseList", null);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", true, "productName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, "商品ハンドルコード", true, "productHandleCode", String.class, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, true, "productCategoryCode", String.class, false, false, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null);

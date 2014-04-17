@@ -32,8 +32,5 @@ public class MemberStatusCQ extends BsMemberStatusCQ {
     // ===================================================================================
     //                                                                       Arrange Query
     //                                                                       =============
-    // You can make your arranged query methods here.
-    //public void arrangeXxx() {
-    //    ...
-    //}
+    // You can make your arranged query methods here. e.g. public void arrangeXxx()
 }

@@ -8,7 +8,7 @@
         <column autoIncrement="true"
             comment="会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_98965717_CAC9_44B6_9F34_62C64CD8FBE7"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_ADE6BD6A_D44C_4696_B13B_3E12D7546F41"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -70,7 +70,7 @@
         <column autoIncrement="true"
             comment="会員住所ID: 会員住所を識別するID。&#xa;期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_3799CDFD_70BA_4169_AC81_0AA6047BAF1A"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5467B095_BA76_4DEA_A24F_63225B4D590E"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -127,7 +127,7 @@
         name="MEMBER_FOLLOWING" schema="DIFFWORLDDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員フォローイングID: 連番"
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4E885B0E_89DB_4B9B_ADD7_73DE75BF9DE7"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D974B376_00FA_4D2D_B3B9_61B106B3A746"
             javaType="Long" name="MEMBER_FOLLOWING_ID"
             pkName="CONSTRAINT_BD" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -168,7 +168,7 @@
     </table>
     <table name="MEMBER_LOGIN" schema="DIFFWORLDDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_46F058A2_61C8_446F_B4E4_4824CCC9CD58"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_125A77E8_FB03_45F2_86F7_E4BE14F0032A"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BDA" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -244,7 +244,7 @@
         <column autoIncrement="true"
             comment="会員サービスID: 独立した主キーとなるが、実質的に会員IDとは one-to-one である。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_378B44E0_7CE4_4FB5_BA74_7B82C7B40636"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_26D50A31_E995_4E5F_BDF8_CEC01E56422B"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -358,7 +358,7 @@
     </table>
     <table comment="商品:" name="PRODUCT" schema="DIFFWORLDDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_26B21232_6AAA_4A50_9AB4_2875BD3FACA2"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2A0218F8_20CC_41EA_B512_F2349C486056"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -448,7 +448,7 @@
         comment="購入: 一つの商品に対する購入を表現する(購入履歴とも言える)。&#xa;実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。"
         name="PURCHASE" schema="DIFFWORLDDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_E90D517A_C9FC_43AD_9A01_944B5ADA0586"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F38F33B3_3C6F_4A84_83C5_A29E3C526BD5"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column
@@ -660,7 +660,7 @@
     </table>
     <table name="VENDOR_IDENTITY_ONLY" schema="DIFFWORLDDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C85DBD9A_054C_4B36_A4DE_3A5E84241B6F"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BE28A3A0_5360_4F64_A428_9E3D737C826F"
             javaType="Long" name="IDENTITY_ONLY_ID"
             pkName="CONSTRAINT_A3" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -729,27 +729,27 @@
         </unique>
     </table>
     <sequenceGroup>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_3799CDFD_70BA_4169_AC81_0AA6047BAF1A" schema="DIFFWORLDDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_E90D517A_C9FC_43AD_9A01_944B5ADA0586" schema="DIFFWORLDDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_26B21232_6AAA_4A50_9AB4_2875BD3FACA2" schema="DIFFWORLDDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_378B44E0_7CE4_4FB5_BA74_7B82C7B40636" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_DIFFWORLD" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_NOT_RELATED_TO_TABLE" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_C85DBD9A_054C_4B36_A4DE_3A5E84241B6F" schema="DIFFWORLDDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_125A77E8_FB03_45F2_86F7_E4BE14F0032A" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_46F058A2_61C8_446F_B4E4_4824CCC9CD58" schema="DIFFWORLDDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_5467B095_BA76_4DEA_A24F_63225B4D590E" schema="DIFFWORLDDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_D974B376_00FA_4D2D_B3B9_61B106B3A746" schema="DIFFWORLDDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_BE28A3A0_5360_4F64_A428_9E3D737C826F" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="99" name="SEQ_PURCHASE" schema="DIFFWORLDDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_26D50A31_E995_4E5F_BDF8_CEC01E56422B" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_MEMBER" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_4E885B0E_89DB_4B9B_ADD7_73DE75BF9DE7" schema="DIFFWORLDDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_98965717_CAC9_44B6_9F34_62C64CD8FBE7" schema="DIFFWORLDDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_F38F33B3_3C6F_4A84_83C5_A29E3C526BD5" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="3" name="SEQ_MEMBER_LOGIN" schema="DIFFWORLDDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_2A0218F8_20CC_41EA_B512_F2349C486056" schema="DIFFWORLDDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_ADE6BD6A_D44C_4696_B13B_3E12D7546F41" schema="DIFFWORLDDB.PUBLIC"/>
         <sequence incrementSize="-1" name="SEQ_DECREMENT" schema="DIFFWORLDDB.PUBLIC"/>
     </sequenceGroup>
     <procedureGroup>

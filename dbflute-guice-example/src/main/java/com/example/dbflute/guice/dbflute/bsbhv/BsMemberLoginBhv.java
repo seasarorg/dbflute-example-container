@@ -139,10 +139,10 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, MemberLogin.class);
     }
 
-    protected <ENTITY extends MemberLogin> ENTITY doSelectEntity(final MemberLoginCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends MemberLogin> ENTITY doSelectEntity(MemberLoginCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, MemberLoginCB>() {
-            public List<ENTITY> callbackSelectList(MemberLoginCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MemberLoginCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -168,10 +168,10 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, MemberLogin.class);
     }
 
-    protected <ENTITY extends MemberLogin> ENTITY doSelectEntityWithDeletedCheck(final MemberLoginCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends MemberLogin> ENTITY doSelectEntityWithDeletedCheck(MemberLoginCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MemberLoginCB>() {
-            public List<ENTITY> callbackSelectList(MemberLoginCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MemberLoginCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -243,7 +243,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, MemberLoginCB>() {
-            public List<ENTITY> callbackSelectList(MemberLoginCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MemberLoginCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

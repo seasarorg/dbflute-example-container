@@ -143,10 +143,10 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, VendorCheck.class);
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(final VendorCheckCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(VendorCheckCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, VendorCheckCB>() {
-            public List<ENTITY> callbackSelectList(VendorCheckCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorCheckCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -172,10 +172,10 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, VendorCheck.class);
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntityWithDeletedCheck(final VendorCheckCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends VendorCheck> ENTITY doSelectEntityWithDeletedCheck(VendorCheckCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, VendorCheckCB>() {
-            public List<ENTITY> callbackSelectList(VendorCheckCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorCheckCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -247,7 +247,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, VendorCheckCB>() {
-            public List<ENTITY> callbackSelectList(VendorCheckCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(VendorCheckCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override
