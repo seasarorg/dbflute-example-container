@@ -2,6 +2,7 @@ package com.example.dbflute.guice.dbflute.cbean.cq;
 
 import org.seasar.dbflute.cbean.ConditionQuery;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
+
 import com.example.dbflute.guice.dbflute.cbean.cq.bs.BsServiceRankCQ;
 
 /**
@@ -17,7 +18,7 @@ public class ServiceRankCQ extends BsServiceRankCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-	// You should NOT touch with this constructor.
+    // You should NOT touch with this constructor.
     /**
      * Constructor.
      * @param referrerQuery The instance of referrer query. (NullAllowed: If null, this is base query)
@@ -32,8 +33,5 @@ public class ServiceRankCQ extends BsServiceRankCQ {
     // ===================================================================================
     //                                                                       Arrange Query
     //                                                                       =============
-    // You can make your arranged query methods here.
-    //public void arrangeXxx() {
-    //    ...
-    //}
+    // You can make your arranged query methods here. e.g. public void arrangeXxx()
 }

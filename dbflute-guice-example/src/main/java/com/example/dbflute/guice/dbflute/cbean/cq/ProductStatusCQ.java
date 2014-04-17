@@ -17,7 +17,7 @@ public class ProductStatusCQ extends BsProductStatusCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-	// You should NOT touch with this constructor.
+    // You should NOT touch with this constructor.
     /**
      * Constructor.
      * @param referrerQuery The instance of referrer query. (NullAllowed: If null, this is base query)

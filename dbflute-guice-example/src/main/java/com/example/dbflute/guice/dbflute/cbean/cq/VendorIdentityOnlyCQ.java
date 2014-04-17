@@ -17,7 +17,7 @@ public class VendorIdentityOnlyCQ extends BsVendorIdentityOnlyCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-	// You should NOT touch with this constructor.
+    // You should NOT touch with this constructor.
     /**
      * Constructor.
      * @param referrerQuery The instance of referrer query. (NullAllowed: If null, this is base query)
@@ -32,8 +32,5 @@ public class VendorIdentityOnlyCQ extends BsVendorIdentityOnlyCQ {
     // ===================================================================================
     //                                                                       Arrange Query
     //                                                                       =============
-    // You can make your arranged query methods here.
-    //public void arrangeXxx() {
-    //    ...
-    //}
+    // You can make your arranged query methods here. e.g. public void arrangeXxx()
 }
