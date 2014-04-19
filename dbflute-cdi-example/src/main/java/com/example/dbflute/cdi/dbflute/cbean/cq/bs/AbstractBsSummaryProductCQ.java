@@ -150,7 +150,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
@@ -171,7 +171,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     public abstract String keepProductId_ExistsReferrer_PurchaseList(PurchaseCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>

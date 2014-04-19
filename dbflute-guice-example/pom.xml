@@ -12,9 +12,9 @@
 
 	<properties>
 		<guice.version>3.0</guice.version>
-		<dbflute.version>1.0.5C</dbflute.version>
+		<dbflute.version>1.0.5D</dbflute.version>
 		<h2.jdbc.version>1.3.163</h2.jdbc.version>
-		<utflute.version>0.4.2</utflute.version>
+		<utflute.version>0.4.3</utflute.version>
 	</properties>
 
 	<url>http://dbflute.sandbox.seasar.org/</url>
