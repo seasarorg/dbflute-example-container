@@ -11,10 +11,10 @@
 	<description>The example project for (Google) Guice and DBFlute</description>
 
 	<properties>
-		<dbflute.version>1.0.5D</dbflute.version>
+		<dbflute.version>1.0.5F-01-SNAPSHOT</dbflute.version>
 		<h2.jdbc.version>1.3.173</h2.jdbc.version>
 		<guice.version>3.0</guice.version>
-		<utflute.version>0.4.3</utflute.version>
+		<utflute.version>0.4.4</utflute.version>
 	</properties>
 
 	<url>http://dbflute.sandbox.seasar.org/</url>

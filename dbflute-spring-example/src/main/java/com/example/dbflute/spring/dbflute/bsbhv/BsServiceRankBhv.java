@@ -21,6 +21,7 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
@@ -106,7 +107,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * int count = serviceRankBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = serviceRankBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -134,12 +135,14 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (serviceRank != null) {
+     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (serviceRank != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = serviceRank.get...();
      * } else {
      *     ...
@@ -147,8 +150,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectEntity(ServiceRankCB cb) {
         return doSelectEntity(cb, ServiceRank.class);
@@ -166,18 +169,19 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = serviceRank.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectEntityWithDeletedCheck(ServiceRankCB cb) {
         return doSelectEntityWithDeletedCheck(cb, ServiceRank.class);
@@ -198,8 +202,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param serviceRankCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectByPKValue(String serviceRankCode) {
         return doSelectByPKValue(serviceRankCode, ServiceRank.class);
@@ -213,9 +217,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param serviceRankCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectByPKValueWithDeletedCheck(String serviceRankCode) {
         return doSelectByPKValueWithDeletedCheck(serviceRankCode, ServiceRank.class);
@@ -241,14 +245,14 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;ServiceRank&gt; serviceRankList = serviceRankBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;ServiceRank&gt; serviceRankList = serviceRankBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (ServiceRank serviceRank : serviceRankList) {
      *     ... = serviceRank.get...();
      * }
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<ServiceRank> selectList(ServiceRankCB cb) {
         return doSelectList(cb, ServiceRank.class);
@@ -276,8 +280,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;ServiceRank&gt; page = serviceRankBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;ServiceRank&gt; page = serviceRankBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -289,7 +293,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<ServiceRank> selectPage(ServiceRankCB cb) {
         return doSelectPage(cb, ServiceRank.class);
@@ -316,7 +320,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;ServiceRank&gt;() {
+     * serviceRankBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;ServiceRank&gt;() {
      *     public void handle(ServiceRank entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -345,9 +349,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * serviceRankBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * serviceRankBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(ServiceRankCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -387,61 +391,92 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param serviceRank The entity of serviceRank. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberServiceList(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> conditionBeanSetupper) {
-        xassLRArg(serviceRank, conditionBeanSetupper);
-        loadMemberServiceList(xnewLRLs(serviceRank), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberServiceList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #FD4747">loadMemberServiceList</span>(serviceRankList, new ConditionBeanSetupper&lt;MemberServiceCB&gt;() {
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ConditionBeanSetupper&lt;MemberServiceCB&gt;() {
      *     public void setup(MemberServiceCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (ServiceRank serviceRank : serviceRankList) {
-     *     ... = serviceRank.<span style="color: #FD4747">getMemberServiceList()</span>;
+     *     ... = serviceRank.<span style="color: #DD4747">getMemberServiceList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setServiceRankCode_InScope(pkList);
+     * cb.query().addOrderBy_ServiceRankCode_Asc();
+     * </pre>
+     * @param serviceRank The entity of serviceRank. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberService> loadMemberServiceList(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> conditionBeanSetupper) {
+        xassLRArg(serviceRank, conditionBeanSetupper);
+        return loadMemberServiceList(xnewLRLs(serviceRank), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of memberServiceList by the set-upper of referrer. <br />
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * <pre>
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ConditionBeanSetupper&lt;MemberServiceCB&gt;() {
+     *     public void setup(MemberServiceCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (ServiceRank serviceRank : serviceRankList) {
+     *     ... = serviceRank.<span style="color: #DD4747">getMemberServiceList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setServiceRankCode_InScope(pkList);
      * cb.query().addOrderBy_ServiceRankCode_Asc();
      * </pre>
      * @param serviceRankList The entity list of serviceRank. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberServiceList(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> conditionBeanSetupper) {
         xassLRArg(serviceRankList, conditionBeanSetupper);
-        loadMemberServiceList(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(conditionBeanSetupper));
+        return loadMemberServiceList(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param serviceRank The entity of serviceRank. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberServiceList(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    public NestedReferrerLoader<MemberService> loadMemberServiceList(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRank, loadReferrerOption);
-        loadMemberServiceList(xnewLRLs(serviceRank), loadReferrerOption);
+        return loadMemberServiceList(xnewLRLs(serviceRank), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param serviceRankList The entity list of serviceRank. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRankList, loadReferrerOption);
-        if (serviceRankList.isEmpty()) { return; }
+        if (serviceRankList.isEmpty()) { return (NestedReferrerLoader<MemberService>)EMPTY_LOADER; }
+        return doLoadMemberServiceList(serviceRankList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
         final MemberServiceBhv referrerBhv = xgetBSFLR().select(MemberServiceBhv.class);
-        helpLoadReferrerInternally(serviceRankList, loadReferrerOption, new InternalLoadReferrerCallback<ServiceRank, String, MemberServiceCB, MemberService>() {
+        return helpLoadReferrerInternally(serviceRankList, option, new InternalLoadReferrerCallback<ServiceRank, String, MemberServiceCB, MemberService>() {
             public String getPKVal(ServiceRank et)
             { return et.getServiceRankCode(); }
             public void setRfLs(ServiceRank et, List<MemberService> ls)
@@ -501,12 +536,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//serviceRank.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//serviceRank.set...;</span>
-     * serviceRankBhv.<span style="color: #FD4747">insert</span>(serviceRank);
+     * serviceRankBhv.<span style="color: #DD4747">insert</span>(serviceRank);
      * ... = serviceRank.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param serviceRank The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(ServiceRank serviceRank) {
         doInsert(serviceRank, null);
@@ -542,17 +577,17 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//serviceRank.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//serviceRank.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * serviceRank.<span style="color: #FD4747">setVersionNo</span>(value);
+     * serviceRank.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     serviceRankBhv.<span style="color: #FD4747">update</span>(serviceRank);
+     *     serviceRankBhv.<span style="color: #DD4747">update</span>(serviceRank);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param serviceRank The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final ServiceRank serviceRank) {
         doUpdate(serviceRank, null);
@@ -602,11 +637,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param serviceRank The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(ServiceRank serviceRank) {
         doInesrtOrUpdate(serviceRank, null, null);
@@ -642,16 +677,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * ServiceRank serviceRank = new ServiceRank();
      * serviceRank.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * serviceRank.<span style="color: #FD4747">setVersionNo</span>(value);
+     * serviceRank.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     serviceRankBhv.<span style="color: #FD4747">delete</span>(serviceRank);
+     *     serviceRankBhv.<span style="color: #DD4747">delete</span>(serviceRank);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param serviceRank The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(ServiceRank serviceRank) {
         doDelete(serviceRank, null);
@@ -686,7 +721,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     ServiceRank serviceRank = new ServiceRank();
@@ -699,7 +734,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     serviceRankList.add(serviceRank);
      * }
-     * serviceRankBhv.<span style="color: #FD4747">batchInsert</span>(serviceRankList);
+     * serviceRankBhv.<span style="color: #DD4747">batchInsert</span>(serviceRankList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -733,7 +768,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     ServiceRank serviceRank = new ServiceRank();
@@ -748,11 +783,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     serviceRankList.add(serviceRank);
      * }
-     * serviceRankBhv.<span style="color: #FD4747">batchUpdate</span>(serviceRankList);
+     * serviceRankBhv.<span style="color: #DD4747">batchUpdate</span>(serviceRankList);
      * </pre>
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ServiceRank> serviceRankList) {
         UpdateOption<ServiceRankCB> op = createPlainUpdateOption();
@@ -781,16 +816,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * serviceRankBhv.<span style="color: #FD4747">batchUpdate</span>(serviceRankList, new SpecifyQuery<ServiceRankCB>() {
+     * serviceRankBhv.<span style="color: #DD4747">batchUpdate</span>(serviceRankList, new SpecifyQuery<ServiceRankCB>() {
      *     public void specify(ServiceRankCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * serviceRankBhv.<span style="color: #FD4747">batchUpdate</span>(serviceRankList, new SpecifyQuery<ServiceRankCB>() {
+     * serviceRankBhv.<span style="color: #DD4747">batchUpdate</span>(serviceRankList, new SpecifyQuery<ServiceRankCB>() {
      *     public void specify(ServiceRankCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -802,7 +837,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ServiceRank> serviceRankList, SpecifyQuery<ServiceRankCB> updateColumnSpec) {
         return doBatchUpdate(serviceRankList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -818,7 +853,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<ServiceRank> serviceRankList) {
         return doBatchDelete(serviceRankList, null);
@@ -847,7 +882,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * serviceRankBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;ServiceRank, ServiceRankCB&gt;() {
+     * serviceRankBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;ServiceRank, ServiceRankCB&gt;() {
      *     public ConditionBean setup(serviceRank entity, ServiceRankCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -909,12 +944,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//serviceRank.setVersionNo(value);</span>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #FD4747">queryUpdate</span>(serviceRank, cb);
+     * serviceRankBhv.<span style="color: #DD4747">queryUpdate</span>(serviceRank, cb);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(ServiceRank serviceRank, ServiceRankCB cb) {
         return doQueryUpdate(serviceRank, cb, null);
@@ -937,11 +972,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #FD4747">queryDelete</span>(serviceRank, cb);
+     * serviceRankBhv.<span style="color: #DD4747">queryDelete</span>(serviceRank, cb);
      * </pre>
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(ServiceRankCB cb) {
         return doQueryDelete(cb, null);
@@ -977,12 +1012,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * InsertOption<ServiceRankCB> option = new InsertOption<ServiceRankCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * serviceRankBhv.<span style="color: #FD4747">varyingInsert</span>(serviceRank, option);
+     * serviceRankBhv.<span style="color: #DD4747">varyingInsert</span>(serviceRank, option);
      * ... = serviceRank.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param serviceRank The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(ServiceRank serviceRank, InsertOption<ServiceRankCB> option) {
         assertInsertOptionNotNull(option);
@@ -998,25 +1033,25 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * serviceRank.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * serviceRank.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * serviceRank.<span style="color: #FD4747">setVersionNo</span>(value);
+     * serviceRank.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;ServiceRankCB&gt; option = new UpdateOption&lt;ServiceRankCB&gt;();
      *     option.self(new SpecifyQuery&lt;ServiceRankCB&gt;() {
      *         public void specify(ServiceRankCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     serviceRankBhv.<span style="color: #FD4747">varyingUpdate</span>(serviceRank, option);
+     *     serviceRankBhv.<span style="color: #DD4747">varyingUpdate</span>(serviceRank, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param serviceRank The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(ServiceRank serviceRank, UpdateOption<ServiceRankCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1029,9 +1064,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param serviceRank The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(ServiceRank serviceRank, InsertOption<ServiceRankCB> insertOption, UpdateOption<ServiceRankCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1044,8 +1079,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param serviceRank The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(ServiceRank serviceRank, DeleteOption<ServiceRankCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1131,16 +1166,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;ServiceRankCB&gt; option = new UpdateOption&lt;ServiceRankCB&gt;();
      * option.self(new SpecifyQuery&lt;ServiceRankCB&gt;() {
      *     public void specify(ServiceRankCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * serviceRankBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(serviceRank, cb, option);
+     * serviceRankBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(serviceRank, cb, option);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(ServiceRank serviceRank, ServiceRankCB cb, UpdateOption<ServiceRankCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1154,7 +1189,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of ServiceRank. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(ServiceRankCB cb, DeleteOption<ServiceRankCB> option) {
         assertDeleteOptionNotNull(option);

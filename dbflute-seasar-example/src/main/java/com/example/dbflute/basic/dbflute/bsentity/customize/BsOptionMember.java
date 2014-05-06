@@ -209,7 +209,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setDummyFlgAsFlg(CDef.Flg cdef) {
-        setDummyFlg(cdef != null ? InternalUtil.toNumber(cdef.code(), Integer.class) : null);
+        setDummyFlg(cdef != null ? FunCustodial.toNumber(cdef.code(), Integer.class) : null);
     }
 
     /**
@@ -415,25 +415,25 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsOptionMember)) { return false; }
-        BsOptionMember otherEntity = (BsOptionMember)other;
-        if (!xSV(getMemberId(), otherEntity.getMemberId())) { return false; }
-        if (!xSV(getMemberName(), otherEntity.getMemberName())) { return false; }
-        if (!xSV(getBirthdate(), otherEntity.getBirthdate())) { return false; }
-        if (!xSV(getFormalizedDatetime(), otherEntity.getFormalizedDatetime())) { return false; }
-        if (!xSV(getMemberStatusCode(), otherEntity.getMemberStatusCode())) { return false; }
-        if (!xSV(getMemberStatusName(), otherEntity.getMemberStatusName())) { return false; }
-        if (!xSV(getStatusDisplayOrder(), otherEntity.getStatusDisplayOrder())) { return false; }
-        if (!xSV(getDummyFlg(), otherEntity.getDummyFlg())) { return false; }
-        if (!xSV(getDummyNoflg(), otherEntity.getDummyNoflg())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsOptionMember)) { return false; }
+        BsOptionMember other = (BsOptionMember)obj;
+        if (!xSV(getMemberId(), other.getMemberId())) { return false; }
+        if (!xSV(getMemberName(), other.getMemberName())) { return false; }
+        if (!xSV(getBirthdate(), other.getBirthdate())) { return false; }
+        if (!xSV(getFormalizedDatetime(), other.getFormalizedDatetime())) { return false; }
+        if (!xSV(getMemberStatusCode(), other.getMemberStatusCode())) { return false; }
+        if (!xSV(getMemberStatusName(), other.getMemberStatusName())) { return false; }
+        if (!xSV(getStatusDisplayOrder(), other.getStatusDisplayOrder())) { return false; }
+        if (!xSV(getDummyFlg(), other.getDummyFlg())) { return false; }
+        if (!xSV(getDummyNoflg(), other.getDummyNoflg())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -454,8 +454,8 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
         result = xCH(result, getDummyNoflg());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -470,7 +470,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -512,7 +512,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
         return sb.toString();
     }
     protected String xfUD(Date date) { // formatUtilDate()
-        return InternalUtil.toString(date, xgDP());
+        return FunCustodial.toString(date, xgDP());
     }
     protected String xgDP() { // getDatePattern
         return "yyyy-MM-dd";
@@ -719,10 +719,10 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
     }
 
     protected String convertEmptyToNull(String value) {
-        return InternalUtil.convertEmptyToNull(value);
+        return FunCustodial.convertEmptyToNull(value);
     }
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        InternalUtil.checkImplicitSet(this, columnDbName, meta, value);
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

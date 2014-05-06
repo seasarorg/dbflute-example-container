@@ -6,6 +6,7 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -91,7 +92,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * <pre>
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
-     * int count = summaryWithdrawalBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = summaryWithdrawalBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -119,24 +120,33 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. <br />
+     * It returns not-null optional entity, so you should ... <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, get() without check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, get() after check by isPresent() or orElse(), ...</span>
      * <pre>
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
-     * SummaryWithdrawal summaryWithdrawal = summaryWithdrawalBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (summaryWithdrawal != null) {
-     *     ... = summaryWithdrawal.get...();
+     * OptionalEntity&lt;SummaryWithdrawal&gt; entity = summaryWithdrawalBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     *
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * SummaryWithdrawal summaryWithdrawal = entity.get();
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
+     * if (entity.isPresent()) {
+     *     SummaryWithdrawal summaryWithdrawal = entity.get();
      * } else {
      *     ...
      * }
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
-     * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public SummaryWithdrawal selectEntity(SummaryWithdrawalCB cb) {
-        return doSelectEntity(cb, SummaryWithdrawal.class);
+    public OptionalEntity<SummaryWithdrawal> selectEntity(SummaryWithdrawalCB cb) {
+        return createOptionalEntity(doSelectEntity(cb, SummaryWithdrawal.class), cb);
     }
 
     protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -147,22 +157,23 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return selectEntity(downcast(cb)).orElse(null);
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
-     * SummaryWithdrawal summaryWithdrawal = summaryWithdrawalBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * SummaryWithdrawal summaryWithdrawal = summaryWithdrawalBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = summaryWithdrawal.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryWithdrawal selectEntityWithDeletedCheck(SummaryWithdrawalCB cb) {
         return doSelectEntityWithDeletedCheck(cb, SummaryWithdrawal.class);
@@ -188,14 +199,14 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;SummaryWithdrawal&gt; summaryWithdrawalList = summaryWithdrawalBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;SummaryWithdrawal&gt; summaryWithdrawalList = summaryWithdrawalBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (SummaryWithdrawal summaryWithdrawal : summaryWithdrawalList) {
      *     ... = summaryWithdrawal.get...();
      * }
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<SummaryWithdrawal> selectList(SummaryWithdrawalCB cb) {
         return doSelectList(cb, SummaryWithdrawal.class);
@@ -223,8 +234,8 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;SummaryWithdrawal&gt; page = summaryWithdrawalBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;SummaryWithdrawal&gt; page = summaryWithdrawalBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -236,7 +247,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<SummaryWithdrawal> selectPage(SummaryWithdrawalCB cb) {
         return doSelectPage(cb, SummaryWithdrawal.class);
@@ -263,7 +274,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * <pre>
      * SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
      * cb.query().setFoo...(value);
-     * summaryWithdrawalBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;SummaryWithdrawal&gt;() {
+     * summaryWithdrawalBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;SummaryWithdrawal&gt;() {
      *     public void handle(SummaryWithdrawal entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -292,9 +303,9 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * summaryWithdrawalBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * summaryWithdrawalBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(SummaryWithdrawalCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });

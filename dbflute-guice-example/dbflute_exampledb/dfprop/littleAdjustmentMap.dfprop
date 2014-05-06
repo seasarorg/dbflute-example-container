@@ -338,5 +338,11 @@ map:{
 
     # the test of suppressing to-one InScopeRelation
     ; isMakeConditionQueryInScopeRelationToOne = false
+
+    # the test of java8
+    ; isAvailableSelectEntityPlainReturn = false
+
+    # the test of java8
+    ; isAvailableSelectEntityWithDeletedCheck = true
 }
 # ----------------/

@@ -6,6 +6,7 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -112,7 +113,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * int count = memberBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = memberBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -140,24 +141,33 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. <br />
+     * It returns not-null optional entity, so you should ... <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, get() without check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, get() after check by isPresent() or orElse(), ...</span>
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * Member member = memberBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (member != null) {
-     *     ... = member.get...();
+     * OptionalEntity&lt;Member&gt; entity = memberBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     *
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * Member member = entity.get();
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
+     * if (entity.isPresent()) {
+     *     Member member = entity.get();
      * } else {
      *     ...
      * }
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
-     * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Member selectEntity(MemberCB cb) {
-        return doSelectEntity(cb, Member.class);
+    public OptionalEntity<Member> selectEntity(MemberCB cb) {
+        return createOptionalEntity(doSelectEntity(cb, Member.class), cb);
     }
 
     protected <ENTITY extends Member> ENTITY doSelectEntity(MemberCB cb, Class<ENTITY> tp) {
@@ -168,22 +178,23 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return selectEntity(downcast(cb)).orElse(null);
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * Member member = memberBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * Member member = memberBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = member.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectEntityWithDeletedCheck(MemberCB cb) {
         return doSelectEntityWithDeletedCheck(cb, Member.class);
@@ -204,8 +215,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param memberId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectByPKValue(Integer memberId) {
         return doSelectByPKValue(memberId, Member.class);
@@ -219,9 +230,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param memberId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectByPKValueWithDeletedCheck(Integer memberId) {
         return doSelectByPKValueWithDeletedCheck(memberId, Member.class);
@@ -247,14 +258,14 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;Member&gt; memberList = memberBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;Member&gt; memberList = memberBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (Member member : memberList) {
      *     ... = member.get...();
      * }
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Member> selectList(MemberCB cb) {
         return doSelectList(cb, Member.class);
@@ -282,8 +293,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;Member&gt; page = memberBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;Member&gt; page = memberBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -295,7 +306,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Member> selectPage(MemberCB cb) {
         return doSelectPage(cb, Member.class);
@@ -322,7 +333,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * memberBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;Member&gt;() {
+     * memberBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;Member&gt;() {
      *     public void handle(Member entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -351,9 +362,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * memberBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * memberBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(MemberCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -406,61 +417,92 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param member The entity of member. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberAddressList(Member member, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
-        xassLRArg(member, conditionBeanSetupper);
-        loadMemberAddressList(xnewLRLs(member), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberAddressList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * <pre>
-     * memberBhv.<span style="color: #FD4747">loadMemberAddressList</span>(memberList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberAddressList</span>(memberList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (Member member : memberList) {
-     *     ... = member.<span style="color: #FD4747">getMemberAddressList()</span>;
+     *     ... = member.<span style="color: #DD4747">getMemberAddressList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMemberId_InScope(pkList);
+     * cb.query().addOrderBy_MemberId_Asc();
+     * </pre>
+     * @param member The entity of member. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(Member member, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
+        xassLRArg(member, conditionBeanSetupper);
+        return loadMemberAddressList(xnewLRLs(member), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of memberAddressList by the set-upper of referrer. <br />
+     * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * <pre>
+     * memberBhv.<span style="color: #DD4747">loadMemberAddressList</span>(memberList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
+     *     public void setup(MemberAddressCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (Member member : memberList) {
+     *     ... = member.<span style="color: #DD4747">getMemberAddressList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setMemberId_InScope(pkList);
      * cb.query().addOrderBy_MemberId_Asc();
      * </pre>
      * @param memberList The entity list of member. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberAddressList(List<Member> memberList, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(List<Member> memberList, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
         xassLRArg(memberList, conditionBeanSetupper);
-        loadMemberAddressList(memberList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(conditionBeanSetupper));
+        return loadMemberAddressList(memberList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param member The entity of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberAddressList(Member member, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(Member member, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
         xassLRArg(member, loadReferrerOption);
-        loadMemberAddressList(xnewLRLs(member), loadReferrerOption);
+        return loadMemberAddressList(xnewLRLs(member), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param memberList The entity list of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberAddressList(List<Member> memberList, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(List<Member> memberList, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
         xassLRArg(memberList, loadReferrerOption);
-        if (memberList.isEmpty()) { return; }
+        if (memberList.isEmpty()) { return (NestedReferrerLoader<MemberAddress>)EMPTY_LOADER; }
+        return doLoadMemberAddressList(memberList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MemberAddress> doLoadMemberAddressList(List<Member> memberList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
         final MemberAddressBhv referrerBhv = xgetBSFLR().select(MemberAddressBhv.class);
-        helpLoadReferrerInternally(memberList, loadReferrerOption, new InternalLoadReferrerCallback<Member, Integer, MemberAddressCB, MemberAddress>() {
+        return helpLoadReferrerInternally(memberList, option, new InternalLoadReferrerCallback<Member, Integer, MemberAddressCB, MemberAddress>() {
             public Integer getPKVal(Member et)
             { return et.getMemberId(); }
             public void setRfLs(Member et, List<MemberAddress> ls)
@@ -479,61 +521,92 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param member The entity of member. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberFollowingByMyMemberIdList(Member member, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
-        xassLRArg(member, conditionBeanSetupper);
-        loadMemberFollowingByMyMemberIdList(xnewLRLs(member), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberFollowingByMyMemberIdList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #FD4747">loadMemberFollowingByMyMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (Member member : memberList) {
-     *     ... = member.<span style="color: #FD4747">getMemberFollowingByMyMemberIdList()</span>;
+     *     ... = member.<span style="color: #DD4747">getMemberFollowingByMyMemberIdList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMyMemberId_InScope(pkList);
+     * cb.query().addOrderBy_MyMemberId_Asc();
+     * </pre>
+     * @param member The entity of member. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByMyMemberIdList(Member member, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
+        xassLRArg(member, conditionBeanSetupper);
+        return loadMemberFollowingByMyMemberIdList(xnewLRLs(member), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br />
+     * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * <pre>
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
+     *     public void setup(MemberFollowingCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (Member member : memberList) {
+     *     ... = member.<span style="color: #DD4747">getMemberFollowingByMyMemberIdList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setMyMemberId_InScope(pkList);
      * cb.query().addOrderBy_MyMemberId_Asc();
      * </pre>
      * @param memberList The entity list of member. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByMyMemberIdList(List<Member> memberList, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByMyMemberIdList(List<Member> memberList, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
         xassLRArg(memberList, conditionBeanSetupper);
-        loadMemberFollowingByMyMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(conditionBeanSetupper));
+        return loadMemberFollowingByMyMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param member The entity of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByMyMemberIdList(Member member, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByMyMemberIdList(Member member, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
         xassLRArg(member, loadReferrerOption);
-        loadMemberFollowingByMyMemberIdList(xnewLRLs(member), loadReferrerOption);
+        return loadMemberFollowingByMyMemberIdList(xnewLRLs(member), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param memberList The entity list of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByMyMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByMyMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
         xassLRArg(memberList, loadReferrerOption);
-        if (memberList.isEmpty()) { return; }
+        if (memberList.isEmpty()) { return (NestedReferrerLoader<MemberFollowing>)EMPTY_LOADER; }
+        return doLoadMemberFollowingByMyMemberIdList(memberList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MemberFollowing> doLoadMemberFollowingByMyMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
         final MemberFollowingBhv referrerBhv = xgetBSFLR().select(MemberFollowingBhv.class);
-        helpLoadReferrerInternally(memberList, loadReferrerOption, new InternalLoadReferrerCallback<Member, Integer, MemberFollowingCB, MemberFollowing>() {
+        return helpLoadReferrerInternally(memberList, option, new InternalLoadReferrerCallback<Member, Integer, MemberFollowingCB, MemberFollowing>() {
             public Integer getPKVal(Member et)
             { return et.getMemberId(); }
             public void setRfLs(Member et, List<MemberFollowing> ls)
@@ -552,61 +625,92 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param member The entity of member. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberFollowingByYourMemberIdList(Member member, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
-        xassLRArg(member, conditionBeanSetupper);
-        loadMemberFollowingByYourMemberIdList(xnewLRLs(member), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberFollowingByYourMemberIdList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #FD4747">loadMemberFollowingByYourMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (Member member : memberList) {
-     *     ... = member.<span style="color: #FD4747">getMemberFollowingByYourMemberIdList()</span>;
+     *     ... = member.<span style="color: #DD4747">getMemberFollowingByYourMemberIdList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setYourMemberId_InScope(pkList);
+     * cb.query().addOrderBy_YourMemberId_Asc();
+     * </pre>
+     * @param member The entity of member. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByYourMemberIdList(Member member, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
+        xassLRArg(member, conditionBeanSetupper);
+        return loadMemberFollowingByYourMemberIdList(xnewLRLs(member), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br />
+     * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * <pre>
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberIdList</span>(memberList, new ConditionBeanSetupper&lt;MemberFollowingCB&gt;() {
+     *     public void setup(MemberFollowingCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (Member member : memberList) {
+     *     ... = member.<span style="color: #DD4747">getMemberFollowingByYourMemberIdList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setYourMemberId_InScope(pkList);
      * cb.query().addOrderBy_YourMemberId_Asc();
      * </pre>
      * @param memberList The entity list of member. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByYourMemberIdList(List<Member> memberList, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByYourMemberIdList(List<Member> memberList, ConditionBeanSetupper<MemberFollowingCB> conditionBeanSetupper) {
         xassLRArg(memberList, conditionBeanSetupper);
-        loadMemberFollowingByYourMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(conditionBeanSetupper));
+        return loadMemberFollowingByYourMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param member The entity of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByYourMemberIdList(Member member, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByYourMemberIdList(Member member, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
         xassLRArg(member, loadReferrerOption);
-        loadMemberFollowingByYourMemberIdList(xnewLRLs(member), loadReferrerOption);
+        return loadMemberFollowingByYourMemberIdList(xnewLRLs(member), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param memberList The entity list of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberFollowingByYourMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MemberFollowing> loadMemberFollowingByYourMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> loadReferrerOption) {
         xassLRArg(memberList, loadReferrerOption);
-        if (memberList.isEmpty()) { return; }
+        if (memberList.isEmpty()) { return (NestedReferrerLoader<MemberFollowing>)EMPTY_LOADER; }
+        return doLoadMemberFollowingByYourMemberIdList(memberList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MemberFollowing> doLoadMemberFollowingByYourMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
         final MemberFollowingBhv referrerBhv = xgetBSFLR().select(MemberFollowingBhv.class);
-        helpLoadReferrerInternally(memberList, loadReferrerOption, new InternalLoadReferrerCallback<Member, Integer, MemberFollowingCB, MemberFollowing>() {
+        return helpLoadReferrerInternally(memberList, option, new InternalLoadReferrerCallback<Member, Integer, MemberFollowingCB, MemberFollowing>() {
             public Integer getPKVal(Member et)
             { return et.getMemberId(); }
             public void setRfLs(Member et, List<MemberFollowing> ls)
@@ -625,61 +729,92 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param member The entity of member. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberLoginList(Member member, ConditionBeanSetupper<MemberLoginCB> conditionBeanSetupper) {
-        xassLRArg(member, conditionBeanSetupper);
-        loadMemberLoginList(xnewLRLs(member), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberLoginList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberLoginList by the set-upper of referrer. <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * <pre>
-     * memberBhv.<span style="color: #FD4747">loadMemberLoginList</span>(memberList, new ConditionBeanSetupper&lt;MemberLoginCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberList, new ConditionBeanSetupper&lt;MemberLoginCB&gt;() {
      *     public void setup(MemberLoginCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (Member member : memberList) {
-     *     ... = member.<span style="color: #FD4747">getMemberLoginList()</span>;
+     *     ... = member.<span style="color: #DD4747">getMemberLoginList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMemberId_InScope(pkList);
+     * cb.query().addOrderBy_MemberId_Asc();
+     * </pre>
+     * @param member The entity of member. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberLogin> loadMemberLoginList(Member member, ConditionBeanSetupper<MemberLoginCB> conditionBeanSetupper) {
+        xassLRArg(member, conditionBeanSetupper);
+        return loadMemberLoginList(xnewLRLs(member), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of memberLoginList by the set-upper of referrer. <br />
+     * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * <pre>
+     * memberBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberList, new ConditionBeanSetupper&lt;MemberLoginCB&gt;() {
+     *     public void setup(MemberLoginCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (Member member : memberList) {
+     *     ... = member.<span style="color: #DD4747">getMemberLoginList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setMemberId_InScope(pkList);
      * cb.query().addOrderBy_MemberId_Asc();
      * </pre>
      * @param memberList The entity list of member. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberLoginList(List<Member> memberList, ConditionBeanSetupper<MemberLoginCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<MemberLogin> loadMemberLoginList(List<Member> memberList, ConditionBeanSetupper<MemberLoginCB> conditionBeanSetupper) {
         xassLRArg(memberList, conditionBeanSetupper);
-        loadMemberLoginList(memberList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(conditionBeanSetupper));
+        return loadMemberLoginList(memberList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param member The entity of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberLoginList(Member member, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
+    public NestedReferrerLoader<MemberLogin> loadMemberLoginList(Member member, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
         xassLRArg(member, loadReferrerOption);
-        loadMemberLoginList(xnewLRLs(member), loadReferrerOption);
+        return loadMemberLoginList(xnewLRLs(member), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param memberList The entity list of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberLoginList(List<Member> memberList, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MemberLogin> loadMemberLoginList(List<Member> memberList, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
         xassLRArg(memberList, loadReferrerOption);
-        if (memberList.isEmpty()) { return; }
+        if (memberList.isEmpty()) { return (NestedReferrerLoader<MemberLogin>)EMPTY_LOADER; }
+        return doLoadMemberLoginList(memberList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MemberLogin> doLoadMemberLoginList(List<Member> memberList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
         final MemberLoginBhv referrerBhv = xgetBSFLR().select(MemberLoginBhv.class);
-        helpLoadReferrerInternally(memberList, loadReferrerOption, new InternalLoadReferrerCallback<Member, Integer, MemberLoginCB, MemberLogin>() {
+        return helpLoadReferrerInternally(memberList, option, new InternalLoadReferrerCallback<Member, Integer, MemberLoginCB, MemberLogin>() {
             public Integer getPKVal(Member et)
             { return et.getMemberId(); }
             public void setRfLs(Member et, List<MemberLogin> ls)
@@ -698,61 +833,92 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param member The entity of member. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadPurchaseList(Member member, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
-        xassLRArg(member, conditionBeanSetupper);
-        loadPurchaseList(xnewLRLs(member), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of purchaseList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * <pre>
-     * memberBhv.<span style="color: #FD4747">loadPurchaseList</span>(memberList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadPurchaseList</span>(memberList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
      *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
      * for (Member member : memberList) {
-     *     ... = member.<span style="color: #FD4747">getPurchaseList()</span>;
+     *     ... = member.<span style="color: #DD4747">getPurchaseList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMemberId_InScope(pkList);
+     * cb.query().addOrderBy_MemberId_Asc();
+     * </pre>
+     * @param member The entity of member. (NotNull)
+     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<Purchase> loadPurchaseList(Member member, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
+        xassLRArg(member, conditionBeanSetupper);
+        return loadPurchaseList(xnewLRLs(member), conditionBeanSetupper);
+    }
+
+    /**
+     * Load referrer of purchaseList by the set-upper of referrer. <br />
+     * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * <pre>
+     * memberBhv.<span style="color: #DD4747">loadPurchaseList</span>(memberList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
+     *     public void setup(PurchaseCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * for (Member member : memberList) {
+     *     ... = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setMemberId_InScope(pkList);
      * cb.query().addOrderBy_MemberId_Asc();
      * </pre>
      * @param memberList The entity list of member. (NotNull)
      * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadPurchaseList(List<Member> memberList, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
+    public NestedReferrerLoader<Purchase> loadPurchaseList(List<Member> memberList, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
         xassLRArg(memberList, conditionBeanSetupper);
-        loadPurchaseList(memberList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(conditionBeanSetupper));
+        return loadPurchaseList(memberList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(conditionBeanSetupper));
     }
+
     /**
      * {Refer to overload method that has an argument of the list of entity.}
      * @param member The entity of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadPurchaseList(Member member, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
+    public NestedReferrerLoader<Purchase> loadPurchaseList(Member member, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
         xassLRArg(member, loadReferrerOption);
-        loadPurchaseList(xnewLRLs(member), loadReferrerOption);
+        return loadPurchaseList(xnewLRLs(member), loadReferrerOption);
     }
+
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.}
      * @param memberList The entity list of member. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadPurchaseList(List<Member> memberList, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<Purchase> loadPurchaseList(List<Member> memberList, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
         xassLRArg(memberList, loadReferrerOption);
-        if (memberList.isEmpty()) { return; }
+        if (memberList.isEmpty()) { return (NestedReferrerLoader<Purchase>)EMPTY_LOADER; }
+        return doLoadPurchaseList(memberList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<Purchase> doLoadPurchaseList(List<Member> memberList, LoadReferrerOption<PurchaseCB, Purchase> option) {
         final PurchaseBhv referrerBhv = xgetBSFLR().select(PurchaseBhv.class);
-        helpLoadReferrerInternally(memberList, loadReferrerOption, new InternalLoadReferrerCallback<Member, Integer, PurchaseCB, Purchase>() {
+        return helpLoadReferrerInternally(memberList, option, new InternalLoadReferrerCallback<Member, Integer, PurchaseCB, Purchase>() {
             public Integer getPKVal(Member et)
             { return et.getMemberId(); }
             public void setRfLs(Member et, List<Purchase> ls)
@@ -877,12 +1043,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//member.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//member.set...;</span>
-     * memberBhv.<span style="color: #FD4747">insert</span>(member);
+     * memberBhv.<span style="color: #DD4747">insert</span>(member);
      * ... = member.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param member The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Member member) {
         doInsert(member, null);
@@ -918,17 +1084,17 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//member.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//member.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * member.<span style="color: #FD4747">setVersionNo</span>(value);
+     * member.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     memberBhv.<span style="color: #FD4747">update</span>(member);
+     *     memberBhv.<span style="color: #DD4747">update</span>(member);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param member The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final Member member) {
         doUpdate(member, null);
@@ -982,12 +1148,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//member.setVersionNo(value);</span>
-     * memberBhv.<span style="color: #FD4747">updateNonstrict</span>(member);
+     * memberBhv.<span style="color: #DD4747">updateNonstrict</span>(member);
      * </pre>
      * @param member The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final Member member) {
         doUpdateNonstrict(member, null);
@@ -1009,11 +1175,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param member The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Member member) {
         doInesrtOrUpdate(member, null, null);
@@ -1041,11 +1207,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param member The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(Member member) {
         doInesrtOrUpdateNonstrict(member, null, null);
@@ -1074,16 +1240,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Member member = new Member();
      * member.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * member.<span style="color: #FD4747">setVersionNo</span>(value);
+     * member.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     memberBhv.<span style="color: #FD4747">delete</span>(member);
+     *     memberBhv.<span style="color: #DD4747">delete</span>(member);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param member The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Member member) {
         doDelete(member, null);
@@ -1115,11 +1281,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//member.setVersionNo(value);</span>
-     * memberBhv.<span style="color: #FD4747">deleteNonstrict</span>(member);
+     * memberBhv.<span style="color: #DD4747">deleteNonstrict</span>(member);
      * </pre>
      * @param member The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(Member member) {
         doDeleteNonstrict(member, null);
@@ -1140,11 +1306,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//member.setVersionNo(value);</span>
-     * memberBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(member);
+     * memberBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(member);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param member The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(Member member) {
         doDeleteNonstrictIgnoreDeleted(member, null);
@@ -1169,7 +1335,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     Member member = new Member();
@@ -1182,7 +1348,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     memberList.add(member);
      * }
-     * memberBhv.<span style="color: #FD4747">batchInsert</span>(memberList);
+     * memberBhv.<span style="color: #DD4747">batchInsert</span>(memberList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -1216,7 +1382,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     Member member = new Member();
@@ -1231,11 +1397,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     memberList.add(member);
      * }
-     * memberBhv.<span style="color: #FD4747">batchUpdate</span>(memberList);
+     * memberBhv.<span style="color: #DD4747">batchUpdate</span>(memberList);
      * </pre>
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<Member> memberList) {
         UpdateOption<MemberCB> op = createPlainUpdateOption();
@@ -1264,16 +1430,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberBhv.<span style="color: #FD4747">batchUpdate</span>(memberList, new SpecifyQuery<MemberCB>() {
+     * memberBhv.<span style="color: #DD4747">batchUpdate</span>(memberList, new SpecifyQuery<MemberCB>() {
      *     public void specify(MemberCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberBhv.<span style="color: #FD4747">batchUpdate</span>(memberList, new SpecifyQuery<MemberCB>() {
+     * memberBhv.<span style="color: #DD4747">batchUpdate</span>(memberList, new SpecifyQuery<MemberCB>() {
      *     public void specify(MemberCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1285,7 +1451,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<Member> memberList, SpecifyQuery<MemberCB> updateColumnSpec) {
         return doBatchUpdate(memberList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1294,7 +1460,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     Member member = new Member();
@@ -1309,11 +1475,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     memberList.add(member);
      * }
-     * memberBhv.<span style="color: #FD4747">batchUpdate</span>(memberList);
+     * memberBhv.<span style="color: #DD4747">batchUpdate</span>(memberList);
      * </pre>
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<Member> memberList) {
         UpdateOption<MemberCB> option = createPlainUpdateOption();
@@ -1331,16 +1497,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(memberList, new SpecifyQuery<MemberCB>() {
+     * memberBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(memberList, new SpecifyQuery<MemberCB>() {
      *     public void specify(MemberCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(memberList, new SpecifyQuery<MemberCB>() {
+     * memberBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(memberList, new SpecifyQuery<MemberCB>() {
      *     public void specify(MemberCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1351,7 +1517,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<Member> memberList, SpecifyQuery<MemberCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(memberList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1368,7 +1534,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<Member> memberList) {
         return doBatchDelete(memberList, null);
@@ -1391,7 +1557,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<Member> memberList) {
         return doBatchDeleteNonstrict(memberList, null);
@@ -1415,7 +1581,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * memberBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;Member, MemberCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;Member, MemberCB&gt;() {
      *     public ConditionBean setup(member entity, MemberCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1477,12 +1643,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//member.setVersionNo(value);</span>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * memberBhv.<span style="color: #FD4747">queryUpdate</span>(member, cb);
+     * memberBhv.<span style="color: #DD4747">queryUpdate</span>(member, cb);
      * </pre>
      * @param member The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of Member. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Member member, MemberCB cb) {
         return doQueryUpdate(member, cb, null);
@@ -1505,11 +1671,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.query().setFoo...(value);
-     * memberBhv.<span style="color: #FD4747">queryDelete</span>(member, cb);
+     * memberBhv.<span style="color: #DD4747">queryDelete</span>(member, cb);
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(MemberCB cb) {
         return doQueryDelete(cb, null);
@@ -1545,12 +1711,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * InsertOption<MemberCB> option = new InsertOption<MemberCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * memberBhv.<span style="color: #FD4747">varyingInsert</span>(member, option);
+     * memberBhv.<span style="color: #DD4747">varyingInsert</span>(member, option);
      * ... = member.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param member The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Member member, InsertOption<MemberCB> option) {
         assertInsertOptionNotNull(option);
@@ -1566,25 +1732,25 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * member.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * member.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * member.<span style="color: #FD4747">setVersionNo</span>(value);
+     * member.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;MemberCB&gt; option = new UpdateOption&lt;MemberCB&gt;();
      *     option.self(new SpecifyQuery&lt;MemberCB&gt;() {
      *         public void specify(MemberCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     memberBhv.<span style="color: #FD4747">varyingUpdate</span>(member, option);
+     *     memberBhv.<span style="color: #DD4747">varyingUpdate</span>(member, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param member The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Member member, UpdateOption<MemberCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1606,16 +1772,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;MemberCB&gt; option = new UpdateOption&lt;MemberCB&gt;();
      * option.self(new SpecifyQuery&lt;MemberCB&gt;() {
      *     public void specify(MemberCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * memberBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(member, option);
+     * memberBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(member, option);
      * </pre>
      * @param member The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(Member member, UpdateOption<MemberCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1628,9 +1794,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * @param member The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Member member, InsertOption<MemberCB> insertOption, UpdateOption<MemberCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1643,9 +1809,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * @param member The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(Member member, InsertOption<MemberCB> insertOption, UpdateOption<MemberCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1658,8 +1824,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param member The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Member member, DeleteOption<MemberCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1672,8 +1838,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param member The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(Member member, DeleteOption<MemberCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1786,16 +1952,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;MemberCB&gt; option = new UpdateOption&lt;MemberCB&gt;();
      * option.self(new SpecifyQuery&lt;MemberCB&gt;() {
      *     public void specify(MemberCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * memberBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(member, cb, option);
+     * memberBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(member, cb, option);
      * </pre>
      * @param member The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of Member. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Member member, MemberCB cb, UpdateOption<MemberCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1809,7 +1975,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of Member. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(MemberCB cb, DeleteOption<MemberCB> option) {
         assertDeleteOptionNotNull(option);

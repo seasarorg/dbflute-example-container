@@ -209,7 +209,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -228,7 +228,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -255,10 +255,10 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * MemberAddressCB cb = new MemberAddressCB();
-     * cb.<span style="color: #FD4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MemberAddress memberAddress = memberAddressBhv.selectEntityWithDeletedCheck(cb);
-     * ... = memberAddress.<span style="color: #FD4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = memberAddress.<span style="color: #DD4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -281,10 +281,10 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * (地域)REGION by my REGION_ID, named 'region'.
      * <pre>
      * MemberAddressCB cb = new MemberAddressCB();
-     * cb.<span style="color: #FD4747">setupSelect_Region()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Region()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MemberAddress memberAddress = memberAddressBhv.selectEntityWithDeletedCheck(cb);
-     * ... = memberAddress.<span style="color: #FD4747">getRegion()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = memberAddress.<span style="color: #DD4747">getRegion()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -478,13 +478,13 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;MemberAddressCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -532,7 +532,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;MemberAddressCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -550,10 +550,10 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;MemberAddressCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberAddressCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberAddressCB&gt;() {
      *             public void query(MemberAddressCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

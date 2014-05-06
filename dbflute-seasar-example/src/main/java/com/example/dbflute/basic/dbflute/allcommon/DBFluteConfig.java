@@ -679,7 +679,7 @@ public class DBFluteConfig {
     // -----------------------------------------------------
     //                                                Spring
     //                                                ------
-    protected static class SpringTransactionalDataSourceHandler implements DataSourceHandler {
+    public static class SpringTransactionalDataSourceHandler implements DataSourceHandler {
 
         public Connection getConnection(DataSource ds) throws SQLException {
             final Connection conn = getConnectionFromUtils(ds);

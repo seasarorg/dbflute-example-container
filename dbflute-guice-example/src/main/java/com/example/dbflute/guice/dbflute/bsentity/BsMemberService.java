@@ -408,17 +408,17 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsMemberService)) { return false; }
-        BsMemberService otherEntity = (BsMemberService)other;
-        if (!xSV(getMemberServiceId(), otherEntity.getMemberServiceId())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsMemberService)) { return false; }
+        BsMemberService other = (BsMemberService)obj;
+        if (!xSV(getMemberServiceId(), other.getMemberServiceId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -431,8 +431,8 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
         result = xCH(result, getMemberServiceId());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -447,7 +447,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -676,6 +676,6 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
 
     protected String convertEmptyToNull(String value) {
-        return InternalUtil.convertEmptyToNull(value);
+        return FunCustodial.convertEmptyToNull(value);
     }
 }

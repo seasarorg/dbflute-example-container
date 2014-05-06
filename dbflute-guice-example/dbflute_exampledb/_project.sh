@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ANT_OPTS=-Xmx512m
+export ANT_OPTS="-Xmx512m -XX:MaxPermSize=256m"
 
 export DBFLUTE_HOME=../mydbflute/dbflute-1.x
 

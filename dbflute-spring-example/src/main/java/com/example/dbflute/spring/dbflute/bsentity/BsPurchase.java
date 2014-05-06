@@ -210,7 +210,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setPaymentCompleteFlgAsFlg(CDef.Flg cdef) {
-        setPaymentCompleteFlg(cdef != null ? InternalUtil.toNumber(cdef.code(), Integer.class) : null);
+        setPaymentCompleteFlg(cdef != null ? FunCustodial.toNumber(cdef.code(), Integer.class) : null);
     }
 
     /**
@@ -430,17 +430,17 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsPurchase)) { return false; }
-        BsPurchase otherEntity = (BsPurchase)other;
-        if (!xSV(getPurchaseId(), otherEntity.getPurchaseId())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsPurchase)) { return false; }
+        BsPurchase other = (BsPurchase)obj;
+        if (!xSV(getPurchaseId(), other.getPurchaseId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -453,8 +453,8 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         result = xCH(result, getPurchaseId());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -469,7 +469,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -772,6 +772,6 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        InternalUtil.checkImplicitSet(this, columnDbName, meta, value);
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

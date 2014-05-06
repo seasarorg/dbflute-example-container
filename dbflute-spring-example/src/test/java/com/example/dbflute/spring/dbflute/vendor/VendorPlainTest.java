@@ -206,15 +206,11 @@ public class VendorPlainTest extends UnitContainerTestCase {
         log(prepared);
 
         // ## Act ##
-        try {
-            executeEnumBindSql(TestPlainStatus.FML);
+        List<Integer> idList = executeEnumBindSql(TestPlainStatus.FML);
 
-            // ## Assert ##
-            fail();
-        } catch (SQLException e) {
-            // OK
-            log(e.getMessage());
-        }
+        // ## Assert ##
+        log(idList);
+        assertHasZeroElement(idList);
     }
 
     private List<Integer> executeEnumBindSql(Object value) throws SQLException {

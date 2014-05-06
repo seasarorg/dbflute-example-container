@@ -1,6 +1,6 @@
 @echo off
 
-set ANT_OPTS=-Xmx512M
+set ANT_OPTS="-Xmx512M -XX:MaxPermSize=256m"
 
 set DBFLUTE_HOME=..\mydbflute\dbflute-1.x
 

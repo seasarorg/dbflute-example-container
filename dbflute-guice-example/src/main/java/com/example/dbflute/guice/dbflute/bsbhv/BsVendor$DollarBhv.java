@@ -6,6 +6,7 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -91,7 +92,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <pre>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * int count = vendor$DollarBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = vendor$DollarBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -119,24 +120,33 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. <br />
+     * It returns not-null optional entity, so you should ... <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, get() without check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, get() after check by isPresent() or orElse(), ...</span>
      * <pre>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * Vendor$Dollar vendor$Dollar = vendor$DollarBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (vendor$Dollar != null) {
-     *     ... = vendor$Dollar.get...();
+     * OptionalEntity&lt;Vendor$Dollar&gt; entity = vendor$DollarBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     *
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * Vendor$Dollar vendor$Dollar = entity.get();
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
+     * if (entity.isPresent()) {
+     *     Vendor$Dollar vendor$Dollar = entity.get();
      * } else {
      *     ...
      * }
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
-     * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Vendor$Dollar selectEntity(Vendor$DollarCB cb) {
-        return doSelectEntity(cb, Vendor$Dollar.class);
+    public OptionalEntity<Vendor$Dollar> selectEntity(Vendor$DollarCB cb) {
+        return createOptionalEntity(doSelectEntity(cb, Vendor$Dollar.class), cb);
     }
 
     protected <ENTITY extends Vendor$Dollar> ENTITY doSelectEntity(Vendor$DollarCB cb, Class<ENTITY> tp) {
@@ -147,22 +157,23 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return selectEntity(downcast(cb)).orElse(null);
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * Vendor$Dollar vendor$Dollar = vendor$DollarBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * Vendor$Dollar vendor$Dollar = vendor$DollarBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = vendor$Dollar.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectEntityWithDeletedCheck(Vendor$DollarCB cb) {
         return doSelectEntityWithDeletedCheck(cb, Vendor$Dollar.class);
@@ -183,8 +194,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param vendor$DollarId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValue(Integer vendor$DollarId) {
         return doSelectByPKValue(vendor$DollarId, Vendor$Dollar.class);
@@ -198,9 +209,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param vendor$DollarId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValueWithDeletedCheck(Integer vendor$DollarId) {
         return doSelectByPKValueWithDeletedCheck(vendor$DollarId, Vendor$Dollar.class);
@@ -226,14 +237,14 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;Vendor$Dollar&gt; vendor$DollarList = vendor$DollarBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;Vendor$Dollar&gt; vendor$DollarList = vendor$DollarBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (Vendor$Dollar vendor$Dollar : vendor$DollarList) {
      *     ... = vendor$Dollar.get...();
      * }
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Vendor$Dollar> selectList(Vendor$DollarCB cb) {
         return doSelectList(cb, Vendor$Dollar.class);
@@ -261,8 +272,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;Vendor$Dollar&gt; page = vendor$DollarBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;Vendor$Dollar&gt; page = vendor$DollarBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -274,7 +285,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Vendor$Dollar> selectPage(Vendor$DollarCB cb) {
         return doSelectPage(cb, Vendor$Dollar.class);
@@ -301,7 +312,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <pre>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * vendor$DollarBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;Vendor$Dollar&gt;() {
+     * vendor$DollarBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;Vendor$Dollar&gt;() {
      *     public void handle(Vendor$Dollar entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -330,9 +341,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * vendor$DollarBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * vendor$DollarBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(Vendor$DollarCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -399,12 +410,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.set...;</span>
-     * vendor$DollarBhv.<span style="color: #FD4747">insert</span>(vendor$Dollar);
+     * vendor$DollarBhv.<span style="color: #DD4747">insert</span>(vendor$Dollar);
      * ... = vendor$Dollar.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param vendor$Dollar The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Vendor$Dollar vendor$Dollar) {
         doInsert(vendor$Dollar, null);
@@ -440,17 +451,17 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//vendor$Dollar.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * vendor$Dollar.<span style="color: #FD4747">setVersionNo</span>(value);
+     * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     vendor$DollarBhv.<span style="color: #FD4747">update</span>(vendor$Dollar);
+     *     vendor$DollarBhv.<span style="color: #DD4747">update</span>(vendor$Dollar);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param vendor$Dollar The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final Vendor$Dollar vendor$Dollar) {
         doUpdate(vendor$Dollar, null);
@@ -500,11 +511,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param vendor$Dollar The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Vendor$Dollar vendor$Dollar) {
         doInesrtOrUpdate(vendor$Dollar, null, null);
@@ -540,16 +551,16 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * vendor$Dollar.<span style="color: #FD4747">setVersionNo</span>(value);
+     * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     vendor$DollarBhv.<span style="color: #FD4747">delete</span>(vendor$Dollar);
+     *     vendor$DollarBhv.<span style="color: #DD4747">delete</span>(vendor$Dollar);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param vendor$Dollar The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Vendor$Dollar vendor$Dollar) {
         doDelete(vendor$Dollar, null);
@@ -584,7 +595,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
@@ -597,7 +608,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     vendor$DollarList.add(vendor$Dollar);
      * }
-     * vendor$DollarBhv.<span style="color: #FD4747">batchInsert</span>(vendor$DollarList);
+     * vendor$DollarBhv.<span style="color: #DD4747">batchInsert</span>(vendor$DollarList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -631,7 +642,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
@@ -646,11 +657,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     vendor$DollarList.add(vendor$Dollar);
      * }
-     * vendor$DollarBhv.<span style="color: #FD4747">batchUpdate</span>(vendor$DollarList);
+     * vendor$DollarBhv.<span style="color: #DD4747">batchUpdate</span>(vendor$DollarList);
      * </pre>
      * @param vendor$DollarList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Vendor$Dollar> vendor$DollarList) {
         UpdateOption<Vendor$DollarCB> op = createPlainUpdateOption();
@@ -679,16 +690,16 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * vendor$DollarBhv.<span style="color: #FD4747">batchUpdate</span>(vendor$DollarList, new SpecifyQuery<Vendor$DollarCB>() {
+     * vendor$DollarBhv.<span style="color: #DD4747">batchUpdate</span>(vendor$DollarList, new SpecifyQuery<Vendor$DollarCB>() {
      *     public void specify(Vendor$DollarCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * vendor$DollarBhv.<span style="color: #FD4747">batchUpdate</span>(vendor$DollarList, new SpecifyQuery<Vendor$DollarCB>() {
+     * vendor$DollarBhv.<span style="color: #DD4747">batchUpdate</span>(vendor$DollarList, new SpecifyQuery<Vendor$DollarCB>() {
      *     public void specify(Vendor$DollarCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -700,7 +711,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @param vendor$DollarList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Vendor$Dollar> vendor$DollarList, SpecifyQuery<Vendor$DollarCB> updateColumnSpec) {
         return doBatchUpdate(vendor$DollarList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -716,7 +727,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param vendor$DollarList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<Vendor$Dollar> vendor$DollarList) {
         return doBatchDelete(vendor$DollarList, null);
@@ -745,7 +756,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * vendor$DollarBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;Vendor$Dollar, Vendor$DollarCB&gt;() {
+     * vendor$DollarBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;Vendor$Dollar, Vendor$DollarCB&gt;() {
      *     public ConditionBean setup(vendor$Dollar entity, Vendor$DollarCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -807,12 +818,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//vendor$Dollar.setVersionNo(value);</span>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * vendor$DollarBhv.<span style="color: #FD4747">queryUpdate</span>(vendor$Dollar, cb);
+     * vendor$DollarBhv.<span style="color: #DD4747">queryUpdate</span>(vendor$Dollar, cb);
      * </pre>
      * @param vendor$Dollar The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Vendor$Dollar vendor$Dollar, Vendor$DollarCB cb) {
         return doQueryUpdate(vendor$Dollar, cb, null);
@@ -835,11 +846,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <pre>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * vendor$DollarBhv.<span style="color: #FD4747">queryDelete</span>(vendor$Dollar, cb);
+     * vendor$DollarBhv.<span style="color: #DD4747">queryDelete</span>(vendor$Dollar, cb);
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(Vendor$DollarCB cb) {
         return doQueryDelete(cb, null);
@@ -875,12 +886,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * InsertOption<Vendor$DollarCB> option = new InsertOption<Vendor$DollarCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * vendor$DollarBhv.<span style="color: #FD4747">varyingInsert</span>(vendor$Dollar, option);
+     * vendor$DollarBhv.<span style="color: #DD4747">varyingInsert</span>(vendor$Dollar, option);
      * ... = vendor$Dollar.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param vendor$Dollar The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Vendor$Dollar vendor$Dollar, InsertOption<Vendor$DollarCB> option) {
         assertInsertOptionNotNull(option);
@@ -896,25 +907,25 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * vendor$Dollar.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * vendor$Dollar.<span style="color: #FD4747">setVersionNo</span>(value);
+     * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;Vendor$DollarCB&gt; option = new UpdateOption&lt;Vendor$DollarCB&gt;();
      *     option.self(new SpecifyQuery&lt;Vendor$DollarCB&gt;() {
      *         public void specify(Vendor$DollarCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     vendor$DollarBhv.<span style="color: #FD4747">varyingUpdate</span>(vendor$Dollar, option);
+     *     vendor$DollarBhv.<span style="color: #DD4747">varyingUpdate</span>(vendor$Dollar, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param vendor$Dollar The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Vendor$Dollar vendor$Dollar, UpdateOption<Vendor$DollarCB> option) {
         assertUpdateOptionNotNull(option);
@@ -927,9 +938,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @param vendor$Dollar The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Vendor$Dollar vendor$Dollar, InsertOption<Vendor$DollarCB> insertOption, UpdateOption<Vendor$DollarCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -942,8 +953,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param vendor$Dollar The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Vendor$Dollar vendor$Dollar, DeleteOption<Vendor$DollarCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1029,16 +1040,16 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;Vendor$DollarCB&gt; option = new UpdateOption&lt;Vendor$DollarCB&gt;();
      * option.self(new SpecifyQuery&lt;Vendor$DollarCB&gt;() {
      *     public void specify(Vendor$DollarCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * vendor$DollarBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(vendor$Dollar, cb, option);
+     * vendor$DollarBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(vendor$Dollar, cb, option);
      * </pre>
      * @param vendor$Dollar The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Vendor$Dollar vendor$Dollar, Vendor$DollarCB cb, UpdateOption<Vendor$DollarCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1052,7 +1063,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(Vendor$DollarCB cb, DeleteOption<Vendor$DollarCB> option) {
         assertDeleteOptionNotNull(option);

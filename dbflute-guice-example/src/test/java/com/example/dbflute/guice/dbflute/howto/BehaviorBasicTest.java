@@ -2,6 +2,7 @@ package com.example.dbflute.guice.dbflute.howto;
 
 import java.util.List;
 
+import org.seasar.dbflute.OptionalEntity;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 
@@ -61,11 +62,11 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         cb.query().setMemberId_Equal(3);
 
         // ## Act ##
-        Member member = memberBhv.selectEntity(cb);
+        OptionalEntity<Member> entity = memberBhv.selectEntity(cb);
 
         // ## Assert ##
-        log(member.toString());
-        assertEquals((Integer) 3, member.getMemberId());
+        log(entity.toString());
+        assertEquals((Integer) 3, entity.get().getMemberId());
 
         // [SQL]
         // where MEMBER_ID = 3

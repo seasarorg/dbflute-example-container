@@ -21,6 +21,7 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
@@ -106,7 +107,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * int count = memberLoginBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = memberLoginBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -134,12 +135,14 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * MemberLogin memberLogin = memberLoginBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (memberLogin != null) {
+     * MemberLogin memberLogin = memberLoginBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (memberLogin != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = memberLogin.get...();
      * } else {
      *     ...
@@ -147,8 +150,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberLogin selectEntity(MemberLoginCB cb) {
         return doSelectEntity(cb, MemberLogin.class);
@@ -166,18 +169,19 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * MemberLogin memberLogin = memberLoginBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * MemberLogin memberLogin = memberLoginBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = memberLogin.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberLogin selectEntityWithDeletedCheck(MemberLoginCB cb) {
         return doSelectEntityWithDeletedCheck(cb, MemberLogin.class);
@@ -198,8 +202,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param memberLoginId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberLogin selectByPKValue(Long memberLoginId) {
         return doSelectByPKValue(memberLoginId, MemberLogin.class);
@@ -213,9 +217,9 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param memberLoginId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberLogin selectByPKValueWithDeletedCheck(Long memberLoginId) {
         return doSelectByPKValueWithDeletedCheck(memberLoginId, MemberLogin.class);
@@ -241,14 +245,14 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;MemberLogin&gt; memberLoginList = memberLoginBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;MemberLogin&gt; memberLoginList = memberLoginBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (MemberLogin memberLogin : memberLoginList) {
      *     ... = memberLogin.get...();
      * }
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<MemberLogin> selectList(MemberLoginCB cb) {
         return doSelectList(cb, MemberLogin.class);
@@ -276,8 +280,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;MemberLogin&gt; page = memberLoginBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;MemberLogin&gt; page = memberLoginBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -289,7 +293,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<MemberLogin> selectPage(MemberLoginCB cb) {
         return doSelectPage(cb, MemberLogin.class);
@@ -316,7 +320,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * memberLoginBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;MemberLogin&gt;() {
+     * memberLoginBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;MemberLogin&gt;() {
      *     public void handle(MemberLogin entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -345,9 +349,9 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * memberLoginBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * memberLoginBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(MemberLoginCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -440,12 +444,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberLogin.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberLogin.set...;</span>
-     * memberLoginBhv.<span style="color: #FD4747">insert</span>(memberLogin);
+     * memberLoginBhv.<span style="color: #DD4747">insert</span>(memberLogin);
      * ... = memberLogin.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param memberLogin The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(MemberLogin memberLogin) {
         doInsert(memberLogin, null);
@@ -481,17 +485,17 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//memberLogin.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberLogin.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * memberLogin.<span style="color: #FD4747">setVersionNo</span>(value);
+     * memberLogin.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     memberLoginBhv.<span style="color: #FD4747">update</span>(memberLogin);
+     *     memberLoginBhv.<span style="color: #DD4747">update</span>(memberLogin);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param memberLogin The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final MemberLogin memberLogin) {
         doUpdate(memberLogin, null);
@@ -541,11 +545,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param memberLogin The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(MemberLogin memberLogin) {
         doInesrtOrUpdate(memberLogin, null, null);
@@ -581,16 +585,16 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * MemberLogin memberLogin = new MemberLogin();
      * memberLogin.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * memberLogin.<span style="color: #FD4747">setVersionNo</span>(value);
+     * memberLogin.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     memberLoginBhv.<span style="color: #FD4747">delete</span>(memberLogin);
+     *     memberLoginBhv.<span style="color: #DD4747">delete</span>(memberLogin);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param memberLogin The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(MemberLogin memberLogin) {
         doDelete(memberLogin, null);
@@ -625,7 +629,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     MemberLogin memberLogin = new MemberLogin();
@@ -638,7 +642,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     memberLoginList.add(memberLogin);
      * }
-     * memberLoginBhv.<span style="color: #FD4747">batchInsert</span>(memberLoginList);
+     * memberLoginBhv.<span style="color: #DD4747">batchInsert</span>(memberLoginList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -672,7 +676,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     MemberLogin memberLogin = new MemberLogin();
@@ -687,11 +691,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     memberLoginList.add(memberLogin);
      * }
-     * memberLoginBhv.<span style="color: #FD4747">batchUpdate</span>(memberLoginList);
+     * memberLoginBhv.<span style="color: #DD4747">batchUpdate</span>(memberLoginList);
      * </pre>
      * @param memberLoginList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MemberLogin> memberLoginList) {
         UpdateOption<MemberLoginCB> op = createPlainUpdateOption();
@@ -720,16 +724,16 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberLoginBhv.<span style="color: #FD4747">batchUpdate</span>(memberLoginList, new SpecifyQuery<MemberLoginCB>() {
+     * memberLoginBhv.<span style="color: #DD4747">batchUpdate</span>(memberLoginList, new SpecifyQuery<MemberLoginCB>() {
      *     public void specify(MemberLoginCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberLoginBhv.<span style="color: #FD4747">batchUpdate</span>(memberLoginList, new SpecifyQuery<MemberLoginCB>() {
+     * memberLoginBhv.<span style="color: #DD4747">batchUpdate</span>(memberLoginList, new SpecifyQuery<MemberLoginCB>() {
      *     public void specify(MemberLoginCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -741,7 +745,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * @param memberLoginList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MemberLogin> memberLoginList, SpecifyQuery<MemberLoginCB> updateColumnSpec) {
         return doBatchUpdate(memberLoginList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -757,7 +761,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberLoginList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<MemberLogin> memberLoginList) {
         return doBatchDelete(memberLoginList, null);
@@ -786,7 +790,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * memberLoginBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberLogin, MemberLoginCB&gt;() {
+     * memberLoginBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberLogin, MemberLoginCB&gt;() {
      *     public ConditionBean setup(memberLogin entity, MemberLoginCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -848,12 +852,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//memberLogin.setVersionNo(value);</span>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * memberLoginBhv.<span style="color: #FD4747">queryUpdate</span>(memberLogin, cb);
+     * memberLoginBhv.<span style="color: #DD4747">queryUpdate</span>(memberLogin, cb);
      * </pre>
      * @param memberLogin The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(MemberLogin memberLogin, MemberLoginCB cb) {
         return doQueryUpdate(memberLogin, cb, null);
@@ -876,11 +880,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
      * cb.query().setFoo...(value);
-     * memberLoginBhv.<span style="color: #FD4747">queryDelete</span>(memberLogin, cb);
+     * memberLoginBhv.<span style="color: #DD4747">queryDelete</span>(memberLogin, cb);
      * </pre>
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(MemberLoginCB cb) {
         return doQueryDelete(cb, null);
@@ -916,12 +920,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * InsertOption<MemberLoginCB> option = new InsertOption<MemberLoginCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * memberLoginBhv.<span style="color: #FD4747">varyingInsert</span>(memberLogin, option);
+     * memberLoginBhv.<span style="color: #DD4747">varyingInsert</span>(memberLogin, option);
      * ... = memberLogin.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param memberLogin The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(MemberLogin memberLogin, InsertOption<MemberLoginCB> option) {
         assertInsertOptionNotNull(option);
@@ -937,25 +941,25 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * memberLogin.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberLogin.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * memberLogin.<span style="color: #FD4747">setVersionNo</span>(value);
+     * memberLogin.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;MemberLoginCB&gt; option = new UpdateOption&lt;MemberLoginCB&gt;();
      *     option.self(new SpecifyQuery&lt;MemberLoginCB&gt;() {
      *         public void specify(MemberLoginCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     memberLoginBhv.<span style="color: #FD4747">varyingUpdate</span>(memberLogin, option);
+     *     memberLoginBhv.<span style="color: #DD4747">varyingUpdate</span>(memberLogin, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param memberLogin The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(MemberLogin memberLogin, UpdateOption<MemberLoginCB> option) {
         assertUpdateOptionNotNull(option);
@@ -968,9 +972,9 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * @param memberLogin The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(MemberLogin memberLogin, InsertOption<MemberLoginCB> insertOption, UpdateOption<MemberLoginCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -983,8 +987,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param memberLogin The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(MemberLogin memberLogin, DeleteOption<MemberLoginCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1070,16 +1074,16 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;MemberLoginCB&gt; option = new UpdateOption&lt;MemberLoginCB&gt;();
      * option.self(new SpecifyQuery&lt;MemberLoginCB&gt;() {
      *     public void specify(MemberLoginCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * memberLoginBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(memberLogin, cb, option);
+     * memberLoginBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(memberLogin, cb, option);
      * </pre>
      * @param memberLogin The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(MemberLogin memberLogin, MemberLoginCB cb, UpdateOption<MemberLoginCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1093,7 +1097,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of MemberLogin. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(MemberLoginCB cb, DeleteOption<MemberLoginCB> option) {
         assertDeleteOptionNotNull(option);

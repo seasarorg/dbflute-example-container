@@ -176,11 +176,11 @@ public abstract class BsPrimaryKeyComment implements EntityDefinedCommonColumn, 
      * List&lt;UnpaidSummaryMember&gt; memberList = memberBhv.outsideSql()...;
      * List&lt;Member&gt; domainList = new ArrayList&lt;Member&gt;();
      * for (UnpaidSummaryMember member : memberList) {
-     *     domainList.add(member.<span style="color: #FD4747">prepareDomain()</span>);
+     *     domainList.add(member.<span style="color: #DD4747">prepareDomain()</span>);
      * }
-     * memberBhv.<span style="color: #FD4747">loadPurchaseList</span>(domainList, new ConditionBeanSetupper...);
+     * memberBhv.<span style="color: #DD4747">loadPurchaseList</span>(domainList, new ConditionBeanSetupper...);
      * for (UnpaidSummaryMember member : memberList) {
-     *     Purchase purchase = member.<span style="color: #FD4747">getPurchaseList()</span>; <span style="color: #3F7E5E">// you can get it</span>
+     *     Purchase purchase = member.<span style="color: #DD4747">getPurchaseList()</span>; <span style="color: #3F7E5E">// you can get it</span>
      *     ...
      * }
      * </pre>
@@ -310,17 +310,17 @@ public abstract class BsPrimaryKeyComment implements EntityDefinedCommonColumn, 
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsPrimaryKeyComment)) { return false; }
-        BsPrimaryKeyComment otherEntity = (BsPrimaryKeyComment)other;
-        if (!xSV(getMemberId(), otherEntity.getMemberId())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsPrimaryKeyComment)) { return false; }
+        BsPrimaryKeyComment other = (BsPrimaryKeyComment)obj;
+        if (!xSV(getMemberId(), other.getMemberId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -333,8 +333,8 @@ public abstract class BsPrimaryKeyComment implements EntityDefinedCommonColumn, 
         result = xCH(result, getMemberId());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -349,7 +349,7 @@ public abstract class BsPrimaryKeyComment implements EntityDefinedCommonColumn, 
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**

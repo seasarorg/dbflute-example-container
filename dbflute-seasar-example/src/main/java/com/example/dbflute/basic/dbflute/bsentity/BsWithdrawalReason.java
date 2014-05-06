@@ -329,17 +329,17 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsWithdrawalReason)) { return false; }
-        BsWithdrawalReason otherEntity = (BsWithdrawalReason)other;
-        if (!xSV(getWithdrawalReasonCode(), otherEntity.getWithdrawalReasonCode())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsWithdrawalReason)) { return false; }
+        BsWithdrawalReason other = (BsWithdrawalReason)obj;
+        if (!xSV(getWithdrawalReasonCode(), other.getWithdrawalReasonCode())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -352,8 +352,8 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
         result = xCH(result, getWithdrawalReasonCode());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -368,7 +368,7 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -491,6 +491,6 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     }
 
     protected String convertEmptyToNull(String value) {
-        return InternalUtil.convertEmptyToNull(value);
+        return FunCustodial.convertEmptyToNull(value);
     }
 }

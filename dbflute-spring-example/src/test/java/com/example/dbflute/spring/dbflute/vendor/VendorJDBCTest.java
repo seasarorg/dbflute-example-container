@@ -100,7 +100,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                     memberBhv.varyingInsert(member, option);
                 }
             }
-        }, new CannonballOption().threadCount(2).expectExceptionAny("Timeout"));
+        }, new CannonballOption().threadCount(2).expectExceptionAny("timed out"));
     }
 
     // ===================================================================================
