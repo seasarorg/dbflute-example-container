@@ -7,6 +7,7 @@ import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -130,11 +131,17 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * OptionalEntity&lt;VendorTheLongAndWindingTableAndColumn&gt; entity = vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">selectEntity</span>(cb);
      *
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn = entity.get();
+     * entity.<span style="color: #DD4747">required</span>(vendorTheLongAndWindingTableAndColumn -&gt; {
+     *     ...
+     * });
+     * VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn = entity.entity.<span style="color: #DD4747">get()</span>;
      *
-     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
-     * if (entity.isPresent()) {
-     *     VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn = entity.get();
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(vendorTheLongAndWindingTableAndColumn -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn = entity.entity.<span style="color: #DD4747">get()</span>;
      * } else {
      *     ...
      * }
@@ -146,7 +153,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<VendorTheLongAndWindingTableAndColumn> selectEntity(VendorTheLongAndWindingTableAndColumnCB cb) {
-        return createOptionalEntity(doSelectEntity(cb, VendorTheLongAndWindingTableAndColumn.class), cb);
+        return doSelectOptionalEntity(cb, VendorTheLongAndWindingTableAndColumn.class);
     }
 
     protected <ENTITY extends VendorTheLongAndWindingTableAndColumn> ENTITY doSelectEntity(VendorTheLongAndWindingTableAndColumnCB cb, Class<ENTITY> tp) {
@@ -155,9 +162,13 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
             public List<ENTITY> callbackSelectList(VendorTheLongAndWindingTableAndColumnCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumn> OptionalEntity<ENTITY> doSelectOptionalEntity(VendorTheLongAndWindingTableAndColumnCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb)).orElse(null);
+        return selectEntity(downcast(cb)).orElseNull();
     }
 
     /**

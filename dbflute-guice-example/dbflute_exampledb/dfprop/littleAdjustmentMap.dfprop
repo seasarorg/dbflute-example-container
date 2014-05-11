@@ -34,6 +34,18 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    # the test of suppressing behavior for table classification
+    ; isSuppressTableClassificationDBAccessClass = true
+
+    # the test of suppressing to-one ExistsReferrer
+    ; isMakeConditionQueryExistsReferrerToOne = false
+
+    # the test of suppressing to-one InScopeRelation
+    ; isMakeConditionQueryInScopeRelationToOne = false
+
+    # the test of java8
+    ; isCompatibleBeforeJava8 = false
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
     #   [true]
@@ -329,20 +341,5 @@ map:{
     #
     ; cursorSelectFetchSize = 17
     # - - - - - - - - - -/
-
-    # the test of suppressing behavior for table classification
-    ; isSuppressTableClassificationDBAccessClass = true
-
-    # the test of suppressing to-one ExistsReferrer
-    ; isMakeConditionQueryExistsReferrerToOne = false
-
-    # the test of suppressing to-one InScopeRelation
-    ; isMakeConditionQueryInScopeRelationToOne = false
-
-    # the test of java8
-    ; isAvailableSelectEntityPlainReturn = false
-
-    # the test of java8
-    ; isAvailableSelectEntityWithDeletedCheck = true
 }
 # ----------------/

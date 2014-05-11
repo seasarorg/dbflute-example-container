@@ -875,9 +875,9 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<MemberAddressCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_ADDRESS_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(MemberAddressCQ sq);
@@ -910,8 +910,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberAddressCQ sq);
@@ -925,8 +925,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberAddressCQ sq);

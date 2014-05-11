@@ -233,8 +233,8 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<PurchaseCB> unionQuery) {
-        final PurchaseCB cb = new PurchaseCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final PurchaseCB cb = new PurchaseCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final PurchaseCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -252,8 +252,8 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<PurchaseCB> unionQuery) {
-        final PurchaseCB cb = new PurchaseCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final PurchaseCB cb = new PurchaseCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final PurchaseCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

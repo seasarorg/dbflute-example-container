@@ -233,8 +233,8 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<WithdrawalReasonCB> unionQuery) {
-        final WithdrawalReasonCB cb = new WithdrawalReasonCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final WithdrawalReasonCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -252,8 +252,8 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<WithdrawalReasonCB> unionQuery) {
-        final WithdrawalReasonCB cb = new WithdrawalReasonCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final WithdrawalReasonCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

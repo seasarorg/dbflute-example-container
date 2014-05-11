@@ -55,6 +55,7 @@ public class DBFluteConfig {
     protected boolean _pagingCountLater = true;
     protected boolean _pagingCountLeastJoin = true;
     protected boolean _innerJoinAutoDetect = true;
+    protected boolean _thatsBadTimingChecked = true;
     protected boolean _emptyStringQueryAllowed;
     protected boolean _emptyStringParameterAllowed;
     protected boolean _invalidQueryChecked;
@@ -165,6 +166,21 @@ public class DBFluteConfig {
             _log.info("...Setting innerJoinAutoDetect: " + innerJoinAutoDetect);
         }
         _innerJoinAutoDetect = innerJoinAutoDetect;
+    }
+
+    // ===================================================================================
+    //                                                                   That's Bad Timing
+    //                                                                   =================
+    public boolean isThatsBadTimingChecked() {
+        return _thatsBadTimingChecked;
+    }
+
+    public void setThatsBadTimingChecked(boolean thatsBadTimingChecked) {
+        assertNotLocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting thatsBadTimingChecked: " + thatsBadTimingChecked);
+        }
+        _thatsBadTimingChecked = thatsBadTimingChecked;
     }
 
     // ===================================================================================

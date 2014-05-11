@@ -169,8 +169,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_Member(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
@@ -183,8 +184,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
@@ -368,8 +370,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void inScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query());
         registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
     public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
@@ -382,8 +385,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void notInScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query());
         registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
     public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
@@ -1253,9 +1257,10 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(MemberWithdrawalCQ sq);
@@ -1288,8 +1293,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void myselfExists(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberWithdrawalCQ sq);
@@ -1303,8 +1309,9 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void myselfInScope(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberWithdrawalCQ sq);

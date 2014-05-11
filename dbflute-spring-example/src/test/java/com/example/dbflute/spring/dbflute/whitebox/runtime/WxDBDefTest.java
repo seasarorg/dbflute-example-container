@@ -32,6 +32,7 @@ public class WxDBDefTest extends UnitContainerTestCase {
         // ## Arrange ##
         final List<String> switchedList = Arrays.asList("foo", "bar");
         DBWay original = DBDef.MySQL.dbway();
+        DBDef.MySQL.unlock();
         try {
             DBDef.MySQL.switchDBWay(new WayOfMySQL() {
                 private static final long serialVersionUID = 1L;
@@ -48,6 +49,7 @@ public class WxDBDefTest extends UnitContainerTestCase {
             // ## Assert ##
             assertEquals(switchedList, wildCardList);
         } finally {
+            DBDef.MySQL.unlock();
             DBDef.MySQL.switchDBWay(original);
         }
     }

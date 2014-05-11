@@ -28,6 +28,7 @@ import org.seasar.dbflute.dbmeta.hierarchy.HierarchyBasicRequest;
 import org.seasar.dbflute.dbmeta.hierarchy.HierarchyRequest;
 #end
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 #if ($table.hasPrimaryKeyForcedClassificationSetting())
 import ${glPackageBaseCommon}.${glCDef};
@@ -175,11 +176,17 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * OptionalEntity&lt;${myExtendedObjectClassName}&gt; entity = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectEntity</span>(cb);
      *
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * ${myExtendedObjectClassName} ${myEntityVariableName} = entity.get();
+     * entity.<span style="color: #DD4747">required</span>(${myEntityVariableName} -&gt; {
+     *     ...
+     * });
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = entity.entity.<span style="color: #DD4747">get()</span>;
      *
-     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
-     * if (entity.isPresent()) {
-     *     ${myExtendedObjectClassName} ${myEntityVariableName} = entity.get();
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(${myEntityVariableName} -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     ${myExtendedObjectClassName} ${myEntityVariableName} = entity.entity.<span style="color: #DD4747">get()</span>;
      * } else {
      *     ...
      * }
@@ -199,7 +206,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
 #if ($table.isAvailableSelectEntityPlainReturn())
         return doSelectEntity(cb, ${myExtendedObjectClassName}.class);
 #else
-        return createOptionalEntity(doSelectEntity(cb, ${myExtendedObjectClassName}.class), cb);
+        return doSelectOptionalEntity(cb, ${myExtendedObjectClassName}.class);
 #end
     }
 
@@ -209,12 +216,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
             public List<ENTITY> callbackSelectList(${myConditionBeanClassName} lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
 #if ($table.isAvailableSelectEntityPlainReturn())
         return selectEntity(downcast(cb));
 #else
-        return selectEntity(downcast(cb)).orElse(null);
+        return selectEntity(downcast(cb)).orElseNull();
 #end
     }
 

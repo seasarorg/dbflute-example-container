@@ -218,8 +218,8 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<MemberWithdrawalCB> unionQuery) {
-        final MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberWithdrawalCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -237,8 +237,8 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<MemberWithdrawalCB> unionQuery) {
-        final MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberWithdrawalCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

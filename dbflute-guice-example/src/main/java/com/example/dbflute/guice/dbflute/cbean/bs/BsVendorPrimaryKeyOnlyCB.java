@@ -217,8 +217,8 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<VendorPrimaryKeyOnlyCB> unionQuery) {
-        final VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final VendorPrimaryKeyOnlyCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -236,8 +236,8 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<VendorPrimaryKeyOnlyCB> unionQuery) {
-        final VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final VendorPrimaryKeyOnlyCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

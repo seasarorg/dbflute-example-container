@@ -22,6 +22,7 @@ import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.basic.dbflute.exbhv.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
@@ -161,6 +162,10 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, ProductCB>() {
             public List<ENTITY> callbackSelectList(ProductCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+    }
+
+    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectOptionalEntity(ProductCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
     @Override

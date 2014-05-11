@@ -15,8 +15,8 @@
  */
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
-import org.seasar.dbflute.OptionalEntity;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
+import org.seasar.dbflute.optional.OptionalEntity;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;

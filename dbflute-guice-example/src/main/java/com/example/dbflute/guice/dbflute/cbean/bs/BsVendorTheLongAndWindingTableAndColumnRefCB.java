@@ -218,8 +218,8 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<VendorTheLongAndWindingTableAndColumnRefCB> unionQuery) {
-        final VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final VendorTheLongAndWindingTableAndColumnRefCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -237,8 +237,8 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<VendorTheLongAndWindingTableAndColumnRefCB> unionQuery) {
-        final VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final VendorTheLongAndWindingTableAndColumnRefCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

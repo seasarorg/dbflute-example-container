@@ -285,8 +285,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_Member(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
@@ -299,8 +299,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_Member(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
@@ -417,8 +417,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void inScopeProduct(SubQuery<ProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductId_InScopeRelation_Product(cb.query()); // for saving query-value.
+        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepProductId_InScopeRelation_Product(cb.query());
         registerInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "product");
     }
     public abstract String keepProductId_InScopeRelation_Product(ProductCQ sq);
@@ -431,8 +431,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void notInScopeProduct(SubQuery<ProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepProductId_NotInScopeRelation_Product(cb.query()); // for saving query-value.
+        ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepProductId_NotInScopeRelation_Product(cb.query());
         registerNotInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "product");
     }
     public abstract String keepProductId_NotInScopeRelation_Product(ProductCQ sq);
@@ -1489,9 +1489,9 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<PurchaseCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "PURCHASE_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(PurchaseCQ sq);
@@ -1524,8 +1524,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(PurchaseCQ sq);
@@ -1539,8 +1539,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(PurchaseCQ sq);

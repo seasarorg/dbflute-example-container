@@ -444,9 +444,10 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<Vendor$DollarCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "VENDOR_$_DOLLAR_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(Vendor$DollarCQ sq);
@@ -479,8 +480,9 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<Vendor$DollarCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(Vendor$DollarCQ sq);
@@ -494,8 +496,9 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<Vendor$DollarCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(Vendor$DollarCQ sq);

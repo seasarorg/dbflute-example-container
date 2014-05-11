@@ -289,9 +289,9 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "PRIMARY_KEY_ONLY_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(VendorPrimaryKeyOnlyCQ sq);
@@ -324,8 +324,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      */
     public void myselfExists(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(VendorPrimaryKeyOnlyCQ sq);
@@ -339,8 +339,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      */
     public void myselfInScope(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(VendorPrimaryKeyOnlyCQ sq);

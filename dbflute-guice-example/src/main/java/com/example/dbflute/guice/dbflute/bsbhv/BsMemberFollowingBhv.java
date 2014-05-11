@@ -7,6 +7,7 @@ import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -130,11 +131,17 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * OptionalEntity&lt;MemberFollowing&gt; entity = memberFollowingBhv.<span style="color: #DD4747">selectEntity</span>(cb);
      *
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * MemberFollowing memberFollowing = entity.get();
+     * entity.<span style="color: #DD4747">required</span>(memberFollowing -&gt; {
+     *     ...
+     * });
+     * MemberFollowing memberFollowing = entity.entity.<span style="color: #DD4747">get()</span>;
      *
-     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
-     * if (entity.isPresent()) {
-     *     MemberFollowing memberFollowing = entity.get();
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(memberFollowing -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     MemberFollowing memberFollowing = entity.entity.<span style="color: #DD4747">get()</span>;
      * } else {
      *     ...
      * }
@@ -146,7 +153,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<MemberFollowing> selectEntity(MemberFollowingCB cb) {
-        return createOptionalEntity(doSelectEntity(cb, MemberFollowing.class), cb);
+        return doSelectOptionalEntity(cb, MemberFollowing.class);
     }
 
     protected <ENTITY extends MemberFollowing> ENTITY doSelectEntity(MemberFollowingCB cb, Class<ENTITY> tp) {
@@ -155,9 +162,13 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(MemberFollowingCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalEntity(MemberFollowingCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb)).orElse(null);
+        return selectEntity(downcast(cb)).orElseNull();
     }
 
     /**

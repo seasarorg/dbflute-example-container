@@ -2,9 +2,9 @@ package com.example.dbflute.guice.dbflute.howto;
 
 import java.util.List;
 
-import org.seasar.dbflute.OptionalEntity;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
+import org.seasar.dbflute.optional.OptionalEntity;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;

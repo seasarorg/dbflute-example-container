@@ -217,8 +217,8 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<Vendor$DollarCB> unionQuery) {
-        final Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final Vendor$DollarCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -236,8 +236,8 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<Vendor$DollarCB> unionQuery) {
-        final Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final Vendor$DollarCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

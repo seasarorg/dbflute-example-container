@@ -7,6 +7,7 @@ import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -130,11 +131,17 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * OptionalEntity&lt;SummaryWithdrawal&gt; entity = summaryWithdrawalBhv.<span style="color: #DD4747">selectEntity</span>(cb);
      *
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * SummaryWithdrawal summaryWithdrawal = entity.get();
+     * entity.<span style="color: #DD4747">required</span>(summaryWithdrawal -&gt; {
+     *     ...
+     * });
+     * SummaryWithdrawal summaryWithdrawal = entity.entity.<span style="color: #DD4747">get()</span>;
      *
-     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
-     * if (entity.isPresent()) {
-     *     SummaryWithdrawal summaryWithdrawal = entity.get();
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(summaryWithdrawal -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     SummaryWithdrawal summaryWithdrawal = entity.entity.<span style="color: #DD4747">get()</span>;
      * } else {
      *     ...
      * }
@@ -146,7 +153,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<SummaryWithdrawal> selectEntity(SummaryWithdrawalCB cb) {
-        return createOptionalEntity(doSelectEntity(cb, SummaryWithdrawal.class), cb);
+        return doSelectOptionalEntity(cb, SummaryWithdrawal.class);
     }
 
     protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -155,9 +162,13 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
             public List<ENTITY> callbackSelectList(SummaryWithdrawalCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends SummaryWithdrawal> OptionalEntity<ENTITY> doSelectOptionalEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb)).orElse(null);
+        return selectEntity(downcast(cb)).orElseNull();
     }
 
     /**

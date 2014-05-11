@@ -233,8 +233,8 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<MemberServiceCB> unionQuery) {
-        final MemberServiceCB cb = new MemberServiceCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberServiceCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -252,8 +252,8 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<MemberServiceCB> unionQuery) {
-        final MemberServiceCB cb = new MemberServiceCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberServiceCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -278,6 +278,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberNss setupSelect_Member() {
+        assertSetupSelectPurpose("member");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMemberId();
         }
@@ -304,6 +305,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public ServiceRankNss setupSelect_ServiceRank() {
+        assertSetupSelectPurpose("serviceRank");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnServiceRankCode();
         }
@@ -477,8 +479,8 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
@@ -530,8 +532,8 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)

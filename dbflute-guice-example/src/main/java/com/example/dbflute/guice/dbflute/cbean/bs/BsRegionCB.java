@@ -217,8 +217,8 @@ public class BsRegionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<RegionCB> unionQuery) {
-        final RegionCB cb = new RegionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final RegionCB cb = new RegionCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final RegionCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -236,8 +236,8 @@ public class BsRegionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<RegionCB> unionQuery) {
-        final RegionCB cb = new RegionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final RegionCB cb = new RegionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final RegionCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

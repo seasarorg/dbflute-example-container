@@ -7,6 +7,7 @@ import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -134,11 +135,17 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
      * OptionalEntity&lt;VendorCheck&gt; entity = vendorCheckBhv.<span style="color: #DD4747">selectEntity</span>(cb);
      *
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * VendorCheck vendorCheck = entity.get();
+     * entity.<span style="color: #DD4747">required</span>(vendorCheck -&gt; {
+     *     ...
+     * });
+     * VendorCheck vendorCheck = entity.entity.<span style="color: #DD4747">get()</span>;
      *
-     * <span style="color: #3F7E5E">// if it might be no data, isPresent(), orElse(), ...</span>
-     * if (entity.isPresent()) {
-     *     VendorCheck vendorCheck = entity.get();
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(vendorCheck -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     VendorCheck vendorCheck = entity.entity.<span style="color: #DD4747">get()</span>;
      * } else {
      *     ...
      * }
@@ -150,7 +157,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<VendorCheck> selectEntity(VendorCheckCB cb) {
-        return createOptionalEntity(doSelectEntity(cb, VendorCheck.class), cb);
+        return doSelectOptionalEntity(cb, VendorCheck.class);
     }
 
     protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(VendorCheckCB cb, Class<ENTITY> tp) {
@@ -159,9 +166,13 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(VendorCheckCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(VendorCheckCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb)).orElse(null);
+        return selectEntity(downcast(cb)).orElseNull();
     }
 
     /**

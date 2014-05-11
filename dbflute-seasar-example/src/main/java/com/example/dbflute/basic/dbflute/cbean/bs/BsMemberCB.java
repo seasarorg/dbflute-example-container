@@ -233,8 +233,8 @@ public class BsMemberCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<MemberCB> unionQuery) {
-        final MemberCB cb = new MemberCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberCB cb = new MemberCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -252,8 +252,8 @@ public class BsMemberCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<MemberCB> unionQuery) {
-        final MemberCB cb = new MemberCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MemberCB cb = new MemberCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MemberCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 

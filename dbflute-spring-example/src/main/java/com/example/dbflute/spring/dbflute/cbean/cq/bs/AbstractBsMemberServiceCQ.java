@@ -285,8 +285,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_Member(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
@@ -299,8 +300,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
@@ -592,8 +594,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void inScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepServiceRankCode_InScopeRelation_ServiceRank(cb.query()); // for saving query-value.
+        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepServiceRankCode_InScopeRelation_ServiceRank(cb.query());
         registerInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
     }
     public abstract String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq);
@@ -606,8 +609,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void notInScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepServiceRankCode_NotInScopeRelation_ServiceRank(cb.query()); // for saving query-value.
+        ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepServiceRankCode_NotInScopeRelation_ServiceRank(cb.query());
         registerNotInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
     }
     public abstract String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq);
@@ -1243,9 +1247,10 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<MemberServiceCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_SERVICE_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(MemberServiceCQ sq);
@@ -1278,8 +1283,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberServiceCQ sq);
@@ -1293,8 +1299,9 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberServiceCQ sq);
