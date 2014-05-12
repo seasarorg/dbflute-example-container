@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dbflute.version>1.0.5D</dbflute.version>
+		<dbflute.version>1.0.5F</dbflute.version>
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
 
@@ -159,7 +159,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.3.154</version>
+			<version>1.4.178</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

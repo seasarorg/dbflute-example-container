@@ -55,7 +55,7 @@ public class DBFluteConfig {
     protected boolean _pagingCountLater = true;
     protected boolean _pagingCountLeastJoin = true;
     protected boolean _innerJoinAutoDetect = true;
-    protected boolean _thatsBadTimingChecked = true;
+    protected boolean _thatsBadTimingDetect = true;
     protected boolean _emptyStringQueryAllowed;
     protected boolean _emptyStringParameterAllowed;
     protected boolean _invalidQueryChecked;
@@ -154,8 +154,8 @@ public class DBFluteConfig {
     }
 
     // ===================================================================================
-    //                                                                          Inner Join
-    //                                                                          ==========
+    //                                                              Inner Join Auto Detect
+    //                                                              ======================
     public boolean isInnerJoinAutoDetect() {
         return _innerJoinAutoDetect;
     }
@@ -169,18 +169,18 @@ public class DBFluteConfig {
     }
 
     // ===================================================================================
-    //                                                                   That's Bad Timing
-    //                                                                   =================
-    public boolean isThatsBadTimingChecked() {
-        return _thatsBadTimingChecked;
+    //                                                            That's-Bad-Timing Detect
+    //                                                            ========================
+    public boolean isThatsBadTimingDetect() {
+        return _thatsBadTimingDetect;
     }
 
-    public void setThatsBadTimingChecked(boolean thatsBadTimingChecked) {
+    public void setThatsBadTimingDetect(boolean thatsBadTimingDetect) {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
-            _log.info("...Setting thatsBadTimingChecked: " + thatsBadTimingChecked);
+            _log.info("...Setting thatsBadTimingDetect: " + thatsBadTimingDetect);
         }
-        _thatsBadTimingChecked = thatsBadTimingChecked;
+        _thatsBadTimingDetect = thatsBadTimingDetect;
     }
 
     // ===================================================================================

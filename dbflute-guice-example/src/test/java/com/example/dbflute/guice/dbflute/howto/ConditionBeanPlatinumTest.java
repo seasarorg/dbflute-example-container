@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
+import org.seasar.dbflute.cbean.ManualOrderBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
@@ -337,11 +338,13 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_addOrderBy_withManualOrder() {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
-        List<String> manualValueList = new ArrayList<String>();
-        manualValueList.add(CDef.MemberStatus.Withdrawal.code());
-        manualValueList.add(CDef.MemberStatus.Formalized.code());
-        manualValueList.add(CDef.MemberStatus.Provisional.code());
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
+        List<CDef.MemberStatus> orderValueList = new ArrayList<CDef.MemberStatus>();
+        orderValueList.add(CDef.MemberStatus.Withdrawal);
+        orderValueList.add(CDef.MemberStatus.Formalized);
+        orderValueList.add(CDef.MemberStatus.Provisional);
+        ManualOrderBean mob = new ManualOrderBean();
+        mob.acceptOrderValueList(orderValueList);
+        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
         cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
         cb.query().addOrderBy_MemberName_Asc();
 

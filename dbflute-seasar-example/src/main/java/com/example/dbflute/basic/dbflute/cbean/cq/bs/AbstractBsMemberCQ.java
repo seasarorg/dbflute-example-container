@@ -177,7 +177,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberAddressList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberAddressList(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberAddressList");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq);
@@ -198,7 +199,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberFollowingByMyMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberFollowingByMyMemberIdList(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MY_MEMBER_ID", pp, "memberFollowingByMyMemberIdList");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq);
@@ -219,7 +221,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberFollowingByYourMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberFollowingByYourMemberIdList(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "YOUR_MEMBER_ID", pp, "memberFollowingByYourMemberIdList");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq);
@@ -240,7 +243,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberLoginList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberLoginList(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberLoginList(MemberLoginCQ sq);
@@ -261,7 +265,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberSecurityAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberSecurityAsOne(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq);
@@ -282,7 +287,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberServiceAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberServiceAsOne(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq);
@@ -303,7 +309,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
     }
     public abstract String keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
@@ -324,7 +331,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void existsPurchaseList(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_ExistsReferrer_PurchaseList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_ExistsReferrer_PurchaseList(cb.query());
         registerExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "purchaseList");
     }
     public abstract String keepMemberId_ExistsReferrer_PurchaseList(PurchaseCQ sq);
@@ -345,7 +353,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberAddressList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberAddressList(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberAddressList");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq);
@@ -366,7 +375,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberFollowingByMyMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberFollowingByMyMemberIdList(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MY_MEMBER_ID", pp, "memberFollowingByMyMemberIdList");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq);
@@ -387,7 +397,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberFollowingByYourMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberFollowingByYourMemberIdList(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "YOUR_MEMBER_ID", pp, "memberFollowingByYourMemberIdList");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq);
@@ -408,7 +419,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberLoginList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberLoginList(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberLoginList(MemberLoginCQ sq);
@@ -429,7 +441,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberSecurityAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberSecurityAsOne(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq);
@@ -450,7 +463,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberServiceAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberServiceAsOne(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq);
@@ -471,7 +485,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
     }
     public abstract String keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
@@ -492,7 +507,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notExistsPurchaseList(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotExistsReferrer_PurchaseList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotExistsReferrer_PurchaseList(cb.query());
         registerNotExistsReferrer(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "purchaseList");
     }
     public abstract String keepMemberId_NotExistsReferrer_PurchaseList(PurchaseCQ sq);
@@ -506,7 +522,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberAddressList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberAddressList(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberAddressList");
     }
     public abstract String keepMemberId_InScopeRelation_MemberAddressList(MemberAddressCQ sq);
@@ -520,7 +537,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MY_MEMBER_ID", pp, "memberFollowingByMyMemberIdList");
     }
     public abstract String keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq);
@@ -534,7 +552,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "YOUR_MEMBER_ID", pp, "memberFollowingByYourMemberIdList");
     }
     public abstract String keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq);
@@ -548,7 +567,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberLoginList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberLoginList(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList");
     }
     public abstract String keepMemberId_InScopeRelation_MemberLoginList(MemberLoginCQ sq);
@@ -562,7 +582,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberSecurityAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberSecurityAsOne(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
     }
     public abstract String keepMemberId_InScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq);
@@ -576,7 +597,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberServiceAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberServiceAsOne(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
     }
     public abstract String keepMemberId_InScopeRelation_MemberServiceAsOne(MemberServiceCQ sq);
@@ -590,7 +612,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_MemberWithdrawalAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_MemberWithdrawalAsOne(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
     }
     public abstract String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
@@ -604,7 +627,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopePurchaseList(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_PurchaseList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_PurchaseList(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "purchaseList");
     }
     public abstract String keepMemberId_InScopeRelation_PurchaseList(PurchaseCQ sq);
@@ -618,7 +642,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberAddressList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberAddressList(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberAddressList");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq);
@@ -632,7 +657,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MY_MEMBER_ID", pp, "memberFollowingByMyMemberIdList");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq);
@@ -646,7 +672,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "YOUR_MEMBER_ID", pp, "memberFollowingByYourMemberIdList");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq);
@@ -660,7 +687,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberLoginList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberLoginList(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq);
@@ -674,7 +702,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberSecurityAsOne(SubQuery<MemberSecurityCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberSecurityAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberSecurityAsOne(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberSecurityAsOne");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq);
@@ -688,7 +717,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberServiceAsOne(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberServiceAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberServiceAsOne(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberServiceAsOne");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MemberServiceCQ sq);
@@ -702,7 +732,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberWithdrawalAsOne(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberWithdrawalAsOne");
     }
     public abstract String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq);
@@ -716,7 +747,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopePurchaseList(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_PurchaseList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_PurchaseList(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "purchaseList");
     }
     public abstract String keepMemberId_NotInScopeRelation_PurchaseList(PurchaseCQ sq);
@@ -724,7 +756,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsderiveMemberAddressList(String fn, SubQuery<MemberAddressCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepMemberId_SpecifyDerivedReferrer_MemberAddressList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_SpecifyDerivedReferrer_MemberAddressList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberAddressList", al, op);
     }
     public abstract String keepMemberId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq);
@@ -732,7 +765,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsderiveMemberFollowingByMyMemberIdList(String fn, SubQuery<MemberFollowingCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepMemberId_SpecifyDerivedReferrer_MemberFollowingByMyMemberIdList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_SpecifyDerivedReferrer_MemberFollowingByMyMemberIdList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MEMBER_ID", "MY_MEMBER_ID", pp, "memberFollowingByMyMemberIdList", al, op);
     }
     public abstract String keepMemberId_SpecifyDerivedReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq);
@@ -740,7 +774,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsderiveMemberFollowingByYourMemberIdList(String fn, SubQuery<MemberFollowingCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepMemberId_SpecifyDerivedReferrer_MemberFollowingByYourMemberIdList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_SpecifyDerivedReferrer_MemberFollowingByYourMemberIdList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MEMBER_ID", "YOUR_MEMBER_ID", pp, "memberFollowingByYourMemberIdList", al, op);
     }
     public abstract String keepMemberId_SpecifyDerivedReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq);
@@ -748,7 +783,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsderiveMemberLoginList(String fn, SubQuery<MemberLoginCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepMemberId_SpecifyDerivedReferrer_MemberLoginList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_SpecifyDerivedReferrer_MemberLoginList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "memberLoginList", al, op);
     }
     public abstract String keepMemberId_SpecifyDerivedReferrer_MemberLoginList(MemberLoginCQ sq);
@@ -756,7 +792,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsderivePurchaseList(String fn, SubQuery<PurchaseCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepMemberId_SpecifyDerivedReferrer_PurchaseList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_SpecifyDerivedReferrer_PurchaseList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "purchaseList", al, op);
     }
     public abstract String keepMemberId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq);
@@ -1349,7 +1386,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void inScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberStatusCode_InScopeRelation_MemberStatus(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberStatusCode_InScopeRelation_MemberStatus(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
     }
     public abstract String keepMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq);
@@ -1363,7 +1401,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void notInScopeMemberStatus(SubQuery<MemberStatusCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberStatusCode_NotInScopeRelation_MemberStatus(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberStatusCode_NotInScopeRelation_MemberStatus(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", pp, "memberStatus");
     }
     public abstract String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq);
@@ -2176,7 +2215,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<MemberCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberCB cb = new MemberCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -2211,7 +2251,8 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberCQ sq);
@@ -2226,10 +2267,42 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void myselfInScope(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

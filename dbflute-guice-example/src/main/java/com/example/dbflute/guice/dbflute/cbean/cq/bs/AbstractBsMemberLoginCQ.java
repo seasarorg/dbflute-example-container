@@ -740,7 +740,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<MemberLoginCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_LOGIN_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -775,7 +776,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberLoginCQ sq);
@@ -790,7 +792,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     public void myselfInScope(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberLoginCQ sq);

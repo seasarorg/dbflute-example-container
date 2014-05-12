@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
-import org.seasar.dbflute.bhv.EntityListSetupper;
-import org.seasar.dbflute.bhv.LoadReferrerOption;
+import org.seasar.dbflute.bhv.ReferrerListHandler;
 import org.seasar.dbflute.cbean.EntityRowHandler;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
@@ -204,7 +203,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         assertEquals(allCount, memberIdSet.size());
     }
-    
+
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
@@ -250,19 +249,14 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         MemberStatusCB cb = new MemberStatusCB();
         ListResultBean<MemberStatus> memberStatusList = memberStatusBhv.selectList(cb);
 
-        LoadReferrerOption<MemberCB, Member> loadReferrerOption = new LoadReferrerOption<MemberCB, Member>();
-
-        // Member
-        loadReferrerOption.setConditionBeanSetupper(new ConditionBeanSetupper<MemberCB>() {
+        // ## Act ##
+        memberStatusBhv.loadMemberList(memberStatusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
                 cb.query().addOrderBy_FormalizedDatetime_Desc();
             }
-        });
-
-        // Purchase
-        loadReferrerOption.setEntityListSetupper(new EntityListSetupper<Member>() {
-            public void setup(List<Member> entityList) {
-                memberBhv.loadPurchaseList(entityList, new ConditionBeanSetupper<PurchaseCB>() {
+        }).withNestedReferrer(new ReferrerListHandler<Member>() {
+            public void handle(List<Member> referrerList) {
+                memberBhv.loadPurchaseList(referrerList, new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB cb) {
                         cb.query().addOrderBy_PurchaseCount_Desc();
                         cb.query().addOrderBy_ProductId_Desc();
@@ -270,9 +264,6 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
                 });
             }
         });
-
-        // ## Act ##
-        memberStatusBhv.loadMemberList(memberStatusList, loadReferrerOption);
 
         // ## Assert ##
         boolean existsPurchase = false;
@@ -629,8 +620,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(path, pmb,
-                entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig)
+                .selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
@@ -647,7 +638,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             assertTrue(memberName.startsWith("S"));
         }
     }
-    
+
     // -----------------------------------------------------
     //                          ParameterBean ResolvePackage
     //                          ----------------------------
@@ -821,7 +812,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         assertNotNull(updateUser);
         assertEquals("suppressUpdateUser", updateUser);
     }
-    
+
     // ===================================================================================
     //                                                                    Paging Re-Select
     //                                                                    ================
@@ -841,7 +832,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         assertTrue(page99999.isEmpty());
     }
-    
+
     /**
      * ページングの超過ページ番号での検索時の再検索を無効化(OutsideSql): disablePagingReSelect().
      */
@@ -862,8 +853,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // SQL実行！
         int pageSize = 3;
         pmb.paging(pageSize, 99999);
-        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());

@@ -232,7 +232,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void existsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(cb.query());
         registerExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
     public abstract String keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
@@ -253,7 +254,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void notExistsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(cb.query());
         registerNotExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
     public abstract String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
@@ -267,7 +269,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void inScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(cb.query());
         registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
     public abstract String keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
@@ -281,7 +284,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void notInScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(cb.query());
         registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
     public abstract String keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
@@ -289,7 +293,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void xsderiveMemberWithdrawalList(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList", al, op);
     }
     public abstract String keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
@@ -698,7 +703,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void xsmyselfDerive(String fn, SubQuery<WithdrawalReasonCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "WITHDRAWAL_REASON_CODE";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -733,7 +739,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void myselfExists(SubQuery<WithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(WithdrawalReasonCQ sq);
@@ -748,10 +755,42 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     public void myselfInScope(SubQuery<WithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(WithdrawalReasonCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

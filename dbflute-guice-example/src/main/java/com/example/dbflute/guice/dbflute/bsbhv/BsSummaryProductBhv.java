@@ -397,13 +397,16 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
+     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (SummaryProduct summaryProduct : summaryProductList) {
      *     ... = summaryProduct.<span style="color: #DD4747">getPurchaseList()</span>;
      * }
@@ -414,29 +417,30 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * cb.query().setProductId_InScope(pkList);
      * cb.query().addOrderBy_ProductId_Asc();
      * </pre>
-     * @param summaryProduct The entity of summaryProduct. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param summaryProductList The entity list of summaryProduct. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Purchase> loadPurchaseList(SummaryProduct summaryProduct, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
-        xassLRArg(summaryProduct, conditionBeanSetupper);
-        return loadPurchaseList(xnewLRLs(summaryProduct), conditionBeanSetupper);
+    public NestedReferrerLoader<Purchase> loadPurchaseList(List<SummaryProduct> summaryProductList, ReferrerConditionSetupper<PurchaseCB> setupper) {
+        xassLRArg(summaryProductList, setupper);
+        return doLoadPurchaseList(summaryProductList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
+     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
-     * for (SummaryProduct summaryProduct : summaryProductList) {
-     *     ... = summaryProduct.<span style="color: #DD4747">getPurchaseList()</span>;
-     * }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = summaryProduct.<span style="color: #DD4747">getPurchaseList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -444,37 +448,13 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * cb.query().setProductId_InScope(pkList);
      * cb.query().addOrderBy_ProductId_Asc();
      * </pre>
-     * @param summaryProductList The entity list of summaryProduct. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerLoader<Purchase> loadPurchaseList(List<SummaryProduct> summaryProductList, ConditionBeanSetupper<PurchaseCB> conditionBeanSetupper) {
-        xassLRArg(summaryProductList, conditionBeanSetupper);
-        return loadPurchaseList(summaryProductList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(conditionBeanSetupper));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.}
      * @param summaryProduct The entity of summaryProduct. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Purchase> loadPurchaseList(SummaryProduct summaryProduct, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
-        xassLRArg(summaryProduct, loadReferrerOption);
-        return loadPurchaseList(xnewLRLs(summaryProduct), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
-     * @param summaryProductList The entity list of summaryProduct. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<Purchase> loadPurchaseList(List<SummaryProduct> summaryProductList, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
-        xassLRArg(summaryProductList, loadReferrerOption);
-        if (summaryProductList.isEmpty()) { return (NestedReferrerLoader<Purchase>)EMPTY_LOADER; }
-        return doLoadPurchaseList(summaryProductList, loadReferrerOption);
+    public NestedReferrerLoader<Purchase> loadPurchaseList(SummaryProduct summaryProduct, ReferrerConditionSetupper<PurchaseCB> setupper) {
+        xassLRArg(summaryProduct, setupper);
+        return doLoadPurchaseList(xnewLRLs(summaryProduct), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
     protected NestedReferrerLoader<Purchase> doLoadPurchaseList(List<SummaryProduct> summaryProductList, LoadReferrerOption<PurchaseCB, Purchase> option) {

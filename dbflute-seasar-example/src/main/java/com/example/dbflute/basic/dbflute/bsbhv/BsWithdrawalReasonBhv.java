@@ -137,7 +137,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean. <br />
+     * Select the entity by the condition-bean. #beforejava8 <br />
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
@@ -404,39 +404,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     public void setup(MemberWithdrawalCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
-     * for (WithdrawalReason withdrawalReason : withdrawalReasonList) {
-     *     ... = withdrawalReason.<span style="color: #DD4747">getMemberWithdrawalList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setWithdrawalReasonCode_InScope(pkList);
-     * cb.query().addOrderBy_WithdrawalReasonCode_Asc();
-     * </pre>
-     * @param withdrawalReason The entity of withdrawalReason. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerLoader<MemberWithdrawal> loadMemberWithdrawalList(WithdrawalReason withdrawalReason, ConditionBeanSetupper<MemberWithdrawalCB> conditionBeanSetupper) {
-        xassLRArg(withdrawalReason, conditionBeanSetupper);
-        return loadMemberWithdrawalList(xnewLRLs(withdrawalReason), conditionBeanSetupper);
-    }
-
-    /**
-     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
-     * <pre>
-     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ConditionBeanSetupper&lt;MemberWithdrawalCB&gt;() {
-     *     public void setup(MemberWithdrawalCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
-     *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (WithdrawalReason withdrawalReason : withdrawalReasonList) {
      *     ... = withdrawalReason.<span style="color: #DD4747">getMemberWithdrawalList()</span>;
      * }
@@ -448,16 +421,47 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * cb.query().addOrderBy_WithdrawalReasonCode_Asc();
      * </pre>
      * @param withdrawalReasonList The entity list of withdrawalReason. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<MemberWithdrawal> loadMemberWithdrawalList(List<WithdrawalReason> withdrawalReasonList, ConditionBeanSetupper<MemberWithdrawalCB> conditionBeanSetupper) {
-        xassLRArg(withdrawalReasonList, conditionBeanSetupper);
-        return loadMemberWithdrawalList(withdrawalReasonList, new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<MemberWithdrawal> loadMemberWithdrawalList(List<WithdrawalReason> withdrawalReasonList, ConditionBeanSetupper<MemberWithdrawalCB> setupper) {
+        xassLRArg(withdrawalReasonList, setupper);
+        return doLoadMemberWithdrawalList(withdrawalReasonList, new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * <pre>
+     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ConditionBeanSetupper&lt;MemberWithdrawalCB&gt;() {
+     *     public void setup(MemberWithdrawalCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = withdrawalReason.<span style="color: #DD4747">getMemberWithdrawalList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setWithdrawalReasonCode_InScope(pkList);
+     * cb.query().addOrderBy_WithdrawalReasonCode_Asc();
+     * </pre>
+     * @param withdrawalReason The entity of withdrawalReason. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberWithdrawal> loadMemberWithdrawalList(WithdrawalReason withdrawalReason, ConditionBeanSetupper<MemberWithdrawalCB> setupper) {
+        xassLRArg(withdrawalReason, setupper);
+        return doLoadMemberWithdrawalList(xnewLRLs(withdrawalReason), new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param withdrawalReason The entity of withdrawalReason. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -468,7 +472,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param withdrawalReasonList The entity list of withdrawalReason. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)

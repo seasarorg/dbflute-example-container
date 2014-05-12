@@ -286,7 +286,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_InScopeRelation_Member(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_InScopeRelation_Member(cb.query());
         registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
@@ -300,7 +301,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMemberId_NotInScopeRelation_Member(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query());
         registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
     public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
@@ -593,7 +595,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void inScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepServiceRankCode_InScopeRelation_ServiceRank(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepServiceRankCode_InScopeRelation_ServiceRank(cb.query());
         registerInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
     }
     public abstract String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq);
@@ -607,7 +610,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void notInScopeServiceRank(SubQuery<ServiceRankCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepServiceRankCode_NotInScopeRelation_ServiceRank(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepServiceRankCode_NotInScopeRelation_ServiceRank(cb.query());
         registerNotInScopeRelation(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "serviceRank");
     }
     public abstract String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq);
@@ -1244,7 +1248,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<MemberServiceCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_SERVICE_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -1279,7 +1284,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberServiceCQ sq);
@@ -1294,10 +1300,42 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public void myselfInScope(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberServiceCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

@@ -136,7 +136,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean. <br />
+     * Select the entity by the condition-bean. #beforejava8 <br />
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
@@ -403,39 +403,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
-     * for (Region region : regionList) {
-     *     ... = region.<span style="color: #DD4747">getMemberAddressList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setRegionId_InScope(pkList);
-     * cb.query().addOrderBy_RegionId_Asc();
-     * </pre>
-     * @param region The entity of region. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(Region region, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
-        xassLRArg(region, conditionBeanSetupper);
-        return loadMemberAddressList(xnewLRLs(region), conditionBeanSetupper);
-    }
-
-    /**
-     * Load referrer of memberAddressList by the set-upper of referrer. <br />
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
-     * <pre>
-     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
-     *     public void setup(MemberAddressCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
-     *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (Region region : regionList) {
      *     ... = region.<span style="color: #DD4747">getMemberAddressList()</span>;
      * }
@@ -447,16 +420,47 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * cb.query().addOrderBy_RegionId_Asc();
      * </pre>
      * @param regionList The entity list of region. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(List<Region> regionList, ConditionBeanSetupper<MemberAddressCB> conditionBeanSetupper) {
-        xassLRArg(regionList, conditionBeanSetupper);
-        return loadMemberAddressList(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(List<Region> regionList, ConditionBeanSetupper<MemberAddressCB> setupper) {
+        xassLRArg(regionList, setupper);
+        return doLoadMemberAddressList(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of memberAddressList by the set-upper of referrer. <br />
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * <pre>
+     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
+     *     public void setup(MemberAddressCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = region.<span style="color: #DD4747">getMemberAddressList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setRegionId_InScope(pkList);
+     * cb.query().addOrderBy_RegionId_Asc();
+     * </pre>
+     * @param region The entity of region. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MemberAddress> loadMemberAddressList(Region region, ConditionBeanSetupper<MemberAddressCB> setupper) {
+        xassLRArg(region, setupper);
+        return doLoadMemberAddressList(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param region The entity of region. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -467,7 +471,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param regionList The entity list of region. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)

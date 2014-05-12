@@ -27,10 +27,9 @@ import org.seasar.dbflute.dbmeta.hierarchy.HierarchyArranger;
 import org.seasar.dbflute.dbmeta.hierarchy.HierarchyBasicRequest;
 import org.seasar.dbflute.dbmeta.hierarchy.HierarchyRequest;
 #end
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
-#if ($table.isBuriTarget())
-import ${glPackagePluginBuri}.${glBuriDef};
-#end
 #if ($table.hasPrimaryKeyForcedClassificationSetting())
 import ${glPackageBaseCommon}.${glCDef};
 #end
@@ -47,9 +46,6 @@ import ${glPackageCB}.*;
 #end
 /**
  * The behavior of ${table.basicInfoDispString}. <br />
-#if ($table.isBuriInternal())
- * {Buri Internal}
-#end
  * <pre>
  * [primary key]
  *     ${table.primaryKeyNameCommaString}
@@ -127,7 +123,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <pre>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * int count = ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -155,24 +151,63 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+#if ($table.isAvailableSelectEntityPlainReturn())
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * ${myExtendedObjectClassName} ${myEntityVariableName} = ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (${myEntityVariableName} != null) {
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (${myEntityVariableName} != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = ${myEntityVariableName}.get...();
      * } else {
      *     ...
      * }
      * </pre>
+#else
+     * Select the entity by the condition-bean. <br />
+     * It returns not-null optional entity, so you should ... <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, get() without check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, get() after check by isPresent() or orElse(), ...</span>
+     * <pre>
+     * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * OptionalEntity&lt;${myExtendedObjectClassName}&gt; entity = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     *
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * entity.<span style="color: #DD4747">required</span>(${myEntityVariableName} -&gt; {
+     *     ...
+     * });
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = entity.entity.<span style="color: #DD4747">get()</span>;
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, ifPresent(), isPresent(), ...</span>
+     * entity.<span style="color: #DD4747">ifPresent</span>(${myEntityVariableName} -&gt; {
+     *     ...
+     * });
+     * if (entity.entity.<span style="color: #DD4747">isPresent()</span>) {
+     *     ${myExtendedObjectClassName} ${myEntityVariableName} = entity.entity.<span style="color: #DD4747">get()</span>;
+     * } else {
+     *     ...
+     * }
+     * </pre>
+#end
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+#if ($table.isAvailableSelectEntityPlainReturn())
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+#else
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+#end
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectEntity(${myConditionBeanClassName} cb) {
+    public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectEntity(${myConditionBeanClassName} cb) {
+#if ($table.isAvailableSelectEntityPlainReturn())
         return doSelectEntity(cb, ${myExtendedObjectClassName}.class);
+#else
+        return doSelectOptionalEntity(cb, ${myExtendedObjectClassName}.class);
+#end
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
@@ -181,26 +216,35 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
             public List<ENTITY> callbackSelectList(${myConditionBeanClassName} lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
+#if ($table.isAvailableSelectEntityPlainReturn())
         return selectEntity(downcast(cb));
+#else
+        return selectEntity(downcast(cb)).orElseNull();
+#end
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * ${myExtendedObjectClassName} ${myEntityVariableName} = ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = ${myEntityVariableName}.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectEntityWithDeletedCheck(${myConditionBeanClassName} cb) {
+    ${table.selectEntityWithDeletedCheckModifier} ${myExtendedObjectClassName} selectEntityWithDeletedCheck(${myConditionBeanClassName} cb) {
         return doSelectEntityWithDeletedCheck(cb, ${myExtendedObjectClassName}.class);
     }
 
@@ -220,8 +264,8 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Select the entity by the primary-key value.
      * ${table.primaryKeyArgsJavaDocString}
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ${myExtendedObjectClassName} selectByPKValue(${table.primaryKeyArgsString}) {
         return doSelectByPKValue(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
@@ -235,9 +279,9 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Select the entity by the primary-key value with deleted check.
      * ${table.primaryKeyArgsJavaDocString}
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ${myExtendedObjectClassName} selectByPKValueWithDeletedCheck(${table.primaryKeyArgsString}) {
         return doSelectByPKValueWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
@@ -264,14 +308,14 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;${myExtendedObjectClassName}&gt; ${myEntityListVariableName} = ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;${myExtendedObjectClassName}&gt; ${myEntityListVariableName} = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (${myExtendedObjectClassName} ${myEntityVariableName} : ${myEntityListVariableName}) {
      *     ... = ${myEntityVariableName}.get...();
      * }
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<${myExtendedObjectClassName}> selectList(${myConditionBeanClassName} cb) {
         return doSelectList(cb, ${myExtendedObjectClassName}.class);
@@ -299,8 +343,8 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;${myExtendedObjectClassName}&gt; page = ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;${myExtendedObjectClassName}&gt; page = ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -312,7 +356,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<${myExtendedObjectClassName}> selectPage(${myConditionBeanClassName} cb) {
         return doSelectPage(cb, ${myExtendedObjectClassName}.class);
@@ -339,7 +383,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <pre>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;${myExtendedObjectClassName}&gt;() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;${myExtendedObjectClassName}&gt;() {
      *     public void handle(${myExtendedObjectClassName} entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -368,9 +412,9 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(${myConditionBeanClassName} cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -440,40 +484,31 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-#foreach ($referrer in $table.referrerList)
+#foreach ($referrer in $table.referrerAsManyList)
 #set ($referrerEntityClassName = "${referrer.referrerTableExtendedEntityClassName}")
 #set ($referrerBhvClassName = "${referrer.referrerTableExtendedBehaviorClassName}")
 #set ($referrerCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
 #set ($referrerEntityLongClassName = "${glPackageExtendedEntity}.${referrerEntityClassName}")
-#set ($genericPKMyEntityMap = "${table.getPrimaryKeyJavaNativeAsOne()}, ${myExtendedObjectClassName}")
-#set ($genericPKChildListMap = "${table.getPrimaryKeyJavaNativeAsOne()}, List<${referrerEntityClassName}>")
-#if (!$referrer.isOneToOne())
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, ConditionBeanSetupper<${referrerCBClassName}> conditionBeanSetupper) {
-        xassLRArg(${myEntityVariableName}, conditionBeanSetupper);
-        load${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the set-upper of referrer. <br />
      * ${referrer.referrerDispForJavaDoc}
      * <pre>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">load${referrer.referrerJavaBeansRulePropertyNameInitCap}</span>(${myEntityListVariableName}, new ConditionBeanSetupper&lt;${referrerCBClassName}&gt;() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">load${referrer.referrerJavaBeansRulePropertyNameInitCap}</span>(${myEntityListVariableName}, new ${table.loadReferrerConditionSetupperName}&lt;${referrerCBClassName}&gt;() {
      *     public void setup(${referrerCBClassName} cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (${myExtendedObjectClassName} ${myEntityVariableName} : ${myEntityListVariableName}) {
-     *     ... = ${myEntityVariableName}.<span style="color: #FD4747">get${referrer.referrerJavaBeansRulePropertyNameInitCap}()</span>;
+     *     ... = ${myEntityVariableName}.<span style="color: #DD4747">get${referrer.referrerJavaBeansRulePropertyNameInitCap}()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
 #if ($referrer.isSimpleKeyFK())
      * cb.query().set${referrer.getLocalColumnJavaNameAsOne()}_InScope(pkList);
@@ -484,35 +519,85 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
 #end
      * </pre>
      * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ConditionBeanSetupper<${referrerCBClassName}> conditionBeanSetupper) {
-        xassLRArg(${myEntityListVariableName}, conditionBeanSetupper);
-        load${referrer.referrerJavaBeansRulePropertyNameInitCap}(${myEntityListVariableName}, new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
+        xassLRArg(${myEntityListVariableName}, setupper);
+        return doLoad${referrer.referrerJavaBeansRulePropertyNameInitCap}(${myEntityListVariableName}, new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the set-upper of referrer. <br />
+     * ${referrer.referrerDispForJavaDoc}
+     * <pre>
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">load${referrer.referrerJavaBeansRulePropertyNameInitCap}</span>(${myEntityListVariableName}, new ${table.loadReferrerConditionSetupperName}&lt;${referrerCBClassName}&gt;() {
+     *     public void setup(${referrerCBClassName} cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = ${myEntityVariableName}.<span style="color: #DD4747">get${referrer.referrerJavaBeansRulePropertyNameInitCap}()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+#if ($referrer.isSimpleKeyFK())
+     * cb.query().set${referrer.getLocalColumnJavaNameAsOne()}_InScope(pkList);
+     * cb.query().addOrderBy_${referrer.getLocalColumnJavaNameAsOne()}_Asc();
+#else
+     * cb.query().set[ForeignKey]_InScope(pkList);
+     * cb.query().addOrderBy_[ForeignKey]_Asc();
+#end
+     * </pre>
+     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
+        xassLRArg(${myEntityVariableName}, setupper);
+        return doLoad${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(setupper));
+    }
+
+#if ($table.isAvailableLoadReferrerByOldOption())
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
         xassLRArg(${myEntityVariableName}, loadReferrerOption);
-        load${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), loadReferrerOption);
+        return load${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), loadReferrerOption);
     }
+
+#end
 #if ($referrer.isSimpleKeyFK())
 #set ($referrerColumn = ${referrer.localColumnAsOne})
 #set ($localColumn = ${referrer.foreignColumnAsOne})
 #set ($keyJavaNative = "${referrerColumn.javaNative}")
+#if ($table.isAvailableLoadReferrerByOldOption())
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
         xassLRArg(${myEntityListVariableName}, loadReferrerOption);
-        if (${myEntityListVariableName}.isEmpty()) { return; }
+        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerLoader<${referrerEntityClassName}>)EMPTY_LOADER; }
+        return doLoad${referrer.referrerPropertyNameInitCap}(${myEntityListVariableName}, loadReferrerOption);
+    }
+
+#end
+    protected NestedReferrerLoader<${referrerEntityClassName}> doLoad${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
         final ${referrerBhvClassName} referrerBhv = xgetBSFLR().select(${referrerBhvClassName}.class);
-        helpLoadReferrerInternally(${myEntityListVariableName}, loadReferrerOption, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
+        return helpLoadReferrerInternally(${myEntityListVariableName}, option, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
             public ${keyJavaNative} getPKVal(${myExtendedObjectClassName} et)
 #if ($referrer.canImplicitConversion())
             { if (et.get${localColumn.javaName}() == null) { return null; }
@@ -545,16 +630,24 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
 
 #else
 #set ($keyJavaNative = "java.util.Map<String, Object>")
+#if ($table.isAvailableLoadReferrerByOldOption())
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
         xassLRArg(${myEntityListVariableName}, loadReferrerOption);
-        if (${myEntityListVariableName}.isEmpty()) { return; }
+        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerLoader<${referrerEntityClassName}>)EMPTY_LOADER; }
+        return doLoad${referrer.referrerPropertyNameInitCap}(${myEntityListVariableName}, loadReferrerOption);
+    }
+
+#end
+    protected NestedReferrerLoader<${referrerEntityClassName}> doLoad${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
         final ${referrerBhvClassName} referrerBhv = xgetBSFLR().select(${referrerBhvClassName}.class);
-        helpLoadReferrerInternally(${myEntityListVariableName}, loadReferrerOption, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
+        return helpLoadReferrerInternally(${myEntityListVariableName}, option, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
             public ${keyJavaNative} getPKVal(${myExtendedObjectClassName} et) {
                 ${keyJavaNative} primaryKeyMap = new java.util.LinkedHashMap<String, Object>();
 #foreach ($col in $referrer.foreignColumnList)
@@ -610,60 +703,6 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     }
 
 #end
-#end
-#end
-#end
-#if ($table.isBuriTarget() && $database.hasBuriAllRoundStateHistory())
-#foreach ($processName in $table.tableProcessForMethodNameList)
-#set ($referrerEntityClassName = "${glProjectPrefix}BuriAllRoundStateHistory")
-#set ($referrerBhvClassName = "${glPackageExtendedBhv}.${glProjectPrefix}BuriAllRoundStateHistoryBhv")
-#set ($referrerCBClassName = "${glProjectPrefix}BuriAllRoundStateHistoryCB")
-#set ($referrerEntityLongClassName = "${glPackageExtendedEntity}.${referrerEntityClassName}")
-#set ($genericPKMyEntityMap = "${table.getPrimaryKeyJavaNativeAsOne()}, ${myExtendedObjectClassName}")
-#set ($genericPKChildListMap = "${table.getPrimaryKeyJavaNativeAsOne()}, List<${referrerEntityClassName}>")
-    public void loadBuriAllRoundStateHistory_${processName}List(${myExtendedObjectClassName} ${myEntityVariableName}, org.seasar.dbflute.bhv.ConditionBeanSetupper<${referrerCBClassName}> conditionBeanSetupper) {
-        xassLRArg(${myEntityVariableName}, conditionBeanSetupper);
-        loadBuriAllRoundStateHistory_${processName}List(xnewLRLs(${myEntityVariableName}), conditionBeanSetupper);
-    }
-    public void loadBuriAllRoundStateHistory_${processName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, org.seasar.dbflute.bhv.ConditionBeanSetupper<${referrerCBClassName}> conditionBeanSetupper) {
-        xassLRArg(${myEntityListVariableName}, conditionBeanSetupper);
-        loadBuriAllRoundStateHistory_${processName}List(${myEntityListVariableName}, new org.seasar.dbflute.bhv.LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(conditionBeanSetupper));
-    }
-    public void loadBuriAllRoundStateHistory_${processName}List(${myExtendedObjectClassName} ${myEntityVariableName}, org.seasar.dbflute.bhv.LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
-        xassLRArg(${myEntityVariableName}, loadReferrerOption);
-        loadBuriAllRoundStateHistory_${processName}List(xnewLRLs(${myEntityVariableName}), loadReferrerOption);
-    }
-    public void loadBuriAllRoundStateHistory_${processName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, org.seasar.dbflute.bhv.LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
-        xassLRArg(${myEntityListVariableName}, loadReferrerOption);
-        if (${myEntityListVariableName}.isEmpty()) { return; }
-        final ${referrerBhvClassName} referrerBhv = xgetBSFLR().select(${referrerBhvClassName}.class);
-        helpLoadReferrerInternally(${myEntityListVariableName}, loadReferrerOption, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${table.getPrimaryKeyJavaNativeAsOne()}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
-            public ${table.getPrimaryKeyJavaNativeAsOne()} getPKVal(${myExtendedObjectClassName} entity)
-            { return entity.get${table.getPrimaryKeyJavaNameAsOne()}(); }
-            public void setRfLs(${myExtendedObjectClassName} entity, List<${referrerEntityClassName}> referrerList)
-            { entity.setBuriAllRoundStateHistory_${processName}List(referrerList); }
-            public ${referrerCBClassName} newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(${referrerCBClassName} cb, List<${table.getPrimaryKeyJavaNativeAsOne()}> pkList) {
-                java.util.List<Long> internalPkValueList = new java.util.ArrayList<Long>();
-                for (${table.getPrimaryKeyJavaNativeAsOne()} pk : pkList) {
-                    internalPkValueList.add(Long.valueOf(pk.toString()));
-                }
-                cb.query().setInternalPkValue_InScope(internalPkValueList);
-                cb.query().setInternalDataType_Equal("${glPackageExtendedEntity}.${myExtendedObjectClassName}"); // is a fixed condition!
-            }
-            public void qyOdFKAsc(${referrerCBClassName} cb)
-            { cb.query().addOrderBy_InternalPkValue_Asc(); }
-            public void spFKCol(${referrerCBClassName} cb) { cb.specify().columnInternalPkValue(); }
-            public List<${referrerEntityClassName}> selRfLs(${referrerCBClassName} cb)
-            { return referrerBhv.selectList(cb); }
-            public ${table.getPrimaryKeyJavaNativeAsOne()} getFKVal(${referrerEntityClassName} entity)
-            { return ${table.getPrimaryKeyJavaNativeAsOne()}.valueOf(entity.getInternalPkValue().toString()); }
-            public void setlcEt(${referrerEntityClassName} referrerEntity, ${myExtendedObjectClassName} localEntity)
-            { referrerEntity.set${table.javaName}_${processName}(localEntity); }
-            public String getRfPrNm() { return "${referrer.referrerPropertyName}"; }
-        });
-    }
-
 #end
 #end
     // ===================================================================================
@@ -757,12 +796,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">insert</span>(${myEntityVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">insert</span>(${myEntityVariableName});
      * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param ${myEntityVariableName} The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(${myExtendedObjectClassName} ${myEntityVariableName}) {
 #if ($database.isCompatibleInsertColumnNotNullOnly())
@@ -808,21 +847,21 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * ${myEntityVariableName}.<span style="color: #FD4747">setVersionNo</span>(value);
+     * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     ${myEntityVariableName}Bhv.<span style="color: #FD4747">update</span>(${myEntityVariableName});
+     *     ${myEntityVariableName}Bhv.<span style="color: #DD4747">update</span>(${myEntityVariableName});
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final ${myExtendedObjectClassName} ${myEntityVariableName}) {
         doUpdate(${myEntityVariableName}, null);
@@ -877,12 +916,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">updateNonstrict</span>(${myEntityVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">updateNonstrict</span>(${myEntityVariableName});
      * </pre>
      * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final ${myExtendedObjectClassName} ${myEntityVariableName}) {
         doUpdateNonstrict(${myEntityVariableName}, null);
@@ -913,15 +952,15 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
 #end
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doInesrtOrUpdate(${myEntityVariableName}, null, null);
@@ -950,11 +989,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doInesrtOrUpdateNonstrict(${myEntityVariableName}, null, null);
@@ -992,20 +1031,20 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * ${myEntityVariableName}.<span style="color: #FD4747">setVersionNo</span>(value);
+     * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     ${myEntityVariableName}Bhv.<span style="color: #FD4747">delete</span>(${myEntityVariableName});
+     *     ${myEntityVariableName}Bhv.<span style="color: #DD4747">delete</span>(${myEntityVariableName});
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doDelete(${myEntityVariableName}, null);
@@ -1038,11 +1077,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">deleteNonstrict</span>(${myEntityVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">deleteNonstrict</span>(${myEntityVariableName});
      * </pre>
      * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doDeleteNonstrict(${myEntityVariableName}, null);
@@ -1063,11 +1102,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(${myEntityVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(${myEntityVariableName});
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doDeleteNonstrictIgnoreDeleted(${myEntityVariableName}, null);
@@ -1097,7 +1136,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
@@ -1110,7 +1149,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     ${myEntityListVariableName}.add(${myEntityVariableName});
      * }
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchInsert</span>(${myEntityListVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchInsert</span>(${myEntityListVariableName});
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -1153,7 +1192,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
 #end
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
@@ -1168,14 +1207,14 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     ${myEntityListVariableName}.add(${myEntityVariableName});
      * }
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdate</span>(${myEntityListVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdate</span>(${myEntityListVariableName});
      * </pre>
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
      */
     public int[] batchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
@@ -1215,16 +1254,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdate</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdate</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
      *     public void specify(${myConditionBeanClassName} cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdate</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdate</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
      *     public void specify(${myConditionBeanClassName} cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1237,9 +1276,9 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
      */
     public int[] batchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, SpecifyQuery<${myConditionBeanClassName}> updateColumnSpec) {
@@ -1250,7 +1289,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
@@ -1265,11 +1304,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     ${myEntityListVariableName}.add(${myEntityVariableName});
      * }
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdate</span>(${myEntityListVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdate</span>(${myEntityListVariableName});
      * </pre>
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
         UpdateOption<${myConditionBeanClassName}> option = createPlainUpdateOption();
@@ -1287,16 +1326,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
      *     public void specify(${myConditionBeanClassName} cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, new SpecifyQuery<${myConditionBeanClassName}>() {
      *     public void specify(${myConditionBeanClassName} cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1307,7 +1346,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, SpecifyQuery<${myConditionBeanClassName}> updateColumnSpec) {
         return doBatchUpdateNonstrict(${myEntityListVariableName}, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1334,9 +1373,9 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
      */
     public int[] batchDelete(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
@@ -1361,7 +1400,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
         return doBatchDeleteNonstrict(${myEntityListVariableName}, null);
@@ -1390,7 +1429,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;${myExtendedObjectClassName}, ${myConditionBeanClassName}&gt;() {
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;${myExtendedObjectClassName}, ${myConditionBeanClassName}&gt;() {
      *     public ConditionBean setup(${myEntityVariableName} entity, ${myConditionBeanClassName} intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1452,12 +1491,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">queryUpdate</span>(${myEntityVariableName}, cb);
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">queryUpdate</span>(${myEntityVariableName}, cb);
      * </pre>
      * @param ${myEntityVariableName} The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, ${myConditionBeanClassName} cb) {
         return doQueryUpdate(${myEntityVariableName}, cb, null);
@@ -1480,11 +1519,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * <pre>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
      * cb.query().setFoo...(value);
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">queryDelete</span>(${myEntityVariableName}, cb);
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">queryDelete</span>(${myEntityVariableName}, cb);
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(${myConditionBeanClassName} cb) {
         return doQueryDelete(cb, null);
@@ -1520,12 +1559,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * InsertOption<${myConditionBeanClassName}> option = new InsertOption<${myConditionBeanClassName}>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">varyingInsert</span>(${myEntityVariableName}, option);
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingInsert</span>(${myEntityVariableName}, option);
      * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param ${myEntityVariableName} The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> option) {
         assertInsertOptionNotNull(option);
@@ -1545,16 +1584,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * ${myEntityVariableName}.<span style="color: #FD4747">setVersionNo</span>(value);
+     * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;${myConditionBeanClassName}&gt; option = new UpdateOption&lt;${myConditionBeanClassName}&gt;();
      *     option.self(new SpecifyQuery&lt;${myConditionBeanClassName}&gt;() {
      *         public void specify(${myConditionBeanClassName} cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     ${myEntityVariableName}Bhv.<span style="color: #FD4747">varyingUpdate</span>(${myEntityVariableName}, option);
+     *     ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingUpdate</span>(${myEntityVariableName}, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -1562,12 +1601,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, UpdateOption<${myConditionBeanClassName}> option) {
         assertUpdateOptionNotNull(option);
@@ -1590,16 +1629,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * UpdateOption&lt;${myConditionBeanClassName}&gt; option = new UpdateOption&lt;${myConditionBeanClassName}&gt;();
      * option.self(new SpecifyQuery&lt;${myConditionBeanClassName}&gt;() {
      *     public void specify(${myConditionBeanClassName} cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(${myEntityVariableName}, option);
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(${myEntityVariableName}, option);
      * </pre>
      * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, UpdateOption<${myConditionBeanClassName}> option) {
         assertUpdateOptionNotNull(option);
@@ -1614,12 +1653,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> insertOption, UpdateOption<${myConditionBeanClassName}> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1633,9 +1672,9 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> insertOption, UpdateOption<${myConditionBeanClassName}> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1654,11 +1693,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(${myExtendedObjectClassName} ${myEntityVariableName}, DeleteOption<${myConditionBeanClassName}> option) {
         assertDeleteOptionNotNull(option);
@@ -1672,8 +1711,8 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * Other specifications are same as deleteNonstrict(entity).
      * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, DeleteOption<${myConditionBeanClassName}> option) {
         assertDeleteOptionNotNull(option);
@@ -1791,16 +1830,16 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * UpdateOption&lt;${myConditionBeanClassName}&gt; option = new UpdateOption&lt;${myConditionBeanClassName}&gt;();
      * option.self(new SpecifyQuery&lt;${myConditionBeanClassName}&gt;() {
      *     public void specify(${myConditionBeanClassName} cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">varyingQueryUpdate</span>(${myEntityVariableName}, cb, option);
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingQueryUpdate</span>(${myEntityVariableName}, cb, option);
      * </pre>
      * @param ${myEntityVariableName} The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, ${myConditionBeanClassName} cb, UpdateOption<${myConditionBeanClassName}> option) {
         assertUpdateOptionNotNull(option);
@@ -1814,7 +1853,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(${myConditionBeanClassName} cb, DeleteOption<${myConditionBeanClassName}> option) {
         assertDeleteOptionNotNull(option);
@@ -1833,7 +1872,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setFoo...(value);
      * ${myEntityVariableName}.setBar...(value);
-     * ${myEntityVariableName}Bhv.<span style="color: #FD4747">insert</span>(${myEntityVariableName});
+     * ${myEntityVariableName}Bhv.<span style="color: #DD4747">insert</span>(${myEntityVariableName});
      * </pre>
      * @param ${myEntityVariableName} The entity for insert. (NotNull)
      */
@@ -1881,112 +1920,6 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     public OutsideSqlBasicExecutor<${myExtendedBhvClassName}> outsideSql() {
         return doOutsideSql();
     }
-#if ($table.isBuriTarget())
-
-    // ===================================================================================
-    //                                                                      Buri Interface
-    //                                                                      ==============
-    public ${myExtendedObjectClassName} xgetEntityForBuri(${table.primaryKeyArgsString}) { // For Buri
-        ${myExtendedObjectClassName} entity = new ${myExtendedObjectClassName}();
-        ${table.getPrimaryKeyArgsSetupString('entity')}
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.acceptPrimaryKeyMap(getDBMeta().extractPrimaryKeyMap(entity));
-        return selectEntity(cb);
-    }
-
-    public List<${myExtendedObjectClassName}> xgetEntitiesForBuri(List<${table.primaryKeyJavaNativeAsOne}> ids) { // For Buri
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.query().set${table.primaryKeyAsOne.javaName}_InScope(ids);
-        return selectList(cb);
-    }
-
-    protected org.escafe.buri.engine.processor.BuriAutoSelectProcessor _buriAutoSelectProcessor;
-    public void setBuriAutoSelectProcessor(org.escafe.buri.engine.processor.BuriAutoSelectProcessor buriAutoSelectProcessor) {
-        _buriAutoSelectProcessor = buriAutoSelectProcessor;
-    }
-
-    protected void toNextStatusAction(String processPath, Object entity, Object userData, String action) {
-        try {
-            _buriAutoSelectProcessor.toNextStatusAction(processPath, entity, userData, action);
-        } catch (org.seasar.coffee.script.exception.ScriptExecuteException e) {
-            if (e.getCause() instanceof ognl.MethodFailedException) {
-                ognl.MethodFailedException fail = (ognl.MethodFailedException) e.getCause();
-                Throwable reason = fail.getReason();
-                if (reason instanceof org.seasar.dbflute.exception.EntityAlreadyExistsException) {
-                    throw (org.seasar.dbflute.exception.EntityAlreadyExistsException)reason;
-                } else if (reason instanceof org.seasar.dbflute.exception.EntityAlreadyDeletedException) {
-                    throw (org.seasar.dbflute.exception.EntityAlreadyDeletedException)reason;
-                } else if (reason instanceof org.seasar.dbflute.exception.EntityAlreadyUpdatedException) {
-                    throw (org.seasar.dbflute.exception.EntityAlreadyUpdatedException)reason;
-                }
-            }
-            throw e;
-        }
-    }
-
-    protected ${glBuriDef}.BuriUserDataProvider _buriUserDataProvider;
-    public void setBuriUserDataProvider(${glBuriDef}.BuriUserDataProvider buriUserDataProvider) {
-        _buriUserDataProvider = buriUserDataProvider;
-    }
-#foreach ($processName in $table.tableProcessForMethodNameList)
-
-    public void toNextStatus_${processName}(${myExtendedObjectClassName} ${myEntityVariableName}, ${glBuriDef}.${processName}_Action action) {
-        assertEntityNotNull(${myEntityVariableName});
-        String processPath = ${glBuriDef}.BuriProcess.${processName}.path();
-        Object userData = getUserData_${processName}(${myEntityVariableName}, action);
-        toNextStatusAction(processPath, ${myEntityVariableName}, userData, action.code());
-    }
-
-    protected Object getUserData_${processName}(${myExtendedObjectClassName} ${myEntityVariableName}, ${glBuriDef}.${processName}_Action action) {
-        if (_buriUserDataProvider == null) { return null; }
-        return _buriUserDataProvider.provide(${glBuriDef}.BuriProcess.${processName}, ${myEntityVariableName}, action);
-    }
-
-    public ${glBuriDef}.${processName}_Status getStatus_${processName}(${myExtendedObjectClassName} ${myEntityVariableName}) {
-        assertEntityNotNullAndHasPrimaryKeyValue(${myEntityVariableName});
-        java.util.List<BuriAllRoundState> buriAllRoundStateList = xgetCurrentStateList(${myEntityVariableName}, ${glBuriDef}.BuriProcess.${processName});
-        java.util.List<${glBuriDef}.${processName}_Status> statusList = new java.util.ArrayList<${glBuriDef}.${processName}_Status>();
-        if (buriAllRoundStateList.isEmpty()) { return null; }
-        for (BuriAllRoundState buriAllRoundState : buriAllRoundStateList) {
-            ${glBuriDef}.${processName}_Status status = ${glBuriDef}.${processName}_Status.codeOf(buriAllRoundState.getStatusPathName());
-            if (status != null) { statusList.add(status); }
-        }
-        if (statusList.size() > 1) {
-            String msg = "This method does not support duplicate status: " + statusList;
-            throw new IllegalStateException(msg);
-        }
-        return !statusList.isEmpty() ? statusList.get(0) : null;
-    }
-
-    public java.util.List<${myExtendedObjectClassName}> getEntities(org.seasar.dbflute.bhv.ConditionBeanSetupper<${myConditionBeanClassName}> conditionBeanSetupper
-            , ${glBuriDef}.${processName}_Status... statuses) {
-        assertObjectNotNull("statuses", statuses);
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.setupSelect_BuriAllRoundState_${processName}();
-        conditionBeanSetupper.setup(cb);
-        java.util.List<String> pathNameList = new java.util.ArrayList<String>();
-        for (${glBuriDef}.${processName}_Status status : statuses) {
-            pathNameList.add(status.path());
-        }
-        cb.query().queryBuriAllRoundState_${processName}().setStatusPathName_InScope(pathNameList);
-        return selectList(cb);
-    }
-#end
-
-    private List<BuriAllRoundState> xgetCurrentStateList(${myExtendedObjectClassName} ${myEntityVariableName}, ${glBuriDef}.BuriProcess process) {
-        ${glPackageExtendedBhv}.BuriAllRoundStateBhv bhv = xgetBuriAllRoundStateBhv();
-        BuriAllRoundStateCB cb = bhv.newMyConditionBean();
-        cb.specify().columnStatusPathName();
-        cb.query().setStatusPathName_LikeSearch(process.path() + ".", new org.seasar.dbflute.cbean.coption.LikeSearchOption().likePrefix());
-        cb.query().setInternalPkValue_Equal(new Long(${myEntityVariableName}.${table.primaryKeyGetterCommaString}));
-        cb.query().setInternalDataType_Equal(${myExtendedObjectClassName}.class.getName());
-        return bhv.selectList(cb);
-    }
-
-    private ${glPackageExtendedBhv}.BuriAllRoundStateBhv xgetBuriAllRoundStateBhv() {
-        return getBehaviorSelector().select(${glPackageExtendedBhv}.BuriAllRoundStateBhv.class);
-    }
-#end
 
     // ===================================================================================
     //                                                                     Delegate Method

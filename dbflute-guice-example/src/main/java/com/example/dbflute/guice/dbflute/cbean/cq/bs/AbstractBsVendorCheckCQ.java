@@ -2723,7 +2723,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<VendorCheckCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "VENDOR_CHECK_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -2758,7 +2759,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<VendorCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(VendorCheckCQ sq);
@@ -2773,7 +2775,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     public void myselfInScope(SubQuery<VendorCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(VendorCheckCQ sq);

@@ -142,8 +142,8 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
         if (isInnerJoinAutoDetect()) {
             sqlClause.allowInnerJoinAutoDetect();
         }
-        if (isThatsBadTimingChecked()) {
-            sqlClause.allowThatsBadTiming();
+        if (isThatsBadTimingDetect()) {
+            sqlClause.allowThatsBadTimingDetect();
         }
         if (isEmptyStringQueryAllowed()) {
             sqlClause.allowEmptyStringQuery();
@@ -167,8 +167,8 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
 	    return DBFluteConfig.getInstance().isInnerJoinAutoDetect();
     }
 
-    protected boolean isThatsBadTimingChecked() {
-	    return DBFluteConfig.getInstance().isThatsBadTimingChecked();
+    protected boolean isThatsBadTimingDetect() {
+	    return DBFluteConfig.getInstance().isThatsBadTimingDetect();
     }
 
     protected boolean isEmptyStringQueryAllowed() {

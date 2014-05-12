@@ -278,6 +278,7 @@ public class BsProductCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public ProductCategoryNss setupSelect_ProductCategory() {
+        assertSetupSelectPurpose("productCategory");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnProductCategoryCode();
         }
@@ -304,6 +305,7 @@ public class BsProductCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public ProductStatusNss setupSelect_ProductStatus() {
+        assertSetupSelectPurpose("productStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnProductStatusCode();
         }
@@ -507,8 +509,8 @@ public class BsProductCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
@@ -560,8 +562,8 @@ public class BsProductCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)

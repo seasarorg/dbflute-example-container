@@ -994,7 +994,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<PurchaseCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "PURCHASE_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -1029,7 +1030,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(PurchaseCQ sq);
@@ -1044,7 +1046,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     public void myselfInScope(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(PurchaseCQ sq);

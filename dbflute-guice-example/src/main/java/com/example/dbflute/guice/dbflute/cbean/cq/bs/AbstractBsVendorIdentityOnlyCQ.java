@@ -290,7 +290,8 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     public void xsmyselfDerive(String fn, SubQuery<VendorIdentityOnlyCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         VendorIdentityOnlyCB cb = new VendorIdentityOnlyCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "IDENTITY_ONLY_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -325,7 +326,8 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     public void myselfExists(SubQuery<VendorIdentityOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         VendorIdentityOnlyCB cb = new VendorIdentityOnlyCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(VendorIdentityOnlyCQ sq);
@@ -340,7 +342,8 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     public void myselfInScope(SubQuery<VendorIdentityOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         VendorIdentityOnlyCB cb = new VendorIdentityOnlyCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(VendorIdentityOnlyCQ sq);

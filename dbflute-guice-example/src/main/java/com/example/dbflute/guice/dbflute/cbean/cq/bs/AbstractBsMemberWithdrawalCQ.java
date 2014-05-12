@@ -684,7 +684,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     public void xsmyselfDerive(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); } String pp = keepSpecifyMyselfDerived(cb.query());
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MEMBER_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
@@ -719,7 +720,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     public void myselfExists(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfExists(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberWithdrawalCQ sq);
@@ -734,7 +736,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     public void myselfInScope(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); } String pp = keepMyselfInScope(cb.query());
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(MemberWithdrawalCQ sq);

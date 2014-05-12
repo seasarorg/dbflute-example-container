@@ -263,6 +263,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberStatusNss setupSelect_MemberStatus() {
+        assertSetupSelectPurpose("memberStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMemberStatusCode();
         }
@@ -290,6 +291,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberAddressNss setupSelect_MemberAddressAsValid(final java.util.Date targetDate) {
+        assertSetupSelectPurpose("memberAddressAsValid");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberAddressAsValid(targetDate); } });
         if (_nssMemberAddressAsValid == null || !_nssMemberAddressAsValid.hasConditionQuery())
         { _nssMemberAddressAsValid = new MemberAddressNss(query().queryMemberAddressAsValid(targetDate)); }
@@ -314,6 +316,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberSecurityNss setupSelect_MemberSecurityAsOne() {
+        assertSetupSelectPurpose("memberSecurityAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberSecurityAsOne(); } });
         if (_nssMemberSecurityAsOne == null || !_nssMemberSecurityAsOne.hasConditionQuery()) { _nssMemberSecurityAsOne = new MemberSecurityNss(query().queryMemberSecurityAsOne()); }
         return _nssMemberSecurityAsOne;
@@ -337,6 +340,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberServiceNss setupSelect_MemberServiceAsOne() {
+        assertSetupSelectPurpose("memberServiceAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberServiceAsOne(); } });
         if (_nssMemberServiceAsOne == null || !_nssMemberServiceAsOne.hasConditionQuery()) { _nssMemberServiceAsOne = new MemberServiceNss(query().queryMemberServiceAsOne()); }
         return _nssMemberServiceAsOne;
@@ -360,6 +364,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MemberWithdrawalNss setupSelect_MemberWithdrawalAsOne() {
+        assertSetupSelectPurpose("memberWithdrawalAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberWithdrawalAsOne(); } });
         if (_nssMemberWithdrawalAsOne == null || !_nssMemberWithdrawalAsOne.hasConditionQuery()) { _nssMemberWithdrawalAsOne = new MemberWithdrawalNss(query().queryMemberWithdrawalAsOne()); }
         return _nssMemberWithdrawalAsOne;
@@ -723,8 +728,8 @@ public class BsMemberCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
@@ -776,8 +781,8 @@ public class BsMemberCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)

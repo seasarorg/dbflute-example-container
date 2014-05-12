@@ -239,30 +239,30 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof BsSimpleVendorCheck)) { return false; }
-        BsSimpleVendorCheck otherEntity = (BsSimpleVendorCheck)other;
-        if (!xSV(getVendorCheckId(), otherEntity.getVendorCheckId())) { return false; }
-        if (!xSV(getTypeOfText(), otherEntity.getTypeOfText())) { return false; }
-        if (!xSV(getTypeOfBoolean(), otherEntity.getTypeOfBoolean())) { return false; }
-        if (!xSV(getTypeOfNumericInteger(), otherEntity.getTypeOfNumericInteger())) { return false; }
-        if (!xSV(getTypeOfNumericBigint(), otherEntity.getTypeOfNumericBigint())) { return false; }
-        if (!xSV(getTypeOfNumericDecimal(), otherEntity.getTypeOfNumericDecimal())) { return false; }
-        if (!xSV(getTypeOfNumericIntegerMin(), otherEntity.getTypeOfNumericIntegerMin())) { return false; }
-        if (!xSV(getTypeOfNumericIntegerMax(), otherEntity.getTypeOfNumericIntegerMax())) { return false; }
-        if (!xSV(getTypeOfNumericBigintMin(), otherEntity.getTypeOfNumericBigintMin())) { return false; }
-        if (!xSV(getTypeOfNumericBigintMax(), otherEntity.getTypeOfNumericBigintMax())) { return false; }
-        if (!xSV(getTypeOfNumericSuperintMin(), otherEntity.getTypeOfNumericSuperintMin())) { return false; }
-        if (!xSV(getTypeOfNumericSuperintMax(), otherEntity.getTypeOfNumericSuperintMax())) { return false; }
-        if (!xSV(getTypeOfNumericMaxdecimal(), otherEntity.getTypeOfNumericMaxdecimal())) { return false; }
-        if (!xSV(getTypeOfBlob(), otherEntity.getTypeOfBlob())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BsSimpleVendorCheck)) { return false; }
+        BsSimpleVendorCheck other = (BsSimpleVendorCheck)obj;
+        if (!xSV(getVendorCheckId(), other.getVendorCheckId())) { return false; }
+        if (!xSV(getTypeOfText(), other.getTypeOfText())) { return false; }
+        if (!xSV(getTypeOfBoolean(), other.getTypeOfBoolean())) { return false; }
+        if (!xSV(getTypeOfNumericInteger(), other.getTypeOfNumericInteger())) { return false; }
+        if (!xSV(getTypeOfNumericBigint(), other.getTypeOfNumericBigint())) { return false; }
+        if (!xSV(getTypeOfNumericDecimal(), other.getTypeOfNumericDecimal())) { return false; }
+        if (!xSV(getTypeOfNumericIntegerMin(), other.getTypeOfNumericIntegerMin())) { return false; }
+        if (!xSV(getTypeOfNumericIntegerMax(), other.getTypeOfNumericIntegerMax())) { return false; }
+        if (!xSV(getTypeOfNumericBigintMin(), other.getTypeOfNumericBigintMin())) { return false; }
+        if (!xSV(getTypeOfNumericBigintMax(), other.getTypeOfNumericBigintMax())) { return false; }
+        if (!xSV(getTypeOfNumericSuperintMin(), other.getTypeOfNumericSuperintMin())) { return false; }
+        if (!xSV(getTypeOfNumericSuperintMax(), other.getTypeOfNumericSuperintMax())) { return false; }
+        if (!xSV(getTypeOfNumericMaxdecimal(), other.getTypeOfNumericMaxdecimal())) { return false; }
+        if (!xSV(getTypeOfBlob(), other.getTypeOfBlob())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -288,8 +288,8 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
         result = xCH(result, getTypeOfBlob());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -304,7 +304,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -351,7 +351,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
         return sb.toString();
     }
     protected String xfBA(byte[] bytes) { // formatByteArray()
-        return InternalUtil.toString(bytes);
+        return FunCustodial.toString(bytes);
     }
     protected String buildRelationString() {
         return "";

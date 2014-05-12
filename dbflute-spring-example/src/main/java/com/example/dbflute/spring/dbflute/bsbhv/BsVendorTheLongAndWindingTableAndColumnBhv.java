@@ -136,7 +136,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean. <br />
+     * Select the entity by the condition-bean. #beforejava8 <br />
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
@@ -403,39 +403,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      *     public void setup(VendorTheLongAndWindingTableAndColumnRefCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
-     * for (VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn : vendorTheLongAndWindingTableAndColumnList) {
-     *     ... = vendorTheLongAndWindingTableAndColumn.<span style="color: #DD4747">getVendorTheLongAndWindingTableAndColumnRefList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setTheLongAndWindingTableAndColumnId_InScope(pkList);
-     * cb.query().addOrderBy_TheLongAndWindingTableAndColumnId_Asc();
-     * </pre>
-     * @param vendorTheLongAndWindingTableAndColumn The entity of vendorTheLongAndWindingTableAndColumn. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerLoader<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn, ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> conditionBeanSetupper) {
-        xassLRArg(vendorTheLongAndWindingTableAndColumn, conditionBeanSetupper);
-        return loadVendorTheLongAndWindingTableAndColumnRefList(xnewLRLs(vendorTheLongAndWindingTableAndColumn), conditionBeanSetupper);
-    }
-
-    /**
-     * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br />
-     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefList'.
-     * <pre>
-     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRefList</span>(vendorTheLongAndWindingTableAndColumnList, new ConditionBeanSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
-     *     public void setup(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
-     *     }
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here by calling like '}).withNestedList(new ...)'</span>
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn : vendorTheLongAndWindingTableAndColumnList) {
      *     ... = vendorTheLongAndWindingTableAndColumn.<span style="color: #DD4747">getVendorTheLongAndWindingTableAndColumnRefList()</span>;
      * }
@@ -447,16 +420,47 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * cb.query().addOrderBy_TheLongAndWindingTableAndColumnId_Asc();
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnList The entity list of vendorTheLongAndWindingTableAndColumn. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> conditionBeanSetupper) {
-        xassLRArg(vendorTheLongAndWindingTableAndColumnList, conditionBeanSetupper);
-        return loadVendorTheLongAndWindingTableAndColumnRefList(vendorTheLongAndWindingTableAndColumnList, new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
+        xassLRArg(vendorTheLongAndWindingTableAndColumnList, setupper);
+        return doLoadVendorTheLongAndWindingTableAndColumnRefList(vendorTheLongAndWindingTableAndColumnList, new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br />
+     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefList'.
+     * <pre>
+     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRefList</span>(vendorTheLongAndWindingTableAndColumnList, new ConditionBeanSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     *     public void setup(VendorTheLongAndWindingTableAndColumnRefCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = vendorTheLongAndWindingTableAndColumn.<span style="color: #DD4747">getVendorTheLongAndWindingTableAndColumnRefList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setTheLongAndWindingTableAndColumnId_InScope(pkList);
+     * cb.query().addOrderBy_TheLongAndWindingTableAndColumnId_Asc();
+     * </pre>
+     * @param vendorTheLongAndWindingTableAndColumn The entity of vendorTheLongAndWindingTableAndColumn. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn, ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
+        xassLRArg(vendorTheLongAndWindingTableAndColumn, setupper);
+        return doLoadVendorTheLongAndWindingTableAndColumnRefList(xnewLRLs(vendorTheLongAndWindingTableAndColumn), new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param vendorTheLongAndWindingTableAndColumn The entity of vendorTheLongAndWindingTableAndColumn. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -467,7 +471,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param vendorTheLongAndWindingTableAndColumnList The entity list of vendorTheLongAndWindingTableAndColumn. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
