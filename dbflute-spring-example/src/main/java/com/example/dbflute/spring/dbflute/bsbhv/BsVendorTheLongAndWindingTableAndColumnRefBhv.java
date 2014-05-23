@@ -402,7 +402,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      */
     public List<VendorTheLongAndWindingTableAndColumn> pulloutVendorTheLongAndWindingTableAndColumn(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
         return helpPulloutInternally(vendorTheLongAndWindingTableAndColumnRefList, new InternalPulloutCallback<VendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumn>() {
-            public VendorTheLongAndWindingTableAndColumn getFr(VendorTheLongAndWindingTableAndColumnRef et) { return et.getVendorTheLongAndWindingTableAndColumn(); }
+            public VendorTheLongAndWindingTableAndColumn getFr(VendorTheLongAndWindingTableAndColumnRef et)
+            { return et.getVendorTheLongAndWindingTableAndColumn(); }
             public boolean hasRf() { return true; }
             public void setRfLs(VendorTheLongAndWindingTableAndColumn et, List<VendorTheLongAndWindingTableAndColumnRef> ls)
             { et.setVendorTheLongAndWindingTableAndColumnRefList(ls); }

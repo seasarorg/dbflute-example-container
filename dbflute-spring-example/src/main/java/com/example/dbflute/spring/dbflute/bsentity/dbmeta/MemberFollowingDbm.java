@@ -48,6 +48,9 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberFollowingId(), "memberFollowingId");
@@ -55,8 +58,6 @@ public class MemberFollowingDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgYourMemberId(), "yourMemberId");
         setupEpg(_epgMap, new EpgFollowDatetime(), "followDatetime");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberFollowingId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberFollowing)et).getMemberFollowingId(); }
         public void write(Entity et, Object vl) { ((MemberFollowing)et).setMemberFollowingId(ctl(vl)); }
@@ -73,6 +74,27 @@ public class MemberFollowingDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberFollowing)et).getFollowDatetime(); }
         public void write(Entity et, Object vl) { ((MemberFollowing)et).setFollowDatetime((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgMemberByMyMemberId(), "memberByMyMemberId");
+        setupEfpg(_efpgMap, new EfpgMemberByYourMemberId(), "memberByYourMemberId");
+    }
+    public class EfpgMemberByMyMemberId implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberFollowing)et).getMemberByMyMemberId(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setMemberByMyMemberId((Member)vl); }
+    }
+    public class EfpgMemberByYourMemberId implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberFollowing)et).getMemberByYourMemberId(); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setMemberByYourMemberId((Member)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -92,14 +114,30 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", true, "memberFollowingId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A7D82731_BC77_4F5E_B35B_0CC2E578BFF2", false, null, "連番", null, null, null);
-    protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", true, "myMemberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "気になった人がいて...勇気を振り絞った会員のID。", "memberByMyMemberId", null, null);
-    protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", true, "yourMemberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "いきなりのアクションに...ちょっと心揺らいだ会員のID。", "memberByYourMemberId", null, null);
-    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", true, "followDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, false, null, "ふりかえるとちょっと恥ずかしい気持ちになる日時", null, null, null);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_83AE6795_2ADD_4FFF_A492_36E2E9490CA7", false, null, "連番", null, null, null);
+    protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "気になった人がいて...勇気を振り絞った会員のID。", "memberByMyMemberId", null, null);
+    protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "いきなりのアクションに...ちょっと心揺らいだ会員のID。", "memberByYourMemberId", null, null);
+    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", java.sql.Timestamp.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ふりかえるとちょっと恥ずかしい気持ちになる日時", null, null, null);
 
+    /**
+     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberFollowingId() { return _columnMemberFollowingId; }
+    /**
+     * (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyMemberId() { return _columnMyMemberId; }
+    /**
+     * (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnYourMemberId() { return _columnYourMemberId; }
+    /**
+     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnFollowDatetime() { return _columnFollowDatetime; }
 
     protected List<ColumnInfo> ccil() {
@@ -126,16 +164,26 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMemberByMyMemberId() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_FOLLOWING_MY_MEMBER", "memberByMyMemberId", this, MemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberFollowingByMyMemberIdList");
+        return cfi("FK_MEMBER_FOLLOWING_MY_MEMBER", "memberByMyMemberId", this, MemberDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "memberFollowingByMyMemberIdList");
     }
+    /**
+     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMemberByYourMemberId() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnYourMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_FOLLOWING_YOUR_MEMBER", "memberByYourMemberId", this, MemberDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberFollowingByYourMemberIdList");
+        return cfi("FK_MEMBER_FOLLOWING_YOUR_MEMBER", "memberByYourMemberId", this, MemberDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberFollowingByYourMemberIdList");
     }
 
     // -----------------------------------------------------

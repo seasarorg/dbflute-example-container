@@ -16,6 +16,8 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.jdbc.StatementConfig;
+import org.seasar.dbflute.optional.OptionalEntity;
+import org.seasar.dbflute.optional.OptionalObjectConsumer;
 import org.seasar.dbflute.util.DfStringUtil;
 
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -27,6 +29,7 @@ import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.guice.dbflute.exbhv.MemberWithdrawalBhv;
 import com.example.dbflute.guice.dbflute.exentity.Member;
 import com.example.dbflute.guice.dbflute.exentity.MemberAddress;
+import com.example.dbflute.guice.dbflute.exentity.MemberStatus;
 import com.example.dbflute.guice.dbflute.exentity.MemberWithdrawal;
 import com.example.dbflute.guice.dbflute.exentity.Product;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
@@ -211,7 +214,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             final List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                final Product product = purchase.getProduct();
+                final Product product = purchase.getProduct().get();
                 final Integer purchaseCount = purchase.getPurchaseCount();
                 final String productName = product.getProductName();
                 log("  [purchase] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -621,16 +624,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean notExistsMemberWithdrawal = false;// 会員退会情報はあるけどWithdrawalReasonCodeがない会員がいるか否か
         List<Integer> notExistsMemberIdList = new ArrayList<Integer>();
         for (Member member : memberList) {
-            MemberWithdrawal memberWithdrawal = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawal != null) {
-                log(member.getMemberName() + " -- " + memberWithdrawal.getWithdrawalReasonCode() + ", "
-                        + memberWithdrawal.getWithdrawalDatetime());
-                String withdrawalReasonCode = memberWithdrawal.getWithdrawalReasonCode();
+            OptionalEntity<MemberWithdrawal> optWithdrawal = member.getMemberWithdrawalAsOne();
+            if (optWithdrawal.isPresent()) {
+                MemberWithdrawal withdrawal = optWithdrawal.get();
+                log(member.getMemberName() + " -- " + withdrawal.getWithdrawalReasonCode() + ", "
+                        + withdrawal.getWithdrawalDatetime());
+                String withdrawalReasonCode = withdrawal.getWithdrawalReasonCode();
                 assertNotNull(withdrawalReasonCode);
                 existsMemberWithdrawal = true;
             } else {
                 // 会員退会情報は存在するけどWithdrawalReasonCodeが存在しない会員も取得できていること
-                log(member.getMemberName() + " -- " + memberWithdrawal);
+                log(member.getMemberName());
                 notExistsMemberWithdrawal = true;
                 notExistsMemberIdList.add(member.getMemberId());
             }
@@ -680,9 +684,10 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             assertNull(member.getUpdateUser());
             assertNull(member.getVersionNo());
             assertNotNull(member.getMemberStatusCode()); // SetupSelect FK
-            assertNotNull(member.getMemberStatus().getMemberStatusCode()); // PK
-            assertNotNull(member.getMemberStatus().getMemberStatusName()); // Specified
-            assertNull(member.getMemberStatus().getDisplayOrder());
+            MemberStatus status = member.getMemberStatus().get();
+            assertNotNull(status.getMemberStatusCode()); // PK
+            assertNotNull(status.getMemberStatusName()); // Specified
+            assertNull(status.getDisplayOrder());
         }
 
         // [Description]
@@ -1118,28 +1123,28 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        boolean existsAddress = false;
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
+        final SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
+        final String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
-            String memberName = member.getMemberName();
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            if (memberAddressAsValid != null) {
-                assertNotNull(memberAddressAsValid.getValidBeginDate());
-                assertNotNull(memberAddressAsValid.getValidEndDate());
-                String validBeginDate = fmt.format(memberAddressAsValid.getValidBeginDate());
-                String validEndDate = fmt.format(memberAddressAsValid.getValidEndDate());
-                assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
-                assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
-                String address = memberAddressAsValid.getAddress();
-                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
-                existsAddress = true;
-            } else {
+            final String memberName = member.getMemberName();
+            member.getMemberAddressAsValid().ifPresent(new OptionalObjectConsumer<MemberAddress>() {
+                public void accept(MemberAddress address) {
+                    assertNotNull(address.getValidBeginDate());
+                    assertNotNull(address.getValidEndDate());
+                    String validBeginDate = fmt.format(address.getValidBeginDate());
+                    String validEndDate = fmt.format(address.getValidEndDate());
+                    assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
+                    assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
+                    log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
+                    markHere("exists");
+                }
+            });
+            if (!member.getMemberAddressAsValid().isPresent()) {
                 log(memberName + ", null");
             }
         }
-        assertTrue(existsAddress);
+        assertMarked("exists");
 
         // [SQL]
         // select dflocal.MEMBER_NAME as MEMBER_NAME, ... 
@@ -1196,17 +1201,15 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            assertNull(memberAddressAsValid); // because of no setup-select.
+            assertFalse(member.getMemberAddressAsValid().isPresent()); // because of no setup-select.
             List<MemberAddress> memberAddressList = member.getMemberAddressList();
             assertEquals(1, memberAddressList.size());
-            MemberAddress memberAddress = memberAddressList.get(0);
+            MemberAddress address = memberAddressList.get(0);
             String memberName = member.getMemberName();
-            Date validBeginDate = memberAddress.getValidBeginDate();
-            Date validEndDate = memberAddress.getValidEndDate();
-            String address = memberAddress.getAddress();
-            log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
-            assertTrue(memberAddress.getAddress().contains("a"));
+            Date validBeginDate = address.getValidBeginDate();
+            Date validEndDate = address.getValidEndDate();
+            log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
+            assertTrue(address.getAddress().contains("a"));
         }
 
         // [Description]

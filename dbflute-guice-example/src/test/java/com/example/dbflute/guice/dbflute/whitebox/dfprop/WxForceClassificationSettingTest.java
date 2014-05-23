@@ -4,11 +4,13 @@ import java.lang.reflect.Field;
 
 import org.seasar.dbflute.dbmeta.info.ColumnInfo;
 import org.seasar.dbflute.exception.IllegalClassificationCodeException;
+import org.seasar.dbflute.optional.OptionalObjectConsumer;
 import org.seasar.dbflute.util.DfReflectionUtil;
 
 import com.example.dbflute.guice.dbflute.bsentity.dbmeta.PurchaseDbm;
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.guice.dbflute.exentity.Member;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
@@ -47,8 +49,12 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
         assertTrue(actual.isPaymentCompleteFlgTrue());
-        assertNotNull(actual.getMember().getMemberStatusCode());
-        assertNotNull(actual.getMember().getMemberStatusCodeAsMemberStatus());
+        actual.getMember().required(new OptionalObjectConsumer<Member>() {
+            public void accept(Member obj) {
+                assertNotNull(obj.getMemberStatusCode());
+                assertNotNull(obj.getMemberStatusCodeAsMemberStatus());
+            }
+        });
     }
 
     public void test_select_illegal_classification() throws Exception {

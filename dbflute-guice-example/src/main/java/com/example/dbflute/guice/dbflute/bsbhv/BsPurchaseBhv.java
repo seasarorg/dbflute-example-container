@@ -413,7 +413,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<Purchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<Purchase, Member>() {
-            public Member getFr(Purchase et) { return et.getMember(); }
+            public Member getFr(Purchase et)
+            { return et.getMember().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<Purchase> ls)
             { et.setPurchaseList(ls); }
@@ -426,7 +427,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<Product> pulloutProduct(List<Purchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<Purchase, Product>() {
-            public Product getFr(Purchase et) { return et.getProduct(); }
+            public Product getFr(Purchase et)
+            { return et.getProduct().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Product et, List<Purchase> ls)
             { et.setPurchaseList(ls); }
@@ -439,7 +441,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<SummaryProduct> pulloutSummaryProduct(List<Purchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<Purchase, SummaryProduct>() {
-            public SummaryProduct getFr(Purchase et) { return et.getSummaryProduct(); }
+            public SummaryProduct getFr(Purchase et)
+            { return et.getSummaryProduct().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(SummaryProduct et, List<Purchase> ls)
             { et.setPurchaseList(ls); }
@@ -452,7 +455,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<MemberLogin> pulloutMemberLoginAsBizManyToOne(List<Purchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<Purchase, MemberLogin>() {
-            public MemberLogin getFr(Purchase et) { return et.getMemberLoginAsBizManyToOne(); }
+            public MemberLogin getFr(Purchase et)
+            { return et.getMemberLoginAsBizManyToOne().get(); }
             public boolean hasRf() { return false; }
             public void setRfLs(MemberLogin et, List<Purchase> ls)
             { throw new UnsupportedOperationException(); }

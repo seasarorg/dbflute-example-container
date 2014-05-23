@@ -513,7 +513,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      */
     public List<ProductStatus> pulloutProductStatus(List<SummaryProduct> summaryProductList) {
         return helpPulloutInternally(summaryProductList, new InternalPulloutCallback<SummaryProduct, ProductStatus>() {
-            public ProductStatus getFr(SummaryProduct et) { return et.getProductStatus(); }
+            public ProductStatus getFr(SummaryProduct et)
+            { return et.getProductStatus(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductStatus et, List<SummaryProduct> ls)
             { et.setSummaryProductList(ls); }

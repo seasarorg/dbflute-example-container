@@ -39,8 +39,8 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsMemberSecurityCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsMemberSecurityCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -353,7 +353,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MemberSecurityCQ bq = (MemberSecurityCQ)bqs;
         MemberSecurityCQ uq = (MemberSecurityCQ)uqs;
         if (bq.hasConditionQueryMember()) {

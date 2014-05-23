@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -114,8 +115,8 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressMember && entity.getMember() != null) {
-            Member relationEntity = entity.getMember();
+        if (!_suppressMember && entity.getMember().isPresent()) {
+            Member relationEntity = entity.getMember().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -139,8 +140,8 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
                 }
             }
         };
-        if (!_suppressRegion && entity.getRegion() != null) {
-            Region relationEntity = entity.getRegion();
+        if (!_suppressRegion && entity.getRegion().isPresent()) {
+            Region relationEntity = entity.getRegion().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -248,7 +249,7 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Member relationEntity = (Member)cachedEntity;
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberAddressList().add(entity);
                 }
@@ -258,12 +259,12 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberAddressList();
                 Member relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberAddressList().add(entity);
                 }
-                if (instanceCache && entity.getMember().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMember());
+                if (instanceCache && entity.getMember().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMember().get());
                 }
             }
         };
@@ -273,7 +274,7 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Region relationEntity = (Region)cachedEntity;
-                entity.setRegion(relationEntity);
+                entity.setRegion(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberAddressList().add(entity);
                 }
@@ -283,12 +284,12 @@ public abstract class BsMemberAddressDtoMapper implements DtoMapper<MemberAddres
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberAddressList();
                 Region relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setRegion(relationEntity);
+                entity.setRegion(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberAddressList().add(entity);
                 }
-                if (instanceCache && entity.getRegion().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getRegion());
+                if (instanceCache && entity.getRegion().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getRegion().get());
                 }
             }
         };

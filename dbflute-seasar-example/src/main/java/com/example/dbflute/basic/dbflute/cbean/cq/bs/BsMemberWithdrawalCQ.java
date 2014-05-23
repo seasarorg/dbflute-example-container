@@ -39,8 +39,8 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsMemberWithdrawalCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsMemberWithdrawalCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -348,7 +348,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MemberWithdrawalCQ bq = (MemberWithdrawalCQ)bqs;
         MemberWithdrawalCQ uq = (MemberWithdrawalCQ)uqs;
         if (bq.hasConditionQueryMember()) {

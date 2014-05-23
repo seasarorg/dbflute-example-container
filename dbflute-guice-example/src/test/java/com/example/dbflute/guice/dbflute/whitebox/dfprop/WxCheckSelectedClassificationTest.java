@@ -1,7 +1,10 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
+import org.seasar.dbflute.optional.OptionalObjectConsumer;
+
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.guice.dbflute.exentity.Member;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
@@ -40,8 +43,12 @@ public class WxCheckSelectedClassificationTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
         assertTrue(actual.isPaymentCompleteFlgTrue());
-        assertNotNull(actual.getMember().getMemberStatusCode());
-        assertNotNull(actual.getMember().getMemberStatusCodeAsMemberStatus());
+        actual.getMember().required(new OptionalObjectConsumer<Member>() {
+            public void accept(Member member) {
+                assertNotNull(member.getMemberStatusCode());
+                assertNotNull(member.getMemberStatusCodeAsMemberStatus());
+            }
+        });
     }
 
     // *test_select_illegal_classification() is at WxForceClassificationSettingTest

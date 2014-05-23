@@ -473,7 +473,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
             public List<Member> selRfLs(MemberCB cb) { return referrerBhv.selectList(cb); }
             public String getFKVal(Member re) { return re.getMemberStatusCode(); }
             public void setlcEt(Member re, MemberStatus le)
-            { re.setMemberStatus(le); }
+            { re.setMemberStatus(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberList"; }
         });
     }
@@ -557,7 +557,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
             public List<MemberLogin> selRfLs(MemberLoginCB cb) { return referrerBhv.selectList(cb); }
             public String getFKVal(MemberLogin re) { return re.getLoginMemberStatusCode(); }
             public void setlcEt(MemberLogin re, MemberStatus le)
-            { re.setMemberStatus(le); }
+            { re.setMemberStatus(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberLoginList"; }
         });
     }

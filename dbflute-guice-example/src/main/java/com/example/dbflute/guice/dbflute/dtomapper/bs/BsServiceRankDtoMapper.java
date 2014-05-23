@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -193,7 +194,7 @@ public abstract class BsServiceRankDtoMapper implements DtoMapper<ServiceRank, S
             entity.setMemberServiceList(relationEntityList);
             if (reverseReference) {
                 for (MemberService relationEntity : relationEntityList) {
-                    relationEntity.setServiceRank(entity);
+                    relationEntity.setServiceRank(OptionalEntity.of(entity));
                 }
             }
         };

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -105,8 +106,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDtoMapper implem
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressVendorTheLongAndWindingTableAndColumn && entity.getVendorTheLongAndWindingTableAndColumn() != null) {
-            VendorTheLongAndWindingTableAndColumn relationEntity = entity.getVendorTheLongAndWindingTableAndColumn();
+        if (!_suppressVendorTheLongAndWindingTableAndColumn && entity.getVendorTheLongAndWindingTableAndColumn().isPresent()) {
+            VendorTheLongAndWindingTableAndColumn relationEntity = entity.getVendorTheLongAndWindingTableAndColumn().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -193,7 +194,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDtoMapper implem
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 VendorTheLongAndWindingTableAndColumn relationEntity = (VendorTheLongAndWindingTableAndColumn)cachedEntity;
-                entity.setVendorTheLongAndWindingTableAndColumn(relationEntity);
+                entity.setVendorTheLongAndWindingTableAndColumn(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getVendorTheLongAndWindingTableAndColumnRefList().add(entity);
                 }
@@ -203,12 +204,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDtoMapper implem
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressVendorTheLongAndWindingTableAndColumnRefList();
                 VendorTheLongAndWindingTableAndColumn relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setVendorTheLongAndWindingTableAndColumn(relationEntity);
+                entity.setVendorTheLongAndWindingTableAndColumn(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getVendorTheLongAndWindingTableAndColumnRefList().add(entity);
                 }
-                if (instanceCache && entity.getVendorTheLongAndWindingTableAndColumn().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getVendorTheLongAndWindingTableAndColumn());
+                if (instanceCache && entity.getVendorTheLongAndWindingTableAndColumn().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getVendorTheLongAndWindingTableAndColumn().get());
                 }
             }
         };

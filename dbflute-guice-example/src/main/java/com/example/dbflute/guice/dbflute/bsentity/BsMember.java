@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -262,97 +263,97 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. */
-    protected MemberStatus _memberStatus;
+    protected OptionalEntity<MemberStatus> _memberStatus;
 
     /**
      * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberStatus getMemberStatus() {
-        return _memberStatus;
+    public OptionalEntity<MemberStatus> getMemberStatus() {
+        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
-    public void setMemberStatus(MemberStatus memberStatus) {
+    public void setMemberStatus(OptionalEntity<MemberStatus> memberStatus) {
         _memberStatus = memberStatus;
     }
 
     /** (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. */
-    protected MemberAddress _memberAddressAsValid;
+    protected OptionalEntity<MemberAddress> _memberAddressAsValid;
 
     /**
      * (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'.
      * @return The entity of foreign property 'memberAddressAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberAddress getMemberAddressAsValid() {
-        return _memberAddressAsValid;
+    public OptionalEntity<MemberAddress> getMemberAddressAsValid() {
+        if (_memberAddressAsValid != null) { return _memberAddressAsValid; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'.
      * @param memberAddressAsValid The entity of foreign property 'memberAddressAsValid'. (NullAllowed)
      */
-    public void setMemberAddressAsValid(MemberAddress memberAddressAsValid) {
+    public void setMemberAddressAsValid(OptionalEntity<MemberAddress> memberAddressAsValid) {
         _memberAddressAsValid = memberAddressAsValid;
     }
 
     /** (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'. */
-    protected MemberSecurity _memberSecurityAsOne;
+    protected OptionalEntity<MemberSecurity> _memberSecurityAsOne;
 
     /**
      * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberSecurity getMemberSecurityAsOne() {
-        return _memberSecurityAsOne;
+    public OptionalEntity<MemberSecurity> getMemberSecurityAsOne() {
+        if (_memberSecurityAsOne != null) { return _memberSecurityAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @param memberSecurityAsOne The entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed)
      */
-    public void setMemberSecurityAsOne(MemberSecurity memberSecurityAsOne) {
+    public void setMemberSecurityAsOne(OptionalEntity<MemberSecurity> memberSecurityAsOne) {
         _memberSecurityAsOne = memberSecurityAsOne;
     }
 
     /** (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'. */
-    protected MemberService _memberServiceAsOne;
+    protected OptionalEntity<MemberService> _memberServiceAsOne;
 
     /**
      * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberService getMemberServiceAsOne() {
-        return _memberServiceAsOne;
+    public OptionalEntity<MemberService> getMemberServiceAsOne() {
+        if (_memberServiceAsOne != null) { return _memberServiceAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @param memberServiceAsOne The entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed)
      */
-    public void setMemberServiceAsOne(MemberService memberServiceAsOne) {
+    public void setMemberServiceAsOne(OptionalEntity<MemberService> memberServiceAsOne) {
         _memberServiceAsOne = memberServiceAsOne;
     }
 
     /** (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'. */
-    protected MemberWithdrawal _memberWithdrawalAsOne;
+    protected OptionalEntity<MemberWithdrawal> _memberWithdrawalAsOne;
 
     /**
      * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberWithdrawal getMemberWithdrawalAsOne() {
-        return _memberWithdrawalAsOne;
+    public OptionalEntity<MemberWithdrawal> getMemberWithdrawalAsOne() {
+        if (_memberWithdrawalAsOne != null) { return _memberWithdrawalAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @param memberWithdrawalAsOne The entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed)
      */
-    public void setMemberWithdrawalAsOne(MemberWithdrawal memberWithdrawalAsOne) {
+    public void setMemberWithdrawalAsOne(OptionalEntity<MemberWithdrawal> memberWithdrawalAsOne) {
         _memberWithdrawalAsOne = memberWithdrawalAsOne;
     }
 
@@ -547,8 +548,8 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
         if (!xSV(getMemberId(), other.getMemberId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -556,13 +557,13 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getMemberId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getMemberId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -586,31 +587,34 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_memberStatus != null)
-        { sb.append(l).append(xbRDS(_memberStatus, "memberStatus")); }
+        { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
         if (_memberAddressAsValid != null)
-        { sb.append(l).append(xbRDS(_memberAddressAsValid, "memberAddressAsValid")); }
+        { sb.append(li).append(xbRDS(_memberAddressAsValid, "memberAddressAsValid")); }
         if (_memberSecurityAsOne != null)
-        { sb.append(l).append(xbRDS(_memberSecurityAsOne, "memberSecurityAsOne")); }
+        { sb.append(li).append(xbRDS(_memberSecurityAsOne, "memberSecurityAsOne")); }
         if (_memberServiceAsOne != null)
-        { sb.append(l).append(xbRDS(_memberServiceAsOne, "memberServiceAsOne")); }
+        { sb.append(li).append(xbRDS(_memberServiceAsOne, "memberServiceAsOne")); }
         if (_memberWithdrawalAsOne != null)
-        { sb.append(l).append(xbRDS(_memberWithdrawalAsOne, "memberWithdrawalAsOne")); }
-        if (_memberAddressList != null) { for (Entity e : _memberAddressList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "memberAddressList")); } } }
-        if (_memberFollowingByMyMemberIdList != null) { for (Entity e : _memberFollowingByMyMemberIdList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "memberFollowingByMyMemberIdList")); } } }
-        if (_memberFollowingByYourMemberIdList != null) { for (Entity e : _memberFollowingByYourMemberIdList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "memberFollowingByYourMemberIdList")); } } }
-        if (_memberLoginList != null) { for (Entity e : _memberLoginList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "memberLoginList")); } } }
-        if (_purchaseList != null) { for (Entity e : _purchaseList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "purchaseList")); } } }
+        { sb.append(li).append(xbRDS(_memberWithdrawalAsOne, "memberWithdrawalAsOne")); }
+        if (_memberAddressList != null) { for (Entity et : _memberAddressList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "memberAddressList")); } } }
+        if (_memberFollowingByMyMemberIdList != null) { for (Entity et : _memberFollowingByMyMemberIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "memberFollowingByMyMemberIdList")); } } }
+        if (_memberFollowingByYourMemberIdList != null) { for (Entity et : _memberFollowingByYourMemberIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "memberFollowingByYourMemberIdList")); } } }
+        if (_memberLoginList != null) { for (Entity et : _memberLoginList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "memberLoginList")); } } }
+        if (_purchaseList != null) { for (Entity et : _purchaseList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
+    }
+    protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     /**
@@ -626,20 +630,20 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getMemberId());
-        sb.append(delimiter).append(getMemberName());
-        sb.append(delimiter).append(getMemberAccount());
-        sb.append(delimiter).append(getMemberStatusCode());
-        sb.append(delimiter).append(getFormalizedDatetime());
-        sb.append(delimiter).append(xfUD(getBirthdate()));
-        sb.append(delimiter).append(getRegisterDatetime());
-        sb.append(delimiter).append(getRegisterUser());
-        sb.append(delimiter).append(getUpdateDatetime());
-        sb.append(delimiter).append(getUpdateUser());
-        sb.append(delimiter).append(getVersionNo());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getMemberId());
+        sb.append(dm).append(getMemberName());
+        sb.append(dm).append(getMemberAccount());
+        sb.append(dm).append(getMemberStatusCode());
+        sb.append(dm).append(getFormalizedDatetime());
+        sb.append(dm).append(xfUD(getBirthdate()));
+        sb.append(dm).append(getRegisterDatetime());
+        sb.append(dm).append(getRegisterUser());
+        sb.append(dm).append(getUpdateDatetime());
+        sb.append(dm).append(getUpdateUser());
+        sb.append(dm).append(getVersionNo());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -652,24 +656,24 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_memberStatus != null) { sb.append(c).append("memberStatus"); }
-        if (_memberAddressAsValid != null) { sb.append(c).append("memberAddressAsValid"); }
-        if (_memberSecurityAsOne != null) { sb.append(c).append("memberSecurityAsOne"); }
-        if (_memberServiceAsOne != null) { sb.append(c).append("memberServiceAsOne"); }
-        if (_memberWithdrawalAsOne != null) { sb.append(c).append("memberWithdrawalAsOne"); }
+        String cm = ",";
+        if (_memberStatus != null) { sb.append(cm).append("memberStatus"); }
+        if (_memberAddressAsValid != null) { sb.append(cm).append("memberAddressAsValid"); }
+        if (_memberSecurityAsOne != null) { sb.append(cm).append("memberSecurityAsOne"); }
+        if (_memberServiceAsOne != null) { sb.append(cm).append("memberServiceAsOne"); }
+        if (_memberWithdrawalAsOne != null) { sb.append(cm).append("memberWithdrawalAsOne"); }
         if (_memberAddressList != null && !_memberAddressList.isEmpty())
-        { sb.append(c).append("memberAddressList"); }
+        { sb.append(cm).append("memberAddressList"); }
         if (_memberFollowingByMyMemberIdList != null && !_memberFollowingByMyMemberIdList.isEmpty())
-        { sb.append(c).append("memberFollowingByMyMemberIdList"); }
+        { sb.append(cm).append("memberFollowingByMyMemberIdList"); }
         if (_memberFollowingByYourMemberIdList != null && !_memberFollowingByYourMemberIdList.isEmpty())
-        { sb.append(c).append("memberFollowingByYourMemberIdList"); }
+        { sb.append(cm).append("memberFollowingByYourMemberIdList"); }
         if (_memberLoginList != null && !_memberLoginList.isEmpty())
-        { sb.append(c).append("memberLoginList"); }
+        { sb.append(cm).append("memberLoginList"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
-        { sb.append(c).append("purchaseList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("purchaseList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

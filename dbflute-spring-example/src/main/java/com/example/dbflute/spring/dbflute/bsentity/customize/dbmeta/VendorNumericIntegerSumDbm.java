@@ -48,16 +48,19 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgIntegerNonDigitSum(), "integerNonDigitSum");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgIntegerNonDigitSum implements PropertyGateway {
         public Object read(Entity et) { return ((VendorNumericIntegerSum)et).getIntegerNonDigitSum(); }
         public void write(Entity et, Object vl) { ((VendorNumericIntegerSum)et).setIntegerNonDigitSum(cti(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -73,8 +76,12 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIntegerNonDigitSum = cci("INTEGER_NON_DIGIT_SUM", "INTEGER_NON_DIGIT_SUM", null, null, false, "integerNonDigitSum", Integer.class, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnIntegerNonDigitSum = cci("INTEGER_NON_DIGIT_SUM", "INTEGER_NON_DIGIT_SUM", null, null, Integer.class, "integerNonDigitSum", null, false, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null);
 
+    /**
+     * INTEGER_NON_DIGIT_SUM: {DECIMAL(5)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnIntegerNonDigitSum() { return _columnIntegerNonDigitSum; }
 
     protected List<ColumnInfo> ccil() {
@@ -100,6 +107,8 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

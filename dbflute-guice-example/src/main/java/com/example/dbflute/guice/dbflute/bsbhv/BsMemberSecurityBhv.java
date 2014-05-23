@@ -400,10 +400,11 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberSecurity> memberSecurityList) {
         return helpPulloutInternally(memberSecurityList, new InternalPulloutCallback<MemberSecurity, Member>() {
-            public Member getFr(MemberSecurity et) { return et.getMember(); }
+            public Member getFr(MemberSecurity et)
+            { return et.getMember().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberSecurity> ls)
-            { if (!ls.isEmpty()) { et.setMemberSecurityAsOne(ls.get(0)); } }
+            { if (!ls.isEmpty()) { et.setMemberSecurityAsOne(OptionalEntity.of(ls.get(0))); } }
         });
     }
 

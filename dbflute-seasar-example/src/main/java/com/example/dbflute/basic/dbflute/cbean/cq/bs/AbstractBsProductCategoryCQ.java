@@ -37,8 +37,8 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsProductCategoryCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsProductCategoryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================

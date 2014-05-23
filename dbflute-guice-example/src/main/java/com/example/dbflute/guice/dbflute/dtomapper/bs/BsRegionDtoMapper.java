@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -177,7 +178,7 @@ public abstract class BsRegionDtoMapper implements DtoMapper<Region, RegionDto>,
             entity.setMemberAddressList(relationEntityList);
             if (reverseReference) {
                 for (MemberAddress relationEntity : relationEntityList) {
-                    relationEntity.setRegion(entity);
+                    relationEntity.setRegion(OptionalEntity.of(entity));
                 }
             }
         };

@@ -33,6 +33,9 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberId(), "memberId");
@@ -45,8 +48,6 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
         setupEpg(_epgMap, new EpgMaxPurchasePrice(), "maxPurchasePrice");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
         public Object read(Entity et) { return ((SummaryWithdrawal)et).getMemberId(); }
         public void write(Entity et, Object vl) { ((SummaryWithdrawal)et).setMemberId(cti(vl)); }
@@ -83,6 +84,8 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((SummaryWithdrawal)et).getMaxPurchasePrice(); }
         public void write(Entity et, Object vl) { ((SummaryWithdrawal)et).setMaxPurchasePrice(cti(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -98,24 +101,60 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, false, "memberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, null, false, "memberName", String.class, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, null, false, "withdrawalReasonCode", String.class, false, false, "CHAR", 3, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, null, false, "withdrawalReasonText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnWithdrawalReasonInputText = cci("WITHDRAWAL_REASON_INPUT_TEXT", "WITHDRAWAL_REASON_INPUT_TEXT", null, null, false, "withdrawalReasonInputText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, null, false, "withdrawalDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, null, false, "memberStatusCode", String.class, false, false, "CHAR", 3, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, null, false, "memberStatusName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMaxPurchasePrice = cci("MAX_PURCHASE_PRICE", "MAX_PURCHASE_PRICE", null, null, false, "maxPurchasePrice", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, null, String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, null, String.class, "withdrawalReasonCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, null, String.class, "withdrawalReasonText", null, false, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnWithdrawalReasonInputText = cci("WITHDRAWAL_REASON_INPUT_TEXT", "WITHDRAWAL_REASON_INPUT_TEXT", null, null, String.class, "withdrawalReasonInputText", null, false, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, null, java.sql.Timestamp.class, "withdrawalDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, null, String.class, "memberStatusCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, null, String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMaxPurchasePrice = cci("MAX_PURCHASE_PRICE", "MAX_PURCHASE_PRICE", null, null, Integer.class, "maxPurchasePrice", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
+    /**
+     * MEMBER_ID: {INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * MEMBER_NAME: {VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberName() { return _columnMemberName; }
+    /**
+     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalReasonCode() { return _columnWithdrawalReasonCode; }
+    /**
+     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalReasonText() { return _columnWithdrawalReasonText; }
+    /**
+     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalReasonInputText() { return _columnWithdrawalReasonInputText; }
+    /**
+     * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalDatetime() { return _columnWithdrawalDatetime; }
+    /**
+     * MEMBER_STATUS_CODE: {CHAR(3)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberStatusCode() { return _columnMemberStatusCode; }
+    /**
+     * MEMBER_STATUS_NAME: {VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
+    /**
+     * MAX_PURCHASE_PRICE: {INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMaxPurchasePrice() { return _columnMaxPurchasePrice; }
 
     protected List<ColumnInfo> ccil() {
@@ -149,6 +188,8 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

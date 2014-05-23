@@ -472,7 +472,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
             public List<VendorTheLongAndWindingTableAndColumnRef> selRfLs(VendorTheLongAndWindingTableAndColumnRefCB cb) { return referrerBhv.selectList(cb); }
             public Long getFKVal(VendorTheLongAndWindingTableAndColumnRef re) { return re.getTheLongAndWindingTableAndColumnId(); }
             public void setlcEt(VendorTheLongAndWindingTableAndColumnRef re, VendorTheLongAndWindingTableAndColumn le)
-            { re.setVendorTheLongAndWindingTableAndColumn(le); }
+            { re.setVendorTheLongAndWindingTableAndColumn(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "vendorTheLongAndWindingTableAndColumnRefList"; }
         });
     }

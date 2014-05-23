@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -111,8 +112,8 @@ public abstract class BsMemberSecurityDtoMapper implements DtoMapper<MemberSecur
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressMember && entity.getMember() != null) {
-            Member relationEntity = entity.getMember();
+        if (!_suppressMember && entity.getMember().isPresent()) {
+            Member relationEntity = entity.getMember().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -217,9 +218,9 @@ public abstract class BsMemberSecurityDtoMapper implements DtoMapper<MemberSecur
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Member relationEntity = (Member)cachedEntity;
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
-                    relationEntity.setMemberSecurityAsOne(entity);
+                    relationEntity.setMemberSecurityAsOne(OptionalEntity.of(entity));
                 }
             } else {
                 MemberDtoMapper mapper = new MemberDtoMapper(_relationDtoMap, _relationEntityMap);
@@ -227,12 +228,12 @@ public abstract class BsMemberSecurityDtoMapper implements DtoMapper<MemberSecur
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberSecurityAsOne();
                 Member relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
-                    relationEntity.setMemberSecurityAsOne(entity);
+                    relationEntity.setMemberSecurityAsOne(OptionalEntity.of(entity));
                 }
-                if (instanceCache && entity.getMember().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMember());
+                if (instanceCache && entity.getMember().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMember().get());
                 }
             }
         };

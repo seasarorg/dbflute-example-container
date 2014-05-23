@@ -38,8 +38,34 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
         // ## Arrange ##
         ServiceRankCB cb = new ServiceRankCB();
 
+        //cb.loadPurchaseList(purchaseCB -> {
+        //    purchaseCB.setupSelect...
+        //    purchaseCB.query()...
+        //    purchaseCB.loadPurchaseDetailList(detailCB -> {
+        //        detailCB.setupSelect_Xxxxxxxxxx();
+        //        detailCB.setupSelect_DetailAssistInfoAsOne();
+        //        detailCB.query()...
+        //        detailCB.pulloutDetailAssistInfoAsOne().loadPurchase()...
+        //    });
+        //});
+
         // ## Act ##
         ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb);
+
+        // ServiceRank
+        //  |-MemberService -> Member
+        //                      |-Purchase
+        //
+        // if Java8
+        // serviceRankBhv.loadMemberServiceList(rankList, serviceCB -> {
+        //     serviceCB.setupSelect_Member().withMemberStatus();
+        //     serviceCB.query().queryMember().setMemberStatusCode_Equal_Formalized();
+        // }).withNestedReferrer(serviceList -> {
+        //     List<Member> memberList = memberServiceBhv.pulloutMember(serviceList);
+        //     memberBhv.loadPurchaseList(memberList, purchaseCB -> {
+        //         purchaseCB.query().setPurchasePrice_GreaterEqual(1000);
+        //     });
+        // });
         serviceRankBhv.loadMemberServiceList(rankList, new ConditionBeanSetupper<MemberServiceCB>() {
             public void setup(MemberServiceCB cb) {
                 cb.setupSelect_Member().withMemberStatus();

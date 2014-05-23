@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -106,8 +107,8 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressMemberByMyMemberId && entity.getMemberByMyMemberId() != null) {
-            Member relationEntity = entity.getMemberByMyMemberId();
+        if (!_suppressMemberByMyMemberId && entity.getMemberByMyMemberId().isPresent()) {
+            Member relationEntity = entity.getMemberByMyMemberId().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -131,8 +132,8 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             }
         };
-        if (!_suppressMemberByYourMemberId && entity.getMemberByYourMemberId() != null) {
-            Member relationEntity = entity.getMemberByYourMemberId();
+        if (!_suppressMemberByYourMemberId && entity.getMemberByYourMemberId().isPresent()) {
+            Member relationEntity = entity.getMemberByYourMemberId().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -219,7 +220,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Member relationEntity = (Member)cachedEntity;
-                entity.setMemberByMyMemberId(relationEntity);
+                entity.setMemberByMyMemberId(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberFollowingByMyMemberIdList().add(entity);
                 }
@@ -229,12 +230,12 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByMyMemberIdList();
                 Member relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMemberByMyMemberId(relationEntity);
+                entity.setMemberByMyMemberId(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberFollowingByMyMemberIdList().add(entity);
                 }
-                if (instanceCache && entity.getMemberByMyMemberId().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMemberByMyMemberId());
+                if (instanceCache && entity.getMemberByMyMemberId().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberByMyMemberId().get());
                 }
             }
         };
@@ -244,7 +245,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Member relationEntity = (Member)cachedEntity;
-                entity.setMemberByYourMemberId(relationEntity);
+                entity.setMemberByYourMemberId(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberFollowingByYourMemberIdList().add(entity);
                 }
@@ -254,12 +255,12 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByYourMemberIdList();
                 Member relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMemberByYourMemberId(relationEntity);
+                entity.setMemberByYourMemberId(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getMemberFollowingByYourMemberIdList().add(entity);
                 }
-                if (instanceCache && entity.getMemberByYourMemberId().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMemberByYourMemberId());
+                if (instanceCache && entity.getMemberByYourMemberId().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberByYourMemberId().get());
                 }
             }
         };

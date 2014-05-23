@@ -318,8 +318,8 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable {
         if (!xSV(getVendorCheckId(), other.getVendorCheckId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -327,13 +327,13 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable {
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getVendorCheckId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getVendorCheckId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -373,37 +373,37 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable {
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getVendorCheckId());
-        sb.append(delimiter).append(getTypeOfChar());
-        sb.append(delimiter).append(getTypeOfVarchar());
-        sb.append(delimiter).append(getTypeOfClob());
-        sb.append(delimiter).append(getTypeOfText());
-        sb.append(delimiter).append(getTypeOfNumericInteger());
-        sb.append(delimiter).append(getTypeOfNumericBigint());
-        sb.append(delimiter).append(getTypeOfNumericDecimal());
-        sb.append(delimiter).append(getTypeOfNumericIntegerMin());
-        sb.append(delimiter).append(getTypeOfNumericIntegerMax());
-        sb.append(delimiter).append(getTypeOfNumericBigintMin());
-        sb.append(delimiter).append(getTypeOfNumericBigintMax());
-        sb.append(delimiter).append(getTypeOfNumericSuperintMin());
-        sb.append(delimiter).append(getTypeOfNumericSuperintMax());
-        sb.append(delimiter).append(getTypeOfNumericMaxdecimal());
-        sb.append(delimiter).append(getTypeOfInteger());
-        sb.append(delimiter).append(getTypeOfBigint());
-        sb.append(delimiter).append(xfUD(getTypeOfDate()));
-        sb.append(delimiter).append(getTypeOfTimestamp());
-        sb.append(delimiter).append(getTypeOfTime());
-        sb.append(delimiter).append(getTypeOfBoolean());
-        sb.append(delimiter).append(xfBA(getTypeOfBinary()));
-        sb.append(delimiter).append(xfBA(getTypeOfBlob()));
-        sb.append(delimiter).append(xfBA(getTypeOfUuid()));
-        sb.append(delimiter).append(getTypeOfArray());
-        sb.append(delimiter).append(getTypeOfOther());
-        sb.append(delimiter).append(getJAVABeansProperty());
-        sb.append(delimiter).append(getJPopBeansProperty());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getVendorCheckId());
+        sb.append(dm).append(getTypeOfChar());
+        sb.append(dm).append(getTypeOfVarchar());
+        sb.append(dm).append(getTypeOfClob());
+        sb.append(dm).append(getTypeOfText());
+        sb.append(dm).append(getTypeOfNumericInteger());
+        sb.append(dm).append(getTypeOfNumericBigint());
+        sb.append(dm).append(getTypeOfNumericDecimal());
+        sb.append(dm).append(getTypeOfNumericIntegerMin());
+        sb.append(dm).append(getTypeOfNumericIntegerMax());
+        sb.append(dm).append(getTypeOfNumericBigintMin());
+        sb.append(dm).append(getTypeOfNumericBigintMax());
+        sb.append(dm).append(getTypeOfNumericSuperintMin());
+        sb.append(dm).append(getTypeOfNumericSuperintMax());
+        sb.append(dm).append(getTypeOfNumericMaxdecimal());
+        sb.append(dm).append(getTypeOfInteger());
+        sb.append(dm).append(getTypeOfBigint());
+        sb.append(dm).append(xfUD(getTypeOfDate()));
+        sb.append(dm).append(getTypeOfTimestamp());
+        sb.append(dm).append(getTypeOfTime());
+        sb.append(dm).append(getTypeOfBoolean());
+        sb.append(dm).append(xfBA(getTypeOfBinary()));
+        sb.append(dm).append(xfBA(getTypeOfBlob()));
+        sb.append(dm).append(xfBA(getTypeOfUuid()));
+        sb.append(dm).append(getTypeOfArray());
+        sb.append(dm).append(getTypeOfOther());
+        sb.append(dm).append(getJAVABeansProperty());
+        sb.append(dm).append(getJPopBeansProperty());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();

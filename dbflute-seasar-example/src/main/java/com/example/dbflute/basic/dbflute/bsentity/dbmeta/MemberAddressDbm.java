@@ -48,6 +48,9 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberAddressId(), "memberAddressId");
@@ -62,8 +65,6 @@ public class MemberAddressDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
         setupEpg(_epgMap, new EpgVersionNo(), "versionNo");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberAddressId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberAddress)et).getMemberAddressId(); }
         public void write(Entity et, Object vl) { ((MemberAddress)et).setMemberAddressId(cti(vl)); }
@@ -112,6 +113,27 @@ public class MemberAddressDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberAddress)et).getVersionNo(); }
         public void write(Entity et, Object vl) { ((MemberAddress)et).setVersionNo(ctl(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgMember(), "member");
+        setupEfpg(_efpgMap, new EfpgRegion(), "region");
+    }
+    public class EfpgMember implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberAddress)et).getMember(); }
+        public void write(Entity et, Object vl) { ((MemberAddress)et).setMember((Member)vl); }
+    }
+    public class EfpgRegion implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberAddress)et).getRegion(); }
+        public void write(Entity et, Object vl) { ((MemberAddress)et).setRegion((Region)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -131,28 +153,72 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", true, "memberAddressId", Integer.class, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_AF546B90_6F54_4CB1_9537_3C179FAEC713", false, null, "会員住所を識別するID。\n期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。", null, null, null);
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", true, "memberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "会員を参照するID。\n期間ごとのデータがあるので、これだけではユニークにはならない。有効開始日と合わせて複合ユニーク制約となるが、厳密には完全な制約にはなっていない。有効期間の概念はRDBでは表現しきれないのである。", "member", null, null);
-    protected final ColumnInfo _columnValidBeginDate = cci("VALID_BEGIN_DATE", "VALID_BEGIN_DATE", null, "有効開始日", true, "validBeginDate", java.util.Date.class, false, false, "DATE", 8, 0, null, false, null, "一つの有効期間の開始を示す日付。\n前の有効終了日の次の日の値が格納される。", null, null, null);
-    protected final ColumnInfo _columnValidEndDate = cci("VALID_END_DATE", "VALID_END_DATE", null, "有効終了日", true, "validEndDate", java.util.Date.class, false, false, "DATE", 8, 0, null, false, null, "有効期間の終了日。\n期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。", null, null, null);
-    protected final ColumnInfo _columnAddress = cci("ADDRESS", "ADDRESS", null, "住所", true, "address", String.class, false, false, "VARCHAR", 200, 0, null, false, null, "まるごと住所", null, null, null);
-    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", true, "regionId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "地域を参照するID。かなり漠然とした地域。", "region", null, CDef.DefMeta.Region);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, true, "registerDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, true, "registerUser", String.class, false, false, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, true, "updateDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, true, "updateUser", String.class, false, false, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, true, "versionNo", Long.class, false, false, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
+    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F6671AFE_997B_4590_B1C0_9EA3167BDA0C", false, null, "会員住所を識別するID。\n期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。", null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "会員を参照するID。\n期間ごとのデータがあるので、これだけではユニークにはならない。有効開始日と合わせて複合ユニーク制約となるが、厳密には完全な制約にはなっていない。有効期間の概念はRDBでは表現しきれないのである。", "member", null, null);
+    protected final ColumnInfo _columnValidBeginDate = cci("VALID_BEGIN_DATE", "VALID_BEGIN_DATE", null, "有効開始日", java.util.Date.class, "validBeginDate", null, false, false, true, "DATE", 8, 0, null, false, null, "一つの有効期間の開始を示す日付。\n前の有効終了日の次の日の値が格納される。", null, null, null);
+    protected final ColumnInfo _columnValidEndDate = cci("VALID_END_DATE", "VALID_END_DATE", null, "有効終了日", java.util.Date.class, "validEndDate", null, false, false, true, "DATE", 8, 0, null, false, null, "有効期間の終了日。\n期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。", null, null, null);
+    protected final ColumnInfo _columnAddress = cci("ADDRESS", "ADDRESS", null, "住所", String.class, "address", null, false, false, true, "VARCHAR", 200, 0, null, false, null, "まるごと住所", null, null, null);
+    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "地域を参照するID。かなり漠然とした地域。", "region", null, CDef.DefMeta.Region);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 
+    /**
+     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberAddressId() { return _columnMemberAddressId; }
+    /**
+     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnValidBeginDate() { return _columnValidBeginDate; }
+    /**
+     * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnValidEndDate() { return _columnValidEndDate; }
+    /**
+     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnAddress() { return _columnAddress; }
+    /**
+     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegionId() { return _columnRegionId; }
+    /**
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegisterDatetime() { return _columnRegisterDatetime; }
+    /**
+     * REGISTER_USER: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegisterUser() { return _columnRegisterUser; }
+    /**
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUpdateDatetime() { return _columnUpdateDatetime; }
+    /**
+     * UPDATE_USER: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
+    /**
+     * VERSION_NO: {NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnVersionNo() { return _columnVersionNo; }
 
     protected List<ColumnInfo> ccil() {
@@ -186,16 +252,26 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMember() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_ADDRESS_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberAddressList");
+        return cfi("FK_MEMBER_ADDRESS_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "memberAddressList");
     }
+    /**
+     * (地域)REGION by my REGION_ID, named 'region'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignRegion() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRegionId(), RegionDbm.getInstance().columnRegionId());
-        return cfi("FK_MEMBER_ADDRESS_REGION", "region", this, RegionDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberAddressList");
+        return cfi("FK_MEMBER_ADDRESS_REGION", "region", this, RegionDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberAddressList");
     }
 
     // -----------------------------------------------------

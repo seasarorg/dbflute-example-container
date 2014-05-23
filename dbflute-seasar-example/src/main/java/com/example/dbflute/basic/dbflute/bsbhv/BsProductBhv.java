@@ -513,7 +513,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      */
     public List<ProductCategory> pulloutProductCategory(List<Product> productList) {
         return helpPulloutInternally(productList, new InternalPulloutCallback<Product, ProductCategory>() {
-            public ProductCategory getFr(Product et) { return et.getProductCategory(); }
+            public ProductCategory getFr(Product et)
+            { return et.getProductCategory(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductCategory et, List<Product> ls)
             { et.setProductList(ls); }
@@ -526,7 +527,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      */
     public List<ProductStatus> pulloutProductStatus(List<Product> productList) {
         return helpPulloutInternally(productList, new InternalPulloutCallback<Product, ProductStatus>() {
-            public ProductStatus getFr(Product et) { return et.getProductStatus(); }
+            public ProductStatus getFr(Product et)
+            { return et.getProductStatus(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductStatus et, List<Product> ls)
             { et.setProductList(ls); }

@@ -472,7 +472,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
             public List<Product> selRfLs(ProductCB cb) { return referrerBhv.selectList(cb); }
             public String getFKVal(Product re) { return re.getProductCategoryCode(); }
             public void setlcEt(Product re, ProductCategory le)
-            { re.setProductCategory(le); }
+            { re.setProductCategory(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "productList"; }
         });
     }
@@ -556,7 +556,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
             public List<ProductCategory> selRfLs(ProductCategoryCB cb) { return referrerBhv.selectList(cb); }
             public String getFKVal(ProductCategory re) { return re.getParentCategoryCode(); }
             public void setlcEt(ProductCategory re, ProductCategory le)
-            { re.setProductCategorySelf(le); }
+            { re.setProductCategorySelf(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "productCategorySelfList"; }
         });
     }
@@ -571,7 +571,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      */
     public List<ProductCategory> pulloutProductCategorySelf(List<ProductCategory> productCategoryList) {
         return helpPulloutInternally(productCategoryList, new InternalPulloutCallback<ProductCategory, ProductCategory>() {
-            public ProductCategory getFr(ProductCategory et) { return et.getProductCategorySelf(); }
+            public ProductCategory getFr(ProductCategory et)
+            { return et.getProductCategorySelf().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductCategory et, List<ProductCategory> ls)
             { et.setProductCategorySelfList(ls); }

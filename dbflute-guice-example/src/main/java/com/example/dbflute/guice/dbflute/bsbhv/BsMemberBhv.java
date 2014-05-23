@@ -506,7 +506,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
             public List<MemberAddress> selRfLs(MemberAddressCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(MemberAddress re) { return re.getMemberId(); }
             public void setlcEt(MemberAddress re, Member le)
-            { re.setMember(le); }
+            { re.setMember(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberAddressList"; }
         });
     }
@@ -590,7 +590,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
             public List<MemberFollowing> selRfLs(MemberFollowingCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(MemberFollowing re) { return re.getMyMemberId(); }
             public void setlcEt(MemberFollowing re, Member le)
-            { re.setMemberByMyMemberId(le); }
+            { re.setMemberByMyMemberId(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberFollowingByMyMemberIdList"; }
         });
     }
@@ -674,7 +674,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
             public List<MemberFollowing> selRfLs(MemberFollowingCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(MemberFollowing re) { return re.getYourMemberId(); }
             public void setlcEt(MemberFollowing re, Member le)
-            { re.setMemberByYourMemberId(le); }
+            { re.setMemberByYourMemberId(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberFollowingByYourMemberIdList"; }
         });
     }
@@ -758,7 +758,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
             public List<MemberLogin> selRfLs(MemberLoginCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(MemberLogin re) { return re.getMemberId(); }
             public void setlcEt(MemberLogin re, Member le)
-            { re.setMember(le); }
+            { re.setMember(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "memberLoginList"; }
         });
     }
@@ -842,7 +842,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
             public List<Purchase> selRfLs(PurchaseCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(Purchase re) { return re.getMemberId(); }
             public void setlcEt(Purchase re, Member le)
-            { re.setMember(le); }
+            { re.setMember(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "purchaseList"; }
         });
     }
@@ -857,7 +857,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberStatus> pulloutMemberStatus(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberStatus>() {
-            public MemberStatus getFr(Member et) { return et.getMemberStatus(); }
+            public MemberStatus getFr(Member et)
+            { return et.getMemberStatus().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberStatus et, List<Member> ls)
             { et.setMemberList(ls); }
@@ -870,7 +871,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberAddress> pulloutMemberAddressAsValid(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberAddress>() {
-            public MemberAddress getFr(Member et) { return et.getMemberAddressAsValid(); }
+            public MemberAddress getFr(Member et)
+            { return et.getMemberAddressAsValid().get(); }
             public boolean hasRf() { return false; }
             public void setRfLs(MemberAddress et, List<Member> ls)
             { throw new UnsupportedOperationException(); }
@@ -883,10 +885,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberSecurity> pulloutMemberSecurityAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberSecurity>() {
-            public MemberSecurity getFr(Member et) { return et.getMemberSecurityAsOne(); }
+            public MemberSecurity getFr(Member et)
+            { return et.getMemberSecurityAsOne().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberSecurity et, List<Member> ls)
-            { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
+            { if (!ls.isEmpty()) { et.setMember(OptionalEntity.of(ls.get(0))); } }
         });
     }
     /**
@@ -896,10 +899,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberService> pulloutMemberServiceAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberService>() {
-            public MemberService getFr(Member et) { return et.getMemberServiceAsOne(); }
+            public MemberService getFr(Member et)
+            { return et.getMemberServiceAsOne().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberService et, List<Member> ls)
-            { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
+            { if (!ls.isEmpty()) { et.setMember(OptionalEntity.of(ls.get(0))); } }
         });
     }
     /**
@@ -909,10 +913,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberWithdrawal> pulloutMemberWithdrawalAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberWithdrawal>() {
-            public MemberWithdrawal getFr(Member et) { return et.getMemberWithdrawalAsOne(); }
+            public MemberWithdrawal getFr(Member et)
+            { return et.getMemberWithdrawalAsOne().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberWithdrawal et, List<Member> ls)
-            { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
+            { if (!ls.isEmpty()) { et.setMember(OptionalEntity.of(ls.get(0))); } }
         });
     }
 

@@ -40,9 +40,9 @@ public class VendorTheLongAndWindingTableAndColumnCIQ extends AbstractBsVendorTh
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public VendorTheLongAndWindingTableAndColumnCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public VendorTheLongAndWindingTableAndColumnCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, BsVendorTheLongAndWindingTableAndColumnCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

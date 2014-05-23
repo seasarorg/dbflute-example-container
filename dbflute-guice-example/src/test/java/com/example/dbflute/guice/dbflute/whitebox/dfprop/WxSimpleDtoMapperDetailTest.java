@@ -49,7 +49,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
             Set<String> statusCodeSet = new HashSet<String>();
             Set<Integer> statusHashSet = new HashSet<Integer>();
             for (Member member : memberList) {
-                MemberStatus status = member.getMemberStatus();
+                MemberStatus status = member.getMemberStatus().get();
                 sb.append(ln()).append(" ").append(member.getMemberName());
                 sb.append(", status=").append(status.getMemberStatusName());
                 sb.append("@").append(Integer.toHexString(status.instanceHash()));

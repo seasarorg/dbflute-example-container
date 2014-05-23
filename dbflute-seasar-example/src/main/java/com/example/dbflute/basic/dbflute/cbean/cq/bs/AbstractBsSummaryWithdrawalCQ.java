@@ -37,8 +37,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsSummaryWithdrawalCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsSummaryWithdrawalCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================

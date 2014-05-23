@@ -400,10 +400,11 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberWithdrawal> memberWithdrawalList) {
         return helpPulloutInternally(memberWithdrawalList, new InternalPulloutCallback<MemberWithdrawal, Member>() {
-            public Member getFr(MemberWithdrawal et) { return et.getMember(); }
+            public Member getFr(MemberWithdrawal et)
+            { return et.getMember().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberWithdrawal> ls)
-            { if (!ls.isEmpty()) { et.setMemberWithdrawalAsOne(ls.get(0)); } }
+            { if (!ls.isEmpty()) { et.setMemberWithdrawalAsOne(OptionalEntity.of(ls.get(0))); } }
         });
     }
     /**
@@ -413,7 +414,8 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable {
      */
     public List<WithdrawalReason> pulloutWithdrawalReason(List<MemberWithdrawal> memberWithdrawalList) {
         return helpPulloutInternally(memberWithdrawalList, new InternalPulloutCallback<MemberWithdrawal, WithdrawalReason>() {
-            public WithdrawalReason getFr(MemberWithdrawal et) { return et.getWithdrawalReason(); }
+            public WithdrawalReason getFr(MemberWithdrawal et)
+            { return et.getWithdrawalReason().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(WithdrawalReason et, List<MemberWithdrawal> ls)
             { et.setMemberWithdrawalList(ls); }

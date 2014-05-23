@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -227,21 +228,21 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     //                                                                    Foreign Property
     //                                                                    ================
     /** (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. */
-    protected ProductStatus _productStatus;
+    protected OptionalEntity<ProductStatus> _productStatus;
 
     /**
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public ProductStatus getProductStatus() {
-        return _productStatus;
+    public OptionalEntity<ProductStatus> getProductStatus() {
+        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @param productStatus The entity of foreign property 'productStatus'. (NullAllowed)
      */
-    public void setProductStatus(ProductStatus productStatus) {
+    public void setProductStatus(OptionalEntity<ProductStatus> productStatus) {
         _productStatus = productStatus;
     }
 
@@ -332,8 +333,8 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
         if (!xSV(getProductId(), other.getProductId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -341,13 +342,13 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getProductId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getProductId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -371,15 +372,18 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_productStatus != null)
-        { sb.append(l).append(xbRDS(_productStatus, "productStatus")); }
-        if (_purchaseList != null) { for (Entity e : _purchaseList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "purchaseList")); } } }
+        { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
+        if (_purchaseList != null) { for (Entity et : _purchaseList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
+    }
+    protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     /**
@@ -395,26 +399,26 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getProductId());
-        sb.append(delimiter).append(getProductName());
-        sb.append(delimiter).append(getProductHandleCode());
-        sb.append(delimiter).append(getProductStatusCode());
-        sb.append(delimiter).append(getLatestPurchaseDatetime());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getProductId());
+        sb.append(dm).append(getProductName());
+        sb.append(dm).append(getProductHandleCode());
+        sb.append(dm).append(getProductStatusCode());
+        sb.append(dm).append(getLatestPurchaseDatetime());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_productStatus != null) { sb.append(c).append("productStatus"); }
+        String cm = ",";
+        if (_productStatus != null) { sb.append(cm).append("productStatus"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
-        { sb.append(c).append("purchaseList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("purchaseList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

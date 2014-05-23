@@ -963,7 +963,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberStatus> pulloutMemberStatus(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberStatus>() {
-            public MemberStatus getFr(Member et) { return et.getMemberStatus(); }
+            public MemberStatus getFr(Member et)
+            { return et.getMemberStatus(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberStatus et, List<Member> ls)
             { et.setMemberList(ls); }
@@ -976,7 +977,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberAddress> pulloutMemberAddressAsValid(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberAddress>() {
-            public MemberAddress getFr(Member et) { return et.getMemberAddressAsValid(); }
+            public MemberAddress getFr(Member et)
+            { return et.getMemberAddressAsValid(); }
             public boolean hasRf() { return false; }
             public void setRfLs(MemberAddress et, List<Member> ls)
             { throw new UnsupportedOperationException(); }
@@ -989,7 +991,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberLogin> pulloutMemberLoginAsLatest(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberLogin>() {
-            public MemberLogin getFr(Member et) { return et.getMemberLoginAsLatest(); }
+            public MemberLogin getFr(Member et)
+            { return et.getMemberLoginAsLatest(); }
             public boolean hasRf() { return false; }
             public void setRfLs(MemberLogin et, List<Member> ls)
             { throw new UnsupportedOperationException(); }
@@ -1002,7 +1005,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberSecurity> pulloutMemberSecurityAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberSecurity>() {
-            public MemberSecurity getFr(Member et) { return et.getMemberSecurityAsOne(); }
+            public MemberSecurity getFr(Member et)
+            { return et.getMemberSecurityAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberSecurity et, List<Member> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
@@ -1015,7 +1019,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberService> pulloutMemberServiceAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberService>() {
-            public MemberService getFr(Member et) { return et.getMemberServiceAsOne(); }
+            public MemberService getFr(Member et)
+            { return et.getMemberServiceAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberService et, List<Member> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
@@ -1028,7 +1033,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MemberWithdrawal> pulloutMemberWithdrawalAsOne(List<Member> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<Member, MemberWithdrawal>() {
-            public MemberWithdrawal getFr(Member et) { return et.getMemberWithdrawalAsOne(); }
+            public MemberWithdrawal getFr(Member et)
+            { return et.getMemberWithdrawalAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberWithdrawal et, List<Member> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }

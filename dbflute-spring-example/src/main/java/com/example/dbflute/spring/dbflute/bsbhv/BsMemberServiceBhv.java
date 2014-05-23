@@ -402,7 +402,8 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberService> memberServiceList) {
         return helpPulloutInternally(memberServiceList, new InternalPulloutCallback<MemberService, Member>() {
-            public Member getFr(MemberService et) { return et.getMember(); }
+            public Member getFr(MemberService et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberService> ls)
             { if (!ls.isEmpty()) { et.setMemberServiceAsOne(ls.get(0)); } }
@@ -415,7 +416,8 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public List<ServiceRank> pulloutServiceRank(List<MemberService> memberServiceList) {
         return helpPulloutInternally(memberServiceList, new InternalPulloutCallback<MemberService, ServiceRank>() {
-            public ServiceRank getFr(MemberService et) { return et.getServiceRank(); }
+            public ServiceRank getFr(MemberService et)
+            { return et.getServiceRank(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ServiceRank et, List<MemberService> ls)
             { et.setMemberServiceList(ls); }

@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -281,40 +282,40 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
-        return _member;
+    public OptionalEntity<Member> getMember() {
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (地域)REGION by my REGION_ID, named 'region'. */
-    protected Region _region;
+    protected OptionalEntity<Region> _region;
 
     /**
      * (地域)REGION by my REGION_ID, named 'region'.
      * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Region getRegion() {
-        return _region;
+    public OptionalEntity<Region> getRegion() {
+        if (_region != null) { return _region; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (地域)REGION by my REGION_ID, named 'region'.
      * @param region The entity of foreign property 'region'. (NullAllowed)
      */
-    public void setRegion(Region region) {
+    public void setRegion(OptionalEntity<Region> region) {
         _region = region;
     }
 
@@ -409,8 +410,8 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         if (!xSV(getMemberAddressId(), other.getMemberAddressId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -418,13 +419,13 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getMemberAddressId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getMemberAddressId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -448,15 +449,18 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_member != null)
-        { sb.append(l).append(xbRDS(_member, "member")); }
+        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_region != null)
-        { sb.append(l).append(xbRDS(_region, "region")); }
+        { sb.append(li).append(xbRDS(_region, "region")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
+    }
+    protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     /**
@@ -472,20 +476,20 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getMemberAddressId());
-        sb.append(delimiter).append(getMemberId());
-        sb.append(delimiter).append(xfUD(getValidBeginDate()));
-        sb.append(delimiter).append(xfUD(getValidEndDate()));
-        sb.append(delimiter).append(getAddress());
-        sb.append(delimiter).append(getRegionId());
-        sb.append(delimiter).append(getRegisterDatetime());
-        sb.append(delimiter).append(getRegisterUser());
-        sb.append(delimiter).append(getUpdateDatetime());
-        sb.append(delimiter).append(getUpdateUser());
-        sb.append(delimiter).append(getVersionNo());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getMemberAddressId());
+        sb.append(dm).append(getMemberId());
+        sb.append(dm).append(xfUD(getValidBeginDate()));
+        sb.append(dm).append(xfUD(getValidEndDate()));
+        sb.append(dm).append(getAddress());
+        sb.append(dm).append(getRegionId());
+        sb.append(dm).append(getRegisterDatetime());
+        sb.append(dm).append(getRegisterUser());
+        sb.append(dm).append(getUpdateDatetime());
+        sb.append(dm).append(getUpdateUser());
+        sb.append(dm).append(getVersionNo());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -498,11 +502,11 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_member != null) { sb.append(c).append("member"); }
-        if (_region != null) { sb.append(c).append("region"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        String cm = ",";
+        if (_member != null) { sb.append(cm).append("member"); }
+        if (_region != null) { sb.append(cm).append("region"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

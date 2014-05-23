@@ -64,7 +64,7 @@ public class WxCustomizeEntityTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNull(maxMemberId);
-        assertEquals(BigInteger.class, ForcedTypeDbm.getInstance().columnMaxMemberId().getPropertyType());
+        assertEquals(BigInteger.class, ForcedTypeDbm.getInstance().columnMaxMemberId().getObjectNativeType());
     }
 
     // ===================================================================================

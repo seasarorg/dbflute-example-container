@@ -48,13 +48,14 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgRegionId(), "regionId");
         setupEpg(_epgMap, new EpgRegionName(), "regionName");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgRegionId implements PropertyGateway {
         public Object read(Entity et) { return ((Region)et).getRegionId(); }
         public void write(Entity et, Object vl) { ((Region)et).setRegionId(cti(vl)); }
@@ -63,6 +64,8 @@ public class RegionDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Region)et).getRegionName(); }
         public void write(Entity et, Object vl) { ((Region)et).setRegionName((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -82,10 +85,18 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", true, "regionId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, "地域をしっかりと識別するID。\n珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。", null, "memberAddressList", CDef.DefMeta.Region);
-    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", true, "regionName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, "地域を漠然と表す名称。", null, null, null);
+    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, "地域をしっかりと識別するID。\n珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。", null, "memberAddressList", CDef.DefMeta.Region);
+    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "地域を漠然と表す名称。", null, null, null);
 
+    /**
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegionId() { return _columnRegionId; }
+    /**
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegionName() { return _columnRegionName; }
 
     protected List<ColumnInfo> ccil() {
@@ -110,6 +121,8 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -117,6 +130,10 @@ public class RegionDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerMemberAddressList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRegionId(), MemberAddressDbm.getInstance().columnRegionId());
         return cri("FK_MEMBER_ADDRESS_REGION", "memberAddressList", this, MemberAddressDbm.getInstance(), mp, false, "region");

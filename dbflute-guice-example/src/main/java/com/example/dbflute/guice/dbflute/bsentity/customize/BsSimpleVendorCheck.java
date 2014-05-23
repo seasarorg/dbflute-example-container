@@ -258,8 +258,8 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
         if (!xSV(getTypeOfBlob(), other.getTypeOfBlob())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -267,26 +267,26 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getVendorCheckId());
-        result = xCH(result, getTypeOfText());
-        result = xCH(result, getTypeOfBoolean());
-        result = xCH(result, getTypeOfNumericInteger());
-        result = xCH(result, getTypeOfNumericBigint());
-        result = xCH(result, getTypeOfNumericDecimal());
-        result = xCH(result, getTypeOfNumericIntegerMin());
-        result = xCH(result, getTypeOfNumericIntegerMax());
-        result = xCH(result, getTypeOfNumericBigintMin());
-        result = xCH(result, getTypeOfNumericBigintMax());
-        result = xCH(result, getTypeOfNumericSuperintMin());
-        result = xCH(result, getTypeOfNumericSuperintMax());
-        result = xCH(result, getTypeOfNumericMaxdecimal());
-        result = xCH(result, getTypeOfBlob());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getVendorCheckId());
+        hs = xCH(hs, getTypeOfText());
+        hs = xCH(hs, getTypeOfBoolean());
+        hs = xCH(hs, getTypeOfNumericInteger());
+        hs = xCH(hs, getTypeOfNumericBigint());
+        hs = xCH(hs, getTypeOfNumericDecimal());
+        hs = xCH(hs, getTypeOfNumericIntegerMin());
+        hs = xCH(hs, getTypeOfNumericIntegerMax());
+        hs = xCH(hs, getTypeOfNumericBigintMin());
+        hs = xCH(hs, getTypeOfNumericBigintMax());
+        hs = xCH(hs, getTypeOfNumericSuperintMin());
+        hs = xCH(hs, getTypeOfNumericSuperintMax());
+        hs = xCH(hs, getTypeOfNumericMaxdecimal());
+        hs = xCH(hs, getTypeOfBlob());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -326,23 +326,23 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getVendorCheckId());
-        sb.append(delimiter).append(getTypeOfText());
-        sb.append(delimiter).append(getTypeOfBoolean());
-        sb.append(delimiter).append(getTypeOfNumericInteger());
-        sb.append(delimiter).append(getTypeOfNumericBigint());
-        sb.append(delimiter).append(getTypeOfNumericDecimal());
-        sb.append(delimiter).append(getTypeOfNumericIntegerMin());
-        sb.append(delimiter).append(getTypeOfNumericIntegerMax());
-        sb.append(delimiter).append(getTypeOfNumericBigintMin());
-        sb.append(delimiter).append(getTypeOfNumericBigintMax());
-        sb.append(delimiter).append(getTypeOfNumericSuperintMin());
-        sb.append(delimiter).append(getTypeOfNumericSuperintMax());
-        sb.append(delimiter).append(getTypeOfNumericMaxdecimal());
-        sb.append(delimiter).append(xfBA(getTypeOfBlob()));
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getVendorCheckId());
+        sb.append(dm).append(getTypeOfText());
+        sb.append(dm).append(getTypeOfBoolean());
+        sb.append(dm).append(getTypeOfNumericInteger());
+        sb.append(dm).append(getTypeOfNumericBigint());
+        sb.append(dm).append(getTypeOfNumericDecimal());
+        sb.append(dm).append(getTypeOfNumericIntegerMin());
+        sb.append(dm).append(getTypeOfNumericIntegerMax());
+        sb.append(dm).append(getTypeOfNumericBigintMin());
+        sb.append(dm).append(getTypeOfNumericBigintMax());
+        sb.append(dm).append(getTypeOfNumericSuperintMin());
+        sb.append(dm).append(getTypeOfNumericSuperintMax());
+        sb.append(dm).append(getTypeOfNumericMaxdecimal());
+        sb.append(dm).append(xfBA(getTypeOfBlob()));
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();

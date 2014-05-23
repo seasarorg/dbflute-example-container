@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -181,7 +182,7 @@ public abstract class BsWithdrawalReasonDtoMapper implements DtoMapper<Withdrawa
             entity.setMemberWithdrawalList(relationEntityList);
             if (reverseReference) {
                 for (MemberWithdrawal relationEntity : relationEntityList) {
-                    relationEntity.setWithdrawalReason(entity);
+                    relationEntity.setWithdrawalReason(OptionalEntity.of(entity));
                 }
             }
         };

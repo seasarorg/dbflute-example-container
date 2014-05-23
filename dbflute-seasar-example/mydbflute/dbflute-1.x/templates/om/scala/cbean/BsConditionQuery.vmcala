@@ -1,0 +1,887 @@
+##
+## Copyright 2004-2014 the Seasar Foundation and the Others.
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+## either express or implied. See the License for the specific language
+## governing permissions and limitations under the License.
+##
+${database.allClassCopyright}package ${glPackageBaseCQ};
+#set ($myClassName = "${myBaseConditionQueryClassName}")
+
+import java.util.Map;
+
+import org.seasar.dbflute.cbean._
+#if (${table.hasCompoundKeyReferrer()})
+import org.seasar.dbflute.cbean.chelper._
+import org.seasar.dbflute.cbean.coption._
+#end
+import org.seasar.dbflute.cbean.cvalue.ConditionValue;
+import org.seasar.dbflute.cbean.sqlclause.SqlClause;
+import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
+import ${glPackageCIQ}._
+import ${glPackageCB}._
+import ${glPackageCQ}._
+
+/**
+ * The base condition-query of ${table.tableDbName}.
+ * @author ${database.classAuthor}
+ */
+class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClause, aliasName: String, nestLevel: Integer) extends ${myAbstractBaseConditionQueryClassName}(referrerQuery, sqlClause, aliasName, nestLevel) {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    protected var _inlineQuery: ${myConditionInlineQueryClassName} = null;
+
+    // ===================================================================================
+    //                                                                 InlineView/OrClause
+    //                                                                 ===================
+    /**
+     * Prepare InlineView query. <br />
+     * {select ... from ... left outer join (select * from ${table.tableDbName}) where FOO = [value] ...}
+     * <pre>
+     * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
+     * </pre>
+     * @return The condition-query for InlineView query. (NotNull)
+     */
+    def inline(): ${myConditionInlineQueryClassName} = {
+        if (_inlineQuery == null) { _inlineQuery = xcreateCIQ(); }
+        _inlineQuery.xsetOnClause(false); return _inlineQuery;
+    }
+
+    protected def xcreateCIQ(): ${myConditionInlineQueryClassName} = {
+        val ciq: ${myConditionInlineQueryClassName} = xnewCIQ();
+        ciq.xsetBaseCB(_baseCB);
+        return ciq;
+    }
+
+    protected def xnewCIQ(): ${myConditionInlineQueryClassName} = {
+        return new ${myConditionInlineQueryClassName}(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
+    }
+
+    /**
+     * Prepare OnClause query. <br />
+     * {select ... from ... left outer join ${table.tableDbName} on ... and FOO = [value] ...}
+     * <pre>
+     * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
+     * </pre>
+     * @return The condition-query for OnClause query. (NotNull)
+     * @throws IllegalConditionBeanOperationException When this condition-query is base query.
+     */
+    def on(): ${myConditionInlineQueryClassName} = {
+        if (isBaseQuery()) { throw new IllegalConditionBeanOperationException("OnClause for local table is unavailable!"); }
+        val inlineQuery: ${myConditionInlineQueryClassName} = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
+    }
+
+    // ===================================================================================
+    //                                                                               Query
+    //                                                                               =====
+#foreach ($col in $table.columns)
+#set ($tmpJavaName = "${col.JavaName}")
+#set ($tmpUncapitalisedJavaName = "${col.UncapitalisedJavaName}")
+#set ($fk = $col.foreignKey)
+
+    protected var _${tmpUncapitalisedJavaName}: ConditionValue = null;
+    def get${tmpJavaName}(): ConditionValue = {
+        if (_${tmpUncapitalisedJavaName} == null) { _${tmpUncapitalisedJavaName} = nCV(); }
+        return _${tmpUncapitalisedJavaName};
+    }
+    protected def getCValue${tmpJavaName}(): ConditionValue = { return get${tmpJavaName}(); }
+#if (${col.isJavaNativeStringObject()})
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.existsReferrerReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.existsReferrerReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.isInScopeRelationAllowedForeignKey()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.inScopeRelationReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.isInScopeRelationAllowedForeignKey()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.inScopeRelationReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+    protected var _${subQueryPropertyName}ParameterMap: Map[String, Object] = null;
+    def get${subQueryPropertyNameInitCap}Parameter(): Map[String, Object] = { return _${subQueryPropertyName}ParameterMap; }
+    def keep${subQueryPropertyNameInitCap}Parameter(vl: Object): String = {
+        if (_${subQueryPropertyName}ParameterMap == null) { _${subQueryPropertyName}ParameterMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryParameterKey" + (_${subQueryPropertyName}ParameterMap.size() + 1);
+        _${subQueryPropertyName}ParameterMap.put(ky, vl); return "${subQueryPropertyName}Parameter." + ky;
+    }
+#end
+#end
+#end
+#end
+#if (${col.isJavaNativeNumberObject()})
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.existsReferrerReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.existsReferrerReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#end
+#if (${col.isInScopeRelationAllowedForeignKey()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.inScopeRelationReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_InScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_InScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.isInScopeRelationAllowedForeignKey()})
+#set ($relatedCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${fk.foreignPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.inScopeRelationReferrers)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCapAsOne}")
+#else
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotInScopeRelation_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotInScopeRelation_${referrer.ReferrerPropertyNameInitCap}")
+#end
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+#end
+#end
+#if (${col.hasSingleKeyReferrer()})
+#foreach ($referrer in $col.singleKeyReferrers)
+#if (!${referrer.isOneToOne()})
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+    protected var _${subQueryPropertyName}ParameterMap: Map[String, Object] = null;
+    def get${subQueryPropertyNameInitCap}Parameter(): Map[String, Object] = { return _${subQueryPropertyName}ParameterMap; }
+    def keep${subQueryPropertyNameInitCap}Parameter(vl: Object): String = {
+        if (_${subQueryPropertyName}ParameterMap == null) { _${subQueryPropertyName}ParameterMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryParameterKey" + (_${subQueryPropertyName}ParameterMap.size() + 1);
+        _${subQueryPropertyName}ParameterMap.put(ky, vl); return "${subQueryPropertyName}Parameter." + ky;
+    }
+#end
+#end
+#end
+#end
+#if ($col.isAvailableOrderByAsc())
+
+    /** 
+     * Add order-by as ascend. <br />
+     * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
+     * @return this. (NotNull)
+     */
+    def addOrderBy_${tmpJavaName}_Asc(): ${myClassName} = { regOBA("${col.name}"); return this; }
+#end
+#if ($col.isAvailableOrderByDesc())
+
+    /**
+     * Add order-by as descend. <br />
+     * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
+     * @return this. (NotNull)
+     */
+    def addOrderBy_${tmpJavaName}_Desc(): ${myClassName} = { regOBD("${col.name}"); return this; }
+#end
+#end
+
+    // ===================================================================================
+    //                                                             SpecifiedDerivedOrderBy
+    //                                                             =======================
+    /**
+     * Add order-by for specified derived column as ascend.
+     * <pre>
+     * cb.specify().derivedPurchaseList().max(new SubQuery&lt;PurchaseCB&gt;() {
+     *     public void query(PurchaseCB subCB) {
+     *         subCB.specify().columnPurchaseDatetime();
+     *     }
+     * }, <span style="color: #DD4747">aliasName</span>);
+     * <span style="color: #3F7E5E">// order by [alias-name] asc</span>
+     * cb.<span style="color: #DD4747">addSpecifiedDerivedOrderBy_Asc</span>(<span style="color: #DD4747">aliasName</span>);
+     * </pre>
+     * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
+     * @return this. (NotNull)
+     */
+    def addSpecifiedDerivedOrderBy_Asc(aliasName: String): ${myClassName} =
+    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+
+    /**
+     * Add order-by for specified derived column as descend.
+     * <pre>
+     * cb.specify().derivedPurchaseList().max(new SubQuery&lt;PurchaseCB&gt;() {
+     *     public void query(PurchaseCB subCB) {
+     *         subCB.specify().columnPurchaseDatetime();
+     *     }
+     * }, <span style="color: #DD4747">aliasName</span>);
+     * <span style="color: #3F7E5E">// order by [alias-name] desc</span>
+     * cb.<span style="color: #DD4747">addSpecifiedDerivedOrderBy_Desc</span>(<span style="color: #DD4747">aliasName</span>);
+     * </pre>
+     * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
+     * @return this. (NotNull)
+     */
+    def addSpecifiedDerivedOrderBy_Desc(aliasName: String): ${myClassName} =
+    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+
+    // ===================================================================================
+    //                                                                         Union Query
+    //                                                                         ===========
+    def reflectRelationOnUnionQuery(bqs: ConditionQuery, uqs: ConditionQuery): Unit = {
+#if ($table.hasForeignKeyOrReferrerAsOne())
+        val bq: ${myConditionQueryClassName} = bqs.asInstanceOf[${myConditionQueryClassName}];
+        val uq: ${myConditionQueryClassName} = uqs.asInstanceOf[${myConditionQueryClassName}];
+#end
+#foreach ($fk in $table.foreignKeys)
+        if (bq.hasConditionQuery${fk.foreignPropertyNameInitCap}()) {
+#if ($fk.hasDynamicFixedCondition())
+            uq.xsetParameterMap${fk.foreignPropertyNameInitCap}(bq.getParameterMap${fk.foreignPropertyNameInitCap}());
+            uq.getConditionQuery${fk.foreignPropertyNameInitCap}().reflectRelationOnUnionQuery(bq.getConditionQuery${fk.foreignPropertyNameInitCap}(), uq.getConditionQuery${fk.foreignPropertyNameInitCap}());
+#else
+            uq.query${fk.foreignPropertyNameInitCap}().reflectRelationOnUnionQuery(bq.query${fk.foreignPropertyNameInitCap}(), uq.query${fk.foreignPropertyNameInitCap}());
+#end
+        }
+#end
+#foreach ($referrer in $table.referrerAsOneList)
+        if (bq.hasConditionQuery${referrer.referrerPropertyNameInitCapAsOne}()) {
+            uq.query${referrer.referrerPropertyNameInitCapAsOne}().reflectRelationOnUnionQuery(bq.query${referrer.referrerPropertyNameInitCapAsOne}(), uq.query${referrer.referrerPropertyNameInitCapAsOne}());
+        }
+#end
+    }
+
+    // ===================================================================================
+    //                                                                       Foreign Query
+    //                                                                       =============
+#foreach ($fk in $table.foreignKeys)
+#set ($foreignCQClassName = "${fk.foreignTableExtendedConditionQueryClassName}")
+#set ($dynamicFixedConditionArgs = "")
+#if ($fk.hasDynamicFixedCondition())
+#set ($dynamicFixedConditionArgs = "${fk.dynamicFixedConditionArgs}")
+#end
+    /**
+     * Get the condition-query for relation table. <br />
+     * ${fk.foreignDispForJavaDoc}
+#if ($fk.hasDynamicFixedCondition())
+     * ${fk.dynamicFixedConditionArgsJavaDocString}
+#end
+     * @return The instance of condition-query. (NotNull)
+     */
+    def query${fk.foreignPropertyNameInitCap}(${dynamicFixedConditionArgs}): ${foreignCQClassName} = {
+#if ($fk.hasDynamicFixedCondition())
+        Map<String, Object> parameterMap = getParameterMap${fk.foreignPropertyNameInitCap}();
+        ${fk.dynamicFixedConditionParameterMapSetup}
+        assertFixedConditionDynamicParameter("${fk.foreignPropertyName}", parameterMap);
+#end
+        return getConditionQuery${fk.foreignPropertyNameInitCap}();
+    }
+    protected var _conditionQuery${fk.foreignPropertyNameInitCap}: ${foreignCQClassName} = null;
+    def getConditionQuery${fk.ForeignPropertyNameInitCap}(): ${foreignCQClassName} = {
+        if (_conditionQuery${fk.foreignPropertyNameInitCap} == null) {
+            _conditionQuery${fk.foreignPropertyNameInitCap} = xcreateQuery${fk.foreignPropertyNameInitCap}();
+            xsetupOuterJoin${fk.foreignPropertyNameInitCap}();
+        }
+        return _conditionQuery${fk.foreignPropertyNameInitCap};
+    }
+#if ($fk.hasDynamicFixedCondition())
+    protected var _parameterMap${fk.foreignPropertyNameInitCap}: Map[String, Object] = null;
+    def getParameterMap${fk.foreignPropertyNameInitCap}(): Map[String, Object] = {
+        if (_parameterMap${fk.foreignPropertyNameInitCap} == null) {
+            _parameterMap${fk.foreignPropertyNameInitCap} = newLinkedHashMapSized(4);
+        }
+        return _parameterMap${fk.foreignPropertyNameInitCap};
+    }
+    def xsetParameterMap${fk.foreignPropertyNameInitCap}(parameterMap: Map[String, Object]): Unit = {
+        _parameterMap${fk.foreignPropertyNameInitCap} = parameterMap; // for UnionQuery
+    }
+#end
+    protected def xcreateQuery${fk.foreignPropertyNameInitCap}(): ${foreignCQClassName} = {
+        val nrp: String = resolveNextRelationPath("${table.tableDbName}",  "${fk.foreignPropertyName}");
+        val jan: String = resolveJoinAliasName(nrp,  xgetNextNestLevel());
+        val cq: ${foreignCQClassName} = new ${foreignCQClassName}(this,  xgetSqlClause(),  jan,  xgetNextNestLevel());
+        cq.xsetBaseCB(_baseCB);
+        cq.xsetForeignPropertyName("${fk.foreignPropertyName}");
+        cq.xsetRelationPath(nrp); return cq;
+    }
+    protected def xsetupOuterJoin${fk.foreignPropertyNameInitCap}(): Unit = {
+        val cq: ${foreignCQClassName} = getConditionQuery${fk.foreignPropertyNameInitCap}();
+        val joinOnMap: Map[String, String] = newLinkedHashMapSized(4);
+#foreach ($columnName in $fk.localColumnNameList)
+#set ($localColumn = $table.getColumn($columnName))
+#set ($foreignColumnName = $fk.getLocalForeignMapping().get($columnName))
+        joinOnMap.put("${localColumn.name}", "${foreignColumnName}");
+#end
+        registerOuterJoin(cq, joinOnMap, "${fk.foreignPropertyName}");
+    }
+    def hasConditionQuery${fk.ForeignPropertyNameInitCap}(): Boolean = {
+        return _conditionQuery${fk.ForeignPropertyNameInitCap} != null;
+    }
+
+#end
+#foreach ($referrer in $table.referrerAsOneList)
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+    /**
+     * Get the condition-query for relation table. <br />
+     * ${referrer.referrerDispAsOneForJavaDoc}
+     * @return The instance of condition-query. (NotNull)
+     */
+    def query${referrer.referrerPropertyNameInitCapAsOne}(): ${relatedCQClassName} = {
+        return getConditionQuery${referrer.referrerPropertyNameInitCapAsOne}();
+    }
+    protected var _conditionQuery${referrer.referrerPropertyNameInitCapAsOne}: ${relatedCQClassName} = null;
+    def getConditionQuery${referrer.referrerPropertyNameInitCapAsOne}(): ${relatedCQClassName} = {
+        if (_conditionQuery${referrer.referrerPropertyNameInitCapAsOne} == null) {
+            _conditionQuery${referrer.referrerPropertyNameInitCapAsOne} = xcreateQuery${referrer.referrerPropertyNameInitCapAsOne}();
+            xsetupOuterJoin${referrer.referrerPropertyNameInitCapAsOne}();
+        }
+        return _conditionQuery${referrer.referrerPropertyNameInitCapAsOne};
+    }
+    protected def xcreateQuery${referrer.referrerPropertyNameInitCapAsOne}(): ${relatedCQClassName} = {
+        val nrp: String = resolveNextRelationPath("${table.tableDbName}",  "${referrer.referrerPropertyNameAsOne}");
+        val jan: String = resolveJoinAliasName(nrp,  xgetNextNestLevel());
+        val cq: ${relatedCQClassName} = new ${relatedCQClassName}(this,  xgetSqlClause(),  jan,  xgetNextNestLevel());
+        cq.xsetBaseCB(_baseCB);
+        cq.xsetForeignPropertyName("${referrer.referrerPropertyNameAsOne}");
+        cq.xsetRelationPath(nrp); return cq;
+    }
+    protected def xsetupOuterJoin${referrer.referrerPropertyNameInitCapAsOne}(): Unit = {
+        val cq: ${relatedCQClassName} = getConditionQuery${referrer.referrerPropertyNameInitCapAsOne}();
+        val joinOnMap: Map[String, String] = newLinkedHashMapSized(4);
+#foreach ($columnName in $referrer.foreignColumnNameList)
+#set ($foreignColumn = $table.getColumn($columnName))
+#set ($referrerColumnName = $referrer.getForeignLocalMapping().get($columnName))
+        joinOnMap.put("${foreignColumn.name}", "${referrerColumnName}");
+#end
+        registerOuterJoin(cq, joinOnMap, "${referrer.referrerPropertyNameAsOne}");
+    }
+    def hasConditionQuery${referrer.referrerPropertyNameInitCapAsOne}(): Boolean = {
+        return _conditionQuery${referrer.referrerPropertyNameInitCapAsOne} != null;
+    }
+
+#end
+    protected def xfindFixedConditionDynamicParameterMap(property: String): Map[String, Object] = {
+#foreach ($fk in $table.foreignKeys)
+#if ($fk.hasDynamicFixedCondition())
+        if ("${fk.foreignPropertyName}".equalsIgnoreCase(property)) {
+            return _parameterMap${fk.foreignPropertyNameInitCap};
+        }
+#end
+#end
+        return null;
+    }
+
+#if ($table.hasSinglePrimaryKey())
+    // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    protected var _scalarConditionMap: Map[String, ${myConditionQueryClassName}] = null;
+    def getScalarCondition(): Map[String, ${myConditionQueryClassName}] = { return _scalarConditionMap; }
+    def keepScalarCondition(sq: ${myConditionQueryClassName}): String = {
+        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
+    }
+
+    // ===================================================================================
+    //                                                                       MyselfDerived
+    //                                                                       =============
+    protected var _specifyMyselfDerivedMap: Map[String, ${myConditionQueryClassName}] = null;
+    def getSpecifyMyselfDerived(): Map[String, ${myConditionQueryClassName}] = { return _specifyMyselfDerivedMap; }
+    def keepSpecifyMyselfDerived(sq: ${myConditionQueryClassName}): String = {
+        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
+    }
+
+    protected var _queryMyselfDerivedMap: Map[String, ${myConditionQueryClassName}] = null;
+    def getQueryMyselfDerived(): Map[String, ${myConditionQueryClassName}] = { return _queryMyselfDerivedMap; }
+    def keepQueryMyselfDerived(sq: ${myConditionQueryClassName}): String = {
+        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
+    }
+    protected var _qyeryMyselfDerivedParameterMap: Map[String, Object] = null;
+    def getQueryMyselfDerivedParameter(): Map[String, Object] = { return _qyeryMyselfDerivedParameterMap; }
+    def keepQueryMyselfDerivedParameter(vl: Object): String = {
+        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
+    }
+
+    // ===================================================================================
+    //                                                                        MyselfExists
+    //                                                                        ============
+    protected var _myselfExistsMap: Map[String, ${myConditionQueryClassName}] = null;
+    def getMyselfExists(): Map[String, ${myConditionQueryClassName}] = { return _myselfExistsMap; }
+    def keepMyselfExists(sq: ${myConditionQueryClassName}): String = {
+        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
+    }
+
+    // ===================================================================================
+    //                                                                       MyselfInScope
+    //                                                                       =============
+    protected var _myselfInScopeMap: Map[String, ${myConditionQueryClassName}] = null;
+    def getMyselfInScope(): Map[String, ${myConditionQueryClassName}] = { return _myselfInScopeMap; }
+    def keepMyselfInScope(sq: ${myConditionQueryClassName}): String = {
+        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
+    }
+
+#end
+#if (${table.hasCompoundKeyReferrer()})
+    // ===================================================================================
+    //                                                      ExistsReferrer for Compound PK
+    //                                                      ==============================
+#foreach ($referrer in $table.referrerList)
+#if (${referrer.isCompoundFK()} && !${referrer.isImplicitReverseForeignKey()})
+#set ($tmpJavaName = "TwoOrMorePk")
+#set ($tmpUncapitalisedJavaName = "twoOrMorePk")
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($relationPropertyName = "${referrer.referrerPropertyNameAsOne}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($relationPropertyName = "${referrer.referrerPropertyName}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_ExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br />
+     * {exists (select ... from ${referrer.table.tableDbName} where ...)}
+     * @param subQuery The sub-query of ${relationPropertyNameInitCap} for 'exists'. (NotNull)
+     */
+    def exists${relationPropertyNameInitCap}(subQuery: SubQuery[${relatedCBClassName}]): Unit = {
+        assertObjectNotNull("subQuery<${relatedCBClassName}>", subQuery);
+        val cb: ${relatedCBClassName} = new ${relatedCBClassName}(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        val pp: String = keep${subQueryPropertyNameInitCap}(cb.query());
+        registerExistsReferrer(cb.query(), "${referrer.foreignColumnNameCommaString}", "${referrer.localColumnNameCommaString}", pp, "${relationPropertyName}");
+    }
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+
+#end
+#end
+#foreach ($referrer in $table.referrerList)
+#if (${referrer.isCompoundFK()} && !${referrer.isImplicitReverseForeignKey()})
+#set ($tmpJavaName = "TwoOrMorePk")
+#set ($tmpUncapitalisedJavaName = "twoOrMorePk")
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($relationPropertyName = "${referrer.referrerPropertyNameAsOne}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($relationPropertyName = "${referrer.referrerPropertyName}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_NotExistsReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br />
+     * {not exists (select ... from ${referrer.table.tableDbName} where ...)}
+     * @param subQuery The sub-query of ${relationPropertyNameInitCap} for 'not exists'. (NotNull)
+     */
+    def notExists${relationPropertyNameInitCap}(subQuery: SubQuery[${relatedCBClassName}]): Unit = {
+        assertObjectNotNull("subQuery<${relatedCBClassName}>", subQuery);
+        val cb: ${relatedCBClassName} = new ${relatedCBClassName}(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        val pp: String = keep${subQueryPropertyNameInitCap}(cb.query());
+        registerNotExistsReferrer(cb.query(), "${referrer.foreignColumnNameCommaString}", "${referrer.localColumnNameCommaString}", pp, "${relationPropertyName}");
+    }
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+
+#end
+#end
+#end
+#if (${table.hasCompoundKeyReferrer()})
+    // ===================================================================================
+    //                                            (Specify)DerivedReferrer for Compound PK
+    //                                            ========================================
+#foreach ($referrer in $table.referrerList)
+#if (${referrer.isCompoundFK()} && !${referrer.isImplicitReverseForeignKey()})
+#set ($tmpJavaName = "TwoOrMorePk")
+#set ($tmpUncapitalisedJavaName = "twoOrMorePk")
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($relationPropertyName = "${referrer.referrerPropertyNameAsOne}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($relationPropertyName = "${referrer.referrerPropertyName}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_SpecifyDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    def xsderive${relationPropertyNameInitCap}(fn: String, sq: SubQuery[${relatedCBClassName}], al: String, op: DerivedReferrerOption): Unit = {
+        assertObjectNotNull("subQuery", sq);
+        val cb: ${relatedCBClassName} = new ${relatedCBClassName}(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        val pp: String = keep${subQueryPropertyNameInitCap}(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "${referrer.foreignColumnNameCommaString}", "${referrer.localColumnNameCommaString}", pp, "${relationPropertyName}", al, op);
+    }
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+
+#end
+#end
+#end
+#if (${table.hasCompoundKeyReferrer()})
+    // ===================================================================================
+    //                                              (Query)DerivedReferrer for Compound PK
+    //                                              ======================================
+#foreach ($referrer in $table.referrerList)
+#if (${referrer.isCompoundFK()} && !${referrer.isImplicitReverseForeignKey()})
+#if (${referrer.hasFixedSuffix()})
+#set ($tmpJavaName = "TwoOrMorePk${referrer.fixedSuffix}")
+#set ($tmpUncapitalisedJavaName = "twoOrMorePk${referrer.fixedSuffix}")
+#else
+#set ($tmpJavaName = "TwoOrMorePk")
+#set ($tmpUncapitalisedJavaName = "twoOrMorePk")
+#end
+#set ($relatedCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($relatedCQClassName = "${referrer.referrerTableExtendedConditionQueryClassName}")
+#set ($subQueryKeepMapGeneric = "String, ${relatedCQClassName}")
+#if (${referrer.isOneToOne()})
+#set ($relationPropertyName = "${referrer.referrerPropertyNameAsOne}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCapAsOne}")
+#else
+#set ($relationPropertyName = "${referrer.referrerPropertyName}")
+#set ($relationPropertyNameInitCap = "${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyNameInitCap = "${tmpJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#set ($subQueryPropertyName = "${tmpUncapitalisedJavaName}_QueryDerivedReferrer_${referrer.referrerPropertyNameInitCap}")
+#end
+    /**
+     * Prepare for (Query)DerivedReferrer. <br />
+     * {FOO &lt;= (select max(BAR) from ${referrer.table.tableDbName} where ...)} <br />
+     * ${referrer.referrerDispAsOneForJavaDoc}
+     * <pre>
+     * cb.query().<span style="color: #DD4747">derived${referrer.referrerPropertyNameInitCap}()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;${relatedCBClassName}&gt;() {
+     *     public void query(${relatedCBClassName} subCB) {
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     *     }
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    def derived${relationPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
+        return xcreateQDRFunction${relationPropertyNameInitCap}();
+    }
+    protected def xcreateQDRFunction${relationPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
+        return new HpQDRFunction<${relatedCBClassName}>(new HpQDRSetupper<${relatedCBClassName}>() {
+            def setup(fn: String, sq: SubQuery[${relatedCBClassName}], rd: String, vl: Object, op: DerivedReferrerOption): Unit = {
+                xqderive${relationPropertyNameInitCap}(fn, sq, rd, vl, op);
+            }
+        });
+    }
+    def xqderive${relationPropertyNameInitCap}(fn: String, sq: SubQuery[${relatedCBClassName}], rd: String, vl: Object, op: DerivedReferrerOption): Unit = {
+        assertObjectNotNull("subQuery", sq);
+        val cb: ${relatedCBClassName} = new ${relatedCBClassName}(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        val sqpp: String = keep${subQueryPropertyNameInitCap}(cb.query()); String prpp = keep${subQueryPropertyNameInitCap}Parameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "${referrer.foreignColumnNameCommaString}", "${referrer.localColumnNameCommaString}", sqpp, "${relationPropertyName}", rd, vl, prpp, op);
+    }
+    protected var _${subQueryPropertyName}Map: Map[${subQueryKeepMapGeneric}] = null;
+    def get${subQueryPropertyNameInitCap}(): Map[${subQueryKeepMapGeneric}] = { return _${subQueryPropertyName}Map; }
+    def keep${subQueryPropertyNameInitCap}(sq: ${relatedCQClassName}): String = {
+        if (_${subQueryPropertyName}Map == null) { _${subQueryPropertyName}Map = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryMapKey" + (_${subQueryPropertyName}Map.size() + 1);
+        _${subQueryPropertyName}Map.put(ky, sq); return "${subQueryPropertyName}." + ky;
+    }
+    protected var _${subQueryPropertyName}ParameterMap: Map[String, Object] = null;
+    def get${subQueryPropertyNameInitCap}Parameter(): Map[String, Object] = { return _${subQueryPropertyName}ParameterMap; }
+    def keep${subQueryPropertyNameInitCap}Parameter(vl: Object): String = {
+        if (_${subQueryPropertyName}ParameterMap == null) { _${subQueryPropertyName}ParameterMap = newLinkedHashMapSized(4); }
+        val ky: String = "subQueryParameterKey" + (_${subQueryPropertyName}ParameterMap.size() + 1);
+        _${subQueryPropertyName}ParameterMap.put(ky, vl); return "${subQueryPropertyName}Parameter." + ky;
+    }
+
+#end
+#end
+#end
+    // ===================================================================================
+    //                                                                       Very Internal
+    //                                                                       =============
+    // very internal (for suppressing warn about 'Not Use Import')
+    protected def xCB(): String = { return classOf[${myConditionBeanClassName}].getName(); }
+    protected def xCQ(): String = { return classOf[${myConditionQueryClassName}].getName(); }
+    protected def xMap(): String = { return classOf[Map[_, _]].getName(); }
+}

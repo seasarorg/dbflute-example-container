@@ -25,9 +25,9 @@ public class MemberFollowingCIQ extends AbstractBsMemberFollowingCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MemberFollowingCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MemberFollowingCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, BsMemberFollowingCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

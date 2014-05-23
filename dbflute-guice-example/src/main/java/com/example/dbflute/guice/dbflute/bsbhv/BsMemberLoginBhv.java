@@ -413,7 +413,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberLogin> memberLoginList) {
         return helpPulloutInternally(memberLoginList, new InternalPulloutCallback<MemberLogin, Member>() {
-            public Member getFr(MemberLogin et) { return et.getMember(); }
+            public Member getFr(MemberLogin et)
+            { return et.getMember().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberLogin> ls)
             { et.setMemberLoginList(ls); }
@@ -426,7 +427,8 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
      */
     public List<MemberStatus> pulloutMemberStatus(List<MemberLogin> memberLoginList) {
         return helpPulloutInternally(memberLoginList, new InternalPulloutCallback<MemberLogin, MemberStatus>() {
-            public MemberStatus getFr(MemberLogin et) { return et.getMemberStatus(); }
+            public MemberStatus getFr(MemberLogin et)
+            { return et.getMemberStatus().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MemberStatus et, List<MemberLogin> ls)
             { et.setMemberLoginList(ls); }

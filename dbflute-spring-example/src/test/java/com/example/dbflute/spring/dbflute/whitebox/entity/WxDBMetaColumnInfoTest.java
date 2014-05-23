@@ -41,7 +41,7 @@ public class WxDBMetaColumnInfoTest extends PlainTestCase {
         assertNotNull(columnInfo);
         assertNotNull(columnInfo.getColumnDbName());
         assertNotNull(columnInfo.getPropertyName());
-        assertNotNull(columnInfo.getPropertyType());
+        assertNotNull(columnInfo.getObjectNativeType());
         assertNotNull(columnInfo.getColumnAlias()); // because it does not use alias definition.
     }
 

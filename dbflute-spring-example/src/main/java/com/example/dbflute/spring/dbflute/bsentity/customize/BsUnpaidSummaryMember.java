@@ -282,8 +282,8 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
         if (!xSV(getUnpaidManId(), other.getUnpaidManId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -291,13 +291,13 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getUnpaidManId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getUnpaidManId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -337,13 +337,13 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getUnpaidManId());
-        sb.append(delimiter).append(getUnpaidManName());
-        sb.append(delimiter).append(getUnpaidPriceSummary());
-        sb.append(delimiter).append(getStatusName());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getUnpaidManId());
+        sb.append(dm).append(getUnpaidManName());
+        sb.append(dm).append(getUnpaidPriceSummary());
+        sb.append(dm).append(getStatusName());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();

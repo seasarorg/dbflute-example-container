@@ -39,8 +39,8 @@ public class BsProductCQ extends AbstractBsProductCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsProductCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsProductCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -445,7 +445,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         ProductCQ bq = (ProductCQ)bqs;
         ProductCQ uq = (ProductCQ)uqs;
         if (bq.hasConditionQueryProductCategory()) {

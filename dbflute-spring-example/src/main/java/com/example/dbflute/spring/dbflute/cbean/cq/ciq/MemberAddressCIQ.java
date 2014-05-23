@@ -40,9 +40,9 @@ public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MemberAddressCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MemberAddressCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, BsMemberAddressCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

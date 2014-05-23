@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.exception.SelectEntityConditionNotFoundException;
+import org.seasar.dbflute.optional.OptionalObjectConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
@@ -134,10 +135,13 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        for (Member member : memberList) {
-            MemberStatus memberStatus = member.getMemberStatus();
-            assertNotNull("NotNull制約のFKなのでnullはありえない", memberStatus);
-            log(member.getMemberName() + ", " + memberStatus.getMemberStatusName());
+        for (final Member member : memberList) {
+            member.getMemberStatus().required(new OptionalObjectConsumer<MemberStatus>() {
+                public void accept(MemberStatus status) {
+                    assertNotNull("NotNull制約のFKなのでnullはありえない", status);
+                    log(member.getMemberName() + ", " + status.getMemberStatusName());
+                }
+            });
         }
 
         // [SQL]
@@ -171,16 +175,16 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        boolean existsMemberWithdrawal = false;
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();// *Point!
-            if (memberWithdrawalAsOne != null) {// {1 : 0...1}の関連なのでnullチェック
-                log("    [MEMBER_WITHDRAWAL]: " + memberWithdrawalAsOne);
-                existsMemberWithdrawal = true;
-            }
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+                public void accept(MemberWithdrawal withdrawal) { // {1 : 0...1}の関連なのでnullチェック
+                    log("    [MEMBER_WITHDRAWAL]: " + withdrawal);
+                    markHere("exists");
+                }
+            });
         }
-        assertTrue(existsMemberWithdrawal);
+        assertMarked("exists");
 
         // [SQL]
         // select ...
@@ -350,7 +354,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
             log(member.toString());
-            assertNull("条件(query)利用のみの結合である", member.getMemberWithdrawalAsOne());
+            assertFalse("条件(query)利用のみの結合である", member.getMemberWithdrawalAsOne().isPresent());
         }
 
         // [SQL]
@@ -448,7 +452,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
             log(member.getMemberName() + ", " + member.getMemberStatusCode());
-            assertNull("ソート利用のみの結合である", member.getMemberStatus());
+            assertFalse("ソート利用のみの結合である", member.getMemberStatus().isPresent());
         }
 
         // [SQL]

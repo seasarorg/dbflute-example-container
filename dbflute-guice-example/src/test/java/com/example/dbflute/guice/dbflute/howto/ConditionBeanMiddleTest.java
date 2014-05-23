@@ -14,6 +14,8 @@ import org.seasar.dbflute.cbean.PagingResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
+import org.seasar.dbflute.optional.OptionalEntity;
+import org.seasar.dbflute.optional.OptionalObjectConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.cbean.MemberLoginCB;
@@ -95,23 +97,24 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        boolean existsWithdrawalReason = false;
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {// {1 : 0...1}の関連なのでnullチェック
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {// NullableなFKなのでnullチェック
-                    String withdrawalReasonCode = memberWithdrawalAsOne.getWithdrawalReasonCode();
-                    String withdrawalReasonText = withdrawalReason.getWithdrawalReasonText();
-                    log("    [WITHDRAWAL]" + withdrawalReasonCode + " - " + withdrawalReasonText);
-                    existsWithdrawalReason = true;
-                } else {
-                    log("    [WITHDRAWAL]" + memberWithdrawalAsOne);
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+                public void accept(MemberWithdrawal withdrawal) {
+                    OptionalEntity<WithdrawalReason> optReason = withdrawal.getWithdrawalReason();
+                    if (optReason.isPresent()) { // NullableなFKなのでnullチェック
+                        WithdrawalReason reason = optReason.get();
+                        String withdrawalReasonCode = withdrawal.getWithdrawalReasonCode();
+                        String withdrawalReasonText = reason.getWithdrawalReasonText();
+                        log("    [WITHDRAWAL]" + withdrawalReasonCode + " - " + withdrawalReasonText);
+                        markHere("exists");
+                    } else {
+                        log("    [WITHDRAWAL]" + withdrawal);
+                    }
                 }
-            }
+            });
         }
-        assertTrue(existsWithdrawalReason);
+        assertMarked("exists");
 
         // [Description]
         // A. setupSelect_Xxx()した後に続いてwithXxx()と指定することでさらに上の階層を指定できる。
@@ -136,29 +139,31 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
-        boolean existsWithdrawal = false;
         for (Purchase purchase : purchaseList) {
-            Product product = purchase.getProduct();
-            ProductStatus productStatus = product.getProductStatus();
+            Product product = purchase.getProduct().get();
+            ProductStatus productStatus = product.getProductStatus().get();
             assertNotNull(product);
             assertNotNull(productStatus);
             log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + productStatus);
-            Member member = purchase.getMember();
+            final Member member = purchase.getMember().get();
             assertNotNull(member);
             assertNotNull(member.getMemberStatus());
 
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {
-                    String reasonText = withdrawalReason.getWithdrawalReasonText();
-                    log("    [MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
-                    assertNotNull(reasonText);
-                    existsWithdrawal = true;
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+                public void accept(MemberWithdrawal withdrawal) {
+                    withdrawal.getWithdrawalReason().ifPresent(new OptionalObjectConsumer<WithdrawalReason>() {
+                        public void accept(WithdrawalReason reason) {
+                            String reasonText = reason.getWithdrawalReasonText();
+                            log("    [MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", "
+                                    + reasonText);
+                            assertNotNull(reasonText);
+                            markHere("exists");
+                        }
+                    });
                 }
-            }
+            });
         }
-        assertTrue("退会者が少なくとも一人以上は存在してないとテストにならない", existsWithdrawal);
+        assertMarked("exists");
     }
 
     // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -615,7 +620,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // select ...
         //   from MEMBER 
         //  where MEMBER_NAME like '%100|%ジュース||和歌山|_テ%' escape '|'
-        
+
         // [Description]
         // A. likeXxx()を指定すると自動でエスケープ処理が施される。
         // B. likeXxx()を指定した後にnotEscape()を呼ぶとエスケープ処理が解除される。
@@ -691,7 +696,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // A. LikeSearchOptionの指定は必須。(nullは例外)
         // B. likeXxx()を指定すると自動でエスケープ処理が施される。
     }
-    
+
     // -----------------------------------------------------
     //                                        ExistsSubQuery
     //                                        --------------
@@ -725,7 +730,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -804,7 +809,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsProduct = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -873,7 +878,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //        )
         //  order by dflocal.MEMBER_ID asc, dflocal.PRODUCT_ID asc
     }
-    
+
     /**
      * Query-NotExistsSubQueryで子テーブルの条件で絞り込み: cb.query().notExistsXxxList().
      * 一回の購入で二点以上の購入をしたこと「ない」会員を検索。
@@ -906,7 +911,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -951,7 +956,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -997,7 +1002,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsProduct = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -1044,7 +1049,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             List<Purchase> purchaseList = member.getPurchaseList();
             boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
+                Product product = purchase.getProduct().get();
                 Integer purchaseCount = purchase.getPurchaseCount();
                 String productName = product.getProductName();
                 log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
@@ -1130,7 +1135,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Assert ##
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            String memberStatusName = member.getMemberStatus().getMemberStatusName();
+            String memberStatusName = member.getMemberStatus().get().getMemberStatusName();
             if (!memberName.startsWith("St")) {
                 log("[Provisional]: " + memberName + ", " + memberStatusName);
                 assertTrue(member.isMemberStatusCodeProvisional());

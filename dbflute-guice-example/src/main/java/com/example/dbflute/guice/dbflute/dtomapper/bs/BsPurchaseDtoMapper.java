@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -117,8 +118,8 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressMember && entity.getMember() != null) {
-            Member relationEntity = entity.getMember();
+        if (!_suppressMember && entity.getMember().isPresent()) {
+            Member relationEntity = entity.getMember().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -142,8 +143,8 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 }
             }
         };
-        if (!_suppressProduct && entity.getProduct() != null) {
-            Product relationEntity = entity.getProduct();
+        if (!_suppressProduct && entity.getProduct().isPresent()) {
+            Product relationEntity = entity.getProduct().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -167,8 +168,8 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 }
             }
         };
-        if (!_suppressSummaryProduct && entity.getSummaryProduct() != null) {
-            SummaryProduct relationEntity = entity.getSummaryProduct();
+        if (!_suppressSummaryProduct && entity.getSummaryProduct().isPresent()) {
+            SummaryProduct relationEntity = entity.getSummaryProduct().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -192,8 +193,8 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 }
             }
         };
-        if (!_suppressMemberLoginAsBizManyToOne && entity.getMemberLoginAsBizManyToOne() != null) {
-            MemberLogin relationEntity = entity.getMemberLoginAsBizManyToOne();
+        if (!_suppressMemberLoginAsBizManyToOne && entity.getMemberLoginAsBizManyToOne().isPresent()) {
+            MemberLogin relationEntity = entity.getMemberLoginAsBizManyToOne().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -301,7 +302,7 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Member relationEntity = (Member)cachedEntity;
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
@@ -311,12 +312,12 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressPurchaseList();
                 Member relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMember(relationEntity);
+                entity.setMember(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
-                if (instanceCache && entity.getMember().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMember());
+                if (instanceCache && entity.getMember().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMember().get());
                 }
             }
         };
@@ -326,7 +327,7 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 Product relationEntity = (Product)cachedEntity;
-                entity.setProduct(relationEntity);
+                entity.setProduct(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
@@ -336,12 +337,12 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressPurchaseList();
                 Product relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setProduct(relationEntity);
+                entity.setProduct(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
-                if (instanceCache && entity.getProduct().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getProduct());
+                if (instanceCache && entity.getProduct().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getProduct().get());
                 }
             }
         };
@@ -351,7 +352,7 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 SummaryProduct relationEntity = (SummaryProduct)cachedEntity;
-                entity.setSummaryProduct(relationEntity);
+                entity.setSummaryProduct(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
@@ -361,12 +362,12 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressPurchaseList();
                 SummaryProduct relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setSummaryProduct(relationEntity);
+                entity.setSummaryProduct(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getPurchaseList().add(entity);
                 }
-                if (instanceCache && entity.getSummaryProduct().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getSummaryProduct());
+                if (instanceCache && entity.getSummaryProduct().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getSummaryProduct().get());
                 }
             }
         };
@@ -376,7 +377,7 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 MemberLogin relationEntity = (MemberLogin)cachedEntity;
-                entity.setMemberLoginAsBizManyToOne(relationEntity);
+                entity.setMemberLoginAsBizManyToOne(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                 }
             } else {
@@ -384,11 +385,11 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 MemberLogin relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setMemberLoginAsBizManyToOne(relationEntity);
+                entity.setMemberLoginAsBizManyToOne(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                 }
-                if (instanceCache && entity.getMemberLoginAsBizManyToOne().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getMemberLoginAsBizManyToOne());
+                if (instanceCache && entity.getMemberLoginAsBizManyToOne().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getMemberLoginAsBizManyToOne().get());
                 }
             }
         };

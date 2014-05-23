@@ -402,7 +402,8 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberAddress> memberAddressList) {
         return helpPulloutInternally(memberAddressList, new InternalPulloutCallback<MemberAddress, Member>() {
-            public Member getFr(MemberAddress et) { return et.getMember(); }
+            public Member getFr(MemberAddress et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberAddress> ls)
             { et.setMemberAddressList(ls); }
@@ -415,7 +416,8 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public List<Region> pulloutRegion(List<MemberAddress> memberAddressList) {
         return helpPulloutInternally(memberAddressList, new InternalPulloutCallback<MemberAddress, Region>() {
-            public Region getFr(MemberAddress et) { return et.getRegion(); }
+            public Region getFr(MemberAddress et)
+            { return et.getRegion(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Region et, List<MemberAddress> ls)
             { et.setMemberAddressList(ls); }

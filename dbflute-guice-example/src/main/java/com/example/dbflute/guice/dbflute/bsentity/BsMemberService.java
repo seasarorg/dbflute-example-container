@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -289,40 +290,40 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
-        return _member;
+    public OptionalEntity<Member> getMember() {
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. */
-    protected ServiceRank _serviceRank;
+    protected OptionalEntity<ServiceRank> _serviceRank;
 
     /**
      * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @return The entity of foreign property 'serviceRank'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public ServiceRank getServiceRank() {
-        return _serviceRank;
+    public OptionalEntity<ServiceRank> getServiceRank() {
+        if (_serviceRank != null) { return _serviceRank; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @param serviceRank The entity of foreign property 'serviceRank'. (NullAllowed)
      */
-    public void setServiceRank(ServiceRank serviceRank) {
+    public void setServiceRank(OptionalEntity<ServiceRank> serviceRank) {
         _serviceRank = serviceRank;
     }
 
@@ -417,8 +418,8 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
         if (!xSV(getMemberServiceId(), other.getMemberServiceId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -426,13 +427,13 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getMemberServiceId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getMemberServiceId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -456,15 +457,18 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_member != null)
-        { sb.append(l).append(xbRDS(_member, "member")); }
+        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_serviceRank != null)
-        { sb.append(l).append(xbRDS(_serviceRank, "serviceRank")); }
+        { sb.append(li).append(xbRDS(_serviceRank, "serviceRank")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
+    }
+    protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     /**
@@ -480,29 +484,29 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getMemberServiceId());
-        sb.append(delimiter).append(getMemberId());
-        sb.append(delimiter).append(getServicePointCount());
-        sb.append(delimiter).append(getServiceRankCode());
-        sb.append(delimiter).append(getRegisterDatetime());
-        sb.append(delimiter).append(getRegisterUser());
-        sb.append(delimiter).append(getUpdateDatetime());
-        sb.append(delimiter).append(getUpdateUser());
-        sb.append(delimiter).append(getVersionNo());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getMemberServiceId());
+        sb.append(dm).append(getMemberId());
+        sb.append(dm).append(getServicePointCount());
+        sb.append(dm).append(getServiceRankCode());
+        sb.append(dm).append(getRegisterDatetime());
+        sb.append(dm).append(getRegisterUser());
+        sb.append(dm).append(getUpdateDatetime());
+        sb.append(dm).append(getUpdateUser());
+        sb.append(dm).append(getVersionNo());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_member != null) { sb.append(c).append("member"); }
-        if (_serviceRank != null) { sb.append(c).append("serviceRank"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        String cm = ",";
+        if (_member != null) { sb.append(cm).append("member"); }
+        if (_serviceRank != null) { sb.append(cm).append("serviceRank"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

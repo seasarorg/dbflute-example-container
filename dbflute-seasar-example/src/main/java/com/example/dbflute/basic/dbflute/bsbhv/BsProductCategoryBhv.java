@@ -621,7 +621,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      */
     public List<ProductCategory> pulloutProductCategorySelf(List<ProductCategory> productCategoryList) {
         return helpPulloutInternally(productCategoryList, new InternalPulloutCallback<ProductCategory, ProductCategory>() {
-            public ProductCategory getFr(ProductCategory et) { return et.getProductCategorySelf(); }
+            public ProductCategory getFr(ProductCategory et)
+            { return et.getProductCategorySelf(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductCategory et, List<ProductCategory> ls)
             { et.setProductCategorySelfList(ls); }

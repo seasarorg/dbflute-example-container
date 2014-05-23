@@ -196,7 +196,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
             public void handle(Member entity) {
                 memberIdSet.add(entity.getMemberId());
-                log(entity.getMemberName() + ", " + entity.getMemberStatus().getMemberStatusName());
+                log(entity.getMemberName() + ", " + entity.getMemberStatus().get().getMemberStatusName());
             }
         });
 
@@ -232,7 +232,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             log("[MEMBER]: " + member.getMemberName());
             for (Purchase purchase : purchaseList) {
                 Long purchaseId = purchase.getPurchaseId();
-                Product product = purchase.getProduct();// *Point!
+                Product product = purchase.getProduct().get(); // *Point!
                 log("    [PURCHASE]: purchaseId=" + purchaseId + ", product=" + product);
                 assertNotNull(product);
             }
@@ -310,7 +310,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         boolean existsMemberLogin = false;
         log("");
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             log("[PURCHASE & MEMBER]: " + purchase.getPurchaseId() + ", " + member.getMemberName());
             List<MemberLogin> memberLoginList = member.getMemberLoginList();
             for (MemberLogin memberLogin : memberLoginList) {

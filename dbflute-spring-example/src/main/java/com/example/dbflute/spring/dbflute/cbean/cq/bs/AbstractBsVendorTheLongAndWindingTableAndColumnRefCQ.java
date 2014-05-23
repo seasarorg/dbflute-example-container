@@ -37,8 +37,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================

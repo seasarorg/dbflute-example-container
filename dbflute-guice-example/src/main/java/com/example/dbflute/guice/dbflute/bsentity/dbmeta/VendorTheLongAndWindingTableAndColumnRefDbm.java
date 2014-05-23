@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
 import org.seasar.dbflute.dbmeta.PropertyGateway;
 import org.seasar.dbflute.dbmeta.info.*;
@@ -33,6 +34,9 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgTheLongAndWindingTableAndColumnRefId(), "theLongAndWindingTableAndColumnRefId");
@@ -40,8 +44,6 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
         setupEpg(_epgMap, new EpgTheLongAndWindingTableAndColumnRefDate(), "theLongAndWindingTableAndColumnRefDate");
         setupEpg(_epgMap, new EpgShortDate(), "shortDate");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgTheLongAndWindingTableAndColumnRefId implements PropertyGateway {
         public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefId(); }
         public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefId(ctl(vl)); }
@@ -58,6 +60,23 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
         public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumnRef)et).getShortDate(); }
         public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumnRef)et).setShortDate((java.util.Date)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgVendorTheLongAndWindingTableAndColumn(), "vendorTheLongAndWindingTableAndColumn");
+    }
+    public class EfpgVendorTheLongAndWindingTableAndColumn implements PropertyGateway {
+        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumnRef)et).getVendorTheLongAndWindingTableAndColumn(); }
+        @SuppressWarnings("unchecked")
+        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumnRef)et).setVendorTheLongAndWindingTableAndColumn((OptionalEntity<VendorTheLongAndWindingTableAndColumn>)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -73,14 +92,30 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", null, null, true, "theLongAndWindingTableAndColumnRefId", Long.class, true, false, "BIGINT", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, true, "theLongAndWindingTableAndColumnId", Long.class, false, false, "BIGINT", 19, 0, null, false, null, null, "vendorTheLongAndWindingTableAndColumn", null, null);
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, true, "theLongAndWindingTableAndColumnRefDate", java.util.Date.class, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, true, "shortDate", java.util.Date.class, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", null, null, Long.class, "theLongAndWindingTableAndColumnRefId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, Long.class, "theLongAndWindingTableAndColumnId", null, false, false, true, "BIGINT", 19, 0, null, false, null, null, "vendorTheLongAndWindingTableAndColumn", null, null);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, java.util.Date.class, "theLongAndWindingTableAndColumnRefDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, java.util.Date.class, "shortDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
 
+    /**
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTheLongAndWindingTableAndColumnRefId() { return _columnTheLongAndWindingTableAndColumnRefId; }
+    /**
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTheLongAndWindingTableAndColumnId() { return _columnTheLongAndWindingTableAndColumnId; }
+    /**
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTheLongAndWindingTableAndColumnRefDate() { return _columnTheLongAndWindingTableAndColumnRefDate; }
+    /**
+     * SHORT_DATE: {NotNull, DATE(8)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnShortDate() { return _columnShortDate; }
 
     protected List<ColumnInfo> ccil() {
@@ -107,12 +142,18 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignVendorTheLongAndWindingTableAndColumn() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnTheLongAndWindingTableAndColumnId(), VendorTheLongAndWindingTableAndColumnDbm.getInstance().columnTheLongAndWindingTableAndColumnId());
-        return cfi("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn", this, VendorTheLongAndWindingTableAndColumnDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "vendorTheLongAndWindingTableAndColumnRefList");
+        return cfi("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn", this, VendorTheLongAndWindingTableAndColumnDbm.getInstance(), mp, 0, org.seasar.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "vendorTheLongAndWindingTableAndColumnRefList");
     }
 
     // -----------------------------------------------------

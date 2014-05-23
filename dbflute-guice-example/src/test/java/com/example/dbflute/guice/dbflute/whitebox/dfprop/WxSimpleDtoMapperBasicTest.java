@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
+import org.seasar.dbflute.optional.OptionalEntity;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
@@ -41,7 +42,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                               One DTO
     //                                               -------
-    public void test_mappingToDto_basic_Tx() throws Exception {
+    public void test_mappingToDto_basic() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         MemberCB cb = new MemberCB();
@@ -60,7 +61,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToDto_ManyToOne_Tx() throws Exception {
+    public void test_mappingToDto_ManyToOne() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         MemberCB cb = new MemberCB();
@@ -80,7 +81,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToDto_OneToMany_Tx() throws Exception {
+    public void test_mappingToDto_OneToMany() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         final MemberCB cb = new MemberCB();
@@ -108,7 +109,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertTrue(exists);
     }
 
-    public void test_mappingToDto_null_Tx() throws Exception {
+    public void test_mappingToDto_null() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
 
@@ -123,7 +124,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                  List
     //                                                  ----
-    public void test_mappingToDtoList_basic_Tx() throws Exception {
+    public void test_mappingToDtoList_basic() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         final MemberCB cb = new MemberCB();
@@ -143,7 +144,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToDtoList_relation_Tx() throws Exception {
+    public void test_mappingToDtoList_relation() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         final MemberCB cb = new MemberCB();
@@ -168,7 +169,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToDtoList_noPK_Tx() throws Exception {
+    public void test_mappingToDtoList_noPK() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         final MemberCB cb = new MemberCB();
@@ -179,10 +180,10 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
             member.setMemberId(null);
-            member.getMemberStatus().setMemberStatusCodeAsMemberStatus(null);
-            member.getMemberSecurityAsOne().setMemberId(null);
-            if (member.getMemberWithdrawalAsOne() != null) {
-                member.getMemberWithdrawalAsOne().setMemberId(null);
+            member.getMemberStatus().get().setMemberStatusCodeAsMemberStatus(null);
+            member.getMemberSecurityAsOne().get().setMemberId(null);
+            if (member.getMemberWithdrawalAsOne().isPresent()) {
+                member.getMemberWithdrawalAsOne().get().setMemberId(null);
             }
         }
 
@@ -198,14 +199,14 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
             assertEquals(member.getMemberName(), memberDto.getMemberName());
             MemberStatusDto statusDto = memberDto.getMemberStatus();
             assertNull(statusDto.getMemberStatusCode());
-            assertEquals(member.getMemberStatus().getMemberStatusName(), statusDto.getMemberStatusName());
+            assertEquals(member.getMemberStatus().get().getMemberStatusName(), statusDto.getMemberStatusName());
             MemberSecurityDto securityDto = memberDto.getMemberSecurityAsOne();
             assertNull(securityDto.getMemberId());
-            assertEquals(member.getMemberSecurityAsOne().getReminderQuestion(), securityDto.getReminderQuestion());
+            assertEquals(member.getMemberSecurityAsOne().get().getReminderQuestion(), securityDto.getReminderQuestion());
             MemberWithdrawalDto withdrawalDto = memberDto.getMemberWithdrawalAsOne();
             if (member.isMemberStatusCodeWithdrawal()) {
                 assertNull(withdrawalDto.getMemberId());
-                assertEquals(member.getMemberWithdrawalAsOne().getWithdrawalReasonInputText(),
+                assertEquals(member.getMemberWithdrawalAsOne().get().getWithdrawalReasonInputText(),
                         withdrawalDto.getWithdrawalReasonInputText());
             } else {
                 assertNull(withdrawalDto);
@@ -214,7 +215,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToDtoList_nullElement_basic_Tx() throws Exception {
+    public void test_mappingToDtoList_nullElement_basic() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         List<Member> entityList = new ArrayList<Member>();
@@ -232,7 +233,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertNotNull(dtoList.get(2));
     }
 
-    public void test_mappingToDtoList_nullElement_ignore_Tx() throws Exception {
+    public void test_mappingToDtoList_nullElement_ignore() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper() {
             private static final long serialVersionUID = 1L;
@@ -256,7 +257,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertNotNull(dtoList.get(1));
     }
 
-    public void test_mappingToDtoList_null_Tx() throws Exception {
+    public void test_mappingToDtoList_null() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
 
@@ -278,7 +279,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                            One Entity
     //                                            ----------
-    public void test_mappingToEntity_modified_basic_Tx() throws Exception {
+    public void test_mappingToEntity_modified_basic() throws Exception {
         // ## Arrange ##
         MemberDto dto = new MemberDto();
         dto.setMemberId(3);
@@ -308,7 +309,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertFalse(dto.hasModification());
     }
 
-    public void test_mappingToEntity_modified_default_Tx() throws Exception {
+    public void test_mappingToEntity_modified_default() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         final MemberCB cb = new MemberCB();
@@ -337,7 +338,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertTrue(exists);
     }
 
-    public void test_mappingToEntity_modified_notNull_Tx() throws Exception {
+    public void test_mappingToEntity_modified_notNull() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper() {
             private static final long serialVersionUID = 1L;
@@ -373,7 +374,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertTrue(exists);
     }
 
-    public void test_mappingToEntity_null_Tx() throws Exception {
+    public void test_mappingToEntity_null() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
 
@@ -388,7 +389,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                  List
     //                                                  ----
-    public void test_mappingToEntityList_basic_Tx() throws Exception {
+    public void test_mappingToEntityList_basic() throws Exception {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
@@ -407,7 +408,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_mappingToEntityList_relation_Tx() throws Exception {
+    public void test_mappingToEntityList_relation() throws Exception {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
@@ -426,8 +427,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         for (Member member : entityList) {
             log(member);
             assertEqualsMember(member, dtoList.get(index));
-            MemberStatus status = member.getMemberStatus();
-            assertNotNull(status);
+            MemberStatus status = member.getMemberStatus().get();
             if (member.isMemberStatusCodeFormalized()) {
                 if (preFormalizedStatus != null) {
                     existsFormalized = true;
@@ -441,7 +441,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertTrue(existsFormalized);
     }
 
-    public void test_mappingToEntityList_noPK_Tx() throws Exception {
+    public void test_mappingToEntityList_noPK() throws Exception {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
@@ -469,25 +469,25 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
             MemberDto memberDto = dtoList.get(index);
             assertEqualsMember(member, memberDto);
             assertEquals(member.getMemberName(), memberDto.getMemberName());
-            MemberStatus status = member.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
             assertNull(status.getMemberStatusCode());
-            assertEquals(member.getMemberStatus().getMemberStatusName(), status.getMemberStatusName());
-            MemberSecurity security = member.getMemberSecurityAsOne();
+            assertEquals(status.getMemberStatusName(), status.getMemberStatusName());
+            MemberSecurity security = member.getMemberSecurityAsOne().get();
             assertNull(security.getMemberId());
-            assertEquals(member.getMemberSecurityAsOne().getReminderQuestion(), security.getReminderQuestion());
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
+            assertEquals(security.getReminderQuestion(), security.getReminderQuestion());
+            OptionalEntity<MemberWithdrawal> optWithdrawal = member.getMemberWithdrawalAsOne();
             if (member.isMemberStatusCodeWithdrawal()) {
+                MemberWithdrawal withdrawal = optWithdrawal.get();
                 assertNull(withdrawal.getMemberId());
-                assertEquals(member.getMemberWithdrawalAsOne().getWithdrawalReasonInputText(),
-                        withdrawal.getWithdrawalReasonInputText());
+                assertEquals(withdrawal.getWithdrawalReasonInputText(), withdrawal.getWithdrawalReasonInputText());
             } else {
-                assertNull(withdrawal);
+                assertFalse(optWithdrawal.isPresent());
             }
             ++index;
         }
     }
 
-    public void test_mappingToEntityList_nullElement_basic_Tx() throws Exception {
+    public void test_mappingToEntityList_nullElement_basic() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         List<MemberDto> dtoList = new ArrayList<MemberDto>();
@@ -505,7 +505,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertNotNull(entityList.get(2));
     }
 
-    public void test_mappingToEntityList_nullElement_ignore_Tx() throws Exception {
+    public void test_mappingToEntityList_nullElement_ignore() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper() {
             private static final long serialVersionUID = 1L;
@@ -529,7 +529,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         assertNotNull(entityList.get(1));
     }
 
-    public void test_mappingToEntityList_nullList_Tx() throws Exception {
+    public void test_mappingToEntityList_nullList() throws Exception {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
 
@@ -562,13 +562,13 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
     }
 
     protected void doAssertEqualsMemberStatus(Member member, MemberDto dto) {
-        MemberStatus parentEntity = member.getMemberStatus();
+        OptionalEntity<MemberStatus> optStatus = member.getMemberStatus();
         MemberStatusDto parentDto = dto.getMemberStatus();
-        if (parentEntity == null) {
-            assertNull(parentDto);
-        } else {
+        if (optStatus.isPresent()) {
             assertNotNull(parentDto);
-            assertEquals(parentEntity.getMemberStatusName(), parentDto.getMemberStatusName());
+            assertEquals(optStatus.get().getMemberStatusName(), parentDto.getMemberStatusName());
+        } else {
+            assertNull(parentDto);
         }
     }
 

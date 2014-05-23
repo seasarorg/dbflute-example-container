@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -106,8 +107,8 @@ public abstract class BsProductCategoryDtoMapper implements DtoMapper<ProductCat
             _relationDtoMap.put(localKey, dto);
         }
         boolean reverseReference = _reverseReference;
-        if (!_suppressProductCategorySelf && entity.getProductCategorySelf() != null) {
-            ProductCategory relationEntity = entity.getProductCategorySelf();
+        if (!_suppressProductCategorySelf && entity.getProductCategorySelf().isPresent()) {
+            ProductCategory relationEntity = entity.getProductCategorySelf().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
             Object cachedDto = instanceCache ? _relationDtoMap.get(relationKey) : null;
             if (cachedDto != null) {
@@ -217,7 +218,7 @@ public abstract class BsProductCategoryDtoMapper implements DtoMapper<ProductCat
             Entity cachedEntity = instanceCache ? _relationEntityMap.get(relationKey) : null;
             if (cachedEntity != null) {
                 ProductCategory relationEntity = (ProductCategory)cachedEntity;
-                entity.setProductCategorySelf(relationEntity);
+                entity.setProductCategorySelf(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getProductCategorySelfList().add(entity);
                 }
@@ -227,12 +228,12 @@ public abstract class BsProductCategoryDtoMapper implements DtoMapper<ProductCat
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressProductCategorySelfList();
                 ProductCategory relationEntity = mapper.mappingToEntity(relationDto);
-                entity.setProductCategorySelf(relationEntity);
+                entity.setProductCategorySelf(OptionalEntity.of(relationEntity));
                 if (reverseReference) {
                     relationEntity.getProductCategorySelfList().add(entity);
                 }
-                if (instanceCache && entity.getProductCategorySelf().hasPrimaryKeyValue()) {
-                    _relationEntityMap.put(relationKey, entity.getProductCategorySelf());
+                if (instanceCache && entity.getProductCategorySelf().get().hasPrimaryKeyValue()) {
+                    _relationEntityMap.put(relationKey, entity.getProductCategorySelf().get());
                 }
             }
         };
@@ -245,7 +246,7 @@ public abstract class BsProductCategoryDtoMapper implements DtoMapper<ProductCat
             entity.setProductList(relationEntityList);
             if (reverseReference) {
                 for (Product relationEntity : relationEntityList) {
-                    relationEntity.setProductCategory(entity);
+                    relationEntity.setProductCategory(OptionalEntity.of(entity));
                 }
             }
         };
@@ -258,7 +259,7 @@ public abstract class BsProductCategoryDtoMapper implements DtoMapper<ProductCat
             entity.setProductCategorySelfList(relationEntityList);
             if (reverseReference) {
                 for (ProductCategory relationEntity : relationEntityList) {
-                    relationEntity.setProductCategorySelf(entity);
+                    relationEntity.setProductCategorySelf(OptionalEntity.of(entity));
                 }
             }
         };

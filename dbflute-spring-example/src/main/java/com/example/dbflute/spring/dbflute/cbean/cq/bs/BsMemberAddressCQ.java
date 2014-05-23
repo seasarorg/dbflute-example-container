@@ -39,8 +39,8 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsMemberAddressCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsMemberAddressCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -390,7 +390,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MemberAddressCQ bq = (MemberAddressCQ)bqs;
         MemberAddressCQ uq = (MemberAddressCQ)uqs;
         if (bq.hasConditionQueryMember()) {

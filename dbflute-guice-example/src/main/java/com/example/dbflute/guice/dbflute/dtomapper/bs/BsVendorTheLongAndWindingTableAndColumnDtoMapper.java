@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -184,7 +185,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDtoMapper implement
             entity.setVendorTheLongAndWindingTableAndColumnRefList(relationEntityList);
             if (reverseReference) {
                 for (VendorTheLongAndWindingTableAndColumnRef relationEntity : relationEntityList) {
-                    relationEntity.setVendorTheLongAndWindingTableAndColumn(entity);
+                    relationEntity.setVendorTheLongAndWindingTableAndColumn(OptionalEntity.of(entity));
                 }
             }
         };

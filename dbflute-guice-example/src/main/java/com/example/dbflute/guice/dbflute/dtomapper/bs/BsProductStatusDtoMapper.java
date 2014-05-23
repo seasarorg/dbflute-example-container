@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
@@ -195,7 +196,7 @@ public abstract class BsProductStatusDtoMapper implements DtoMapper<ProductStatu
             entity.setProductList(relationEntityList);
             if (reverseReference) {
                 for (Product relationEntity : relationEntityList) {
-                    relationEntity.setProductStatus(entity);
+                    relationEntity.setProductStatus(OptionalEntity.of(entity));
                 }
             }
         };
@@ -208,7 +209,7 @@ public abstract class BsProductStatusDtoMapper implements DtoMapper<ProductStatu
             entity.setSummaryProductList(relationEntityList);
             if (reverseReference) {
                 for (SummaryProduct relationEntity : relationEntityList) {
-                    relationEntity.setProductStatus(entity);
+                    relationEntity.setProductStatus(OptionalEntity.of(entity));
                 }
             }
         };

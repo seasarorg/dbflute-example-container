@@ -48,16 +48,19 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgPrimaryKeyOnlyId(), "primaryKeyOnlyId");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgPrimaryKeyOnlyId implements PropertyGateway {
         public Object read(Entity et) { return ((VendorPrimaryKeyOnly)et).getPrimaryKeyOnlyId(); }
         public void write(Entity et, Object vl) { ((VendorPrimaryKeyOnly)et).setPrimaryKeyOnlyId(ctl(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -73,8 +76,12 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPrimaryKeyOnlyId = cci("PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", null, null, true, "primaryKeyOnlyId", Long.class, true, false, "BIGINT", 19, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPrimaryKeyOnlyId = cci("PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", null, null, Long.class, "primaryKeyOnlyId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, null, null);
 
+    /**
+     * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnPrimaryKeyOnlyId() { return _columnPrimaryKeyOnlyId; }
 
     protected List<ColumnInfo> ccil() {
@@ -98,6 +105,8 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // canonot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

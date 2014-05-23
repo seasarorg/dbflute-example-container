@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -304,40 +305,40 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
-        return _member;
+    public OptionalEntity<Member> getMember() {
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'. */
-    protected MemberStatus _memberStatus;
+    protected OptionalEntity<MemberStatus> _memberStatus;
 
     /**
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberStatus getMemberStatus() {
-        return _memberStatus;
+    public OptionalEntity<MemberStatus> getMemberStatus() {
+        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
     }
 
     /**
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
-    public void setMemberStatus(MemberStatus memberStatus) {
+    public void setMemberStatus(OptionalEntity<MemberStatus> memberStatus) {
         _memberStatus = memberStatus;
     }
 
@@ -408,8 +409,8 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
         if (!xSV(getMemberLoginId(), other.getMemberLoginId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -417,13 +418,13 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getMemberLoginId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getMemberLoginId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -447,15 +448,18 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_member != null)
-        { sb.append(l).append(xbRDS(_member, "member")); }
+        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_memberStatus != null)
-        { sb.append(l).append(xbRDS(_memberStatus, "memberStatus")); }
+        { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
+    }
+    protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     /**
@@ -471,25 +475,25 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getMemberLoginId());
-        sb.append(delimiter).append(getMemberId());
-        sb.append(delimiter).append(getLoginDatetime());
-        sb.append(delimiter).append(getMobileLoginFlg());
-        sb.append(delimiter).append(getLoginMemberStatusCode());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getMemberLoginId());
+        sb.append(dm).append(getMemberId());
+        sb.append(dm).append(getLoginDatetime());
+        sb.append(dm).append(getMobileLoginFlg());
+        sb.append(dm).append(getLoginMemberStatusCode());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_member != null) { sb.append(c).append("member"); }
-        if (_memberStatus != null) { sb.append(c).append("memberStatus"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        String cm = ",";
+        if (_member != null) { sb.append(cm).append("member"); }
+        if (_memberStatus != null) { sb.append(cm).append("memberStatus"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

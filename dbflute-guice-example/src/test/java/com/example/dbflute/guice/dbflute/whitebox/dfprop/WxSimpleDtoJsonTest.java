@@ -58,7 +58,7 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
         log(backTo);
         assertEquals(Integer.valueOf(3), backTo.getMemberId());
         assertEquals(memberStatusCode, backTo.getMemberStatusCode());
-        assertNull(backTo.getMemberStatus());
+        assertFalse(backTo.getMemberStatus().isPresent());
     }
 
     public void test_JSON_list() {
@@ -89,7 +89,7 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
         assertFalse(backToList.isEmpty());
         for (Member member : backToList) {
             assertTrue(member.getMemberName().startsWith("S"));
-            assertNull(member.getMemberStatus());
+            assertFalse(member.getMemberStatus().isPresent());
         }
     }
 
@@ -142,10 +142,10 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
         log(ln() + backTo.toStringWithRelation());
         assertNotNull(backTo.getMemberStatus());
         assertEquals(member.getMemberStatusCode(), backTo.getMemberStatusCode());
-        assertNotNull(backTo.getMemberWithdrawalAsOne());
-        assertNotNull(backTo.getMemberWithdrawalAsOne().getWithdrawalReason());
-        assertNotNull(backTo.getMemberAddressAsValid());
-        assertNotNull(backTo.getMemberAddressAsValid().getRegion());
+        assertTrue(backTo.getMemberWithdrawalAsOne().isPresent());
+        assertTrue(backTo.getMemberWithdrawalAsOne().get().getWithdrawalReason().isPresent());
+        assertTrue(backTo.getMemberAddressAsValid().isPresent());
+        assertTrue(backTo.getMemberAddressAsValid().get().getRegion().isPresent());
     }
 
     // ===================================================================================
@@ -185,7 +185,7 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
         assertEquals(purchaseDatetime, decoded.getPurchaseList().get(0).getPurchaseDatetime());
         Member backTo = mapper.mappingToEntity(decoded);
         log(ln() + backTo.toStringWithRelation());
-        assertNull(backTo.getMemberStatus());
+        assertFalse(backTo.getMemberStatus().isPresent());
         assertEquals(member.getMemberStatusCode(), backTo.getMemberStatusCode());
         List<Purchase> purchaseList = backTo.getPurchaseList();
         assertFalse(purchaseList.isEmpty());

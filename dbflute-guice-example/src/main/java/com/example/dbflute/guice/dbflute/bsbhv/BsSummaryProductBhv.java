@@ -472,7 +472,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
             public List<Purchase> selRfLs(PurchaseCB cb) { return referrerBhv.selectList(cb); }
             public Integer getFKVal(Purchase re) { return re.getProductId(); }
             public void setlcEt(Purchase re, SummaryProduct le)
-            { re.setSummaryProduct(le); }
+            { re.setSummaryProduct(OptionalEntity.of(le)); }
             public String getRfPrNm() { return "purchaseList"; }
         });
     }
@@ -487,7 +487,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      */
     public List<ProductStatus> pulloutProductStatus(List<SummaryProduct> summaryProductList) {
         return helpPulloutInternally(summaryProductList, new InternalPulloutCallback<SummaryProduct, ProductStatus>() {
-            public ProductStatus getFr(SummaryProduct et) { return et.getProductStatus(); }
+            public ProductStatus getFr(SummaryProduct et)
+            { return et.getProductStatus().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(ProductStatus et, List<SummaryProduct> ls)
             { et.setSummaryProductList(ls); }

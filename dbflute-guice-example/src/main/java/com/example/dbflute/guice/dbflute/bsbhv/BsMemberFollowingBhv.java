@@ -400,7 +400,8 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMemberByMyMemberId(List<MemberFollowing> memberFollowingList) {
         return helpPulloutInternally(memberFollowingList, new InternalPulloutCallback<MemberFollowing, Member>() {
-            public Member getFr(MemberFollowing et) { return et.getMemberByMyMemberId(); }
+            public Member getFr(MemberFollowing et)
+            { return et.getMemberByMyMemberId().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberFollowing> ls)
             { et.setMemberFollowingByMyMemberIdList(ls); }
@@ -413,7 +414,8 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMemberByYourMemberId(List<MemberFollowing> memberFollowingList) {
         return helpPulloutInternally(memberFollowingList, new InternalPulloutCallback<MemberFollowing, Member>() {
-            public Member getFr(MemberFollowing et) { return et.getMemberByYourMemberId(); }
+            public Member getFr(MemberFollowing et)
+            { return et.getMemberByYourMemberId().get(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberFollowing> ls)
             { et.setMemberFollowingByYourMemberIdList(ls); }
