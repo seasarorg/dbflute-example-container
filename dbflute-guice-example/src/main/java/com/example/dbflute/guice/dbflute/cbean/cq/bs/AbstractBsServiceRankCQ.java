@@ -301,7 +301,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public abstract String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from MEMBER_SERVICE where ...)} <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceAsOne'.
      * <pre>
@@ -809,7 +809,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(ServiceRankCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<ServiceRankCB> myselfDerived() {

@@ -91,10 +91,10 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     /** (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _memberLoginId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _loginDatetime;
 
     /** (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} */
@@ -106,6 +106,9 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -148,6 +151,31 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getMemberLoginId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param loginDatetime (ログイン日時): +UQ, IX, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void uniqueBy(Integer memberId, java.sql.Timestamp loginDatetime) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberId");
+        _memberId = memberId;
+        __uniqueDrivenProperties.addPropertyName("loginDatetime");
+        _loginDatetime = loginDatetime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -564,7 +592,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -572,7 +600,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -581,7 +609,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * ログインした瞬間の日時。<br />
      * 同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
@@ -591,7 +619,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * ログインした瞬間の日時。<br />
      * 同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (basically NotNull if update: for the constraint)

@@ -90,13 +90,13 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     /** PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _purchaseId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} */
+    /** (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} */
     protected Integer _productId;
 
-    /** (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _purchaseDatetime;
 
     /** (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} */
@@ -126,6 +126,9 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -171,6 +174,34 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     public boolean hasPrimaryKeyValue() {
         if (getPurchaseId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberId (会員ID): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId (商品ID): +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void uniqueBy(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberId");
+        _memberId = memberId;
+        __uniqueDrivenProperties.addPropertyName("productId");
+        _productId = productId;
+        __uniqueDrivenProperties.addPropertyName("purchaseDatetime");
+        _purchaseDatetime = purchaseDatetime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -273,7 +304,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -292,7 +323,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Product> getProduct() {
-        if (_product != null) { return _product; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_product != null) { return _product; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "product"); }
     }
 
     /**
@@ -311,7 +342,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'summaryProduct'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<SummaryProduct> getSummaryProduct() {
-        if (_summaryProduct != null) { return _summaryProduct; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_summaryProduct != null) { return _summaryProduct; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "summaryProduct"); }
     }
 
     /**
@@ -330,7 +361,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'memberLoginAsBizManyToOne'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberLogin> getMemberLoginAsBizManyToOne() {
-        if (_memberLoginAsBizManyToOne != null) { return _memberLoginAsBizManyToOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberLoginAsBizManyToOne != null) { return _memberLoginAsBizManyToOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberLoginAsBizManyToOne"); }
     }
 
     /**
@@ -567,7 +598,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -575,7 +606,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -584,7 +615,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [get] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * @return The value of the column 'PRODUCT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getProductId() {
@@ -592,7 +623,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [set] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * @param productId The value of the column 'PRODUCT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setProductId(Integer productId) {
@@ -601,7 +632,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'PURCHASE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getPurchaseDatetime() {
@@ -609,7 +640,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {

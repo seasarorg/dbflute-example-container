@@ -59,11 +59,11 @@ public abstract class BsMemberAddressDto implements Serializable {
     @JsonKey
     protected Integer _memberAddressId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
     @JsonKey
     protected Integer _memberId;
 
-    /** (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} */
+    /** (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} */
     @JsonKey
     protected java.util.Date _validBeginDate;
 
@@ -334,7 +334,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -342,7 +342,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -351,7 +351,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -360,7 +360,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
     public void setValidBeginDate(java.util.Date validBeginDate) {

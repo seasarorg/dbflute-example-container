@@ -46,6 +46,10 @@ map:{
     # the test of java8
     ; isCompatibleBeforeJava8 = false
 
+    # these are compatible option
+    #; isCompatibleSelectByPKOldStyle = true
+    #; isCompatibleSelectByPKWithDeletedCheck = true
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
     #   [true]

@@ -59,11 +59,11 @@ public abstract class BsMemberLoginDto implements Serializable {
     @JsonKey
     protected Long _memberLoginId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
     @JsonKey
     protected Integer _memberId;
 
-    /** (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
     protected java.sql.Timestamp _loginDatetime;
 
@@ -336,7 +336,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -344,7 +344,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -353,7 +353,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -362,7 +362,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
     public void setLoginDatetime(java.sql.Timestamp loginDatetime) {

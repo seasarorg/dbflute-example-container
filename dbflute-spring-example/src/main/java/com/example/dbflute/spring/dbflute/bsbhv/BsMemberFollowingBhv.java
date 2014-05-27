@@ -184,7 +184,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MemberFollowing. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,65 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberFollowingId The one of primary key. (NotNull)
+     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectByPKValue(Long memberFollowingId) {
-        return doSelectByPKValue(memberFollowingId, MemberFollowing.class);
+        return doSelectByPK(memberFollowingId, MemberFollowing.class);
     }
 
-    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKValue(Long memberFollowingId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberFollowingId), entityType);
+    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPK(Long memberFollowingId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberFollowingId), entityType);
+    }
+
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberFollowingId, entityType), memberFollowingId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberFollowingId The one of primary key. (NotNull)
+     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectByPKValueWithDeletedCheck(Long memberFollowingId) {
-        return doSelectByPKValueWithDeletedCheck(memberFollowingId, MemberFollowing.class);
+        return doSelectByPKWithDeletedCheck(memberFollowingId, MemberFollowing.class);
     }
 
-    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKValueWithDeletedCheck(Long memberFollowingId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberFollowingId), entityType);
+    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKWithDeletedCheck(Long memberFollowingId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberFollowingId), entityType);
     }
 
-    private MemberFollowingCB buildPKCB(Long memberFollowingId) {
+    protected MemberFollowingCB xprepareCBAsPK(Long memberFollowingId) {
         assertObjectNotNull("memberFollowingId", memberFollowingId);
-        MemberFollowingCB cb = newMyConditionBean();
-        cb.query().setMemberFollowingId_Equal(memberFollowingId);
+        MemberFollowingCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberFollowingId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MemberFollowing> selectByUniqueOf(Integer myMemberId, Integer yourMemberId) {
+        return doSelectByUniqueOf(myMemberId, yourMemberId, MemberFollowing.class);
+    }
+
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer myMemberId, Integer yourMemberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(myMemberId, yourMemberId), entityType), myMemberId, yourMemberId);
+    }
+
+    protected MemberFollowingCB xprepareCBAsUniqueOf(Integer myMemberId, Integer yourMemberId) {
+        assertObjectNotNull("myMemberId", myMemberId);assertObjectNotNull("yourMemberId", yourMemberId);
+        MemberFollowingCB cb = newMyConditionBean(); cb.acceptUniqueOf(myMemberId, yourMemberId);
         return cb;
     }
 

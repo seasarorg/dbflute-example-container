@@ -62,7 +62,7 @@ public class WxEntityConvertEmptyStringToNullTest extends UnitContainerTestCase 
         memberBhv.updateNonstrict(member);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member actual = memberBhv.selectByPK(3).get();
         assertEquals(" ", actual.getMemberName());
     }
 }

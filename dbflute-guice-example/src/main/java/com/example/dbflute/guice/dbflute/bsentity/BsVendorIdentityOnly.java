@@ -68,6 +68,9 @@ public abstract class BsVendorIdentityOnly implements Entity, Serializable, Clon
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -110,6 +113,17 @@ public abstract class BsVendorIdentityOnly implements Entity, Serializable, Clon
     public boolean hasPrimaryKeyValue() {
         if (getIdentityOnlyId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================

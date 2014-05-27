@@ -184,7 +184,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of VendorIdentityOnly. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,42 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param identityOnlyId The one of primary key. (NotNull)
+     * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorIdentityOnly selectByPKValue(Long identityOnlyId) {
-        return doSelectByPKValue(identityOnlyId, VendorIdentityOnly.class);
+        return doSelectByPK(identityOnlyId, VendorIdentityOnly.class);
     }
 
-    protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPKValue(Long identityOnlyId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(identityOnlyId), entityType);
+    protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPK(Long identityOnlyId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(identityOnlyId), entityType);
+    }
+
+    protected <ENTITY extends VendorIdentityOnly> OptionalEntity<ENTITY> doSelectOptionalByPK(Long identityOnlyId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(identityOnlyId, entityType), identityOnlyId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param identityOnlyId The one of primary key. (NotNull)
+     * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorIdentityOnly selectByPKValueWithDeletedCheck(Long identityOnlyId) {
-        return doSelectByPKValueWithDeletedCheck(identityOnlyId, VendorIdentityOnly.class);
+        return doSelectByPKWithDeletedCheck(identityOnlyId, VendorIdentityOnly.class);
     }
 
-    protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPKValueWithDeletedCheck(Long identityOnlyId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(identityOnlyId), entityType);
+    protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPKWithDeletedCheck(Long identityOnlyId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(identityOnlyId), entityType);
     }
 
-    private VendorIdentityOnlyCB buildPKCB(Long identityOnlyId) {
+    protected VendorIdentityOnlyCB xprepareCBAsPK(Long identityOnlyId) {
         assertObjectNotNull("identityOnlyId", identityOnlyId);
-        VendorIdentityOnlyCB cb = newMyConditionBean();
-        cb.query().setIdentityOnlyId_Equal(identityOnlyId);
+        VendorIdentityOnlyCB cb = newMyConditionBean(); cb.acceptPrimaryKey(identityOnlyId);
         return cb;
     }
 

@@ -93,10 +93,24 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
+     */
     public void acceptPrimaryKey(CDef.MemberStatus memberStatusCode) {
         assertObjectNotNull("memberStatusCode", memberStatusCode);
         BsMemberStatusCB cb = this;
         cb.query().setMemberStatusCode_Equal_AsMemberStatus(memberStatusCode);
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
+     */
+    public void acceptUniqueOf(Integer displayOrder) {
+        assertObjectNotNull("displayOrder", displayOrder);
+        BsMemberStatusCB cb = this;
+        cb.query().setDisplayOrder_Equal(displayOrder);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -459,6 +473,11 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<MemberStatusCB> orQuery) {
         xorSQ((MemberStatusCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

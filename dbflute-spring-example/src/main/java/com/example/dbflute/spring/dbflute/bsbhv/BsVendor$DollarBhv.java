@@ -184,7 +184,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,42 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param vendor$DollarId The one of primary key. (NotNull)
+     * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValue(Integer vendor$DollarId) {
-        return doSelectByPKValue(vendor$DollarId, Vendor$Dollar.class);
+        return doSelectByPK(vendor$DollarId, Vendor$Dollar.class);
     }
 
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKValue(Integer vendor$DollarId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(vendor$DollarId), entityType);
+    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPK(Integer vendor$DollarId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(vendor$DollarId), entityType);
+    }
+
+    protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(vendor$DollarId, entityType), vendor$DollarId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param vendor$DollarId The one of primary key. (NotNull)
+     * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValueWithDeletedCheck(Integer vendor$DollarId) {
-        return doSelectByPKValueWithDeletedCheck(vendor$DollarId, Vendor$Dollar.class);
+        return doSelectByPKWithDeletedCheck(vendor$DollarId, Vendor$Dollar.class);
     }
 
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKValueWithDeletedCheck(Integer vendor$DollarId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(vendor$DollarId), entityType);
+    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKWithDeletedCheck(Integer vendor$DollarId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(vendor$DollarId), entityType);
     }
 
-    private Vendor$DollarCB buildPKCB(Integer vendor$DollarId) {
+    protected Vendor$DollarCB xprepareCBAsPK(Integer vendor$DollarId) {
         assertObjectNotNull("vendor$DollarId", vendor$DollarId);
-        Vendor$DollarCB cb = newMyConditionBean();
-        cb.query().setVendor$DollarId_Equal(vendor$DollarId);
+        Vendor$DollarCB cb = newMyConditionBean(); cb.acceptPrimaryKey(vendor$DollarId);
         return cb;
     }
 

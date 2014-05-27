@@ -83,6 +83,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -125,6 +128,28 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
     public boolean hasPrimaryKeyValue() {
         if (getTheLongAndWindingTableAndColumnId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param theLongAndWindingTableAndColumnName : UQ, NotNull, VARCHAR(200). (NotNull)
+     */
+    public void uniqueBy(String theLongAndWindingTableAndColumnName) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("theLongAndWindingTableAndColumnName");
+        _theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================

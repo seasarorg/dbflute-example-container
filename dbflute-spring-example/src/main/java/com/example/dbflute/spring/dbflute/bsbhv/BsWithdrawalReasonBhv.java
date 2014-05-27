@@ -184,7 +184,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of WithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,64 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param withdrawalReasonCode The one of primary key. (NotNull)
+     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public WithdrawalReason selectByPKValue(String withdrawalReasonCode) {
-        return doSelectByPKValue(withdrawalReasonCode, WithdrawalReason.class);
+        return doSelectByPK(withdrawalReasonCode, WithdrawalReason.class);
     }
 
-    protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPKValue(String withdrawalReasonCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(withdrawalReasonCode), entityType);
+    protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPK(String withdrawalReasonCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(withdrawalReasonCode), entityType);
+    }
+
+    protected <ENTITY extends WithdrawalReason> OptionalEntity<ENTITY> doSelectOptionalByPK(String withdrawalReasonCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(withdrawalReasonCode, entityType), withdrawalReasonCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param withdrawalReasonCode The one of primary key. (NotNull)
+     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public WithdrawalReason selectByPKValueWithDeletedCheck(String withdrawalReasonCode) {
-        return doSelectByPKValueWithDeletedCheck(withdrawalReasonCode, WithdrawalReason.class);
+        return doSelectByPKWithDeletedCheck(withdrawalReasonCode, WithdrawalReason.class);
     }
 
-    protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPKValueWithDeletedCheck(String withdrawalReasonCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(withdrawalReasonCode), entityType);
+    protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPKWithDeletedCheck(String withdrawalReasonCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(withdrawalReasonCode), entityType);
     }
 
-    private WithdrawalReasonCB buildPKCB(String withdrawalReasonCode) {
+    protected WithdrawalReasonCB xprepareCBAsPK(String withdrawalReasonCode) {
         assertObjectNotNull("withdrawalReasonCode", withdrawalReasonCode);
-        WithdrawalReasonCB cb = newMyConditionBean();
-        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);
+        WithdrawalReasonCB cb = newMyConditionBean(); cb.acceptPrimaryKey(withdrawalReasonCode);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<WithdrawalReason> selectByUniqueOf(Integer displayOrder) {
+        return doSelectByUniqueOf(displayOrder, WithdrawalReason.class);
+    }
+
+    protected <ENTITY extends WithdrawalReason> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer displayOrder, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(displayOrder), entityType), displayOrder);
+    }
+
+    protected WithdrawalReasonCB xprepareCBAsUniqueOf(Integer displayOrder) {
+        assertObjectNotNull("displayOrder", displayOrder);
+        WithdrawalReasonCB cb = newMyConditionBean(); cb.acceptUniqueOf(displayOrder);
         return cb;
     }
 

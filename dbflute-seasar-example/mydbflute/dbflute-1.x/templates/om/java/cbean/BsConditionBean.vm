@@ -100,10 +100,26 @@ public class ${myClassName} extends AbstractConditionBean {
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
 #if ($table.hasPrimaryKey())
+    /**
+     * Accept the query condition of primary key as equal.
+     * ${table.primaryKeyArgsJavaDocString}
+     */
     public void acceptPrimaryKey(${table.primaryKeyArgsString}) {
         ${table.primaryKeyArgsAssertString}
         ${myClassName} cb = this;
         ${table.primaryKeyArgsConditionSetupString}
+    }
+
+#end
+#foreach ($uq in $table.keyableUniqueList)
+    /**
+     * Accept the query condition of unique key as equal.
+     * ${uq.argsJavaDocString}
+     */
+    public void acceptUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        ${uq.argsAssertString}
+        ${myClassName} cb = this;
+        ${uq.argsConditionSetupString}
     }
 
 #end
@@ -338,7 +354,7 @@ public class ${myClassName} extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-#foreach ($fk in $table.foreignKeys)
+#foreach ($fk in $table.joinableForeignKeyList)
 #set ($tmpPropertyName = "${fk.foreignPropertyName}")
 #set ($tmpPropertyNameInitCap = "${fk.foreignPropertyNameInitCap}")
 #set ($nestSelectSetuppperClassName = "${fk.foreignTableNestSelectSetupperClassName}")
@@ -385,7 +401,7 @@ public class ${myClassName} extends AbstractConditionBean {
         return _nss${tmpPropertyNameInitCap};
     }
 #end
-#foreach ($referrer in $table.referrerAsOneList)
+#foreach ($referrer in $table.joinableReferrerAsOneList)
 #set ($tmpPropertyName = "${referrer.referrerPropertyNameAsOne}")
 #set ($tmpPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
 #set ($nestSelectSetuppperClassName = "${referrer.referrerTableNestSelectSetupperClassName}")
@@ -508,7 +524,7 @@ public class ${myClassName} extends AbstractConditionBean {
         }
         @Override
         protected String getTableDbName() { return "$table.tableDbName"; }
-#foreach ($fk in $table.foreignKeys)
+#foreach ($fk in $table.joinableForeignKeyList)
 #set ($tmpPropertyName = "${fk.foreignPropertyName}")
 #set ($tmpPropertyNameInitCap = "${fk.foreignPropertyNameInitCap}")
 #set ($tmpCBClassName = "${fk.foreignTableExtendedConditionBeanClassName}")
@@ -567,7 +583,7 @@ public class ${myClassName} extends AbstractConditionBean {
             return _${tmpPropertyName};
         }
 #end
-#foreach ($referrer in $table.referrerAsOneList)
+#foreach ($referrer in $table.joinableReferrerAsOneList)
 #set ($tmpPropertyName = "${referrer.referrerPropertyNameAsOne}")
 #set ($tmpPropertyNameInitCap = "${referrer.referrerPropertyNameInitCapAsOne}")
 #set ($tmpCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
@@ -595,7 +611,6 @@ public class ${myClassName} extends AbstractConditionBean {
         }
 #end
 #foreach ($referrer in $table.derivedReferrerReferrers)
-#if (!${referrer.isOneToOne()})
 #set ($tmpPropertyName = "${referrer.referrerPropertyName}")
 #set ($tmpPropertyNameInitCap = "${referrer.referrerPropertyNameInitCap}")
 #set ($tmpCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
@@ -621,7 +636,6 @@ public class ${myClassName} extends AbstractConditionBean {
                 public void setup(String fn, SubQuery<${tmpCBClassName}> sq, ${tmpLocalCQClassName} cq, String al, DerivedReferrerOption op) {
                     cq.xsderive${referrer.referrerPropertyNameInitCap}(fn, sq, al, op); } }, _dbmetaProvider);
         }
-#end
 #end
 #if ($table.hasSinglePrimaryKey())
 #if ($table.isAvailableMyselfMyselfDerived())
@@ -713,6 +727,13 @@ public class ${myClassName} extends AbstractConditionBean {
     public void orScopeQuery(OrQuery<${myConditionBeanClassName}> orQuery) {
         xorSQ((${myConditionBeanClassName})this, orQuery);
     }
+#if ($table.isCompatibleOrScopeQueryPurposeNoCheck())
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
+    }
+#end
 
     /**
      * Set up the and-part of or-scope. <br />

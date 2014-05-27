@@ -111,6 +111,9 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -156,6 +159,17 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
     public boolean hasPrimaryKeyValue() {
         if (getMemberId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -278,7 +292,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -297,7 +311,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      * @return The entity of foreign property 'withdrawalReason'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<WithdrawalReason> getWithdrawalReason() {
-        if (_withdrawalReason != null) { return _withdrawalReason; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_withdrawalReason != null) { return _withdrawalReason; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "withdrawalReason"); }
     }
 
     /**

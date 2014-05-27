@@ -79,6 +79,9 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -123,6 +126,17 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
+    }
+
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -134,7 +148,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductCategory> getProductCategorySelf() {
-        if (_productCategorySelf != null) { return _productCategorySelf; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_productCategorySelf != null) { return _productCategorySelf; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productCategorySelf"); }
     }
 
     /**

@@ -77,10 +77,24 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param theLongAndWindingTableAndColumnId : PK, NotNull, BIGINT(19). (NotNull)
+     */
     public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnId) {
         assertObjectNotNull("theLongAndWindingTableAndColumnId", theLongAndWindingTableAndColumnId);
         BsVendorTheLongAndWindingTableAndColumnCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);
+        cb.query().setTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param theLongAndWindingTableAndColumnName : UQ, NotNull, VARCHAR(200). (NotNull)
+     */
+    public void acceptUniqueOf(String theLongAndWindingTableAndColumnName) {
+        assertObjectNotNull("theLongAndWindingTableAndColumnName", theLongAndWindingTableAndColumnName);
+        BsVendorTheLongAndWindingTableAndColumnCB cb = this;
+        cb.query().setTheLongAndWindingTableAndColumnName_Equal(theLongAndWindingTableAndColumnName);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

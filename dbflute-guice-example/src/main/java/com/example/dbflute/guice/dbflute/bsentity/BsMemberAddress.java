@@ -89,10 +89,10 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     /** (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} */
     protected Integer _memberAddressId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} */
+    /** (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} */
     protected java.util.Date _validBeginDate;
 
     /** (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} */
@@ -122,6 +122,9 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -167,6 +170,31 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     public boolean hasPrimaryKeyValue() {
         if (getMemberAddressId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(8). (NotNull)
+     */
+    public void uniqueBy(Integer memberId, java.util.Date validBeginDate) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberId");
+        _memberId = memberId;
+        __uniqueDrivenProperties.addPropertyName("validBeginDate");
+        _validBeginDate = validBeginDate;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -289,7 +317,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -308,7 +336,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Region> getRegion() {
-        if (_region != null) { return _region; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_region != null) { return _region; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "region"); }
     }
 
     /**
@@ -544,7 +572,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -552,7 +580,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -561,7 +589,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [get] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.util.Date getValidBeginDate() {
@@ -569,7 +597,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * [set] (有効開始日)VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)} <br />
+     * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setValidBeginDate(java.util.Date validBeginDate) {

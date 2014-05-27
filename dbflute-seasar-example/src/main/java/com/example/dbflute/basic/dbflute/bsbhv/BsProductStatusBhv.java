@@ -185,7 +185,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of ProductStatus. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -206,39 +206,64 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param productStatusCode The one of primary key. (NotNull)
+     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductStatus selectByPKValue(CDef.ProductStatus productStatusCode) {
-        return doSelectByPKValue(productStatusCode, ProductStatus.class);
+        return doSelectByPK(productStatusCode, ProductStatus.class);
     }
 
-    protected <ENTITY extends ProductStatus> ENTITY doSelectByPKValue(CDef.ProductStatus productStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(productStatusCode), entityType);
+    protected <ENTITY extends ProductStatus> ENTITY doSelectByPK(CDef.ProductStatus productStatusCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(productStatusCode), entityType);
+    }
+
+    protected <ENTITY extends ProductStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(CDef.ProductStatus productStatusCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(productStatusCode, entityType), productStatusCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param productStatusCode The one of primary key. (NotNull)
+     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductStatus selectByPKValueWithDeletedCheck(CDef.ProductStatus productStatusCode) {
-        return doSelectByPKValueWithDeletedCheck(productStatusCode, ProductStatus.class);
+        return doSelectByPKWithDeletedCheck(productStatusCode, ProductStatus.class);
     }
 
-    protected <ENTITY extends ProductStatus> ENTITY doSelectByPKValueWithDeletedCheck(CDef.ProductStatus productStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(productStatusCode), entityType);
+    protected <ENTITY extends ProductStatus> ENTITY doSelectByPKWithDeletedCheck(CDef.ProductStatus productStatusCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productStatusCode), entityType);
     }
 
-    private ProductStatusCB buildPKCB(CDef.ProductStatus productStatusCode) {
+    protected ProductStatusCB xprepareCBAsPK(CDef.ProductStatus productStatusCode) {
         assertObjectNotNull("productStatusCode", productStatusCode);
-        ProductStatusCB cb = newMyConditionBean();
-        cb.query().setProductStatusCode_Equal_AsProductStatus(productStatusCode);
+        ProductStatusCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productStatusCode);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<ProductStatus> selectByUniqueOf(Integer displayOrder) {
+        return doSelectByUniqueOf(displayOrder, ProductStatus.class);
+    }
+
+    protected <ENTITY extends ProductStatus> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer displayOrder, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(displayOrder), entityType), displayOrder);
+    }
+
+    protected ProductStatusCB xprepareCBAsUniqueOf(Integer displayOrder) {
+        assertObjectNotNull("displayOrder", displayOrder);
+        ProductStatusCB cb = newMyConditionBean(); cb.acceptUniqueOf(displayOrder);
         return cb;
     }
 

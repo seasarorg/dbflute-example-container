@@ -184,7 +184,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MemberAddress. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,65 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberAddressId The one of primary key. (NotNull)
+     * @param memberAddressId (会員住所ID): PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberAddress selectByPKValue(Integer memberAddressId) {
-        return doSelectByPKValue(memberAddressId, MemberAddress.class);
+        return doSelectByPK(memberAddressId, MemberAddress.class);
     }
 
-    protected <ENTITY extends MemberAddress> ENTITY doSelectByPKValue(Integer memberAddressId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberAddressId), entityType);
+    protected <ENTITY extends MemberAddress> ENTITY doSelectByPK(Integer memberAddressId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberAddressId), entityType);
+    }
+
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberAddressId, entityType), memberAddressId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberAddressId The one of primary key. (NotNull)
+     * @param memberAddressId (会員住所ID): PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberAddress selectByPKValueWithDeletedCheck(Integer memberAddressId) {
-        return doSelectByPKValueWithDeletedCheck(memberAddressId, MemberAddress.class);
+        return doSelectByPKWithDeletedCheck(memberAddressId, MemberAddress.class);
     }
 
-    protected <ENTITY extends MemberAddress> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberAddressId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberAddressId), entityType);
+    protected <ENTITY extends MemberAddress> ENTITY doSelectByPKWithDeletedCheck(Integer memberAddressId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberAddressId), entityType);
     }
 
-    private MemberAddressCB buildPKCB(Integer memberAddressId) {
+    protected MemberAddressCB xprepareCBAsPK(Integer memberAddressId) {
         assertObjectNotNull("memberAddressId", memberAddressId);
-        MemberAddressCB cb = newMyConditionBean();
-        cb.query().setMemberAddressId_Equal(memberAddressId);
+        MemberAddressCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberAddressId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(8). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MemberAddress> selectByUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+        return doSelectByUniqueOf(memberId, validBeginDate, MemberAddress.class);
+    }
+
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, validBeginDate), entityType), memberId, validBeginDate);
+    }
+
+    protected MemberAddressCB xprepareCBAsUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+        assertObjectNotNull("memberId", memberId);assertObjectNotNull("validBeginDate", validBeginDate);
+        MemberAddressCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberId, validBeginDate);
         return cb;
     }
 

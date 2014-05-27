@@ -313,7 +313,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     public abstract String keepSpecifyMyselfDerived(VendorPrimaryKeyOnlyCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<VendorPrimaryKeyOnlyCB> myselfDerived() {
@@ -335,8 +335,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -351,8 +351,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<VendorPrimaryKeyOnlyCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

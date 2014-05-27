@@ -122,6 +122,9 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -167,6 +170,28 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     public boolean hasPrimaryKeyValue() {
         if (getMemberId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberAccount (会員アカウント): UQ, NotNull, VARCHAR(50). (NotNull)
+     */
+    public void uniqueBy(String memberAccount) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberAccount");
+        _memberAccount = memberAccount;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -270,7 +295,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberStatus> getMemberStatus() {
-        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberStatus"); }
     }
 
     /**
@@ -289,7 +314,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return The entity of foreign property 'memberAddressAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberAddress> getMemberAddressAsValid() {
-        if (_memberAddressAsValid != null) { return _memberAddressAsValid; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberAddressAsValid != null) { return _memberAddressAsValid; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberAddressAsValid"); }
     }
 
     /**
@@ -308,7 +333,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public OptionalEntity<MemberSecurity> getMemberSecurityAsOne() {
-        if (_memberSecurityAsOne != null) { return _memberSecurityAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberSecurityAsOne != null) { return _memberSecurityAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberSecurityAsOne"); }
     }
 
     /**
@@ -327,7 +352,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public OptionalEntity<MemberService> getMemberServiceAsOne() {
-        if (_memberServiceAsOne != null) { return _memberServiceAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberServiceAsOne != null) { return _memberServiceAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberServiceAsOne"); }
     }
 
     /**
@@ -346,7 +371,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public OptionalEntity<MemberWithdrawal> getMemberWithdrawalAsOne() {
-        if (_memberWithdrawalAsOne != null) { return _memberWithdrawalAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberWithdrawalAsOne != null) { return _memberWithdrawalAsOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberWithdrawalAsOne"); }
     }
 
     /**

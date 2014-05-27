@@ -75,10 +75,10 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     /** (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _memberLoginId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _loginDatetime;
 
     /** (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} */
@@ -90,6 +90,9 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -132,6 +135,31 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getMemberLoginId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param loginDatetime (ログイン日時): +UQ, IX, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void uniqueBy(Integer memberId, java.sql.Timestamp loginDatetime) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberId");
+        _memberId = memberId;
+        __uniqueDrivenProperties.addPropertyName("loginDatetime");
+        _loginDatetime = loginDatetime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -312,7 +340,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -331,7 +359,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberStatus> getMemberStatus() {
-        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberStatus"); }
     }
 
     /**
@@ -531,7 +559,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -539,7 +567,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -548,7 +576,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLoginDatetime() {
@@ -556,7 +584,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setLoginDatetime(java.sql.Timestamp loginDatetime) {

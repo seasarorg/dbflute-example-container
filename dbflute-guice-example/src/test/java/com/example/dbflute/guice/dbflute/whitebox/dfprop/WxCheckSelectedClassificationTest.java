@@ -24,7 +24,7 @@ public class WxCheckSelectedClassificationTest extends UnitContainerTestCase {
         purchaseBhv.updateNonstrict(purchase);
 
         // ## Act ##
-        Purchase actual = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase actual = purchaseBhv.selectByPK(3L).get();
 
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());

@@ -30,7 +30,7 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
         purchaseBhv.updateNonstrict(purchase);
 
         // ## Act ##
-        Purchase actual = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase actual = purchaseBhv.selectByPK(3L).get();
 
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
@@ -71,7 +71,7 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+            purchaseBhv.selectByPK(3L).get();
 
             // ## Assert ##
             fail();

@@ -59,15 +59,15 @@ public abstract class BsPurchaseDto implements Serializable {
     @JsonKey
     protected Long _purchaseId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     @JsonKey
     protected Integer _memberId;
 
-    /** (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} */
+    /** (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} */
     @JsonKey
     protected Integer _productId;
 
-    /** (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
     protected java.sql.Timestamp _purchaseDatetime;
 
@@ -315,7 +315,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -323,7 +323,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -332,7 +332,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [get] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public Integer getProductId() {
@@ -340,7 +340,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [set] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public void setProductId(Integer productId) {
@@ -349,7 +349,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -358,7 +358,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed)
      */
     public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {

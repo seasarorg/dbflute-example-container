@@ -58,11 +58,11 @@ public abstract class BsMemberFollowingDto implements Serializable {
     @JsonKey
     protected Long _memberFollowingId;
 
-    /** (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     @JsonKey
     protected Integer _myMemberId;
 
-    /** (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     @JsonKey
     protected Integer _yourMemberId;
 
@@ -188,7 +188,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
     }
 
     /**
-     * [get] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MY_MEMBER_ID'. (NullAllowed)
      */
     public Integer getMyMemberId() {
@@ -196,7 +196,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
     }
 
     /**
-     * [set] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (NullAllowed)
      */
     public void setMyMemberId(Integer myMemberId) {
@@ -205,7 +205,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
     }
 
     /**
-     * [get] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'YOUR_MEMBER_ID'. (NullAllowed)
      */
     public Integer getYourMemberId() {
@@ -213,7 +213,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
     }
 
     /**
-     * [set] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (NullAllowed)
      */
     public void setYourMemberId(Integer yourMemberId) {

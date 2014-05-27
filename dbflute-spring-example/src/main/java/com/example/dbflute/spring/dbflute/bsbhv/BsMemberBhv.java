@@ -223,7 +223,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Member. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -244,39 +244,64 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId (会員ID): PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectByPKValue(Integer memberId) {
-        return doSelectByPKValue(memberId, Member.class);
+        return doSelectByPK(memberId, Member.class);
     }
 
-    protected <ENTITY extends Member> ENTITY doSelectByPKValue(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberId), entityType);
+    protected <ENTITY extends Member> ENTITY doSelectByPK(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberId), entityType);
+    }
+
+    protected <ENTITY extends Member> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberId, entityType), memberId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId (会員ID): PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKValueWithDeletedCheck(memberId, Member.class);
+        return doSelectByPKWithDeletedCheck(memberId, Member.class);
     }
 
-    protected <ENTITY extends Member> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberId), entityType);
+    protected <ENTITY extends Member> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), entityType);
     }
 
-    private MemberCB buildPKCB(Integer memberId) {
+    protected MemberCB xprepareCBAsPK(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
-        MemberCB cb = newMyConditionBean();
-        cb.query().setMemberId_Equal(memberId);
+        MemberCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberAccount (会員アカウント): UQ, NotNull, VARCHAR(50). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<Member> selectByUniqueOf(String memberAccount) {
+        return doSelectByUniqueOf(memberAccount, Member.class);
+    }
+
+    protected <ENTITY extends Member> OptionalEntity<ENTITY> doSelectByUniqueOf(String memberAccount, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberAccount), entityType), memberAccount);
+    }
+
+    protected MemberCB xprepareCBAsUniqueOf(String memberAccount) {
+        assertObjectNotNull("memberAccount", memberAccount);
+        MemberCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberAccount);
         return cb;
     }
 

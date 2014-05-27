@@ -78,10 +78,25 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
+     */
     public void acceptPrimaryKey(Long memberFollowingId) {
         assertObjectNotNull("memberFollowingId", memberFollowingId);
         BsMemberFollowingCB cb = this;
-        cb.query().setMemberFollowingId_Equal(memberFollowingId);
+        cb.query().setMemberFollowingId_Equal(memberFollowingId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     */
+    public void acceptUniqueOf(Integer myMemberId, Integer yourMemberId) {
+        assertObjectNotNull("myMemberId", myMemberId);assertObjectNotNull("yourMemberId", yourMemberId);
+        BsMemberFollowingCB cb = this;
+        cb.query().setMyMemberId_Equal(myMemberId);;cb.query().setYourMemberId_Equal(yourMemberId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -353,12 +368,12 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
          */
         public HpSpecifiedColumn columnMemberFollowingId() { return doColumn("MEMBER_FOLLOWING_ID"); }
         /**
-         * (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+         * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnMyMemberId() { return doColumn("MY_MEMBER_ID"); }
         /**
-         * (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+         * (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnYourMemberId() { return doColumn("YOUR_MEMBER_ID"); }

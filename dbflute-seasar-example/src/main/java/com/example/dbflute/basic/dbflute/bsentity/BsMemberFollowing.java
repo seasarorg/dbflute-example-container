@@ -87,10 +87,10 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     /** (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _memberFollowingId;
 
-    /** (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _myMemberId;
 
-    /** (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _yourMemberId;
 
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
@@ -99,6 +99,9 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -141,6 +144,31 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     public boolean hasPrimaryKeyValue() {
         if (getMemberFollowingId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     */
+    public void uniqueBy(Integer myMemberId, Integer yourMemberId) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("myMemberId");
+        _myMemberId = myMemberId;
+        __uniqueDrivenProperties.addPropertyName("yourMemberId");
+        _yourMemberId = yourMemberId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -371,7 +399,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [get] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * 気になった人がいて...勇気を振り絞った会員のID。
      * @return The value of the column 'MY_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -380,7 +408,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [set] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * 気になった人がいて...勇気を振り絞った会員のID。
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
@@ -390,7 +418,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [get] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @return The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -399,7 +427,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [set] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */

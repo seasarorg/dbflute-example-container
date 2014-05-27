@@ -93,10 +93,14 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param theLongAndWindingTableAndColumnRefId : PK, NotNull, BIGINT(19). (NotNull)
+     */
     public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnRefId) {
         assertObjectNotNull("theLongAndWindingTableAndColumnRefId", theLongAndWindingTableAndColumnRefId);
         BsVendorTheLongAndWindingTableAndColumnRefCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);
+        cb.query().setTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -472,6 +476,11 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      */
     public void orScopeQuery(OrQuery<VendorTheLongAndWindingTableAndColumnRefCB> orQuery) {
         xorSQ((VendorTheLongAndWindingTableAndColumnRefCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

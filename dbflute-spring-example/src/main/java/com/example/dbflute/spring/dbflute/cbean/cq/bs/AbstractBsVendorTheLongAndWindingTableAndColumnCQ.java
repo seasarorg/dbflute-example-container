@@ -245,7 +245,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     public abstract String keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br />
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
@@ -778,7 +778,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     public abstract String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<VendorTheLongAndWindingTableAndColumnCB> myselfDerived() {
@@ -800,8 +800,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -816,8 +816,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

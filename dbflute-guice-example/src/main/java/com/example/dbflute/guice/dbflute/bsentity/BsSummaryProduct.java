@@ -90,6 +90,9 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -132,6 +135,17 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     public boolean hasPrimaryKeyValue() {
         if (getProductId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -235,7 +249,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductStatus> getProductStatus() {
-        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productStatus"); }
     }
 
     /**

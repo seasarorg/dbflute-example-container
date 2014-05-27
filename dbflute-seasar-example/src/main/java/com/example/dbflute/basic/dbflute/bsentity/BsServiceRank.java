@@ -110,6 +110,9 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -152,6 +155,28 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getServiceRankCode() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
+     */
+    public void uniqueBy(Integer displayOrder) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("displayOrder");
+        _displayOrder = displayOrder;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================

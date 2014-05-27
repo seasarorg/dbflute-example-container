@@ -210,7 +210,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_update() {
         // ## Arrange ##
-        Member beforeMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member beforeMember = memberBhv.selectByPK(3).get();
         Long versionNo = beforeMember.getVersionNo();// 排他制御のためにVersionNoを取得
 
         Member member = new Member();
@@ -222,7 +222,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         memberBhv.update(member);
 
         // ## Assert ##
-        Member afterMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member afterMember = memberBhv.selectByPK(3).get();
         log("onDatabase = " + afterMember.toString());
         log("onMemory   = " + member.toString());
         assertEquals(Long.valueOf(versionNo + 1), member.getVersionNo());
@@ -264,7 +264,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         memberBhv.updateNonstrict(member);
 
         // ## Assert ##
-        Member afterMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member afterMember = memberBhv.selectByPK(3).get();
         log("onDatabase = " + afterMember.toString());
         log("onMemory   = " + member.toString());
         assertNull(member.getVersionNo());
@@ -303,7 +303,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         deleteMemberReferrer();// テストのためにReferrerを全部消す
 
-        Member beforeMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member beforeMember = memberBhv.selectByPK(3).get();
         Long versionNo = beforeMember.getVersionNo();// 排他制御のためにVersionNoを取得
 
         Member member = new Member();
@@ -315,7 +315,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         try {
-            memberBhv.selectByPKValueWithDeletedCheck(3);
+            memberBhv.selectByPK(3).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK
@@ -345,7 +345,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         try {
-            memberBhv.selectByPKValueWithDeletedCheck(3);
+            memberBhv.selectByPK(3).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK
@@ -371,7 +371,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         try {
-            memberBhv.selectByPKValueWithDeletedCheck(99999);
+            memberBhv.selectByPK(99999).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK

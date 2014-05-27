@@ -184,7 +184,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of SummaryProduct. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -205,39 +205,42 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId The one of primary key. (NotNull)
+     * @param productId : PK, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryProduct selectByPKValue(Integer productId) {
-        return doSelectByPKValue(productId, SummaryProduct.class);
+        return doSelectByPK(productId, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> ENTITY doSelectByPKValue(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(productId), entityType);
+    protected <ENTITY extends SummaryProduct> ENTITY doSelectByPK(Integer productId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(productId), entityType);
+    }
+
+    protected <ENTITY extends SummaryProduct> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(productId, entityType), productId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param productId The one of primary key. (NotNull)
+     * @param productId : PK, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryProduct selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKValueWithDeletedCheck(productId, SummaryProduct.class);
+        return doSelectByPKWithDeletedCheck(productId, SummaryProduct.class);
     }
 
-    protected <ENTITY extends SummaryProduct> ENTITY doSelectByPKValueWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(productId), entityType);
+    protected <ENTITY extends SummaryProduct> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), entityType);
     }
 
-    private SummaryProductCB buildPKCB(Integer productId) {
+    protected SummaryProductCB xprepareCBAsPK(Integer productId) {
         assertObjectNotNull("productId", productId);
-        SummaryProductCB cb = newMyConditionBean();
-        cb.query().setProductId_Equal(productId);
+        SummaryProductCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productId);
         return cb;
     }
 

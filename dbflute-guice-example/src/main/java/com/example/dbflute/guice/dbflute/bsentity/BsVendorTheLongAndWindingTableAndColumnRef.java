@@ -85,6 +85,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -129,6 +132,17 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
+    }
+
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -140,7 +154,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<VendorTheLongAndWindingTableAndColumn> getVendorTheLongAndWindingTableAndColumn() {
-        if (_vendorTheLongAndWindingTableAndColumn != null) { return _vendorTheLongAndWindingTableAndColumn; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_vendorTheLongAndWindingTableAndColumn != null) { return _vendorTheLongAndWindingTableAndColumn; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "vendorTheLongAndWindingTableAndColumn"); }
     }
 
     /**

@@ -184,7 +184,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * </pre>
      * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */

@@ -78,10 +78,25 @@ public class BsMemberLoginCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param memberLoginId (会員ログインID): PK, ID, NotNull, BIGINT(19). (NotNull)
+     */
     public void acceptPrimaryKey(Long memberLoginId) {
         assertObjectNotNull("memberLoginId", memberLoginId);
         BsMemberLoginCB cb = this;
-        cb.query().setMemberLoginId_Equal(memberLoginId);
+        cb.query().setMemberLoginId_Equal(memberLoginId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param loginDatetime (ログイン日時): +UQ, IX, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void acceptUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
+        assertObjectNotNull("memberId", memberId);assertObjectNotNull("loginDatetime", loginDatetime);
+        BsMemberLoginCB cb = this;
+        cb.query().setMemberId_Equal(memberId);;cb.query().setLoginDatetime_Equal(loginDatetime);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -353,12 +368,12 @@ public class BsMemberLoginCB extends AbstractConditionBean {
          */
         public HpSpecifiedColumn columnMemberLoginId() { return doColumn("MEMBER_LOGIN_ID"); }
         /**
-         * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+         * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+         * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLoginDatetime() { return doColumn("LOGIN_DATETIME"); }

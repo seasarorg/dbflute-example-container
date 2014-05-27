@@ -92,10 +92,24 @@ public class BsProductStatusCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
+     */
     public void acceptPrimaryKey(String productStatusCode) {
         assertObjectNotNull("productStatusCode", productStatusCode);
         BsProductStatusCB cb = this;
-        cb.query().setProductStatusCode_Equal(productStatusCode);
+        cb.query().setProductStatusCode_Equal(productStatusCode);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
+     */
+    public void acceptUniqueOf(Integer displayOrder) {
+        assertObjectNotNull("displayOrder", displayOrder);
+        BsProductStatusCB cb = this;
+        cb.query().setDisplayOrder_Equal(displayOrder);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -453,6 +467,11 @@ public class BsProductStatusCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<ProductStatusCB> orQuery) {
         xorSQ((ProductStatusCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

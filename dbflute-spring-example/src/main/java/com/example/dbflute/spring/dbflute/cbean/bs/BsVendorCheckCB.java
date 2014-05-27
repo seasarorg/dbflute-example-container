@@ -92,10 +92,14 @@ public class BsVendorCheckCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param vendorCheckId : PK, NotNull, DECIMAL(16). (NotNull)
+     */
     public void acceptPrimaryKey(Long vendorCheckId) {
         assertObjectNotNull("vendorCheckId", vendorCheckId);
         BsVendorCheckCB cb = this;
-        cb.query().setVendorCheckId_Equal(vendorCheckId);
+        cb.query().setVendorCheckId_Equal(vendorCheckId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -538,6 +542,11 @@ public class BsVendorCheckCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<VendorCheckCB> orQuery) {
         xorSQ((VendorCheckCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

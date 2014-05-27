@@ -148,7 +148,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Product. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -182,7 +182,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of Product. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -203,39 +203,49 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId The one of primary key. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Product selectByPKValue(Integer productId) {
-        return doSelectByPKValue(productId, Product.class);
+    public OptionalEntity<Product> selectByPK(Integer productId) {
+        return doSelectOptionalByPK(productId, Product.class);
     }
 
-    protected <ENTITY extends Product> ENTITY doSelectByPKValue(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(productId), entityType);
+    protected <ENTITY extends Product> ENTITY doSelectByPK(Integer productId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(productId), entityType);
+    }
+
+    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(productId, entityType), productId);
+    }
+
+    protected ProductCB xprepareCBAsPK(Integer productId) {
+        assertObjectNotNull("productId", productId);
+        ProductCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productId);
+        return cb;
     }
 
     /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param productId The one of primary key. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * Select the entity by the unique-key value.
+     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Product selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKValueWithDeletedCheck(productId, Product.class);
+    public OptionalEntity<Product> selectByUniqueOf(String productHandleCode) {
+        return doSelectByUniqueOf(productHandleCode, Product.class);
     }
 
-    protected <ENTITY extends Product> ENTITY doSelectByPKValueWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(productId), entityType);
+    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectByUniqueOf(String productHandleCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(productHandleCode), entityType), productHandleCode);
     }
 
-    private ProductCB buildPKCB(Integer productId) {
-        assertObjectNotNull("productId", productId);
-        ProductCB cb = newMyConditionBean();
-        cb.query().setProductId_Equal(productId);
+    protected ProductCB xprepareCBAsUniqueOf(String productHandleCode) {
+        assertObjectNotNull("productHandleCode", productHandleCode);
+        ProductCB cb = newMyConditionBean(); cb.acceptUniqueOf(productHandleCode);
         return cb;
     }
 

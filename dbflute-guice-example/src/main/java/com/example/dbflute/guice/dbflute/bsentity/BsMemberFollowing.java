@@ -72,10 +72,10 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     /** (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _memberFollowingId;
 
-    /** (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _myMemberId;
 
-    /** (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _yourMemberId;
 
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
@@ -84,6 +84,9 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -128,6 +131,31 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
         return true;
     }
 
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     */
+    public void uniqueBy(Integer myMemberId, Integer yourMemberId) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("myMemberId");
+        _myMemberId = myMemberId;
+        __uniqueDrivenProperties.addPropertyName("yourMemberId");
+        _yourMemberId = yourMemberId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
+    }
+
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -139,7 +167,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'memberByMyMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMemberByMyMemberId() {
-        if (_memberByMyMemberId != null) { return _memberByMyMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberByMyMemberId != null) { return _memberByMyMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberByMyMemberId"); }
     }
 
     /**
@@ -158,7 +186,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'memberByYourMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMemberByYourMemberId() {
-        if (_memberByYourMemberId != null) { return _memberByYourMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_memberByYourMemberId != null) { return _memberByYourMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberByYourMemberId"); }
     }
 
     /**
@@ -357,7 +385,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [get] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'MY_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMyMemberId() {
@@ -365,7 +393,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [set] (わたし)MY_MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMyMemberId(Integer myMemberId) {
@@ -374,7 +402,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [get] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @return The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getYourMemberId() {
@@ -382,7 +410,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * [set] (あなた)YOUR_MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setYourMemberId(Integer yourMemberId) {

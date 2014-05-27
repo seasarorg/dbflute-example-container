@@ -121,6 +121,9 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -166,6 +169,28 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
     public boolean hasPrimaryKeyValue() {
         if (getProductId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
+     */
+    public void uniqueBy(String productHandleCode) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("productHandleCode");
+        _productHandleCode = productHandleCode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> uniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -269,7 +294,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
      * @return The entity of foreign property 'productCategory'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductCategory> getProductCategory() {
-        if (_productCategory != null) { return _productCategory; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_productCategory != null) { return _productCategory; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productCategory"); }
     }
 
     /**
@@ -288,7 +313,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductStatus> getProductStatus() {
-        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(); }
+        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productStatus"); }
     }
 
     /**

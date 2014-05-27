@@ -20,6 +20,9 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
 
+    // ===================================================================================
+    //                                                                               Basic
+    //                                                                               =====
     public void test_update_modifiedOnly() throws Exception {
         // ## Arrange ##
         Member before = memberBhv.selectByPKValueWithDeletedCheck(3);
@@ -104,5 +107,36 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         memberStatusBhv.update(memberStatus); // Expect no exception!
+    }
+
+    // ===================================================================================
+    //                                                                           Unique By
+    //                                                                           =========
+    public void test_update_uniqueBy_basic() throws Exception {
+        // ## Arrange ##
+        String memberAccount = "Pixy";
+        Member before = selectByAccount(memberAccount);
+        Member member = new Member();
+        member.uniqueBy(memberAccount);
+        member.setMemberName("UniqueBy");
+        member.setVersionNo(before.getVersionNo());
+
+        // ## Act ##
+        memberBhv.update(member);
+
+        // ## Assert ##
+        Member actual = selectByAccount(memberAccount);
+        assertEquals("UniqueBy", actual.getMemberName());
+        assertEquals(memberAccount, actual.getMemberAccount());
+        assertEquals(before.getBirthdate(), actual.getBirthdate());
+        assertEquals(before.getMemberStatusCode(), actual.getMemberStatusCode());
+        assertEquals(Long.valueOf(before.getVersionNo() + 1L), actual.getVersionNo());
+        assertEquals(actual.getVersionNo(), member.getVersionNo());
+    }
+
+    protected Member selectByAccount(String account) {
+        MemberCB cb = new MemberCB();
+        cb.query().setMemberAccount_Equal(account);
+        return memberBhv.selectEntityWithDeletedCheck(cb);
     }
 }

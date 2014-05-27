@@ -194,7 +194,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
 #end
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
@@ -237,7 +237,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -260,17 +260,31 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     /**
      * Select the entity by the primary-key value.
      * ${table.primaryKeyArgsJavaDocString}
+#if ($table.isAvailableSelectEntityPlainReturn())
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+#else
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+#end
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectByPKValue(${table.primaryKeyArgsString}) {
-        return doSelectByPKValue(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+#if ($table.isAvailableSelectEntityPlainReturn())
+        return doSelectByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+#else
+        return doSelectOptionalByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+#end
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKValue(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
     }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(${table.primaryKeyArgsCallingString}, entityType), ${table.primaryKeyArgsCallingString});
+    }
+#if ($table.isCompatibleSelectByPKWithDeletedCheck())
 
     /**
      * Select the entity by the primary-key value with deleted check.
@@ -280,18 +294,42 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectByPKValueWithDeletedCheck(${table.primaryKeyArgsString}) {
-        return doSelectByPKValueWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${myExtendedObjectClassName} selectByPK${table.selectByPKSuffix}WithDeletedCheck(${table.primaryKeyArgsString}) {
+        return doSelectByPKWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKValueWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
     }
+#end
 
-    private ${myConditionBeanClassName} buildPKCB(${table.primaryKeyArgsString}) {
+    protected ${myConditionBeanClassName} xprepareCBAsPK(${table.primaryKeyArgsString}) {
         ${table.primaryKeyArgsAssertString}
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        ${table.primaryKeyArgsConditionSetupString}
+        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptPrimaryKey(${table.primaryKeyArgsCallingString});
+        return cb;
+    }
+#end
+#foreach ($uq in $table.keyableUniqueList)
+
+    /**
+     * Select the entity by the unique-key value.
+     * ${uq.argsJavaDocString}
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<${myExtendedObjectClassName}> selectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}, ${myExtendedObjectClassName}.class);
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}), entityType), ${uq.argsCallingString});
+    }
+
+    protected ${myConditionBeanClassName} xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        ${uq.argsAssertString}
+        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
         return cb;
     }
 #end
@@ -750,8 +788,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     }
 #end
 #foreach ($referrer in $table.referrerAsOneList)
-#set ($referrerTable = $referrer.table)
-#set ($referrerEntityClassName = "${glProjectPrefix}${referrerTable.javaName}")
+#set ($referrerEntityClassName = $referrer.referrerTableExtendedEntityClassName)
     /**
      * Pull out the list of referrer-as-one table '${referrerEntityClassName}'.
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
