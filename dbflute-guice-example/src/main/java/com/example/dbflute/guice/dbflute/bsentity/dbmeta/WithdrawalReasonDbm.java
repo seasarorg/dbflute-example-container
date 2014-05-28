@@ -42,9 +42,13 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgWithdrawalReasonText(), "withdrawalReasonText");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgWithdrawalReasonCode implements PropertyGateway {
+    public class EpgWithdrawalReasonCode implements PropertyGateway {
         public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonCode(); }
-        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setWithdrawalReasonCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnWithdrawalReasonCode();
+            ccls(col, vl);
+            ((WithdrawalReason)et).setWithdrawalReasonCodeAsWithdrawalReason((CDef.WithdrawalReason)gcls(col, vl));
+        }
     }
     public static class EpgWithdrawalReasonText implements PropertyGateway {
         public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonText(); }
@@ -116,7 +120,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

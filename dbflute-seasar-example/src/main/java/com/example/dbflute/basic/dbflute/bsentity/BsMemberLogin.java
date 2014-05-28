@@ -162,15 +162,14 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public void uniqueBy(Integer memberId, java.sql.Timestamp loginDatetime) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
-        _memberId = memberId;
         __uniqueDrivenProperties.addPropertyName("loginDatetime");
-        _loginDatetime = loginDatetime;
+        setMemberId(memberId);setLoginDatetime(loginDatetime);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

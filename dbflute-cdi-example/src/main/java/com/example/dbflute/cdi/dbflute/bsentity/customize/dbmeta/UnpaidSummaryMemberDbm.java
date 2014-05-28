@@ -36,6 +36,9 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgUnpaidManId(), "unpaidManId");
@@ -43,8 +46,6 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUnpaidPriceSummary(), "unpaidPriceSummary");
         setupEpg(_epgMap, new EpgStatusName(), "statusName");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgUnpaidManId implements PropertyGateway {
         public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidManId(); }
         public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidManId(cti(vl)); }
@@ -61,6 +62,8 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((UnpaidSummaryMember)et).getStatusName(); }
         public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setStatusName((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -76,14 +79,30 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUnpaidManId = cci("UNPAID_MAN_ID", "UNPAID_MAN_ID", null, "会員ID", false, "unpaidManId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, "会員を識別するID。連番として自動採番される。\n（会員IDだけに限らず）採番方法はDBMS次第。", null, null, null);
-    protected final ColumnInfo _columnUnpaidManName = cci("UNPAID_MAN_NAME", "UNPAID_MAN_NAME", null, "会員名称", false, "unpaidManName", String.class, false, false, "VARCHAR", 200, 0, null, false, null, "会員のフルネームの名称。\n苗字と名前を分けて管理することも多いが、ここでは Example なので単純にひとまとめ。", null, null, null);
-    protected final ColumnInfo _columnUnpaidPriceSummary = cci("UNPAID_PRICE_SUMMARY", "UNPAID_PRICE_SUMMARY", null, null, false, "unpaidPriceSummary", Long.class, false, false, "BIGINT", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnStatusName = cci("STATUS_NAME", "STATUS_NAME", null, "会員ステータス名称", false, "statusName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUnpaidManId = cci("UNPAID_MAN_ID", "UNPAID_MAN_ID", null, "会員ID", Integer.class, "unpaidManId", null, true, false, false, "INTEGER", 10, 0, null, false, null, "会員を識別するID。連番として自動採番される。\n（会員IDだけに限らず）採番方法はDBMS次第。", null, null, null);
+    protected final ColumnInfo _columnUnpaidManName = cci("UNPAID_MAN_NAME", "UNPAID_MAN_NAME", null, "会員名称", String.class, "unpaidManName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, "会員のフルネームの名称。\n苗字と名前を分けて管理することも多いが、ここでは Example なので単純にひとまとめ。", null, null, null);
+    protected final ColumnInfo _columnUnpaidPriceSummary = cci("UNPAID_PRICE_SUMMARY", "UNPAID_PRICE_SUMMARY", null, null, Long.class, "unpaidPriceSummary", null, false, false, false, "BIGINT", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnStatusName = cci("STATUS_NAME", "STATUS_NAME", null, "会員ステータス名称", String.class, "statusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
+    /**
+     * (会員ID)UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUnpaidManId() { return _columnUnpaidManId; }
+    /**
+     * (会員名称)UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUnpaidManName() { return _columnUnpaidManName; }
+    /**
+     * UNPAID_PRICE_SUMMARY: {BIGINT(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUnpaidPriceSummary() { return _columnUnpaidPriceSummary; }
+    /**
+     * (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnStatusName() { return _columnStatusName; }
 
     protected List<ColumnInfo> ccil() {
@@ -110,6 +129,8 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

@@ -29,6 +29,9 @@ import org.seasar.dbflute.dbmeta.hierarchy.HierarchyRequest;
 #end
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.*;
+#if ($database.isRelationOptionalEntityOriginalClass())
+import ${database.relationOptionalEntityClassName};
+#end
 import org.seasar.dbflute.outsidesql.executor.*;
 #if ($table.hasPrimaryKeyForcedClassificationSetting())
 import ${glPackageBaseCommon}.${glCDef};
@@ -38,12 +41,6 @@ import ${glPackageExtendedEntity}.*;
 import ${myDBMetaPackageName}.*;
 import ${glPackageCB}.*;
 
-#set ($myExtendClassName = "")
-#if ($table.isWritable())
-  #set ($myExtendClassName = "AbstractBehaviorWritable")
-#else
-  #set ($myExtendClassName = "AbstractBehaviorReadable")
-#end
 /**
  * The behavior of ${table.basicInfoDispString}. <br />
  * <pre>
@@ -76,7 +73,7 @@ import ${glPackageCB}.*;
  * </pre>
  * @author ${database.classAuthor}
  */
-public abstract class ${myClassName} extends ${myExtendClassName} {
+public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassName} {
 
     // ===================================================================================
     //                                                                          Definition
@@ -197,7 +194,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get() of return value is called and the value is null, which means entity has already been deleted (point is not found).
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
 #end
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
@@ -240,7 +237,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * </pre>
      * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -263,17 +260,31 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     /**
      * Select the entity by the primary-key value.
      * ${table.primaryKeyArgsJavaDocString}
+#if ($table.isAvailableSelectEntityPlainReturn())
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+#else
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+#end
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectByPKValue(${table.primaryKeyArgsString}) {
-        return doSelectByPKValue(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+#if ($table.isAvailableSelectEntityPlainReturn())
+        return doSelectByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+#else
+        return doSelectOptionalByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+#end
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKValue(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
     }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(${table.primaryKeyArgsCallingString}, entityType), ${table.primaryKeyArgsCallingString});
+    }
+#if ($table.isCompatibleSelectByPKWithDeletedCheck())
 
     /**
      * Select the entity by the primary-key value with deleted check.
@@ -283,18 +294,42 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${myExtendedObjectClassName} selectByPKValueWithDeletedCheck(${table.primaryKeyArgsString}) {
-        return doSelectByPKValueWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${myExtendedObjectClassName} selectByPK${table.selectByPKSuffix}WithDeletedCheck(${table.primaryKeyArgsString}) {
+        return doSelectByPKWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKValueWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
     }
+#end
 
-    private ${myConditionBeanClassName} buildPKCB(${table.primaryKeyArgsString}) {
+    protected ${myConditionBeanClassName} xprepareCBAsPK(${table.primaryKeyArgsString}) {
         ${table.primaryKeyArgsAssertString}
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        ${table.primaryKeyArgsConditionSetupString}
+        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptPrimaryKey(${table.primaryKeyArgsCallingString});
+        return cb;
+    }
+#end
+#foreach ($uq in $table.keyableUniqueList)
+
+    /**
+     * Select the entity by the unique-key value.
+     * ${uq.argsJavaDocString}
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<${myExtendedObjectClassName}> selectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}, ${myExtendedObjectClassName}.class);
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}), entityType), ${uq.argsCallingString});
+    }
+
+    protected ${myConditionBeanClassName} xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        ${uq.argsAssertString}
+        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
         return cb;
     }
 #end
@@ -623,7 +658,11 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
             public List<${referrerEntityClassName}> selRfLs(${referrerCBClassName} cb) { return referrerBhv.selectList(cb); }
             public ${keyJavaNative} getFKVal(${referrerEntityClassName} re) { return re.get${referrerColumn.javaName}(); }
             public void setlcEt(${referrerEntityClassName} re, ${myExtendedObjectClassName} le)
+#if ($referrer.isForeignPropertyOptionalEntity())
+            { re.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(le)); }
+#else
             { re.set${referrer.foreignPropertyNameInitCap}(le); }
+#end
             public String getRfPrNm() { return "${referrer.referrerPropertyName}"; }
         });
     }
@@ -697,7 +736,12 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
 #end
                 return foreignKeyMap;
             }
-            public void setlcEt(${referrerEntityClassName} re, ${myExtendedObjectClassName} le) { re.set${referrer.foreignPropertyNameInitCap}(le); }
+            public void setlcEt(${referrerEntityClassName} re, ${myExtendedObjectClassName} le)
+#if ($referrer.isForeignPropertyOptionalEntity())
+            { re.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(le)); }
+#else
+            { re.set${referrer.foreignPropertyNameInitCap}(le); }
+#end
             public String getRfPrNm() { return "${referrer.referrerPropertyName}"; }
         });
     }
@@ -708,24 +752,33 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-#foreach ($foreignKey in $table.foreignKeys)
-#set ($foreignEntityClassName = "${foreignKey.foreignTableExtendedEntityClassName}")
+#foreach ($fk in $table.foreignKeys)
+#set ($foreignEntityClassName = "${fk.foreignTableExtendedEntityClassName}")
     /**
      * Pull out the list of foreign table '${foreignEntityClassName}'.
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<${foreignEntityClassName}> pullout${foreignKey.foreignPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+    public List<${foreignEntityClassName}> pullout${fk.foreignPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
         return helpPulloutInternally(${myEntityListVariableName}, new InternalPulloutCallback<${myExtendedObjectClassName}, ${foreignEntityClassName}>() {
-            public ${foreignEntityClassName} getFr(${myExtendedObjectClassName} et) { return et.get${foreignKey.foreignPropertyNameInitCap}(); }
-            public boolean hasRf() { return ${foreignKey.canBeReferrer()}; }
-#if ($foreignKey.canBeReferrer())
-#if ($foreignKey.isOneToOne())
+            public ${foreignEntityClassName} getFr(${myExtendedObjectClassName} et)
+#if ($fk.isForeignPropertyOptionalEntity())
+            { return et.get${fk.foreignPropertyNameInitCap}().get(); }
+#else
+            { return et.get${fk.foreignPropertyNameInitCap}(); }
+#end
+            public boolean hasRf() { return ${fk.canBeReferrer()}; }
+#if ($fk.canBeReferrer())
+#if ($fk.isOneToOne())
             public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-            { if (!ls.isEmpty()) { et.set${foreignKey.referrerPropertyNameInitCapAsOne}(ls.get(0)); } }
+#if ($fk.isReferrerPropertyOptionalEntityAsOne())
+            { if (!ls.isEmpty()) { et.set${fk.referrerPropertyNameInitCapAsOne}(${database.relationOptionalEntitySimpleName}.of(ls.get(0))); } }
+#else
+            { if (!ls.isEmpty()) { et.set${fk.referrerPropertyNameInitCapAsOne}(ls.get(0)); } }
+#end
 #else
             public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-            { et.set${foreignKey.referrerPropertyNameInitCap}(ls); }
+            { et.set${fk.referrerPropertyNameInitCap}(ls); }
 #end
 #else
             public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
@@ -735,8 +788,7 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
     }
 #end
 #foreach ($referrer in $table.referrerAsOneList)
-#set ($referrerTable = $referrer.table)
-#set ($referrerEntityClassName = "${glProjectPrefix}${referrerTable.javaName}")
+#set ($referrerEntityClassName = $referrer.referrerTableExtendedEntityClassName)
     /**
      * Pull out the list of referrer-as-one table '${referrerEntityClassName}'.
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
@@ -744,10 +796,19 @@ public abstract class ${myClassName} extends ${myExtendClassName} {
      */
     public List<${referrerEntityClassName}> pullout${referrer.referrerPropertyNameInitCapAsOne}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
         return helpPulloutInternally(${myEntityListVariableName}, new InternalPulloutCallback<${myExtendedObjectClassName}, ${referrerEntityClassName}>() {
-            public ${referrerEntityClassName} getFr(${myExtendedObjectClassName} et) { return et.get${referrer.referrerPropertyNameInitCapAsOne}(); }
+            public ${referrerEntityClassName} getFr(${myExtendedObjectClassName} et)
+#if ($referrer.isReferrerPropertyOptionalEntityAsOne())
+            { return et.get${referrer.referrerPropertyNameInitCapAsOne}().get(); }
+#else
+            { return et.get${referrer.referrerPropertyNameInitCapAsOne}(); }
+#end
             public boolean hasRf() { return ${referrer.canBeReferrer()}; }
             public void setRfLs(${referrerEntityClassName} et, List<${myExtendedObjectClassName}> ls)
+#if ($referrer.isForeignPropertyOptionalEntity())
+            { if (!ls.isEmpty()) { et.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(ls.get(0))); } }
+#else
             { if (!ls.isEmpty()) { et.set${referrer.foreignPropertyNameInitCap}(ls.get(0)); } }
+#end
         });
     }
 #end

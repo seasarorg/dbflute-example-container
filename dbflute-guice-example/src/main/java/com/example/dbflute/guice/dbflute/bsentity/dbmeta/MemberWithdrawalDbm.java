@@ -53,9 +53,13 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberWithdrawal)et).getMemberId(); }
         public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setMemberId(cti(vl)); }
     }
-    public static class EpgWithdrawalReasonCode implements PropertyGateway {
+    public class EpgWithdrawalReasonCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReasonCode(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setWithdrawalReasonCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnWithdrawalReasonCode();
+            ccls(col, vl);
+            ((MemberWithdrawal)et).setWithdrawalReasonCodeAsWithdrawalReason((CDef.WithdrawalReason)gcls(col, vl));
+        }
     }
     public static class EpgWithdrawalReasonInputText implements PropertyGateway {
         public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReasonInputText(); }
@@ -210,7 +214,7 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

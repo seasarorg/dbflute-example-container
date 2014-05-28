@@ -64,9 +64,13 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getFormalizedDatetime(); }
         public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
     }
-    public static class EpgMemberStatusCode implements PropertyGateway {
+    public class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMemberStatusCode();
+            ccls(col, vl);
+            ((OptionMember)et).setMemberStatusCodeAsMemberStatus((CDef.MemberStatus)gcls(col, vl));
+        }
     }
     public static class EpgStatusDisplayOrder implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
@@ -76,9 +80,13 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusName(); }
         public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusName((String)vl); }
     }
-    public static class EpgDummyFlg implements PropertyGateway {
+    public class EpgDummyFlg implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setDummyFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnDummyFlg();
+            ccls(col, vl);
+            ((OptionMember)et).setDummyFlgAsFlg((CDef.Flg)gcls(col, vl));
+        }
     }
     public static class EpgDummyNoflg implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getDummyNoflg(); }
@@ -188,7 +196,7 @@ public class OptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

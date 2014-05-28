@@ -140,15 +140,14 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     public void uniqueBy(Integer myMemberId, Integer yourMemberId) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("myMemberId");
-        _myMemberId = myMemberId;
         __uniqueDrivenProperties.addPropertyName("yourMemberId");
-        _yourMemberId = yourMemberId;
+        setMyMemberId(myMemberId);setYourMemberId(yourMemberId);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

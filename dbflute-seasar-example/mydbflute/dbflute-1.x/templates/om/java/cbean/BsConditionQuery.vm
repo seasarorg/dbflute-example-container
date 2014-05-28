@@ -19,10 +19,8 @@ ${database.allClassCopyright}package ${glPackageBaseCQ};
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
-#if (${table.hasCompoundKeyReferrer()})
 import org.seasar.dbflute.cbean.chelper.*;
 import org.seasar.dbflute.cbean.coption.*;
-#end
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -453,11 +451,11 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
-#if ($table.hasForeignKeyOrReferrerAsOne())
+#if ($table.hasJoinableForeignKeyOrReferrerAsOne())
         ${myConditionQueryClassName} bq = (${myConditionQueryClassName})bqs;
         ${myConditionQueryClassName} uq = (${myConditionQueryClassName})uqs;
 #end
-#foreach ($fk in $table.foreignKeys)
+#foreach ($fk in $table.joinableForeignKeyList)
         if (bq.hasConditionQuery${fk.foreignPropertyNameInitCap}()) {
 #if ($fk.hasDynamicFixedCondition())
             uq.xsetParameterMap${fk.foreignPropertyNameInitCap}(bq.getParameterMap${fk.foreignPropertyNameInitCap}());
@@ -467,7 +465,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
 #end
         }
 #end
-#foreach ($referrer in $table.referrerAsOneList)
+#foreach ($referrer in $table.joinableReferrerAsOneList)
         if (bq.hasConditionQuery${referrer.referrerPropertyNameInitCapAsOne}()) {
             uq.query${referrer.referrerPropertyNameInitCapAsOne}().reflectRelationOnUnionQuery(bq.query${referrer.referrerPropertyNameInitCapAsOne}(), uq.query${referrer.referrerPropertyNameInitCapAsOne}());
         }
@@ -594,7 +592,6 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
         return null;
     }
 
-#if ($table.hasSinglePrimaryKey())
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
@@ -606,6 +603,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
         _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
+#if ($table.hasSinglePrimaryKey())
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
@@ -854,5 +852,7 @@ public class ${myClassName} extends ${myAbstractBaseConditionQueryClassName} {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return ${myConditionBeanClassName}.class.getName(); }
     protected String xCQ() { return ${myConditionQueryClassName}.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

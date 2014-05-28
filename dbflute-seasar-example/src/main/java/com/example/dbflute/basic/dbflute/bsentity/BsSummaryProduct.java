@@ -159,13 +159,13 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     public void uniqueBy(String productHandleCode) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("productHandleCode");
-        _productHandleCode = productHandleCode;
+        setProductHandleCode(productHandleCode);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

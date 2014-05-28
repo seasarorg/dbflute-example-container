@@ -183,7 +183,7 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

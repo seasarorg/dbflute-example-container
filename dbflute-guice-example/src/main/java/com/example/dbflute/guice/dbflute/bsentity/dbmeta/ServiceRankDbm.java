@@ -45,9 +45,13 @@ public class ServiceRankDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgDescription(), "description");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgServiceRankCode implements PropertyGateway {
+    public class EpgServiceRankCode implements PropertyGateway {
         public Object read(Entity et) { return ((ServiceRank)et).getServiceRankCode(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setServiceRankCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnServiceRankCode();
+            ccls(col, vl);
+            ((ServiceRank)et).setServiceRankCodeAsServiceRank((CDef.ServiceRank)gcls(col, vl));
+        }
     }
     public static class EpgServiceRankName implements PropertyGateway {
         public Object read(Entity et) { return ((ServiceRank)et).getServiceRankName(); }
@@ -57,9 +61,13 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((ServiceRank)et).getServicePointIncidence(); }
         public void write(Entity et, Object vl) { ((ServiceRank)et).setServicePointIncidence(ctb(vl)); }
     }
-    public static class EpgNewAcceptableFlg implements PropertyGateway {
+    public class EpgNewAcceptableFlg implements PropertyGateway {
         public Object read(Entity et) { return ((ServiceRank)et).getNewAcceptableFlg(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setNewAcceptableFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnNewAcceptableFlg();
+            ccls(col, vl);
+            ((ServiceRank)et).setNewAcceptableFlgAsFlg((CDef.Flg)gcls(col, vl));
+        }
     }
     public static class EpgDescription implements PropertyGateway {
         public Object read(Entity et) { return ((ServiceRank)et).getDescription(); }
@@ -152,7 +160,7 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

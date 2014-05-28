@@ -96,13 +96,13 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     /** PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _purchaseId;
 
-    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} */
+    /** (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} */
     protected Integer _productId;
 
-    /** (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} */
+    /** (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _purchaseDatetime;
 
     /** (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} */
@@ -132,6 +132,9 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -177,6 +180,32 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     public boolean hasPrimaryKeyValue() {
         if (getPurchaseId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param memberId (会員ID): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId (商品ID): +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void uniqueBy(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("memberId");
+        __uniqueDrivenProperties.addPropertyName("productId");
+        __uniqueDrivenProperties.addPropertyName("purchaseDatetime");
+        setMemberId(memberId);setProductId(productId);setPurchaseDatetime(purchaseDatetime);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -419,8 +448,8 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         if (!xSV(getPurchaseId(), other.getPurchaseId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -428,13 +457,13 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getPurchaseId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getPurchaseId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -458,17 +487,17 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_member != null)
-        { sb.append(l).append(xbRDS(_member, "member")); }
+        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_product != null)
-        { sb.append(l).append(xbRDS(_product, "product")); }
+        { sb.append(li).append(xbRDS(_product, "product")); }
         if (_summaryProduct != null)
-        { sb.append(l).append(xbRDS(_summaryProduct, "summaryProduct")); }
+        { sb.append(li).append(xbRDS(_summaryProduct, "summaryProduct")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
     }
 
     /**
@@ -484,33 +513,33 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getPurchaseId());
-        sb.append(delimiter).append(getMemberId());
-        sb.append(delimiter).append(getProductId());
-        sb.append(delimiter).append(getPurchaseDatetime());
-        sb.append(delimiter).append(getPurchaseCount());
-        sb.append(delimiter).append(getPurchasePrice());
-        sb.append(delimiter).append(getPaymentCompleteFlg());
-        sb.append(delimiter).append(getRegisterDatetime());
-        sb.append(delimiter).append(getRegisterUser());
-        sb.append(delimiter).append(getUpdateDatetime());
-        sb.append(delimiter).append(getUpdateUser());
-        sb.append(delimiter).append(getVersionNo());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getPurchaseId());
+        sb.append(dm).append(getMemberId());
+        sb.append(dm).append(getProductId());
+        sb.append(dm).append(getPurchaseDatetime());
+        sb.append(dm).append(getPurchaseCount());
+        sb.append(dm).append(getPurchasePrice());
+        sb.append(dm).append(getPaymentCompleteFlg());
+        sb.append(dm).append(getRegisterDatetime());
+        sb.append(dm).append(getRegisterUser());
+        sb.append(dm).append(getUpdateDatetime());
+        sb.append(dm).append(getUpdateUser());
+        sb.append(dm).append(getVersionNo());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_member != null) { sb.append(c).append("member"); }
-        if (_product != null) { sb.append(c).append("product"); }
-        if (_summaryProduct != null) { sb.append(c).append("summaryProduct"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        String cm = ",";
+        if (_member != null) { sb.append(cm).append("member"); }
+        if (_product != null) { sb.append(cm).append("product"); }
+        if (_summaryProduct != null) { sb.append(cm).append("summaryProduct"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
@@ -548,7 +577,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * 会員を参照するID。<br />
      * 購入を識別する自然キー（複合ユニーク制約）の筆頭要素。
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
@@ -558,7 +587,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
      * 会員を参照するID。<br />
      * 購入を識別する自然キー（複合ユニーク制約）の筆頭要素。
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
@@ -569,7 +598,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [get] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * 商品を参照するID。
      * @return The value of the column 'PRODUCT_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -578,7 +607,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (商品ID)PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [set] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
      * 商品を参照するID。
      * @param productId The value of the column 'PRODUCT_ID'. (basically NotNull if update: for the constraint)
      */
@@ -588,7 +617,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * 購入した瞬間の日時。
      * @return The value of the column 'PURCHASE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
@@ -597,7 +626,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * 購入した瞬間の日時。
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (basically NotNull if update: for the constraint)
      */

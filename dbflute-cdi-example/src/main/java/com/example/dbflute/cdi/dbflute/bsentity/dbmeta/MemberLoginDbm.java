@@ -36,6 +36,9 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberLoginId(), "memberLoginId");
@@ -44,8 +47,6 @@ public class MemberLoginDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgMobileLoginFlg(), "mobileLoginFlg");
         setupEpg(_epgMap, new EpgLoginMemberStatusCode(), "loginMemberStatusCode");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberLoginId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getMemberLoginId(); }
         public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberLoginId(ctl(vl)); }
@@ -66,6 +67,27 @@ public class MemberLoginDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberLogin)et).getLoginMemberStatusCode(); }
         public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginMemberStatusCode((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgMember(), "member");
+        setupEfpg(_efpgMap, new EfpgMemberStatus(), "memberStatus");
+    }
+    public class EfpgMember implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberLogin)et).getMember(); }
+        public void write(Entity et, Object vl) { ((MemberLogin)et).setMember((Member)vl); }
+    }
+    public class EfpgMemberStatus implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberLogin)et).getMemberStatus(); }
+        public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberStatus((MemberStatus)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -85,16 +107,36 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", true, "memberLoginId", Long.class, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8C327DE4_B36B_4EDD_8C7D_EE0CACEA8B53", false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", true, "memberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
-    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", true, "loginDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。", null, null, null);
-    protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", true, "mobileLoginFlg", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "モバイル機器からのログインか否か。", null, null, CDef.DefMeta.Flg);
-    protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, "ログイン会員ステータスコード", true, "loginMemberStatusCode", String.class, false, false, "CHAR", 3, 0, null, false, null, "ログイン時の会員ステータス", "memberStatus", null, CDef.DefMeta.MemberStatus);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8C327DE4_B36B_4EDD_8C7D_EE0CACEA8B53", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
+    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.sql.Timestamp.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。", null, null, null);
+    protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, "モバイル機器からのログインか否か。", null, null, CDef.DefMeta.Flg);
+    protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, "ログイン会員ステータスコード", String.class, "loginMemberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, "ログイン時の会員ステータス", "memberStatus", null, CDef.DefMeta.MemberStatus);
 
+    /**
+     * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberLoginId() { return _columnMemberLoginId; }
+    /**
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLoginDatetime() { return _columnLoginDatetime; }
+    /**
+     * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMobileLoginFlg() { return _columnMobileLoginFlg; }
+    /**
+     * (ログイン会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLoginMemberStatusCode() { return _columnLoginMemberStatusCode; }
 
     protected List<ColumnInfo> ccil() {
@@ -122,16 +164,26 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMember() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberLoginList");
+        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "memberLoginList");
     }
+    /**
+     * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMemberStatus() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLoginMemberStatusCode(), MemberStatusDbm.getInstance().columnMemberStatusCode());
-        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MemberStatusDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberLoginList");
+        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MemberStatusDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberLoginList");
     }
 
     // -----------------------------------------------------

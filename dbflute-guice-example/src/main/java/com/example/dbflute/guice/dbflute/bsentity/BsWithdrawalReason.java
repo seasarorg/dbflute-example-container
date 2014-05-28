@@ -134,13 +134,13 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     public void uniqueBy(Integer displayOrder) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("displayOrder");
-        _displayOrder = displayOrder;
+        setDisplayOrder(displayOrder);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

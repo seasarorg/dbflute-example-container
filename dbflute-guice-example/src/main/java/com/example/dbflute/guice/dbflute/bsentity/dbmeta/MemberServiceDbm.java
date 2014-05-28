@@ -61,9 +61,13 @@ public class MemberServiceDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberService)et).getServicePointCount(); }
         public void write(Entity et, Object vl) { ((MemberService)et).setServicePointCount(cti(vl)); }
     }
-    public static class EpgServiceRankCode implements PropertyGateway {
+    public class EpgServiceRankCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberService)et).getServiceRankCode(); }
-        public void write(Entity et, Object vl) { ((MemberService)et).setServiceRankCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnServiceRankCode();
+            ccls(col, vl);
+            ((MemberService)et).setServiceRankCodeAsServiceRank((CDef.ServiceRank)gcls(col, vl));
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberService)et).getRegisterDatetime(); }
@@ -125,7 +129,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8C8B6D72_72B6_43FA_BFAB_5AD008D9A3AC", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A80AF7D9_B8B8_42F7_AD04_2075470477C7", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", Integer.class, "servicePointCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "serviceRank", null, CDef.DefMeta.ServiceRank);
@@ -210,7 +214,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

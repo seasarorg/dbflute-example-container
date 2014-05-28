@@ -3,6 +3,8 @@ package com.example.dbflute.guice.dbflute.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -445,5 +447,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return MemberWithdrawalCB.class.getName(); }
     protected String xCQ() { return MemberWithdrawalCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

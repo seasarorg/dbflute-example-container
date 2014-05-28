@@ -126,7 +126,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

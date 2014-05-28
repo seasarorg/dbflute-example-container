@@ -28,9 +28,9 @@ public class SummaryWithdrawalCIQ extends AbstractBsSummaryWithdrawalCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public SummaryWithdrawalCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public SummaryWithdrawalCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, BsSummaryWithdrawalCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path
@@ -82,6 +82,8 @@ public class SummaryWithdrawalCIQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue getCValueMemberStatusName() { return _myCQ.getMemberStatusName(); }
     protected ConditionValue getCValueMaxPurchasePrice() { return _myCQ.getMaxPurchasePrice(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(SummaryWithdrawalCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

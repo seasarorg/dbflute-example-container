@@ -6,6 +6,8 @@ package com.example.dbflute.cdi.dbflute.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -27,8 +29,8 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsServiceRankCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsServiceRankCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -296,7 +298,7 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
     }
 
     // ===================================================================================
@@ -371,5 +373,7 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return ServiceRankCB.class.getName(); }
     protected String xCQ() { return ServiceRankCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

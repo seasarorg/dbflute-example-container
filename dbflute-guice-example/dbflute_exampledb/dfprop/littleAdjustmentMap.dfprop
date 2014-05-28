@@ -119,7 +119,7 @@ map:{
     #   [false]
     #     Non.
     #
-    #; isCheckSelectedClassification = false
+    ; isCheckSelectedClassification = true
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

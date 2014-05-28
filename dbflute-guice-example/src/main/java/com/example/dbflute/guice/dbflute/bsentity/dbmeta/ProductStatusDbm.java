@@ -42,9 +42,13 @@ public class ProductStatusDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgProductStatusName(), "productStatusName");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgProductStatusCode implements PropertyGateway {
+    public class EpgProductStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((ProductStatus)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) { ((ProductStatus)et).setProductStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnProductStatusCode();
+            ccls(col, vl);
+            ((ProductStatus)et).setProductStatusCodeAsProductStatus((CDef.ProductStatus)gcls(col, vl));
+        }
     }
     public static class EpgProductStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((ProductStatus)et).getProductStatusName(); }
@@ -116,7 +120,7 @@ public class ProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

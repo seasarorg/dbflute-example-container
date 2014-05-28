@@ -25,8 +25,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsRegionCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsRegionCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -288,7 +288,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     public abstract String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
@@ -559,7 +559,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(RegionCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<RegionCB> myselfDerived() {
@@ -581,8 +581,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<RegionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -597,8 +597,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<RegionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

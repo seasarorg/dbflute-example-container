@@ -25,8 +25,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsMemberLoginCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsMemberLoginCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -166,7 +166,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as equal. (NullAllowed: if null, no condition)
      */
     public void setMemberId_Equal(Integer memberId) {
@@ -179,7 +179,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberId_NotEqual(Integer memberId) {
@@ -192,7 +192,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setMemberId_GreaterThan(Integer memberId) {
@@ -201,7 +201,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setMemberId_LessThan(Integer memberId) {
@@ -210,7 +210,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberId_GreaterEqual(Integer memberId) {
@@ -219,7 +219,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberId_LessEqual(Integer memberId) {
@@ -230,7 +230,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -241,7 +241,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberIdList The collection of memberId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMemberId_InScope(Collection<Integer> memberIdList) {
@@ -254,7 +254,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberIdList The collection of memberId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMemberId_NotInScope(Collection<Integer> memberIdList) {
@@ -300,7 +300,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as equal. (NullAllowed: if null, no condition)
      */
     public void setLoginDatetime_Equal(java.sql.Timestamp loginDatetime) {
@@ -309,7 +309,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLoginDatetime_GreaterThan(java.sql.Timestamp loginDatetime) {
@@ -318,7 +318,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLoginDatetime_LessThan(java.sql.Timestamp loginDatetime) {
@@ -327,7 +327,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLoginDatetime_GreaterEqual(java.sql.Timestamp loginDatetime) {
@@ -336,7 +336,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLoginDatetime_LessEqual(java.sql.Timestamp loginDatetime) {
@@ -346,7 +346,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setLoginDatetime_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
@@ -359,7 +359,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     /**
      * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * (ログイン日時)LOGIN_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
      *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
@@ -811,7 +811,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(MemberLoginCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MemberLoginCB> myselfDerived() {
@@ -833,8 +833,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -849,8 +849,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

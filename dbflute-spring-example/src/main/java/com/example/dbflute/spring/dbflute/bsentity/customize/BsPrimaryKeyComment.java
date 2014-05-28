@@ -161,7 +161,7 @@ public abstract class BsPrimaryKeyComment implements EntityDefinedCommonColumn, 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

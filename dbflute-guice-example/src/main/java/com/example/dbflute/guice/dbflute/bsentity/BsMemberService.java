@@ -169,13 +169,13 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     public void uniqueBy(Integer memberId) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
-        _memberId = memberId;
+        setMemberId(memberId);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

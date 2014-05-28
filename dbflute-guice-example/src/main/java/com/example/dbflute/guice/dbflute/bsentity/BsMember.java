@@ -180,13 +180,13 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     public void uniqueBy(String memberAccount) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberAccount");
-        _memberAccount = memberAccount;
+        setMemberAccount(memberAccount);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

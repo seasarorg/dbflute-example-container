@@ -153,13 +153,13 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
     public void uniqueBy(String theLongAndWindingTableAndColumnName) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("theLongAndWindingTableAndColumnName");
-        _theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
+        setTheLongAndWindingTableAndColumnName(theLongAndWindingTableAndColumnName);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

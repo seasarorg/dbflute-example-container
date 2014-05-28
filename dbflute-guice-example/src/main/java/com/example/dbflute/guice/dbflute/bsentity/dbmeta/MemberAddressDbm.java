@@ -71,9 +71,13 @@ public class MemberAddressDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberAddress)et).getAddress(); }
         public void write(Entity et, Object vl) { ((MemberAddress)et).setAddress((String)vl); }
     }
-    public static class EpgRegionId implements PropertyGateway {
+    public class EpgRegionId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberAddress)et).getRegionId(); }
-        public void write(Entity et, Object vl) { ((MemberAddress)et).setRegionId(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnRegionId();
+            ccls(col, vl);
+            ((MemberAddress)et).setRegionIdAsRegion((CDef.Region)gcls(col, vl));
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberAddress)et).getRegisterDatetime(); }
@@ -135,7 +139,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_3C959A4A_203F_49FA_A188_FC2374371D60", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_44936050_33E0_4573_B55B_91BEC2966700", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnValidBeginDate = cci("VALID_BEGIN_DATE", "VALID_BEGIN_DATE", null, "有効開始日", java.util.Date.class, "validBeginDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnValidEndDate = cci("VALID_END_DATE", "VALID_END_DATE", null, "有効終了日", java.util.Date.class, "validEndDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
@@ -234,7 +238,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

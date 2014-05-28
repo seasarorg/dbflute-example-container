@@ -146,7 +146,7 @@ public abstract class BsPurchaseMaxPriceMember implements Entity, Serializable, 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

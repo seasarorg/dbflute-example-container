@@ -675,4 +675,90 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         assertTrue(displaySql.contains("'PRO'"));
         assertTrue(displaySql.contains("'UPPROC'"));
     }
+
+    // ===================================================================================
+    //                                                                       Purpose Check
+    //                                                                       =============
+    public void test_orScopeQuery_purposeCheck_normalUse() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.orScopeQuery(new OrQuery<MemberCB>() {
+            public void query(MemberCB orCB) {
+                orCB.query().setMemberName_PrefixSearch("S");
+                orCB.query().setMemberStatusCode_Equal_Formalized();
+            }
+        });
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log(member);
+        }
+    }
+
+    public void test_orScopeQuery_purposeCheck_illegalPurpose() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+
+        // ## Act ##
+        cb.orScopeQuery(new OrQuery<MemberCB>() {
+            public void query(MemberCB orCB) {
+                orCB.setupSelect_MemberStatus();
+            }
+        });
+        cb.orScopeQuery(new OrQuery<MemberCB>() {
+            public void query(MemberCB orCB) {
+                orCB.specify();
+            }
+        });
+        cb.orScopeQuery(new OrQuery<MemberCB>() {
+            public void query(MemberCB orCB) {
+                orCB.query().addOrderBy_Birthdate_Asc();
+            }
+        });
+
+        // ## Assert ##
+        memberBhv.selectList(cb); // expect no exception
+
+        // until Java8
+        //try {
+        //    // ## Act ##
+        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
+        //        public void query(MemberCB orCB) {
+        //            orCB.setupSelect_MemberStatus();
+        //        }
+        //    });
+        //    // ## Assert ##
+        //    fail();
+        //} catch (SetupSelectIllegalPurposeException e) {
+        //    log(e.getMessage());
+        //}
+        //try {
+        //    // ## Act ##
+        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
+        //        public void query(MemberCB orCB) {
+        //            orCB.specify();
+        //        }
+        //    });
+        //    // ## Assert ##
+        //    fail();
+        //} catch (SpecifyIllegalPurposeException e) {
+        //    log(e.getMessage());
+        //}
+        //try {
+        //    // ## Act ##
+        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
+        //        public void query(MemberCB orCB) {
+        //            orCB.query().addOrderBy_Birthdate_Asc();
+        //        }
+        //    });
+        //    // ## Assert ##
+        //    fail();
+        //} catch (OrderByIllegalPurposeException e) {
+        //    log(e.getMessage());
+        //}
+    }
 }

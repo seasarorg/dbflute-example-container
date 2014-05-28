@@ -1018,4 +1018,64 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         assertFalse(memberList.get(2).getMemberAccount().startsWith("test"));
         assertEquals(Long.valueOf(expectedVersionNoList.get(0) + 1L), memberList.get(0).getVersionNo());
     }
+
+    // ===================================================================================
+    //                                                                            UniqueBy
+    //                                                                            ========
+    public void test_queryUpdate_uniqueBy_none() {
+        // ## Arrange ##
+        List<Integer> memberIdList = new ArrayList<Integer>();
+        memberIdList.add(1);
+        memberIdList.add(3);
+        memberIdList.add(7);
+        int count = 0;
+        MemberCB cb = new MemberCB();
+        cb.query().setMemberId_InScope(memberIdList);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        List<Long> expectedVersionNoList = new ArrayList<Long>();
+        List<Member> memberList = new ArrayList<Member>();
+        for (Member before : beforeList) {
+            Member member = new Member();
+            member.setMemberId(before.getMemberId());
+            member.setMemberName("testName" + count);
+            member.uniqueBy("testAccount" + count); // nonsense
+            member.setMemberStatusCode_Provisional();
+            member.setVersionNo(before.getVersionNo());
+            // no update target
+            //member.setFormalizedDatetime(currentTimestamp());
+            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            expectedVersionNoList.add(member.getVersionNo());
+            memberList.add(member);
+            ++count;
+        }
+
+        // ## Act ##
+        int[] result = memberBhv.batchUpdate(memberList);
+
+        // ## Assert ##
+        assertEquals(3, result.length);
+        List<Long> actualVersionNoList = new ArrayList<Long>();
+        for (Member member : memberList) {
+            actualVersionNoList.add(member.getVersionNo());
+        }
+        assertNotSame(expectedVersionNoList, actualVersionNoList);
+        int index = 0;
+        for (Long versionNo : expectedVersionNoList) {
+            assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
+            ++index;
+        }
+        MemberCB actualCB = new MemberCB();
+        actualCB.query().setMemberId_InScope(memberIdList);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        boolean exists = false;
+        for (Member member : actualList) {
+            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            if (formalizedDatetime != null) {
+                assertTrue(formalizedDatetime.before(currentTimestamp()));
+                exists = true;
+            }
+            assertTrue(member.getBirthdate().after(currentTimestamp()));
+        }
+        assertTrue(exists);
+    }
 }

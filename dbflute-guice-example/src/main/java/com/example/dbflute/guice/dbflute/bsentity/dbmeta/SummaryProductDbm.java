@@ -57,9 +57,13 @@ public class SummaryProductDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((SummaryProduct)et).getProductHandleCode(); }
         public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductHandleCode((String)vl); }
     }
-    public static class EpgProductStatusCode implements PropertyGateway {
+    public class EpgProductStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((SummaryProduct)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnProductStatusCode();
+            ccls(col, vl);
+            ((SummaryProduct)et).setProductStatusCodeAsProductStatus((CDef.ProductStatus)gcls(col, vl));
+        }
     }
     public static class EpgLatestPurchaseDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((SummaryProduct)et).getLatestPurchaseDatetime(); }
@@ -154,7 +158,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

@@ -36,6 +36,9 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgServiceRankCode(), "serviceRankCode");
@@ -45,8 +48,6 @@ public class ServiceRankDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgDescription(), "description");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgServiceRankCode implements PropertyGateway {
         public Object read(Entity et) { return ((ServiceRank)et).getServiceRankCode(); }
         public void write(Entity et, Object vl) { ((ServiceRank)et).setServiceRankCode((String)vl); }
@@ -71,6 +72,8 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((ServiceRank)et).getDisplayOrder(); }
         public void write(Entity et, Object vl) { ((ServiceRank)et).setDisplayOrder(cti(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -90,18 +93,42 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", true, "serviceRankCode", String.class, true, false, "CHAR", 3, 0, null, false, null, "サービスランクを識別するコード。", null, "memberServiceList", CDef.DefMeta.ServiceRank);
-    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, "サービスランク名称", true, "serviceRankName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, "サービスランクの名称。\n（ゴールドとかプラチナとか基本的には威厳のある名前）", null, null, null);
-    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, "サービスポイント発生率", true, "servicePointIncidence", java.math.BigDecimal.class, false, false, "DECIMAL", 5, 3, null, false, null, "購入ごとのサービスポイントの発生率。\n購入価格にこの値をかけた数が発生ポイント。\nExampleDBとして数少ない貴重な小数点ありのカラム。", null, null, null);
-    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, "新規受け入れ可能フラグ", true, "newAcceptableFlg", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "このランクへの新規受け入れができるかどうか。", null, null, CDef.DefMeta.Flg);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", true, "description", String.class, false, false, "VARCHAR", 200, 0, null, false, null, "ランクに関する業務的な説明。", null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", true, "displayOrder", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "UI上の表示順を表現する番号。", null, null, null);
+    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, true, false, true, "CHAR", 3, 0, null, false, null, "サービスランクを識別するコード。", null, "memberServiceList", CDef.DefMeta.ServiceRank);
+    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, "サービスランク名称", String.class, "serviceRankName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "サービスランクの名称。\n（ゴールドとかプラチナとか基本的には威厳のある名前）", null, null, null);
+    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, "サービスポイント発生率", java.math.BigDecimal.class, "servicePointIncidence", null, false, false, true, "DECIMAL", 5, 3, null, false, null, "購入ごとのサービスポイントの発生率。\n購入価格にこの値をかけた数が発生ポイント。\nExampleDBとして数少ない貴重な小数点ありのカラム。", null, null, null);
+    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, "新規受け入れ可能フラグ", Integer.class, "newAcceptableFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, "このランクへの新規受け入れができるかどうか。", null, null, CDef.DefMeta.Flg);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, "ランクに関する業務的な説明。", null, null, null);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, "UI上の表示順を表現する番号。", null, null, null);
 
+    /**
+     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnServiceRankCode() { return _columnServiceRankCode; }
+    /**
+     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnServiceRankName() { return _columnServiceRankName; }
+    /**
+     * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnServicePointIncidence() { return _columnServicePointIncidence; }
+    /**
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnNewAcceptableFlg() { return _columnNewAcceptableFlg; }
+    /**
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnDescription() { return _columnDescription; }
+    /**
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnDisplayOrder() { return _columnDisplayOrder; }
 
     protected List<ColumnInfo> ccil() {
@@ -130,6 +157,8 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -137,6 +166,10 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerMemberServiceList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnServiceRankCode(), MemberServiceDbm.getInstance().columnServiceRankCode());
         return cri("FK_MEMBER_SERVICE_SERVICE_RANK_CODE", "memberServiceList", this, MemberServiceDbm.getInstance(), mp, false, "serviceRank");

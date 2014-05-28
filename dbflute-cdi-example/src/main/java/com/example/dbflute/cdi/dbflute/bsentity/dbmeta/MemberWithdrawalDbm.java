@@ -36,6 +36,9 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberId(), "memberId");
@@ -48,8 +51,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
         setupEpg(_epgMap, new EpgVersionNo(), "versionNo");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberWithdrawal)et).getMemberId(); }
         public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setMemberId(cti(vl)); }
@@ -86,6 +87,27 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberWithdrawal)et).getVersionNo(); }
         public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setVersionNo(ctl(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgMember(), "member");
+        setupEfpg(_efpgMap, new EfpgWithdrawalReason(), "withdrawalReason");
+    }
+    public class EfpgMember implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberWithdrawal)et).getMember(); }
+        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setMember((Member)vl); }
+    }
+    public class EfpgWithdrawalReason implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReason(); }
+        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setWithdrawalReason((WithdrawalReason)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -105,24 +127,60 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, true, "memberId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", false, "withdrawalReasonCode", String.class, false, false, "CHAR", 3, 0, null, false, null, "退会した定型理由を参照するコード。\n何も言わずに退会する会員もいるので必須項目ではない。", "withdrawalReason", null, CDef.DefMeta.WithdrawalReason);
-    protected final ColumnInfo _columnWithdrawalReasonInputText = cci("WITHDRAWAL_REASON_INPUT_TEXT", "WITHDRAWAL_REASON_INPUT_TEXT", null, "退会理由入力テキスト", false, "withdrawalReasonInputText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, "会員がフリーテキストで入力できる退会理由。\nもう言いたいこと言ってもらう感じ。\nサイト運営側としては真摯に受け止めて改善していきたい。", null, null, null);
-    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, "退会日時", true, "withdrawalDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, false, null, "退会した瞬間の日時。\n正式会員日時と違い、こっちはone-to-oneの別テーブルで。", null, null, null);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, true, "registerDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, true, "registerUser", String.class, false, false, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, true, "updateDatetime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, true, "updateUser", String.class, false, false, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, true, "versionNo", Long.class, false, false, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", String.class, "withdrawalReasonCode", null, false, false, false, "CHAR", 3, 0, null, false, null, "退会した定型理由を参照するコード。\n何も言わずに退会する会員もいるので必須項目ではない。", "withdrawalReason", null, CDef.DefMeta.WithdrawalReason);
+    protected final ColumnInfo _columnWithdrawalReasonInputText = cci("WITHDRAWAL_REASON_INPUT_TEXT", "WITHDRAWAL_REASON_INPUT_TEXT", null, "退会理由入力テキスト", String.class, "withdrawalReasonInputText", null, false, false, false, "CLOB", 2147483647, 0, null, false, null, "会員がフリーテキストで入力できる退会理由。\nもう言いたいこと言ってもらう感じ。\nサイト運営側としては真摯に受け止めて改善していきたい。", null, null, null);
+    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, "退会日時", java.sql.Timestamp.class, "withdrawalDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "退会した瞬間の日時。\n正式会員日時と違い、こっちはone-to-oneの別テーブルで。", null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 
+    /**
+     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalReasonCode() { return _columnWithdrawalReasonCode; }
+    /**
+     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalReasonInputText() { return _columnWithdrawalReasonInputText; }
+    /**
+     * (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnWithdrawalDatetime() { return _columnWithdrawalDatetime; }
+    /**
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegisterDatetime() { return _columnRegisterDatetime; }
+    /**
+     * REGISTER_USER: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRegisterUser() { return _columnRegisterUser; }
+    /**
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUpdateDatetime() { return _columnUpdateDatetime; }
+    /**
+     * UPDATE_USER: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
+    /**
+     * VERSION_NO: {NotNull, BIGINT(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnVersionNo() { return _columnVersionNo; }
 
     protected List<ColumnInfo> ccil() {
@@ -154,16 +212,26 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMember() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, true, false, false, false, null, null, false, "memberWithdrawalAsOne");
+        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, null, true, false, false, false, null, null, false, "memberWithdrawalAsOne");
     }
+    /**
+     * (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignWithdrawalReason() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnWithdrawalReasonCode(), WithdrawalReasonDbm.getInstance().columnWithdrawalReasonCode());
-        return cfi("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "withdrawalReason", this, WithdrawalReasonDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberWithdrawalList");
+        return cfi("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "withdrawalReason", this, WithdrawalReasonDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberWithdrawalList");
     }
 
     // -----------------------------------------------------

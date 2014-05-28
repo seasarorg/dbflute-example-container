@@ -67,9 +67,13 @@ public class ProductDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Product)et).getProductCategoryCode(); }
         public void write(Entity et, Object vl) { ((Product)et).setProductCategoryCode((String)vl); }
     }
-    public static class EpgProductStatusCode implements PropertyGateway {
+    public class EpgProductStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) { ((Product)et).setProductStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnProductStatusCode();
+            ccls(col, vl);
+            ((Product)et).setProductStatusCodeAsProductStatus((CDef.ProductStatus)gcls(col, vl));
+        }
     }
     public static class EpgRegularPrice implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getRegularPrice(); }
@@ -135,7 +139,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1EEBD9EB_06A8_4186_9FEA_7B9A4BE0AED4", false, null, null, null, "purchaseList", null);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1A39CF7A_E5EC_4A28_8E02_84E426A6F18B", false, null, null, null, "purchaseList", null);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, "商品ハンドルコード", String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null);
@@ -234,7 +238,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

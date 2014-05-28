@@ -76,9 +76,13 @@ public class PurchaseDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Purchase)et).getPurchasePrice(); }
         public void write(Entity et, Object vl) { ((Purchase)et).setPurchasePrice(cti(vl)); }
     }
-    public static class EpgPaymentCompleteFlg implements PropertyGateway {
+    public class EpgPaymentCompleteFlg implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getPaymentCompleteFlg(); }
-        public void write(Entity et, Object vl) { ((Purchase)et).setPaymentCompleteFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnPaymentCompleteFlg();
+            ccls(col, vl);
+            ((Purchase)et).setPaymentCompleteFlgAsFlg((CDef.Flg)gcls(col, vl));
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getRegisterDatetime(); }
@@ -152,7 +156,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4F5AE712_2F9A_4073_BBCF_C890FA563ED2", false, null, null, null, null, null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B4C53D10_0E63_48ED_9863_6A4FDA709B74", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member,memberLoginAsBizManyToOne", null, null);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "product,summaryProduct", null, null);
     protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.sql.Timestamp.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
@@ -258,7 +262,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

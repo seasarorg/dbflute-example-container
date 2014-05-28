@@ -36,6 +36,9 @@ public class VendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgVendorCheckId(), "vendorCheckId");
@@ -56,8 +59,6 @@ public class VendorCheckDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgTypeOfBlob(), "typeOfBlob");
         setupEpg(_epgMap, new EpgUYText(), "UYText");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgVendorCheckId implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getVendorCheckId(); }
         public void write(Entity et, Object vl) { ((VendorCheck)et).setVendorCheckId(ctl(vl)); }
@@ -126,6 +127,8 @@ public class VendorCheckDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((VendorCheck)et).getUYText(); }
         public void write(Entity et, Object vl) { ((VendorCheck)et).setUYText((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -141,40 +144,108 @@ public class VendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnVendorCheckId = cci("VENDOR_CHECK_ID", "VENDOR_CHECK_ID", null, null, true, "vendorCheckId", Long.class, true, false, "DECIMAL", 16, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfChar = cci("TYPE_OF_CHAR", "TYPE_OF_CHAR", null, null, false, "typeOfChar", String.class, false, false, "CHAR", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfVarchar = cci("TYPE_OF_VARCHAR", "TYPE_OF_VARCHAR", null, null, false, "typeOfVarchar", String.class, false, false, "VARCHAR", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfText = cci("TYPE_OF_TEXT", "TYPE_OF_TEXT", null, null, false, "typeOfText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericInteger = cci("TYPE_OF_NUMERIC_INTEGER", "TYPE_OF_NUMERIC_INTEGER", null, null, false, "typeOfNumericInteger", Integer.class, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericBigint = cci("TYPE_OF_NUMERIC_BIGINT", "TYPE_OF_NUMERIC_BIGINT", null, null, false, "typeOfNumericBigint", Long.class, false, false, "DECIMAL", 12, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericDecimal = cci("TYPE_OF_NUMERIC_DECIMAL", "TYPE_OF_NUMERIC_DECIMAL", null, null, false, "typeOfNumericDecimal", java.math.BigDecimal.class, false, false, "DECIMAL", 5, 3, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericIntegerMin = cci("TYPE_OF_NUMERIC_INTEGER_MIN", "TYPE_OF_NUMERIC_INTEGER_MIN", null, null, false, "typeOfNumericIntegerMin", Integer.class, false, false, "DECIMAL", 1, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericIntegerMax = cci("TYPE_OF_NUMERIC_INTEGER_MAX", "TYPE_OF_NUMERIC_INTEGER_MAX", null, null, false, "typeOfNumericIntegerMax", Integer.class, false, false, "DECIMAL", 9, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericBigintMin = cci("TYPE_OF_NUMERIC_BIGINT_MIN", "TYPE_OF_NUMERIC_BIGINT_MIN", null, null, false, "typeOfNumericBigintMin", Long.class, false, false, "DECIMAL", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericBigintMax = cci("TYPE_OF_NUMERIC_BIGINT_MAX", "TYPE_OF_NUMERIC_BIGINT_MAX", null, null, false, "typeOfNumericBigintMax", Long.class, false, false, "DECIMAL", 18, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericSuperintMin = cci("TYPE_OF_NUMERIC_SUPERINT_MIN", "TYPE_OF_NUMERIC_SUPERINT_MIN", null, null, false, "typeOfNumericSuperintMin", java.math.BigDecimal.class, false, false, "DECIMAL", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericSuperintMax = cci("TYPE_OF_NUMERIC_SUPERINT_MAX", "TYPE_OF_NUMERIC_SUPERINT_MAX", null, null, false, "typeOfNumericSuperintMax", java.math.BigDecimal.class, false, false, "DECIMAL", 38, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfNumericMaxdecimal = cci("TYPE_OF_NUMERIC_MAXDECIMAL", "TYPE_OF_NUMERIC_MAXDECIMAL", null, null, false, "typeOfNumericMaxdecimal", java.math.BigDecimal.class, false, false, "DECIMAL", 38, 38, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, false, "typeOfBoolean", Boolean.class, false, false, "BOOLEAN", 1, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfBlob = cci("TYPE_OF_BLOB", "TYPE_OF_BLOB", null, null, false, "typeOfBlob", byte[].class, false, false, "BLOB", 2147483647, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnUYText = cci("U_Y_TEXT", "U_Y_TEXT", null, null, false, "UYText", String.class, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnVendorCheckId = cci("VENDOR_CHECK_ID", "VENDOR_CHECK_ID", null, null, Long.class, "vendorCheckId", null, true, false, true, "DECIMAL", 16, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfChar = cci("TYPE_OF_CHAR", "TYPE_OF_CHAR", null, null, String.class, "typeOfChar", null, false, false, false, "CHAR", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfVarchar = cci("TYPE_OF_VARCHAR", "TYPE_OF_VARCHAR", null, null, String.class, "typeOfVarchar", null, false, false, false, "VARCHAR", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfText = cci("TYPE_OF_TEXT", "TYPE_OF_TEXT", null, null, String.class, "typeOfText", null, false, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericInteger = cci("TYPE_OF_NUMERIC_INTEGER", "TYPE_OF_NUMERIC_INTEGER", null, null, Integer.class, "typeOfNumericInteger", null, false, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericBigint = cci("TYPE_OF_NUMERIC_BIGINT", "TYPE_OF_NUMERIC_BIGINT", null, null, Long.class, "typeOfNumericBigint", null, false, false, false, "DECIMAL", 12, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericDecimal = cci("TYPE_OF_NUMERIC_DECIMAL", "TYPE_OF_NUMERIC_DECIMAL", null, null, java.math.BigDecimal.class, "typeOfNumericDecimal", null, false, false, false, "DECIMAL", 5, 3, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericIntegerMin = cci("TYPE_OF_NUMERIC_INTEGER_MIN", "TYPE_OF_NUMERIC_INTEGER_MIN", null, null, Integer.class, "typeOfNumericIntegerMin", null, false, false, false, "DECIMAL", 1, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericIntegerMax = cci("TYPE_OF_NUMERIC_INTEGER_MAX", "TYPE_OF_NUMERIC_INTEGER_MAX", null, null, Integer.class, "typeOfNumericIntegerMax", null, false, false, false, "DECIMAL", 9, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericBigintMin = cci("TYPE_OF_NUMERIC_BIGINT_MIN", "TYPE_OF_NUMERIC_BIGINT_MIN", null, null, Long.class, "typeOfNumericBigintMin", null, false, false, false, "DECIMAL", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericBigintMax = cci("TYPE_OF_NUMERIC_BIGINT_MAX", "TYPE_OF_NUMERIC_BIGINT_MAX", null, null, Long.class, "typeOfNumericBigintMax", null, false, false, false, "DECIMAL", 18, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericSuperintMin = cci("TYPE_OF_NUMERIC_SUPERINT_MIN", "TYPE_OF_NUMERIC_SUPERINT_MIN", null, null, java.math.BigDecimal.class, "typeOfNumericSuperintMin", null, false, false, false, "DECIMAL", 19, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericSuperintMax = cci("TYPE_OF_NUMERIC_SUPERINT_MAX", "TYPE_OF_NUMERIC_SUPERINT_MAX", null, null, java.math.BigDecimal.class, "typeOfNumericSuperintMax", null, false, false, false, "DECIMAL", 38, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfNumericMaxdecimal = cci("TYPE_OF_NUMERIC_MAXDECIMAL", "TYPE_OF_NUMERIC_MAXDECIMAL", null, null, java.math.BigDecimal.class, "typeOfNumericMaxdecimal", null, false, false, false, "DECIMAL", 38, 38, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, Boolean.class, "typeOfBoolean", null, false, false, false, "BOOLEAN", 1, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfBlob = cci("TYPE_OF_BLOB", "TYPE_OF_BLOB", null, null, byte[].class, "typeOfBlob", null, false, false, false, "BLOB", 2147483647, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUYText = cci("U_Y_TEXT", "U_Y_TEXT", null, null, String.class, "UYText", null, false, false, false, "CLOB", 2147483647, 0, null, false, null, null, null, null, null);
 
+    /**
+     * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnVendorCheckId() { return _columnVendorCheckId; }
+    /**
+     * TYPE_OF_CHAR: {CHAR(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfChar() { return _columnTypeOfChar; }
+    /**
+     * TYPE_OF_VARCHAR: {VARCHAR(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfVarchar() { return _columnTypeOfVarchar; }
+    /**
+     * TYPE_OF_TEXT: {CLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfText() { return _columnTypeOfText; }
+    /**
+     * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericInteger() { return _columnTypeOfNumericInteger; }
+    /**
+     * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericBigint() { return _columnTypeOfNumericBigint; }
+    /**
+     * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericDecimal() { return _columnTypeOfNumericDecimal; }
+    /**
+     * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericIntegerMin() { return _columnTypeOfNumericIntegerMin; }
+    /**
+     * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericIntegerMax() { return _columnTypeOfNumericIntegerMax; }
+    /**
+     * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericBigintMin() { return _columnTypeOfNumericBigintMin; }
+    /**
+     * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericBigintMax() { return _columnTypeOfNumericBigintMax; }
+    /**
+     * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericSuperintMin() { return _columnTypeOfNumericSuperintMin; }
+    /**
+     * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericSuperintMax() { return _columnTypeOfNumericSuperintMax; }
+    /**
+     * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfNumericMaxdecimal() { return _columnTypeOfNumericMaxdecimal; }
+    /**
+     * TYPE_OF_BOOLEAN: {BOOLEAN(1)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfBoolean() { return _columnTypeOfBoolean; }
+    /**
+     * TYPE_OF_BLOB: {BLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnTypeOfBlob() { return _columnTypeOfBlob; }
+    /**
+     * U_Y_TEXT: {CLOB(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUYText() { return _columnUYText; }
 
     protected List<ColumnInfo> ccil() {
@@ -214,6 +285,8 @@ public class VendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

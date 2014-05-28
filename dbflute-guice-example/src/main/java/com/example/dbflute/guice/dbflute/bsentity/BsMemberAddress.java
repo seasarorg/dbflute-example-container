@@ -181,15 +181,14 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     public void uniqueBy(Integer memberId, java.util.Date validBeginDate) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
-        _memberId = memberId;
         __uniqueDrivenProperties.addPropertyName("validBeginDate");
-        _validBeginDate = validBeginDate;
+        setMemberId(memberId);setValidBeginDate(validBeginDate);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

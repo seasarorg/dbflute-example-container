@@ -25,8 +25,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public AbstractBsMemberServiceCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public AbstractBsMemberServiceCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -1172,7 +1172,7 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(MemberServiceCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MemberServiceCB> myselfDerived() {
@@ -1194,8 +1194,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1210,8 +1210,8 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

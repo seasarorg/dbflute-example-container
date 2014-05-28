@@ -4,6 +4,7 @@ import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.ckey.ConditionKey;
+import org.seasar.dbflute.exception.EntityAlreadyExistsException;
 import org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException;
 import org.seasar.dbflute.util.Srl;
 
@@ -228,5 +229,29 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(0, updatedCount);
+    }
+
+    // ===================================================================================
+    //                                                                            UniqueBy
+    //                                                                            ========
+    public void test_queryUpdate_uniqueBy_none() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberStatusCode_Provisional();
+        member.setFormalizedDatetime(null);
+        member.uniqueBy("foo"); // nonsense
+
+        MemberCB cb = new MemberCB();
+        cb.query().setMemberStatusCode_Equal_Formalized();
+
+        try {
+            // ## Act ##
+            memberBhv.queryUpdate(member, cb);
+
+            // ## Assert ##
+            fail();
+        } catch (EntityAlreadyExistsException e) {
+            log(e.getMessage());
+        }
     }
 }

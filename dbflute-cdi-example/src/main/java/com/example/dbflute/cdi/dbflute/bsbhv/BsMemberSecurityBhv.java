@@ -172,7 +172,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MemberSecurity. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -193,39 +193,42 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId (会員ID): PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberSecurity selectByPKValue(Integer memberId) {
-        return doSelectByPKValue(memberId, MemberSecurity.class);
+        return doSelectByPK(memberId, MemberSecurity.class);
     }
 
-    protected <ENTITY extends MemberSecurity> ENTITY doSelectByPKValue(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MemberSecurity> ENTITY doSelectByPK(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberId), entityType);
+    }
+
+    protected <ENTITY extends MemberSecurity> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberId, entityType), memberId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId (会員ID): PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberSecurity selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKValueWithDeletedCheck(memberId, MemberSecurity.class);
+        return doSelectByPKWithDeletedCheck(memberId, MemberSecurity.class);
     }
 
-    protected <ENTITY extends MemberSecurity> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MemberSecurity> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), entityType);
     }
 
-    private MemberSecurityCB buildPKCB(Integer memberId) {
+    protected MemberSecurityCB xprepareCBAsPK(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
-        MemberSecurityCB cb = newMyConditionBean();
-        cb.query().setMemberId_Equal(memberId);
+        MemberSecurityCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberId);
         return cb;
     }
 
@@ -390,7 +393,8 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable {
      */
     public List<Member> pulloutMember(List<MemberSecurity> memberSecurityList) {
         return helpPulloutInternally(memberSecurityList, new InternalPulloutCallback<MemberSecurity, Member>() {
-            public Member getFr(MemberSecurity et) { return et.getMember(); }
+            public Member getFr(MemberSecurity et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(Member et, List<MemberSecurity> ls)
             { if (!ls.isEmpty()) { et.setMemberSecurityAsOne(ls.get(0)); } }

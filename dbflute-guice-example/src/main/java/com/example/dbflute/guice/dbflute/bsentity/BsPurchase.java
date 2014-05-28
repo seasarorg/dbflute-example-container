@@ -186,17 +186,15 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     public void uniqueBy(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
-        _memberId = memberId;
         __uniqueDrivenProperties.addPropertyName("productId");
-        _productId = productId;
         __uniqueDrivenProperties.addPropertyName("purchaseDatetime");
-        _purchaseDatetime = purchaseDatetime;
+        setMemberId(memberId);setProductId(productId);setPurchaseDatetime(purchaseDatetime);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

@@ -43,9 +43,13 @@ public class MemberStatusDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgDescription(), "description");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgMemberStatusCode implements PropertyGateway {
+    public class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) { ((MemberStatus)et).setMemberStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMemberStatusCode();
+            ccls(col, vl);
+            ((MemberStatus)et).setMemberStatusCodeAsMemberStatus((CDef.MemberStatus)gcls(col, vl));
+        }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusName(); }
@@ -128,7 +132,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
-    // canonot cache because it uses related DB meta instance while booting
+    // cannot cache because it uses related DB meta instance while booting
     // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property

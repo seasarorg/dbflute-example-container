@@ -118,32 +118,6 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         assertNotNull(member);
     }
 
-    public void test_selectByPKValue_nullArgument() {
-        // ## Arrange ##
-        try {
-            // ## Act ##
-            memberBhv.selectByPKValue(null);
-
-            // ## Assert ##
-            fail();
-        } catch (IllegalArgumentException e) {
-            // OK
-            log(e.getMessage());
-        }
-
-        // ## Arrange ##
-        try {
-            // ## Act ##
-            memberBhv.selectByPKValueWithDeletedCheck(null);
-
-            // ## Assert ##
-            fail();
-        } catch (IllegalArgumentException e) {
-            // OK
-            log(e.getMessage());
-        }
-    }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============

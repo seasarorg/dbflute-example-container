@@ -36,14 +36,15 @@ public class DoubleByteOnSqlDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberId(), "memberId");
         setupEpg(_epgMap, new EpgMemberNameWithSpace(), "memberNameWithSpace");
         setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
         public Object read(Entity et) { return ((DoubleByteOnSql)et).getMemberId(); }
         public void write(Entity et, Object vl) { ((DoubleByteOnSql)et).setMemberId(cti(vl)); }
@@ -56,6 +57,8 @@ public class DoubleByteOnSqlDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((DoubleByteOnSql)et).getMemberStatusName(); }
         public void write(Entity et, Object vl) { ((DoubleByteOnSql)et).setMemberStatusName((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -71,12 +74,24 @@ public class DoubleByteOnSqlDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", false, "memberId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "会員を識別するID。連番として自動採番される。\n（会員IDだけに限らず）採番方法はDBMS次第。", null, null, null);
-    protected final ColumnInfo _columnMemberNameWithSpace = cci("MEMBER_NAME_WITH_SPACE", "MEMBER_NAME_WITH_SPACE", null, null, false, "memberNameWithSpace", String.class, false, false, "VARCHAR", 201, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", false, "memberStatusName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, "会員を識別するID。連番として自動採番される。\n（会員IDだけに限らず）採番方法はDBMS次第。", null, null, null);
+    protected final ColumnInfo _columnMemberNameWithSpace = cci("MEMBER_NAME_WITH_SPACE", "MEMBER_NAME_WITH_SPACE", null, null, String.class, "memberNameWithSpace", null, false, false, false, "VARCHAR", 201, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
+    /**
+     * (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * MEMBER_NAME_WITH_SPACE: {VARCHAR(201)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberNameWithSpace() { return _columnMemberNameWithSpace; }
+    /**
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
 
     protected List<ColumnInfo> ccil() {
@@ -104,6 +119,8 @@ public class DoubleByteOnSqlDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

@@ -135,7 +135,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     /**
      * {@inheritDoc}
      */
-    public Set<String> uniqueDrivenProperties() {
+    public Set<String> myuniqueDrivenProperties() {
         return __uniqueDrivenProperties.getPropertyNames();
     }
 

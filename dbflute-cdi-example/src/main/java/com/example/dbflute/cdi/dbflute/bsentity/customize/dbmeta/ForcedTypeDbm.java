@@ -36,16 +36,19 @@ public class ForcedTypeDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMaxMemberId(), "maxMemberId");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMaxMemberId implements PropertyGateway {
         public Object read(Entity et) { return ((ForcedType)et).getMaxMemberId(); }
         public void write(Entity et, Object vl) { ((ForcedType)et).setMaxMemberId(ctn(vl, java.math.BigInteger.class)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -61,8 +64,12 @@ public class ForcedTypeDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMaxMemberId = cci("MAX_MEMBER_ID", "MAX_MEMBER_ID", null, null, false, "maxMemberId", java.math.BigInteger.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMaxMemberId = cci("MAX_MEMBER_ID", "MAX_MEMBER_ID", null, null, java.math.BigInteger.class, "maxMemberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
+    /**
+     * MAX_MEMBER_ID: {INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMaxMemberId() { return _columnMaxMemberId; }
 
     protected List<ColumnInfo> ccil() {
@@ -88,6 +95,8 @@ public class ForcedTypeDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

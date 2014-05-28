@@ -36,6 +36,9 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
@@ -43,8 +46,6 @@ public class MemberStatusDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgDescription(), "description");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusCode(); }
         public void write(Entity et, Object vl) { ((MemberStatus)et).setMemberStatusCode((String)vl); }
@@ -61,6 +62,8 @@ public class MemberStatusDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberStatus)et).getDisplayOrder(); }
         public void write(Entity et, Object vl) { ((MemberStatus)et).setDisplayOrder(cti(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -80,14 +83,30 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", true, "memberStatusCode", String.class, true, false, "CHAR", 3, 0, null, false, null, "会員ステータスを識別するコード。\n固定的なデータなので、連番とか番号にはせず、\nデータを直接見たときも人が直感的にわかるように、\nこのような３桁のコード形式にしている。", null, "memberList,memberLoginList", CDef.DefMeta.MemberStatus);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", true, "memberStatusName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", true, "description", String.class, false, false, "VARCHAR", 200, 0, null, false, null, "会員ステータスそれぞれの説明。\n気の利いた説明があるとディベロッパーがとても助かる。", null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", true, "displayOrder", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, "UI上のステータスの表示順を示すNO。\n並べるときは、このカラムに対して昇順のソート条件にする。", null, null, null);
+    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, "会員ステータスを識別するコード。\n固定的なデータなので、連番とか番号にはせず、\nデータを直接見たときも人が直感的にわかるように、\nこのような３桁のコード形式にしている。", null, "memberList,memberLoginList", CDef.DefMeta.MemberStatus);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, "会員ステータスそれぞれの説明。\n気の利いた説明があるとディベロッパーがとても助かる。", null, null, null);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, "UI上のステータスの表示順を示すNO。\n並べるときは、このカラムに対して昇順のソート条件にする。", null, null, null);
 
+    /**
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberStatusCode() { return _columnMemberStatusCode; }
+    /**
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
+    /**
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnDescription() { return _columnDescription; }
+    /**
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnDisplayOrder() { return _columnDisplayOrder; }
 
     protected List<ColumnInfo> ccil() {
@@ -114,6 +133,8 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -121,10 +142,18 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerMemberList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberStatusCode(), MemberDbm.getInstance().columnMemberStatusCode());
         return cri("FK_MEMBER_MEMBER_STATUS", "memberList", this, MemberDbm.getInstance(), mp, false, "memberStatus");
     }
+    /**
+     * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerMemberLoginList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberStatusCode(), MemberLoginDbm.getInstance().columnLoginMemberStatusCode());
         return cri("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberLoginList", this, MemberLoginDbm.getInstance(), mp, false, "memberStatus");

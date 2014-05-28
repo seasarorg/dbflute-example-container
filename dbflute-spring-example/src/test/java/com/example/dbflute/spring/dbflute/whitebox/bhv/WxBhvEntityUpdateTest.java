@@ -1,14 +1,19 @@
 package com.example.dbflute.spring.dbflute.whitebox.bhv;
 
+import java.sql.Timestamp;
+
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.exception.EntityAlreadyUpdatedException;
+import org.seasar.dbflute.exception.EntityUniqueKeyNotFoundException;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberStatusCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberStatusBhv;
+import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
 import com.example.dbflute.spring.dbflute.exentity.MemberStatus;
+import com.example.dbflute.spring.dbflute.exentity.Purchase;
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
 /**
@@ -19,6 +24,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
+    private PurchaseBhv purchaseBhv;
 
     // ===================================================================================
     //                                                                               Basic
@@ -112,7 +118,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                           Unique By
     //                                                                           =========
-    public void test_update_uniqueBy_basic() throws Exception {
+    public void test_update_uniqueBy_simpleKey_basic() throws Exception {
         // ## Arrange ##
         String memberAccount = "Pixy";
         Member before = selectByAccount(memberAccount);
@@ -134,9 +140,99 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
         assertEquals(actual.getVersionNo(), member.getVersionNo());
     }
 
+    public void test_update_uniqueBy_simpleKey_noValue() throws Exception {
+        // ## Arrange ##
+        String memberAccount = "Pixy";
+        Member before = selectByAccount(memberAccount);
+        Member member = new Member();
+        member.uniqueBy(null);
+        member.setMemberName("UniqueBy");
+        member.setVersionNo(before.getVersionNo());
+
+        // ## Act ##
+        try {
+            memberBhv.update(member);
+            // ## Assert ##
+            fail();
+        } catch (EntityUniqueKeyNotFoundException e) {
+            log(e.getMessage());
+        }
+    }
+
     protected Member selectByAccount(String account) {
         MemberCB cb = new MemberCB();
         cb.query().setMemberAccount_Equal(account);
         return memberBhv.selectEntityWithDeletedCheck(cb);
+    }
+
+    public void test_update_uniqueBy_compoundKey_basic() throws Exception {
+        // ## Arrange ##
+        Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(99999L); // dummy
+        Integer memberId = before.getMemberId();
+        Integer productId = before.getProductId();
+        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        purchase.uniqueBy(memberId, productId, purchaseDatetime);
+        purchase.setPurchaseCount(123456789);
+        purchase.setVersionNo(before.getVersionNo());
+
+        // ## Act ##
+        purchaseBhv.update(purchase);
+
+        // ## Assert ##
+        Purchase after = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        assertEquals(memberId, after.getMemberId());
+        assertEquals(productId, after.getProductId());
+        assertEquals(purchaseDatetime, after.getPurchaseDatetime());
+        assertEquals(123456789, after.getPurchaseCount());
+        assertEquals(Long.valueOf(99999L), purchase.getPurchaseId()); // no change 
+    }
+
+    public void test_update_uniqueBy_compoundKey_optimisticLock() throws Exception {
+        // ## Arrange ##
+        Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(99999L); // dummy
+        Integer memberId = before.getMemberId();
+        Integer productId = before.getProductId();
+        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        purchase.uniqueBy(memberId, productId, purchaseDatetime);
+        purchase.setPurchaseCount(123456789);
+        purchase.setVersionNo(before.getVersionNo());
+
+        // ## Act ##
+        purchaseBhv.update(purchase);
+        try {
+            purchase.setVersionNo(99999L);
+            purchaseBhv.update(purchase);
+            // ## Assert ##
+            fail();
+        } catch (EntityAlreadyUpdatedException e) {
+            log(e.getMessage());
+        }
+    }
+
+    public void test_updateNonstrict_uniqueBy_compoundKey_basic() throws Exception {
+        // ## Arrange ##
+        Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(99999L); // dummy
+        Integer memberId = before.getMemberId();
+        Integer productId = before.getProductId();
+        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        purchase.uniqueBy(memberId, productId, purchaseDatetime);
+        purchase.setPurchaseCount(123456789);
+
+        // ## Act ##
+        purchaseBhv.updateNonstrict(purchase);
+
+        // ## Assert ##
+        Purchase after = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        assertEquals(memberId, after.getMemberId());
+        assertEquals(productId, after.getProductId());
+        assertEquals(purchaseDatetime, after.getPurchaseDatetime());
+        assertEquals(123456789, after.getPurchaseCount());
+        assertEquals(Long.valueOf(99999L), purchase.getPurchaseId()); // no change 
     }
 }

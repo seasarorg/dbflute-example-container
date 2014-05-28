@@ -6,6 +6,8 @@ package com.example.dbflute.cdi.dbflute.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -27,8 +29,8 @@ public class BsProductCQ extends AbstractBsProductCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsProductCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public BsProductCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -433,7 +435,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         ProductCQ bq = (ProductCQ)bqs;
         ProductCQ uq = (ProductCQ)uqs;
         if (bq.hasConditionQueryProductCategory()) {
@@ -584,5 +586,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return ProductCB.class.getName(); }
     protected String xCQ() { return ProductCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }
