@@ -26,6 +26,7 @@ import com.example.dbflute.guice.dbflute.exbhv.MemberSecurityBhv;
 import com.example.dbflute.guice.dbflute.exbhv.MemberServiceBhv;
 import com.example.dbflute.guice.dbflute.exbhv.MemberWithdrawalBhv;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.guice.dbflute.exbhv.PurchasePaymentBhv;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 
@@ -121,6 +122,7 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         deleteAll(MemberSecurityBhv.class);
         deleteAll(MemberServiceBhv.class);
         deleteAll(MemberWithdrawalBhv.class);
+        deleteAll(PurchasePaymentBhv.class);
         deleteAll(PurchaseBhv.class);
     }
 }
