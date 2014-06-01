@@ -99,6 +99,15 @@ comment on column PURCHASE.PURCHASE_PRICE is '購入価格: 購入によって�
 基本は商品の定価に購入数量を掛けたものになるが、ポイント利用や割引があったりと必ずしもそうはならない。';
 comment on column PURCHASE.PAYMENT_COMPLETE_FLG is '支払完了フラグ: この購入に関しての支払いが完了しているか否か。';
 
+-- PURCHASE_PAYMENT
+comment on table PURCHASE_PAYMENT is '購入支払: 購入に対する支払。
+分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。';
+comment on column PURCHASE_PAYMENT.PURCHASE_PAYMENT_ID is '購入支払ID: 連番';
+comment on column PURCHASE_PAYMENT.PURCHASE_ID is '購入ID: 支払い対象の購入へのID';
+comment on column PURCHASE_PAYMENT.PAYMENT_AMOUNT is '支払金額: 支払った金額。さて、小数点なのはなぜでしょう？';
+comment on column PURCHASE_PAYMENT.PAYMENT_DATETIME is '支払日時: 支払ったときの日時';
+comment on column PURCHASE_PAYMENT.PAYMENT_METHOD_CODE is '支払方法コード: 手渡しや銀行振込など';
+
 -- PRODUCT
 comment on table PRODUCT is '商品:';
 comment on column PRODUCT.PRODUCT_NAME is '商品名称: ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。

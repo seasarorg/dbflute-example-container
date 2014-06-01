@@ -88,7 +88,6 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _serviceRankCode;
     public ConditionValue getServiceRankCode() {
         if (_serviceRankCode == null) { _serviceRankCode = nCV(); }

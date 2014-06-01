@@ -73,13 +73,67 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _purchaseId;
     public ConditionValue getPurchaseId() {
         if (_purchaseId == null) { _purchaseId = nCV(); }
         return _purchaseId;
     }
     protected ConditionValue getCValuePurchaseId() { return getPurchaseId(); }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_ExistsReferrer_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_ExistsReferrer_PurchasePaymentList() { return _purchaseId_ExistsReferrer_PurchasePaymentListMap; }
+    public String keepPurchaseId_ExistsReferrer_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_ExistsReferrer_PurchasePaymentListMap == null) { _purchaseId_ExistsReferrer_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_ExistsReferrer_PurchasePaymentListMap.size() + 1);
+        _purchaseId_ExistsReferrer_PurchasePaymentListMap.put(ky, sq); return "purchaseId_ExistsReferrer_PurchasePaymentList." + ky;
+    }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_NotExistsReferrer_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_NotExistsReferrer_PurchasePaymentList() { return _purchaseId_NotExistsReferrer_PurchasePaymentListMap; }
+    public String keepPurchaseId_NotExistsReferrer_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_NotExistsReferrer_PurchasePaymentListMap == null) { _purchaseId_NotExistsReferrer_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_NotExistsReferrer_PurchasePaymentListMap.size() + 1);
+        _purchaseId_NotExistsReferrer_PurchasePaymentListMap.put(ky, sq); return "purchaseId_NotExistsReferrer_PurchasePaymentList." + ky;
+    }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_SpecifyDerivedReferrer_PurchasePaymentList() { return _purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap; }
+    public String keepPurchaseId_SpecifyDerivedReferrer_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap == null) { _purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap.size() + 1);
+        _purchaseId_SpecifyDerivedReferrer_PurchasePaymentListMap.put(ky, sq); return "purchaseId_SpecifyDerivedReferrer_PurchasePaymentList." + ky;
+    }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_InScopeRelation_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_InScopeRelation_PurchasePaymentList() { return _purchaseId_InScopeRelation_PurchasePaymentListMap; }
+    public String keepPurchaseId_InScopeRelation_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_InScopeRelation_PurchasePaymentListMap == null) { _purchaseId_InScopeRelation_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_InScopeRelation_PurchasePaymentListMap.size() + 1);
+        _purchaseId_InScopeRelation_PurchasePaymentListMap.put(ky, sq); return "purchaseId_InScopeRelation_PurchasePaymentList." + ky;
+    }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_NotInScopeRelation_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_NotInScopeRelation_PurchasePaymentList() { return _purchaseId_NotInScopeRelation_PurchasePaymentListMap; }
+    public String keepPurchaseId_NotInScopeRelation_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_NotInScopeRelation_PurchasePaymentListMap == null) { _purchaseId_NotInScopeRelation_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_NotInScopeRelation_PurchasePaymentListMap.size() + 1);
+        _purchaseId_NotInScopeRelation_PurchasePaymentListMap.put(ky, sq); return "purchaseId_NotInScopeRelation_PurchasePaymentList." + ky;
+    }
+
+    protected Map<String, PurchasePaymentCQ> _purchaseId_QueryDerivedReferrer_PurchasePaymentListMap;
+    public Map<String, PurchasePaymentCQ> getPurchaseId_QueryDerivedReferrer_PurchasePaymentList() { return _purchaseId_QueryDerivedReferrer_PurchasePaymentListMap; }
+    public String keepPurchaseId_QueryDerivedReferrer_PurchasePaymentList(PurchasePaymentCQ sq) {
+        if (_purchaseId_QueryDerivedReferrer_PurchasePaymentListMap == null) { _purchaseId_QueryDerivedReferrer_PurchasePaymentListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_purchaseId_QueryDerivedReferrer_PurchasePaymentListMap.size() + 1);
+        _purchaseId_QueryDerivedReferrer_PurchasePaymentListMap.put(ky, sq); return "purchaseId_QueryDerivedReferrer_PurchasePaymentList." + ky;
+    }
+    protected Map<String, Object> _purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap;
+    public Map<String, Object> getPurchaseId_QueryDerivedReferrer_PurchasePaymentListParameter() { return _purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap; }
+    public String keepPurchaseId_QueryDerivedReferrer_PurchasePaymentListParameter(Object vl) {
+        if (_purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap == null) { _purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryParameterKey" + (_purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap.size() + 1);
+        _purchaseId_QueryDerivedReferrer_PurchasePaymentListParameterMap.put(ky, vl); return "purchaseId_QueryDerivedReferrer_PurchasePaymentListParameter." + ky;
+    }
 
     /** 
      * Add order-by as ascend. <br />

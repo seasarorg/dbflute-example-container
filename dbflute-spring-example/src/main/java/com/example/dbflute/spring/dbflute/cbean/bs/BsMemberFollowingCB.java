@@ -302,6 +302,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         { _nssMemberByMyMemberId = new MemberNss(query().queryMemberByMyMemberId()); }
         return _nssMemberByMyMemberId;
     }
+
     protected MemberNss _nssMemberByYourMemberId;
     public MemberNss getNssMemberByYourMemberId() {
         if (_nssMemberByYourMemberId == null) { _nssMemberByYourMemberId = new MemberNss(null); }

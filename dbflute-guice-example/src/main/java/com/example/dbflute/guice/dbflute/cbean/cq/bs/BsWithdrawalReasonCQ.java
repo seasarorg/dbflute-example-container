@@ -73,7 +73,6 @@ public class BsWithdrawalReasonCQ extends AbstractBsWithdrawalReasonCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _withdrawalReasonCode;
     public ConditionValue getWithdrawalReasonCode() {
         if (_withdrawalReasonCode == null) { _withdrawalReasonCode = nCV(); }

@@ -109,6 +109,21 @@ map:{
             ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME
         }
     }
+    ; PaymentMethod = list:{
+        ; map:{
+            ; topComment=method of payment for purchase; codeType=String
+            ; isCheckImplicitSet=true
+            ; groupingMap = map:{
+                ; recommended = map:{
+                    ; groupComment = the most recommended method
+                    ; elementList = list:{ByHand}
+                }
+            }
+        }
+        ; map:{code=HAN; name=ByHand; alias=by hand; comment=payment by hand, face-to-face}
+        ; map:{code=BAK; name=BankTransfer; alias=bank transfer; comment=bank transfer payment}
+        ; map:{code=CRC; name=CreditCard; alias=credit card; comment=credit card payment}
+    }
 }
 # ----------------/
 

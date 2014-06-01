@@ -88,7 +88,6 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberFollowingId;
     public ConditionValue getMemberFollowingId() {
         if (_memberFollowingId == null) { _memberFollowingId = nCV(); }

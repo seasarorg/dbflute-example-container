@@ -1,4 +1,71 @@
 map:{
+    ; 2014/05/31 13:46:23 = map:{
+        ; diffDate = 2014/05/31 13:46:23
+        ; tableDiff = map:{
+            ; PURCHASE_PAYMENT = map:{
+                ; tableName = PURCHASE_PAYMENT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PAYMENT_METHOD_CODE = map:{
+                        ; columnName = PAYMENT_METHOD_CODE
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2014/05/30 21:51:01 = map:{
+        ; diffDate = 2014/05/30 21:51:01
+        ; tableDiff = map:{
+            ; PURCHASE_PAYMENT = map:{
+                ; tableName = PURCHASE_PAYMENT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PURCHASE_ID = map:{
+                        ; columnName = PURCHASE_ID
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = BIGINT
+                            ; previous = INTEGER
+                        }
+                        ; columnSizeDiff = map:{
+                            ; next = 19
+                            ; previous = 10
+                        }
+                    }
+                    ; VERSION_NO = map:{
+                        ; columnName = VERSION_NO
+                        ; diffType = DELETE
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; UQ_PURCHASE_PAYMENT_INDEX_C = map:{
+                        ; constraintName = UQ_PURCHASE_PAYMENT_INDEX_C
+                        ; diffType = DELETE
+                    }
+                }
+                ; indexDiff = map:{
+                    ; IX_PURCHASE_PAYMENT_DATETIME = map:{
+                        ; constraintName = IX_PURCHASE_PAYMENT_DATETIME
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2014/05/29 23:08:06 = map:{
+        ; diffDate = 2014/05/29 23:08:06
+        ; tableCount = map:{
+            ; next = 24
+            ; previous = 23
+        }
+        ; tableDiff = map:{
+            ; PURCHASE_PAYMENT = map:{
+                ; tableName = PURCHASE_PAYMENT
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2013/07/31 23:16:03 = map:{
         ; diffDate = 2013/07/31 23:16:03
         ; tableDiff = map:{

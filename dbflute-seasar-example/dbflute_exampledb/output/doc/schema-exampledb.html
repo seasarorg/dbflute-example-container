@@ -409,12 +409,22 @@ dl.procedurelist dd.column pre {
 		<td><a href="#purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">PURCHASE</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_PURCHASE_MEMBER">MEMBER</a>, <a href="#product" title="FK_PURCHASE_PRODUCT">PRODUCT</a>, <a href="#summary_product" class="additionalfk" title="FK_PURCHASE_SUMMARY_PRODUCT">SUMMARY_PRODUCT</a></td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#purchase_payment" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE_PAYMENT</a></td>
 		<td class="commentcell"> 一つの商品に対する購入を表現する(購入履歴とも言える)。<br />実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。</td>
 		<td class="subcell">Purchase</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">13</td>
+		<td class="aliascell">購入支払</td>
+		<td><a href="#purchase_payment" title="type=TABLE, primaryKey={PURCHASE_PAYMENT_ID}, nameLength=16, columnCount=9">PURCHASE_PAYMENT</a></td>
+		<td class="typecell">TABLE</td>
+		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE</a></td>
+		<td class="relcell">&nbsp;</td>
+		<td class="commentcell"> 購入に対する支払。<br />分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。</td>
+		<td class="subcell">PurchasePayment</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">14</td>
 		<td class="aliascell">地域</td>
 		<td><a href="#region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">REGION</a></td>
 		<td class="typecell">TABLE</td>
@@ -424,7 +434,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Region</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">14</td>
+		<td class="rownumcell">15</td>
 		<td class="aliascell">サービスランク</td>
 		<td><a href="#service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">SERVICE_RANK</a></td>
 		<td class="typecell">TABLE</td>
@@ -434,7 +444,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">ServiceRank</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">15</td>
+		<td class="rownumcell">16</td>
 		<td class="aliascell">退会理由</td>
 		<td><a href="#withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">WITHDRAWAL_REASON</a></td>
 		<td class="typecell">TABLE</td>
@@ -444,7 +454,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">WithdrawalReason</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">16</td>
+		<td class="rownumcell">17</td>
 		<td class="aliascell"></td>
 		<td><a href="#summary_product" title="type=VIEW, primaryKey={PRODUCT_ID}, nameLength=15, columnCount=5">SUMMARY_PRODUCT</a></td>
 		<td class="typecell">VIEW</td>
@@ -454,7 +464,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">SummaryProduct</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">17</td>
+		<td class="rownumcell">18</td>
 		<td class="aliascell"></td>
 		<td><a href="#summary_withdrawal" title="type=VIEW, primaryKey={}, nameLength=18, columnCount=9">SUMMARY_WITHDRAWAL</a></td>
 		<td class="typecell">VIEW</td>
@@ -2230,7 +2240,7 @@ dl.procedurelist dd.column pre {
 		<td class="typecell">BIGINT</td>
 		<td class="sizecell"> 19 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#purchase_payment" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE_PAYMENT</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">purchaseId</td>
@@ -2433,6 +2443,194 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+	</tr>
+</table>
+  <h2 id="purchase_payment" title="type=TABLE, primaryKey={PURCHASE_PAYMENT_ID}, nameLength=16, columnCount=9">
+(購入支払)PURCHASE_PAYMENT
+</h2>
+<p class="tablecomment">購入に対する支払。<br />分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。</p>
+<table summary="Columns in PURCHASE_PAYMENT">
+	<thead>
+	<tr>
+		<th class="rownumhead">No.</th>
+		<th>PK</th>
+		<th>ID</th>
+		<th>UQ</th>
+		<th>IX</th>
+		<th>Not<br />Null</th>
+		<th>Alias</th>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Size</th>
+		<th>ForeignTable</th>
+		<th>ReferrerTable</th>
+		<th>Classification</th>
+		<th>ColumnComment</th>
+		<th>PropertyName</th>
+		<th>JavaType</th>
+	</tr>
+	</thead>
+	<tr>
+		<td class="rownumcell">1</td>
+		<td class="flgcell" title="CONSTRAINT_C">o</td>
+		<td class="flgcell">o</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell">購入支払ID</td>
+		<td id="purchase_payment_purchase_payment_id">PURCHASE_PAYMENT_ID</td>
+		<td class="typecell">BIGINT</td>
+		<td class="sizecell"> 19 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 連番</td>
+		<td class="subcell">purchasePaymentId</td>
+		<td class="subcell">Long</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">2</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell" title="FK_PURCHASE_PAYMENT_PURCHASE_INDEX_C(PURCHASE_ID)">o</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell">購入ID</td>
+		<td id="purchase_payment_purchase_id">PURCHASE_ID</td>
+		<td class="typecell">BIGINT</td>
+		<td class="sizecell"> 19 </td>
+		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE</a>&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 支払い対象の購入へのID</td>
+		<td class="subcell">purchaseId</td>
+		<td class="subcell">Long</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">3</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell" title="IX_PURCHASE_PAYMENT_DATETIME(PAYMENT_DATETIME, PAYMENT_AMOUNT)"><span class="flgplus">+</span>o</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell">支払金額</td>
+		<td id="purchase_payment_payment_amount">PAYMENT_AMOUNT</td>
+		<td class="typecell">DECIMAL</td>
+		<td class="sizecell"> 10, 2 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 支払った金額。さて、小数点なのはなぜでしょう？</td>
+		<td class="subcell">paymentAmount</td>
+		<td class="subcell">BigDecimal</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">4</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell" title="IX_PURCHASE_PAYMENT_DATETIME(PAYMENT_DATETIME, PAYMENT_AMOUNT)">o<span class="flgplus">+</span></td>
+		<td class="flgcell">*</td>
+		<td class="aliascell">支払日時</td>
+		<td id="purchase_payment_payment_datetime">PAYMENT_DATETIME</td>
+		<td class="typecell">TIMESTAMP</td>
+		<td class="sizecell"> 23, 10 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 支払ったときの日時</td>
+		<td class="subcell">paymentDatetime</td>
+		<td class="subcell">Timestamp</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">5</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell">支払方法コード</td>
+		<td id="purchase_payment_payment_method_code">PAYMENT_METHOD_CODE</td>
+		<td class="typecell">CHAR</td>
+		<td class="sizecell"> 3 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#PaymentMethodCls">PaymentMethod</a></td>
+		<td class="commentcell"> 手渡しや銀行振込など</td>
+		<td class="subcell">paymentMethodCode</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">6</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell comcolcell"></td>
+		<td class="comcolcell" id="purchase_payment_register_datetime">REGISTER_DATETIME</td>
+		<td class="typecell">TIMESTAMP</td>
+		<td class="sizecell"> 23, 10 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> &nbsp;</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">Timestamp</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell comcolcell"></td>
+		<td class="comcolcell" id="purchase_payment_register_user">REGISTER_USER</td>
+		<td class="typecell">VARCHAR</td>
+		<td class="sizecell"> 200 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> &nbsp;</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell comcolcell"></td>
+		<td class="comcolcell" id="purchase_payment_update_datetime">UPDATE_DATETIME</td>
+		<td class="typecell">TIMESTAMP</td>
+		<td class="sizecell"> 23, 10 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> &nbsp;</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">Timestamp</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">9</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell comcolcell"></td>
+		<td class="comcolcell" id="purchase_payment_update_user">UPDATE_USER</td>
+		<td class="typecell">VARCHAR</td>
+		<td class="sizecell"> 200 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> &nbsp;</td>
+		<td class="subcell">updateUser</td>
+		<td class="subcell">String</td>
 	</tr>
 </table>
   <h2 id="region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">
@@ -3243,6 +3441,43 @@ SUMMARY_WITHDRAWAL
 				<td>SST</td>
 				<td>販売中止</td>
 				<td class="commentcell"> &nbsp;</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>PaymentMethod</td>
+		<td class="clstypecell"> implicit<br />(check)</td>
+		<td>支払方法</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="PaymentMethodCls">Code</th>
+				<th>Name</th>
+				<th>Alias</th>
+				<th>Comment</th>
+				<th><span class="clsgroup" title="最も推奨されている方法 :: [ByHand]">recommended</span></th>
+			</tr>
+			<tr>
+				<td>HAN</td>
+				<td>ByHand</td>
+				<td>手渡し</td>
+				<td class="commentcell">Face-to-Faceの手渡しで商品と交換</td>
+				<td class="flgcell">o</td>
+			</tr>
+			<tr>
+				<td>BAK</td>
+				<td>BankTransfer</td>
+				<td>銀行振込</td>
+				<td class="commentcell">銀行振込で確認してから商品発送</td>
+				<td class="flgcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>CRC</td>
+				<td>CreditCard</td>
+				<td>クレジットカード</td>
+				<td class="commentcell">クレジットカードの番号を教えてもらう</td>
+				<td class="flgcell"> &nbsp;</td>
 			</tr>
 			</table>
 		</td>

@@ -73,7 +73,6 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberAddressId;
     public ConditionValue getMemberAddressId() {
         if (_memberAddressId == null) { _memberAddressId = nCV(); }

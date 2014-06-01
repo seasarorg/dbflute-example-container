@@ -76,7 +76,6 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _purchaseId;
     public ConditionValue getPurchaseId() {
         if (_purchaseId == null) { _purchaseId = nCV(); }

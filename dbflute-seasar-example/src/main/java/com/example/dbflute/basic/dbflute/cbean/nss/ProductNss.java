@@ -46,11 +46,8 @@ public class ProductNss {
     /**
      * With nested relation columns to select clause. <br />
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public ProductStatusNss withProductStatus() {
+    public void withProductStatus() {
         _query.doNss(new ProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductStatus(); }});
-        return new ProductStatusNss(_query.queryProductStatus());
     }
-
 }

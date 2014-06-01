@@ -2,12 +2,15 @@ package com.example.dbflute.spring.dbflute.whitebox.bhv;
 
 import java.sql.Timestamp;
 
+import org.seasar.dbflute.bhv.DeleteOption;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
+import com.example.dbflute.spring.dbflute.cbean.PurchasePaymentCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.spring.dbflute.exbhv.PurchasePaymentBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
 import com.example.dbflute.spring.dbflute.exentity.MemberStatus;
 import com.example.dbflute.spring.dbflute.exentity.Purchase;
@@ -22,6 +25,7 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
     private PurchaseBhv purchaseBhv;
+    private PurchasePaymentBhv purchasePaymentBhv;
 
     // ===================================================================================
     //                                                                               Basic
@@ -138,6 +142,8 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
 
     public void test_delete_uniqueBy_compoundKey_basic() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
         Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(99999L); // dummy
@@ -162,6 +168,8 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
 
     public void test_deleteNonstrict_uniqueBy_compoundKey_basic() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
         Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(99999L); // dummy

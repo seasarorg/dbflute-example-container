@@ -46,11 +46,8 @@ public class MemberServiceNss {
     /**
      * With nested relation columns to select clause. <br />
      * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public ServiceRankNss withServiceRank() {
+    public void withServiceRank() {
         _query.doNss(new MemberServiceCQ.NssCall() { public ConditionQuery qf() { return _query.queryServiceRank(); }});
-        return new ServiceRankNss(_query.queryServiceRank());
     }
-
 }

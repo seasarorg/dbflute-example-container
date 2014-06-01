@@ -16,6 +16,7 @@
 package com.example.dbflute.spring.dbflute.exentity;
 
 import com.example.dbflute.spring.dbflute.bsentity.BsPurchase;
+import java.math.BigDecimal;
 
 /**
  * The entity of PURCHASE.
@@ -24,9 +25,28 @@ import com.example.dbflute.spring.dbflute.bsentity.BsPurchase;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class Purchase extends BsPurchase {
 
     /** Serial version UID. (Default) */
     private static final long serialVersionUID = 1L;
+    /** SUM_PAYMENT_AMOUNT: Derived Referrer Alias. */
+    public static final String ALIAS_sumPaymentAmount = "SUM_PAYMENT_AMOUNT";
+    /** SUM_PAYMENT_AMOUNT: (Derived Referrer) */
+    protected BigDecimal _sumPaymentAmount;
+    /**
+     * [get] SUM_PAYMENT_AMOUNT: (Derived Referrer)
+     * @return The value of the column 'SUM_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public BigDecimal getSumPaymentAmount() {
+        return _sumPaymentAmount;
+    }
+    /**
+     * [set] SUM_PAYMENT_AMOUNT: (Derived Referrer)
+     * @param sumPaymentAmount The value of the column 'SUM_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public void setSumPaymentAmount(BigDecimal sumPaymentAmount) {
+        _sumPaymentAmount = sumPaymentAmount;
+    }
 }

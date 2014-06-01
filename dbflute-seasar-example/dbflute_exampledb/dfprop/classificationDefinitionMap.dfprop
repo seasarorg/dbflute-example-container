@@ -102,5 +102,20 @@ map:{
             ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME
         }
     }
+    ; PaymentMethod = list:{
+        ; map:{
+            ; topComment=支払方法; codeType=String
+            ; isCheckImplicitSet=true
+            ; groupingMap = map:{
+                ; recommended = map:{
+                    ; groupComment = 最も推奨されている方法
+                    ; elementList = list:{ByHand}
+                }
+            }
+        }
+        ; map:{code=HAN; name=ByHand; alias=手渡し; comment=Face-to-Faceの手渡しで商品と交換}
+        ; map:{code=BAK; name=BankTransfer; alias=銀行振込; comment=銀行振込で確認してから商品発送}
+        ; map:{code=CRC; name=CreditCard; alias=クレジットカード; comment=クレジットカードの番号を教えてもらう}
+    }
 }
 # ----------------/

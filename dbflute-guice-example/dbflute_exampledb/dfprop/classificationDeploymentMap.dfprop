@@ -15,7 +15,8 @@
 # }
 #
 map:{
-    ; $$ALL$$       = map:{suffix:_FLG=Flg}
+    ; $$ALL$$ = map:{suffix:_FLG=Flg}
+    ; PURCHASE_PAYMENT = map:{PAYMENT_METHOD_CODE=PaymentMethod}
 }
 # ----------------/
 

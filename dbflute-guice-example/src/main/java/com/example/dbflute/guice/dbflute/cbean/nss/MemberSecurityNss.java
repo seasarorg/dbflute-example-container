@@ -28,5 +28,4 @@ public class MemberSecurityNss {
         _query.doNss(new MemberSecurityCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
         return new MemberNss(_query.queryMember());
     }
-
 }

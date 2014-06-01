@@ -73,7 +73,6 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _vendor$DollarId;
     public ConditionValue getVendor$DollarId() {
         if (_vendor$DollarId == null) { _vendor$DollarId = nCV(); }

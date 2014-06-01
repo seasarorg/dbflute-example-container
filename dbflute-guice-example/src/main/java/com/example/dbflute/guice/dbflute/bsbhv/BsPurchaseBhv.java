@@ -36,13 +36,13 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
  *
  * [referrer table]
- *     
+ *     PURCHASE_PAYMENT
  *
  * [foreign property]
  *     member, product, summaryProduct, memberLoginAsBizManyToOne
  *
  * [referrer property]
- *     
+ *     purchasePaymentList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -413,6 +413,93 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
     @Override
     protected Number doReadNextVal() {
         return selectNextVal();
+    }
+
+    // ===================================================================================
+    //                                                                       Load Referrer
+    //                                                                       =============
+    /**
+     * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * <pre>
+     * purchaseBhv.<span style="color: #DD4747">loadPurchasePaymentList</span>(purchaseList, new ReferrerConditionSetupper&lt;PurchasePaymentCB&gt;() {
+     *     public void setup(PurchasePaymentCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * for (Purchase purchase : purchaseList) {
+     *     ... = purchase.<span style="color: #DD4747">getPurchasePaymentList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setPurchaseId_InScope(pkList);
+     * cb.query().addOrderBy_PurchaseId_Asc();
+     * </pre>
+     * @param purchaseList The entity list of purchase. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, ReferrerConditionSetupper<PurchasePaymentCB> setupper) {
+        xassLRArg(purchaseList, setupper);
+        return doLoadPurchasePaymentList(purchaseList, new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(setupper));
+    }
+
+    /**
+     * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * <pre>
+     * purchaseBhv.<span style="color: #DD4747">loadPurchasePaymentList</span>(purchaseList, new ReferrerConditionSetupper&lt;PurchasePaymentCB&gt;() {
+     *     public void setup(PurchasePaymentCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = purchase.<span style="color: #DD4747">getPurchasePaymentList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setPurchaseId_InScope(pkList);
+     * cb.query().addOrderBy_PurchaseId_Asc();
+     * </pre>
+     * @param purchase The entity of purchase. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(Purchase purchase, ReferrerConditionSetupper<PurchasePaymentCB> setupper) {
+        xassLRArg(purchase, setupper);
+        return doLoadPurchasePaymentList(xnewLRLs(purchase), new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(setupper));
+    }
+
+    protected NestedReferrerLoader<PurchasePayment> doLoadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
+        final PurchasePaymentBhv referrerBhv = xgetBSFLR().select(PurchasePaymentBhv.class);
+        return helpLoadReferrerInternally(purchaseList, option, new InternalLoadReferrerCallback<Purchase, Long, PurchasePaymentCB, PurchasePayment>() {
+            public Long getPKVal(Purchase et)
+            { return et.getPurchaseId(); }
+            public void setRfLs(Purchase et, List<PurchasePayment> ls)
+            { et.setPurchasePaymentList(ls); }
+            public PurchasePaymentCB newMyCB() { return referrerBhv.newMyConditionBean(); }
+            public void qyFKIn(PurchasePaymentCB cb, List<Long> ls)
+            { cb.query().setPurchaseId_InScope(ls); }
+            public void qyOdFKAsc(PurchasePaymentCB cb) { cb.query().addOrderBy_PurchaseId_Asc(); }
+            public void spFKCol(PurchasePaymentCB cb) { cb.specify().columnPurchaseId(); }
+            public List<PurchasePayment> selRfLs(PurchasePaymentCB cb) { return referrerBhv.selectList(cb); }
+            public Long getFKVal(PurchasePayment re) { return re.getPurchaseId(); }
+            public void setlcEt(PurchasePayment re, Purchase le)
+            { re.setPurchase(OptionalEntity.of(le)); }
+            public String getRfPrNm() { return "purchasePaymentList"; }
+        });
     }
 
     // ===================================================================================

@@ -73,7 +73,6 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _productStatusCode;
     public ConditionValue getProductStatusCode() {
         if (_productStatusCode == null) { _productStatusCode = nCV(); }
@@ -288,65 +287,6 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     //                                                                       =============
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
-    }
-
-    // ===================================================================================
-    //                                                                     ScalarCondition
-    //                                                                     ===============
-    protected Map<String, ProductStatusCQ> _scalarConditionMap;
-    public Map<String, ProductStatusCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(ProductStatusCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
-
-    // ===================================================================================
-    //                                                                       MyselfDerived
-    //                                                                       =============
-    protected Map<String, ProductStatusCQ> _specifyMyselfDerivedMap;
-    public Map<String, ProductStatusCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(ProductStatusCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
-
-    protected Map<String, ProductStatusCQ> _queryMyselfDerivedMap;
-    public Map<String, ProductStatusCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(ProductStatusCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
-
-    // ===================================================================================
-    //                                                                        MyselfExists
-    //                                                                        ============
-    protected Map<String, ProductStatusCQ> _myselfExistsMap;
-    public Map<String, ProductStatusCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(ProductStatusCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    protected Map<String, ProductStatusCQ> _myselfInScopeMap;
-    public Map<String, ProductStatusCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(ProductStatusCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

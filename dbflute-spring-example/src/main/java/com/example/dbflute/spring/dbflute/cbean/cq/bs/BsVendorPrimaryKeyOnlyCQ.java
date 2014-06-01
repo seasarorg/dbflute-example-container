@@ -88,7 +88,6 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _primaryKeyOnlyId;
     public ConditionValue getPrimaryKeyOnlyId() {
         if (_primaryKeyOnlyId == null) { _primaryKeyOnlyId = nCV(); }

@@ -55,5 +55,4 @@ public class PurchaseNss {
         _query.doNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberLoginAsBizManyToOne(); }});
         return new MemberLoginNss(_query.queryMemberLoginAsBizManyToOne());
     }
-
 }

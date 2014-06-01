@@ -17,7 +17,9 @@ import org.seasar.dbflute.jdbc.SqlLogHandler;
 import org.seasar.dbflute.jdbc.SqlLogInfo;
 
 import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
+import com.example.dbflute.spring.dbflute.cbean.PurchasePaymentCB;
 import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.spring.dbflute.exbhv.PurchasePaymentBhv;
 import com.example.dbflute.spring.dbflute.exentity.Purchase;
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
@@ -31,6 +33,7 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private PurchaseBhv purchaseBhv;
+    private PurchasePaymentBhv purchasePaymentBhv;
 
     // ===================================================================================
     //                                                                         Calculation
@@ -155,6 +158,8 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
 
     public void test_varyingQueryDelete_NonQueryDelete_allow() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
         int countAll = purchaseBhv.selectCount(new PurchaseCB());
         DeleteOption<PurchaseCB> option = new DeleteOption<PurchaseCB>();
         option.allowNonQueryDelete();
@@ -241,6 +246,8 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
 
     public void test_varyingQueryDelete_ForcedDirect_basic() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
         DeleteOption<PurchaseCB> option = new DeleteOption<PurchaseCB>();
         option.allowQueryDeleteForcedDirect();
 

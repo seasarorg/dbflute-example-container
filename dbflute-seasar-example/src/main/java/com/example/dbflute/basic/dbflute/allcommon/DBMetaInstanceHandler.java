@@ -58,6 +58,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("PRODUCT_CATEGORY", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.ProductCategoryDbm");
         tmpMap.put("PRODUCT_STATUS", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.ProductStatusDbm");
         tmpMap.put("PURCHASE", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.PurchaseDbm");
+        tmpMap.put("PURCHASE_PAYMENT", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.PurchasePaymentDbm");
         tmpMap.put("REGION", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.RegionDbm");
         tmpMap.put("SERVICE_RANK", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.ServiceRankDbm");
         tmpMap.put("SUMMARY_PRODUCT", "com.example.dbflute.basic.dbflute.bsentity.dbmeta.SummaryProductDbm");

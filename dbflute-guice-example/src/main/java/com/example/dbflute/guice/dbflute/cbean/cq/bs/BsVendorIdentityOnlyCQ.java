@@ -73,7 +73,6 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _identityOnlyId;
     public ConditionValue getIdentityOnlyId() {
         if (_identityOnlyId == null) { _identityOnlyId = nCV(); }

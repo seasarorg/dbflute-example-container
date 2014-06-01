@@ -73,7 +73,6 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _serviceRankCode;
     public ConditionValue getServiceRankCode() {
         if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
@@ -319,28 +318,6 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
         String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
         _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
-
-    // ===================================================================================
-    //                                                                        MyselfExists
-    //                                                                        ============
-    protected Map<String, ServiceRankCQ> _myselfExistsMap;
-    public Map<String, ServiceRankCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(ServiceRankCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    protected Map<String, ServiceRankCQ> _myselfInScopeMap;
-    public Map<String, ServiceRankCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(ServiceRankCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

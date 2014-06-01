@@ -20,7 +20,6 @@ import com.example.dbflute.guice.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.example.dbflute.guice.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
-import com.example.dbflute.guice.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of SUMMARY_PRODUCT.
@@ -249,11 +248,6 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected ProductStatusNss _nssProductStatus;
-    public ProductStatusNss getNssProductStatus() {
-        if (_nssProductStatus == null) { _nssProductStatus = new ProductStatusNss(null); }
-        return _nssProductStatus;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
@@ -264,17 +258,13 @@ public class BsSummaryProductCB extends AbstractConditionBean {
      * SummaryProduct summaryProduct = summaryProductBhv.selectEntityWithDeletedCheck(cb);
      * ... = summaryProduct.<span style="color: #DD4747">getProductStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public ProductStatusNss setupSelect_ProductStatus() {
+    public void setupSelect_ProductStatus() {
         assertSetupSelectPurpose("productStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnProductStatusCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryProductStatus(); } });
-        if (_nssProductStatus == null || !_nssProductStatus.hasConditionQuery())
-        { _nssProductStatus = new ProductStatusNss(query().queryProductStatus()); }
-        return _nssProductStatus;
     }
 
     // [DBFlute-0.7.4]

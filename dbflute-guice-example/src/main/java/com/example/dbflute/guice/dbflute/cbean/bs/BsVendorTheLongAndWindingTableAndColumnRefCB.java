@@ -20,7 +20,6 @@ import com.example.dbflute.guice.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.example.dbflute.guice.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
-import com.example.dbflute.guice.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF.
@@ -249,11 +248,6 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected VendorTheLongAndWindingTableAndColumnNss _nssVendorTheLongAndWindingTableAndColumn;
-    public VendorTheLongAndWindingTableAndColumnNss getNssVendorTheLongAndWindingTableAndColumn() {
-        if (_nssVendorTheLongAndWindingTableAndColumn == null) { _nssVendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumnNss(null); }
-        return _nssVendorTheLongAndWindingTableAndColumn;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
@@ -264,17 +258,13 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef = vendorTheLongAndWindingTableAndColumnRefBhv.selectEntityWithDeletedCheck(cb);
      * ... = vendorTheLongAndWindingTableAndColumnRef.<span style="color: #DD4747">getVendorTheLongAndWindingTableAndColumn()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public VendorTheLongAndWindingTableAndColumnNss setupSelect_VendorTheLongAndWindingTableAndColumn() {
+    public void setupSelect_VendorTheLongAndWindingTableAndColumn() {
         assertSetupSelectPurpose("vendorTheLongAndWindingTableAndColumn");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnTheLongAndWindingTableAndColumnId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryVendorTheLongAndWindingTableAndColumn(); } });
-        if (_nssVendorTheLongAndWindingTableAndColumn == null || !_nssVendorTheLongAndWindingTableAndColumn.hasConditionQuery())
-        { _nssVendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumnNss(query().queryVendorTheLongAndWindingTableAndColumn()); }
-        return _nssVendorTheLongAndWindingTableAndColumn;
     }
 
     // [DBFlute-0.7.4]

@@ -88,7 +88,6 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _vendorCheckId;
     public ConditionValue getVendorCheckId() {
         if (_vendorCheckId == null) { _vendorCheckId = nCV(); }

@@ -270,13 +270,13 @@ public class WxBhvScalarSelectTest extends UnitContainerTestCase {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchasePrice();
             }
-        }, Member.ALIAS_productKindCount);
+        }, Member.ALIAS_highestPurchasePrice);
         cb.query().setMemberStatusCode_Equal_Withdrawal();
-        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_productKindCount);
+        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_highestPurchasePrice);
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
         Integer expected = 0;
         for (Member member : memberList) {
-            Integer maxPurchasePrice = member.getProductKindCount();
+            Integer maxPurchasePrice = member.getHighestPurchasePrice();
             log("maxPurchasePrice = " + maxPurchasePrice);
             expected = expected + maxPurchasePrice;
         }

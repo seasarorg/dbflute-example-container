@@ -288,6 +288,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         { _nssMember = new MemberNss(query().queryMember()); }
         return _nssMember;
     }
+
     protected ProductNss _nssProduct;
     public ProductNss getNssProduct() {
         if (_nssProduct == null) { _nssProduct = new ProductNss(null); }
@@ -315,6 +316,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         { _nssProduct = new ProductNss(query().queryProduct()); }
         return _nssProduct;
     }
+
     protected SummaryProductNss _nssSummaryProduct;
     public SummaryProductNss getNssSummaryProduct() {
         if (_nssSummaryProduct == null) { _nssSummaryProduct = new SummaryProductNss(null); }
@@ -342,6 +344,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         { _nssSummaryProduct = new SummaryProductNss(query().querySummaryProduct()); }
         return _nssSummaryProduct;
     }
+
     protected MemberLoginNss _nssMemberLoginAsBizManyToOne;
     public MemberLoginNss getNssMemberLoginAsBizManyToOne() {
         if (_nssMemberLoginAsBizManyToOne == null) { _nssMemberLoginAsBizManyToOne = new MemberLoginNss(null); }
@@ -586,6 +589,26 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 }
             }
             return _memberLoginAsBizManyToOne;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
+         * {select max(FOO) from PURCHASE_PAYMENT where ...) as FOO_MAX} <br />
+         * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+         * <pre>
+         * cb.specify().<span style="color: #DD4747">derivedPurchasePaymentList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
+         *     public void query(PurchasePaymentCB subCB) {
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         *     }
+         * }, PurchasePayment.<span style="color: #DD4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<PurchasePaymentCB, PurchaseCQ> derivedPurchasePaymentList() {
+            assertDerived("purchasePaymentList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return new HpSDRFunction<PurchasePaymentCB, PurchaseCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<PurchasePaymentCB, PurchaseCQ>() {
+                public void setup(String fn, SubQuery<PurchasePaymentCB> sq, PurchaseCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderivePurchasePaymentList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

@@ -88,7 +88,6 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberLoginId;
     public ConditionValue getMemberLoginId() {
         if (_memberLoginId == null) { _memberLoginId = nCV(); }

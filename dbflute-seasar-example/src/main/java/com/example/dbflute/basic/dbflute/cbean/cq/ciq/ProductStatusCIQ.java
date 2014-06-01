@@ -52,32 +52,24 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     // ===================================================================================
     //                                                             Override about Register
     //                                                             =======================
-    @Override
-    protected void reflectRelationOnUnionQuery(ConditionQuery bq, ConditionQuery uq) {
-        String msg = "InlineView must not need UNION method: " + bq + " : " + uq;
-        throw new IllegalConditionBeanOperationException(msg);
-    }
+    protected void reflectRelationOnUnionQuery(ConditionQuery bq, ConditionQuery uq)
+    { throw new IllegalConditionBeanOperationException("InlineView cannot use Union: " + bq + " : " + uq); }
 
     @Override
-    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col) {
-        regIQ(k, v, cv, col);
-    }
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col)
+    { regIQ(k, v, cv, col); }
 
     @Override
-    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col, ConditionOption op) {
-        regIQ(k, v, cv, col, op);
-    }
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col, ConditionOption op)
+    { regIQ(k, v, cv, col, op); }
 
     @Override
-    protected void registerWhereClause(String wc) {
-        registerInlineWhereClause(wc);
-    }
+    protected void registerWhereClause(String wc)
+    { registerInlineWhereClause(wc); }
 
     @Override
     protected boolean isInScopeRelationSuppressLocalAliasName() {
-        if (_onClause) {
-            throw new IllegalConditionBeanOperationException("InScopeRelation on OnClause is unsupported.");
-        }
+        if (_onClause) { throw new IllegalConditionBeanOperationException("InScopeRelation on OnClause is unsupported."); }
         return true;
     }
 
@@ -129,9 +121,8 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     public String keepMyselfInScope(ProductStatusCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
-    protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
-        throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");
-    }
+    protected void throwIICBOE(String name)
+    { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }
 
     // ===================================================================================
     //                                                                       Very Internal

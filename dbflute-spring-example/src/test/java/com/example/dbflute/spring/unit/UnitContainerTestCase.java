@@ -13,6 +13,7 @@ import com.example.dbflute.spring.dbflute.exbhv.MemberSecurityBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberServiceBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberWithdrawalBhv;
 import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.spring.dbflute.exbhv.PurchasePaymentBhv;
 
 /**
  * The test case with container for unit test.
@@ -42,6 +43,7 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         deleteAll(MemberServiceBhv.class);
         deleteAll(MemberSecurityBhv.class);
         deleteAll(MemberWithdrawalBhv.class);
+        deleteAll(PurchasePaymentBhv.class);
         deleteAll(PurchaseBhv.class);
     }
 }

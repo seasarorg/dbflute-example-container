@@ -76,7 +76,6 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _productId;
     public ConditionValue getProductId() {
         if (_productId == null) { _productId = nCV(); }

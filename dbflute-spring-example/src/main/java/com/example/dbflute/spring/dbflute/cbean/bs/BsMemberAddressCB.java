@@ -302,11 +302,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
         { _nssMember = new MemberNss(query().queryMember()); }
         return _nssMember;
     }
-    protected RegionNss _nssRegion;
-    public RegionNss getNssRegion() {
-        if (_nssRegion == null) { _nssRegion = new RegionNss(null); }
-        return _nssRegion;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * (地域)REGION by my REGION_ID, named 'region'.
@@ -317,17 +313,13 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * MemberAddress memberAddress = memberAddressBhv.selectEntityWithDeletedCheck(cb);
      * ... = memberAddress.<span style="color: #DD4747">getRegion()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public RegionNss setupSelect_Region() {
+    public void setupSelect_Region() {
         assertSetupSelectPurpose("region");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnRegionId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryRegion(); } });
-        if (_nssRegion == null || !_nssRegion.hasConditionQuery())
-        { _nssRegion = new RegionNss(query().queryRegion()); }
-        return _nssRegion;
     }
 
     // [DBFlute-0.7.4]

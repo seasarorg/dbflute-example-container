@@ -582,6 +582,101 @@ public interface CDef extends Classification {
         @Override public String toString() { return code(); }
     }
 
+    /**
+     * 支払方法
+     */
+    public enum PaymentMethod implements CDef {
+        /** 手渡し: Face-to-Faceの手渡しで商品と交換 */
+        ByHand("HAN", "手渡し", EMPTY_SISTERS)
+        ,
+        /** 銀行振込: 銀行振込で確認してから商品発送 */
+        BankTransfer("BAK", "銀行振込", EMPTY_SISTERS)
+        ,
+        /** クレジットカード: クレジットカードの番号を教えてもらう */
+        CreditCard("CRC", "クレジットカード", EMPTY_SISTERS)
+        ;
+        private static final Map<String, PaymentMethod> _codeValueMap = new HashMap<String, PaymentMethod>();
+        static {
+            for (PaymentMethod value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private PaymentMethod(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public ClassificationMeta meta() { return CDef.DefMeta.PaymentMethod; }
+
+        /**
+         * Is the classification in the group? <br />
+         * 最も推奨されている方法 <br />
+         * The group elements:[ByHand]
+         * @return The determination, true or false.
+         */
+        public boolean isRecommended() {
+            return ByHand.equals(this);
+        }
+
+        public boolean inGroup(String groupName) {
+            if ("recommended".equals(groupName)) { return isRecommended(); }
+            return false;
+        }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static PaymentMethod codeOf(Object code) {
+            if (code == null) { return null; }
+            if (code instanceof PaymentMethod) { return (PaymentMethod)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static PaymentMethod nameOf(String name) {
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<PaymentMethod> listAll() {
+            return new ArrayList<PaymentMethod>(Arrays.asList(values()));
+        }
+
+        /**
+         * Get the list of group classification elements. (returns new copied list) <br />
+         * 最も推奨されている方法 <br />
+         * The group elements:[ByHand]
+         * @return The list of classification elements in the group. (NotNull)
+         */
+        public static List<PaymentMethod> listOfRecommended() {
+            return new ArrayList<PaymentMethod>(Arrays.asList(ByHand));
+        }
+
+        /**
+         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
+         * @return The list of classification elements in the group. (NotNull)
+         */
+        public static List<PaymentMethod> groupOf(String groupName) {
+            if ("recommended".equals(groupName)) { return listOfRecommended(); }
+            return new ArrayList<PaymentMethod>(4);
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
     public enum DefMeta implements ClassificationMeta {
         /** 二つに一つ、フラグを示す */
         Flg
@@ -603,6 +698,9 @@ public interface CDef extends Classification {
         ,
         /** 商品ステータス。あんまり面白みのないステータス */
         ProductStatus
+        ,
+        /** 支払方法 */
+        PaymentMethod
         ;
         public Classification codeOf(Object code) {
             if ("Flg".equals(name())) { return CDef.Flg.codeOf(code); }
@@ -612,6 +710,7 @@ public interface CDef extends Classification {
             if ("WithdrawalReason".equals(name())) { return CDef.WithdrawalReason.codeOf(code); }
             if ("ProductCategory".equals(name())) { return CDef.ProductCategory.codeOf(code); }
             if ("ProductStatus".equals(name())) { return CDef.ProductStatus.codeOf(code); }
+            if ("PaymentMethod".equals(name())) { return CDef.PaymentMethod.codeOf(code); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -623,6 +722,7 @@ public interface CDef extends Classification {
             if ("WithdrawalReason".equals(name())) { return CDef.WithdrawalReason.valueOf(name); }
             if ("ProductCategory".equals(name())) { return CDef.ProductCategory.valueOf(name); }
             if ("ProductStatus".equals(name())) { return CDef.ProductStatus.valueOf(name); }
+            if ("PaymentMethod".equals(name())) { return CDef.PaymentMethod.valueOf(name); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -634,6 +734,7 @@ public interface CDef extends Classification {
             if ("WithdrawalReason".equals(name())) { return toClassificationList(CDef.WithdrawalReason.listAll()); }
             if ("ProductCategory".equals(name())) { return toClassificationList(CDef.ProductCategory.listAll()); }
             if ("ProductStatus".equals(name())) { return toClassificationList(CDef.ProductStatus.listAll()); }
+            if ("PaymentMethod".equals(name())) { return toClassificationList(CDef.PaymentMethod.listAll()); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -645,6 +746,7 @@ public interface CDef extends Classification {
             if ("WithdrawalReason".equals(name())) { return toClassificationList(CDef.WithdrawalReason.groupOf(groupName)); }
             if ("ProductCategory".equals(name())) { return toClassificationList(CDef.ProductCategory.groupOf(groupName)); }
             if ("ProductStatus".equals(name())) { return toClassificationList(CDef.ProductStatus.groupOf(groupName)); }
+            if ("PaymentMethod".equals(name())) { return toClassificationList(CDef.PaymentMethod.groupOf(groupName)); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -661,6 +763,7 @@ public interface CDef extends Classification {
             if ("WithdrawalReason".equals(name())) { return ClassificationCodeType.String; }
             if ("ProductCategory".equals(name())) { return ClassificationCodeType.String; }
             if ("ProductStatus".equals(name())) { return ClassificationCodeType.String; }
+            if ("PaymentMethod".equals(name())) { return ClassificationCodeType.String; }
             return ClassificationCodeType.String; // as default
         }
     }

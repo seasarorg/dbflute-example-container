@@ -273,7 +273,6 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify

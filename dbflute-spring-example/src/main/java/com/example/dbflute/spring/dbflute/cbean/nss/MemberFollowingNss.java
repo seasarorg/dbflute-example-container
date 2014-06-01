@@ -52,5 +52,4 @@ public class MemberFollowingNss {
         _query.doNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByYourMemberId(); }});
         return new MemberNss(_query.queryMemberByYourMemberId());
     }
-
 }

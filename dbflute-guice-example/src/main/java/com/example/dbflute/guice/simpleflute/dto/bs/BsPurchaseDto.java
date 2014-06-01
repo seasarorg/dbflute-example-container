@@ -30,13 +30,13 @@ import com.example.dbflute.guice.simpleflute.dto.*;
  *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
  * 
  * [referrer-table]
- *     
+ *     PURCHASE_PAYMENT
  * 
  * [foreign-property]
  *     member, product, summaryProduct, memberLoginAsBizManyToOne
  * 
  * [referrer-property]
- *     
+ *     purchasePaymentList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -227,6 +227,17 @@ public abstract class BsPurchaseDto implements Serializable {
     // ===================================================================================
     //                                                                      Referrer Table
     //                                                                      ==============
+    protected List<PurchasePaymentDto> _purchasePaymentList;
+
+    public List<PurchasePaymentDto> getPurchasePaymentList() {
+        if (_purchasePaymentList == null) { _purchasePaymentList = new ArrayList<PurchasePaymentDto>(); }
+        return _purchasePaymentList;
+    }
+
+    public void setPurchasePaymentList(List<PurchasePaymentDto> purchasePaymentList) {
+        this._purchasePaymentList = purchasePaymentList;
+    }
+
     // ===================================================================================
     //                                                                 Modified Properties
     //                                                                 ===================

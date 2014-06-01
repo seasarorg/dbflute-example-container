@@ -88,7 +88,6 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _theLongAndWindingTableAndColumnRefId;
     public ConditionValue getTheLongAndWindingTableAndColumnRefId() {
         if (_theLongAndWindingTableAndColumnRefId == null) { _theLongAndWindingTableAndColumnRefId = nCV(); }

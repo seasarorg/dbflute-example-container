@@ -28,6 +28,7 @@ import com.example.dbflute.basic.dbflute.exbhv.MemberSecurityBhv;
 import com.example.dbflute.basic.dbflute.exbhv.MemberServiceBhv;
 import com.example.dbflute.basic.dbflute.exbhv.MemberWithdrawalBhv;
 import com.example.dbflute.basic.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.basic.dbflute.exbhv.PurchasePaymentBhv;
 
 /**
  * The test base of the application.
@@ -57,6 +58,7 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         deleteAll(MemberServiceBhv.class);
         deleteAll(MemberSecurityBhv.class);
         deleteAll(MemberWithdrawalBhv.class);
+        deleteAll(PurchasePaymentBhv.class);
         deleteAll(PurchaseBhv.class);
     }
 }

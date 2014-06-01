@@ -7,7 +7,9 @@ import org.seasar.dbflute.exception.OptimisticLockColumnValueNullException;
 import org.seasar.dbflute.util.DfCollectionUtil;
 
 import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
+import com.example.dbflute.spring.dbflute.cbean.PurchasePaymentCB;
 import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
+import com.example.dbflute.spring.dbflute.exbhv.PurchasePaymentBhv;
 import com.example.dbflute.spring.dbflute.exentity.Purchase;
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
@@ -21,12 +23,15 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private PurchaseBhv purchaseBhv;
+    private PurchasePaymentBhv purchasePaymentBhv;
 
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
     public void test_varyingDelete_basic() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
         PurchaseCB cb = new PurchaseCB();
         cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
         List<Purchase> purchaseList = purchaseBhv.selectList(cb);
@@ -67,6 +72,9 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_varyingDeleteNonstrict_basic() throws Exception {
         // ## Arrange ##
+        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(),
+                new DeleteOption<PurchasePaymentCB>().allowNonQueryDelete());
+
         PurchaseCB cb = new PurchaseCB();
         cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
         List<Purchase> purchaseList = purchaseBhv.selectList(cb);

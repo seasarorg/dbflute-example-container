@@ -39,13 +39,13 @@ import com.example.dbflute.guice.dbflute.dtomapper.*;
  *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
  * 
  * [referrer-table]
- *     
+ *     PURCHASE_PAYMENT
  * 
  * [foreign-property]
  *     member, product, summaryProduct, memberLoginAsBizManyToOne
  * 
  * [referrer-property]
- *     
+ *     purchasePaymentList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -68,6 +68,7 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
     protected boolean _suppressProduct;
     protected boolean _suppressSummaryProduct;
     protected boolean _suppressMemberLoginAsBizManyToOne;
+    protected boolean _suppressPurchasePaymentList;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -212,6 +213,19 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 }
                 if (instanceCache && relationEntity.hasPrimaryKeyValue()) {
                     _relationDtoMap.put(relationKey, dto.getMemberLoginAsBizManyToOne());
+                }
+            }
+        };
+        if (!_suppressPurchasePaymentList && !entity.getPurchasePaymentList().isEmpty()) {
+            PurchasePaymentDtoMapper mapper = new PurchasePaymentDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressPurchase();
+            List<PurchasePaymentDto> relationDtoList = mapper.mappingToDtoList(entity.getPurchasePaymentList());
+            dto.setPurchasePaymentList(relationDtoList);
+            if (reverseReference) {
+                for (PurchasePaymentDto relationDto : relationDtoList) {
+                    relationDto.setPurchase(dto);
                 }
             }
         };
@@ -393,6 +407,19 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
                 }
             }
         };
+        if (!_suppressPurchasePaymentList && !dto.getPurchasePaymentList().isEmpty()) {
+            PurchasePaymentDtoMapper mapper = new PurchasePaymentDtoMapper(_relationDtoMap, _relationEntityMap);
+            mapper.setReverseReference(reverseReference);
+            if (!instanceCache) { mapper.disableInstanceCache(); }
+            mapper.suppressPurchase();
+            List<PurchasePayment> relationEntityList = mapper.mappingToEntityList(dto.getPurchasePaymentList());
+            entity.setPurchasePaymentList(relationEntityList);
+            if (reverseReference) {
+                for (PurchasePayment relationEntity : relationEntityList) {
+                    relationEntity.setPurchase(OptionalEntity.of(entity));
+                }
+            }
+        };
         return entity;
     }
 
@@ -479,17 +506,22 @@ public abstract class BsPurchaseDtoMapper implements DtoMapper<Purchase, Purchas
     public void suppressMemberLoginAsBizManyToOne() {
         _suppressMemberLoginAsBizManyToOne = true;
     }
+    public void suppressPurchasePaymentList() {
+        _suppressPurchasePaymentList = true;
+    }
     protected void doSuppressAll() { // internal
         suppressMember();
         suppressProduct();
         suppressSummaryProduct();
         suppressMemberLoginAsBizManyToOne();
+        suppressPurchasePaymentList();
     }
     protected void doSuppressClear() { // internal
         _suppressMember = false;
         _suppressProduct = false;
         _suppressSummaryProduct = false;
         _suppressMemberLoginAsBizManyToOne = false;
+        _suppressPurchasePaymentList = false;
     }
 
     // ===================================================================================

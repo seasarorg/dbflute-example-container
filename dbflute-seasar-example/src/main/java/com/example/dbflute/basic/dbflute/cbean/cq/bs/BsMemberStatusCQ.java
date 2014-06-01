@@ -88,7 +88,6 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberStatusCode;
     public ConditionValue getMemberStatusCode() {
         if (_memberStatusCode == null) { _memberStatusCode = nCV(); }

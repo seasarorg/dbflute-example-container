@@ -76,7 +76,6 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _productCategoryCode;
     public ConditionValue getProductCategoryCode() {
         if (_productCategoryCode == null) { _productCategoryCode = nCV(); }

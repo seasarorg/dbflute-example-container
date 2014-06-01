@@ -507,6 +507,65 @@ public interface AppCDef {
         @Override public String toString() { return code(); }
     }
 
+    /**
+     * method of payment for purchase
+     */
+    public enum PaymentMethod implements AppCDef {
+        /** by hand: payment by hand, face-to-face */
+        ByHand("HAN", "by hand", EMPTY_SISTERS)
+        ,
+        /** bank transfer: bank transfer payment */
+        BankTransfer("BAK", "bank transfer", EMPTY_SISTERS)
+        ,
+        /** credit card: credit card payment */
+        CreditCard("CRC", "credit card", EMPTY_SISTERS)
+        ;
+        private static final Map<String, PaymentMethod> _codeValueMap = new HashMap<String, PaymentMethod>();
+        static {
+            for (PaymentMethod value : values()) {
+                _codeValueMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisters()) { _codeValueMap.put(sister.toLowerCase(), value); }
+            }
+        }
+        private String _code; private String _alias; private String[] _sisters;
+        private PaymentMethod(String code, String alias, String[] sisters)
+        { _code = code; _alias = alias; _sisters = sisters; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        private String[] sisters() { return _sisters; }
+        public Map<String, Object> subItemMap() { return EMPTY_SUB_ITEM_MAP; }
+        public DefMeta meta() { return DefMeta.PaymentMethod; }
+
+        /**
+         * Get the classification by the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static PaymentMethod codeOf(Object code) {
+            if (code == null) { return null; } if (code instanceof PaymentMethod) { return (PaymentMethod)code; }
+            return _codeValueMap.get(code.toString().toLowerCase());
+        }
+
+        /**
+         * Get the classification by the name (also called 'value' in ENUM world).
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         */
+        public static PaymentMethod nameOf(String name) { // null allowed
+            if (name == null) { return null; }
+            try { return valueOf(name); } catch (RuntimeException ignored) { return null; }
+        }
+
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The list of all classification elements. (NotNull)
+         */
+        public static List<PaymentMethod> listAll() {
+            return new ArrayList<PaymentMethod>(Arrays.asList(values()));
+        }
+
+        @Override public String toString() { return code(); }
+    }
+
     public enum DefMeta {
         /** general boolean classification for every flg-column */
         Flg
@@ -528,6 +587,9 @@ public interface AppCDef {
         ,
         /** status for product */
         ProductStatus
+        ,
+        /** method of payment for purchase */
+        PaymentMethod
         ;
 
         /**
@@ -543,6 +605,7 @@ public interface AppCDef {
             if ("WithdrawalReason".equals(name())) { return AppCDef.WithdrawalReason.codeOf(code); }
             if ("ProductCategory".equals(name())) { return AppCDef.ProductCategory.codeOf(code); }
             if ("ProductStatus".equals(name())) { return AppCDef.ProductStatus.codeOf(code); }
+            if ("PaymentMethod".equals(name())) { return AppCDef.PaymentMethod.codeOf(code); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -559,6 +622,7 @@ public interface AppCDef {
             if ("WithdrawalReason".equals(name())) { return AppCDef.WithdrawalReason.valueOf(name); }
             if ("ProductCategory".equals(name())) { return AppCDef.ProductCategory.valueOf(name); }
             if ("ProductStatus".equals(name())) { return AppCDef.ProductStatus.valueOf(name); }
+            if ("PaymentMethod".equals(name())) { return AppCDef.PaymentMethod.valueOf(name); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
@@ -574,6 +638,7 @@ public interface AppCDef {
             if ("WithdrawalReason".equals(name())) { return toClassificationList(AppCDef.WithdrawalReason.listAll()); }
             if ("ProductCategory".equals(name())) { return toClassificationList(AppCDef.ProductCategory.listAll()); }
             if ("ProductStatus".equals(name())) { return toClassificationList(AppCDef.ProductStatus.listAll()); }
+            if ("PaymentMethod".equals(name())) { return toClassificationList(AppCDef.PaymentMethod.listAll()); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 

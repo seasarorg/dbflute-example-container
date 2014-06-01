@@ -46,11 +46,8 @@ public class MemberAddressNss {
     /**
      * With nested relation columns to select clause. <br />
      * (地域)REGION by my REGION_ID, named 'region'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public RegionNss withRegion() {
+    public void withRegion() {
         _query.doNss(new MemberAddressCQ.NssCall() { public ConditionQuery qf() { return _query.queryRegion(); }});
-        return new RegionNss(_query.queryRegion());
     }
-
 }
