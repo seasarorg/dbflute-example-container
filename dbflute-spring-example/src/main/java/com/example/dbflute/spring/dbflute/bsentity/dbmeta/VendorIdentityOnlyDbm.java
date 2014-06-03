@@ -76,7 +76,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6680EF70_838C_4FA0_BF91_3556AFB4CFF8", false, null, null, null, null, null);
+    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FCDA7B01_BECE_4A6D_9791_751FB7436F41", false, null, null, null, null, null);
 
     /**
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
