@@ -249,7 +249,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductStatus> getProductStatus() {
-        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productStatus"); }
+        if (_productStatus != null) { return _productStatus; } else { return OptionalEntity.relationEmpty(this, "productStatus"); }
     }
 
     /**

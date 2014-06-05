@@ -294,7 +294,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
      * @return The entity of foreign property 'productCategory'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductCategory> getProductCategory() {
-        if (_productCategory != null) { return _productCategory; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productCategory"); }
+        if (_productCategory != null) { return _productCategory; } else { return OptionalEntity.relationEmpty(this, "productCategory"); }
     }
 
     /**
@@ -313,7 +313,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductStatus> getProductStatus() {
-        if (_productStatus != null) { return _productStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productStatus"); }
+        if (_productStatus != null) { return _productStatus; } else { return OptionalEntity.relationEmpty(this, "productStatus"); }
     }
 
     /**

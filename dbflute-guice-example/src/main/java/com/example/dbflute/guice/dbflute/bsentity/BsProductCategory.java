@@ -148,7 +148,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductCategory> getProductCategorySelf() {
-        if (_productCategorySelf != null) { return _productCategorySelf; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "productCategorySelf"); }
+        if (_productCategorySelf != null) { return _productCategorySelf; } else { return OptionalEntity.relationEmpty(this, "productCategorySelf"); }
     }
 
     /**

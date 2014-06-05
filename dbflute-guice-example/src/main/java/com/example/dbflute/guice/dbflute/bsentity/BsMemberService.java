@@ -322,7 +322,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -341,7 +341,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'serviceRank'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ServiceRank> getServiceRank() {
-        if (_serviceRank != null) { return _serviceRank; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "serviceRank"); }
+        if (_serviceRank != null) { return _serviceRank; } else { return OptionalEntity.relationEmpty(this, "serviceRank"); }
     }
 
     /**

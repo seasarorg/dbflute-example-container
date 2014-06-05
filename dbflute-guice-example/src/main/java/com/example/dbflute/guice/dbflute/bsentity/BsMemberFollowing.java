@@ -166,7 +166,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'memberByMyMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMemberByMyMemberId() {
-        if (_memberByMyMemberId != null) { return _memberByMyMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberByMyMemberId"); }
+        if (_memberByMyMemberId != null) { return _memberByMyMemberId; } else { return OptionalEntity.relationEmpty(this, "memberByMyMemberId"); }
     }
 
     /**
@@ -185,7 +185,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * @return The entity of foreign property 'memberByYourMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMemberByYourMemberId() {
-        if (_memberByYourMemberId != null) { return _memberByYourMemberId; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberByYourMemberId"); }
+        if (_memberByYourMemberId != null) { return _memberByYourMemberId; } else { return OptionalEntity.relationEmpty(this, "memberByYourMemberId"); }
     }
 
     /**

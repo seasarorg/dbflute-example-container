@@ -292,7 +292,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -311,7 +311,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      * @return The entity of foreign property 'withdrawalReason'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<WithdrawalReason> getWithdrawalReason() {
-        if (_withdrawalReason != null) { return _withdrawalReason; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "withdrawalReason"); }
+        if (_withdrawalReason != null) { return _withdrawalReason; } else { return OptionalEntity.relationEmpty(this, "withdrawalReason"); }
     }
 
     /**

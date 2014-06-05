@@ -14,9 +14,9 @@
 ## governing permissions and limitations under the License.
 ##
 ${database.allClassCopyright}package ${myExtendedEntityPackageName};
-#set ($myClassName = "${myExtendedObjectClassName}")
+#set ($myClassName = "${myImmutableExtendedObjectClassName}")
 
-import ${myBaseEntityPackageName}.${myBaseObjectClassName};
+import ${myBaseEntityPackageName}.${myImmutableBaseObjectClassName};
 
 /**
  * The entity of ${table.tableDbName}.
@@ -26,5 +26,5 @@ import ${myBaseEntityPackageName}.${myBaseObjectClassName};
  * </p>
  * @author ${database.classAuthor}
  */
-class $myClassName extends ${myBaseObjectClassName} {
+class $myClassName(mble: ${myExtendedObjectClassName}) extends ${myImmutableBaseObjectClassName}(mble) {
 }

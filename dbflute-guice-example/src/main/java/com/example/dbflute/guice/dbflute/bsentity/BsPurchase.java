@@ -302,7 +302,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -321,7 +321,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Product> getProduct() {
-        if (_product != null) { return _product; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "product"); }
+        if (_product != null) { return _product; } else { return OptionalEntity.relationEmpty(this, "product"); }
     }
 
     /**
@@ -340,7 +340,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'summaryProduct'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<SummaryProduct> getSummaryProduct() {
-        if (_summaryProduct != null) { return _summaryProduct; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "summaryProduct"); }
+        if (_summaryProduct != null) { return _summaryProduct; } else { return OptionalEntity.relationEmpty(this, "summaryProduct"); }
     }
 
     /**
@@ -359,7 +359,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @return The entity of foreign property 'memberLoginAsBizManyToOne'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberLogin> getMemberLoginAsBizManyToOne() {
-        if (_memberLoginAsBizManyToOne != null) { return _memberLoginAsBizManyToOne; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberLoginAsBizManyToOne"); }
+        if (_memberLoginAsBizManyToOne != null) { return _memberLoginAsBizManyToOne; } else { return OptionalEntity.relationEmpty(this, "memberLoginAsBizManyToOne"); }
     }
 
     /**

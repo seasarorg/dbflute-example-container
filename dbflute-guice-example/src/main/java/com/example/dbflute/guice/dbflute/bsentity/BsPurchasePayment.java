@@ -301,7 +301,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * @return The entity of foreign property 'purchase'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Purchase> getPurchase() {
-        if (_purchase != null) { return _purchase; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "purchase"); }
+        if (_purchase != null) { return _purchase; } else { return OptionalEntity.relationEmpty(this, "purchase"); }
     }
 
     /**

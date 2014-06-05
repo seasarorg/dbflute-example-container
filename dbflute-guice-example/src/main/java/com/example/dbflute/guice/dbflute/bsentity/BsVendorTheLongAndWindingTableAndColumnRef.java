@@ -154,7 +154,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<VendorTheLongAndWindingTableAndColumn> getVendorTheLongAndWindingTableAndColumn() {
-        if (_vendorTheLongAndWindingTableAndColumn != null) { return _vendorTheLongAndWindingTableAndColumn; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "vendorTheLongAndWindingTableAndColumn"); }
+        if (_vendorTheLongAndWindingTableAndColumn != null) { return _vendorTheLongAndWindingTableAndColumn; } else { return OptionalEntity.relationEmpty(this, "vendorTheLongAndWindingTableAndColumn"); }
     }
 
     /**

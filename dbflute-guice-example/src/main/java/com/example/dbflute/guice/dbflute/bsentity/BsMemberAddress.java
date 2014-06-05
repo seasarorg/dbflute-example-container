@@ -316,7 +316,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -335,7 +335,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Region> getRegion() {
-        if (_region != null) { return _region; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "region"); }
+        if (_region != null) { return _region; } else { return OptionalEntity.relationEmpty(this, "region"); }
     }
 
     /**

@@ -339,7 +339,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "member"); }
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
     }
 
     /**
@@ -358,7 +358,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberStatus> getMemberStatus() {
-        if (_memberStatus != null) { return _memberStatus; } else { return org.seasar.dbflute.optional.OptionalEntity.relationEmpty(this, "memberStatus"); }
+        if (_memberStatus != null) { return _memberStatus; } else { return OptionalEntity.relationEmpty(this, "memberStatus"); }
     }
 
     /**
