@@ -11,6 +11,7 @@ import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.ScalarQuery;
 import org.seasar.dbflute.cbean.SpecifyQuery;
 import org.seasar.dbflute.cbean.SubQuery;
+import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.exception.SpecifyRelationIllegalPurposeException;
 import org.seasar.dbflute.util.Srl;
 
@@ -346,6 +347,106 @@ public class WxCBScalarConditionTest extends UnitContainerTestCase {
         }
         log(sb);
         assertEquals(partitionByList, derivedReferrerList);
+    }
+
+    public void test_ScalarCondition_PartitionBy_outerQuery() {
+        // ## Arrange ##
+        Date maxBirthdate = toDate("9999/12/31");
+        {
+            Member member = new Member();
+            member.setMemberId(1);
+            member.setMemberName("foovic");
+            member.setMemberStatusCode_Formalized();
+            member.setBirthdate(maxBirthdate);
+            memberBhv.updateNonstrict(member);
+        }
+        {
+            Member member = new Member();
+            member.setMemberId(2);
+            member.setMemberName("bar");
+            member.setMemberStatusCode_Formalized();
+            member.setBirthdate(maxBirthdate);
+            memberBhv.updateNonstrict(member);
+        }
+
+        MemberCB cb = new MemberCB();
+        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+            public void query(MemberCB subCB) {
+                subCB.specify().columnBirthdate();
+                subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+            }
+        }).partitionBy(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberStatusCode();
+            }
+        });
+        cb.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        int count = 0;
+        for (Member member : memberList) {
+            Date birthdate = member.getBirthdate();
+            log(member.getMemberName(), birthdate);
+            if (member.isMemberStatusCodeFormalized()) {
+                assertEquals(maxBirthdate, birthdate);
+                assertEquals(1, member.getMemberId());
+                ++count;
+            }
+        }
+        assertEquals(1, count);
+    }
+
+    public void test_ScalarCondition_PartitionBy_nonOuterQuery() {
+        // ## Arrange ##
+        Date maxBirthdate = toDate("9999/12/31");
+        {
+            Member member = new Member();
+            member.setMemberId(1);
+            member.setMemberName("foovic");
+            member.setMemberStatusCode_Formalized();
+            member.setBirthdate(maxBirthdate);
+            memberBhv.updateNonstrict(member);
+        }
+        {
+            Member member = new Member();
+            member.setMemberId(2);
+            member.setMemberName("bar");
+            member.setMemberStatusCode_Formalized();
+            member.setBirthdate(maxBirthdate);
+            memberBhv.updateNonstrict(member);
+        }
+
+        MemberCB cb = new MemberCB();
+        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+            public void query(MemberCB subCB) {
+                subCB.specify().columnBirthdate();
+                subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+            }
+        }).partitionBy(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberStatusCode();
+            }
+        });
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        int count = 0;
+        for (Member member : memberList) {
+            Date birthdate = member.getBirthdate();
+            log(member.getMemberName(), birthdate);
+            if (member.isMemberStatusCodeFormalized()) {
+                assertEquals(maxBirthdate, birthdate);
+                ++count;
+            }
+        }
+        assertEquals(2, count);
     }
 
     // ===================================================================================
