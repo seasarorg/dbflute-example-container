@@ -99,7 +99,7 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long identityOnlyId) {
         assertObjectNotNull("identityOnlyId", identityOnlyId);
         BsVendorIdentityOnlyCB cb = this;
-        cb.query().setIdentityOnlyId_Equal(identityOnlyId);;
+        cb.query().setIdentityOnlyId_Equal(identityOnlyId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

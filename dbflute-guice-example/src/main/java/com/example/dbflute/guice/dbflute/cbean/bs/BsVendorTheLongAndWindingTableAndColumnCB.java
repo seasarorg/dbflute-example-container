@@ -84,7 +84,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnId) {
         assertObjectNotNull("theLongAndWindingTableAndColumnId", theLongAndWindingTableAndColumnId);
         BsVendorTheLongAndWindingTableAndColumnCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);;
+        cb.query().setTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     public void acceptUniqueOf(String theLongAndWindingTableAndColumnName) {
         assertObjectNotNull("theLongAndWindingTableAndColumnName", theLongAndWindingTableAndColumnName);
         BsVendorTheLongAndWindingTableAndColumnCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnName_Equal(theLongAndWindingTableAndColumnName);;
+        cb.query().setTheLongAndWindingTableAndColumnName_Equal(theLongAndWindingTableAndColumnName);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

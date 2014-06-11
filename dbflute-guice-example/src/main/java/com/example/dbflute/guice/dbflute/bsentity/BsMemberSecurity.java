@@ -183,7 +183,7 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
     protected OptionalEntity<Member> _member;
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
@@ -191,7 +191,7 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
     }
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {

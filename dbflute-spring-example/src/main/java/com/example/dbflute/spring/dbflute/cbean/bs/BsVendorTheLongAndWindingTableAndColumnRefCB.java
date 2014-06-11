@@ -99,7 +99,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
     public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnRefId) {
         assertObjectNotNull("theLongAndWindingTableAndColumnRefId", theLongAndWindingTableAndColumnRefId);
         BsVendorTheLongAndWindingTableAndColumnRefCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);;
+        cb.query().setTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

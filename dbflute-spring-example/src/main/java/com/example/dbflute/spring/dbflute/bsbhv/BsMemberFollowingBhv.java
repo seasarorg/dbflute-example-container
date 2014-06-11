@@ -78,7 +78,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return MemberFollowingDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +88,10 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public MemberFollowing newEntity() { return new MemberFollowing(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public MemberFollowingCB newConditionBean() { return new MemberFollowingCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public MemberFollowing newMyEntity() { return new MemberFollowing(); }
@@ -114,6 +114,10 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(MemberFollowingCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(MemberFollowingCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +133,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +159,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectEntity(MemberFollowingCB cb) {
-        return doSelectEntity(cb, MemberFollowing.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected MemberFollowing facadeSelectEntity(MemberFollowingCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> ENTITY doSelectEntity(MemberFollowingCB cb, Class<ENTITY> tp) {
@@ -170,7 +178,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +197,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectEntityWithDeletedCheck(MemberFollowingCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, MemberFollowing.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected MemberFollowing facadeSelectEntityWithDeletedCheck(MemberFollowingCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> ENTITY doSelectEntityWithDeletedCheck(MemberFollowingCB cb, Class<ENTITY> tp) {
@@ -200,7 +212,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +223,19 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectByPKValue(Long memberFollowingId) {
-        return doSelectByPK(memberFollowingId, MemberFollowing.class);
+        return facadeSelectByPKValue(memberFollowingId);
     }
 
-    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPK(Long memberFollowingId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(memberFollowingId), entityType);
+    protected MemberFollowing facadeSelectByPKValue(Long memberFollowingId) {
+        return doSelectByPK(memberFollowingId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(memberFollowingId, entityType), memberFollowingId);
+    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPK(Long memberFollowingId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(memberFollowingId), tp);
+    }
+
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(memberFollowingId, tp), memberFollowingId);
     }
 
     /**
@@ -231,16 +247,16 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberFollowing selectByPKValueWithDeletedCheck(Long memberFollowingId) {
-        return doSelectByPKWithDeletedCheck(memberFollowingId, MemberFollowing.class);
+        return doSelectByPKWithDeletedCheck(memberFollowingId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKWithDeletedCheck(Long memberFollowingId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberFollowingId), entityType);
+    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKWithDeletedCheck(Long memberFollowingId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberFollowingId), tp);
     }
 
     protected MemberFollowingCB xprepareCBAsPK(Long memberFollowingId) {
         assertObjectNotNull("memberFollowingId", memberFollowingId);
-        MemberFollowingCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberFollowingId);
+        MemberFollowingCB cb = newConditionBean(); cb.acceptPrimaryKey(memberFollowingId);
         return cb;
     }
 
@@ -254,16 +270,20 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<MemberFollowing> selectByUniqueOf(Integer myMemberId, Integer yourMemberId) {
-        return doSelectByUniqueOf(myMemberId, yourMemberId, MemberFollowing.class);
+        return facadeSelectByUniqueOf(myMemberId, yourMemberId);
     }
 
-    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer myMemberId, Integer yourMemberId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(myMemberId, yourMemberId), entityType), myMemberId, yourMemberId);
+    protected OptionalEntity<MemberFollowing> facadeSelectByUniqueOf(Integer myMemberId, Integer yourMemberId) {
+        return doSelectByUniqueOf(myMemberId, yourMemberId, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer myMemberId, Integer yourMemberId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(myMemberId, yourMemberId), tp), myMemberId, yourMemberId);
     }
 
     protected MemberFollowingCB xprepareCBAsUniqueOf(Integer myMemberId, Integer yourMemberId) {
         assertObjectNotNull("myMemberId", myMemberId);assertObjectNotNull("yourMemberId", yourMemberId);
-        MemberFollowingCB cb = newMyConditionBean(); cb.acceptUniqueOf(myMemberId, yourMemberId);
+        MemberFollowingCB cb = newConditionBean(); cb.acceptUniqueOf(myMemberId, yourMemberId);
         return cb;
     }
 
@@ -286,7 +306,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<MemberFollowing> selectList(MemberFollowingCB cb) {
-        return doSelectList(cb, MemberFollowing.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<MemberFollowing> facadeSelectList(MemberFollowingCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> ListResultBean<ENTITY> doSelectList(MemberFollowingCB cb, Class<ENTITY> tp) {
@@ -298,7 +322,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -327,7 +351,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<MemberFollowing> selectPage(MemberFollowingCB cb) {
-        return doSelectPage(cb, MemberFollowing.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<MemberFollowing> facadeSelectPage(MemberFollowingCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> PagingResultBean<ENTITY> doSelectPage(MemberFollowingCB cb, Class<ENTITY> tp) {
@@ -340,7 +368,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -361,15 +389,19 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of MemberFollowing. (NotNull)
      */
     public void selectCursor(MemberFollowingCB cb, EntityRowHandler<MemberFollowing> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, MemberFollowing.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(MemberFollowingCB cb, EntityRowHandler<MemberFollowing> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> void doSelectCursor(MemberFollowingCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, MemberFollowingCB>() {
-            public void callbackSelectCursor(MemberFollowingCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(MemberFollowingCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(MemberFollowingCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(MemberFollowingCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -392,7 +424,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<MemberFollowingCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+        return facadeScalarSelect(resultType);
+    }
+
+    protected <RESULT> SLFunction<MemberFollowingCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
     }
 
     protected <RESULT, CB extends MemberFollowingCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
@@ -406,7 +442,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     }
 
     protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -435,6 +471,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
             { et.setMemberFollowingByMyMemberIdList(ls); }
         });
     }
+
     /**
      * Pull out the list of foreign table 'Member'.
      * @param memberFollowingList The list of memberFollowing. (NotNull, EmptyAllowed)
@@ -481,17 +518,17 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * ... = memberFollowing.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param memberFollowing The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param memberFollowing The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(MemberFollowing memberFollowing) {
         doInsert(memberFollowing, null);
     }
 
-    protected void doInsert(MemberFollowing memberFollowing, InsertOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowing", memberFollowing);
+    protected void doInsert(MemberFollowing et, InsertOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowing", et);
         prepareInsertOption(op);
-        delegateInsert(memberFollowing, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<MemberFollowingCB> op) {
@@ -504,8 +541,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -517,7 +553,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberFollowing.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberFollowing.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberFollowing.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     memberFollowingBhv.<span style="color: #DD4747">update</span>(memberFollowing);
@@ -525,49 +561,38 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberFollowing The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberFollowing The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final MemberFollowing memberFollowing) {
+    public void update(MemberFollowing memberFollowing) {
         doUpdate(memberFollowing, null);
     }
 
-    protected void doUpdate(MemberFollowing memberFollowing, final UpdateOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowing", memberFollowing);
+    protected void doUpdate(MemberFollowing et, final UpdateOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowing", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(memberFollowing, new InternalUpdateCallback<MemberFollowing>() {
-            public int callbackDelegateUpdate(MemberFollowing et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<MemberFollowing>() {
+            public int callbackDelegateUpdate(MemberFollowing let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<MemberFollowingCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected MemberFollowingCB createCBForVaryingUpdate() {
-        MemberFollowingCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected MemberFollowingCB createCBForVaryingUpdate()
+    { MemberFollowingCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected MemberFollowingCB createCBForSpecifiedUpdate() {
-        MemberFollowingCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected MemberFollowingCB createCBForSpecifiedUpdate()
+    { MemberFollowingCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     @Override
@@ -579,32 +604,28 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param memberFollowing The entity of insert or update target. (NotNull)
+     * @param memberFollowing The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(MemberFollowing memberFollowing) {
-        doInesrtOrUpdate(memberFollowing, null, null);
+        doInsertOrUpdate(memberFollowing, null, null);
     }
 
-    protected void doInesrtOrUpdate(MemberFollowing memberFollowing, final InsertOption<MemberFollowingCB> iop, final UpdateOption<MemberFollowingCB> uop) {
-        helpInsertOrUpdateInternally(memberFollowing, new InternalInsertOrUpdateCallback<MemberFollowing, MemberFollowingCB>() {
-            public void callbackInsert(MemberFollowing et) { doInsert(et, iop); }
-            public void callbackUpdate(MemberFollowing et) { doUpdate(et, uop); }
-            public MemberFollowingCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(MemberFollowing et, final InsertOption<MemberFollowingCB> iop, final UpdateOption<MemberFollowingCB> uop) {
+        assertObjectNotNull("memberFollowing", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<MemberFollowing, MemberFollowingCB>() {
+            public void callbackInsert(MemberFollowing let) { doInsert(let, iop); }
+            public void callbackUpdate(MemberFollowing let) { doUpdate(let, uop); }
+            public MemberFollowingCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(MemberFollowingCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<MemberFollowingCB>();
-            uop = uop != null ? uop : new UpdateOption<MemberFollowingCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     @Override
@@ -617,7 +638,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberFollowing memberFollowing = new MemberFollowing();
      * memberFollowing.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberFollowing.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     memberFollowingBhv.<span style="color: #DD4747">delete</span>(memberFollowing);
@@ -625,7 +646,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberFollowing The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberFollowing The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -633,22 +654,19 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         doDelete(memberFollowing, null);
     }
 
-    protected void doDelete(MemberFollowing memberFollowing, final DeleteOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowing", memberFollowing);
+    protected void doDelete(MemberFollowing et, final DeleteOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowing", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(memberFollowing, new InternalDeleteCallback<MemberFollowing>() {
-            public int callbackDelegateDelete(MemberFollowing et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<MemberFollowing>() {
+            public int callbackDelegateDelete(MemberFollowing let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<MemberFollowingCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<MemberFollowingCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     @Override
@@ -684,26 +702,25 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<MemberFollowing> memberFollowingList) {
-        InsertOption<MemberFollowingCB> op = createInsertUpdateOption();
-        return doBatchInsert(memberFollowingList, op);
+        return doBatchInsert(memberFollowingList, null);
     }
 
-    protected int[] doBatchInsert(List<MemberFollowing> memberFollowingList, InsertOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowingList", memberFollowingList);
-        prepareBatchInsertOption(memberFollowingList, op);
-        return delegateBatchInsert(memberFollowingList, op);
+    protected int[] doBatchInsert(List<MemberFollowing> ls, InsertOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowingList", ls);
+        InsertOption<MemberFollowingCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<MemberFollowing> memberFollowingList, InsertOption<MemberFollowingCB> op) {
+    protected void prepareBatchInsertOption(List<MemberFollowing> ls, InsertOption<MemberFollowingCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(memberFollowingList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -731,25 +748,24 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MemberFollowing> memberFollowingList) {
-        UpdateOption<MemberFollowingCB> op = createPlainUpdateOption();
-        return doBatchUpdate(memberFollowingList, op);
+        return doBatchUpdate(memberFollowingList, null);
     }
 
-    protected int[] doBatchUpdate(List<MemberFollowing> memberFollowingList, UpdateOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowingList", memberFollowingList);
-        prepareBatchUpdateOption(memberFollowingList, op);
-        return delegateBatchUpdate(memberFollowingList, op);
+    protected int[] doBatchUpdate(List<MemberFollowing> ls, UpdateOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowingList", ls);
+        UpdateOption<MemberFollowingCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<MemberFollowing> memberFollowingList, UpdateOption<MemberFollowingCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(memberFollowingList);
+    protected void prepareBatchUpdateOption(List<MemberFollowing> ls, UpdateOption<MemberFollowingCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -800,16 +816,15 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         return doBatchDelete(memberFollowingList, null);
     }
 
-    protected int[] doBatchDelete(List<MemberFollowing> memberFollowingList, DeleteOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowingList", memberFollowingList);
+    protected int[] doBatchDelete(List<MemberFollowing> ls, DeleteOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowingList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(memberFollowingList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     @Override
@@ -836,7 +851,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -853,21 +868,17 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<MemberFollowing, MemberFollowingCB> sp, InsertOption<MemberFollowingCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        MemberFollowing e = new MemberFollowing();
+        MemberFollowing et = newEntity();
         MemberFollowingCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected MemberFollowingCB createCBForQueryInsert() {
-        MemberFollowingCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected MemberFollowingCB createCBForQueryInsert()
+    { MemberFollowingCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -880,7 +891,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberFollowing.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberFollowing.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberFollowing.setVersionNo(value);</span>
      * MemberFollowingCB cb = new MemberFollowingCB();
@@ -896,16 +907,15 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(memberFollowing, cb, null);
     }
 
-    protected int doQueryUpdate(MemberFollowing memberFollowing, MemberFollowingCB cb, UpdateOption<MemberFollowingCB> op) {
-        assertObjectNotNull("memberFollowing", memberFollowing); assertCBStateValid(cb);
+    protected int doQueryUpdate(MemberFollowing et, MemberFollowingCB cb, UpdateOption<MemberFollowingCB> op) {
+        assertObjectNotNull("memberFollowing", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(memberFollowing, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (MemberFollowingCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (MemberFollowingCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -931,8 +941,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((MemberFollowingCB)cb); }
-        else { return varyingQueryDelete((MemberFollowingCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -956,7 +965,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * memberFollowingBhv.<span style="color: #DD4747">varyingInsert</span>(memberFollowing, option);
      * ... = memberFollowing.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param memberFollowing The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param memberFollowing The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -973,7 +982,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * MemberFollowing memberFollowing = new MemberFollowing();
      * memberFollowing.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberFollowing.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberFollowing.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -988,7 +997,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberFollowing The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberFollowing The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1002,7 +1011,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param memberFollowing The entity of insert or update target. (NotNull)
+     * @param memberFollowing The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1011,14 +1020,14 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(MemberFollowing memberFollowing, InsertOption<MemberFollowingCB> insertOption, UpdateOption<MemberFollowingCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(memberFollowing, insertOption, updateOption);
+        doInsertOrUpdate(memberFollowing, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param memberFollowing The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberFollowing The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1099,7 +1108,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//memberFollowing.setPK...(value);</span>
      * memberFollowing.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberFollowing.setVersionNo(value);</span>
      * MemberFollowingCB cb = new MemberFollowingCB();
@@ -1251,38 +1260,34 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected MemberFollowing downcast(Entity et) {
-        return helpEntityDowncastInternally(et, MemberFollowing.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<MemberFollowing> typeOfSelectedEntity()
+    { return MemberFollowing.class; }
 
-    protected MemberFollowingCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, MemberFollowingCB.class);
-    }
+    protected MemberFollowing downcast(Entity et)
+    { return helpEntityDowncastInternally(et, MemberFollowing.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<MemberFollowing> downcast(List<? extends Entity> ls) {
-        return (List<MemberFollowing>)ls;
-    }
+    protected MemberFollowingCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, MemberFollowingCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberFollowingCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<MemberFollowingCB>)op;
-    }
+    protected List<MemberFollowing> downcast(List<? extends Entity> ls)
+    { return (List<MemberFollowing>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberFollowingCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<MemberFollowingCB>)op;
-    }
+    protected InsertOption<MemberFollowingCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<MemberFollowingCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberFollowingCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<MemberFollowingCB>)op;
-    }
+    protected UpdateOption<MemberFollowingCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<MemberFollowingCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberFollowing, MemberFollowingCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<MemberFollowing, MemberFollowingCB>)sp;
-    }
+    protected DeleteOption<MemberFollowingCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<MemberFollowingCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<MemberFollowing, MemberFollowingCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<MemberFollowing, MemberFollowingCB>)sp; }
 }

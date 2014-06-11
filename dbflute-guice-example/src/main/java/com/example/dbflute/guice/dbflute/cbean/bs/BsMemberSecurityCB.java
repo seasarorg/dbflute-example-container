@@ -85,7 +85,7 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
         BsMemberSecurityCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;
+        cb.query().setMemberId_Equal(memberId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

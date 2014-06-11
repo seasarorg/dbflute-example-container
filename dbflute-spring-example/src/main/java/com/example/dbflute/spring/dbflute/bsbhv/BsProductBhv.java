@@ -78,7 +78,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return ProductDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +88,10 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public Product newEntity() { return new Product(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public ProductCB newConditionBean() { return new ProductCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public Product newMyEntity() { return new Product(); }
@@ -114,6 +114,10 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(ProductCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(ProductCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +133,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +159,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectEntity(ProductCB cb) {
-        return doSelectEntity(cb, Product.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected Product facadeSelectEntity(ProductCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> ENTITY doSelectEntity(ProductCB cb, Class<ENTITY> tp) {
@@ -170,7 +178,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +197,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectEntityWithDeletedCheck(ProductCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, Product.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected Product facadeSelectEntityWithDeletedCheck(ProductCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> ENTITY doSelectEntityWithDeletedCheck(ProductCB cb, Class<ENTITY> tp) {
@@ -200,7 +212,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +223,19 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectByPKValue(Integer productId) {
-        return doSelectByPK(productId, Product.class);
+        return facadeSelectByPKValue(productId);
     }
 
-    protected <ENTITY extends Product> ENTITY doSelectByPK(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(productId), entityType);
+    protected Product facadeSelectByPKValue(Integer productId) {
+        return doSelectByPK(productId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(productId, entityType), productId);
+    protected <ENTITY extends Product> ENTITY doSelectByPK(Integer productId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(productId), tp);
+    }
+
+    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(productId, tp), productId);
     }
 
     /**
@@ -231,16 +247,16 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKWithDeletedCheck(productId, Product.class);
+        return doSelectByPKWithDeletedCheck(productId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Product> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), entityType);
+    protected <ENTITY extends Product> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), tp);
     }
 
     protected ProductCB xprepareCBAsPK(Integer productId) {
         assertObjectNotNull("productId", productId);
-        ProductCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productId);
+        ProductCB cb = newConditionBean(); cb.acceptPrimaryKey(productId);
         return cb;
     }
 
@@ -253,16 +269,20 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Product> selectByUniqueOf(String productHandleCode) {
-        return doSelectByUniqueOf(productHandleCode, Product.class);
+        return facadeSelectByUniqueOf(productHandleCode);
     }
 
-    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectByUniqueOf(String productHandleCode, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(productHandleCode), entityType), productHandleCode);
+    protected OptionalEntity<Product> facadeSelectByUniqueOf(String productHandleCode) {
+        return doSelectByUniqueOf(productHandleCode, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectByUniqueOf(String productHandleCode, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(productHandleCode), tp), productHandleCode);
     }
 
     protected ProductCB xprepareCBAsUniqueOf(String productHandleCode) {
         assertObjectNotNull("productHandleCode", productHandleCode);
-        ProductCB cb = newMyConditionBean(); cb.acceptUniqueOf(productHandleCode);
+        ProductCB cb = newConditionBean(); cb.acceptUniqueOf(productHandleCode);
         return cb;
     }
 
@@ -285,7 +305,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Product> selectList(ProductCB cb) {
-        return doSelectList(cb, Product.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<Product> facadeSelectList(ProductCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> ListResultBean<ENTITY> doSelectList(ProductCB cb, Class<ENTITY> tp) {
@@ -297,7 +321,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -326,7 +350,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Product> selectPage(ProductCB cb) {
-        return doSelectPage(cb, Product.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<Product> facadeSelectPage(ProductCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> PagingResultBean<ENTITY> doSelectPage(ProductCB cb, Class<ENTITY> tp) {
@@ -339,7 +367,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -360,15 +388,19 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of Product. (NotNull)
      */
     public void selectCursor(ProductCB cb, EntityRowHandler<Product> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, Product.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(ProductCB cb, EntityRowHandler<Product> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> void doSelectCursor(ProductCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, ProductCB>() {
-            public void callbackSelectCursor(ProductCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(ProductCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(ProductCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(ProductCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -391,7 +423,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<ProductCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+        return facadeScalarSelect(resultType);
+    }
+
+    protected <RESULT> SLFunction<ProductCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
     }
 
     protected <RESULT, CB extends ProductCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
@@ -405,7 +441,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     }
 
     protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -515,7 +551,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
             { return et.getProductId(); }
             public void setRfLs(Product et, List<Purchase> ls)
             { et.setPurchaseList(ls); }
-            public PurchaseCB newMyCB() { return referrerBhv.newMyConditionBean(); }
+            public PurchaseCB newMyCB() { return referrerBhv.newConditionBean(); }
             public void qyFKIn(PurchaseCB cb, List<Integer> ls)
             { cb.query().setProductId_InScope(ls); }
             public void qyOdFKAsc(PurchaseCB cb) { cb.query().addOrderBy_ProductId_Asc(); }
@@ -545,6 +581,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
             { et.setProductList(ls); }
         });
     }
+
     /**
      * Pull out the list of foreign table 'ProductStatus'.
      * @param productList The list of product. (NotNull, EmptyAllowed)
@@ -602,17 +639,17 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * ... = product.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param product The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param product The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Product product) {
         doInsert(product, null);
     }
 
-    protected void doInsert(Product product, InsertOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doInsert(Product et, InsertOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareInsertOption(op);
-        delegateInsert(product, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<ProductCB> op) {
@@ -625,8 +662,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -638,7 +674,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//product.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//product.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * product.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     productBhv.<span style="color: #DD4747">update</span>(product);
@@ -646,49 +682,38 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param product The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param product The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final Product product) {
+    public void update(Product product) {
         doUpdate(product, null);
     }
 
-    protected void doUpdate(Product product, final UpdateOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doUpdate(Product et, final UpdateOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(product, new InternalUpdateCallback<Product>() {
-            public int callbackDelegateUpdate(Product et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<Product>() {
+            public int callbackDelegateUpdate(Product let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<ProductCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected ProductCB createCBForVaryingUpdate() {
-        ProductCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected ProductCB createCBForVaryingUpdate()
+    { ProductCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected ProductCB createCBForSpecifiedUpdate() {
-        ProductCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected ProductCB createCBForSpecifiedUpdate()
+    { ProductCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     /**
@@ -700,93 +725,84 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//product.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//product.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * productBhv.<span style="color: #DD4747">updateNonstrict</span>(product);
      * </pre>
-     * @param product The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param product The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final Product product) {
+    public void updateNonstrict(Product product) {
         doUpdateNonstrict(product, null);
     }
 
-    protected void doUpdateNonstrict(Product product, final UpdateOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doUpdateNonstrict(Product et, final UpdateOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(product, new InternalUpdateNonstrictCallback<Product>() {
-            public int callbackDelegateUpdateNonstrict(Product et) { return delegateUpdateNonstrict(et, op); } });
+        helpUpdateNonstrictInternally(et, new InternalUpdateNonstrictCallback<Product>() {
+            public int callbackDelegateUpdateNonstrict(Product let) { return delegateUpdateNonstrict(let, op); } });
     }
 
     @Override
     protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
+        doUpdateNonstrict(downcast(et), downcast(op));
     }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param product The entity of insert or update target. (NotNull)
+     * @param product The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Product product) {
-        doInesrtOrUpdate(product, null, null);
+        doInsertOrUpdate(product, null, null);
     }
 
-    protected void doInesrtOrUpdate(Product product, final InsertOption<ProductCB> iop, final UpdateOption<ProductCB> uop) {
-        helpInsertOrUpdateInternally(product, new InternalInsertOrUpdateCallback<Product, ProductCB>() {
-            public void callbackInsert(Product et) { doInsert(et, iop); }
-            public void callbackUpdate(Product et) { doUpdate(et, uop); }
-            public ProductCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(Product et, final InsertOption<ProductCB> iop, final UpdateOption<ProductCB> uop) {
+        assertObjectNotNull("product", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<Product, ProductCB>() {
+            public void callbackInsert(Product let) { doInsert(let, iop); }
+            public void callbackUpdate(Product let) { doUpdate(let, uop); }
+            public ProductCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(ProductCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<ProductCB>();
-            uop = uop != null ? uop : new UpdateOption<ProductCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param product The entity of insert or update target. (NotNull)
+     * @param product The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(Product product) {
-        doInesrtOrUpdateNonstrict(product, null, null);
+        doInsertOrUpdateNonstrict(product, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(Product product, final InsertOption<ProductCB> iop, final UpdateOption<ProductCB> uop) {
-        helpInsertOrUpdateInternally(product, new InternalInsertOrUpdateNonstrictCallback<Product>() {
-            public void callbackInsert(Product et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(Product et) { doUpdateNonstrict(et, uop); }
+    protected void doInsertOrUpdateNonstrict(Product et, final InsertOption<ProductCB> iop, final UpdateOption<ProductCB> uop) {
+        assertObjectNotNull("product", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateNonstrictCallback<Product>() {
+            public void callbackInsert(Product let) { doInsert(let, iop); }
+            public void callbackUpdateNonstrict(Product let) { doUpdateNonstrict(let, uop); }
         });
     }
 
     @Override
     protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<ProductCB>();
-            uop = uop != null ? uop : new UpdateOption<ProductCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
     }
 
     /**
@@ -794,7 +810,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <pre>
      * Product product = new Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * product.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     productBhv.<span style="color: #DD4747">delete</span>(product);
@@ -802,7 +818,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param product The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -810,22 +826,19 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         doDelete(product, null);
     }
 
-    protected void doDelete(Product product, final DeleteOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doDelete(Product et, final DeleteOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(product, new InternalDeleteCallback<Product>() {
-            public int callbackDelegateDelete(Product et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<Product>() {
+            public int callbackDelegateDelete(Product let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<ProductCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<ProductCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     /**
@@ -833,12 +846,12 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <pre>
      * Product product = new Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * productBhv.<span style="color: #DD4747">deleteNonstrict</span>(product);
      * </pre>
-     * @param product The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -846,11 +859,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(product, null);
     }
 
-    protected void doDeleteNonstrict(Product product, final DeleteOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doDeleteNonstrict(Product et, final DeleteOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(product, new InternalDeleteNonstrictCallback<Product>() {
-            public int callbackDelegateDeleteNonstrict(Product et) { return delegateDeleteNonstrict(et, op); } });
+        helpDeleteNonstrictInternally(et, new InternalDeleteNonstrictCallback<Product>() {
+            public int callbackDelegateDeleteNonstrict(Product let) { return delegateDeleteNonstrict(let, op); } });
     }
 
     /**
@@ -858,30 +871,29 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <pre>
      * Product product = new Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * productBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(product);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param product The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(Product product) {
         doDeleteNonstrictIgnoreDeleted(product, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(Product product, final DeleteOption<ProductCB> op) {
-        assertObjectNotNull("product", product);
+    protected void doDeleteNonstrictIgnoreDeleted(Product et, final DeleteOption<ProductCB> op) {
+        assertObjectNotNull("product", et);
         prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(product, new InternalDeleteNonstrictIgnoreDeletedCallback<Product>() {
-            public int callbackDelegateDeleteNonstrict(Product et) { return delegateDeleteNonstrict(et, op); } });
+        helpDeleteNonstrictIgnoreDeletedInternally(et, new InternalDeleteNonstrictIgnoreDeletedCallback<Product>() {
+            public int callbackDelegateDeleteNonstrict(Product let) { return delegateDeleteNonstrict(let, op); } });
     }
 
     @Override
     protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
+        doDeleteNonstrict(downcast(et), downcast(op));
     }
 
     // ===================================================================================
@@ -912,26 +924,25 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<Product> productList) {
-        InsertOption<ProductCB> op = createInsertUpdateOption();
-        return doBatchInsert(productList, op);
+        return doBatchInsert(productList, null);
     }
 
-    protected int[] doBatchInsert(List<Product> productList, InsertOption<ProductCB> op) {
-        assertObjectNotNull("productList", productList);
-        prepareBatchInsertOption(productList, op);
-        return delegateBatchInsert(productList, op);
+    protected int[] doBatchInsert(List<Product> ls, InsertOption<ProductCB> op) {
+        assertObjectNotNull("productList", ls);
+        InsertOption<ProductCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<Product> productList, InsertOption<ProductCB> op) {
+    protected void prepareBatchInsertOption(List<Product> ls, InsertOption<ProductCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(productList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -954,30 +965,29 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * }
      * productBhv.<span style="color: #DD4747">batchUpdate</span>(productList);
      * </pre>
-     * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<Product> productList) {
-        UpdateOption<ProductCB> op = createPlainUpdateOption();
-        return doBatchUpdate(productList, op);
+        return doBatchUpdate(productList, null);
     }
 
-    protected int[] doBatchUpdate(List<Product> productList, UpdateOption<ProductCB> op) {
-        assertObjectNotNull("productList", productList);
-        prepareBatchUpdateOption(productList, op);
-        return delegateBatchUpdate(productList, op);
+    protected int[] doBatchUpdate(List<Product> ls, UpdateOption<ProductCB> op) {
+        assertObjectNotNull("productList", ls);
+        UpdateOption<ProductCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<Product> productList, UpdateOption<ProductCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(productList);
+    protected void prepareBatchUpdateOption(List<Product> ls, UpdateOption<ProductCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -1003,7 +1013,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -1037,14 +1047,14 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<Product> productList) {
-        UpdateOption<ProductCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(productList, option);
+        return doBatchUpdateNonstrict(productList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<Product> productList, UpdateOption<ProductCB> op) {
-        assertObjectNotNull("productList", productList);
-        prepareBatchUpdateOption(productList, op);
-        return delegateBatchUpdateNonstrict(productList, op);
+    protected int[] doBatchUpdateNonstrict(List<Product> ls, UpdateOption<ProductCB> op) {
+        assertObjectNotNull("productList", ls);
+        UpdateOption<ProductCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1080,8 +1090,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
+        return doBatchUpdateNonstrict(downcast(ls), downcast(op));
     }
 
     /**
@@ -1095,16 +1104,15 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         return doBatchDelete(productList, null);
     }
 
-    protected int[] doBatchDelete(List<Product> productList, DeleteOption<ProductCB> op) {
-        assertObjectNotNull("productList", productList);
+    protected int[] doBatchDelete(List<Product> ls, DeleteOption<ProductCB> op) {
+        assertObjectNotNull("productList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(productList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     /**
@@ -1118,16 +1126,15 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(productList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<Product> productList, DeleteOption<ProductCB> op) {
-        assertObjectNotNull("productList", productList);
+    protected int[] doBatchDeleteNonstrict(List<Product> ls, DeleteOption<ProductCB> op) {
+        assertObjectNotNull("productList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(productList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
     @Override
     protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
+        return doBatchDeleteNonstrict(downcast(ls), downcast(op));
     }
 
     // ===================================================================================
@@ -1149,7 +1156,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1166,21 +1173,17 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<Product, ProductCB> sp, InsertOption<ProductCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        Product e = new Product();
+        Product et = newEntity();
         ProductCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected ProductCB createCBForQueryInsert() {
-        ProductCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected ProductCB createCBForQueryInsert()
+    { ProductCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -1193,7 +1196,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//product.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//product.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * ProductCB cb = new ProductCB();
@@ -1209,16 +1212,15 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(product, cb, null);
     }
 
-    protected int doQueryUpdate(Product product, ProductCB cb, UpdateOption<ProductCB> op) {
-        assertObjectNotNull("product", product); assertCBStateValid(cb);
+    protected int doQueryUpdate(Product et, ProductCB cb, UpdateOption<ProductCB> op) {
+        assertObjectNotNull("product", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(product, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (ProductCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (ProductCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -1244,8 +1246,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((ProductCB)cb); }
-        else { return varyingQueryDelete((ProductCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -1269,7 +1270,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * productBhv.<span style="color: #DD4747">varyingInsert</span>(product, option);
      * ... = product.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param product The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param product The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1286,7 +1287,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * Product product = new Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * product.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1301,7 +1302,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param product The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param product The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1321,7 +1322,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * Product product = new Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * UpdateOption&lt;ProductCB&gt; option = new UpdateOption&lt;ProductCB&gt;();
@@ -1332,7 +1333,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * productBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(product, option);
      * </pre>
-     * @param product The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param product The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1346,7 +1347,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param product The entity of insert or update target. (NotNull)
+     * @param product The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1355,13 +1356,13 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(Product product, InsertOption<ProductCB> insertOption, UpdateOption<ProductCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(product, insertOption, updateOption);
+        doInsertOrUpdate(product, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param product The entity of insert or update target. (NotNull)
+     * @param product The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1370,14 +1371,14 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdateNonstrict(Product product, InsertOption<ProductCB> insertOption, UpdateOption<ProductCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(product, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(product, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param product The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1391,7 +1392,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param product The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1499,7 +1500,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//product.setPK...(value);</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * ProductCB cb = new ProductCB();
@@ -1639,7 +1640,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
      */
     @Override
     protected boolean hasVersionNoValue(Entity et) {
-        return !(downcast(et).getVersionNo() + "").equals("null");// For primitive type
+        return !(downcast(et).getVersionNo() + "").equals("null"); // for primitive type
     }
 
     /**
@@ -1651,38 +1652,34 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected Product downcast(Entity et) {
-        return helpEntityDowncastInternally(et, Product.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<Product> typeOfSelectedEntity()
+    { return Product.class; }
 
-    protected ProductCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, ProductCB.class);
-    }
+    protected Product downcast(Entity et)
+    { return helpEntityDowncastInternally(et, Product.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<Product> downcast(List<? extends Entity> ls) {
-        return (List<Product>)ls;
-    }
+    protected ProductCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, ProductCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<ProductCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<ProductCB>)op;
-    }
+    protected List<Product> downcast(List<? extends Entity> ls)
+    { return (List<Product>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<ProductCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<ProductCB>)op;
-    }
+    protected InsertOption<ProductCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<ProductCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<ProductCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<ProductCB>)op;
-    }
+    protected UpdateOption<ProductCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<ProductCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<Product, ProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<Product, ProductCB>)sp;
-    }
+    protected DeleteOption<ProductCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<ProductCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<Product, ProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<Product, ProductCB>)sp; }
 }

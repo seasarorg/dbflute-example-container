@@ -325,16 +325,13 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
     protected Member _member;
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -342,7 +339,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(Member member) {
@@ -353,7 +350,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     protected ServiceRank _serviceRank;
 
     /**
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * [get] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @return The entity of foreign property 'serviceRank'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ServiceRank getServiceRank() {
@@ -361,7 +358,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * [set] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @param serviceRank The entity of foreign property 'serviceRank'. (NullAllowed)
      */
     public void setServiceRank(ServiceRank serviceRank) {

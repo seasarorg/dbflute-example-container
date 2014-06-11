@@ -309,16 +309,13 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. */
     protected MemberStatus _memberStatus;
 
     /**
-     * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberStatus getMemberStatus() {
@@ -326,7 +323,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [set] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
     public void setMemberStatus(MemberStatus memberStatus) {
@@ -337,7 +334,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberAddress _memberAddressAsValid;
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
+     * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
      * Member's address at the target date.
      * @return The entity of foreign property 'memberAddressAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -346,7 +343,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
+     * [set] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
      * Member's address at the target date.
      * @param memberAddressAsValid The entity of foreign property 'memberAddressAsValid'. (NullAllowed)
      */
@@ -358,7 +355,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberLogin _memberLoginAsLatest;
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
+     * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
      * Member's lastest login
      * @return The entity of foreign property 'memberLoginAsLatest'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -367,7 +364,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
+     * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
      * Member's lastest login
      * @param memberLoginAsLatest The entity of foreign property 'memberLoginAsLatest'. (NullAllowed)
      */
@@ -379,7 +376,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberSecurity _memberSecurityAsOne;
 
     /**
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
+     * [get] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public MemberSecurity getMemberSecurityAsOne() {
@@ -387,7 +384,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
+     * [set] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @param memberSecurityAsOne The entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed)
      */
     public void setMemberSecurityAsOne(MemberSecurity memberSecurityAsOne) {
@@ -398,7 +395,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberService _memberServiceAsOne;
 
     /**
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
+     * [get] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public MemberService getMemberServiceAsOne() {
@@ -406,7 +403,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
+     * [set] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @param memberServiceAsOne The entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed)
      */
     public void setMemberServiceAsOne(MemberService memberServiceAsOne) {
@@ -417,7 +414,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberWithdrawal _memberWithdrawalAsOne;
 
     /**
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
+     * [get] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public MemberWithdrawal getMemberWithdrawalAsOne() {
@@ -425,7 +422,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
+     * [set] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @param memberWithdrawalAsOne The entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed)
      */
     public void setMemberWithdrawalAsOne(MemberWithdrawal memberWithdrawalAsOne) {
@@ -439,7 +436,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected List<MemberAddress> _memberAddressList;
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * [get] (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -448,7 +445,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * [set] (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * @param memberAddressList The entity list of referrer property 'memberAddressList'. (NullAllowed)
      */
     public void setMemberAddressList(List<MemberAddress> memberAddressList) {
@@ -459,7 +456,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected List<MemberFollowing> _memberFollowingByMyMemberIdList;
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * [get] (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByMyMemberIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberFollowing> getMemberFollowingByMyMemberIdList() {
@@ -468,7 +465,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * [set] (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * @param memberFollowingByMyMemberIdList The entity list of referrer property 'memberFollowingByMyMemberIdList'. (NullAllowed)
      */
     public void setMemberFollowingByMyMemberIdList(List<MemberFollowing> memberFollowingByMyMemberIdList) {
@@ -479,7 +476,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected List<MemberFollowing> _memberFollowingByYourMemberIdList;
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * [get] (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByYourMemberIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberFollowing> getMemberFollowingByYourMemberIdList() {
@@ -488,7 +485,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * [set] (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * @param memberFollowingByYourMemberIdList The entity list of referrer property 'memberFollowingByYourMemberIdList'. (NullAllowed)
      */
     public void setMemberFollowingByYourMemberIdList(List<MemberFollowing> memberFollowingByYourMemberIdList) {
@@ -499,7 +496,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected List<MemberLogin> _memberLoginList;
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * [get] (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * @return The entity list of referrer property 'memberLoginList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberLogin> getMemberLoginList() {
@@ -508,7 +505,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * [set] (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * @param memberLoginList The entity list of referrer property 'memberLoginList'. (NullAllowed)
      */
     public void setMemberLoginList(List<MemberLogin> memberLoginList) {
@@ -519,7 +516,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected List<Purchase> _purchaseList;
 
     /**
-     * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * [get] (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * @return The entity list of referrer property 'purchaseList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Purchase> getPurchaseList() {
@@ -528,7 +525,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     /**
-     * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * [set] (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * @param purchaseList The entity list of referrer property 'purchaseList'. (NullAllowed)
      */
     public void setPurchaseList(List<Purchase> purchaseList) {

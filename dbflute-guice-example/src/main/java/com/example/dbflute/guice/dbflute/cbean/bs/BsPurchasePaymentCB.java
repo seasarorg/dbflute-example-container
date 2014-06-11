@@ -85,7 +85,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long purchasePaymentId) {
         assertObjectNotNull("purchasePaymentId", purchasePaymentId);
         BsPurchasePaymentCB cb = this;
-        cb.query().setPurchasePaymentId_Equal(purchasePaymentId);;
+        cb.query().setPurchasePaymentId_Equal(purchasePaymentId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

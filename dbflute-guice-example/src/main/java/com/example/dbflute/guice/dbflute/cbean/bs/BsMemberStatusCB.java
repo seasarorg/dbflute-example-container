@@ -84,7 +84,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     public void acceptPrimaryKey(String memberStatusCode) {
         assertObjectNotNull("memberStatusCode", memberStatusCode);
         BsMemberStatusCB cb = this;
-        cb.query().setMemberStatusCode_Equal(memberStatusCode);;
+        cb.query().setMemberStatusCode_Equal(memberStatusCode);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         BsMemberStatusCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

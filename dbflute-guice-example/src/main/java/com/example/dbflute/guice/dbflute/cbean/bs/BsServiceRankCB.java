@@ -84,7 +84,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
     public void acceptPrimaryKey(String serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
         BsServiceRankCB cb = this;
-        cb.query().setServiceRankCode_Equal(serviceRankCode);;
+        cb.query().setServiceRankCode_Equal(serviceRankCode);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         BsServiceRankCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

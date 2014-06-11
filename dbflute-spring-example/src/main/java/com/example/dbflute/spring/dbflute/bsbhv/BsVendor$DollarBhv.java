@@ -78,7 +78,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return Vendor$DollarDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +88,10 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public Vendor$Dollar newEntity() { return new Vendor$Dollar(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public Vendor$DollarCB newConditionBean() { return new Vendor$DollarCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public Vendor$Dollar newMyEntity() { return new Vendor$Dollar(); }
@@ -114,6 +114,10 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(Vendor$DollarCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(Vendor$DollarCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +133,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +159,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectEntity(Vendor$DollarCB cb) {
-        return doSelectEntity(cb, Vendor$Dollar.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected Vendor$Dollar facadeSelectEntity(Vendor$DollarCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> ENTITY doSelectEntity(Vendor$DollarCB cb, Class<ENTITY> tp) {
@@ -170,7 +178,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +197,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectEntityWithDeletedCheck(Vendor$DollarCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, Vendor$Dollar.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected Vendor$Dollar facadeSelectEntityWithDeletedCheck(Vendor$DollarCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> ENTITY doSelectEntityWithDeletedCheck(Vendor$DollarCB cb, Class<ENTITY> tp) {
@@ -200,7 +212,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +223,19 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValue(Integer vendor$DollarId) {
-        return doSelectByPK(vendor$DollarId, Vendor$Dollar.class);
+        return facadeSelectByPKValue(vendor$DollarId);
     }
 
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPK(Integer vendor$DollarId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(vendor$DollarId), entityType);
+    protected Vendor$Dollar facadeSelectByPKValue(Integer vendor$DollarId) {
+        return doSelectByPK(vendor$DollarId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(vendor$DollarId, entityType), vendor$DollarId);
+    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPK(Integer vendor$DollarId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(vendor$DollarId), tp);
+    }
+
+    protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(vendor$DollarId, tp), vendor$DollarId);
     }
 
     /**
@@ -231,16 +247,16 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectByPKValueWithDeletedCheck(Integer vendor$DollarId) {
-        return doSelectByPKWithDeletedCheck(vendor$DollarId, Vendor$Dollar.class);
+        return doSelectByPKWithDeletedCheck(vendor$DollarId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKWithDeletedCheck(Integer vendor$DollarId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(vendor$DollarId), entityType);
+    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKWithDeletedCheck(Integer vendor$DollarId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(vendor$DollarId), tp);
     }
 
     protected Vendor$DollarCB xprepareCBAsPK(Integer vendor$DollarId) {
         assertObjectNotNull("vendor$DollarId", vendor$DollarId);
-        Vendor$DollarCB cb = newMyConditionBean(); cb.acceptPrimaryKey(vendor$DollarId);
+        Vendor$DollarCB cb = newConditionBean(); cb.acceptPrimaryKey(vendor$DollarId);
         return cb;
     }
 
@@ -263,7 +279,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Vendor$Dollar> selectList(Vendor$DollarCB cb) {
-        return doSelectList(cb, Vendor$Dollar.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<Vendor$Dollar> facadeSelectList(Vendor$DollarCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> ListResultBean<ENTITY> doSelectList(Vendor$DollarCB cb, Class<ENTITY> tp) {
@@ -275,7 +295,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -304,7 +324,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Vendor$Dollar> selectPage(Vendor$DollarCB cb) {
-        return doSelectPage(cb, Vendor$Dollar.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<Vendor$Dollar> facadeSelectPage(Vendor$DollarCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> PagingResultBean<ENTITY> doSelectPage(Vendor$DollarCB cb, Class<ENTITY> tp) {
@@ -317,7 +341,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -338,15 +362,19 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of Vendor$Dollar. (NotNull)
      */
     public void selectCursor(Vendor$DollarCB cb, EntityRowHandler<Vendor$Dollar> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, Vendor$Dollar.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(Vendor$DollarCB cb, EntityRowHandler<Vendor$Dollar> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> void doSelectCursor(Vendor$DollarCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, Vendor$DollarCB>() {
-            public void callbackSelectCursor(Vendor$DollarCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(Vendor$DollarCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(Vendor$DollarCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(Vendor$DollarCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -369,7 +397,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<Vendor$DollarCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+        return facadeScalarSelect(resultType);
+    }
+
+    protected <RESULT> SLFunction<Vendor$DollarCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
     }
 
     protected <RESULT, CB extends Vendor$DollarCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
@@ -383,7 +415,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     }
 
     protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -398,7 +430,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -430,17 +461,17 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * ... = vendor$Dollar.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param vendor$Dollar The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param vendor$Dollar The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Vendor$Dollar vendor$Dollar) {
         doInsert(vendor$Dollar, null);
     }
 
-    protected void doInsert(Vendor$Dollar vendor$Dollar, InsertOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", vendor$Dollar);
+    protected void doInsert(Vendor$Dollar et, InsertOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$Dollar", et);
         prepareInsertOption(op);
-        delegateInsert(vendor$Dollar, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<Vendor$DollarCB> op) {
@@ -453,8 +484,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -466,7 +496,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     vendor$DollarBhv.<span style="color: #DD4747">update</span>(vendor$Dollar);
@@ -474,49 +504,38 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param vendor$Dollar The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param vendor$Dollar The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final Vendor$Dollar vendor$Dollar) {
+    public void update(Vendor$Dollar vendor$Dollar) {
         doUpdate(vendor$Dollar, null);
     }
 
-    protected void doUpdate(Vendor$Dollar vendor$Dollar, final UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", vendor$Dollar);
+    protected void doUpdate(Vendor$Dollar et, final UpdateOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$Dollar", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(vendor$Dollar, new InternalUpdateCallback<Vendor$Dollar>() {
-            public int callbackDelegateUpdate(Vendor$Dollar et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<Vendor$Dollar>() {
+            public int callbackDelegateUpdate(Vendor$Dollar let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<Vendor$DollarCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected Vendor$DollarCB createCBForVaryingUpdate() {
-        Vendor$DollarCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected Vendor$DollarCB createCBForVaryingUpdate()
+    { Vendor$DollarCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected Vendor$DollarCB createCBForSpecifiedUpdate() {
-        Vendor$DollarCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected Vendor$DollarCB createCBForSpecifiedUpdate()
+    { Vendor$DollarCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     @Override
@@ -528,32 +547,28 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param vendor$Dollar The entity of insert or update target. (NotNull)
+     * @param vendor$Dollar The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Vendor$Dollar vendor$Dollar) {
-        doInesrtOrUpdate(vendor$Dollar, null, null);
+        doInsertOrUpdate(vendor$Dollar, null, null);
     }
 
-    protected void doInesrtOrUpdate(Vendor$Dollar vendor$Dollar, final InsertOption<Vendor$DollarCB> iop, final UpdateOption<Vendor$DollarCB> uop) {
-        helpInsertOrUpdateInternally(vendor$Dollar, new InternalInsertOrUpdateCallback<Vendor$Dollar, Vendor$DollarCB>() {
-            public void callbackInsert(Vendor$Dollar et) { doInsert(et, iop); }
-            public void callbackUpdate(Vendor$Dollar et) { doUpdate(et, uop); }
-            public Vendor$DollarCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(Vendor$Dollar et, final InsertOption<Vendor$DollarCB> iop, final UpdateOption<Vendor$DollarCB> uop) {
+        assertObjectNotNull("vendor$Dollar", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<Vendor$Dollar, Vendor$DollarCB>() {
+            public void callbackInsert(Vendor$Dollar let) { doInsert(let, iop); }
+            public void callbackUpdate(Vendor$Dollar let) { doUpdate(let, uop); }
+            public Vendor$DollarCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(Vendor$DollarCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<Vendor$DollarCB>();
-            uop = uop != null ? uop : new UpdateOption<Vendor$DollarCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     @Override
@@ -566,7 +581,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <pre>
      * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     vendor$DollarBhv.<span style="color: #DD4747">delete</span>(vendor$Dollar);
@@ -574,7 +589,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param vendor$Dollar The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param vendor$Dollar The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -582,22 +597,19 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         doDelete(vendor$Dollar, null);
     }
 
-    protected void doDelete(Vendor$Dollar vendor$Dollar, final DeleteOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", vendor$Dollar);
+    protected void doDelete(Vendor$Dollar et, final DeleteOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$Dollar", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(vendor$Dollar, new InternalDeleteCallback<Vendor$Dollar>() {
-            public int callbackDelegateDelete(Vendor$Dollar et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<Vendor$Dollar>() {
+            public int callbackDelegateDelete(Vendor$Dollar let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<Vendor$DollarCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<Vendor$DollarCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     @Override
@@ -633,26 +645,25 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<Vendor$Dollar> vendor$DollarList) {
-        InsertOption<Vendor$DollarCB> op = createInsertUpdateOption();
-        return doBatchInsert(vendor$DollarList, op);
+        return doBatchInsert(vendor$DollarList, null);
     }
 
-    protected int[] doBatchInsert(List<Vendor$Dollar> vendor$DollarList, InsertOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", vendor$DollarList);
-        prepareBatchInsertOption(vendor$DollarList, op);
-        return delegateBatchInsert(vendor$DollarList, op);
+    protected int[] doBatchInsert(List<Vendor$Dollar> ls, InsertOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$DollarList", ls);
+        InsertOption<Vendor$DollarCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<Vendor$Dollar> vendor$DollarList, InsertOption<Vendor$DollarCB> op) {
+    protected void prepareBatchInsertOption(List<Vendor$Dollar> ls, InsertOption<Vendor$DollarCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(vendor$DollarList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -680,25 +691,24 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Vendor$Dollar> vendor$DollarList) {
-        UpdateOption<Vendor$DollarCB> op = createPlainUpdateOption();
-        return doBatchUpdate(vendor$DollarList, op);
+        return doBatchUpdate(vendor$DollarList, null);
     }
 
-    protected int[] doBatchUpdate(List<Vendor$Dollar> vendor$DollarList, UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", vendor$DollarList);
-        prepareBatchUpdateOption(vendor$DollarList, op);
-        return delegateBatchUpdate(vendor$DollarList, op);
+    protected int[] doBatchUpdate(List<Vendor$Dollar> ls, UpdateOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$DollarList", ls);
+        UpdateOption<Vendor$DollarCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<Vendor$Dollar> vendor$DollarList, UpdateOption<Vendor$DollarCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendor$DollarList);
+    protected void prepareBatchUpdateOption(List<Vendor$Dollar> ls, UpdateOption<Vendor$DollarCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -749,16 +759,15 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doBatchDelete(vendor$DollarList, null);
     }
 
-    protected int[] doBatchDelete(List<Vendor$Dollar> vendor$DollarList, DeleteOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", vendor$DollarList);
+    protected int[] doBatchDelete(List<Vendor$Dollar> ls, DeleteOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$DollarList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(vendor$DollarList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     @Override
@@ -785,7 +794,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -802,21 +811,17 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> sp, InsertOption<Vendor$DollarCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        Vendor$Dollar e = new Vendor$Dollar();
+        Vendor$Dollar et = newEntity();
         Vendor$DollarCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected Vendor$DollarCB createCBForQueryInsert() {
-        Vendor$DollarCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected Vendor$DollarCB createCBForQueryInsert()
+    { Vendor$DollarCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -829,7 +834,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setVersionNo(value);</span>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
@@ -845,16 +850,15 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(vendor$Dollar, cb, null);
     }
 
-    protected int doQueryUpdate(Vendor$Dollar vendor$Dollar, Vendor$DollarCB cb, UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", vendor$Dollar); assertCBStateValid(cb);
+    protected int doQueryUpdate(Vendor$Dollar et, Vendor$DollarCB cb, UpdateOption<Vendor$DollarCB> op) {
+        assertObjectNotNull("vendor$Dollar", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendor$Dollar, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (Vendor$DollarCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (Vendor$DollarCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -880,8 +884,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((Vendor$DollarCB)cb); }
-        else { return varyingQueryDelete((Vendor$DollarCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -905,7 +908,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * vendor$DollarBhv.<span style="color: #DD4747">varyingInsert</span>(vendor$Dollar, option);
      * ... = vendor$Dollar.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param vendor$Dollar The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param vendor$Dollar The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -922,7 +925,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * vendor$Dollar.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendor$Dollar.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -937,7 +940,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param vendor$Dollar The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param vendor$Dollar The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -951,7 +954,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param vendor$Dollar The entity of insert or update target. (NotNull)
+     * @param vendor$Dollar The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -960,14 +963,14 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(Vendor$Dollar vendor$Dollar, InsertOption<Vendor$DollarCB> insertOption, UpdateOption<Vendor$DollarCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(vendor$Dollar, insertOption, updateOption);
+        doInsertOrUpdate(vendor$Dollar, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param vendor$Dollar The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param vendor$Dollar The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1048,7 +1051,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setPK...(value);</span>
      * vendor$Dollar.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setVersionNo(value);</span>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
@@ -1200,38 +1203,34 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected Vendor$Dollar downcast(Entity et) {
-        return helpEntityDowncastInternally(et, Vendor$Dollar.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<Vendor$Dollar> typeOfSelectedEntity()
+    { return Vendor$Dollar.class; }
 
-    protected Vendor$DollarCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, Vendor$DollarCB.class);
-    }
+    protected Vendor$Dollar downcast(Entity et)
+    { return helpEntityDowncastInternally(et, Vendor$Dollar.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<Vendor$Dollar> downcast(List<? extends Entity> ls) {
-        return (List<Vendor$Dollar>)ls;
-    }
+    protected Vendor$DollarCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, Vendor$DollarCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<Vendor$DollarCB>)op;
-    }
+    protected List<Vendor$Dollar> downcast(List<? extends Entity> ls)
+    { return (List<Vendor$Dollar>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<Vendor$DollarCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<Vendor$DollarCB>)op;
-    }
+    protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<Vendor$DollarCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<Vendor$DollarCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<Vendor$DollarCB>)op;
-    }
+    protected UpdateOption<Vendor$DollarCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<Vendor$DollarCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB>)sp;
-    }
+    protected DeleteOption<Vendor$DollarCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<Vendor$DollarCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB>)sp; }
 }

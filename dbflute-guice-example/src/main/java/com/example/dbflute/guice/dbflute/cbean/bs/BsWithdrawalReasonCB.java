@@ -84,7 +84,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
     public void acceptPrimaryKey(String withdrawalReasonCode) {
         assertObjectNotNull("withdrawalReasonCode", withdrawalReasonCode);
         BsWithdrawalReasonCB cb = this;
-        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);;
+        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         BsWithdrawalReasonCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

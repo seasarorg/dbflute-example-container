@@ -84,7 +84,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer productId) {
         assertObjectNotNull("productId", productId);
         BsSummaryProductCB cb = this;
-        cb.query().setProductId_Equal(productId);;
+        cb.query().setProductId_Equal(productId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

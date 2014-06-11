@@ -357,28 +357,6 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         // B. 存在しないPK値を指定された場合は例外発生。{EntityAlreadyDeletedException}
     }
 
-    /**
-     * 既に削除済みであれば素通りする排他制御なし一件削除: deleteNonstrictIgnoreDeleted().
-     * 存在しない会員ID'99999'の会員を削除。
-     */
-    public void test_deleteNonstrictIgnoreDeleted() {
-        // ## Arrange ##
-        Member member = new Member();
-        member.setMemberId(99999);// 存在しない会員の会員ID(既に削除されたと仮定)
-
-        // ## Act ##
-        memberBhv.deleteNonstrictIgnoreDeleted(member);// 例外は発生しない
-
-        // ## Assert ##
-        try {
-            memberBhv.selectByPK(99999).get();
-            fail();
-        } catch (EntityAlreadyDeletedException e) {
-            // OK
-            log(e.getMessage());
-        }
-    }
-
     // ===================================================================================
     //                                                                          OutsideSql
     //                                                                          ==========

@@ -78,7 +78,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return RegionDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +88,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public Region newEntity() { return new Region(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public RegionCB newConditionBean() { return new RegionCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public Region newMyEntity() { return new Region(); }
@@ -114,6 +114,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(RegionCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(RegionCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +133,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +159,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectEntity(RegionCB cb) {
-        return doSelectEntity(cb, Region.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected Region facadeSelectEntity(RegionCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> ENTITY doSelectEntity(RegionCB cb, Class<ENTITY> tp) {
@@ -170,7 +178,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +197,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectEntityWithDeletedCheck(RegionCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, Region.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected Region facadeSelectEntityWithDeletedCheck(RegionCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> ENTITY doSelectEntityWithDeletedCheck(RegionCB cb, Class<ENTITY> tp) {
@@ -200,7 +212,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +223,19 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectByPKValue(Integer regionId) {
-        return doSelectByPK(regionId, Region.class);
+        return facadeSelectByPKValue(regionId);
     }
 
-    protected <ENTITY extends Region> ENTITY doSelectByPK(Integer regionId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(regionId), entityType);
+    protected Region facadeSelectByPKValue(Integer regionId) {
+        return doSelectByPK(regionId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Region> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer regionId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(regionId, entityType), regionId);
+    protected <ENTITY extends Region> ENTITY doSelectByPK(Integer regionId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(regionId), tp);
+    }
+
+    protected <ENTITY extends Region> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer regionId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(regionId, tp), regionId);
     }
 
     /**
@@ -231,16 +247,16 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectByPKValueWithDeletedCheck(Integer regionId) {
-        return doSelectByPKWithDeletedCheck(regionId, Region.class);
+        return doSelectByPKWithDeletedCheck(regionId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Region> ENTITY doSelectByPKWithDeletedCheck(Integer regionId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(regionId), entityType);
+    protected <ENTITY extends Region> ENTITY doSelectByPKWithDeletedCheck(Integer regionId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(regionId), tp);
     }
 
     protected RegionCB xprepareCBAsPK(Integer regionId) {
         assertObjectNotNull("regionId", regionId);
-        RegionCB cb = newMyConditionBean(); cb.acceptPrimaryKey(regionId);
+        RegionCB cb = newConditionBean(); cb.acceptPrimaryKey(regionId);
         return cb;
     }
 
@@ -263,7 +279,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Region> selectList(RegionCB cb) {
-        return doSelectList(cb, Region.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<Region> facadeSelectList(RegionCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> ListResultBean<ENTITY> doSelectList(RegionCB cb, Class<ENTITY> tp) {
@@ -275,7 +295,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -304,7 +324,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Region> selectPage(RegionCB cb) {
-        return doSelectPage(cb, Region.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<Region> facadeSelectPage(RegionCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> PagingResultBean<ENTITY> doSelectPage(RegionCB cb, Class<ENTITY> tp) {
@@ -317,7 +341,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -338,15 +362,19 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of Region. (NotNull)
      */
     public void selectCursor(RegionCB cb, EntityRowHandler<Region> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, Region.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(RegionCB cb, EntityRowHandler<Region> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> void doSelectCursor(RegionCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, RegionCB>() {
-            public void callbackSelectCursor(RegionCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(RegionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(RegionCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(RegionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -369,7 +397,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<RegionCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+        return facadeScalarSelect(resultType);
+    }
+
+    protected <RESULT> SLFunction<RegionCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
     }
 
     protected <RESULT, CB extends RegionCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
@@ -383,7 +415,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     }
 
     protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -493,7 +525,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
             { return et.getRegionId(); }
             public void setRfLs(Region et, List<MemberAddress> ls)
             { et.setMemberAddressList(ls); }
-            public MemberAddressCB newMyCB() { return referrerBhv.newMyConditionBean(); }
+            public MemberAddressCB newMyCB() { return referrerBhv.newConditionBean(); }
             public void qyFKIn(MemberAddressCB cb, List<Integer> ls)
             { cb.query().setRegionId_InScope(ls); }
             public void qyOdFKAsc(MemberAddressCB cb) { cb.query().addOrderBy_RegionId_Asc(); }
@@ -509,7 +541,6 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -541,17 +572,17 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * ... = region.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param region The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param region The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Region region) {
         doInsert(region, null);
     }
 
-    protected void doInsert(Region region, InsertOption<RegionCB> op) {
-        assertObjectNotNull("region", region);
+    protected void doInsert(Region et, InsertOption<RegionCB> op) {
+        assertObjectNotNull("region", et);
         prepareInsertOption(op);
-        delegateInsert(region, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<RegionCB> op) {
@@ -564,8 +595,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -577,7 +607,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//region.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//region.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * region.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     regionBhv.<span style="color: #DD4747">update</span>(region);
@@ -585,49 +615,38 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param region The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param region The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final Region region) {
+    public void update(Region region) {
         doUpdate(region, null);
     }
 
-    protected void doUpdate(Region region, final UpdateOption<RegionCB> op) {
-        assertObjectNotNull("region", region);
+    protected void doUpdate(Region et, final UpdateOption<RegionCB> op) {
+        assertObjectNotNull("region", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(region, new InternalUpdateCallback<Region>() {
-            public int callbackDelegateUpdate(Region et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<Region>() {
+            public int callbackDelegateUpdate(Region let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<RegionCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected RegionCB createCBForVaryingUpdate() {
-        RegionCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected RegionCB createCBForVaryingUpdate()
+    { RegionCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected RegionCB createCBForSpecifiedUpdate() {
-        RegionCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected RegionCB createCBForSpecifiedUpdate()
+    { RegionCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     @Override
@@ -639,32 +658,28 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param region The entity of insert or update target. (NotNull)
+     * @param region The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Region region) {
-        doInesrtOrUpdate(region, null, null);
+        doInsertOrUpdate(region, null, null);
     }
 
-    protected void doInesrtOrUpdate(Region region, final InsertOption<RegionCB> iop, final UpdateOption<RegionCB> uop) {
-        helpInsertOrUpdateInternally(region, new InternalInsertOrUpdateCallback<Region, RegionCB>() {
-            public void callbackInsert(Region et) { doInsert(et, iop); }
-            public void callbackUpdate(Region et) { doUpdate(et, uop); }
-            public RegionCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(Region et, final InsertOption<RegionCB> iop, final UpdateOption<RegionCB> uop) {
+        assertObjectNotNull("region", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<Region, RegionCB>() {
+            public void callbackInsert(Region let) { doInsert(let, iop); }
+            public void callbackUpdate(Region let) { doUpdate(let, uop); }
+            public RegionCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(RegionCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<RegionCB>();
-            uop = uop != null ? uop : new UpdateOption<RegionCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     @Override
@@ -677,7 +692,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * <pre>
      * Region region = new Region();
      * region.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * region.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     regionBhv.<span style="color: #DD4747">delete</span>(region);
@@ -685,7 +700,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param region The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param region The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -693,22 +708,19 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         doDelete(region, null);
     }
 
-    protected void doDelete(Region region, final DeleteOption<RegionCB> op) {
-        assertObjectNotNull("region", region);
+    protected void doDelete(Region et, final DeleteOption<RegionCB> op) {
+        assertObjectNotNull("region", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(region, new InternalDeleteCallback<Region>() {
-            public int callbackDelegateDelete(Region et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<Region>() {
+            public int callbackDelegateDelete(Region let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<RegionCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<RegionCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     @Override
@@ -744,26 +756,25 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<Region> regionList) {
-        InsertOption<RegionCB> op = createInsertUpdateOption();
-        return doBatchInsert(regionList, op);
+        return doBatchInsert(regionList, null);
     }
 
-    protected int[] doBatchInsert(List<Region> regionList, InsertOption<RegionCB> op) {
-        assertObjectNotNull("regionList", regionList);
-        prepareBatchInsertOption(regionList, op);
-        return delegateBatchInsert(regionList, op);
+    protected int[] doBatchInsert(List<Region> ls, InsertOption<RegionCB> op) {
+        assertObjectNotNull("regionList", ls);
+        InsertOption<RegionCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<Region> regionList, InsertOption<RegionCB> op) {
+    protected void prepareBatchInsertOption(List<Region> ls, InsertOption<RegionCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(regionList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -791,25 +802,24 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Region> regionList) {
-        UpdateOption<RegionCB> op = createPlainUpdateOption();
-        return doBatchUpdate(regionList, op);
+        return doBatchUpdate(regionList, null);
     }
 
-    protected int[] doBatchUpdate(List<Region> regionList, UpdateOption<RegionCB> op) {
-        assertObjectNotNull("regionList", regionList);
-        prepareBatchUpdateOption(regionList, op);
-        return delegateBatchUpdate(regionList, op);
+    protected int[] doBatchUpdate(List<Region> ls, UpdateOption<RegionCB> op) {
+        assertObjectNotNull("regionList", ls);
+        UpdateOption<RegionCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<Region> regionList, UpdateOption<RegionCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(regionList);
+    protected void prepareBatchUpdateOption(List<Region> ls, UpdateOption<RegionCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -860,16 +870,15 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         return doBatchDelete(regionList, null);
     }
 
-    protected int[] doBatchDelete(List<Region> regionList, DeleteOption<RegionCB> op) {
-        assertObjectNotNull("regionList", regionList);
+    protected int[] doBatchDelete(List<Region> ls, DeleteOption<RegionCB> op) {
+        assertObjectNotNull("regionList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(regionList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     @Override
@@ -896,7 +905,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -913,21 +922,17 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<Region, RegionCB> sp, InsertOption<RegionCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        Region e = new Region();
+        Region et = newEntity();
         RegionCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected RegionCB createCBForQueryInsert() {
-        RegionCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected RegionCB createCBForQueryInsert()
+    { RegionCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -940,7 +945,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//region.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//region.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//region.setVersionNo(value);</span>
      * RegionCB cb = new RegionCB();
@@ -956,16 +961,15 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(region, cb, null);
     }
 
-    protected int doQueryUpdate(Region region, RegionCB cb, UpdateOption<RegionCB> op) {
-        assertObjectNotNull("region", region); assertCBStateValid(cb);
+    protected int doQueryUpdate(Region et, RegionCB cb, UpdateOption<RegionCB> op) {
+        assertObjectNotNull("region", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(region, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (RegionCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (RegionCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -991,8 +995,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((RegionCB)cb); }
-        else { return varyingQueryDelete((RegionCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -1016,7 +1019,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * regionBhv.<span style="color: #DD4747">varyingInsert</span>(region, option);
      * ... = region.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param region The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param region The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1033,7 +1036,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * Region region = new Region();
      * region.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * region.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * region.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1048,7 +1051,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param region The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param region The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1062,7 +1065,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param region The entity of insert or update target. (NotNull)
+     * @param region The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1071,14 +1074,14 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(Region region, InsertOption<RegionCB> insertOption, UpdateOption<RegionCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(region, insertOption, updateOption);
+        doInsertOrUpdate(region, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param region The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param region The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1159,7 +1162,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//region.setPK...(value);</span>
      * region.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//region.setVersionNo(value);</span>
      * RegionCB cb = new RegionCB();
@@ -1311,38 +1314,34 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected Region downcast(Entity et) {
-        return helpEntityDowncastInternally(et, Region.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<Region> typeOfSelectedEntity()
+    { return Region.class; }
 
-    protected RegionCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, RegionCB.class);
-    }
+    protected Region downcast(Entity et)
+    { return helpEntityDowncastInternally(et, Region.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<Region> downcast(List<? extends Entity> ls) {
-        return (List<Region>)ls;
-    }
+    protected RegionCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, RegionCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<RegionCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<RegionCB>)op;
-    }
+    protected List<Region> downcast(List<? extends Entity> ls)
+    { return (List<Region>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<RegionCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<RegionCB>)op;
-    }
+    protected InsertOption<RegionCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<RegionCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<RegionCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<RegionCB>)op;
-    }
+    protected UpdateOption<RegionCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<RegionCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<Region, RegionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<Region, RegionCB>)sp;
-    }
+    protected DeleteOption<RegionCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<RegionCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<Region, RegionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<Region, RegionCB>)sp; }
 }

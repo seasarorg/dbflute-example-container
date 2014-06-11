@@ -100,7 +100,7 @@ public class BsProductCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer productId) {
         assertObjectNotNull("productId", productId);
         BsProductCB cb = this;
-        cb.query().setProductId_Equal(productId);;
+        cb.query().setProductId_Equal(productId);
     }
 
     /**
@@ -110,7 +110,7 @@ public class BsProductCB extends AbstractConditionBean {
     public void acceptUniqueOf(String productHandleCode) {
         assertObjectNotNull("productHandleCode", productHandleCode);
         BsProductCB cb = this;
-        cb.query().setProductHandleCode_Equal(productHandleCode);;
+        cb.query().setProductHandleCode_Equal(productHandleCode);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

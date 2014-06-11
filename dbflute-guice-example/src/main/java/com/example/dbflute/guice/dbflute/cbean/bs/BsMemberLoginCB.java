@@ -85,7 +85,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long memberLoginId) {
         assertObjectNotNull("memberLoginId", memberLoginId);
         BsMemberLoginCB cb = this;
-        cb.query().setMemberLoginId_Equal(memberLoginId);;
+        cb.query().setMemberLoginId_Equal(memberLoginId);
     }
 
     /**
@@ -96,7 +96,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("loginDatetime", loginDatetime);
         BsMemberLoginCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;cb.query().setLoginDatetime_Equal(loginDatetime);;
+        cb.query().setMemberId_Equal(memberId);cb.query().setLoginDatetime_Equal(loginDatetime);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

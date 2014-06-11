@@ -99,7 +99,7 @@ public class BsRegionCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer regionId) {
         assertObjectNotNull("regionId", regionId);
         BsRegionCB cb = this;
-        cb.query().setRegionId_Equal(regionId);;
+        cb.query().setRegionId_Equal(regionId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

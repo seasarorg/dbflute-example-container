@@ -99,7 +99,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long vendorCheckId) {
         assertObjectNotNull("vendorCheckId", vendorCheckId);
         BsVendorCheckCB cb = this;
-        cb.query().setVendorCheckId_Equal(vendorCheckId);;
+        cb.query().setVendorCheckId_Equal(vendorCheckId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

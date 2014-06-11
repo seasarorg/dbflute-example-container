@@ -84,7 +84,7 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long primaryKeyOnlyId) {
         assertObjectNotNull("primaryKeyOnlyId", primaryKeyOnlyId);
         BsVendorPrimaryKeyOnlyCB cb = this;
-        cb.query().setPrimaryKeyOnlyId_Equal(primaryKeyOnlyId);;
+        cb.query().setPrimaryKeyOnlyId_Equal(primaryKeyOnlyId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

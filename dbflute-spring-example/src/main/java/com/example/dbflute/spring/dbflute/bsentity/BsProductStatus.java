@@ -252,9 +252,6 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
@@ -264,7 +261,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
     protected List<Product> _productList;
 
     /**
-     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * [get] (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * @return The entity list of referrer property 'productList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Product> getProductList() {
@@ -273,7 +270,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
     }
 
     /**
-     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * [set] (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * @param productList The entity list of referrer property 'productList'. (NullAllowed)
      */
     public void setProductList(List<Product> productList) {
@@ -284,7 +281,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
     protected List<SummaryProduct> _summaryProductList;
 
     /**
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * [get] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
      * @return The entity list of referrer property 'summaryProductList'. (NotNull: even if no loading, returns empty list)
      */
     public List<SummaryProduct> getSummaryProductList() {
@@ -293,7 +290,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
     }
 
     /**
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * [set] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
      * @param summaryProductList The entity list of referrer property 'summaryProductList'. (NullAllowed)
      */
     public void setSummaryProductList(List<SummaryProduct> summaryProductList) {

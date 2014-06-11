@@ -144,7 +144,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     protected OptionalEntity<ProductCategory> _productCategorySelf;
 
     /**
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductCategory> getProductCategorySelf() {
@@ -152,7 +152,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     }
 
     /**
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * [set] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @param productCategorySelf The entity of foreign property 'productCategorySelf'. (NullAllowed)
      */
     public void setProductCategorySelf(OptionalEntity<ProductCategory> productCategorySelf) {
@@ -166,7 +166,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     protected List<Product> _productList;
 
     /**
-     * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * [get] (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * @return The entity list of referrer property 'productList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Product> getProductList() {
@@ -175,7 +175,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     }
 
     /**
-     * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * [set] (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * @param productList The entity list of referrer property 'productList'. (NullAllowed)
      */
     public void setProductList(List<Product> productList) {
@@ -186,7 +186,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     protected List<ProductCategory> _productCategorySelfList;
 
     /**
-     * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * [get] (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * @return The entity list of referrer property 'productCategorySelfList'. (NotNull: even if no loading, returns empty list)
      */
     public List<ProductCategory> getProductCategorySelfList() {
@@ -195,7 +195,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     }
 
     /**
-     * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * [set] (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * @param productCategorySelfList The entity list of referrer property 'productCategorySelfList'. (NullAllowed)
      */
     public void setProductCategorySelfList(List<ProductCategory> productCategorySelfList) {

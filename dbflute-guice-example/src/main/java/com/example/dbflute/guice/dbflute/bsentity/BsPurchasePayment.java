@@ -297,7 +297,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     protected OptionalEntity<Purchase> _purchase;
 
     /**
-     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * [get] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @return The entity of foreign property 'purchase'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Purchase> getPurchase() {
@@ -305,7 +305,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     }
 
     /**
-     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * [set] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @param purchase The entity of foreign property 'purchase'. (NullAllowed)
      */
     public void setPurchase(OptionalEntity<Purchase> purchase) {

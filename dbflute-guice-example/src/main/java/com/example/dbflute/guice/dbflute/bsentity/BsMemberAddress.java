@@ -303,16 +303,13 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
     protected OptionalEntity<Member> _member;
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
@@ -320,7 +317,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {
@@ -331,7 +328,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     protected OptionalEntity<Region> _region;
 
     /**
-     * (地域)REGION by my REGION_ID, named 'region'.
+     * [get] (地域)REGION by my REGION_ID, named 'region'.
      * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Region> getRegion() {
@@ -339,7 +336,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     /**
-     * (地域)REGION by my REGION_ID, named 'region'.
+     * [set] (地域)REGION by my REGION_ID, named 'region'.
      * @param region The entity of foreign property 'region'. (NullAllowed)
      */
     public void setRegion(OptionalEntity<Region> region) {

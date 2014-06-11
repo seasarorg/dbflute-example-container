@@ -298,7 +298,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected OptionalEntity<Member> _member;
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Member> getMember() {
@@ -306,7 +306,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {
@@ -317,7 +317,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected OptionalEntity<Product> _product;
 
     /**
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
+     * [get] (商品)PRODUCT by my PRODUCT_ID, named 'product'.
      * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<Product> getProduct() {
@@ -325,7 +325,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
+     * [set] (商品)PRODUCT by my PRODUCT_ID, named 'product'.
      * @param product The entity of foreign property 'product'. (NullAllowed)
      */
     public void setProduct(OptionalEntity<Product> product) {
@@ -336,7 +336,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected OptionalEntity<SummaryProduct> _summaryProduct;
 
     /**
-     * SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
+     * [get] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
      * @return The entity of foreign property 'summaryProduct'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<SummaryProduct> getSummaryProduct() {
@@ -344,7 +344,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
+     * [set] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
      * @param summaryProduct The entity of foreign property 'summaryProduct'. (NullAllowed)
      */
     public void setSummaryProduct(OptionalEntity<SummaryProduct> summaryProduct) {
@@ -355,7 +355,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected OptionalEntity<MemberLogin> _memberLoginAsBizManyToOne;
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsBizManyToOne'.
+     * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsBizManyToOne'.
      * @return The entity of foreign property 'memberLoginAsBizManyToOne'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<MemberLogin> getMemberLoginAsBizManyToOne() {
@@ -363,7 +363,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsBizManyToOne'.
+     * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsBizManyToOne'.
      * @param memberLoginAsBizManyToOne The entity of foreign property 'memberLoginAsBizManyToOne'. (NullAllowed)
      */
     public void setMemberLoginAsBizManyToOne(OptionalEntity<MemberLogin> memberLoginAsBizManyToOne) {
@@ -377,7 +377,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected List<PurchasePayment> _purchasePaymentList;
 
     /**
-     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * [get] (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * @return The entity list of referrer property 'purchasePaymentList'. (NotNull: even if no loading, returns empty list)
      */
     public List<PurchasePayment> getPurchasePaymentList() {
@@ -386,7 +386,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     }
 
     /**
-     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * [set] (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * @param purchasePaymentList The entity list of referrer property 'purchasePaymentList'. (NullAllowed)
      */
     public void setPurchasePaymentList(List<PurchasePayment> purchasePaymentList) {

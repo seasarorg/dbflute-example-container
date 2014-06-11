@@ -150,7 +150,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     protected OptionalEntity<VendorTheLongAndWindingTableAndColumn> _vendorTheLongAndWindingTableAndColumn;
 
     /**
-     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
+     * [get] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
      * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<VendorTheLongAndWindingTableAndColumn> getVendorTheLongAndWindingTableAndColumn() {
@@ -158,7 +158,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     }
 
     /**
-     * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
+     * [set] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
      * @param vendorTheLongAndWindingTableAndColumn The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed)
      */
     public void setVendorTheLongAndWindingTableAndColumn(OptionalEntity<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumn) {

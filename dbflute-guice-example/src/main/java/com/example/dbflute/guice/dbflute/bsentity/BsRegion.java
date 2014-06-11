@@ -239,9 +239,6 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
@@ -251,7 +248,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     protected List<MemberAddress> _memberAddressList;
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [get] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -260,7 +257,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [set] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @param memberAddressList The entity list of referrer property 'memberAddressList'. (NullAllowed)
      */
     public void setMemberAddressList(List<MemberAddress> memberAddressList) {

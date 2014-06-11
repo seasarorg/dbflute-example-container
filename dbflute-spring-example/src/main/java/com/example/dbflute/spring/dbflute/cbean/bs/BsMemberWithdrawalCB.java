@@ -100,7 +100,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
         BsMemberWithdrawalCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;
+        cb.query().setMemberId_Equal(memberId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

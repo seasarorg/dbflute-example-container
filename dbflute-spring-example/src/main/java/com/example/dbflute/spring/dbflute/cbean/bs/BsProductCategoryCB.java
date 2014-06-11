@@ -100,7 +100,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     public void acceptPrimaryKey(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
         BsProductCategoryCB cb = this;
-        cb.query().setProductCategoryCode_Equal(productCategoryCode);;
+        cb.query().setProductCategoryCode_Equal(productCategoryCode);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

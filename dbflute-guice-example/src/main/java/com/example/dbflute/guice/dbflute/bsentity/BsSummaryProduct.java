@@ -236,16 +236,13 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     /** (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. */
     protected OptionalEntity<ProductStatus> _productStatus;
 
     /**
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public OptionalEntity<ProductStatus> getProductStatus() {
@@ -253,7 +250,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     /**
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [set] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @param productStatus The entity of foreign property 'productStatus'. (NullAllowed)
      */
     public void setProductStatus(OptionalEntity<ProductStatus> productStatus) {
@@ -267,7 +264,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     protected List<Purchase> _purchaseList;
 
     /**
-     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * [get] (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * @return The entity list of referrer property 'purchaseList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Purchase> getPurchaseList() {
@@ -276,7 +273,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     /**
-     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * [set] (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * @param purchaseList The entity list of referrer property 'purchaseList'. (NullAllowed)
      */
     public void setPurchaseList(List<Purchase> purchaseList) {

@@ -63,26 +63,17 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return SummaryWithdrawalDbm.getInstance(); }
-
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public SummaryWithdrawalDbm getMyDBMeta() { return SummaryWithdrawalDbm.getInstance(); }
 
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public SummaryWithdrawal newEntity() { return new SummaryWithdrawal(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public SummaryWithdrawal newMyEntity() { return new SummaryWithdrawal(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public SummaryWithdrawalCB newMyConditionBean() { return new SummaryWithdrawalCB(); }
+    public SummaryWithdrawalCB newConditionBean() { return new SummaryWithdrawalCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -99,6 +90,10 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(SummaryWithdrawalCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(SummaryWithdrawalCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,7 +109,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -153,7 +148,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<SummaryWithdrawal> selectEntity(SummaryWithdrawalCB cb) {
-        return doSelectOptionalEntity(cb, SummaryWithdrawal.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected OptionalEntity<SummaryWithdrawal> facadeSelectEntity(SummaryWithdrawalCB cb) {
+        return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -168,7 +167,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb)).orElseNull();
+        return facadeSelectEntity(downcast(cb)).orElseNull();
     }
 
     /**
@@ -187,7 +186,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryWithdrawal selectEntityWithDeletedCheck(SummaryWithdrawalCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, SummaryWithdrawal.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected SummaryWithdrawal facadeSelectEntityWithDeletedCheck(SummaryWithdrawalCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntityWithDeletedCheck(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -198,7 +201,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     // ===================================================================================
@@ -220,7 +223,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<SummaryWithdrawal> selectList(SummaryWithdrawalCB cb) {
-        return doSelectList(cb, SummaryWithdrawal.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<SummaryWithdrawal> facadeSelectList(SummaryWithdrawalCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryWithdrawal> ListResultBean<ENTITY> doSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -232,7 +239,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -261,7 +268,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<SummaryWithdrawal> selectPage(SummaryWithdrawalCB cb) {
-        return doSelectPage(cb, SummaryWithdrawal.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<SummaryWithdrawal> facadeSelectPage(SummaryWithdrawalCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryWithdrawal> PagingResultBean<ENTITY> doSelectPage(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
@@ -274,7 +285,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -295,15 +306,19 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @param entityRowHandler The handler of entity row of SummaryWithdrawal. (NotNull)
      */
     public void selectCursor(SummaryWithdrawalCB cb, EntityRowHandler<SummaryWithdrawal> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, SummaryWithdrawal.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<SummaryWithdrawal> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryWithdrawal> void doSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, SummaryWithdrawalCB>() {
-            public void callbackSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(SummaryWithdrawalCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(SummaryWithdrawalCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -326,7 +341,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
     public <RESULT> SLFunction<SummaryWithdrawalCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+        return facadeScalarSelect(resultType);
+    }
+
+    protected <RESULT> SLFunction<SummaryWithdrawalCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
     }
 
     protected <RESULT, CB extends SummaryWithdrawalCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
@@ -340,7 +359,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     }
 
     protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -355,7 +374,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -432,18 +450,18 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected SummaryWithdrawal downcast(Entity et) {
-        return helpEntityDowncastInternally(et, SummaryWithdrawal.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<SummaryWithdrawal> typeOfSelectedEntity()
+    { return SummaryWithdrawal.class; }
 
-    protected SummaryWithdrawalCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, SummaryWithdrawalCB.class);
-    }
+    protected SummaryWithdrawal downcast(Entity et)
+    { return helpEntityDowncastInternally(et, SummaryWithdrawal.class); }
+
+    protected SummaryWithdrawalCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, SummaryWithdrawalCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls) {
-        return (List<SummaryWithdrawal>)ls;
-    }
+    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls)
+    { return (List<SummaryWithdrawal>)ls; }
 }

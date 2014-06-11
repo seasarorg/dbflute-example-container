@@ -100,7 +100,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Long purchaseId) {
         assertObjectNotNull("purchaseId", purchaseId);
         BsPurchaseCB cb = this;
-        cb.query().setPurchaseId_Equal(purchaseId);;
+        cb.query().setPurchaseId_Equal(purchaseId);
     }
 
     /**
@@ -112,7 +112,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
         BsPurchaseCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;cb.query().setProductId_Equal(productId);;cb.query().setPurchaseDatetime_Equal(purchaseDatetime);;
+        cb.query().setMemberId_Equal(memberId);cb.query().setProductId_Equal(productId);cb.query().setPurchaseDatetime_Equal(purchaseDatetime);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

@@ -100,7 +100,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer memberAddressId) {
         assertObjectNotNull("memberAddressId", memberAddressId);
         BsMemberAddressCB cb = this;
-        cb.query().setMemberAddressId_Equal(memberAddressId);;
+        cb.query().setMemberAddressId_Equal(memberAddressId);
     }
 
     /**
@@ -111,7 +111,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer memberId, java.util.Date validBeginDate) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("validBeginDate", validBeginDate);
         BsMemberAddressCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;cb.query().setValidBeginDate_Equal(validBeginDate);;
+        cb.query().setMemberId_Equal(memberId);cb.query().setValidBeginDate_Equal(validBeginDate);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

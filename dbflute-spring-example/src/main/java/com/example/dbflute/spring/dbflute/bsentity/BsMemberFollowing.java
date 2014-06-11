@@ -177,7 +177,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     protected Member _memberByMyMemberId;
 
     /**
-     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * [get] (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @return The entity of foreign property 'memberByMyMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMemberByMyMemberId() {
@@ -185,7 +185,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * [set] (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @param memberByMyMemberId The entity of foreign property 'memberByMyMemberId'. (NullAllowed)
      */
     public void setMemberByMyMemberId(Member memberByMyMemberId) {
@@ -196,7 +196,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     protected Member _memberByYourMemberId;
 
     /**
-     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * [get] (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @return The entity of foreign property 'memberByYourMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMemberByYourMemberId() {
@@ -204,7 +204,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     }
 
     /**
-     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * [set] (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @param memberByYourMemberId The entity of foreign property 'memberByYourMemberId'. (NullAllowed)
      */
     public void setMemberByYourMemberId(Member memberByYourMemberId) {

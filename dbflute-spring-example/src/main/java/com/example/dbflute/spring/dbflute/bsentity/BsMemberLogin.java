@@ -371,7 +371,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     protected Member _member;
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -379,7 +379,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(Member member) {
@@ -390,7 +390,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     protected MemberStatus _memberStatus;
 
     /**
-     * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [get] (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberStatus getMemberStatus() {
@@ -398,7 +398,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [set] (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
     public void setMemberStatus(MemberStatus memberStatus) {

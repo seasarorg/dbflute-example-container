@@ -100,7 +100,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     public void acceptPrimaryKey(Integer memberServiceId) {
         assertObjectNotNull("memberServiceId", memberServiceId);
         BsMemberServiceCB cb = this;
-        cb.query().setMemberServiceId_Equal(memberServiceId);;
+        cb.query().setMemberServiceId_Equal(memberServiceId);
     }
 
     /**
@@ -110,7 +110,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     public void acceptUniqueOf(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
         BsMemberServiceCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;
+        cb.query().setMemberId_Equal(memberId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
