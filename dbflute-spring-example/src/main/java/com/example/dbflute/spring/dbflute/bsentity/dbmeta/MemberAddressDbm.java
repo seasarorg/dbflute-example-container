@@ -303,7 +303,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MemberAddress newEntity() { return new MemberAddress(); }
     public MemberAddress newMyEntity() { return new MemberAddress(); }
 
     // ===================================================================================

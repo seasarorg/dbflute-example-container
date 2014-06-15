@@ -95,6 +95,18 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @return this. (NotNull)
+     */
+    public VendorIdentityOnlyCB acceptPK(Long identityOnlyId) {
+        assertObjectNotNull("identityOnlyId", identityOnlyId);
+        BsVendorIdentityOnlyCB cb = this;
+        cb.query().setIdentityOnlyId_Equal(identityOnlyId);
+        return (VendorIdentityOnlyCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
      */
     public void acceptPrimaryKey(Long identityOnlyId) {
         assertObjectNotNull("identityOnlyId", identityOnlyId);

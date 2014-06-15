@@ -81,11 +81,13 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param productCategoryCode (商品カテゴリコード): PK, NotNull, CHAR(3). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptPrimaryKey(String productCategoryCode) {
+    public ProductCategoryCB acceptPK(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
         BsProductCategoryCB cb = this;
         cb.query().setProductCategoryCode_Equal(productCategoryCode);
+        return (ProductCategoryCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

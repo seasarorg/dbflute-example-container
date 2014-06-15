@@ -160,7 +160,7 @@ public class VendorDoubleByteOnSqlDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public VendorDoubleByteOnSql newEntity() { return new VendorDoubleByteOnSql(); }
     public VendorDoubleByteOnSql newMyEntity() { return new VendorDoubleByteOnSql(); }
 
     // ===================================================================================

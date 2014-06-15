@@ -220,8 +220,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public MemberLogin newMyEntity() { return new MemberLogin(); }
+    public MemberLogin newEntity() { return new MemberLogin(); }
 
     // ===================================================================================
     //                                                                   Map Communication

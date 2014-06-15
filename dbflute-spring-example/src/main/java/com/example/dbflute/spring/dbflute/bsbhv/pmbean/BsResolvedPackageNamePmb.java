@@ -172,13 +172,13 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     }
 
     @SuppressWarnings("unchecked")
-    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) {
+    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { // might be called by option handling
         Object obj = DfCollectionUtil.newArrayList(elements);
         return (ArrayList<ELEMENT>)obj; // to avoid the warning between JDK6 and JDK7
     }
 
     @SuppressWarnings("unchecked")
-    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) {
+    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { // might be called by option handling
         return (NUMBER)DfTypeUtil.toNumber(obj, type);
     }
 
@@ -212,33 +212,33 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(xbuildColumnString());
         return sb.toString();
     }
-    private String xbuildColumnString() {
-        final String c = ", ";
+    protected String xbuildColumnString() {
+        final String dm = ", ";
         final StringBuilder sb = new StringBuilder();
-        sb.append(c).append(_string1);
-        sb.append(c).append(_integer1);
-        sb.append(c).append(_bigDecimal1);
-        sb.append(c).append(_bigDecimal2);
-        sb.append(c).append(formatUtilDate(_date1));
-        sb.append(c).append(formatUtilDate(_date2));
-        sb.append(c).append(_date3);
-        sb.append(c).append(_time1);
-        sb.append(c).append(_time2);
-        sb.append(c).append(_timestamp1);
-        sb.append(c).append(_timestamp2);
-        sb.append(c).append(_list1);
-        sb.append(c).append(_list2);
-        sb.append(c).append(_map1);
-        sb.append(c).append(_map2);
-        sb.append(c).append(formatByteArray(_bytes));
-        sb.append(c).append(_cdef);
-        sb.append(c).append(_cdefFlg);
-        sb.append(c).append(_cdefList);
-        sb.append(c).append(_memberStatusCodeList);
-        sb.append(c).append(_member);
-        sb.append(c).append(_simpleMember);
-        sb.append(c).append(_simpleMemberPmb);
-        if (sb.length() > 0) { sb.delete(0, c.length()); }
+        sb.append(dm).append(_string1);
+        sb.append(dm).append(_integer1);
+        sb.append(dm).append(_bigDecimal1);
+        sb.append(dm).append(_bigDecimal2);
+        sb.append(dm).append(formatUtilDate(_date1));
+        sb.append(dm).append(formatUtilDate(_date2));
+        sb.append(dm).append(_date3);
+        sb.append(dm).append(_time1);
+        sb.append(dm).append(_time2);
+        sb.append(dm).append(_timestamp1);
+        sb.append(dm).append(_timestamp2);
+        sb.append(dm).append(_list1);
+        sb.append(dm).append(_list2);
+        sb.append(dm).append(_map1);
+        sb.append(dm).append(_map2);
+        sb.append(dm).append(formatByteArray(_bytes));
+        sb.append(dm).append(_cdef);
+        sb.append(dm).append(_cdefFlg);
+        sb.append(dm).append(_cdefList);
+        sb.append(dm).append(_memberStatusCodeList);
+        sb.append(dm).append(_member);
+        sb.append(dm).append(_simpleMember);
+        sb.append(dm).append(_simpleMemberPmb);
+        if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
@@ -613,5 +613,4 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     public void setSimpleMemberPmb(com.example.dbflute.spring.dbflute.exbhv.pmbean.SimpleMemberPmb simpleMemberPmb) {
         _simpleMemberPmb = simpleMemberPmb;
     }
-
 }

@@ -217,8 +217,7 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public SummaryWithdrawal newMyEntity() { return new SummaryWithdrawal(); }
+    public SummaryWithdrawal newEntity() { return new SummaryWithdrawal(); }
 
     // ===================================================================================
     //                                                                   Map Communication

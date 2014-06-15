@@ -38,17 +38,6 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
         // ## Arrange ##
         ServiceRankCB cb = new ServiceRankCB();
 
-        //cb.loadPurchaseList(purchaseCB -> {
-        //    purchaseCB.setupSelect...
-        //    purchaseCB.query()...
-        //    purchaseCB.loadPurchaseDetailList(detailCB -> {
-        //        detailCB.setupSelect_Xxxxxxxxxx();
-        //        detailCB.setupSelect_DetailAssistInfoAsOne();
-        //        detailCB.query()...
-        //        detailCB.pulloutDetailAssistInfoAsOne().loadPurchase()...
-        //    });
-        //});
-
         // ## Act ##
         ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb);
 

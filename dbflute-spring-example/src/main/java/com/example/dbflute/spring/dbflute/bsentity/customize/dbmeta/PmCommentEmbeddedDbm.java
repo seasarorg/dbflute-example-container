@@ -148,7 +148,7 @@ public class PmCommentEmbeddedDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public PmCommentEmbedded newEntity() { return new PmCommentEmbedded(); }
     public PmCommentEmbedded newMyEntity() { return new PmCommentEmbedded(); }
 
     // ===================================================================================

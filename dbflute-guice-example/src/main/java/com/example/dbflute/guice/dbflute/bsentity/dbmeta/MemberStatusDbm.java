@@ -177,8 +177,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public MemberStatus newMyEntity() { return new MemberStatus(); }
+    public MemberStatus newEntity() { return new MemberStatus(); }
 
     // ===================================================================================
     //                                                                   Map Communication

@@ -262,8 +262,7 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public MemberSecurity newMyEntity() { return new MemberSecurity(); }
+    public MemberSecurity newEntity() { return new MemberSecurity(); }
 
     // ===================================================================================
     //                                                                   Map Communication

@@ -131,8 +131,7 @@ public class Vendor$DollarDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public Vendor$Dollar newMyEntity() { return new Vendor$Dollar(); }
+    public Vendor$Dollar newEntity() { return new Vendor$Dollar(); }
 
     // ===================================================================================
     //                                                                   Map Communication

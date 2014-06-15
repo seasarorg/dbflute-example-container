@@ -443,8 +443,7 @@ public class VendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public VendorCheck newMyEntity() { return new VendorCheck(); }
+    public VendorCheck newEntity() { return new VendorCheck(); }
 
     // ===================================================================================
     //                                                                   Map Communication

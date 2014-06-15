@@ -160,7 +160,7 @@ public class PmCommentOrderByIfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public PmCommentOrderByIf newEntity() { return new PmCommentOrderByIf(); }
     public PmCommentOrderByIf newMyEntity() { return new PmCommentOrderByIf(); }
 
     // ===================================================================================

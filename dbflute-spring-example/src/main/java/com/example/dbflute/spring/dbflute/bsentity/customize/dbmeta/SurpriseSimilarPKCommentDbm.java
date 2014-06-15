@@ -196,7 +196,7 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public SurpriseSimilarPKComment newEntity() { return new SurpriseSimilarPKComment(); }
     public SurpriseSimilarPKComment newMyEntity() { return new SurpriseSimilarPKComment(); }
 
     // ===================================================================================

@@ -136,7 +136,7 @@ public class VendorNumericDecimalSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public VendorNumericDecimalSum newEntity() { return new VendorNumericDecimalSum(); }
     public VendorNumericDecimalSum newMyEntity() { return new VendorNumericDecimalSum(); }
 
     // ===================================================================================

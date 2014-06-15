@@ -135,7 +135,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public VendorIdentityOnly newEntity() { return new VendorIdentityOnly(); }
     public VendorIdentityOnly newMyEntity() { return new VendorIdentityOnly(); }
 
     // ===================================================================================

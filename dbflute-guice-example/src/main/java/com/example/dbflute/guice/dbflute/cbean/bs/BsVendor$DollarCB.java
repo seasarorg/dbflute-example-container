@@ -80,11 +80,13 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptPrimaryKey(Integer vendor$DollarId) {
+    public Vendor$DollarCB acceptPK(Integer vendor$DollarId) {
         assertObjectNotNull("vendor$DollarId", vendor$DollarId);
         BsVendor$DollarCB cb = this;
         cb.query().setVendor$DollarId_Equal(vendor$DollarId);
+        return (Vendor$DollarCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

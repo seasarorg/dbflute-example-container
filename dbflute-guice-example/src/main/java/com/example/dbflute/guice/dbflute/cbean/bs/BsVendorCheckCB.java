@@ -80,11 +80,13 @@ public class BsVendorCheckCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param vendorCheckId : PK, NotNull, DECIMAL(16). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptPrimaryKey(Long vendorCheckId) {
+    public VendorCheckCB acceptPK(Long vendorCheckId) {
         assertObjectNotNull("vendorCheckId", vendorCheckId);
         BsVendorCheckCB cb = this;
         cb.query().setVendorCheckId_Equal(vendorCheckId);
+        return (VendorCheckCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

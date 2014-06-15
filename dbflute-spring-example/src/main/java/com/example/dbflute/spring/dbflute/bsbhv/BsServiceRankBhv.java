@@ -20,11 +20,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
+import com.example.dbflute.spring.dbflute.bsbhv.loader.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
@@ -256,8 +259,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
 
     protected ServiceRankCB xprepareCBAsPK(String serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
-        ServiceRankCB cb = newConditionBean(); cb.acceptPrimaryKey(serviceRankCode);
-        return cb;
+        return newConditionBean().acceptPK(serviceRankCode);
     }
 
     /**
@@ -282,8 +284,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
 
     protected ServiceRankCB xprepareCBAsUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
-        ServiceRankCB cb = newConditionBean(); cb.acceptUniqueOf(displayOrder);
-        return cb;
+        return newConditionBean().acceptUniqueOf(displayOrder);
     }
 
     // ===================================================================================
@@ -422,25 +423,22 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<ServiceRankCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<ServiceRankCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT> SLFunction<ServiceRankCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+    protected <RESULT> HpSLSFunction<ServiceRankCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
     }
 
-    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT, CB extends ServiceRankCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends ServiceRankCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
         return facadeScalarSelect(tp);
     }
 
@@ -456,6 +454,78 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param serviceRankList The entity list of serviceRank. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<ServiceRank> serviceRankList, ReferrerLoaderHandler<LoaderOfServiceRank> handler) {
+        xassLRArg(serviceRankList, handler);
+        handler.handle(new LoaderOfServiceRank().ready(serviceRankList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param serviceRank The entity of serviceRank. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(ServiceRank serviceRank, ReferrerLoaderHandler<LoaderOfServiceRank> handler) {
+        xassLRArg(serviceRank, handler);
+        handler.handle(new LoaderOfServiceRank().ready(xnewLRAryLs(serviceRank), _behaviorSelector));
+    }
+
     /**
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
@@ -484,7 +554,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> setupper) {
+    public NestedReferrerListGateway<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> setupper) {
         xassLRArg(serviceRankList, setupper);
         return doLoadMemberServiceList(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
     }
@@ -515,7 +585,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<MemberService> loadMemberServiceList(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> setupper) {
+    public NestedReferrerListGateway<MemberService> loadMemberServiceList(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> setupper) {
         xassLRArg(serviceRank, setupper);
         return doLoadMemberServiceList(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
     }
@@ -526,7 +596,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<MemberService> loadMemberServiceList(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberService> loadMemberServiceList(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRank, loadReferrerOption);
         return loadMemberServiceList(xnewLRLs(serviceRank), loadReferrerOption);
     }
@@ -538,13 +608,13 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRankList, loadReferrerOption);
-        if (serviceRankList.isEmpty()) { return (NestedReferrerLoader<MemberService>)EMPTY_LOADER; }
+        if (serviceRankList.isEmpty()) { return (NestedReferrerListGateway<MemberService>)EMPTY_NREF_LGWAY; }
         return doLoadMemberServiceList(serviceRankList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
+    protected NestedReferrerListGateway<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
         final MemberServiceBhv referrerBhv = xgetBSFLR().select(MemberServiceBhv.class);
         return helpLoadReferrerInternally(serviceRankList, option, new InternalLoadReferrerCallback<ServiceRank, String, MemberServiceCB, MemberService>() {
             public String getPKVal(ServiceRank et)

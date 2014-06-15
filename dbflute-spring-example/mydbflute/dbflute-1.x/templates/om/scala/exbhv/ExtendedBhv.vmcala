@@ -13,11 +13,10 @@
 ## either express or implied. See the License for the specific language
 ## governing permissions and limitations under the License.
 ##
-${database.allClassCopyright}package ${glPackageExtendedBhv};
+${database.allClassCopyright}package ${myExtendedBhvPackageName};
 #set ($myClassName = "${myExtendedBhvClassName}")
 
-import ${glPackageBaseBhv}.${myBaseBhvClassName};
-import ${glPackageBaseBhv}.${myBaseReferrerLoaderClassName};
+import ${myBaseBhvPackageName}.${myBaseBhvClassName};
 
 /**
  * The behavior of ${table.tableDbName}.
@@ -28,15 +27,4 @@ import ${glPackageBaseBhv}.${myBaseReferrerLoaderClassName};
  * @author ${database.classAuthor}
  */
 class $myClassName extends ${myBaseBhvClassName} {
-}
-
-/**
- * The referrer loader of ${table.tableDbName}.
- * <p>
- * You can implement your original methods here.
- * This class remains when re-generating.
- * </p>
- * @author jflute
- */
-class ${myExtendedReferrerLoaderClassName} extends ${myBaseReferrerLoaderClassName} {
 }

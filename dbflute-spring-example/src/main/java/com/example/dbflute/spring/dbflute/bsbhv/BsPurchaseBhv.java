@@ -20,11 +20,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
+import com.example.dbflute.spring.dbflute.bsbhv.loader.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
@@ -258,8 +261,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
 
     protected PurchaseCB xprepareCBAsPK(Long purchaseId) {
         assertObjectNotNull("purchaseId", purchaseId);
-        PurchaseCB cb = newConditionBean(); cb.acceptPrimaryKey(purchaseId);
-        return cb;
+        return newConditionBean().acceptPK(purchaseId);
     }
 
     /**
@@ -286,8 +288,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
 
     protected PurchaseCB xprepareCBAsUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
-        PurchaseCB cb = newConditionBean(); cb.acceptUniqueOf(memberId, productId, purchaseDatetime);
-        return cb;
+        return newConditionBean().acceptUniqueOf(memberId, productId, purchaseDatetime);
     }
 
     // ===================================================================================
@@ -426,25 +427,22 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<PurchaseCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<PurchaseCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT> SLFunction<PurchaseCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+    protected <RESULT> HpSLSFunction<PurchaseCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
     }
 
-    protected <RESULT, CB extends PurchaseCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT, CB extends PurchaseCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends PurchaseCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
         return facadeScalarSelect(tp);
     }
 
@@ -460,6 +458,78 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param purchaseList The entity list of purchase. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<Purchase> purchaseList, ReferrerLoaderHandler<LoaderOfPurchase> handler) {
+        xassLRArg(purchaseList, handler);
+        handler.handle(new LoaderOfPurchase().ready(purchaseList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param purchase The entity of purchase. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(Purchase purchase, ReferrerLoaderHandler<LoaderOfPurchase> handler) {
+        xassLRArg(purchase, handler);
+        handler.handle(new LoaderOfPurchase().ready(xnewLRAryLs(purchase), _behaviorSelector));
+    }
+
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
@@ -488,7 +558,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, ConditionBeanSetupper<PurchasePaymentCB> setupper) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, ConditionBeanSetupper<PurchasePaymentCB> setupper) {
         xassLRArg(purchaseList, setupper);
         return doLoadPurchasePaymentList(purchaseList, new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(setupper));
     }
@@ -519,7 +589,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(Purchase purchase, ConditionBeanSetupper<PurchasePaymentCB> setupper) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(Purchase purchase, ConditionBeanSetupper<PurchasePaymentCB> setupper) {
         xassLRArg(purchase, setupper);
         return doLoadPurchasePaymentList(xnewLRLs(purchase), new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(setupper));
     }
@@ -530,7 +600,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(Purchase purchase, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(Purchase purchase, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
         xassLRArg(purchase, loadReferrerOption);
         return loadPurchasePaymentList(xnewLRLs(purchase), loadReferrerOption);
     }
@@ -542,13 +612,13 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
         xassLRArg(purchaseList, loadReferrerOption);
-        if (purchaseList.isEmpty()) { return (NestedReferrerLoader<PurchasePayment>)EMPTY_LOADER; }
+        if (purchaseList.isEmpty()) { return (NestedReferrerListGateway<PurchasePayment>)EMPTY_NREF_LGWAY; }
         return doLoadPurchasePaymentList(purchaseList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<PurchasePayment> doLoadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
+    protected NestedReferrerListGateway<PurchasePayment> doLoadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
         final PurchasePaymentBhv referrerBhv = xgetBSFLR().select(PurchasePaymentBhv.class);
         return helpLoadReferrerInternally(purchaseList, option, new InternalLoadReferrerCallback<Purchase, Long, PurchasePaymentCB, PurchasePayment>() {
             public Long getPKVal(Purchase et)

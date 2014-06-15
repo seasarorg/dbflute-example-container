@@ -95,6 +95,18 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param productId : PK, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public SummaryProductCB acceptPK(Integer productId) {
+        assertObjectNotNull("productId", productId);
+        BsSummaryProductCB cb = this;
+        cb.query().setProductId_Equal(productId);
+        return (SummaryProductCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param productId : PK, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer productId) {
         assertObjectNotNull("productId", productId);

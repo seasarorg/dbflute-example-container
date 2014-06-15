@@ -160,7 +160,7 @@ public class SubDirectoryCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public SubDirectoryCheck newEntity() { return new SubDirectoryCheck(); }
     public SubDirectoryCheck newMyEntity() { return new SubDirectoryCheck(); }
 
     // ===================================================================================

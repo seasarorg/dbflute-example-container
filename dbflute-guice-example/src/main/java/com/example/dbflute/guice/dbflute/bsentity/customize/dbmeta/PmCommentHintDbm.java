@@ -133,8 +133,7 @@ public class PmCommentHintDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public PmCommentHint newMyEntity() { return new PmCommentHint(); }
+    public PmCommentHint newEntity() { return new PmCommentHint(); }
 
     // ===================================================================================
     //                                                                   Map Communication

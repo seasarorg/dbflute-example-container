@@ -225,8 +225,7 @@ public class OptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public OptionMember newMyEntity() { return new OptionMember(); }
+    public OptionMember newEntity() { return new OptionMember(); }
 
     // ===================================================================================
     //                                                                   Map Communication

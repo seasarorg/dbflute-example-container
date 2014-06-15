@@ -20,11 +20,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
+import com.example.dbflute.spring.dbflute.bsbhv.loader.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
@@ -256,8 +259,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     protected ProductCategoryCB xprepareCBAsPK(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
-        ProductCategoryCB cb = newConditionBean(); cb.acceptPrimaryKey(productCategoryCode);
-        return cb;
+        return newConditionBean().acceptPK(productCategoryCode);
     }
 
     // ===================================================================================
@@ -396,25 +398,22 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<ProductCategoryCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT> SLFunction<ProductCategoryCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+    protected <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
     }
 
-    protected <RESULT, CB extends ProductCategoryCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT, CB extends ProductCategoryCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends ProductCategoryCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
         return facadeScalarSelect(tp);
     }
 
@@ -430,6 +429,78 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param productCategoryList The entity list of productCategory. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<ProductCategory> productCategoryList, ReferrerLoaderHandler<LoaderOfProductCategory> handler) {
+        xassLRArg(productCategoryList, handler);
+        handler.handle(new LoaderOfProductCategory().ready(productCategoryList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param productCategory The entity of productCategory. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(ProductCategory productCategory, ReferrerLoaderHandler<LoaderOfProductCategory> handler) {
+        xassLRArg(productCategory, handler);
+        handler.handle(new LoaderOfProductCategory().ready(xnewLRAryLs(productCategory), _behaviorSelector));
+    }
+
     /**
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
@@ -458,7 +529,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCB> setupper) {
+    public NestedReferrerListGateway<Product> loadProductList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCB> setupper) {
         xassLRArg(productCategoryList, setupper);
         return doLoadProductList(productCategoryList, new LoadReferrerOption<ProductCB, Product>().xinit(setupper));
     }
@@ -489,7 +560,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(ProductCategory productCategory, ConditionBeanSetupper<ProductCB> setupper) {
+    public NestedReferrerListGateway<Product> loadProductList(ProductCategory productCategory, ConditionBeanSetupper<ProductCB> setupper) {
         xassLRArg(productCategory, setupper);
         return doLoadProductList(xnewLRLs(productCategory), new LoadReferrerOption<ProductCB, Product>().xinit(setupper));
     }
@@ -500,7 +571,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(ProductCategory productCategory, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProductList(ProductCategory productCategory, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productCategory, loadReferrerOption);
         return loadProductList(xnewLRLs(productCategory), loadReferrerOption);
     }
@@ -512,13 +583,13 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<Product> loadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerLoader<Product>)EMPTY_LOADER; }
+        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<Product>)EMPTY_NREF_LGWAY; }
         return doLoadProductList(productCategoryList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<Product> doLoadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> option) {
+    protected NestedReferrerListGateway<Product> doLoadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> option) {
         final ProductBhv referrerBhv = xgetBSFLR().select(ProductBhv.class);
         return helpLoadReferrerInternally(productCategoryList, option, new InternalLoadReferrerCallback<ProductCategory, String, ProductCB, Product>() {
             public String getPKVal(ProductCategory et)
@@ -566,7 +637,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCategoryCB> setupper) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCategoryCB> setupper) {
         xassLRArg(productCategoryList, setupper);
         return doLoadProductCategorySelfList(productCategoryList, new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(setupper));
     }
@@ -597,7 +668,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, ConditionBeanSetupper<ProductCategoryCB> setupper) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, ConditionBeanSetupper<ProductCategoryCB> setupper) {
         xassLRArg(productCategory, setupper);
         return doLoadProductCategorySelfList(xnewLRLs(productCategory), new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(setupper));
     }
@@ -608,7 +679,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
         xassLRArg(productCategory, loadReferrerOption);
         return loadProductCategorySelfList(xnewLRLs(productCategory), loadReferrerOption);
     }
@@ -620,13 +691,13 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
         xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerLoader<ProductCategory>)EMPTY_LOADER; }
+        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<ProductCategory>)EMPTY_NREF_LGWAY; }
         return doLoadProductCategorySelfList(productCategoryList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<ProductCategory> doLoadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> option) {
+    protected NestedReferrerListGateway<ProductCategory> doLoadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> option) {
         final ProductCategoryBhv referrerBhv = xgetBSFLR().select(ProductCategoryBhv.class);
         return helpLoadReferrerInternally(productCategoryList, option, new InternalLoadReferrerCallback<ProductCategory, String, ProductCategoryCB, ProductCategory>() {
             public String getPKVal(ProductCategory et)

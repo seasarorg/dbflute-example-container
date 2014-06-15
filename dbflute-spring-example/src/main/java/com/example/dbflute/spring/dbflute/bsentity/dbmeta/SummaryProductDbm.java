@@ -212,7 +212,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public SummaryProduct newEntity() { return new SummaryProduct(); }
     public SummaryProduct newMyEntity() { return new SummaryProduct(); }
 
     // ===================================================================================

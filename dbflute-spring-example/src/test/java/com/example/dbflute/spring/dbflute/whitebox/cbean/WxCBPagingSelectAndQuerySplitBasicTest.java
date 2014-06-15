@@ -12,6 +12,7 @@ import org.seasar.dbflute.jdbc.SqlLogHandler;
 import org.seasar.dbflute.jdbc.SqlLogInfo;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
+import com.example.dbflute.spring.dbflute.cbean.MemberLoginCB;
 import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
@@ -335,11 +336,21 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberServiceAsOne().withServiceRank();
+        cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+            public void query(MemberLoginCB subCB) {
+                subCB.specify().columnMemberLoginId();
+            }
+        }, Member.ALIAS_loginCount);
         cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchasePrice();
             }
         }, Member.ALIAS_highestPurchasePrice);
+        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            public void query(MemberLoginCB subCB) {
+                subCB.specify().columnLoginDatetime();
+            }
+        }, Member.ALIAS_latestLoginDatetime);
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
                 orCB.query().setMemberStatusCode_Equal_Formalized();
@@ -380,9 +391,14 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             assertMarked("exists");
             assertMarked("fml");
             assertMarked("S");
-            assertEquals(2, infoList.size());
+            assertEquals(3, infoList.size());
             assertContains(infoList.get(0).getDisplaySql(), "count(*)");
+            assertNotContains(infoList.get(1).getDisplaySql(), "as LOGIN_COUNT");
             assertContains(infoList.get(1).getDisplaySql(), "as HIGHEST_PURCHASE_PRICE");
+            assertNotContains(infoList.get(1).getDisplaySql(), "as LATEST_LOGIN_DATETIME");
+            assertContains(infoList.get(2).getDisplaySql(), "as LOGIN_COUNT");
+            assertContains(infoList.get(2).getDisplaySql(), "as HIGHEST_PURCHASE_PRICE");
+            assertContains(infoList.get(2).getDisplaySql(), "as LATEST_LOGIN_DATETIME");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }

@@ -120,8 +120,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
-    public VendorIdentityOnly newMyEntity() { return new VendorIdentityOnly(); }
+    public VendorIdentityOnly newEntity() { return new VendorIdentityOnly(); }
 
     // ===================================================================================
     //                                                                   Map Communication

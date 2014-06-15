@@ -223,13 +223,13 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     @SuppressWarnings("unchecked")
-    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) {
+    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { // might be called by option handling
         Object obj = DfCollectionUtil.newArrayList(elements);
         return (ArrayList<ELEMENT>)obj; // to avoid the warning between JDK6 and JDK7
     }
 
     @SuppressWarnings("unchecked")
-    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) {
+    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { // might be called by option handling
         return (NUMBER)DfTypeUtil.toNumber(obj, type);
     }
 
@@ -282,35 +282,35 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
         sb.append(xbuildColumnString());
         return sb.toString();
     }
-    private String xbuildColumnString() {
-        final String c = ", ";
+    protected String xbuildColumnString() {
+        final String dm = ", ";
         final StringBuilder sb = new StringBuilder();
-        sb.append(c).append(_normalInteger);
-        sb.append(c).append(_noTestValue);
-        sb.append(c).append(_prefixSearchOption);
-        sb.append(c).append(_suffixSearchOption);
-        sb.append(c).append(_containSearchOption);
-        sb.append(c).append(_normalLikeSearchOption);
-        sb.append(c).append(_normalCls);
-        sb.append(c).append(formatUtilDate(_normalDate));
-        sb.append(c).append(formatUtilDate(_fromDateOption));
-        sb.append(c).append(formatUtilDate(_toDateOption));
-        sb.append(c).append(formatUtilDate(_duplicateFromDate));
-        sb.append(c).append(_integerList);
-        sb.append(c).append(_cdefList);
-        sb.append(c).append(_memberStatusCodeList);
-        sb.append(c).append(_forCommentBasic);
-        sb.append(c).append(_nestedForList);
-        sb.append(c).append(_bindInIfCommentForList);
-        sb.append(c).append(_ifCommentOnly);
-        sb.append(c).append(_ifCommentAndFirst);
-        sb.append(c).append(_ifCommentAndSecond);
-        sb.append(c).append(_ifCommentAndThird);
-        sb.append(c).append(_ifCommentBooleanNotFormal);
-        sb.append(c).append(_ifCommentBooleanNotWrongSyntax);
-        sb.append(c).append(_overriddenFromDate);
-        sb.append(c).append(_definedBoolean);
-        if (sb.length() > 0) { sb.delete(0, c.length()); }
+        sb.append(dm).append(_normalInteger);
+        sb.append(dm).append(_noTestValue);
+        sb.append(dm).append(_prefixSearchOption);
+        sb.append(dm).append(_suffixSearchOption);
+        sb.append(dm).append(_containSearchOption);
+        sb.append(dm).append(_normalLikeSearchOption);
+        sb.append(dm).append(_normalCls);
+        sb.append(dm).append(formatUtilDate(_normalDate));
+        sb.append(dm).append(formatUtilDate(_fromDateOption));
+        sb.append(dm).append(formatUtilDate(_toDateOption));
+        sb.append(dm).append(formatUtilDate(_duplicateFromDate));
+        sb.append(dm).append(_integerList);
+        sb.append(dm).append(_cdefList);
+        sb.append(dm).append(_memberStatusCodeList);
+        sb.append(dm).append(_forCommentBasic);
+        sb.append(dm).append(_nestedForList);
+        sb.append(dm).append(_bindInIfCommentForList);
+        sb.append(dm).append(_ifCommentOnly);
+        sb.append(dm).append(_ifCommentAndFirst);
+        sb.append(dm).append(_ifCommentAndSecond);
+        sb.append(dm).append(_ifCommentAndThird);
+        sb.append(dm).append(_ifCommentBooleanNotFormal);
+        sb.append(dm).append(_ifCommentBooleanNotWrongSyntax);
+        sb.append(dm).append(_overriddenFromDate);
+        sb.append(dm).append(_definedBoolean);
+        if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
@@ -761,5 +761,4 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     public void setDefinedBoolean(boolean definedBoolean) {
         _definedBoolean = definedBoolean;
     }
-
 }

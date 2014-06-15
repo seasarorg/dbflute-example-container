@@ -172,7 +172,7 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public SimpleMember newEntity() { return new SimpleMember(); }
     public SimpleMember newMyEntity() { return new SimpleMember(); }
 
     // ===================================================================================

@@ -201,7 +201,7 @@ public class PrimaryKeyCommentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public PrimaryKeyComment newEntity() { return new PrimaryKeyComment(); }
     public PrimaryKeyComment newMyEntity() { return new PrimaryKeyComment(); }
 
     // ===================================================================================

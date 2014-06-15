@@ -80,11 +80,13 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
     /**
      * Accept the query condition of primary key as equal.
      * @param theLongAndWindingTableAndColumnRefId : PK, NotNull, BIGINT(19). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnRefId) {
+    public VendorTheLongAndWindingTableAndColumnRefCB acceptPK(Long theLongAndWindingTableAndColumnRefId) {
         assertObjectNotNull("theLongAndWindingTableAndColumnRefId", theLongAndWindingTableAndColumnRefId);
         BsVendorTheLongAndWindingTableAndColumnRefCB cb = this;
         cb.query().setTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);
+        return (VendorTheLongAndWindingTableAndColumnRefCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
