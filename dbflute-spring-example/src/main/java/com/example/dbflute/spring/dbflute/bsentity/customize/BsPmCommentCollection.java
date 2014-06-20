@@ -315,7 +315,7 @@ public abstract class BsPmCommentCollection implements Entity, Serializable, Clo
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -336,6 +336,6 @@ public abstract class BsPmCommentCollection implements Entity, Serializable, Clo
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 }

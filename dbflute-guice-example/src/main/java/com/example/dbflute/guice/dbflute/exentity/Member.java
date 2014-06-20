@@ -2,7 +2,6 @@ package com.example.dbflute.guice.dbflute.exentity;
 
 import java.util.Date;
 
-
 /**
  * The entity of MEMBER.
  * @author DBFlute(AutoGenerator)
@@ -18,13 +17,13 @@ public class Member extends com.example.dbflute.guice.dbflute.bsentity.BsMember 
     public static final String PROP_latestLoginDatetime = "latestLoginDatetime";
     public static final String PROP_loginCount = "loginCount";
     public static final String PROP_productKindCount = "productKindCount";
-    
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     /** 導出カラム「最終ログイン日時」のためのプロパティ。これは手動で作成する。 */
     protected Date _latestLoginDatetime;
-    
+
     /** 導出カラム「ログイン回数」のためのプロパティ。これは手動で作成する。 */
     protected Integer _loginCount;
 

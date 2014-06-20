@@ -162,7 +162,7 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public Region newEntity() { return new Region(); }
     public Region newMyEntity() { return new Region(); }
 
     // ===================================================================================

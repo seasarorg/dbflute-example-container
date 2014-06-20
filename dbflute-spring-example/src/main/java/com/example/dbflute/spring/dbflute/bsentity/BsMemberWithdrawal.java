@@ -547,7 +547,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -568,7 +568,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
         __modifiedProperties.addPropertyName("withdrawalReasonCode");
-        this._withdrawalReasonCode = withdrawalReasonCode;
+        _withdrawalReasonCode = withdrawalReasonCode;
     }
 
     /**
@@ -589,7 +589,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
         __modifiedProperties.addPropertyName("withdrawalReasonInputText");
-        this._withdrawalReasonInputText = withdrawalReasonInputText;
+        _withdrawalReasonInputText = withdrawalReasonInputText;
     }
 
     /**
@@ -610,7 +610,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
         __modifiedProperties.addPropertyName("withdrawalDatetime");
-        this._withdrawalDatetime = withdrawalDatetime;
+        _withdrawalDatetime = withdrawalDatetime;
     }
 
     /**
@@ -627,7 +627,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -644,7 +644,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -661,7 +661,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -678,7 +678,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -695,6 +695,6 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

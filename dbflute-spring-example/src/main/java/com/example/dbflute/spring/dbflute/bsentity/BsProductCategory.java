@@ -401,7 +401,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setProductCategoryCode(String productCategoryCode) {
         __modifiedProperties.addPropertyName("productCategoryCode");
-        this._productCategoryCode = productCategoryCode;
+        _productCategoryCode = productCategoryCode;
     }
 
     /**
@@ -418,7 +418,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setProductCategoryName(String productCategoryName) {
         __modifiedProperties.addPropertyName("productCategoryName");
-        this._productCategoryName = productCategoryName;
+        _productCategoryName = productCategoryName;
     }
 
     /**
@@ -437,6 +437,6 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setParentCategoryCode(String parentCategoryCode) {
         __modifiedProperties.addPropertyName("parentCategoryCode");
-        this._parentCategoryCode = parentCategoryCode;
+        _parentCategoryCode = parentCategoryCode;
     }
 }

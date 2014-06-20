@@ -46,6 +46,9 @@ map:{
     # the test of java8
     ; isCompatibleBeforeJava8 = false
 
+    # the test of derived-mappable
+    ; isEntityDerivedMappable = true
+
     # these are compatible option
     #; isCompatibleSelectByPKOldStyle = true
     #; isCompatibleSelectByPKWithDeletedCheck = true

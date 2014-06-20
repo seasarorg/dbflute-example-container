@@ -14,10 +14,14 @@
 ## governing permissions and limitations under the License.
 ##
 ${database.allClassCopyright}package ${glPackageBaseCQ};
-
 #set ($myClassName = "${myAbstractBaseConditionQueryClassName}")
-import java.lang.Long;
-import java.util._;
+
+import scala.collection.immutable._;
+import scala.collection.JavaConverters._;
+
+import java.util.Collection;
+import java.util.Date;
+import java.sql.Timestamp;
 
 import org.seasar.dbflute.cbean._;
 import org.seasar.dbflute.cbean.AbstractConditionQuery._;
@@ -238,8 +242,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
-        doSet${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List);
+    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: List[${col.immutableJavaNative}]): Unit = {
+        doSet${tmpJavaName}_InScope(toMutableValueCollectionImplicitly(${tmpUncapitalisedJavaName}List));
     }
 #if ($col.hasClassification())
 #set ($classificationTop = $database.getClassificationTop($col.classificationName))
@@ -252,8 +256,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
 #end
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_InScope_As${col.classificationName}(cdefList: Collection[${glCDef}.${col.classificationName}]): Unit = {
-        doSet${tmpJavaName}_InScope(cTStrL(cdefList));
+    def set${tmpJavaName}_InScope_As${col.classificationName}(cdefList: List[${glCDef}.${col.classificationName}]): Unit = {
+        doSet${tmpJavaName}_InScope(cTStrL(cdefList.asJava));
     }
 #foreach ($group in $classificationTop.groupList)
 
@@ -284,8 +288,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
-        doSet${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List);
+    def set${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List: List[${col.immutableJavaNative}]): Unit = {
+        doSet${tmpJavaName}_NotInScope(if (${tmpUncapitalisedJavaName}List != null) { ${tmpUncapitalisedJavaName}List.map(_.asInstanceOf[${col.javaNative}]).asJava } else { null });
     }
 #if ($col.hasClassification())
 #set ($classificationTop = $database.getClassificationTop($col.classificationName))
@@ -298,8 +302,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
 #end
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_NotInScope_As${col.classificationName}(cdefList: Collection[${glCDef}.${col.classificationName}]): Unit = {
-        doSet${tmpJavaName}_NotInScope(cTStrL(cdefList));
+    def set${tmpJavaName}_NotInScope_As${col.classificationName}(cdefList: List[${glCDef}.${col.classificationName}]): Unit = {
+        doSet${tmpJavaName}_NotInScope(cTStrL(cdefList.asJava));
     }
 #end
 
@@ -315,7 +319,7 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * @param ${tmpUncapitalisedJavaName} The value of ${col.uncapitalisedJavaName} as prefixSearch. (NullAllowed: if null (or empty), no condition)
      */
     def set${tmpJavaName}_PrefixSearch(${tmpUncapitalisedJavaName}: ${col.javaNative}): Unit = {
-        set${tmpJavaName}_LikeSearch(${tmpUncapitalisedJavaName}, cLSOP());
+        set${tmpJavaName}_LikeSearch(${tmpUncapitalisedJavaName})(_.likePrefix);
     }
 #end
 #if (${col.isAvailableStringLikeSearch()})
@@ -325,10 +329,10 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}} <br />
      * <pre>e.g. set${tmpJavaName}_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param ${tmpUncapitalisedJavaName} The value of ${col.uncapitalisedJavaName} as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
+     * @param optionCall The callback for option of like-search. (NotNull)
      */
-    def set${tmpJavaName}_LikeSearch(${tmpUncapitalisedJavaName}: ${col.javaNative}, likeSearchOption: LikeSearchOption): Unit = {
-        regLSQ(CK_LS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
+    def set${tmpJavaName}_LikeSearch(${tmpUncapitalisedJavaName}: ${col.javaNative})(optionCall: (ScrLikeSearchOption) => Unit): Unit = {
+        regLSQ(CK_LS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", callbackLSOP(optionCall));
     }
 #end
 #if (${col.isAvailableStringNotLikeSearch()})
@@ -338,10 +342,10 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * And NullOrEmptyIgnored, SeveralRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName} The value of ${col.uncapitalisedJavaName} as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
+     * @param optionCall The callback for option of not-like-search. (NotNull)
      */
-    def set${tmpJavaName}_NotLikeSearch(${tmpUncapitalisedJavaName}: ${col.javaNative}, likeSearchOption: LikeSearchOption): Unit = {
-        regLSQ(CK_NLS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
+    def set${tmpJavaName}_NotLikeSearch(${tmpUncapitalisedJavaName}: ${col.javaNative})(optionCall: (ScrLikeSearchOption) => Unit): Unit = {
+        regLSQ(CK_NLS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", callbackLSOP(optionCall));
     }
 #end
 #foreach ($referrer in $col.existsReferrerReferrers)
@@ -555,8 +559,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    def derived${referrer.referrerPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
-        return xcreateQDRFunction${referrer.referrerPropertyNameInitCap}();
+    def derived${referrer.referrerPropertyNameInitCap}(): ScrHpQDRFunction[${relatedCBClassName}] = {
+        return toScalaQDRFunction(xcreateQDRFunction${referrer.referrerPropertyNameInitCap}());
     }
     protected def xcreateQDRFunction${referrer.referrerPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
         return new HpQDRFunction[${relatedCBClassName}](new HpQDRSetupper[${relatedCBClassName}]() {
@@ -729,10 +733,10 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param minNumber The min number of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
+     * @param optionCall The callback for option of range-of. (NotNull)
      */
-    def set${tmpJavaName}_RangeOf(minNumber: ${col.javaNative}, maxNumber: ${col.javaNative}, rangeOfOption: RangeOfOption): Unit = {
-        regROO(minNumber, maxNumber, getCValue${tmpJavaName}(), "${col.name}", rangeOfOption);
+    def set${tmpJavaName}_RangeOf(minNumber: ${col.javaNative}, maxNumber: ${col.javaNative})(optionCall: (RangeOfOption) => Unit): Unit = {
+        regROO(minNumber, maxNumber, getCValue${tmpJavaName}(), "${col.name}", callbackROOP(optionCall));
     }
 #end
 #if (${col.isAvailableNumberInScope()})
@@ -742,8 +746,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
-        doSet${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List);
+    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: List[${col.immutableJavaNative}]): Unit = {
+        doSet${tmpJavaName}_InScope(toMutableValueCollectionImplicitly(${tmpUncapitalisedJavaName}List));
     }
 #if ($col.hasClassification())
 #set ($classificationTop = $database.getClassificationTop($col.classificationName))
@@ -756,8 +760,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
 #end
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_InScope_As${col.classificationName}(cdefList: Collection[${glCDef}.${col.classificationName}]): Unit = {
-        doSet${tmpJavaName}_InScope(cTNumL(cdefList, classOf[${col.javaNative}]));
+    def set${tmpJavaName}_InScope_As${col.classificationName}(cdefList: List[${glCDef}.${col.classificationName}]): Unit = {
+        doSet${tmpJavaName}_InScope(cTNumL(cdefList.asJava, classOf[${col.javaNative}]));
     }
 #foreach ($group in $classificationTop.groupList)
 
@@ -788,8 +792,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
-        doSet${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List);
+    def set${tmpJavaName}_NotInScope(${tmpUncapitalisedJavaName}List: List[${col.javaNative}]): Unit = {
+        doSet${tmpJavaName}_NotInScope(if (${tmpUncapitalisedJavaName}List != null) { ${tmpUncapitalisedJavaName}List.map(_.asInstanceOf[${col.javaNative}]).asJava } else { null });
     }
 #if ($col.hasClassification())
 #set ($classificationTop = $database.getClassificationTop($col.classificationName))
@@ -802,8 +806,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
 #end
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_NotInScope_As${col.classificationName}(cdefList: Collection[${glCDef}.${col.classificationName}]): Unit = {
-        doSet${tmpJavaName}_NotInScope(cTNumL(cdefList, classOf[${col.javaNative}]));
+    def set${tmpJavaName}_NotInScope_As${col.classificationName}(cdefList: List[${glCDef}.${col.classificationName}]): Unit = {
+        doSet${tmpJavaName}_NotInScope(cTNumL(cdefList.asJava, classOf[${col.javaNative}]));
     }
 #end
 
@@ -1022,8 +1026,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    def derived${referrer.referrerPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
-        return xcreateQDRFunction${referrer.referrerPropertyNameInitCap}();
+    def derived${referrer.referrerPropertyNameInitCap}(): ScrHpQDRFunction[${relatedCBClassName}] = {
+        return toScalaQDRFunction(xcreateQDRFunction${referrer.referrerPropertyNameInitCap}());
     }
     protected def xcreateQDRFunction${referrer.referrerPropertyNameInitCap}(): HpQDRFunction[${relatedCBClassName}] = {
         return new HpQDRFunction[${relatedCBClassName}](new HpQDRSetupper[${relatedCBClassName}]() {
@@ -1120,11 +1124,11 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    def set${tmpJavaName}_FromTo(fromDatetime: Date, toDatetime: Date, fromToOption: FromToOption): Unit = {
+    def set${tmpJavaName}_FromTo(fromDatetime: Date, toDatetime: Date)(optionCall: (ScrFromToOption) => Unit): Unit = {
 #if ($col.isJavaNativeUtilDate())
-        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValue${tmpJavaName}(), "${col.name}", callbackFTOP(optionCall));
 #else
-        regFTQ(if (fromDatetime != null) { new ${col.javaNative}(fromDatetime.getTime()) } else { null }, if (toDatetime != null) { new ${col.javaNative}(toDatetime.getTime()) } else { null }, getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+        regFTQ(if (fromDatetime != null) { new ${col.javaNative}(fromDatetime.getTime()) } else { null }, if (toDatetime != null) { new ${col.javaNative}(toDatetime.getTime()) } else { null }, getCValue${tmpJavaName}(), "${col.name}", callbackFTOP(optionCall));
 #end
     }
 #end
@@ -1142,7 +1146,7 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * @param toDate The to-date(yyyy/MM/dd) of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no to-condition)
      */
     def set${tmpJavaName}_DateFromTo(fromDate: Date, toDate: Date): Unit = {
-        set${tmpJavaName}_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
+        set${tmpJavaName}_FromTo(fromDate, toDate)(_.compareAsDate);
     }
 #end
 #if (${col.isAvailableDateInScope()})
@@ -1152,8 +1156,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
-        doSet${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List);
+    def set${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: List[${col.immutableJavaNative}]): Unit = {
+        doSet${tmpJavaName}_InScope(toMutableValueCollectionImplicitly(${tmpUncapitalisedJavaName}List));
     }
 
     protected def doSet${tmpJavaName}_InScope(${tmpUncapitalisedJavaName}List: Collection[${col.javaNative}]): Unit = {
@@ -1247,7 +1251,7 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
     def set${tmpJavaName}_IsNotNull(): Unit = { reg${tmpJavaName}(CK_ISNN, AbstractConditionQuery.DOBJ); }
 #end
 
-    protected def reg${tmpJavaName}(ky: ConditionKey, vl: Object): Unit = { regQ(ky, vl, getCValue${tmpJavaName}(), "${col.name}"); }
+    protected def reg${tmpJavaName}(ky: ConditionKey, vl: Any): Unit = { regQ(ky, vl, getCValue${tmpJavaName}(), "${col.name}"); }
     protected def getCValue${tmpJavaName}(): ConditionValue;
 #end
 #if ($table.isAvailableMyselfScalarCondition())
@@ -1268,8 +1272,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_Equal(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_EQ.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_Equal(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_EQ, classOf[${myConditionBeanClassName}]));
     }
 
     /**
@@ -1285,8 +1289,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_NotEqual(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_NES.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_NotEqual(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_NES, classOf[${myConditionBeanClassName}]));
     }
 
     /**
@@ -1302,8 +1306,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_GreaterThan(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_GT.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_GreaterThan(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_GT, classOf[${myConditionBeanClassName}]));
     }
 
     /**
@@ -1319,8 +1323,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_LessThan(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_LT.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_LessThan(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_LT, classOf[${myConditionBeanClassName}]));
     }
 
     /**
@@ -1336,8 +1340,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_GreaterEqual(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_GE.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_GreaterEqual(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_GE, classOf[${myConditionBeanClassName}]));
     }
 
     /**
@@ -1353,9 +1357,12 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    def scalar_LessEqual(): HpSSQFunction[${myConditionBeanClassName}] = {
-        return xcreateSSQFunction(CK_LE.getOperand(), classOf[${myConditionBeanClassName}]);
+    def scalar_LessEqual(): ScrHpSSQFunction[${myConditionBeanClassName}] = {
+        return toScalaSSQFunction(xcreateSSQFunction(CK_LE, classOf[${myConditionBeanClassName}]));
     }
+
+    protected def toScalaSSQFunction(function: HpSSQFunction[${myConditionBeanClassName}]): ScrHpSSQFunction[${myConditionBeanClassName}] =
+    { new ScrHpSSQFunction(function) }
 
     override protected def xscalarCondition[CB <: ConditionBean](fn: String, sq: SubQuery[CB], rd: String, op: HpSSQOption[CB]): Unit = {
         assertObjectNotNull("subQuery", sq);
@@ -1394,8 +1401,8 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
-    def myselfDerived(): HpQDRFunction[${myConditionBeanClassName}] = {
-        return xcreateQDRFunctionMyselfDerived(classOf[${myConditionBeanClassName}]);
+    def myselfDerived(): ScrHpQDRFunction[${myConditionBeanClassName}] = {
+        return toScalaQDRFunction(xcreateQDRFunctionMyselfDerived(classOf[${myConditionBeanClassName}]));
     }
     override protected def xqderiveMyselfDerived[CB <: ConditionBean](fn: String, sq: SubQuery[CB], rd: String, vl: Object, op: DerivedReferrerOption): Unit = {
         assertObjectNotNull("subQuery", sq);
@@ -1553,22 +1560,29 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
     }
 #end
 #end
-#if ($table.isMakeConditionQueryPlainListManualOrder())
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                            Order By
+    //                                                                            ========
     /**
-     * Order along the list of manual values. #beforejava8 <br />
-     * This function with Union is unsupported! <br />
-     * The order values are bound (treated as bind parameter).
+     * Order along manual ordering information.
      * <pre>
      * MemberCB cb = new MemberCB();
-     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
-     * orderValueList.add(CDef.MemberStatus.Withdrawal);
-     * orderValueList.add(CDef.MemberStatus.Formalized);
-     * orderValueList.add(CDef.MemberStatus.Provisional);
-     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * ManualOrderBean mob = new ManualOrderBean();
+     * mob.<span style="color: #DD4747">when_GreaterEqual</span>(priorityDate); <span style="color: #3F7E5E">// e.g. 2000/01/01</span>
+     * cb.query().addOrderBy_Birthdate_Asc().<span style="color: #DD4747">withManualOrder(mob)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when BIRTHDATE &gt;= '2000/01/01' then 0</span>
+     * <span style="color: #3F7E5E">//     else 1</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     *
+     * MemberCB cb = new MemberCB();
+     * ManualOrderBean mob = new ManualOrderBean();
+     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Withdrawal);
+     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Formalized);
+     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(mob)</span>;
      * <span style="color: #3F7E5E">// order by </span>
      * <span style="color: #3F7E5E">//   case</span>
      * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
@@ -1577,15 +1591,42 @@ abstract class ${myClassName}(referrerQuery: ConditionQuery, sqlClause: SqlClaus
      * <span style="color: #3F7E5E">//     else 3</span>
      * <span style="color: #3F7E5E">//   end asc, ...</span>
      * </pre>
-     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     * <p>This function with Union is unsupported!</p>
+     * <p>The order values are bound (treated as bind parameter).</p>
+     * @param mob The bean of manual order containing order values. (NotNull)
      */
-    def withManualOrder(orderValueList: List[_ <: Object]): Unit = { // is user public!
-        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
-        val manualOrderBean: ManualOrderBean = new ManualOrderBean();
-        manualOrderBean.acceptOrderValueList(orderValueList);
-        withManualOrder(manualOrderBean);
+    def withManualOrder(mobCall: (ScrManualOrderBean) => Unit): Unit = { // is user public!
+        assertObjectNotNull("withManualOrder(mobCall)", mobCall);
+        xdoWithManualOrder(callbackMOB(mobCall));
     }
-#end
+
+    // ===================================================================================
+    //                                                                       Create Option
+    //                                                                       =============
+    protected def callbackLSOP(optionCall: (ScrLikeSearchOption) => Unit): LikeSearchOption =
+    { val op = createLikeSearchOption(); optionCall(op); return op; }
+    protected def createLikeSearchOption(): ScrLikeSearchOption = { new ScrLikeSearchOption() }
+
+    protected def callbackFTOP(optionCall: (ScrFromToOption) => Unit): FromToOption =
+    { val op = createFromToOption(); optionCall(op); return op; }
+    protected def createFromToOption(): ScrFromToOption = { new ScrFromToOption() }
+
+    protected def callbackROOP(optionCall: (ScrRangeOfOption) => Unit): RangeOfOption =
+    { val op = createRangeOfOption(); optionCall(op); return op; }
+    protected def createRangeOfOption(): ScrRangeOfOption = { new ScrRangeOfOption() }
+
+    protected def callbackMOB(mobCall: (ScrManualOrderBean) => Unit): ManualOrderBean =
+    { val mob = createManualOrderBean(); mobCall(mob); return mob; }
+    protected def createManualOrderBean(): ScrManualOrderBean = { new ScrManualOrderBean() }
+
+    // ===================================================================================
+    //                                                                        Scala Helper
+    //                                                                        ============
+    protected def toMutableValueCollectionImplicitly[SCALA, JAVA](ls: List[SCALA]): Collection[JAVA] =
+    { if (ls != null) { ls.map(_.asInstanceOf[JAVA]).asJava } else { null } }
+
+    protected def toScalaQDRFunction[CB <: ConditionBean](function: HpQDRFunction[CB]): ScrHpQDRFunction[CB] =
+    { new ScrHpQDRFunction[CB](function) }
 
     // ===================================================================================
     //                                                                       Very Internal

@@ -394,7 +394,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      */
     public void setMemberFollowingId(Long memberFollowingId) {
         __modifiedProperties.addPropertyName("memberFollowingId");
-        this._memberFollowingId = memberFollowingId;
+        _memberFollowingId = memberFollowingId;
     }
 
     /**
@@ -413,7 +413,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      */
     public void setMyMemberId(Integer myMemberId) {
         __modifiedProperties.addPropertyName("myMemberId");
-        this._myMemberId = myMemberId;
+        _myMemberId = myMemberId;
     }
 
     /**
@@ -432,7 +432,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      */
     public void setYourMemberId(Integer yourMemberId) {
         __modifiedProperties.addPropertyName("yourMemberId");
-        this._yourMemberId = yourMemberId;
+        _yourMemberId = yourMemberId;
     }
 
     /**
@@ -451,6 +451,6 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      */
     public void setFollowDatetime(java.sql.Timestamp followDatetime) {
         __modifiedProperties.addPropertyName("followDatetime");
-        this._followDatetime = followDatetime;
+        _followDatetime = followDatetime;
     }
 }

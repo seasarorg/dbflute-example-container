@@ -256,9 +256,6 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
@@ -268,7 +265,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     protected List<MemberAddress> _memberAddressList;
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [get] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -277,7 +274,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [set] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @param memberAddressList The entity list of referrer property 'memberAddressList'. (NullAllowed)
      */
     public void setMemberAddressList(List<MemberAddress> memberAddressList) {
@@ -462,7 +459,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
      */
     protected void setRegionId(Integer regionId) {
         __modifiedProperties.addPropertyName("regionId");
-        this._regionId = regionId;
+        _regionId = regionId;
     }
 
     /**
@@ -481,7 +478,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
      */
     public void setRegionName(String regionName) {
         __modifiedProperties.addPropertyName("regionName");
-        this._regionName = regionName;
+        _regionName = regionName;
     }
 
     protected String convertEmptyToNull(String value) {

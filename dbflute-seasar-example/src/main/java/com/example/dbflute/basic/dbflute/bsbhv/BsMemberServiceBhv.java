@@ -20,11 +20,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.basic.dbflute.exbhv.*;
+import com.example.dbflute.basic.dbflute.bsbhv.loader.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
 import com.example.dbflute.basic.dbflute.bsentity.dbmeta.*;
 import com.example.dbflute.basic.dbflute.cbean.*;
@@ -78,7 +81,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return MemberServiceDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +91,10 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public MemberService newEntity() { return new MemberService(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public MemberServiceCB newConditionBean() { return new MemberServiceCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public MemberService newMyEntity() { return new MemberService(); }
@@ -114,6 +117,10 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(MemberServiceCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(MemberServiceCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +136,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +162,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberService selectEntity(MemberServiceCB cb) {
-        return doSelectEntity(cb, MemberService.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected MemberService facadeSelectEntity(MemberServiceCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberService> ENTITY doSelectEntity(MemberServiceCB cb, Class<ENTITY> tp) {
@@ -170,7 +181,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +200,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberService selectEntityWithDeletedCheck(MemberServiceCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, MemberService.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected MemberService facadeSelectEntityWithDeletedCheck(MemberServiceCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberService> ENTITY doSelectEntityWithDeletedCheck(MemberServiceCB cb, Class<ENTITY> tp) {
@@ -200,7 +215,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +226,19 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberService selectByPKValue(Integer memberServiceId) {
-        return doSelectByPK(memberServiceId, MemberService.class);
+        return facadeSelectByPKValue(memberServiceId);
     }
 
-    protected <ENTITY extends MemberService> ENTITY doSelectByPK(Integer memberServiceId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(memberServiceId), entityType);
+    protected MemberService facadeSelectByPKValue(Integer memberServiceId) {
+        return doSelectByPK(memberServiceId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberServiceId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(memberServiceId, entityType), memberServiceId);
+    protected <ENTITY extends MemberService> ENTITY doSelectByPK(Integer memberServiceId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(memberServiceId), tp);
+    }
+
+    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberServiceId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(memberServiceId, tp), memberServiceId);
     }
 
     /**
@@ -231,17 +250,16 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberService selectByPKValueWithDeletedCheck(Integer memberServiceId) {
-        return doSelectByPKWithDeletedCheck(memberServiceId, MemberService.class);
+        return doSelectByPKWithDeletedCheck(memberServiceId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> ENTITY doSelectByPKWithDeletedCheck(Integer memberServiceId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberServiceId), entityType);
+    protected <ENTITY extends MemberService> ENTITY doSelectByPKWithDeletedCheck(Integer memberServiceId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberServiceId), tp);
     }
 
     protected MemberServiceCB xprepareCBAsPK(Integer memberServiceId) {
         assertObjectNotNull("memberServiceId", memberServiceId);
-        MemberServiceCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberServiceId);
-        return cb;
+        return newConditionBean().acceptPK(memberServiceId);
     }
 
     /**
@@ -253,17 +271,20 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<MemberService> selectByUniqueOf(Integer memberId) {
-        return doSelectByUniqueOf(memberId, MemberService.class);
+        return facadeSelectByUniqueOf(memberId);
     }
 
-    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId), entityType), memberId);
+    protected OptionalEntity<MemberService> facadeSelectByUniqueOf(Integer memberId) {
+        return doSelectByUniqueOf(memberId, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId), tp), memberId);
     }
 
     protected MemberServiceCB xprepareCBAsUniqueOf(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
-        MemberServiceCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberId);
-        return cb;
+        return newConditionBean().acceptUniqueOf(memberId);
     }
 
     // ===================================================================================
@@ -285,7 +306,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<MemberService> selectList(MemberServiceCB cb) {
-        return doSelectList(cb, MemberService.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<MemberService> facadeSelectList(MemberServiceCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberService> ListResultBean<ENTITY> doSelectList(MemberServiceCB cb, Class<ENTITY> tp) {
@@ -297,7 +322,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -326,7 +351,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<MemberService> selectPage(MemberServiceCB cb) {
-        return doSelectPage(cb, MemberService.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<MemberService> facadeSelectPage(MemberServiceCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberService> PagingResultBean<ENTITY> doSelectPage(MemberServiceCB cb, Class<ENTITY> tp) {
@@ -339,7 +368,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -360,15 +389,19 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of MemberService. (NotNull)
      */
     public void selectCursor(MemberServiceCB cb, EntityRowHandler<MemberService> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, MemberService.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(MemberServiceCB cb, EntityRowHandler<MemberService> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberService> void doSelectCursor(MemberServiceCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, MemberServiceCB>() {
-            public void callbackSelectCursor(MemberServiceCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(MemberServiceCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(MemberServiceCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(MemberServiceCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -390,22 +423,23 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<MemberServiceCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<MemberServiceCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends MemberServiceCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<MemberServiceCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends MemberServiceCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends MemberServiceCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -415,6 +449,81 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     protected Number doReadNextVal() {
         String msg = "This table is NOT related to sequence: " + getTableDbName();
         throw new UnsupportedOperationException(msg);
+    }
+
+    // ===================================================================================
+    //                                                                       Load Referrer
+    //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param memberServiceList The entity list of memberService. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<MemberService> memberServiceList, ReferrerLoaderHandler<LoaderOfMemberService> handler) {
+        xassLRArg(memberServiceList, handler);
+        handler.handle(new LoaderOfMemberService().ready(memberServiceList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param memberService The entity of memberService. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(MemberService memberService, ReferrerLoaderHandler<LoaderOfMemberService> handler) {
+        xassLRArg(memberService, handler);
+        handler.handle(new LoaderOfMemberService().ready(xnewLRAryLs(memberService), _behaviorSelector));
     }
 
     // ===================================================================================
@@ -434,6 +543,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
             { if (!ls.isEmpty()) { et.setMemberServiceAsOne(ls.get(0)); } }
         });
     }
+
     /**
      * Pull out the list of foreign table 'ServiceRank'.
      * @param memberServiceList The list of memberService. (NotNull, EmptyAllowed)
@@ -491,17 +601,17 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * ... = memberService.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param memberService The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param memberService The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(MemberService memberService) {
         doInsert(memberService, null);
     }
 
-    protected void doInsert(MemberService memberService, InsertOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doInsert(MemberService et, InsertOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareInsertOption(op);
-        delegateInsert(memberService, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<MemberServiceCB> op) {
@@ -514,8 +624,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -527,7 +636,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberService.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberService.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberService.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     memberServiceBhv.<span style="color: #DD4747">update</span>(memberService);
@@ -535,49 +644,38 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberService The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberService The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final MemberService memberService) {
+    public void update(MemberService memberService) {
         doUpdate(memberService, null);
     }
 
-    protected void doUpdate(MemberService memberService, final UpdateOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doUpdate(MemberService et, final UpdateOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(memberService, new InternalUpdateCallback<MemberService>() {
-            public int callbackDelegateUpdate(MemberService et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<MemberService>() {
+            public int callbackDelegateUpdate(MemberService let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<MemberServiceCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected MemberServiceCB createCBForVaryingUpdate() {
-        MemberServiceCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected MemberServiceCB createCBForVaryingUpdate()
+    { MemberServiceCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected MemberServiceCB createCBForSpecifiedUpdate() {
-        MemberServiceCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected MemberServiceCB createCBForSpecifiedUpdate()
+    { MemberServiceCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     /**
@@ -589,93 +687,84 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberService.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberService.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * memberServiceBhv.<span style="color: #DD4747">updateNonstrict</span>(memberService);
      * </pre>
-     * @param memberService The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param memberService The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final MemberService memberService) {
+    public void updateNonstrict(MemberService memberService) {
         doUpdateNonstrict(memberService, null);
     }
 
-    protected void doUpdateNonstrict(MemberService memberService, final UpdateOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doUpdateNonstrict(MemberService et, final UpdateOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(memberService, new InternalUpdateNonstrictCallback<MemberService>() {
-            public int callbackDelegateUpdateNonstrict(MemberService et) { return delegateUpdateNonstrict(et, op); } });
+        helpUpdateNonstrictInternally(et, new InternalUpdateNonstrictCallback<MemberService>() {
+            public int callbackDelegateUpdateNonstrict(MemberService let) { return delegateUpdateNonstrict(let, op); } });
     }
 
     @Override
     protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
+        doUpdateNonstrict(downcast(et), downcast(op));
     }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param memberService The entity of insert or update target. (NotNull)
+     * @param memberService The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(MemberService memberService) {
-        doInesrtOrUpdate(memberService, null, null);
+        doInsertOrUpdate(memberService, null, null);
     }
 
-    protected void doInesrtOrUpdate(MemberService memberService, final InsertOption<MemberServiceCB> iop, final UpdateOption<MemberServiceCB> uop) {
-        helpInsertOrUpdateInternally(memberService, new InternalInsertOrUpdateCallback<MemberService, MemberServiceCB>() {
-            public void callbackInsert(MemberService et) { doInsert(et, iop); }
-            public void callbackUpdate(MemberService et) { doUpdate(et, uop); }
-            public MemberServiceCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(MemberService et, final InsertOption<MemberServiceCB> iop, final UpdateOption<MemberServiceCB> uop) {
+        assertObjectNotNull("memberService", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<MemberService, MemberServiceCB>() {
+            public void callbackInsert(MemberService let) { doInsert(let, iop); }
+            public void callbackUpdate(MemberService let) { doUpdate(let, uop); }
+            public MemberServiceCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(MemberServiceCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<MemberServiceCB>();
-            uop = uop != null ? uop : new UpdateOption<MemberServiceCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param memberService The entity of insert or update target. (NotNull)
+     * @param memberService The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(MemberService memberService) {
-        doInesrtOrUpdateNonstrict(memberService, null, null);
+        doInsertOrUpdateNonstrict(memberService, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(MemberService memberService, final InsertOption<MemberServiceCB> iop, final UpdateOption<MemberServiceCB> uop) {
-        helpInsertOrUpdateInternally(memberService, new InternalInsertOrUpdateNonstrictCallback<MemberService>() {
-            public void callbackInsert(MemberService et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(MemberService et) { doUpdateNonstrict(et, uop); }
+    protected void doInsertOrUpdateNonstrict(MemberService et, final InsertOption<MemberServiceCB> iop, final UpdateOption<MemberServiceCB> uop) {
+        assertObjectNotNull("memberService", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateNonstrictCallback<MemberService>() {
+            public void callbackInsert(MemberService let) { doInsert(let, iop); }
+            public void callbackUpdateNonstrict(MemberService let) { doUpdateNonstrict(let, uop); }
         });
     }
 
     @Override
     protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<MemberServiceCB>();
-            uop = uop != null ? uop : new UpdateOption<MemberServiceCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
     }
 
     /**
@@ -683,7 +772,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberService memberService = new MemberService();
      * memberService.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberService.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     memberServiceBhv.<span style="color: #DD4747">delete</span>(memberService);
@@ -691,7 +780,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberService The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberService The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -699,22 +788,19 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         doDelete(memberService, null);
     }
 
-    protected void doDelete(MemberService memberService, final DeleteOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doDelete(MemberService et, final DeleteOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(memberService, new InternalDeleteCallback<MemberService>() {
-            public int callbackDelegateDelete(MemberService et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<MemberService>() {
+            public int callbackDelegateDelete(MemberService let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<MemberServiceCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<MemberServiceCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     /**
@@ -722,12 +808,12 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberService memberService = new MemberService();
      * memberService.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * memberServiceBhv.<span style="color: #DD4747">deleteNonstrict</span>(memberService);
      * </pre>
-     * @param memberService The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param memberService The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -735,11 +821,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(memberService, null);
     }
 
-    protected void doDeleteNonstrict(MemberService memberService, final DeleteOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doDeleteNonstrict(MemberService et, final DeleteOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(memberService, new InternalDeleteNonstrictCallback<MemberService>() {
-            public int callbackDelegateDeleteNonstrict(MemberService et) { return delegateDeleteNonstrict(et, op); } });
+        helpDeleteNonstrictInternally(et, new InternalDeleteNonstrictCallback<MemberService>() {
+            public int callbackDelegateDeleteNonstrict(MemberService let) { return delegateDeleteNonstrict(let, op); } });
     }
 
     /**
@@ -747,30 +833,29 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <pre>
      * MemberService memberService = new MemberService();
      * memberService.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * memberServiceBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(memberService);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param memberService The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param memberService The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(MemberService memberService) {
         doDeleteNonstrictIgnoreDeleted(memberService, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(MemberService memberService, final DeleteOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService);
+    protected void doDeleteNonstrictIgnoreDeleted(MemberService et, final DeleteOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et);
         prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(memberService, new InternalDeleteNonstrictIgnoreDeletedCallback<MemberService>() {
-            public int callbackDelegateDeleteNonstrict(MemberService et) { return delegateDeleteNonstrict(et, op); } });
+        helpDeleteNonstrictIgnoreDeletedInternally(et, new InternalDeleteNonstrictIgnoreDeletedCallback<MemberService>() {
+            public int callbackDelegateDeleteNonstrict(MemberService let) { return delegateDeleteNonstrict(let, op); } });
     }
 
     @Override
     protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
+        doDeleteNonstrict(downcast(et), downcast(op));
     }
 
     // ===================================================================================
@@ -801,26 +886,25 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<MemberService> memberServiceList) {
-        InsertOption<MemberServiceCB> op = createInsertUpdateOption();
-        return doBatchInsert(memberServiceList, op);
+        return doBatchInsert(memberServiceList, null);
     }
 
-    protected int[] doBatchInsert(List<MemberService> memberServiceList, InsertOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberServiceList", memberServiceList);
-        prepareBatchInsertOption(memberServiceList, op);
-        return delegateBatchInsert(memberServiceList, op);
+    protected int[] doBatchInsert(List<MemberService> ls, InsertOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberServiceList", ls);
+        InsertOption<MemberServiceCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<MemberService> memberServiceList, InsertOption<MemberServiceCB> op) {
+    protected void prepareBatchInsertOption(List<MemberService> ls, InsertOption<MemberServiceCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(memberServiceList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -843,30 +927,29 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * }
      * memberServiceBhv.<span style="color: #DD4747">batchUpdate</span>(memberServiceList);
      * </pre>
-     * @param memberServiceList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param memberServiceList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<MemberService> memberServiceList) {
-        UpdateOption<MemberServiceCB> op = createPlainUpdateOption();
-        return doBatchUpdate(memberServiceList, op);
+        return doBatchUpdate(memberServiceList, null);
     }
 
-    protected int[] doBatchUpdate(List<MemberService> memberServiceList, UpdateOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberServiceList", memberServiceList);
-        prepareBatchUpdateOption(memberServiceList, op);
-        return delegateBatchUpdate(memberServiceList, op);
+    protected int[] doBatchUpdate(List<MemberService> ls, UpdateOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberServiceList", ls);
+        UpdateOption<MemberServiceCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<MemberService> memberServiceList, UpdateOption<MemberServiceCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(memberServiceList);
+    protected void prepareBatchUpdateOption(List<MemberService> ls, UpdateOption<MemberServiceCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -892,7 +975,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param memberServiceList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param memberServiceList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -926,14 +1009,14 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<MemberService> memberServiceList) {
-        UpdateOption<MemberServiceCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(memberServiceList, option);
+        return doBatchUpdateNonstrict(memberServiceList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<MemberService> memberServiceList, UpdateOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberServiceList", memberServiceList);
-        prepareBatchUpdateOption(memberServiceList, op);
-        return delegateBatchUpdateNonstrict(memberServiceList, op);
+    protected int[] doBatchUpdateNonstrict(List<MemberService> ls, UpdateOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberServiceList", ls);
+        UpdateOption<MemberServiceCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -969,8 +1052,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
+        return doBatchUpdateNonstrict(downcast(ls), downcast(op));
     }
 
     /**
@@ -984,16 +1066,15 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doBatchDelete(memberServiceList, null);
     }
 
-    protected int[] doBatchDelete(List<MemberService> memberServiceList, DeleteOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberServiceList", memberServiceList);
+    protected int[] doBatchDelete(List<MemberService> ls, DeleteOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberServiceList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(memberServiceList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     /**
@@ -1007,16 +1088,15 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(memberServiceList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<MemberService> memberServiceList, DeleteOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberServiceList", memberServiceList);
+    protected int[] doBatchDeleteNonstrict(List<MemberService> ls, DeleteOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberServiceList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(memberServiceList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
     @Override
     protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
+        return doBatchDeleteNonstrict(downcast(ls), downcast(op));
     }
 
     // ===================================================================================
@@ -1038,7 +1118,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1055,21 +1135,17 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<MemberService, MemberServiceCB> sp, InsertOption<MemberServiceCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        MemberService e = new MemberService();
+        MemberService et = newEntity();
         MemberServiceCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected MemberServiceCB createCBForQueryInsert() {
-        MemberServiceCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected MemberServiceCB createCBForQueryInsert()
+    { MemberServiceCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -1082,7 +1158,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberService.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberService.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * MemberServiceCB cb = new MemberServiceCB();
@@ -1098,16 +1174,15 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(memberService, cb, null);
     }
 
-    protected int doQueryUpdate(MemberService memberService, MemberServiceCB cb, UpdateOption<MemberServiceCB> op) {
-        assertObjectNotNull("memberService", memberService); assertCBStateValid(cb);
+    protected int doQueryUpdate(MemberService et, MemberServiceCB cb, UpdateOption<MemberServiceCB> op) {
+        assertObjectNotNull("memberService", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(memberService, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (MemberServiceCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (MemberServiceCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -1133,8 +1208,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((MemberServiceCB)cb); }
-        else { return varyingQueryDelete((MemberServiceCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -1158,7 +1232,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * memberServiceBhv.<span style="color: #DD4747">varyingInsert</span>(memberService, option);
      * ... = memberService.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param memberService The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param memberService The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1175,7 +1249,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * MemberService memberService = new MemberService();
      * memberService.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberService.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberService.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1190,7 +1264,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param memberService The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberService The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1210,7 +1284,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * MemberService memberService = new MemberService();
      * memberService.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberService.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * UpdateOption&lt;MemberServiceCB&gt; option = new UpdateOption&lt;MemberServiceCB&gt;();
@@ -1221,7 +1295,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * memberServiceBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(memberService, option);
      * </pre>
-     * @param memberService The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param memberService The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1235,7 +1309,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param memberService The entity of insert or update target. (NotNull)
+     * @param memberService The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1244,13 +1318,13 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(MemberService memberService, InsertOption<MemberServiceCB> insertOption, UpdateOption<MemberServiceCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(memberService, insertOption, updateOption);
+        doInsertOrUpdate(memberService, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param memberService The entity of insert or update target. (NotNull)
+     * @param memberService The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1259,14 +1333,14 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdateNonstrict(MemberService memberService, InsertOption<MemberServiceCB> insertOption, UpdateOption<MemberServiceCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(memberService, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(memberService, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param memberService The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberService The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1280,7 +1354,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param memberService The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param memberService The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1388,7 +1462,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//memberService.setPK...(value);</span>
      * memberService.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberService.setVersionNo(value);</span>
      * MemberServiceCB cb = new MemberServiceCB();
@@ -1528,7 +1602,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     @Override
     protected boolean hasVersionNoValue(Entity et) {
-        return !(downcast(et).getVersionNo() + "").equals("null");// For primitive type
+        return !(downcast(et).getVersionNo() + "").equals("null"); // for primitive type
     }
 
     /**
@@ -1540,38 +1614,34 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected MemberService downcast(Entity et) {
-        return helpEntityDowncastInternally(et, MemberService.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<MemberService> typeOfSelectedEntity()
+    { return MemberService.class; }
 
-    protected MemberServiceCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, MemberServiceCB.class);
-    }
+    protected MemberService downcast(Entity et)
+    { return helpEntityDowncastInternally(et, MemberService.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<MemberService> downcast(List<? extends Entity> ls) {
-        return (List<MemberService>)ls;
-    }
+    protected MemberServiceCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, MemberServiceCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberServiceCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<MemberServiceCB>)op;
-    }
+    protected List<MemberService> downcast(List<? extends Entity> ls)
+    { return (List<MemberService>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberServiceCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<MemberServiceCB>)op;
-    }
+    protected InsertOption<MemberServiceCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<MemberServiceCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberServiceCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<MemberServiceCB>)op;
-    }
+    protected UpdateOption<MemberServiceCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<MemberServiceCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberService, MemberServiceCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<MemberService, MemberServiceCB>)sp;
-    }
+    protected DeleteOption<MemberServiceCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<MemberServiceCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<MemberService, MemberServiceCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<MemberService, MemberServiceCB>)sp; }
 }

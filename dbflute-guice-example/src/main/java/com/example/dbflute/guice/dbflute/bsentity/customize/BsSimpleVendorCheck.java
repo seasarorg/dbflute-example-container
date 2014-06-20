@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
@@ -73,7 +74,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSimpleVendorCheck implements Entity, Serializable, Cloneable {
+public abstract class BsSimpleVendorCheck implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -137,6 +138,9 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -242,6 +246,32 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public boolean createdBySelect() {
         return __createdBySelect;
+    }
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 
     // ===================================================================================
@@ -397,7 +427,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setVendorCheckId(Long vendorCheckId) {
         __modifiedProperties.addPropertyName("vendorCheckId");
-        this._vendorCheckId = vendorCheckId;
+        _vendorCheckId = vendorCheckId;
     }
 
     /**
@@ -414,7 +444,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfText(String typeOfText) {
         __modifiedProperties.addPropertyName("typeOfText");
-        this._typeOfText = typeOfText;
+        _typeOfText = typeOfText;
     }
 
     /**
@@ -431,7 +461,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfBoolean(Boolean typeOfBoolean) {
         __modifiedProperties.addPropertyName("typeOfBoolean");
-        this._typeOfBoolean = typeOfBoolean;
+        _typeOfBoolean = typeOfBoolean;
     }
 
     /**
@@ -448,7 +478,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericInteger(Integer typeOfNumericInteger) {
         __modifiedProperties.addPropertyName("typeOfNumericInteger");
-        this._typeOfNumericInteger = typeOfNumericInteger;
+        _typeOfNumericInteger = typeOfNumericInteger;
     }
 
     /**
@@ -465,7 +495,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericBigint(Long typeOfNumericBigint) {
         __modifiedProperties.addPropertyName("typeOfNumericBigint");
-        this._typeOfNumericBigint = typeOfNumericBigint;
+        _typeOfNumericBigint = typeOfNumericBigint;
     }
 
     /**
@@ -482,7 +512,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericDecimal(java.math.BigDecimal typeOfNumericDecimal) {
         __modifiedProperties.addPropertyName("typeOfNumericDecimal");
-        this._typeOfNumericDecimal = typeOfNumericDecimal;
+        _typeOfNumericDecimal = typeOfNumericDecimal;
     }
 
     /**
@@ -499,7 +529,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericIntegerMin(Integer typeOfNumericIntegerMin) {
         __modifiedProperties.addPropertyName("typeOfNumericIntegerMin");
-        this._typeOfNumericIntegerMin = typeOfNumericIntegerMin;
+        _typeOfNumericIntegerMin = typeOfNumericIntegerMin;
     }
 
     /**
@@ -516,7 +546,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericIntegerMax(Integer typeOfNumericIntegerMax) {
         __modifiedProperties.addPropertyName("typeOfNumericIntegerMax");
-        this._typeOfNumericIntegerMax = typeOfNumericIntegerMax;
+        _typeOfNumericIntegerMax = typeOfNumericIntegerMax;
     }
 
     /**
@@ -533,7 +563,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericBigintMin(Long typeOfNumericBigintMin) {
         __modifiedProperties.addPropertyName("typeOfNumericBigintMin");
-        this._typeOfNumericBigintMin = typeOfNumericBigintMin;
+        _typeOfNumericBigintMin = typeOfNumericBigintMin;
     }
 
     /**
@@ -550,7 +580,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericBigintMax(Long typeOfNumericBigintMax) {
         __modifiedProperties.addPropertyName("typeOfNumericBigintMax");
-        this._typeOfNumericBigintMax = typeOfNumericBigintMax;
+        _typeOfNumericBigintMax = typeOfNumericBigintMax;
     }
 
     /**
@@ -567,7 +597,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericSuperintMin(java.math.BigDecimal typeOfNumericSuperintMin) {
         __modifiedProperties.addPropertyName("typeOfNumericSuperintMin");
-        this._typeOfNumericSuperintMin = typeOfNumericSuperintMin;
+        _typeOfNumericSuperintMin = typeOfNumericSuperintMin;
     }
 
     /**
@@ -584,7 +614,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericSuperintMax(java.math.BigDecimal typeOfNumericSuperintMax) {
         __modifiedProperties.addPropertyName("typeOfNumericSuperintMax");
-        this._typeOfNumericSuperintMax = typeOfNumericSuperintMax;
+        _typeOfNumericSuperintMax = typeOfNumericSuperintMax;
     }
 
     /**
@@ -601,7 +631,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfNumericMaxdecimal(java.math.BigDecimal typeOfNumericMaxdecimal) {
         __modifiedProperties.addPropertyName("typeOfNumericMaxdecimal");
-        this._typeOfNumericMaxdecimal = typeOfNumericMaxdecimal;
+        _typeOfNumericMaxdecimal = typeOfNumericMaxdecimal;
     }
 
     /**
@@ -618,7 +648,7 @@ public abstract class BsSimpleVendorCheck implements Entity, Serializable, Clone
      */
     public void setTypeOfBlob(byte[] typeOfBlob) {
         __modifiedProperties.addPropertyName("typeOfBlob");
-        this._typeOfBlob = typeOfBlob;
+        _typeOfBlob = typeOfBlob;
     }
 
     protected String convertEmptyToNull(String value) {

@@ -313,7 +313,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     protected Purchase _purchase;
 
     /**
-     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * [get] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @return The entity of foreign property 'purchase'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Purchase getPurchase() {
@@ -321,7 +321,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     }
 
     /**
-     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * [set] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @param purchase The entity of foreign property 'purchase'. (NullAllowed)
      */
     public void setPurchase(Purchase purchase) {
@@ -537,7 +537,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setPurchasePaymentId(Long purchasePaymentId) {
         __modifiedProperties.addPropertyName("purchasePaymentId");
-        this._purchasePaymentId = purchasePaymentId;
+        _purchasePaymentId = purchasePaymentId;
     }
 
     /**
@@ -556,7 +556,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setPurchaseId(Long purchaseId) {
         __modifiedProperties.addPropertyName("purchaseId");
-        this._purchaseId = purchaseId;
+        _purchaseId = purchaseId;
     }
 
     /**
@@ -575,7 +575,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setPaymentAmount(java.math.BigDecimal paymentAmount) {
         __modifiedProperties.addPropertyName("paymentAmount");
-        this._paymentAmount = paymentAmount;
+        _paymentAmount = paymentAmount;
     }
 
     /**
@@ -594,7 +594,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setPaymentDatetime(java.sql.Timestamp paymentDatetime) {
         __modifiedProperties.addPropertyName("paymentDatetime");
-        this._paymentDatetime = paymentDatetime;
+        _paymentDatetime = paymentDatetime;
     }
 
     /**
@@ -614,7 +614,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     protected void setPaymentMethodCode(String paymentMethodCode) {
         checkImplicitSet("PAYMENT_METHOD_CODE", CDef.DefMeta.PaymentMethod, paymentMethodCode);
         __modifiedProperties.addPropertyName("paymentMethodCode");
-        this._paymentMethodCode = paymentMethodCode;
+        _paymentMethodCode = paymentMethodCode;
     }
 
     /**
@@ -631,7 +631,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -648,7 +648,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -665,7 +665,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -682,7 +682,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     protected String convertEmptyToNull(String value) {

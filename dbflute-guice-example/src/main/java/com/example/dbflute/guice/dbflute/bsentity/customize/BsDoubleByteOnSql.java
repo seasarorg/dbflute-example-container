@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
@@ -51,7 +52,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneable {
+public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -82,6 +83,9 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -187,6 +191,32 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      */
     public boolean createdBySelect() {
         return __createdBySelect;
+    }
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 
     // ===================================================================================
@@ -306,7 +336,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -323,7 +353,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      */
     public void setMemberNameWithSpace(String memberNameWithSpace) {
         __modifiedProperties.addPropertyName("memberNameWithSpace");
-        this._memberNameWithSpace = memberNameWithSpace;
+        _memberNameWithSpace = memberNameWithSpace;
     }
 
     /**
@@ -340,7 +370,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 
     protected String convertEmptyToNull(String value) {

@@ -305,6 +305,6 @@ public abstract class BsVendorNumericDecimalSum implements Entity, Serializable,
      */
     public void setDecimalDigitSum(java.math.BigDecimal decimalDigitSum) {
         __modifiedProperties.addPropertyName("decimalDigitSum");
-        this._decimalDigitSum = decimalDigitSum;
+        _decimalDigitSum = decimalDigitSum;
     }
 }

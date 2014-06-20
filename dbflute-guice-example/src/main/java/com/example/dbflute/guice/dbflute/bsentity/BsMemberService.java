@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
@@ -67,7 +68,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberService implements EntityDefinedCommonColumn, Serializable, Cloneable {
+public abstract class BsMemberService implements EntityDefinedCommonColumn, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -116,6 +117,9 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is common column auto set up effective? */
     protected boolean __canCommonColumnAutoSetup = true;
@@ -426,6 +430,32 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -562,7 +592,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberServiceId(Integer memberServiceId) {
         __modifiedProperties.addPropertyName("memberServiceId");
-        this._memberServiceId = memberServiceId;
+        _memberServiceId = memberServiceId;
     }
 
     /**
@@ -579,7 +609,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -596,7 +626,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setServicePointCount(Integer servicePointCount) {
         __modifiedProperties.addPropertyName("servicePointCount");
-        this._servicePointCount = servicePointCount;
+        _servicePointCount = servicePointCount;
     }
 
     /**
@@ -613,7 +643,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setServiceRankCode(String serviceRankCode) {
         __modifiedProperties.addPropertyName("serviceRankCode");
-        this._serviceRankCode = serviceRankCode;
+        _serviceRankCode = serviceRankCode;
     }
 
     /**
@@ -630,7 +660,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -647,7 +677,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -664,7 +694,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -681,7 +711,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -698,7 +728,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 
     protected String convertEmptyToNull(String value) {

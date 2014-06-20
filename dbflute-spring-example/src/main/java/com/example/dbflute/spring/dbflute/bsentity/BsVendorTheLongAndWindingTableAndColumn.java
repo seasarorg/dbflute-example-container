@@ -369,7 +369,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setTheLongAndWindingTableAndColumnId(Long theLongAndWindingTableAndColumnId) {
         __modifiedProperties.addPropertyName("theLongAndWindingTableAndColumnId");
-        this._theLongAndWindingTableAndColumnId = theLongAndWindingTableAndColumnId;
+        _theLongAndWindingTableAndColumnId = theLongAndWindingTableAndColumnId;
     }
 
     /**
@@ -386,7 +386,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setTheLongAndWindingTableAndColumnName(String theLongAndWindingTableAndColumnName) {
         __modifiedProperties.addPropertyName("theLongAndWindingTableAndColumnName");
-        this._theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
+        _theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
     }
 
     /**
@@ -403,7 +403,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setShortName(String shortName) {
         __modifiedProperties.addPropertyName("shortName");
-        this._shortName = shortName;
+        _shortName = shortName;
     }
 
     /**
@@ -420,6 +420,6 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setShortSize(Integer shortSize) {
         __modifiedProperties.addPropertyName("shortSize");
-        this._shortSize = shortSize;
+        _shortSize = shortSize;
     }
 }

@@ -307,6 +307,6 @@ public abstract class BsVendorPrimaryKeyOnly implements Entity, Serializable, Cl
      */
     public void setPrimaryKeyOnlyId(Long primaryKeyOnlyId) {
         __modifiedProperties.addPropertyName("primaryKeyOnlyId");
-        this._primaryKeyOnlyId = primaryKeyOnlyId;
+        _primaryKeyOnlyId = primaryKeyOnlyId;
     }
 }

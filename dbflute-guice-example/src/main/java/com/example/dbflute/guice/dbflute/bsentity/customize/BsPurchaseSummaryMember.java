@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
@@ -56,7 +57,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsPurchaseSummaryMember implements Entity, Serializable, Cloneable {
+public abstract class BsPurchaseSummaryMember implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -93,6 +94,9 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -198,6 +202,32 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public boolean createdBySelect() {
         return __createdBySelect;
+    }
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 
     // ===================================================================================
@@ -329,7 +359,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -346,7 +376,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -363,7 +393,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setBirthdate(java.util.Date birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
-        this._birthdate = birthdate;
+        _birthdate = birthdate;
     }
 
     /**
@@ -380,7 +410,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
         __modifiedProperties.addPropertyName("formalizedDatetime");
-        this._formalizedDatetime = formalizedDatetime;
+        _formalizedDatetime = formalizedDatetime;
     }
 
     /**
@@ -397,7 +427,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setPurchaseSummary(Long purchaseSummary) {
         __modifiedProperties.addPropertyName("purchaseSummary");
-        this._purchaseSummary = purchaseSummary;
+        _purchaseSummary = purchaseSummary;
     }
 
     protected String convertEmptyToNull(String value) {

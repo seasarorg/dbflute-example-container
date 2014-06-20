@@ -28,6 +28,9 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 #if (!$table.hasAllCommonColumn() || $table.hasRelation())
 import org.seasar.dbflute.Entity;
 #end
+#if ($table.isEntityDerivedMappable())
+import org.seasar.dbflute.dbmeta.DerivedMappable;
+#end
 #if ($table.needsRelationOptionalEntityImport())
 import ${database.relationOptionalEntityClassName};
 #end
@@ -99,7 +102,7 @@ import ${table.relationalNullObjectProviderPackage}.*;
  * </pre>
  * @author ${database.classAuthor}
  */
-public abstract class $myClassName implements ${myEntityInterfaceName}, Serializable, Cloneable {
+public abstract class $myClassName implements ${myEntityInterfaceName}, Serializable, Cloneable${table.derivedMappableDefinition} {
 
     // ===================================================================================
     //                                                                          Definition
@@ -126,6 +129,11 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+#if ($table.isEntityDerivedMappable())
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
+#end
 #if ($table.hasAllCommonColumn())
 
     /** Is common column auto set up effective? */
@@ -381,7 +389,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
     protected ${foreignEntityClassName} ${foreignVariableName};
 
     /**
-     * ${fk.foreignDispForJavaDoc}
+     * [get] ${fk.foreignDispForJavaDoc}
      * @return The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ${foreignEntityClassName} get${fk.foreignJavaBeansRulePropertyNameInitCap}() {
@@ -398,7 +406,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
     }
 
     /**
-     * ${fk.foreignDispForJavaDoc}
+     * [set] ${fk.foreignDispForJavaDoc}
      * @param ${fk.foreignPropertyName} The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (NullAllowed)
      */
     public void set${fk.foreignJavaBeansRulePropertyNameInitCap}(${foreignEntityClassName} ${fk.foreignPropertyName}) {
@@ -420,7 +428,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
     protected ${referrerEntityClassName} ${referrerVariableName};
 
     /**
-     * ${referrer.referrerDispAsOneForJavaDoc}
+     * [get] ${referrer.referrerDispAsOneForJavaDoc}
      * @return the entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public ${referrerEntityClassName} get${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}() {
@@ -437,7 +445,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
     }
 
     /**
-     * ${referrer.referrerDispAsOneForJavaDoc}
+     * [set] ${referrer.referrerDispAsOneForJavaDoc}
      * @param ${referrer.referrerJavaBeansRulePropertyNameAsOne} The entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (NullAllowed)
      */
     public void set${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(${referrerEntityClassName} ${referrer.referrerJavaBeansRulePropertyNameAsOne}) {
@@ -459,10 +467,10 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
 #set ($referrerEntityClassName = "${referrer.referrerTableExtendedEntityClassName}")
 #set ($referrerVariableName = "_${referrer.referrerPropertyName}")
     /** ${referrer.referrerSimpleDisp}. */
-    protected List<${referrerEntityClassName}> $referrerVariableName;
+    protected List<${referrerEntityClassName}> ${referrerVariableName};
 
     /**
-     * ${referrer.referrerDispForJavaDoc}
+     * [get] ${referrer.referrerDispForJavaDoc}
      * @return The entity list of referrer property '${referrer.referrerJavaBeansRulePropertyName}'. (NotNull: even if no loading, returns empty list)
      */
     public List<${referrerEntityClassName}> get${referrer.referrerJavaBeansRulePropertyNameInitCap}() {
@@ -471,7 +479,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
     }
 
     /**
-     * ${referrer.referrerDispForJavaDoc}
+     * [set] ${referrer.referrerDispForJavaDoc}
      * @param ${referrer.referrerPropertyName} The entity list of referrer property '${referrer.referrerJavaBeansRulePropertyName}'. (NullAllowed)
      */
     public void set${referrer.referrerJavaBeansRulePropertyNameInitCap}(List<${referrerEntityClassName}> ${referrer.referrerPropertyName}) {
@@ -601,6 +609,34 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
      */
     public boolean canCommonColumnAutoSetup() {
         return __canCommonColumnAutoSetup;
+    }
+#end
+#if ($table.isEntityDerivedMappable())
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 #end
 
@@ -831,7 +867,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
         checkImplicitSet("${col.name}", ${glCDef}.DefMeta.${col.classificationName}, ${col.uncapitalisedJavaName});
 #end
         __modifiedProperties.addPropertyName("${col.javaBeansRulePropertyName}");
-        this._${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
+        _${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
     }
 #set ($propertyLoopIndex = $propertyLoopIndex + 1)
 #end

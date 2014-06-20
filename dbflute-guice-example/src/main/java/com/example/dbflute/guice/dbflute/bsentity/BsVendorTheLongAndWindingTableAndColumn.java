@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
@@ -54,7 +55,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity, Serializable, Cloneable {
+public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -88,6 +89,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -228,6 +232,32 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -354,7 +384,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setTheLongAndWindingTableAndColumnId(Long theLongAndWindingTableAndColumnId) {
         __modifiedProperties.addPropertyName("theLongAndWindingTableAndColumnId");
-        this._theLongAndWindingTableAndColumnId = theLongAndWindingTableAndColumnId;
+        _theLongAndWindingTableAndColumnId = theLongAndWindingTableAndColumnId;
     }
 
     /**
@@ -371,7 +401,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setTheLongAndWindingTableAndColumnName(String theLongAndWindingTableAndColumnName) {
         __modifiedProperties.addPropertyName("theLongAndWindingTableAndColumnName");
-        this._theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
+        _theLongAndWindingTableAndColumnName = theLongAndWindingTableAndColumnName;
     }
 
     /**
@@ -388,7 +418,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setShortName(String shortName) {
         __modifiedProperties.addPropertyName("shortName");
-        this._shortName = shortName;
+        _shortName = shortName;
     }
 
     /**
@@ -405,7 +435,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn implements Entity,
      */
     public void setShortSize(Integer shortSize) {
         __modifiedProperties.addPropertyName("shortSize");
-        this._shortSize = shortSize;
+        _shortSize = shortSize;
     }
 
     protected String convertEmptyToNull(String value) {

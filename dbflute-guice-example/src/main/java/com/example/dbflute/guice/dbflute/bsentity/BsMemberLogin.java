@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -58,7 +59,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
+public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -95,6 +96,9 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -422,6 +426,32 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -554,7 +584,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setMemberLoginId(Long memberLoginId) {
         __modifiedProperties.addPropertyName("memberLoginId");
-        this._memberLoginId = memberLoginId;
+        _memberLoginId = memberLoginId;
     }
 
     /**
@@ -571,7 +601,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -588,7 +618,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setLoginDatetime(java.sql.Timestamp loginDatetime) {
         __modifiedProperties.addPropertyName("loginDatetime");
-        this._loginDatetime = loginDatetime;
+        _loginDatetime = loginDatetime;
     }
 
     /**
@@ -606,7 +636,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public void setMobileLoginFlg(Integer mobileLoginFlg) {
         checkImplicitSet("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
         __modifiedProperties.addPropertyName("mobileLoginFlg");
-        this._mobileLoginFlg = mobileLoginFlg;
+        _mobileLoginFlg = mobileLoginFlg;
     }
 
     /**
@@ -623,7 +653,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setLoginMemberStatusCode(String loginMemberStatusCode) {
         __modifiedProperties.addPropertyName("loginMemberStatusCode");
-        this._loginMemberStatusCode = loginMemberStatusCode;
+        _loginMemberStatusCode = loginMemberStatusCode;
     }
 
     protected String convertEmptyToNull(String value) {

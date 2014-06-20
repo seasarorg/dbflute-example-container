@@ -587,7 +587,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setMemberLoginId(Long memberLoginId) {
         __modifiedProperties.addPropertyName("memberLoginId");
-        this._memberLoginId = memberLoginId;
+        _memberLoginId = memberLoginId;
     }
 
     /**
@@ -604,7 +604,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -625,7 +625,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setLoginDatetime(java.sql.Timestamp loginDatetime) {
         __modifiedProperties.addPropertyName("loginDatetime");
-        this._loginDatetime = loginDatetime;
+        _loginDatetime = loginDatetime;
     }
 
     /**
@@ -645,7 +645,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
     public void setMobileLoginFlg(Integer mobileLoginFlg) {
         checkImplicitSet("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
         __modifiedProperties.addPropertyName("mobileLoginFlg");
-        this._mobileLoginFlg = mobileLoginFlg;
+        _mobileLoginFlg = mobileLoginFlg;
     }
 
     /**
@@ -664,7 +664,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      */
     public void setLoginMemberStatusCode(String loginMemberStatusCode) {
         __modifiedProperties.addPropertyName("loginMemberStatusCode");
-        this._loginMemberStatusCode = loginMemberStatusCode;
+        _loginMemberStatusCode = loginMemberStatusCode;
     }
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {

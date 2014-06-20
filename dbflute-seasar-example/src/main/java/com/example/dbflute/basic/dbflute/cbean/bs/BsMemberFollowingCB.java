@@ -96,22 +96,36 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @return this. (NotNull)
+     */
+    public MemberFollowingCB acceptPK(Long memberFollowingId) {
+        assertObjectNotNull("memberFollowingId", memberFollowingId);
+        BsMemberFollowingCB cb = this;
+        cb.query().setMemberFollowingId_Equal(memberFollowingId);
+        return (MemberFollowingCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
      */
     public void acceptPrimaryKey(Long memberFollowingId) {
         assertObjectNotNull("memberFollowingId", memberFollowingId);
         BsMemberFollowingCB cb = this;
-        cb.query().setMemberFollowingId_Equal(memberFollowingId);;
+        cb.query().setMemberFollowingId_Equal(memberFollowingId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer myMemberId, Integer yourMemberId) {
+    public MemberFollowingCB acceptUniqueOf(Integer myMemberId, Integer yourMemberId) {
         assertObjectNotNull("myMemberId", myMemberId);assertObjectNotNull("yourMemberId", yourMemberId);
         BsMemberFollowingCB cb = this;
-        cb.query().setMyMemberId_Equal(myMemberId);;cb.query().setYourMemberId_Equal(yourMemberId);;
+        cb.query().setMyMemberId_Equal(myMemberId);cb.query().setYourMemberId_Equal(yourMemberId);
+        return (MemberFollowingCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

@@ -44,6 +44,16 @@ public class Member extends BsMember {
     protected Integer _loginCount;
     protected Integer _productKindCount;
 
+    public void setFooBar(String abc) {
+        System.out.println("*************");
+        System.out.println("*************");
+        System.out.println("*************");
+        System.out.println("*************");
+        System.out.println("*************");
+        System.out.println("*************: " + abc);
+        return;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

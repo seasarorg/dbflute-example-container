@@ -20,11 +20,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.basic.dbflute.exbhv.*;
+import com.example.dbflute.basic.dbflute.bsbhv.loader.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
 import com.example.dbflute.basic.dbflute.bsentity.dbmeta.*;
 import com.example.dbflute.basic.dbflute.cbean.*;
@@ -78,7 +81,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return ProductCategoryDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -88,10 +91,10 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public ProductCategory newEntity() { return new ProductCategory(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public ProductCategoryCB newConditionBean() { return new ProductCategoryCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public ProductCategory newMyEntity() { return new ProductCategory(); }
@@ -114,6 +117,10 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(ProductCategoryCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(ProductCategoryCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -129,7 +136,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
+        return facadeSelectCount(downcast(cb));
     }
 
     // ===================================================================================
@@ -155,7 +162,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectEntity(ProductCategoryCB cb) {
-        return doSelectEntity(cb, ProductCategory.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected ProductCategory facadeSelectEntity(ProductCategoryCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> ENTITY doSelectEntity(ProductCategoryCB cb, Class<ENTITY> tp) {
@@ -170,7 +181,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
+        return facadeSelectEntity(downcast(cb));
     }
 
     /**
@@ -189,7 +200,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectEntityWithDeletedCheck(ProductCategoryCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, ProductCategory.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected ProductCategory facadeSelectEntityWithDeletedCheck(ProductCategoryCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> ENTITY doSelectEntityWithDeletedCheck(ProductCategoryCB cb, Class<ENTITY> tp) {
@@ -200,7 +215,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
+        return facadeSelectEntityWithDeletedCheck(downcast(cb));
     }
 
     /**
@@ -211,15 +226,19 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectByPKValue(String productCategoryCode) {
-        return doSelectByPK(productCategoryCode, ProductCategory.class);
+        return facadeSelectByPKValue(productCategoryCode);
     }
 
-    protected <ENTITY extends ProductCategory> ENTITY doSelectByPK(String productCategoryCode, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(productCategoryCode), entityType);
+    protected ProductCategory facadeSelectByPKValue(String productCategoryCode) {
+        return doSelectByPK(productCategoryCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(productCategoryCode, entityType), productCategoryCode);
+    protected <ENTITY extends ProductCategory> ENTITY doSelectByPK(String productCategoryCode, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(productCategoryCode), tp);
+    }
+
+    protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(productCategoryCode, tp), productCategoryCode);
     }
 
     /**
@@ -231,17 +250,16 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectByPKValueWithDeletedCheck(String productCategoryCode) {
-        return doSelectByPKWithDeletedCheck(productCategoryCode, ProductCategory.class);
+        return doSelectByPKWithDeletedCheck(productCategoryCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ProductCategory> ENTITY doSelectByPKWithDeletedCheck(String productCategoryCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productCategoryCode), entityType);
+    protected <ENTITY extends ProductCategory> ENTITY doSelectByPKWithDeletedCheck(String productCategoryCode, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productCategoryCode), tp);
     }
 
     protected ProductCategoryCB xprepareCBAsPK(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
-        ProductCategoryCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productCategoryCode);
-        return cb;
+        return newConditionBean().acceptPK(productCategoryCode);
     }
 
     // ===================================================================================
@@ -263,7 +281,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<ProductCategory> selectList(ProductCategoryCB cb) {
-        return doSelectList(cb, ProductCategory.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<ProductCategory> facadeSelectList(ProductCategoryCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> ListResultBean<ENTITY> doSelectList(ProductCategoryCB cb, Class<ENTITY> tp) {
@@ -275,7 +297,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+        return facadeSelectList(downcast(cb));
     }
 
     // ===================================================================================
@@ -304,7 +326,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<ProductCategory> selectPage(ProductCategoryCB cb) {
-        return doSelectPage(cb, ProductCategory.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<ProductCategory> facadeSelectPage(ProductCategoryCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> PagingResultBean<ENTITY> doSelectPage(ProductCategoryCB cb, Class<ENTITY> tp) {
@@ -317,7 +343,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
+        return facadeSelectPage(downcast(cb));
     }
 
     // ===================================================================================
@@ -338,15 +364,19 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of ProductCategory. (NotNull)
      */
     public void selectCursor(ProductCategoryCB cb, EntityRowHandler<ProductCategory> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, ProductCategory.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(ProductCategoryCB cb, EntityRowHandler<ProductCategory> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> void doSelectCursor(ProductCategoryCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, ProductCategoryCB>() {
-            public void callbackSelectCursor(ProductCategoryCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(ProductCategoryCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
+            public void callbackSelectCursor(ProductCategoryCB lcb, EntityRowHandler<ENTITY> lhandler, Class<ENTITY> ltp) { delegateSelectCursor(lcb, lhandler, ltp); }
+            public List<ENTITY> callbackSelectList(ProductCategoryCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); }
         });
     }
 
@@ -368,22 +398,23 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<ProductCategoryCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends ProductCategoryCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends ProductCategoryCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends ProductCategoryCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return facadeScalarSelect(tp);
     }
 
     // ===================================================================================
@@ -398,6 +429,78 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param productCategoryList The entity list of productCategory. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<ProductCategory> productCategoryList, ReferrerLoaderHandler<LoaderOfProductCategory> handler) {
+        xassLRArg(productCategoryList, handler);
+        handler.handle(new LoaderOfProductCategory().ready(productCategoryList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param productCategory The entity of productCategory. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(ProductCategory productCategory, ReferrerLoaderHandler<LoaderOfProductCategory> handler) {
+        xassLRArg(productCategory, handler);
+        handler.handle(new LoaderOfProductCategory().ready(xnewLRAryLs(productCategory), _behaviorSelector));
+    }
+
     /**
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
@@ -426,7 +529,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCB> setupper) {
+    public NestedReferrerListGateway<Product> loadProductList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCB> setupper) {
         xassLRArg(productCategoryList, setupper);
         return doLoadProductList(productCategoryList, new LoadReferrerOption<ProductCB, Product>().xinit(setupper));
     }
@@ -457,7 +560,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(ProductCategory productCategory, ConditionBeanSetupper<ProductCB> setupper) {
+    public NestedReferrerListGateway<Product> loadProductList(ProductCategory productCategory, ConditionBeanSetupper<ProductCB> setupper) {
         xassLRArg(productCategory, setupper);
         return doLoadProductList(xnewLRLs(productCategory), new LoadReferrerOption<ProductCB, Product>().xinit(setupper));
     }
@@ -468,7 +571,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<Product> loadProductList(ProductCategory productCategory, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProductList(ProductCategory productCategory, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productCategory, loadReferrerOption);
         return loadProductList(xnewLRLs(productCategory), loadReferrerOption);
     }
@@ -480,20 +583,20 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<Product> loadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerLoader<Product>)EMPTY_LOADER; }
+        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<Product>)EMPTY_NREF_LGWAY; }
         return doLoadProductList(productCategoryList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<Product> doLoadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> option) {
+    protected NestedReferrerListGateway<Product> doLoadProductList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> option) {
         final ProductBhv referrerBhv = xgetBSFLR().select(ProductBhv.class);
         return helpLoadReferrerInternally(productCategoryList, option, new InternalLoadReferrerCallback<ProductCategory, String, ProductCB, Product>() {
             public String getPKVal(ProductCategory et)
             { return et.getProductCategoryCode(); }
             public void setRfLs(ProductCategory et, List<Product> ls)
             { et.setProductList(ls); }
-            public ProductCB newMyCB() { return referrerBhv.newMyConditionBean(); }
+            public ProductCB newMyCB() { return referrerBhv.newConditionBean(); }
             public void qyFKIn(ProductCB cb, List<String> ls)
             { cb.query().setProductCategoryCode_InScope(ls); }
             public void qyOdFKAsc(ProductCB cb) { cb.query().addOrderBy_ProductCategoryCode_Asc(); }
@@ -534,7 +637,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCategoryCB> setupper) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCategoryCB> setupper) {
         xassLRArg(productCategoryList, setupper);
         return doLoadProductCategorySelfList(productCategoryList, new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(setupper));
     }
@@ -565,7 +668,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, ConditionBeanSetupper<ProductCategoryCB> setupper) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, ConditionBeanSetupper<ProductCategoryCB> setupper) {
         xassLRArg(productCategory, setupper);
         return doLoadProductCategorySelfList(xnewLRLs(productCategory), new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(setupper));
     }
@@ -576,7 +679,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(ProductCategory productCategory, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
         xassLRArg(productCategory, loadReferrerOption);
         return loadProductCategorySelfList(xnewLRLs(productCategory), loadReferrerOption);
     }
@@ -588,20 +691,20 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
         xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerLoader<ProductCategory>)EMPTY_LOADER; }
+        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<ProductCategory>)EMPTY_NREF_LGWAY; }
         return doLoadProductCategorySelfList(productCategoryList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<ProductCategory> doLoadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> option) {
+    protected NestedReferrerListGateway<ProductCategory> doLoadProductCategorySelfList(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> option) {
         final ProductCategoryBhv referrerBhv = xgetBSFLR().select(ProductCategoryBhv.class);
         return helpLoadReferrerInternally(productCategoryList, option, new InternalLoadReferrerCallback<ProductCategory, String, ProductCategoryCB, ProductCategory>() {
             public String getPKVal(ProductCategory et)
             { return et.getProductCategoryCode(); }
             public void setRfLs(ProductCategory et, List<ProductCategory> ls)
             { et.setProductCategorySelfList(ls); }
-            public ProductCategoryCB newMyCB() { return referrerBhv.newMyConditionBean(); }
+            public ProductCategoryCB newMyCB() { return referrerBhv.newConditionBean(); }
             public void qyFKIn(ProductCategoryCB cb, List<String> ls)
             { cb.query().setParentCategoryCode_InScope(ls); }
             public void qyOdFKAsc(ProductCategoryCB cb) { cb.query().addOrderBy_ParentCategoryCode_Asc(); }
@@ -663,17 +766,17 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * ... = productCategory.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param productCategory The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param productCategory The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(ProductCategory productCategory) {
         doInsert(productCategory, null);
     }
 
-    protected void doInsert(ProductCategory productCategory, InsertOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", productCategory);
+    protected void doInsert(ProductCategory et, InsertOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategory", et);
         prepareInsertOption(op);
-        delegateInsert(productCategory, op);
+        delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<ProductCategoryCB> op) {
@@ -686,8 +789,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
+        doInsert(downcast(et), downcast(op));
     }
 
     /**
@@ -699,7 +801,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//productCategory.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//productCategory.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * productCategory.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     productCategoryBhv.<span style="color: #DD4747">update</span>(productCategory);
@@ -707,49 +809,38 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param productCategory The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param productCategory The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final ProductCategory productCategory) {
+    public void update(ProductCategory productCategory) {
         doUpdate(productCategory, null);
     }
 
-    protected void doUpdate(ProductCategory productCategory, final UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", productCategory);
+    protected void doUpdate(ProductCategory et, final UpdateOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategory", et);
         prepareUpdateOption(op);
-        helpUpdateInternally(productCategory, new InternalUpdateCallback<ProductCategory>() {
-            public int callbackDelegateUpdate(ProductCategory et) { return delegateUpdate(et, op); } });
+        helpUpdateInternally(et, new InternalUpdateCallback<ProductCategory>() {
+            public int callbackDelegateUpdate(ProductCategory let) { return delegateUpdate(let, op); } });
     }
 
     protected void prepareUpdateOption(UpdateOption<ProductCategoryCB> op) {
         if (op == null) { return; }
         assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected ProductCategoryCB createCBForVaryingUpdate() {
-        ProductCategoryCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected ProductCategoryCB createCBForVaryingUpdate()
+    { ProductCategoryCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected ProductCategoryCB createCBForSpecifiedUpdate() {
-        ProductCategoryCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected ProductCategoryCB createCBForSpecifiedUpdate()
+    { ProductCategoryCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     @Override
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
+        doUpdate(downcast(et), downcast(op));
     }
 
     @Override
@@ -761,32 +852,28 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param productCategory The entity of insert or update target. (NotNull)
+     * @param productCategory The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(ProductCategory productCategory) {
-        doInesrtOrUpdate(productCategory, null, null);
+        doInsertOrUpdate(productCategory, null, null);
     }
 
-    protected void doInesrtOrUpdate(ProductCategory productCategory, final InsertOption<ProductCategoryCB> iop, final UpdateOption<ProductCategoryCB> uop) {
-        helpInsertOrUpdateInternally(productCategory, new InternalInsertOrUpdateCallback<ProductCategory, ProductCategoryCB>() {
-            public void callbackInsert(ProductCategory et) { doInsert(et, iop); }
-            public void callbackUpdate(ProductCategory et) { doUpdate(et, uop); }
-            public ProductCategoryCB callbackNewMyConditionBean() { return newMyConditionBean(); }
+    protected void doInsertOrUpdate(ProductCategory et, final InsertOption<ProductCategoryCB> iop, final UpdateOption<ProductCategoryCB> uop) {
+        assertObjectNotNull("productCategory", et);
+        helpInsertOrUpdateInternally(et, new InternalInsertOrUpdateCallback<ProductCategory, ProductCategoryCB>() {
+            public void callbackInsert(ProductCategory let) { doInsert(let, iop); }
+            public void callbackUpdate(ProductCategory let) { doUpdate(let, uop); }
+            public ProductCategoryCB callbackNewMyConditionBean() { return newConditionBean(); }
             public int callbackSelectCount(ProductCategoryCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
     protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<ProductCategoryCB>();
-            uop = uop != null ? uop : new UpdateOption<ProductCategoryCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
+        doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
     }
 
     @Override
@@ -799,7 +886,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * <pre>
      * ProductCategory productCategory = new ProductCategory();
      * productCategory.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * productCategory.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     productCategoryBhv.<span style="color: #DD4747">delete</span>(productCategory);
@@ -807,7 +894,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param productCategory The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param productCategory The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -815,22 +902,19 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         doDelete(productCategory, null);
     }
 
-    protected void doDelete(ProductCategory productCategory, final DeleteOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", productCategory);
+    protected void doDelete(ProductCategory et, final DeleteOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategory", et);
         prepareDeleteOption(op);
-        helpDeleteInternally(productCategory, new InternalDeleteCallback<ProductCategory>() {
-            public int callbackDelegateDelete(ProductCategory et) { return delegateDelete(et, op); } });
+        helpDeleteInternally(et, new InternalDeleteCallback<ProductCategory>() {
+            public int callbackDelegateDelete(ProductCategory let) { return delegateDelete(let, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<ProductCategoryCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<ProductCategoryCB> op)
+    { if (op != null) { assertDeleteOptionStatus(op); } }
 
     @Override
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
+        doDelete(downcast(et), downcast(op));
     }
 
     @Override
@@ -866,26 +950,25 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<ProductCategory> productCategoryList) {
-        InsertOption<ProductCategoryCB> op = createInsertUpdateOption();
-        return doBatchInsert(productCategoryList, op);
+        return doBatchInsert(productCategoryList, null);
     }
 
-    protected int[] doBatchInsert(List<ProductCategory> productCategoryList, InsertOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", productCategoryList);
-        prepareBatchInsertOption(productCategoryList, op);
-        return delegateBatchInsert(productCategoryList, op);
+    protected int[] doBatchInsert(List<ProductCategory> ls, InsertOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategoryList", ls);
+        InsertOption<ProductCategoryCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<ProductCategory> productCategoryList, InsertOption<ProductCategoryCB> op) {
+    protected void prepareBatchInsertOption(List<ProductCategory> ls, InsertOption<ProductCategoryCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(productCategoryList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
     @Override
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
+        return doBatchInsert(downcast(ls), downcast(op));
     }
 
     /**
@@ -913,25 +996,24 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ProductCategory> productCategoryList) {
-        UpdateOption<ProductCategoryCB> op = createPlainUpdateOption();
-        return doBatchUpdate(productCategoryList, op);
+        return doBatchUpdate(productCategoryList, null);
     }
 
-    protected int[] doBatchUpdate(List<ProductCategory> productCategoryList, UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", productCategoryList);
-        prepareBatchUpdateOption(productCategoryList, op);
-        return delegateBatchUpdate(productCategoryList, op);
+    protected int[] doBatchUpdate(List<ProductCategory> ls, UpdateOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategoryList", ls);
+        UpdateOption<ProductCategoryCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<ProductCategory> productCategoryList, UpdateOption<ProductCategoryCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(productCategoryList);
+    protected void prepareBatchUpdateOption(List<ProductCategory> ls, UpdateOption<ProductCategoryCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
     @Override
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
+        return doBatchUpdate(downcast(ls), downcast(op));
     }
 
     /**
@@ -982,16 +1064,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doBatchDelete(productCategoryList, null);
     }
 
-    protected int[] doBatchDelete(List<ProductCategory> productCategoryList, DeleteOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", productCategoryList);
+    protected int[] doBatchDelete(List<ProductCategory> ls, DeleteOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategoryList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(productCategoryList, op);
+        return delegateBatchDelete(ls, op);
     }
 
     @Override
     protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
+        return doBatchDelete(downcast(ls), downcast(op));
     }
 
     @Override
@@ -1018,7 +1099,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1035,21 +1116,17 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     protected int doQueryInsert(QueryInsertSetupper<ProductCategory, ProductCategoryCB> sp, InsertOption<ProductCategoryCB> op) {
         assertObjectNotNull("setupper", sp);
         prepareInsertOption(op);
-        ProductCategory e = new ProductCategory();
+        ProductCategory et = newEntity();
         ProductCategoryCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected ProductCategoryCB createCBForQueryInsert() {
-        ProductCategoryCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected ProductCategoryCB createCBForQueryInsert()
+    { ProductCategoryCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op) {
+        return doQueryInsert(downcast(setupper), downcast(op));
     }
 
     /**
@@ -1062,7 +1139,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//productCategory.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//productCategory.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//productCategory.setVersionNo(value);</span>
      * ProductCategoryCB cb = new ProductCategoryCB();
@@ -1078,16 +1155,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(productCategory, cb, null);
     }
 
-    protected int doQueryUpdate(ProductCategory productCategory, ProductCategoryCB cb, UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", productCategory); assertCBStateValid(cb);
+    protected int doQueryUpdate(ProductCategory et, ProductCategoryCB cb, UpdateOption<ProductCategoryCB> op) {
+        assertObjectNotNull("productCategory", et); assertCBStateValid(cb);
         prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(productCategory, cb, op) : 0;
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
     @Override
     protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (ProductCategoryCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (ProductCategoryCB)cb, downcast(op)); }
+        return doQueryUpdate(downcast(et), downcast(cb), downcast(op));
     }
 
     /**
@@ -1113,8 +1189,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
 
     @Override
     protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((ProductCategoryCB)cb); }
-        else { return varyingQueryDelete((ProductCategoryCB)cb, downcast(op)); }
+        return doQueryDelete(downcast(cb), downcast(op));
     }
 
     // ===================================================================================
@@ -1138,7 +1213,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * productCategoryBhv.<span style="color: #DD4747">varyingInsert</span>(productCategory, option);
      * ... = productCategory.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param productCategory The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param productCategory The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1155,7 +1230,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * ProductCategory productCategory = new ProductCategory();
      * productCategory.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * productCategory.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * productCategory.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1170,7 +1245,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param productCategory The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param productCategory The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1184,7 +1259,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param productCategory The entity of insert or update target. (NotNull)
+     * @param productCategory The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1193,14 +1268,14 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(ProductCategory productCategory, InsertOption<ProductCategoryCB> insertOption, UpdateOption<ProductCategoryCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(productCategory, insertOption, updateOption);
+        doInsertOrUpdate(productCategory, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param productCategory The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param productCategory The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1281,7 +1356,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//productCategory.setPK...(value);</span>
      * productCategory.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//productCategory.setVersionNo(value);</span>
      * ProductCategoryCB cb = new ProductCategoryCB();
@@ -1433,38 +1508,34 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected ProductCategory downcast(Entity et) {
-        return helpEntityDowncastInternally(et, ProductCategory.class);
-    }
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<ProductCategory> typeOfSelectedEntity()
+    { return ProductCategory.class; }
 
-    protected ProductCategoryCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, ProductCategoryCB.class);
-    }
+    protected ProductCategory downcast(Entity et)
+    { return helpEntityDowncastInternally(et, ProductCategory.class); }
 
-    @SuppressWarnings("unchecked")
-    protected List<ProductCategory> downcast(List<? extends Entity> ls) {
-        return (List<ProductCategory>)ls;
-    }
+    protected ProductCategoryCB downcast(ConditionBean cb)
+    { return helpConditionBeanDowncastInternally(cb, ProductCategoryCB.class); }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<ProductCategoryCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<ProductCategoryCB>)op;
-    }
+    protected List<ProductCategory> downcast(List<? extends Entity> ls)
+    { return (List<ProductCategory>)ls; }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<ProductCategoryCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<ProductCategoryCB>)op;
-    }
+    protected InsertOption<ProductCategoryCB> downcast(InsertOption<? extends ConditionBean> op)
+    { return (InsertOption<ProductCategoryCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<ProductCategoryCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<ProductCategoryCB>)op;
-    }
+    protected UpdateOption<ProductCategoryCB> downcast(UpdateOption<? extends ConditionBean> op)
+    { return (UpdateOption<ProductCategoryCB>)op; }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<ProductCategory, ProductCategoryCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<ProductCategory, ProductCategoryCB>)sp;
-    }
+    protected DeleteOption<ProductCategoryCB> downcast(DeleteOption<? extends ConditionBean> op)
+    { return (DeleteOption<ProductCategoryCB>)op; }
+
+    @SuppressWarnings("unchecked")
+    protected QueryInsertSetupper<ProductCategory, ProductCategoryCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<ProductCategory, ProductCategoryCB>)sp; }
 }

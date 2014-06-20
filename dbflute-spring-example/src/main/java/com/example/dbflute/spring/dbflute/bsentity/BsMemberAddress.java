@@ -582,7 +582,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberAddressId(Integer memberAddressId) {
         __modifiedProperties.addPropertyName("memberAddressId");
-        this._memberAddressId = memberAddressId;
+        _memberAddressId = memberAddressId;
     }
 
     /**
@@ -603,7 +603,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -624,7 +624,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setValidBeginDate(java.util.Date validBeginDate) {
         __modifiedProperties.addPropertyName("validBeginDate");
-        this._validBeginDate = validBeginDate;
+        _validBeginDate = validBeginDate;
     }
 
     /**
@@ -645,7 +645,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setValidEndDate(java.util.Date validEndDate) {
         __modifiedProperties.addPropertyName("validEndDate");
-        this._validEndDate = validEndDate;
+        _validEndDate = validEndDate;
     }
 
     /**
@@ -664,7 +664,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setAddress(String address) {
         __modifiedProperties.addPropertyName("address");
-        this._address = address;
+        _address = address;
     }
 
     /**
@@ -683,7 +683,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setRegionId(Integer regionId) {
         __modifiedProperties.addPropertyName("regionId");
-        this._regionId = regionId;
+        _regionId = regionId;
     }
 
     /**
@@ -700,7 +700,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -717,7 +717,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -734,7 +734,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -751,7 +751,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -768,6 +768,6 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

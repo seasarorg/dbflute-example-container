@@ -305,6 +305,6 @@ public abstract class BsForcedType implements Entity, Serializable, Cloneable {
      */
     public void setMaxMemberId(java.math.BigInteger maxMemberId) {
         __modifiedProperties.addPropertyName("maxMemberId");
-        this._maxMemberId = maxMemberId;
+        _maxMemberId = maxMemberId;
     }
 }

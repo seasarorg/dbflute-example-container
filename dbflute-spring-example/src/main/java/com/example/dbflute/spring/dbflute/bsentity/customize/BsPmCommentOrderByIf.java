@@ -323,7 +323,7 @@ public abstract class BsPmCommentOrderByIf implements Entity, Serializable, Clon
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -344,7 +344,7 @@ public abstract class BsPmCommentOrderByIf implements Entity, Serializable, Clon
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -365,6 +365,6 @@ public abstract class BsPmCommentOrderByIf implements Entity, Serializable, Clon
      */
     public void setMemberAccount(String memberAccount) {
         __modifiedProperties.addPropertyName("memberAccount");
-        this._memberAccount = memberAccount;
+        _memberAccount = memberAccount;
     }
 }

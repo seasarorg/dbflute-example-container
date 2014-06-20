@@ -478,7 +478,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
      */
     public void setProductStatusCode(String productStatusCode) {
         __modifiedProperties.addPropertyName("productStatusCode");
-        this._productStatusCode = productStatusCode;
+        _productStatusCode = productStatusCode;
     }
 
     /**
@@ -497,7 +497,7 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
      */
     public void setProductStatusName(String productStatusName) {
         __modifiedProperties.addPropertyName("productStatusName");
-        this._productStatusName = productStatusName;
+        _productStatusName = productStatusName;
     }
 
     /**
@@ -516,6 +516,6 @@ public abstract class BsProductStatus implements Entity, Serializable, Cloneable
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 }

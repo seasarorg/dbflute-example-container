@@ -282,7 +282,7 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MemberWithdrawal newEntity() { return new MemberWithdrawal(); }
     public MemberWithdrawal newMyEntity() { return new MemberWithdrawal(); }
 
     // ===================================================================================

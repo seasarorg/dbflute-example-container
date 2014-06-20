@@ -345,7 +345,7 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setPurchaseId(Long purchaseId) {
         __modifiedProperties.addPropertyName("purchaseId");
-        this._purchaseId = purchaseId;
+        _purchaseId = purchaseId;
     }
 
     /**
@@ -366,7 +366,7 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -387,7 +387,7 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -406,7 +406,7 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setProductId(Integer productId) {
         __modifiedProperties.addPropertyName("productId");
-        this._productId = productId;
+        _productId = productId;
     }
 
     /**
@@ -427,7 +427,7 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setProductName(String productName) {
         __modifiedProperties.addPropertyName("productName");
-        this._productName = productName;
+        _productName = productName;
     }
 
     /**
@@ -446,6 +446,6 @@ public abstract class BsPaymentCompletePurchase implements Entity, Serializable,
      */
     public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {
         __modifiedProperties.addPropertyName("purchaseDatetime");
-        this._purchaseDatetime = purchaseDatetime;
+        _purchaseDatetime = purchaseDatetime;
     }
 }

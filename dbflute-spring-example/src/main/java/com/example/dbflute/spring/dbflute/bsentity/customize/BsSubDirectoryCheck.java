@@ -323,7 +323,7 @@ public abstract class BsSubDirectoryCheck implements Entity, Serializable, Clone
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -344,7 +344,7 @@ public abstract class BsSubDirectoryCheck implements Entity, Serializable, Clone
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -365,6 +365,6 @@ public abstract class BsSubDirectoryCheck implements Entity, Serializable, Clone
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 }

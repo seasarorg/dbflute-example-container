@@ -347,7 +347,7 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -368,7 +368,7 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -391,7 +391,7 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -412,7 +412,7 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -433,7 +433,7 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -454,6 +454,6 @@ public abstract class BsSurpriseSimilarPKComment implements Entity, Serializable
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 }

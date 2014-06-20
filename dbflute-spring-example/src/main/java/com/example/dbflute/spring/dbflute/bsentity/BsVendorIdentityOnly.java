@@ -307,6 +307,6 @@ public abstract class BsVendorIdentityOnly implements Entity, Serializable, Clon
      */
     public void setIdentityOnlyId(Long identityOnlyId) {
         __modifiedProperties.addPropertyName("identityOnlyId");
-        this._identityOnlyId = identityOnlyId;
+        _identityOnlyId = identityOnlyId;
     }
 }

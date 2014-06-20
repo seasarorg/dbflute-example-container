@@ -346,7 +346,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -367,7 +367,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -386,7 +386,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setBirthdate(java.util.Date birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
-        this._birthdate = birthdate;
+        _birthdate = birthdate;
     }
 
     /**
@@ -407,7 +407,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
         __modifiedProperties.addPropertyName("formalizedDatetime");
-        this._formalizedDatetime = formalizedDatetime;
+        _formalizedDatetime = formalizedDatetime;
     }
 
     /**
@@ -424,6 +424,6 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      */
     public void setPurchaseSummary(Long purchaseSummary) {
         __modifiedProperties.addPropertyName("purchaseSummary");
-        this._purchaseSummary = purchaseSummary;
+        _purchaseSummary = purchaseSummary;
     }
 }

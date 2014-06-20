@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
@@ -64,7 +65,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSummaryWithdrawal implements Entity, Serializable, Cloneable {
+public abstract class BsSummaryWithdrawal implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -113,6 +114,9 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -218,6 +222,32 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public boolean createdBySelect() {
         return __createdBySelect;
+    }
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 
     // ===================================================================================
@@ -355,7 +385,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -372,7 +402,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -389,7 +419,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
         __modifiedProperties.addPropertyName("withdrawalReasonCode");
-        this._withdrawalReasonCode = withdrawalReasonCode;
+        _withdrawalReasonCode = withdrawalReasonCode;
     }
 
     /**
@@ -406,7 +436,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
         __modifiedProperties.addPropertyName("withdrawalReasonText");
-        this._withdrawalReasonText = withdrawalReasonText;
+        _withdrawalReasonText = withdrawalReasonText;
     }
 
     /**
@@ -423,7 +453,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
         __modifiedProperties.addPropertyName("withdrawalReasonInputText");
-        this._withdrawalReasonInputText = withdrawalReasonInputText;
+        _withdrawalReasonInputText = withdrawalReasonInputText;
     }
 
     /**
@@ -440,7 +470,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
         __modifiedProperties.addPropertyName("withdrawalDatetime");
-        this._withdrawalDatetime = withdrawalDatetime;
+        _withdrawalDatetime = withdrawalDatetime;
     }
 
     /**
@@ -457,7 +487,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
-        this._memberStatusCode = memberStatusCode;
+        _memberStatusCode = memberStatusCode;
     }
 
     /**
@@ -474,7 +504,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 
     /**
@@ -491,7 +521,7 @@ public abstract class BsSummaryWithdrawal implements Entity, Serializable, Clone
      */
     public void setMaxPurchasePrice(Integer maxPurchasePrice) {
         __modifiedProperties.addPropertyName("maxPurchasePrice");
-        this._maxPurchasePrice = maxPurchasePrice;
+        _maxPurchasePrice = maxPurchasePrice;
     }
 
     protected String convertEmptyToNull(String value) {

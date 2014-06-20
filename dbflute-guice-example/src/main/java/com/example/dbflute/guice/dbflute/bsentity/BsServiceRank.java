@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -59,7 +60,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
+public abstract class BsServiceRank implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -99,6 +100,9 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -444,6 +448,32 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -572,7 +602,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      */
     public void setServiceRankCode(String serviceRankCode) {
         __modifiedProperties.addPropertyName("serviceRankCode");
-        this._serviceRankCode = serviceRankCode;
+        _serviceRankCode = serviceRankCode;
     }
 
     /**
@@ -589,7 +619,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      */
     public void setServiceRankName(String serviceRankName) {
         __modifiedProperties.addPropertyName("serviceRankName");
-        this._serviceRankName = serviceRankName;
+        _serviceRankName = serviceRankName;
     }
 
     /**
@@ -606,7 +636,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      */
     public void setServicePointIncidence(java.math.BigDecimal servicePointIncidence) {
         __modifiedProperties.addPropertyName("servicePointIncidence");
-        this._servicePointIncidence = servicePointIncidence;
+        _servicePointIncidence = servicePointIncidence;
     }
 
     /**
@@ -624,7 +654,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
     public void setNewAcceptableFlg(Integer newAcceptableFlg) {
         checkImplicitSet("NEW_ACCEPTABLE_FLG", CDef.DefMeta.Flg, newAcceptableFlg);
         __modifiedProperties.addPropertyName("newAcceptableFlg");
-        this._newAcceptableFlg = newAcceptableFlg;
+        _newAcceptableFlg = newAcceptableFlg;
     }
 
     /**
@@ -641,7 +671,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      */
     public void setDescription(String description) {
         __modifiedProperties.addPropertyName("description");
-        this._description = description;
+        _description = description;
     }
 
     /**
@@ -658,7 +688,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 
     protected String convertEmptyToNull(String value) {

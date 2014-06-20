@@ -32,43 +32,43 @@
 -- !!Integer paymentCompleteFlg:cls(Flg)!! // direct one as Integer
 -- !!Integer paymentCompleteTrue:cls(Flg.True)!! // fixed one as Integer
 
-select member.MEMBER_ID
-     , member.MEMBER_NAME
-     , member.BIRTHDATE -- // select column comment here (no as)
-     , member.FORMALIZED_DATETIME as FORMALIZED_DATETIME -- // select column comment here (using as)
-     , member.MEMBER_STATUS_CODE -- for Classification Test of Sql2Entity
-     , memberStatus.MEMBER_STATUS_NAME
-     , memberStatus.DISPLAY_ORDER as STATUS_DISPLAY_ORDER -- for Alias Name Test
+select mb.MEMBER_ID
+     , mb.MEMBER_NAME
+     , mb.BIRTHDATE -- // select column comment here (no as)
+     , mb.FORMALIZED_DATETIME as FORMALIZED_DATETIME -- // select column comment here (using as)
+     , mb.MEMBER_STATUS_CODE -- for Classification Test of Sql2Entity
+     , stat.MEMBER_STATUS_NAME -- // *select column required test
+     , stat.DISPLAY_ORDER as STATUS_DISPLAY_ORDER -- for Alias Name Test
      , 0 as DUMMY_FLG -- // for Classification Test of Sql2Entity
      , 0 as DUMMY_NOFLG -- // for Classification Test of Sql2Entity
-  from MEMBER member
-    left outer join MEMBER_STATUS memberStatus
-      on member.MEMBER_STATUS_CODE = memberStatus.MEMBER_STATUS_CODE
+  from MEMBER mb
+    left outer join MEMBER_STATUS stat
+      on mb.MEMBER_STATUS_CODE = stat.MEMBER_STATUS_CODE
  /*BEGIN*/
  where
    /*IF pmb.memberId != null*/
-   member.MEMBER_ID = /*pmb.memberId*/3
+   mb.MEMBER_ID = /*pmb.memberId*/3
    /*END*/
    /*IF pmb.memberName != null*/
-   and member.MEMBER_NAME like /*pmb.memberName*/'S%'
+   and mb.MEMBER_NAME like /*pmb.memberName*/'S%'
    /*END*/
    /*IF pmb.memberAccount != null*/
-   and member.MEMBER_ACCOUNT like /*pmb.memberAccount*/'%v%'
+   and mb.MEMBER_ACCOUNT like /*pmb.memberAccount*/'%v%'
    /*END*/
    /*IF pmb.fromFormalizedDate != null*/
-   and member.FORMALIZED_DATETIME >= /*pmb.fromFormalizedDate*/'1964-12-27'
+   and mb.FORMALIZED_DATETIME >= /*pmb.fromFormalizedDate*/'1964-12-27'
    /*END*/
    /*IF pmb.toFormalizedDate != null*/
-   and member.FORMALIZED_DATETIME < /*pmb.toFormalizedDate*/'1974-04-17'
+   and mb.FORMALIZED_DATETIME < /*pmb.toFormalizedDate*/'1974-04-17'
    /*END*/
    /*IF pmb.fromFormalizedMonth != null*/
-   and member.FORMALIZED_DATETIME >= /*pmb.fromFormalizedMonth*/'1964-12-01'
+   and mb.FORMALIZED_DATETIME >= /*pmb.fromFormalizedMonth*/'1964-12-01'
    /*END*/
    /*IF pmb.toFormalizedMonth != null*/
-   and member.FORMALIZED_DATETIME < /*pmb.toFormalizedMonth*/'1974-04-01'
+   and mb.FORMALIZED_DATETIME < /*pmb.toFormalizedMonth*/'1974-04-01'
    /*END*/
    /*IF pmb.memberStatusCode != null*/
-   and member.MEMBER_STATUS_CODE = /*pmb.memberStatusCode*/'WDL'
+   and mb.MEMBER_STATUS_CODE = /*pmb.memberStatusCode*/'WDL'
    /*END*/
  /*END*/
- order by member.MEMBER_ID asc
+ order by mb.MEMBER_ID asc

@@ -471,7 +471,7 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
         __modifiedProperties.addPropertyName("withdrawalReasonCode");
-        this._withdrawalReasonCode = withdrawalReasonCode;
+        _withdrawalReasonCode = withdrawalReasonCode;
     }
 
     /**
@@ -492,7 +492,7 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
         __modifiedProperties.addPropertyName("withdrawalReasonText");
-        this._withdrawalReasonText = withdrawalReasonText;
+        _withdrawalReasonText = withdrawalReasonText;
     }
 
     /**
@@ -509,6 +509,6 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 }

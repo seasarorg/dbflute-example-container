@@ -95,21 +95,35 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param productId : PK, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public SummaryProductCB acceptPK(Integer productId) {
+        assertObjectNotNull("productId", productId);
+        BsSummaryProductCB cb = this;
+        cb.query().setProductId_Equal(productId);
+        return (SummaryProductCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param productId : PK, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer productId) {
         assertObjectNotNull("productId", productId);
         BsSummaryProductCB cb = this;
-        cb.query().setProductId_Equal(productId);;
+        cb.query().setProductId_Equal(productId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param productHandleCode : UQ, VARCHAR(100). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(String productHandleCode) {
+    public SummaryProductCB acceptUniqueOf(String productHandleCode) {
         assertObjectNotNull("productHandleCode", productHandleCode);
         BsSummaryProductCB cb = this;
-        cb.query().setProductHandleCode_Equal(productHandleCode);;
+        cb.query().setProductHandleCode_Equal(productHandleCode);
+        return (SummaryProductCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

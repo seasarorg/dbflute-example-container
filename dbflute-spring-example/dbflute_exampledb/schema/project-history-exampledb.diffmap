@@ -1,4 +1,50 @@
 map:{
+    ; 2014/06/16 23:42:26 = map:{
+        ; diffDate = 2014/06/16 23:42:26
+        ; tableCount = map:{
+            ; next = 24
+            ; previous = 23
+        }
+        ; tableDiff = map:{
+            ; PRODUCT_CATEGORY = map:{
+                ; tableName = PRODUCT_CATEGORY
+                ; diffType = ADD
+            }
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; FK_PRODUCT_PRODUCT_CATEGORY = map:{
+                        ; constraintName = FK_PRODUCT_PRODUCT_CATEGORY
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2014/06/16 23:40:54 = map:{
+        ; diffDate = 2014/06/16 23:40:54
+        ; tableCount = map:{
+            ; next = 23
+            ; previous = 24
+        }
+        ; tableDiff = map:{
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; FK_PRODUCT_PRODUCT_CATEGORY = map:{
+                        ; constraintName = FK_PRODUCT_PRODUCT_CATEGORY
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; PRODUCT_CATEGORY = map:{
+                ; tableName = PRODUCT_CATEGORY
+                ; diffType = DELETE
+            }
+        }
+    }
     ; 2014/05/31 13:46:23 = map:{
         ; diffDate = 2014/05/31 13:46:23
         ; tableDiff = map:{

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DerivedMappable;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -53,7 +54,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsProductCategory implements Entity, Serializable, Cloneable {
+public abstract class BsProductCategory implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -84,6 +85,9 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -252,6 +256,32 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -387,7 +417,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setProductCategoryCode(String productCategoryCode) {
         __modifiedProperties.addPropertyName("productCategoryCode");
-        this._productCategoryCode = productCategoryCode;
+        _productCategoryCode = productCategoryCode;
     }
 
     /**
@@ -404,7 +434,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setProductCategoryName(String productCategoryName) {
         __modifiedProperties.addPropertyName("productCategoryName");
-        this._productCategoryName = productCategoryName;
+        _productCategoryName = productCategoryName;
     }
 
     /**
@@ -421,7 +451,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
      */
     public void setParentCategoryCode(String parentCategoryCode) {
         __modifiedProperties.addPropertyName("parentCategoryCode");
-        this._parentCategoryCode = parentCategoryCode;
+        _parentCategoryCode = parentCategoryCode;
     }
 
     protected String convertEmptyToNull(String value) {

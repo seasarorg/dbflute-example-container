@@ -109,7 +109,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
     /** (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} */
     protected String _memberStatusCode;
 
-    /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
+    /** (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     protected String _memberStatusName;
 
     /** (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} */
@@ -566,7 +566,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -587,7 +587,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -608,7 +608,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setBirthdate(java.util.Date birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
-        this._birthdate = birthdate;
+        _birthdate = birthdate;
     }
 
     /**
@@ -631,7 +631,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
         __modifiedProperties.addPropertyName("formalizedDatetime");
-        this._formalizedDatetime = formalizedDatetime;
+        _formalizedDatetime = formalizedDatetime;
     }
 
     /**
@@ -652,28 +652,30 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
-        this._memberStatusCode = memberStatusCode;
+        _memberStatusCode = memberStatusCode;
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
      * 表示用の名称。<br />
-     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
-     * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
+     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。<br />
+     * // *select column required test
+     * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusName() {
         return _memberStatusName;
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
      * 表示用の名称。<br />
-     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
-     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
+     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。<br />
+     * // *select column required test
+     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 
     /**
@@ -694,7 +696,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setStatusDisplayOrder(Integer statusDisplayOrder) {
         __modifiedProperties.addPropertyName("statusDisplayOrder");
-        this._statusDisplayOrder = statusDisplayOrder;
+        _statusDisplayOrder = statusDisplayOrder;
     }
 
     /**
@@ -714,7 +716,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
     public void setDummyFlg(Integer dummyFlg) {
         checkImplicitSet("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
         __modifiedProperties.addPropertyName("dummyFlg");
-        this._dummyFlg = dummyFlg;
+        _dummyFlg = dummyFlg;
     }
 
     /**
@@ -733,7 +735,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      */
     public void setDummyNoflg(Integer dummyNoflg) {
         __modifiedProperties.addPropertyName("dummyNoflg");
-        this._dummyNoflg = dummyNoflg;
+        _dummyNoflg = dummyNoflg;
     }
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {

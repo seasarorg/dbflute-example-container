@@ -459,7 +459,7 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
      */
     public void setRegionId(Integer regionId) {
         __modifiedProperties.addPropertyName("regionId");
-        this._regionId = regionId;
+        _regionId = regionId;
     }
 
     /**
@@ -478,6 +478,6 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable {
      */
     public void setRegionName(String regionName) {
         __modifiedProperties.addPropertyName("regionName");
-        this._regionName = regionName;
+        _regionName = regionName;
     }
 }

@@ -15,39 +15,39 @@
 -- !!AutoDetect!!
 
 /*IF pmb.isPaging()*/
-select member.MEMBER_ID as UNPAID_MAN_ID
-     , member.MEMBER_NAME as UNPAID_MAN_NAME
-     , (select sum(purchase.PURCHASE_PRICE)
-          from PURCHASE purchase
-         where purchase.MEMBER_ID = member.MEMBER_ID
-           and purchase.PAYMENT_COMPLETE_FLG = 0
+select mb.MEMBER_ID as UNPAID_MAN_ID
+     , mb.MEMBER_NAME as UNPAID_MAN_NAME
+     , (select sum(purc.PURCHASE_PRICE)
+          from PURCHASE purc
+         where purc.MEMBER_ID = mb.MEMBER_ID
+           and purc.PAYMENT_COMPLETE_FLG = 0
        ) as UNPAID_PRICE_SUMMARY
-     , memberStatus.MEMBER_STATUS_NAME as STATUS_NAME
+     , stat.MEMBER_STATUS_NAME as STATUS_NAME
 -- ELSE select count(*)
 /*END*/
-  from MEMBER member
+  from MEMBER mb
     /*IF pmb.isPaging()*/
-    left outer join MEMBER_STATUS memberStatus
-      on member.MEMBER_STATUS_CODE = memberStatus.MEMBER_STATUS_CODE
+    left outer join MEMBER_STATUS stat
+      on mb.MEMBER_STATUS_CODE = stat.MEMBER_STATUS_CODE
     /*END*/
  /*BEGIN*/where
    /*IF pmb.memberId != null*/
-   member.MEMBER_ID = /*pmb.memberId*/3
+   mb.MEMBER_ID = /*pmb.memberId*/3
    /*END*/
    /*IF pmb.memberName != null*/
-   and member.MEMBER_NAME like /*pmb.memberName*/'S%'
+   and mb.MEMBER_NAME like /*pmb.memberName*/'S%'
    /*END*/
    /*IF pmb.memberStatusCode != null*/
-   and member.MEMBER_STATUS_CODE = /*pmb.memberStatusCode:ref(MEMBER)*/'FML'
+   and mb.MEMBER_STATUS_CODE = /*pmb.memberStatusCode:ref(MEMBER)*/'FML'
    /*END*/
    /*IF pmb.unpaidMemberOnly*/
    and exists (select 'yes'
                  from PURCHASE purchase
-                where purchase.MEMBER_ID = member.MEMBER_ID
+                where purchase.MEMBER_ID = mb.MEMBER_ID
                   and purchase.PAYMENT_COMPLETE_FLG = 0
        )
    /*END*/
  /*END*/
  /*IF pmb.isPaging()*/
- order by UNPAID_PRICE_SUMMARY desc, member.MEMBER_ID asc
+ order by UNPAID_PRICE_SUMMARY desc, mb.MEMBER_ID asc
  /*END*/

@@ -577,7 +577,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberServiceId(Integer memberServiceId) {
         __modifiedProperties.addPropertyName("memberServiceId");
-        this._memberServiceId = memberServiceId;
+        _memberServiceId = memberServiceId;
     }
 
     /**
@@ -596,7 +596,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -615,7 +615,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setServicePointCount(Integer servicePointCount) {
         __modifiedProperties.addPropertyName("servicePointCount");
-        this._servicePointCount = servicePointCount;
+        _servicePointCount = servicePointCount;
     }
 
     /**
@@ -634,7 +634,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setServiceRankCode(String serviceRankCode) {
         __modifiedProperties.addPropertyName("serviceRankCode");
-        this._serviceRankCode = serviceRankCode;
+        _serviceRankCode = serviceRankCode;
     }
 
     /**
@@ -651,7 +651,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -668,7 +668,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -685,7 +685,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -702,7 +702,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -719,6 +719,6 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

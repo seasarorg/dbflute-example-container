@@ -313,7 +313,7 @@ public abstract class BsVendor$Dollar implements Entity, Serializable, Cloneable
      */
     public void setVendor$DollarId(Integer vendor$DollarId) {
         __modifiedProperties.addPropertyName("vendor$DollarId");
-        this._vendor$DollarId = vendor$DollarId;
+        _vendor$DollarId = vendor$DollarId;
     }
 
     /**
@@ -330,6 +330,6 @@ public abstract class BsVendor$Dollar implements Entity, Serializable, Cloneable
      */
     public void setVendor$DollarName(String vendor$DollarName) {
         __modifiedProperties.addPropertyName("vendor$DollarName");
-        this._vendor$DollarName = vendor$DollarName;
+        _vendor$DollarName = vendor$DollarName;
     }
 }
