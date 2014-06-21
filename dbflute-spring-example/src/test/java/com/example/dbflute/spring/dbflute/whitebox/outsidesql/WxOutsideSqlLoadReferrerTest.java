@@ -36,8 +36,8 @@ public class WxOutsideSqlLoadReferrerTest extends UnitContainerTestCase {
         pmb.paging(8, 2);
         Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
-        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
         List<Member> domainList = new ArrayList<Member>();
         for (UnpaidSummaryMember member : memberPage) {
             domainList.add(member.prepareDomain());
@@ -74,8 +74,8 @@ public class WxOutsideSqlLoadReferrerTest extends UnitContainerTestCase {
         pmb.paging(8, 2);
         Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
-        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging().selectPage(path, pmb,
-                entityType);
+        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging()
+                .selectPage(path, pmb, entityType);
         List<Member> domainList = new ArrayList<Member>();
         for (UnpaidSummaryMember member : memberPage) {
             domainList.add(member.prepareDomain());

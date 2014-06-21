@@ -6,6 +6,7 @@ import java.util.Date;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
+import org.seasar.dbflute.cbean.coption.FromToOption;
 import org.seasar.dbflute.util.Srl;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
@@ -115,7 +116,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchaseCount();
             }
-        }).between(fromCount, toCount);
+        }).rangeOf(fromCount, toCount);
 
         // ## Act ##
         // Expect no exception
@@ -145,7 +146,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchaseDatetime();
             }
-        }).between(fromDate, toDate);
+        }).fromTo(fromDate, toDate, new FromToOption());
 
         // ## Act ##
         // Expect no exception
