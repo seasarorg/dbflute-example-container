@@ -424,10 +424,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     protected MemberCQ xcreateQueryMember() {
         String nrp = resolveNextRelationPath("MEMBER_ADDRESS", "member");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "member", nrp);
     }
     protected void xsetupOuterJoinMember() {
         MemberCQ cq = getConditionQueryMember();
@@ -435,9 +432,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "member");
     }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    public boolean hasConditionQueryMember() { return _conditionQueryMember != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -458,10 +453,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     protected RegionCQ xcreateQueryRegion() {
         String nrp = resolveNextRelationPath("MEMBER_ADDRESS", "region");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        RegionCQ cq = new RegionCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("region");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new RegionCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "region", nrp);
     }
     protected void xsetupOuterJoinRegion() {
         RegionCQ cq = getConditionQueryRegion();
@@ -469,9 +461,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
         joinOnMap.put("REGION_ID", "REGION_ID");
         registerOuterJoin(cq, joinOnMap, "region");
     }
-    public boolean hasConditionQueryRegion() {
-        return _conditionQueryRegion != null;
-    }
+    public boolean hasConditionQueryRegion() { return _conditionQueryRegion != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

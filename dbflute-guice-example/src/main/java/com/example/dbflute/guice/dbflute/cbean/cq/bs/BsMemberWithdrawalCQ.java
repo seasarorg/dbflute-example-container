@@ -328,10 +328,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     protected MemberCQ xcreateQueryMember() {
         String nrp = resolveNextRelationPath("MEMBER_WITHDRAWAL", "member");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "member", nrp);
     }
     protected void xsetupOuterJoinMember() {
         MemberCQ cq = getConditionQueryMember();
@@ -339,9 +336,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "member");
     }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    public boolean hasConditionQueryMember() { return _conditionQueryMember != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -362,10 +357,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     protected WithdrawalReasonCQ xcreateQueryWithdrawalReason() {
         String nrp = resolveNextRelationPath("MEMBER_WITHDRAWAL", "withdrawalReason");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        WithdrawalReasonCQ cq = new WithdrawalReasonCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("withdrawalReason");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new WithdrawalReasonCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "withdrawalReason", nrp);
     }
     protected void xsetupOuterJoinWithdrawalReason() {
         WithdrawalReasonCQ cq = getConditionQueryWithdrawalReason();
@@ -373,9 +365,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
         joinOnMap.put("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE");
         registerOuterJoin(cq, joinOnMap, "withdrawalReason");
     }
-    public boolean hasConditionQueryWithdrawalReason() {
-        return _conditionQueryWithdrawalReason != null;
-    }
+    public boolean hasConditionQueryWithdrawalReason() { return _conditionQueryWithdrawalReason != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

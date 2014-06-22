@@ -662,10 +662,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     protected MemberStatusCQ xcreateQueryMemberStatus() {
         String nrp = resolveNextRelationPath("MEMBER", "memberStatus");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberStatusCQ cq = new MemberStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberStatus");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberStatus", nrp);
     }
     protected void xsetupOuterJoinMemberStatus() {
         MemberStatusCQ cq = getConditionQueryMemberStatus();
@@ -673,9 +670,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
         joinOnMap.put("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE");
         registerOuterJoin(cq, joinOnMap, "memberStatus");
     }
-    public boolean hasConditionQueryMemberStatus() {
-        return _conditionQueryMemberStatus != null;
-    }
+    public boolean hasConditionQueryMemberStatus() { return _conditionQueryMemberStatus != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -699,21 +694,15 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     }
     protected Map<String, Object> _parameterMapMemberAddressAsValid;
     public Map<String, Object> getParameterMapMemberAddressAsValid() {
-        if (_parameterMapMemberAddressAsValid == null) {
-            _parameterMapMemberAddressAsValid = newLinkedHashMapSized(4);
-        }
+        if (_parameterMapMemberAddressAsValid == null) { _parameterMapMemberAddressAsValid = newLinkedHashMapSized(4); }
         return _parameterMapMemberAddressAsValid;
     }
-    public void xsetParameterMapMemberAddressAsValid(Map<String, Object> parameterMap) {
-        _parameterMapMemberAddressAsValid = parameterMap; // for UnionQuery
-    }
+    public void xsetParameterMapMemberAddressAsValid(Map<String, Object> parameterMap)
+    { _parameterMapMemberAddressAsValid = parameterMap; } // for UnionQuery
     protected MemberAddressCQ xcreateQueryMemberAddressAsValid() {
         String nrp = resolveNextRelationPath("MEMBER", "memberAddressAsValid");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberAddressCQ cq = new MemberAddressCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberAddressAsValid");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberAddressCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberAddressAsValid", nrp);
     }
     protected void xsetupOuterJoinMemberAddressAsValid() {
         MemberAddressCQ cq = getConditionQueryMemberAddressAsValid();
@@ -721,9 +710,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberAddressAsValid");
     }
-    public boolean hasConditionQueryMemberAddressAsValid() {
-        return _conditionQueryMemberAddressAsValid != null;
-    }
+    public boolean hasConditionQueryMemberAddressAsValid() { return _conditionQueryMemberAddressAsValid != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -744,10 +731,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     protected MemberSecurityCQ xcreateQueryMemberSecurityAsOne() {
         String nrp = resolveNextRelationPath("MEMBER", "memberSecurityAsOne");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberSecurityCQ cq = new MemberSecurityCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberSecurityAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberSecurityCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberSecurityAsOne", nrp);
     }
     protected void xsetupOuterJoinMemberSecurityAsOne() {
         MemberSecurityCQ cq = getConditionQueryMemberSecurityAsOne();
@@ -755,9 +739,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberSecurityAsOne");
     }
-    public boolean hasConditionQueryMemberSecurityAsOne() {
-        return _conditionQueryMemberSecurityAsOne != null;
-    }
+    public boolean hasConditionQueryMemberSecurityAsOne() { return _conditionQueryMemberSecurityAsOne != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -778,10 +760,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     protected MemberServiceCQ xcreateQueryMemberServiceAsOne() {
         String nrp = resolveNextRelationPath("MEMBER", "memberServiceAsOne");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberServiceCQ cq = new MemberServiceCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberServiceAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberServiceCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberServiceAsOne", nrp);
     }
     protected void xsetupOuterJoinMemberServiceAsOne() {
         MemberServiceCQ cq = getConditionQueryMemberServiceAsOne();
@@ -789,9 +768,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberServiceAsOne");
     }
-    public boolean hasConditionQueryMemberServiceAsOne() {
-        return _conditionQueryMemberServiceAsOne != null;
-    }
+    public boolean hasConditionQueryMemberServiceAsOne() { return _conditionQueryMemberServiceAsOne != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -812,10 +789,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     protected MemberWithdrawalCQ xcreateQueryMemberWithdrawalAsOne() {
         String nrp = resolveNextRelationPath("MEMBER", "memberWithdrawalAsOne");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberWithdrawalCQ cq = new MemberWithdrawalCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberWithdrawalAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberWithdrawalCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberWithdrawalAsOne", nrp);
     }
     protected void xsetupOuterJoinMemberWithdrawalAsOne() {
         MemberWithdrawalCQ cq = getConditionQueryMemberWithdrawalAsOne();
@@ -823,9 +797,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberWithdrawalAsOne");
     }
-    public boolean hasConditionQueryMemberWithdrawalAsOne() {
-        return _conditionQueryMemberWithdrawalAsOne != null;
-    }
+    public boolean hasConditionQueryMemberWithdrawalAsOne() { return _conditionQueryMemberWithdrawalAsOne != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         if ("memberAddressAsValid".equalsIgnoreCase(property)) {

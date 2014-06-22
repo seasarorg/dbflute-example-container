@@ -384,10 +384,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
     protected MemberCQ xcreateQueryMember() {
         String nrp = resolveNextRelationPath("MEMBER_SECURITY", "member");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "member", nrp);
     }
     protected void xsetupOuterJoinMember() {
         MemberCQ cq = getConditionQueryMember();
@@ -395,9 +392,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "member");
     }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    public boolean hasConditionQueryMember() { return _conditionQueryMember != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

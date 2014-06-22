@@ -479,10 +479,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     protected ProductCategoryCQ xcreateQueryProductCategory() {
         String nrp = resolveNextRelationPath("PRODUCT", "productCategory");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ProductCategoryCQ cq = new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("productCategory");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "productCategory", nrp);
     }
     protected void xsetupOuterJoinProductCategory() {
         ProductCategoryCQ cq = getConditionQueryProductCategory();
@@ -490,9 +487,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
         joinOnMap.put("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE");
         registerOuterJoin(cq, joinOnMap, "productCategory");
     }
-    public boolean hasConditionQueryProductCategory() {
-        return _conditionQueryProductCategory != null;
-    }
+    public boolean hasConditionQueryProductCategory() { return _conditionQueryProductCategory != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -513,10 +508,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     protected ProductStatusCQ xcreateQueryProductStatus() {
         String nrp = resolveNextRelationPath("PRODUCT", "productStatus");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ProductStatusCQ cq = new ProductStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("productStatus");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new ProductStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "productStatus", nrp);
     }
     protected void xsetupOuterJoinProductStatus() {
         ProductStatusCQ cq = getConditionQueryProductStatus();
@@ -524,9 +516,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
         joinOnMap.put("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE");
         registerOuterJoin(cq, joinOnMap, "productStatus");
     }
-    public boolean hasConditionQueryProductStatus() {
-        return _conditionQueryProductStatus != null;
-    }
+    public boolean hasConditionQueryProductStatus() { return _conditionQueryProductStatus != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

@@ -303,10 +303,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     protected ProductStatusCQ xcreateQueryProductStatus() {
         String nrp = resolveNextRelationPath("SUMMARY_PRODUCT", "productStatus");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ProductStatusCQ cq = new ProductStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("productStatus");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new ProductStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "productStatus", nrp);
     }
     protected void xsetupOuterJoinProductStatus() {
         ProductStatusCQ cq = getConditionQueryProductStatus();
@@ -314,9 +311,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
         joinOnMap.put("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE");
         registerOuterJoin(cq, joinOnMap, "productStatus");
     }
-    public boolean hasConditionQueryProductStatus() {
-        return _conditionQueryProductStatus != null;
-    }
+    public boolean hasConditionQueryProductStatus() { return _conditionQueryProductStatus != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

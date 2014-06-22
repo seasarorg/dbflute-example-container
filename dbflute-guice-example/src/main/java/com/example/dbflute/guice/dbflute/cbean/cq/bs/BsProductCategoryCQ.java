@@ -316,10 +316,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     protected ProductCategoryCQ xcreateQueryProductCategorySelf() {
         String nrp = resolveNextRelationPath("PRODUCT_CATEGORY", "productCategorySelf");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ProductCategoryCQ cq = new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("productCategorySelf");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "productCategorySelf", nrp);
     }
     protected void xsetupOuterJoinProductCategorySelf() {
         ProductCategoryCQ cq = getConditionQueryProductCategorySelf();
@@ -327,9 +324,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
         joinOnMap.put("PARENT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE");
         registerOuterJoin(cq, joinOnMap, "productCategorySelf");
     }
-    public boolean hasConditionQueryProductCategorySelf() {
-        return _conditionQueryProductCategorySelf != null;
-    }
+    public boolean hasConditionQueryProductCategorySelf() { return _conditionQueryProductCategorySelf != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

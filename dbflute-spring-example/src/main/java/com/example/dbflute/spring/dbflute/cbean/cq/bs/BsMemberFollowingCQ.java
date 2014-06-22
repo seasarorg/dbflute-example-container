@@ -277,10 +277,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     protected MemberCQ xcreateQueryMemberByMyMemberId() {
         String nrp = resolveNextRelationPath("MEMBER_FOLLOWING", "memberByMyMemberId");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberByMyMemberId");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberByMyMemberId", nrp);
     }
     protected void xsetupOuterJoinMemberByMyMemberId() {
         MemberCQ cq = getConditionQueryMemberByMyMemberId();
@@ -288,9 +285,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
         joinOnMap.put("MY_MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberByMyMemberId");
     }
-    public boolean hasConditionQueryMemberByMyMemberId() {
-        return _conditionQueryMemberByMyMemberId != null;
-    }
+    public boolean hasConditionQueryMemberByMyMemberId() { return _conditionQueryMemberByMyMemberId != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -311,10 +306,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     protected MemberCQ xcreateQueryMemberByYourMemberId() {
         String nrp = resolveNextRelationPath("MEMBER_FOLLOWING", "memberByYourMemberId");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberByYourMemberId");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberByYourMemberId", nrp);
     }
     protected void xsetupOuterJoinMemberByYourMemberId() {
         MemberCQ cq = getConditionQueryMemberByYourMemberId();
@@ -322,9 +314,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
         joinOnMap.put("YOUR_MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "memberByYourMemberId");
     }
-    public boolean hasConditionQueryMemberByYourMemberId() {
-        return _conditionQueryMemberByYourMemberId != null;
-    }
+    public boolean hasConditionQueryMemberByYourMemberId() { return _conditionQueryMemberByYourMemberId != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

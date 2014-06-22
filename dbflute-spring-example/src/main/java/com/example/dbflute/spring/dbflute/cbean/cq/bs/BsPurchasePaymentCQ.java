@@ -363,10 +363,7 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     protected PurchaseCQ xcreateQueryPurchase() {
         String nrp = resolveNextRelationPath("PURCHASE_PAYMENT", "purchase");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        PurchaseCQ cq = new PurchaseCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("purchase");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new PurchaseCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "purchase", nrp);
     }
     protected void xsetupOuterJoinPurchase() {
         PurchaseCQ cq = getConditionQueryPurchase();
@@ -374,9 +371,7 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
         joinOnMap.put("PURCHASE_ID", "PURCHASE_ID");
         registerOuterJoin(cq, joinOnMap, "purchase");
     }
-    public boolean hasConditionQueryPurchase() {
-        return _conditionQueryPurchase != null;
-    }
+    public boolean hasConditionQueryPurchase() { return _conditionQueryPurchase != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

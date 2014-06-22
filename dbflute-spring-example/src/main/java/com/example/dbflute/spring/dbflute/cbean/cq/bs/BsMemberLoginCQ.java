@@ -298,10 +298,7 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     protected MemberCQ xcreateQueryMember() {
         String nrp = resolveNextRelationPath("MEMBER_LOGIN", "member");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "member", nrp);
     }
     protected void xsetupOuterJoinMember() {
         MemberCQ cq = getConditionQueryMember();
@@ -309,9 +306,7 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "member");
     }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    public boolean hasConditionQueryMember() { return _conditionQueryMember != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -332,10 +327,7 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     protected MemberStatusCQ xcreateQueryMemberStatus() {
         String nrp = resolveNextRelationPath("MEMBER_LOGIN", "memberStatus");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberStatusCQ cq = new MemberStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberStatus");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "memberStatus", nrp);
     }
     protected void xsetupOuterJoinMemberStatus() {
         MemberStatusCQ cq = getConditionQueryMemberStatus();
@@ -343,9 +335,7 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
         joinOnMap.put("LOGIN_MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE");
         registerOuterJoin(cq, joinOnMap, "memberStatus");
     }
-    public boolean hasConditionQueryMemberStatus() {
-        return _conditionQueryMemberStatus != null;
-    }
+    public boolean hasConditionQueryMemberStatus() { return _conditionQueryMemberStatus != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

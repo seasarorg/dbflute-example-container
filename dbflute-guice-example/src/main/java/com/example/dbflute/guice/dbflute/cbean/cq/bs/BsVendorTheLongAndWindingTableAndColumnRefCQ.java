@@ -227,10 +227,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     protected VendorTheLongAndWindingTableAndColumnCQ xcreateQueryVendorTheLongAndWindingTableAndColumn() {
         String nrp = resolveNextRelationPath("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        VendorTheLongAndWindingTableAndColumnCQ cq = new VendorTheLongAndWindingTableAndColumnCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("vendorTheLongAndWindingTableAndColumn");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new VendorTheLongAndWindingTableAndColumnCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "vendorTheLongAndWindingTableAndColumn", nrp);
     }
     protected void xsetupOuterJoinVendorTheLongAndWindingTableAndColumn() {
         VendorTheLongAndWindingTableAndColumnCQ cq = getConditionQueryVendorTheLongAndWindingTableAndColumn();
@@ -238,9 +235,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
         joinOnMap.put("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
         registerOuterJoin(cq, joinOnMap, "vendorTheLongAndWindingTableAndColumn");
     }
-    public boolean hasConditionQueryVendorTheLongAndWindingTableAndColumn() {
-        return _conditionQueryVendorTheLongAndWindingTableAndColumn != null;
-    }
+    public boolean hasConditionQueryVendorTheLongAndWindingTableAndColumn() { return _conditionQueryVendorTheLongAndWindingTableAndColumn != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

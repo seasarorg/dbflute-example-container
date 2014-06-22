@@ -503,10 +503,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     protected MemberCQ xcreateQueryMember() {
         String nrp = resolveNextRelationPath("PURCHASE", "member");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "member", nrp);
     }
     protected void xsetupOuterJoinMember() {
         MemberCQ cq = getConditionQueryMember();
@@ -514,9 +511,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
         joinOnMap.put("MEMBER_ID", "MEMBER_ID");
         registerOuterJoin(cq, joinOnMap, "member");
     }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    public boolean hasConditionQueryMember() { return _conditionQueryMember != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -537,10 +532,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     protected ProductCQ xcreateQueryProduct() {
         String nrp = resolveNextRelationPath("PURCHASE", "product");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ProductCQ cq = new ProductCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("product");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new ProductCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "product", nrp);
     }
     protected void xsetupOuterJoinProduct() {
         ProductCQ cq = getConditionQueryProduct();
@@ -548,9 +540,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
         joinOnMap.put("PRODUCT_ID", "PRODUCT_ID");
         registerOuterJoin(cq, joinOnMap, "product");
     }
-    public boolean hasConditionQueryProduct() {
-        return _conditionQueryProduct != null;
-    }
+    public boolean hasConditionQueryProduct() { return _conditionQueryProduct != null; }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -571,10 +561,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     protected SummaryProductCQ xcreateQuerySummaryProduct() {
         String nrp = resolveNextRelationPath("PURCHASE", "summaryProduct");
         String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        SummaryProductCQ cq = new SummaryProductCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("summaryProduct");
-        cq.xsetRelationPath(nrp); return cq;
+        return xinitRelCQ(new SummaryProductCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "summaryProduct", nrp);
     }
     protected void xsetupOuterJoinSummaryProduct() {
         SummaryProductCQ cq = getConditionQuerySummaryProduct();
@@ -582,9 +569,7 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
         joinOnMap.put("PRODUCT_ID", "PRODUCT_ID");
         registerOuterJoin(cq, joinOnMap, "summaryProduct");
     }
-    public boolean hasConditionQuerySummaryProduct() {
-        return _conditionQuerySummaryProduct != null;
-    }
+    public boolean hasConditionQuerySummaryProduct() { return _conditionQuerySummaryProduct != null; }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

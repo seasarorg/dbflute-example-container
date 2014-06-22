@@ -9,8 +9,8 @@ import java.util.Set;
 import org.seasar.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.seasar.dbflute.cbean.ScalarQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
-import org.seasar.dbflute.exception.DangerousResultSizeException;
 import org.seasar.dbflute.exception.EntityDuplicatedException;
+import org.seasar.dbflute.exception.FetchingOverSafetySizeException;
 import org.seasar.dbflute.exception.SelectEntityConditionNotFoundException;
 import org.seasar.dbflute.util.Srl;
 
@@ -52,7 +52,8 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
             Throwable cause = e.getCause();
-            assertEquals(cause.getClass(), DangerousResultSizeException.class);
+            log(cause.getMessage());
+            assertEquals(cause.getClass(), FetchingOverSafetySizeException.class);
         }
     }
 
