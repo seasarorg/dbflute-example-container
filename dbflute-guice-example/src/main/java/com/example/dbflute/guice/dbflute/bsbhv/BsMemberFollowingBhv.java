@@ -1133,31 +1133,17 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<MemberFollowing> typeOfSelectedEntity()
-    { return MemberFollowing.class; }
-
-    protected MemberFollowing downcast(Entity et)
-    { return helpEntityDowncastInternally(et, MemberFollowing.class); }
-
-    protected MemberFollowingCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, MemberFollowingCB.class); }
-
+    protected Class<MemberFollowing> typeOfSelectedEntity() { return MemberFollowing.class; }
+    protected MemberFollowing downcast(Entity et) { return helpEntityDowncastInternally(et, MemberFollowing.class); }
+    protected MemberFollowingCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberFollowingCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<MemberFollowing> downcast(List<? extends Entity> ls)
-    { return (List<MemberFollowing>)ls; }
-
+    protected List<MemberFollowing> downcast(List<? extends Entity> ls) { return (List<MemberFollowing>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberFollowingCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<MemberFollowingCB>)op; }
-
+    protected InsertOption<MemberFollowingCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberFollowingCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberFollowingCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<MemberFollowingCB>)op; }
-
+    protected UpdateOption<MemberFollowingCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberFollowingCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberFollowingCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<MemberFollowingCB>)op; }
-
+    protected DeleteOption<MemberFollowingCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberFollowingCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<MemberFollowing, MemberFollowingCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<MemberFollowing, MemberFollowingCB>)sp; }

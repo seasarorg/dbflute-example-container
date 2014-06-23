@@ -1377,31 +1377,17 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<MemberAddress> typeOfSelectedEntity()
-    { return MemberAddress.class; }
-
-    protected MemberAddress downcast(Entity et)
-    { return helpEntityDowncastInternally(et, MemberAddress.class); }
-
-    protected MemberAddressCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, MemberAddressCB.class); }
-
+    protected Class<MemberAddress> typeOfSelectedEntity() { return MemberAddress.class; }
+    protected MemberAddress downcast(Entity et) { return helpEntityDowncastInternally(et, MemberAddress.class); }
+    protected MemberAddressCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberAddressCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<MemberAddress> downcast(List<? extends Entity> ls)
-    { return (List<MemberAddress>)ls; }
-
+    protected List<MemberAddress> downcast(List<? extends Entity> ls) { return (List<MemberAddress>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberAddressCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<MemberAddressCB>)op; }
-
+    protected InsertOption<MemberAddressCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberAddressCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberAddressCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<MemberAddressCB>)op; }
-
+    protected UpdateOption<MemberAddressCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberAddressCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberAddressCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<MemberAddressCB>)op; }
-
+    protected DeleteOption<MemberAddressCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberAddressCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<MemberAddress, MemberAddressCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<MemberAddress, MemberAddressCB>)sp; }

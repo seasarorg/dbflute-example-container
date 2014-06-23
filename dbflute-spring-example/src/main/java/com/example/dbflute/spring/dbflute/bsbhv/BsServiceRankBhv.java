@@ -585,23 +585,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
-        final MemberServiceBhv referrerBhv = xgetBSFLR().select(MemberServiceBhv.class);
-        return helpLoadReferrerInternally(serviceRankList, option, new InternalLoadReferrerCallback<ServiceRank, String, MemberServiceCB, MemberService>() {
-            public String getPKVal(ServiceRank et)
-            { return et.getServiceRankCode(); }
-            public void setRfLs(ServiceRank et, List<MemberService> ls)
-            { et.setMemberServiceList(ls); }
-            public MemberServiceCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(MemberServiceCB cb, List<String> ls)
-            { cb.query().setServiceRankCode_InScope(ls); }
-            public void qyOdFKAsc(MemberServiceCB cb) { cb.query().addOrderBy_ServiceRankCode_Asc(); }
-            public void spFKCol(MemberServiceCB cb) { cb.specify().columnServiceRankCode(); }
-            public List<MemberService> selRfLs(MemberServiceCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MemberService re) { return re.getServiceRankCode(); }
-            public void setlcEt(MemberService re, ServiceRank le)
-            { re.setServiceRank(le); }
-            public String getRfPrNm() { return "memberServiceList"; }
-        });
+        return helpLoadReferrerInternally(serviceRankList, option, "memberServiceList");
     }
 
     // ===================================================================================
@@ -1253,31 +1237,17 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<ServiceRank> typeOfSelectedEntity()
-    { return ServiceRank.class; }
-
-    protected ServiceRank downcast(Entity et)
-    { return helpEntityDowncastInternally(et, ServiceRank.class); }
-
-    protected ServiceRankCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, ServiceRankCB.class); }
-
+    protected Class<ServiceRank> typeOfSelectedEntity() { return ServiceRank.class; }
+    protected ServiceRank downcast(Entity et) { return helpEntityDowncastInternally(et, ServiceRank.class); }
+    protected ServiceRankCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, ServiceRankCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<ServiceRank> downcast(List<? extends Entity> ls)
-    { return (List<ServiceRank>)ls; }
-
+    protected List<ServiceRank> downcast(List<? extends Entity> ls) { return (List<ServiceRank>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<ServiceRankCB>)op; }
-
+    protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ServiceRankCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<ServiceRankCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<ServiceRankCB>)op; }
-
+    protected UpdateOption<ServiceRankCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<ServiceRankCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<ServiceRankCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<ServiceRankCB>)op; }
-
+    protected DeleteOption<ServiceRankCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<ServiceRankCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<ServiceRank, ServiceRankCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<ServiceRank, ServiceRankCB>)sp; }

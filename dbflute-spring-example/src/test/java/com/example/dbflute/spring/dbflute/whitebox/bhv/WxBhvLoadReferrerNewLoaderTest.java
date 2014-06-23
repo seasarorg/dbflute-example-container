@@ -16,24 +16,30 @@ import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfMemberService;
 import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfPurchase;
 import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfPurchasePayment;
 import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfServiceRank;
+import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfWithdrawalReason;
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberLoginCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberServiceCB;
+import com.example.dbflute.spring.dbflute.cbean.MemberWithdrawalCB;
 import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.spring.dbflute.cbean.PurchasePaymentCB;
 import com.example.dbflute.spring.dbflute.cbean.ServiceRankCB;
+import com.example.dbflute.spring.dbflute.cbean.WithdrawalReasonCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.spring.dbflute.exbhv.PurchaseBhv;
 import com.example.dbflute.spring.dbflute.exbhv.PurchasePaymentBhv;
 import com.example.dbflute.spring.dbflute.exbhv.ServiceRankBhv;
+import com.example.dbflute.spring.dbflute.exbhv.WithdrawalReasonBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
 import com.example.dbflute.spring.dbflute.exentity.MemberLogin;
 import com.example.dbflute.spring.dbflute.exentity.MemberService;
 import com.example.dbflute.spring.dbflute.exentity.MemberStatus;
+import com.example.dbflute.spring.dbflute.exentity.MemberWithdrawal;
 import com.example.dbflute.spring.dbflute.exentity.Purchase;
 import com.example.dbflute.spring.dbflute.exentity.PurchasePayment;
 import com.example.dbflute.spring.dbflute.exentity.ServiceRank;
+import com.example.dbflute.spring.dbflute.exentity.WithdrawalReason;
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
 /**
@@ -50,6 +56,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
     private PurchaseBhv purchaseBhv;
     private PurchasePaymentBhv purchasePaymentBhv;
     private ServiceRankBhv serviceRankBhv;
+    private WithdrawalReasonBhv withdrawalReasonBhv;
 
     // ===================================================================================
     //                                                                               Basic
@@ -564,6 +571,37 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             }
         }
         assertMarked("check");
+        assertMarked("exists");
+    }
+
+    // ===================================================================================
+    //                                                                             Null FK
+    //                                                                             =======
+    public void test_loadReferrer_nullFK() {
+        // ## Arrange ##
+        WithdrawalReasonCB cb = new WithdrawalReasonCB();
+
+        // ## Act ##
+        ListResultBean<WithdrawalReason> reasonList = withdrawalReasonBhv.selectList(cb);
+        withdrawalReasonBhv.load(reasonList, new ReferrerLoaderHandler<LoaderOfWithdrawalReason>() {
+            public void handle(LoaderOfWithdrawalReason loader) {
+                loader.loadMemberWithdrawalList(new ConditionBeanSetupper<MemberWithdrawalCB>() {
+                    public void setup(MemberWithdrawalCB referrerCB) {
+                    }
+                });
+            }
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(reasonList);
+        for (WithdrawalReason reason : reasonList) {
+            log(reason);
+            List<MemberWithdrawal> withdrawalList = reason.getMemberWithdrawalList();
+            for (MemberWithdrawal withdrawal : withdrawalList) {
+                markHere("exists");
+                log("  " + withdrawal);
+            }
+        }
         assertMarked("exists");
     }
 }

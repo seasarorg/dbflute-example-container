@@ -1112,31 +1112,17 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<Vendor$Dollar> typeOfSelectedEntity()
-    { return Vendor$Dollar.class; }
-
-    protected Vendor$Dollar downcast(Entity et)
-    { return helpEntityDowncastInternally(et, Vendor$Dollar.class); }
-
-    protected Vendor$DollarCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, Vendor$DollarCB.class); }
-
+    protected Class<Vendor$Dollar> typeOfSelectedEntity() { return Vendor$Dollar.class; }
+    protected Vendor$Dollar downcast(Entity et) { return helpEntityDowncastInternally(et, Vendor$Dollar.class); }
+    protected Vendor$DollarCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, Vendor$DollarCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<Vendor$Dollar> downcast(List<? extends Entity> ls)
-    { return (List<Vendor$Dollar>)ls; }
-
+    protected List<Vendor$Dollar> downcast(List<? extends Entity> ls) { return (List<Vendor$Dollar>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<Vendor$DollarCB>)op; }
-
+    protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<Vendor$DollarCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<Vendor$DollarCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<Vendor$DollarCB>)op; }
-
+    protected UpdateOption<Vendor$DollarCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<Vendor$DollarCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<Vendor$DollarCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<Vendor$DollarCB>)op; }
-
+    protected DeleteOption<Vendor$DollarCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<Vendor$DollarCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB>)sp; }

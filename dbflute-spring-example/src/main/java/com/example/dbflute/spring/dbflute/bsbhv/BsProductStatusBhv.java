@@ -585,23 +585,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<Product> doLoadProductList(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> option) {
-        final ProductBhv referrerBhv = xgetBSFLR().select(ProductBhv.class);
-        return helpLoadReferrerInternally(productStatusList, option, new InternalLoadReferrerCallback<ProductStatus, String, ProductCB, Product>() {
-            public String getPKVal(ProductStatus et)
-            { return et.getProductStatusCode(); }
-            public void setRfLs(ProductStatus et, List<Product> ls)
-            { et.setProductList(ls); }
-            public ProductCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(ProductCB cb, List<String> ls)
-            { cb.query().setProductStatusCode_InScope(ls); }
-            public void qyOdFKAsc(ProductCB cb) { cb.query().addOrderBy_ProductStatusCode_Asc(); }
-            public void spFKCol(ProductCB cb) { cb.specify().columnProductStatusCode(); }
-            public List<Product> selRfLs(ProductCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(Product re) { return re.getProductStatusCode(); }
-            public void setlcEt(Product re, ProductStatus le)
-            { re.setProductStatus(le); }
-            public String getRfPrNm() { return "productList"; }
-        });
+        return helpLoadReferrerInternally(productStatusList, option, "productList");
     }
 
     /**
@@ -693,23 +677,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<SummaryProduct> doLoadSummaryProductList(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> option) {
-        final SummaryProductBhv referrerBhv = xgetBSFLR().select(SummaryProductBhv.class);
-        return helpLoadReferrerInternally(productStatusList, option, new InternalLoadReferrerCallback<ProductStatus, String, SummaryProductCB, SummaryProduct>() {
-            public String getPKVal(ProductStatus et)
-            { return et.getProductStatusCode(); }
-            public void setRfLs(ProductStatus et, List<SummaryProduct> ls)
-            { et.setSummaryProductList(ls); }
-            public SummaryProductCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(SummaryProductCB cb, List<String> ls)
-            { cb.query().setProductStatusCode_InScope(ls); }
-            public void qyOdFKAsc(SummaryProductCB cb) { cb.query().addOrderBy_ProductStatusCode_Asc(); }
-            public void spFKCol(SummaryProductCB cb) { cb.specify().columnProductStatusCode(); }
-            public List<SummaryProduct> selRfLs(SummaryProductCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(SummaryProduct re) { return re.getProductStatusCode(); }
-            public void setlcEt(SummaryProduct re, ProductStatus le)
-            { re.setProductStatus(le); }
-            public String getRfPrNm() { return "summaryProductList"; }
-        });
+        return helpLoadReferrerInternally(productStatusList, option, "summaryProductList");
     }
 
     // ===================================================================================
@@ -1361,31 +1329,17 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<ProductStatus> typeOfSelectedEntity()
-    { return ProductStatus.class; }
-
-    protected ProductStatus downcast(Entity et)
-    { return helpEntityDowncastInternally(et, ProductStatus.class); }
-
-    protected ProductStatusCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, ProductStatusCB.class); }
-
+    protected Class<ProductStatus> typeOfSelectedEntity() { return ProductStatus.class; }
+    protected ProductStatus downcast(Entity et) { return helpEntityDowncastInternally(et, ProductStatus.class); }
+    protected ProductStatusCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, ProductStatusCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<ProductStatus> downcast(List<? extends Entity> ls)
-    { return (List<ProductStatus>)ls; }
-
+    protected List<ProductStatus> downcast(List<? extends Entity> ls) { return (List<ProductStatus>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<ProductStatusCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<ProductStatusCB>)op; }
-
+    protected InsertOption<ProductStatusCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ProductStatusCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<ProductStatusCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<ProductStatusCB>)op; }
-
+    protected UpdateOption<ProductStatusCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<ProductStatusCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<ProductStatusCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<ProductStatusCB>)op; }
-
+    protected DeleteOption<ProductStatusCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<ProductStatusCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<ProductStatus, ProductStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<ProductStatus, ProductStatusCB>)sp; }

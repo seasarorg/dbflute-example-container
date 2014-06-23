@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.Date;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.spring.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.spring.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.spring.dbflute.allcommon.CDef;

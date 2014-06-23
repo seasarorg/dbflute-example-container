@@ -1095,31 +1095,17 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<VendorCheck> typeOfSelectedEntity()
-    { return VendorCheck.class; }
-
-    protected VendorCheck downcast(Entity et)
-    { return helpEntityDowncastInternally(et, VendorCheck.class); }
-
-    protected VendorCheckCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, VendorCheckCB.class); }
-
+    protected Class<VendorCheck> typeOfSelectedEntity() { return VendorCheck.class; }
+    protected VendorCheck downcast(Entity et) { return helpEntityDowncastInternally(et, VendorCheck.class); }
+    protected VendorCheckCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, VendorCheckCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<VendorCheck> downcast(List<? extends Entity> ls)
-    { return (List<VendorCheck>)ls; }
-
+    protected List<VendorCheck> downcast(List<? extends Entity> ls) { return (List<VendorCheck>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<VendorCheckCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<VendorCheckCB>)op; }
-
+    protected InsertOption<VendorCheckCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorCheckCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorCheckCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<VendorCheckCB>)op; }
-
+    protected UpdateOption<VendorCheckCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorCheckCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorCheckCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<VendorCheckCB>)op; }
-
+    protected DeleteOption<VendorCheckCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorCheckCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<VendorCheck, VendorCheckCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<VendorCheck, VendorCheckCB>)sp; }

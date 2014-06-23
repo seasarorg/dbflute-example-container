@@ -559,23 +559,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<PurchasePayment> doLoadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
-        final PurchasePaymentBhv referrerBhv = xgetBSFLR().select(PurchasePaymentBhv.class);
-        return helpLoadReferrerInternally(purchaseList, option, new InternalLoadReferrerCallback<Purchase, Long, PurchasePaymentCB, PurchasePayment>() {
-            public Long getPKVal(Purchase et)
-            { return et.getPurchaseId(); }
-            public void setRfLs(Purchase et, List<PurchasePayment> ls)
-            { et.setPurchasePaymentList(ls); }
-            public PurchasePaymentCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(PurchasePaymentCB cb, List<Long> ls)
-            { cb.query().setPurchaseId_InScope(ls); }
-            public void qyOdFKAsc(PurchasePaymentCB cb) { cb.query().addOrderBy_PurchaseId_Asc(); }
-            public void spFKCol(PurchasePaymentCB cb) { cb.specify().columnPurchaseId(); }
-            public List<PurchasePayment> selRfLs(PurchasePaymentCB cb) { return referrerBhv.selectList(cb); }
-            public Long getFKVal(PurchasePayment re) { return re.getPurchaseId(); }
-            public void setlcEt(PurchasePayment re, Purchase le)
-            { re.setPurchase(OptionalEntity.of(le)); }
-            public String getRfPrNm() { return "purchasePaymentList"; }
-        });
+        return helpLoadReferrerInternally(purchaseList, option, "purchasePaymentList");
     }
 
     // ===================================================================================
@@ -1495,31 +1479,17 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<Purchase> typeOfSelectedEntity()
-    { return Purchase.class; }
-
-    protected Purchase downcast(Entity et)
-    { return helpEntityDowncastInternally(et, Purchase.class); }
-
-    protected PurchaseCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, PurchaseCB.class); }
-
+    protected Class<Purchase> typeOfSelectedEntity() { return Purchase.class; }
+    protected Purchase downcast(Entity et) { return helpEntityDowncastInternally(et, Purchase.class); }
+    protected PurchaseCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, PurchaseCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<Purchase> downcast(List<? extends Entity> ls)
-    { return (List<Purchase>)ls; }
-
+    protected List<Purchase> downcast(List<? extends Entity> ls) { return (List<Purchase>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<PurchaseCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<PurchaseCB>)op; }
-
+    protected InsertOption<PurchaseCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<PurchaseCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<PurchaseCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<PurchaseCB>)op; }
-
+    protected UpdateOption<PurchaseCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<PurchaseCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<PurchaseCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<PurchaseCB>)op; }
-
+    protected DeleteOption<PurchaseCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<PurchaseCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<Purchase, PurchaseCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<Purchase, PurchaseCB>)sp; }

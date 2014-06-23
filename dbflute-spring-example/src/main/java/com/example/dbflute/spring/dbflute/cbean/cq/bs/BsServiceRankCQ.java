@@ -89,66 +89,30 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _serviceRankCode;
-    public ConditionValue getServiceRankCode() {
-        if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
-        return _serviceRankCode;
-    }
+    public ConditionValue getServiceRankCode()
+    { if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
+      return _serviceRankCode; }
     protected ConditionValue getCValueServiceRankCode() { return getServiceRankCode(); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_ExistsReferrer_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_ExistsReferrer_MemberServiceList() { return _serviceRankCode_ExistsReferrer_MemberServiceListMap; }
-    public String keepServiceRankCode_ExistsReferrer_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_ExistsReferrer_MemberServiceListMap == null) { _serviceRankCode_ExistsReferrer_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_ExistsReferrer_MemberServiceListMap.size() + 1);
-        _serviceRankCode_ExistsReferrer_MemberServiceListMap.put(ky, sq); return "serviceRankCode_ExistsReferrer_MemberServiceList." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_ExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_ExistsReferrer_MemberServiceList"); }
+    public String keepServiceRankCode_ExistsReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_ExistsReferrer_MemberServiceList", sq); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_NotExistsReferrer_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_NotExistsReferrer_MemberServiceList() { return _serviceRankCode_NotExistsReferrer_MemberServiceListMap; }
-    public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_NotExistsReferrer_MemberServiceListMap == null) { _serviceRankCode_NotExistsReferrer_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_NotExistsReferrer_MemberServiceListMap.size() + 1);
-        _serviceRankCode_NotExistsReferrer_MemberServiceListMap.put(ky, sq); return "serviceRankCode_NotExistsReferrer_MemberServiceList." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_NotExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotExistsReferrer_MemberServiceList"); }
+    public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_NotExistsReferrer_MemberServiceList", sq); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_InScopeRelation_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_InScopeRelation_MemberServiceList() { return _serviceRankCode_InScopeRelation_MemberServiceListMap; }
-    public String keepServiceRankCode_InScopeRelation_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_InScopeRelation_MemberServiceListMap == null) { _serviceRankCode_InScopeRelation_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_InScopeRelation_MemberServiceListMap.size() + 1);
-        _serviceRankCode_InScopeRelation_MemberServiceListMap.put(ky, sq); return "serviceRankCode_InScopeRelation_MemberServiceList." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_InScopeRelation_MemberServiceList() { return xgetSQueMap("serviceRankCode_InScopeRelation_MemberServiceList"); }
+    public String keepServiceRankCode_InScopeRelation_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_InScopeRelation_MemberServiceList", sq); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_NotInScopeRelation_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_NotInScopeRelation_MemberServiceList() { return _serviceRankCode_NotInScopeRelation_MemberServiceListMap; }
-    public String keepServiceRankCode_NotInScopeRelation_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_NotInScopeRelation_MemberServiceListMap == null) { _serviceRankCode_NotInScopeRelation_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_NotInScopeRelation_MemberServiceListMap.size() + 1);
-        _serviceRankCode_NotInScopeRelation_MemberServiceListMap.put(ky, sq); return "serviceRankCode_NotInScopeRelation_MemberServiceList." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_NotInScopeRelation_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotInScopeRelation_MemberServiceList"); }
+    public String keepServiceRankCode_NotInScopeRelation_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_NotInScopeRelation_MemberServiceList", sq); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_SpecifyDerivedReferrer_MemberServiceList() { return _serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap; }
-    public String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap == null) { _serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap.size() + 1);
-        _serviceRankCode_SpecifyDerivedReferrer_MemberServiceListMap.put(ky, sq); return "serviceRankCode_SpecifyDerivedReferrer_MemberServiceList." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_SpecifyDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList"); }
+    public String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList", sq); }
 
-    protected Map<String, MemberServiceCQ> _serviceRankCode_QueryDerivedReferrer_MemberServiceListMap;
-    public Map<String, MemberServiceCQ> getServiceRankCode_QueryDerivedReferrer_MemberServiceList() { return _serviceRankCode_QueryDerivedReferrer_MemberServiceListMap; }
-    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq) {
-        if (_serviceRankCode_QueryDerivedReferrer_MemberServiceListMap == null) { _serviceRankCode_QueryDerivedReferrer_MemberServiceListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_QueryDerivedReferrer_MemberServiceListMap.size() + 1);
-        _serviceRankCode_QueryDerivedReferrer_MemberServiceListMap.put(ky, sq); return "serviceRankCode_QueryDerivedReferrer_MemberServiceList." + ky;
-    }
-    protected Map<String, Object> _serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap;
-    public Map<String, Object> getServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter() { return _serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap; }
-    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object vl) {
-        if (_serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap == null) { _serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap.size() + 1);
-        _serviceRankCode_QueryDerivedReferrer_MemberServiceListParameterMap.put(ky, vl); return "serviceRankCode_QueryDerivedReferrer_MemberServiceListParameter." + ky;
-    }
+    public Map<String, MemberServiceCQ> getServiceRankCode_QueryDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
+    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_QueryDerivedReferrer_MemberServiceList", sq); }
+    public Map<String, Object> getServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter() { return xgetSQuePmMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
+    public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object pm) { return xkeepSQuePm("serviceRankCode_QueryDerivedReferrer_MemberServiceList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -165,10 +129,9 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServiceRankCode_Desc() { regOBD("SERVICE_RANK_CODE"); return this; }
 
     protected ConditionValue _serviceRankName;
-    public ConditionValue getServiceRankName() {
-        if (_serviceRankName == null) { _serviceRankName = nCV(); }
-        return _serviceRankName;
-    }
+    public ConditionValue getServiceRankName()
+    { if (_serviceRankName == null) { _serviceRankName = nCV(); }
+      return _serviceRankName; }
     protected ConditionValue getCValueServiceRankName() { return getServiceRankName(); }
 
     /** 
@@ -186,10 +149,9 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServiceRankName_Desc() { regOBD("SERVICE_RANK_NAME"); return this; }
 
     protected ConditionValue _servicePointIncidence;
-    public ConditionValue getServicePointIncidence() {
-        if (_servicePointIncidence == null) { _servicePointIncidence = nCV(); }
-        return _servicePointIncidence;
-    }
+    public ConditionValue getServicePointIncidence()
+    { if (_servicePointIncidence == null) { _servicePointIncidence = nCV(); }
+      return _servicePointIncidence; }
     protected ConditionValue getCValueServicePointIncidence() { return getServicePointIncidence(); }
 
     /** 
@@ -207,10 +169,9 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServicePointIncidence_Desc() { regOBD("SERVICE_POINT_INCIDENCE"); return this; }
 
     protected ConditionValue _newAcceptableFlg;
-    public ConditionValue getNewAcceptableFlg() {
-        if (_newAcceptableFlg == null) { _newAcceptableFlg = nCV(); }
-        return _newAcceptableFlg;
-    }
+    public ConditionValue getNewAcceptableFlg()
+    { if (_newAcceptableFlg == null) { _newAcceptableFlg = nCV(); }
+      return _newAcceptableFlg; }
     protected ConditionValue getCValueNewAcceptableFlg() { return getNewAcceptableFlg(); }
 
     /** 
@@ -228,10 +189,9 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_NewAcceptableFlg_Desc() { regOBD("NEW_ACCEPTABLE_FLG"); return this; }
 
     protected ConditionValue _description;
-    public ConditionValue getDescription() {
-        if (_description == null) { _description = nCV(); }
-        return _description;
-    }
+    public ConditionValue getDescription()
+    { if (_description == null) { _description = nCV(); }
+      return _description; }
     protected ConditionValue getCValueDescription() { return getDescription(); }
 
     /** 
@@ -249,10 +209,9 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_Description_Desc() { regOBD("DESCRIPTION"); return this; }
 
     protected ConditionValue _displayOrder;
-    public ConditionValue getDisplayOrder() {
-        if (_displayOrder == null) { _displayOrder = nCV(); }
-        return _displayOrder;
-    }
+    public ConditionValue getDisplayOrder()
+    { if (_displayOrder == null) { _displayOrder = nCV(); }
+      return _displayOrder; }
     protected ConditionValue getCValueDisplayOrder() { return getDisplayOrder(); }
 
     /** 
@@ -286,8 +245,7 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsServiceRankCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsServiceRankCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -303,8 +261,7 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsServiceRankCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsServiceRankCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -322,61 +279,32 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, ServiceRankCQ> _scalarConditionMap;
-    public Map<String, ServiceRankCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(ServiceRankCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, ServiceRankCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(ServiceRankCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, ServiceRankCQ> _specifyMyselfDerivedMap;
-    public Map<String, ServiceRankCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(ServiceRankCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, ServiceRankCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(ServiceRankCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, ServiceRankCQ> _queryMyselfDerivedMap;
-    public Map<String, ServiceRankCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(ServiceRankCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, ServiceRankCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(ServiceRankCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, ServiceRankCQ> _myselfExistsMap;
-    public Map<String, ServiceRankCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(ServiceRankCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, ServiceRankCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(ServiceRankCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, ServiceRankCQ> _myselfInScopeMap;
-    public Map<String, ServiceRankCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(ServiceRankCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, ServiceRankCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(ServiceRankCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

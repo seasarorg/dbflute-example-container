@@ -475,16 +475,9 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<SummaryWithdrawal> typeOfSelectedEntity()
-    { return SummaryWithdrawal.class; }
-
-    protected SummaryWithdrawal downcast(Entity et)
-    { return helpEntityDowncastInternally(et, SummaryWithdrawal.class); }
-
-    protected SummaryWithdrawalCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, SummaryWithdrawalCB.class); }
-
+    protected Class<SummaryWithdrawal> typeOfSelectedEntity() { return SummaryWithdrawal.class; }
+    protected SummaryWithdrawal downcast(Entity et) { return helpEntityDowncastInternally(et, SummaryWithdrawal.class); }
+    protected SummaryWithdrawalCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, SummaryWithdrawalCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls)
-    { return (List<SummaryWithdrawal>)ls; }
+    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls) { return (List<SummaryWithdrawal>)ls; }
 }

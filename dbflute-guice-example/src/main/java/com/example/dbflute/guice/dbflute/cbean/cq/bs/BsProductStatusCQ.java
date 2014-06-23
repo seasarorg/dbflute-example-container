@@ -74,121 +74,50 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _productStatusCode;
-    public ConditionValue getProductStatusCode() {
-        if (_productStatusCode == null) { _productStatusCode = nCV(); }
-        return _productStatusCode;
-    }
+    public ConditionValue getProductStatusCode()
+    { if (_productStatusCode == null) { _productStatusCode = nCV(); }
+      return _productStatusCode; }
     protected ConditionValue getCValueProductStatusCode() { return getProductStatusCode(); }
 
-    protected Map<String, ProductCQ> _productStatusCode_ExistsReferrer_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_ExistsReferrer_ProductList() { return _productStatusCode_ExistsReferrer_ProductListMap; }
-    public String keepProductStatusCode_ExistsReferrer_ProductList(ProductCQ sq) {
-        if (_productStatusCode_ExistsReferrer_ProductListMap == null) { _productStatusCode_ExistsReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_ExistsReferrer_ProductListMap.size() + 1);
-        _productStatusCode_ExistsReferrer_ProductListMap.put(ky, sq); return "productStatusCode_ExistsReferrer_ProductList." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_ExistsReferrer_ProductList() { return xgetSQueMap("productStatusCode_ExistsReferrer_ProductList"); }
+    public String keepProductStatusCode_ExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_ExistsReferrer_ProductList", sq); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_ExistsReferrer_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_ExistsReferrer_SummaryProductList() { return _productStatusCode_ExistsReferrer_SummaryProductListMap; }
-    public String keepProductStatusCode_ExistsReferrer_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_ExistsReferrer_SummaryProductListMap == null) { _productStatusCode_ExistsReferrer_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_ExistsReferrer_SummaryProductListMap.size() + 1);
-        _productStatusCode_ExistsReferrer_SummaryProductListMap.put(ky, sq); return "productStatusCode_ExistsReferrer_SummaryProductList." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_ExistsReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_ExistsReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_ExistsReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_ExistsReferrer_SummaryProductList", sq); }
 
-    protected Map<String, ProductCQ> _productStatusCode_NotExistsReferrer_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_NotExistsReferrer_ProductList() { return _productStatusCode_NotExistsReferrer_ProductListMap; }
-    public String keepProductStatusCode_NotExistsReferrer_ProductList(ProductCQ sq) {
-        if (_productStatusCode_NotExistsReferrer_ProductListMap == null) { _productStatusCode_NotExistsReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_NotExistsReferrer_ProductListMap.size() + 1);
-        _productStatusCode_NotExistsReferrer_ProductListMap.put(ky, sq); return "productStatusCode_NotExistsReferrer_ProductList." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_NotExistsReferrer_ProductList() { return xgetSQueMap("productStatusCode_NotExistsReferrer_ProductList"); }
+    public String keepProductStatusCode_NotExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_NotExistsReferrer_ProductList", sq); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_NotExistsReferrer_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_NotExistsReferrer_SummaryProductList() { return _productStatusCode_NotExistsReferrer_SummaryProductListMap; }
-    public String keepProductStatusCode_NotExistsReferrer_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_NotExistsReferrer_SummaryProductListMap == null) { _productStatusCode_NotExistsReferrer_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_NotExistsReferrer_SummaryProductListMap.size() + 1);
-        _productStatusCode_NotExistsReferrer_SummaryProductListMap.put(ky, sq); return "productStatusCode_NotExistsReferrer_SummaryProductList." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_NotExistsReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_NotExistsReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_NotExistsReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_NotExistsReferrer_SummaryProductList", sq); }
 
-    protected Map<String, ProductCQ> _productStatusCode_InScopeRelation_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_InScopeRelation_ProductList() { return _productStatusCode_InScopeRelation_ProductListMap; }
-    public String keepProductStatusCode_InScopeRelation_ProductList(ProductCQ sq) {
-        if (_productStatusCode_InScopeRelation_ProductListMap == null) { _productStatusCode_InScopeRelation_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_InScopeRelation_ProductListMap.size() + 1);
-        _productStatusCode_InScopeRelation_ProductListMap.put(ky, sq); return "productStatusCode_InScopeRelation_ProductList." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_InScopeRelation_ProductList() { return xgetSQueMap("productStatusCode_InScopeRelation_ProductList"); }
+    public String keepProductStatusCode_InScopeRelation_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_InScopeRelation_ProductList", sq); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_InScopeRelation_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_InScopeRelation_SummaryProductList() { return _productStatusCode_InScopeRelation_SummaryProductListMap; }
-    public String keepProductStatusCode_InScopeRelation_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_InScopeRelation_SummaryProductListMap == null) { _productStatusCode_InScopeRelation_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_InScopeRelation_SummaryProductListMap.size() + 1);
-        _productStatusCode_InScopeRelation_SummaryProductListMap.put(ky, sq); return "productStatusCode_InScopeRelation_SummaryProductList." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_InScopeRelation_SummaryProductList() { return xgetSQueMap("productStatusCode_InScopeRelation_SummaryProductList"); }
+    public String keepProductStatusCode_InScopeRelation_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_InScopeRelation_SummaryProductList", sq); }
 
-    protected Map<String, ProductCQ> _productStatusCode_NotInScopeRelation_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_NotInScopeRelation_ProductList() { return _productStatusCode_NotInScopeRelation_ProductListMap; }
-    public String keepProductStatusCode_NotInScopeRelation_ProductList(ProductCQ sq) {
-        if (_productStatusCode_NotInScopeRelation_ProductListMap == null) { _productStatusCode_NotInScopeRelation_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_NotInScopeRelation_ProductListMap.size() + 1);
-        _productStatusCode_NotInScopeRelation_ProductListMap.put(ky, sq); return "productStatusCode_NotInScopeRelation_ProductList." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_NotInScopeRelation_ProductList() { return xgetSQueMap("productStatusCode_NotInScopeRelation_ProductList"); }
+    public String keepProductStatusCode_NotInScopeRelation_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_NotInScopeRelation_ProductList", sq); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_NotInScopeRelation_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_NotInScopeRelation_SummaryProductList() { return _productStatusCode_NotInScopeRelation_SummaryProductListMap; }
-    public String keepProductStatusCode_NotInScopeRelation_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_NotInScopeRelation_SummaryProductListMap == null) { _productStatusCode_NotInScopeRelation_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_NotInScopeRelation_SummaryProductListMap.size() + 1);
-        _productStatusCode_NotInScopeRelation_SummaryProductListMap.put(ky, sq); return "productStatusCode_NotInScopeRelation_SummaryProductList." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_NotInScopeRelation_SummaryProductList() { return xgetSQueMap("productStatusCode_NotInScopeRelation_SummaryProductList"); }
+    public String keepProductStatusCode_NotInScopeRelation_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_NotInScopeRelation_SummaryProductList", sq); }
 
-    protected Map<String, ProductCQ> _productStatusCode_SpecifyDerivedReferrer_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_SpecifyDerivedReferrer_ProductList() { return _productStatusCode_SpecifyDerivedReferrer_ProductListMap; }
-    public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq) {
-        if (_productStatusCode_SpecifyDerivedReferrer_ProductListMap == null) { _productStatusCode_SpecifyDerivedReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_SpecifyDerivedReferrer_ProductListMap.size() + 1);
-        _productStatusCode_SpecifyDerivedReferrer_ProductListMap.put(ky, sq); return "productStatusCode_SpecifyDerivedReferrer_ProductList." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_SpecifyDerivedReferrer_ProductList() { return xgetSQueMap("productStatusCode_SpecifyDerivedReferrer_ProductList"); }
+    public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_SpecifyDerivedReferrer_ProductList", sq); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_SpecifyDerivedReferrer_SummaryProductList() { return _productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap; }
-    public String keepProductStatusCode_SpecifyDerivedReferrer_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap == null) { _productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap.size() + 1);
-        _productStatusCode_SpecifyDerivedReferrer_SummaryProductListMap.put(ky, sq); return "productStatusCode_SpecifyDerivedReferrer_SummaryProductList." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_SpecifyDerivedReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_SpecifyDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_SpecifyDerivedReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_SpecifyDerivedReferrer_SummaryProductList", sq); }
 
-    protected Map<String, ProductCQ> _productStatusCode_QueryDerivedReferrer_ProductListMap;
-    public Map<String, ProductCQ> getProductStatusCode_QueryDerivedReferrer_ProductList() { return _productStatusCode_QueryDerivedReferrer_ProductListMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_ProductList(ProductCQ sq) {
-        if (_productStatusCode_QueryDerivedReferrer_ProductListMap == null) { _productStatusCode_QueryDerivedReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_QueryDerivedReferrer_ProductListMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_ProductListMap.put(ky, sq); return "productStatusCode_QueryDerivedReferrer_ProductList." + ky;
-    }
-    protected Map<String, Object> _productStatusCode_QueryDerivedReferrer_ProductListParameterMap;
-    public Map<String, Object> getProductStatusCode_QueryDerivedReferrer_ProductListParameter() { return _productStatusCode_QueryDerivedReferrer_ProductListParameterMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object vl) {
-        if (_productStatusCode_QueryDerivedReferrer_ProductListParameterMap == null) { _productStatusCode_QueryDerivedReferrer_ProductListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_productStatusCode_QueryDerivedReferrer_ProductListParameterMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_ProductListParameterMap.put(ky, vl); return "productStatusCode_QueryDerivedReferrer_ProductListParameter." + ky;
-    }
+    public Map<String, ProductCQ> getProductStatusCode_QueryDerivedReferrer_ProductList() { return xgetSQueMap("productStatusCode_QueryDerivedReferrer_ProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_QueryDerivedReferrer_ProductList", sq); }
+    public Map<String, Object> getProductStatusCode_QueryDerivedReferrer_ProductListParameter() { return xgetSQuePmMap("productStatusCode_QueryDerivedReferrer_ProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object pm) { return xkeepSQuePm("productStatusCode_QueryDerivedReferrer_ProductList", pm); }
 
-    protected Map<String, SummaryProductCQ> _productStatusCode_QueryDerivedReferrer_SummaryProductListMap;
-    public Map<String, SummaryProductCQ> getProductStatusCode_QueryDerivedReferrer_SummaryProductList() { return _productStatusCode_QueryDerivedReferrer_SummaryProductListMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductList(SummaryProductCQ sq) {
-        if (_productStatusCode_QueryDerivedReferrer_SummaryProductListMap == null) { _productStatusCode_QueryDerivedReferrer_SummaryProductListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_productStatusCode_QueryDerivedReferrer_SummaryProductListMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_SummaryProductListMap.put(ky, sq); return "productStatusCode_QueryDerivedReferrer_SummaryProductList." + ky;
-    }
-    protected Map<String, Object> _productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap;
-    public Map<String, Object> getProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter() { return _productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter(Object vl) {
-        if (_productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap == null) { _productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_SummaryProductListParameterMap.put(ky, vl); return "productStatusCode_QueryDerivedReferrer_SummaryProductListParameter." + ky;
-    }
+    public Map<String, SummaryProductCQ> getProductStatusCode_QueryDerivedReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_QueryDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_QueryDerivedReferrer_SummaryProductList", sq); }
+    public Map<String, Object> getProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter() { return xgetSQuePmMap("productStatusCode_QueryDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter(Object pm) { return xkeepSQuePm("productStatusCode_QueryDerivedReferrer_SummaryProductList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -205,10 +134,9 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Desc() { regOBD("PRODUCT_STATUS_CODE"); return this; }
 
     protected ConditionValue _productStatusName;
-    public ConditionValue getProductStatusName() {
-        if (_productStatusName == null) { _productStatusName = nCV(); }
-        return _productStatusName;
-    }
+    public ConditionValue getProductStatusName()
+    { if (_productStatusName == null) { _productStatusName = nCV(); }
+      return _productStatusName; }
     protected ConditionValue getCValueProductStatusName() { return getProductStatusName(); }
 
     /** 
@@ -226,10 +154,9 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     public BsProductStatusCQ addOrderBy_ProductStatusName_Desc() { regOBD("PRODUCT_STATUS_NAME"); return this; }
 
     protected ConditionValue _displayOrder;
-    public ConditionValue getDisplayOrder() {
-        if (_displayOrder == null) { _displayOrder = nCV(); }
-        return _displayOrder;
-    }
+    public ConditionValue getDisplayOrder()
+    { if (_displayOrder == null) { _displayOrder = nCV(); }
+      return _displayOrder; }
     protected ConditionValue getCValueDisplayOrder() { return getDisplayOrder(); }
 
     /** 
@@ -256,8 +183,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsProductStatusCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsProductStatusCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -273,8 +199,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsProductStatusCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsProductStatusCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query

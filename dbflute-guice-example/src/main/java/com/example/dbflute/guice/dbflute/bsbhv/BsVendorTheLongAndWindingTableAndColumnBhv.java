@@ -540,23 +540,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     }
 
     protected NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> doLoadVendorTheLongAndWindingTableAndColumnRefList(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef> option) {
-        final VendorTheLongAndWindingTableAndColumnRefBhv referrerBhv = xgetBSFLR().select(VendorTheLongAndWindingTableAndColumnRefBhv.class);
-        return helpLoadReferrerInternally(vendorTheLongAndWindingTableAndColumnList, option, new InternalLoadReferrerCallback<VendorTheLongAndWindingTableAndColumn, Long, VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>() {
-            public Long getPKVal(VendorTheLongAndWindingTableAndColumn et)
-            { return et.getTheLongAndWindingTableAndColumnId(); }
-            public void setRfLs(VendorTheLongAndWindingTableAndColumn et, List<VendorTheLongAndWindingTableAndColumnRef> ls)
-            { et.setVendorTheLongAndWindingTableAndColumnRefList(ls); }
-            public VendorTheLongAndWindingTableAndColumnRefCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(VendorTheLongAndWindingTableAndColumnRefCB cb, List<Long> ls)
-            { cb.query().setTheLongAndWindingTableAndColumnId_InScope(ls); }
-            public void qyOdFKAsc(VendorTheLongAndWindingTableAndColumnRefCB cb) { cb.query().addOrderBy_TheLongAndWindingTableAndColumnId_Asc(); }
-            public void spFKCol(VendorTheLongAndWindingTableAndColumnRefCB cb) { cb.specify().columnTheLongAndWindingTableAndColumnId(); }
-            public List<VendorTheLongAndWindingTableAndColumnRef> selRfLs(VendorTheLongAndWindingTableAndColumnRefCB cb) { return referrerBhv.selectList(cb); }
-            public Long getFKVal(VendorTheLongAndWindingTableAndColumnRef re) { return re.getTheLongAndWindingTableAndColumnId(); }
-            public void setlcEt(VendorTheLongAndWindingTableAndColumnRef re, VendorTheLongAndWindingTableAndColumn le)
-            { re.setVendorTheLongAndWindingTableAndColumn(OptionalEntity.of(le)); }
-            public String getRfPrNm() { return "vendorTheLongAndWindingTableAndColumnRefList"; }
-        });
+        return helpLoadReferrerInternally(vendorTheLongAndWindingTableAndColumnList, option, "vendorTheLongAndWindingTableAndColumnRefList");
     }
 
     // ===================================================================================
@@ -1208,31 +1192,17 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<VendorTheLongAndWindingTableAndColumn> typeOfSelectedEntity()
-    { return VendorTheLongAndWindingTableAndColumn.class; }
-
-    protected VendorTheLongAndWindingTableAndColumn downcast(Entity et)
-    { return helpEntityDowncastInternally(et, VendorTheLongAndWindingTableAndColumn.class); }
-
-    protected VendorTheLongAndWindingTableAndColumnCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, VendorTheLongAndWindingTableAndColumnCB.class); }
-
+    protected Class<VendorTheLongAndWindingTableAndColumn> typeOfSelectedEntity() { return VendorTheLongAndWindingTableAndColumn.class; }
+    protected VendorTheLongAndWindingTableAndColumn downcast(Entity et) { return helpEntityDowncastInternally(et, VendorTheLongAndWindingTableAndColumn.class); }
+    protected VendorTheLongAndWindingTableAndColumnCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, VendorTheLongAndWindingTableAndColumnCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<VendorTheLongAndWindingTableAndColumn> downcast(List<? extends Entity> ls)
-    { return (List<VendorTheLongAndWindingTableAndColumn>)ls; }
-
+    protected List<VendorTheLongAndWindingTableAndColumn> downcast(List<? extends Entity> ls) { return (List<VendorTheLongAndWindingTableAndColumn>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<VendorTheLongAndWindingTableAndColumnCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-
+    protected InsertOption<VendorTheLongAndWindingTableAndColumnCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorTheLongAndWindingTableAndColumnCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-
+    protected UpdateOption<VendorTheLongAndWindingTableAndColumnCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorTheLongAndWindingTableAndColumnCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-
+    protected DeleteOption<VendorTheLongAndWindingTableAndColumnCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<VendorTheLongAndWindingTableAndColumn, VendorTheLongAndWindingTableAndColumnCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<VendorTheLongAndWindingTableAndColumn, VendorTheLongAndWindingTableAndColumnCB>)sp; }

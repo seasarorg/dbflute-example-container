@@ -541,23 +541,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<Member> doLoadMemberList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberCB, Member> option) {
-        final MemberBhv referrerBhv = xgetBSFLR().select(MemberBhv.class);
-        return helpLoadReferrerInternally(memberStatusList, option, new InternalLoadReferrerCallback<MemberStatus, String, MemberCB, Member>() {
-            public String getPKVal(MemberStatus et)
-            { return et.getMemberStatusCode(); }
-            public void setRfLs(MemberStatus et, List<Member> ls)
-            { et.setMemberList(ls); }
-            public MemberCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(MemberCB cb, List<String> ls)
-            { cb.query().setMemberStatusCode_InScope(ls); }
-            public void qyOdFKAsc(MemberCB cb) { cb.query().addOrderBy_MemberStatusCode_Asc(); }
-            public void spFKCol(MemberCB cb) { cb.specify().columnMemberStatusCode(); }
-            public List<Member> selRfLs(MemberCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(Member re) { return re.getMemberStatusCode(); }
-            public void setlcEt(Member re, MemberStatus le)
-            { re.setMemberStatus(OptionalEntity.of(le)); }
-            public String getRfPrNm() { return "memberList"; }
-        });
+        return helpLoadReferrerInternally(memberStatusList, option, "memberList");
     }
 
     /**
@@ -625,23 +609,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<MemberLogin> doLoadMemberLoginList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
-        final MemberLoginBhv referrerBhv = xgetBSFLR().select(MemberLoginBhv.class);
-        return helpLoadReferrerInternally(memberStatusList, option, new InternalLoadReferrerCallback<MemberStatus, String, MemberLoginCB, MemberLogin>() {
-            public String getPKVal(MemberStatus et)
-            { return et.getMemberStatusCode(); }
-            public void setRfLs(MemberStatus et, List<MemberLogin> ls)
-            { et.setMemberLoginList(ls); }
-            public MemberLoginCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(MemberLoginCB cb, List<String> ls)
-            { cb.query().setLoginMemberStatusCode_InScope(ls); }
-            public void qyOdFKAsc(MemberLoginCB cb) { cb.query().addOrderBy_LoginMemberStatusCode_Asc(); }
-            public void spFKCol(MemberLoginCB cb) { cb.specify().columnLoginMemberStatusCode(); }
-            public List<MemberLogin> selRfLs(MemberLoginCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MemberLogin re) { return re.getLoginMemberStatusCode(); }
-            public void setlcEt(MemberLogin re, MemberStatus le)
-            { re.setMemberStatus(OptionalEntity.of(le)); }
-            public String getRfPrNm() { return "memberLoginList"; }
-        });
+        return helpLoadReferrerInternally(memberStatusList, option, "memberLoginList");
     }
 
     // ===================================================================================
@@ -1293,31 +1261,17 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<MemberStatus> typeOfSelectedEntity()
-    { return MemberStatus.class; }
-
-    protected MemberStatus downcast(Entity et)
-    { return helpEntityDowncastInternally(et, MemberStatus.class); }
-
-    protected MemberStatusCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, MemberStatusCB.class); }
-
+    protected Class<MemberStatus> typeOfSelectedEntity() { return MemberStatus.class; }
+    protected MemberStatus downcast(Entity et) { return helpEntityDowncastInternally(et, MemberStatus.class); }
+    protected MemberStatusCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberStatusCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<MemberStatus> downcast(List<? extends Entity> ls)
-    { return (List<MemberStatus>)ls; }
-
+    protected List<MemberStatus> downcast(List<? extends Entity> ls) { return (List<MemberStatus>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberStatusCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<MemberStatusCB>)op; }
-
+    protected InsertOption<MemberStatusCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberStatusCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberStatusCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<MemberStatusCB>)op; }
-
+    protected UpdateOption<MemberStatusCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberStatusCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberStatusCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<MemberStatusCB>)op; }
-
+    protected DeleteOption<MemberStatusCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberStatusCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<MemberStatus, MemberStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<MemberStatus, MemberStatusCB>)sp; }

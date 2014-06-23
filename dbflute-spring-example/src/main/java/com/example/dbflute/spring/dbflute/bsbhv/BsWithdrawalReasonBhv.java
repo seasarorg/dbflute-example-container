@@ -585,23 +585,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<MemberWithdrawal> doLoadMemberWithdrawalList(List<WithdrawalReason> withdrawalReasonList, LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal> option) {
-        final MemberWithdrawalBhv referrerBhv = xgetBSFLR().select(MemberWithdrawalBhv.class);
-        return helpLoadReferrerInternally(withdrawalReasonList, option, new InternalLoadReferrerCallback<WithdrawalReason, String, MemberWithdrawalCB, MemberWithdrawal>() {
-            public String getPKVal(WithdrawalReason et)
-            { return et.getWithdrawalReasonCode(); }
-            public void setRfLs(WithdrawalReason et, List<MemberWithdrawal> ls)
-            { et.setMemberWithdrawalList(ls); }
-            public MemberWithdrawalCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(MemberWithdrawalCB cb, List<String> ls)
-            { cb.query().setWithdrawalReasonCode_InScope(ls); }
-            public void qyOdFKAsc(MemberWithdrawalCB cb) { cb.query().addOrderBy_WithdrawalReasonCode_Asc(); }
-            public void spFKCol(MemberWithdrawalCB cb) { cb.specify().columnWithdrawalReasonCode(); }
-            public List<MemberWithdrawal> selRfLs(MemberWithdrawalCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MemberWithdrawal re) { return re.getWithdrawalReasonCode(); }
-            public void setlcEt(MemberWithdrawal re, WithdrawalReason le)
-            { re.setWithdrawalReason(le); }
-            public String getRfPrNm() { return "memberWithdrawalList"; }
-        });
+        return helpLoadReferrerInternally(withdrawalReasonList, option, "memberWithdrawalList");
     }
 
     // ===================================================================================
@@ -1253,31 +1237,17 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<WithdrawalReason> typeOfSelectedEntity()
-    { return WithdrawalReason.class; }
-
-    protected WithdrawalReason downcast(Entity et)
-    { return helpEntityDowncastInternally(et, WithdrawalReason.class); }
-
-    protected WithdrawalReasonCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, WithdrawalReasonCB.class); }
-
+    protected Class<WithdrawalReason> typeOfSelectedEntity() { return WithdrawalReason.class; }
+    protected WithdrawalReason downcast(Entity et) { return helpEntityDowncastInternally(et, WithdrawalReason.class); }
+    protected WithdrawalReasonCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, WithdrawalReasonCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<WithdrawalReason> downcast(List<? extends Entity> ls)
-    { return (List<WithdrawalReason>)ls; }
-
+    protected List<WithdrawalReason> downcast(List<? extends Entity> ls) { return (List<WithdrawalReason>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<WithdrawalReasonCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<WithdrawalReasonCB>)op; }
-
+    protected InsertOption<WithdrawalReasonCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<WithdrawalReasonCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<WithdrawalReasonCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<WithdrawalReasonCB>)op; }
-
+    protected UpdateOption<WithdrawalReasonCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<WithdrawalReasonCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<WithdrawalReasonCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<WithdrawalReasonCB>)op; }
-
+    protected DeleteOption<WithdrawalReasonCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<WithdrawalReasonCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<WithdrawalReason, WithdrawalReasonCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<WithdrawalReason, WithdrawalReasonCB>)sp; }

@@ -515,23 +515,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<Purchase> doLoadPurchaseList(List<SummaryProduct> summaryProductList, LoadReferrerOption<PurchaseCB, Purchase> option) {
-        final PurchaseBhv referrerBhv = xgetBSFLR().select(PurchaseBhv.class);
-        return helpLoadReferrerInternally(summaryProductList, option, new InternalLoadReferrerCallback<SummaryProduct, Integer, PurchaseCB, Purchase>() {
-            public Integer getPKVal(SummaryProduct et)
-            { return et.getProductId(); }
-            public void setRfLs(SummaryProduct et, List<Purchase> ls)
-            { et.setPurchaseList(ls); }
-            public PurchaseCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(PurchaseCB cb, List<Integer> ls)
-            { cb.query().setProductId_InScope(ls); }
-            public void qyOdFKAsc(PurchaseCB cb) { cb.query().addOrderBy_ProductId_Asc(); }
-            public void spFKCol(PurchaseCB cb) { cb.specify().columnProductId(); }
-            public List<Purchase> selRfLs(PurchaseCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(Purchase re) { return re.getProductId(); }
-            public void setlcEt(Purchase re, SummaryProduct le)
-            { re.setSummaryProduct(OptionalEntity.of(le)); }
-            public String getRfPrNm() { return "purchaseList"; }
-        });
+        return helpLoadReferrerInternally(summaryProductList, option, "purchaseList");
     }
 
     // ===================================================================================
@@ -1183,31 +1167,17 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<SummaryProduct> typeOfSelectedEntity()
-    { return SummaryProduct.class; }
-
-    protected SummaryProduct downcast(Entity et)
-    { return helpEntityDowncastInternally(et, SummaryProduct.class); }
-
-    protected SummaryProductCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, SummaryProductCB.class); }
-
+    protected Class<SummaryProduct> typeOfSelectedEntity() { return SummaryProduct.class; }
+    protected SummaryProduct downcast(Entity et) { return helpEntityDowncastInternally(et, SummaryProduct.class); }
+    protected SummaryProductCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, SummaryProductCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<SummaryProduct> downcast(List<? extends Entity> ls)
-    { return (List<SummaryProduct>)ls; }
-
+    protected List<SummaryProduct> downcast(List<? extends Entity> ls) { return (List<SummaryProduct>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<SummaryProductCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<SummaryProductCB>)op; }
-
+    protected InsertOption<SummaryProductCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<SummaryProductCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<SummaryProductCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<SummaryProductCB>)op; }
-
+    protected UpdateOption<SummaryProductCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<SummaryProductCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<SummaryProductCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<SummaryProductCB>)op; }
-
+    protected DeleteOption<SummaryProductCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<SummaryProductCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<SummaryProduct, SummaryProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<SummaryProduct, SummaryProductCB>)sp; }

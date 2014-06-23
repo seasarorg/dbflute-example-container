@@ -74,10 +74,9 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _vendor$DollarId;
-    public ConditionValue getVendor$DollarId() {
-        if (_vendor$DollarId == null) { _vendor$DollarId = nCV(); }
-        return _vendor$DollarId;
-    }
+    public ConditionValue getVendor$DollarId()
+    { if (_vendor$DollarId == null) { _vendor$DollarId = nCV(); }
+      return _vendor$DollarId; }
     protected ConditionValue getCValueVendor$DollarId() { return getVendor$DollarId(); }
 
     /** 
@@ -95,10 +94,9 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     public BsVendor$DollarCQ addOrderBy_Vendor$DollarId_Desc() { regOBD("VENDOR_$_DOLLAR_ID"); return this; }
 
     protected ConditionValue _vendor$DollarName;
-    public ConditionValue getVendor$DollarName() {
-        if (_vendor$DollarName == null) { _vendor$DollarName = nCV(); }
-        return _vendor$DollarName;
-    }
+    public ConditionValue getVendor$DollarName()
+    { if (_vendor$DollarName == null) { _vendor$DollarName = nCV(); }
+      return _vendor$DollarName; }
     protected ConditionValue getCValueVendor$DollarName() { return getVendor$DollarName(); }
 
     /** 
@@ -132,8 +130,7 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsVendor$DollarCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsVendor$DollarCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -149,8 +146,7 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsVendor$DollarCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsVendor$DollarCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -168,61 +164,32 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, Vendor$DollarCQ> _scalarConditionMap;
-    public Map<String, Vendor$DollarCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(Vendor$DollarCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, Vendor$DollarCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(Vendor$DollarCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, Vendor$DollarCQ> _specifyMyselfDerivedMap;
-    public Map<String, Vendor$DollarCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(Vendor$DollarCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, Vendor$DollarCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(Vendor$DollarCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, Vendor$DollarCQ> _queryMyselfDerivedMap;
-    public Map<String, Vendor$DollarCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(Vendor$DollarCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, Vendor$DollarCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(Vendor$DollarCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, Vendor$DollarCQ> _myselfExistsMap;
-    public Map<String, Vendor$DollarCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(Vendor$DollarCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, Vendor$DollarCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(Vendor$DollarCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, Vendor$DollarCQ> _myselfInScopeMap;
-    public Map<String, Vendor$DollarCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(Vendor$DollarCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, Vendor$DollarCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(Vendor$DollarCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

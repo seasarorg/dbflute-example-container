@@ -57,7 +57,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         log("[MEMBER]: " + member.getMemberName());
         List<Purchase> purchaseList = member.getPurchaseList();// *Point!
-        assertNotSame(0, purchaseList.size());
+        assertHasAnyElement(purchaseList);
         for (Purchase purchase : purchaseList) {
             log("    [PURCHASE]: " + purchase.toString());
         }
@@ -188,6 +188,41 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
             List<Member> memberList = status.getMemberList();
             assertFalse(memberList.isEmpty()); // both can get
             log(status.getMemberStatusCode() + " : " + memberList.size());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                       SpecifyColumn
+    //                                                                       =============
+    public void test_loadReferrer_with_SpecifyColumn_noFK() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.query().setMemberId_Equal(3);
+
+        // At first, it selects the list of Member.
+        Member member = memberBhv.selectEntity(cb);
+
+        // ## Act ##
+        // And it loads the list of Purchase with its conditions.
+        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+            public void setup(PurchaseCB cb) {
+                cb.specify().columnPurchaseCount();
+                cb.query().setPurchaseCount_GreaterEqual(2);
+                cb.query().addOrderBy_PurchaseCount_Desc();
+            }
+        });
+
+        // ## Assert ##
+        log("[MEMBER]: " + member.getMemberName());
+        List<Purchase> purchaseList = member.getPurchaseList();// *Point!
+        assertHasAnyElement(purchaseList);
+        for (Purchase purchase : purchaseList) {
+            log("    [PURCHASE]: " + purchase.toString());
+            assertNotNull(purchase.getPurchaseId());
+            assertNotNull(purchase.getMemberId());
+            assertNull(purchase.getPurchaseDatetime());
+            assertNotNull(purchase.getPurchaseCount());
+            assertNull(purchase.getPaymentCompleteFlg());
         }
     }
 

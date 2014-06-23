@@ -1351,31 +1351,17 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<MemberWithdrawal> typeOfSelectedEntity()
-    { return MemberWithdrawal.class; }
-
-    protected MemberWithdrawal downcast(Entity et)
-    { return helpEntityDowncastInternally(et, MemberWithdrawal.class); }
-
-    protected MemberWithdrawalCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, MemberWithdrawalCB.class); }
-
+    protected Class<MemberWithdrawal> typeOfSelectedEntity() { return MemberWithdrawal.class; }
+    protected MemberWithdrawal downcast(Entity et) { return helpEntityDowncastInternally(et, MemberWithdrawal.class); }
+    protected MemberWithdrawalCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberWithdrawalCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<MemberWithdrawal> downcast(List<? extends Entity> ls)
-    { return (List<MemberWithdrawal>)ls; }
-
+    protected List<MemberWithdrawal> downcast(List<? extends Entity> ls) { return (List<MemberWithdrawal>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<MemberWithdrawalCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<MemberWithdrawalCB>)op; }
-
+    protected InsertOption<MemberWithdrawalCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberWithdrawalCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberWithdrawalCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<MemberWithdrawalCB>)op; }
-
+    protected UpdateOption<MemberWithdrawalCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberWithdrawalCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberWithdrawalCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<MemberWithdrawalCB>)op; }
-
+    protected DeleteOption<MemberWithdrawalCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberWithdrawalCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>)sp; }

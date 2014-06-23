@@ -1091,31 +1091,17 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<VendorPrimaryKeyOnly> typeOfSelectedEntity()
-    { return VendorPrimaryKeyOnly.class; }
-
-    protected VendorPrimaryKeyOnly downcast(Entity et)
-    { return helpEntityDowncastInternally(et, VendorPrimaryKeyOnly.class); }
-
-    protected VendorPrimaryKeyOnlyCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, VendorPrimaryKeyOnlyCB.class); }
-
+    protected Class<VendorPrimaryKeyOnly> typeOfSelectedEntity() { return VendorPrimaryKeyOnly.class; }
+    protected VendorPrimaryKeyOnly downcast(Entity et) { return helpEntityDowncastInternally(et, VendorPrimaryKeyOnly.class); }
+    protected VendorPrimaryKeyOnlyCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, VendorPrimaryKeyOnlyCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<VendorPrimaryKeyOnly> downcast(List<? extends Entity> ls)
-    { return (List<VendorPrimaryKeyOnly>)ls; }
-
+    protected List<VendorPrimaryKeyOnly> downcast(List<? extends Entity> ls) { return (List<VendorPrimaryKeyOnly>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<VendorPrimaryKeyOnlyCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<VendorPrimaryKeyOnlyCB>)op; }
-
+    protected InsertOption<VendorPrimaryKeyOnlyCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorPrimaryKeyOnlyCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorPrimaryKeyOnlyCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<VendorPrimaryKeyOnlyCB>)op; }
-
+    protected UpdateOption<VendorPrimaryKeyOnlyCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorPrimaryKeyOnlyCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorPrimaryKeyOnlyCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<VendorPrimaryKeyOnlyCB>)op; }
-
+    protected DeleteOption<VendorPrimaryKeyOnlyCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorPrimaryKeyOnlyCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB>)sp; }

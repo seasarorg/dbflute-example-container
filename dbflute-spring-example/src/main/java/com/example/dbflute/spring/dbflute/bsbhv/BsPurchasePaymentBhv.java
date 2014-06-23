@@ -1120,31 +1120,17 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<PurchasePayment> typeOfSelectedEntity()
-    { return PurchasePayment.class; }
-
-    protected PurchasePayment downcast(Entity et)
-    { return helpEntityDowncastInternally(et, PurchasePayment.class); }
-
-    protected PurchasePaymentCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, PurchasePaymentCB.class); }
-
+    protected Class<PurchasePayment> typeOfSelectedEntity() { return PurchasePayment.class; }
+    protected PurchasePayment downcast(Entity et) { return helpEntityDowncastInternally(et, PurchasePayment.class); }
+    protected PurchasePaymentCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, PurchasePaymentCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<PurchasePayment> downcast(List<? extends Entity> ls)
-    { return (List<PurchasePayment>)ls; }
-
+    protected List<PurchasePayment> downcast(List<? extends Entity> ls) { return (List<PurchasePayment>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<PurchasePaymentCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<PurchasePaymentCB>)op; }
-
+    protected InsertOption<PurchasePaymentCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<PurchasePaymentCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<PurchasePaymentCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<PurchasePaymentCB>)op; }
-
+    protected UpdateOption<PurchasePaymentCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<PurchasePaymentCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<PurchasePaymentCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<PurchasePaymentCB>)op; }
-
+    protected DeleteOption<PurchasePaymentCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<PurchasePaymentCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<PurchasePayment, PurchasePaymentCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<PurchasePayment, PurchasePaymentCB>)sp; }

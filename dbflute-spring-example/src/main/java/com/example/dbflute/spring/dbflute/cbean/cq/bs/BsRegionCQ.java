@@ -89,66 +89,30 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _regionId;
-    public ConditionValue getRegionId() {
-        if (_regionId == null) { _regionId = nCV(); }
-        return _regionId;
-    }
+    public ConditionValue getRegionId()
+    { if (_regionId == null) { _regionId = nCV(); }
+      return _regionId; }
     protected ConditionValue getCValueRegionId() { return getRegionId(); }
 
-    protected Map<String, MemberAddressCQ> _regionId_ExistsReferrer_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_ExistsReferrer_MemberAddressList() { return _regionId_ExistsReferrer_MemberAddressListMap; }
-    public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_ExistsReferrer_MemberAddressListMap == null) { _regionId_ExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_ExistsReferrer_MemberAddressListMap.size() + 1);
-        _regionId_ExistsReferrer_MemberAddressListMap.put(ky, sq); return "regionId_ExistsReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_ExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_ExistsReferrer_MemberAddressList"); }
+    public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_ExistsReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MemberAddressCQ> _regionId_NotExistsReferrer_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_NotExistsReferrer_MemberAddressList() { return _regionId_NotExistsReferrer_MemberAddressListMap; }
-    public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_NotExistsReferrer_MemberAddressListMap == null) { _regionId_NotExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_NotExistsReferrer_MemberAddressListMap.size() + 1);
-        _regionId_NotExistsReferrer_MemberAddressListMap.put(ky, sq); return "regionId_NotExistsReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_NotExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_NotExistsReferrer_MemberAddressList"); }
+    public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_NotExistsReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MemberAddressCQ> _regionId_SpecifyDerivedReferrer_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_SpecifyDerivedReferrer_MemberAddressList() { return _regionId_SpecifyDerivedReferrer_MemberAddressListMap; }
-    public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_SpecifyDerivedReferrer_MemberAddressListMap == null) { _regionId_SpecifyDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_SpecifyDerivedReferrer_MemberAddressListMap.size() + 1);
-        _regionId_SpecifyDerivedReferrer_MemberAddressListMap.put(ky, sq); return "regionId_SpecifyDerivedReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_SpecifyDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_SpecifyDerivedReferrer_MemberAddressList"); }
+    public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_SpecifyDerivedReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MemberAddressCQ> _regionId_InScopeRelation_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_InScopeRelation_MemberAddressList() { return _regionId_InScopeRelation_MemberAddressListMap; }
-    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_InScopeRelation_MemberAddressListMap == null) { _regionId_InScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_InScopeRelation_MemberAddressListMap.size() + 1);
-        _regionId_InScopeRelation_MemberAddressListMap.put(ky, sq); return "regionId_InScopeRelation_MemberAddressList." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_InScopeRelation_MemberAddressList() { return xgetSQueMap("regionId_InScopeRelation_MemberAddressList"); }
+    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_InScopeRelation_MemberAddressList", sq); }
 
-    protected Map<String, MemberAddressCQ> _regionId_NotInScopeRelation_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_NotInScopeRelation_MemberAddressList() { return _regionId_NotInScopeRelation_MemberAddressListMap; }
-    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_NotInScopeRelation_MemberAddressListMap == null) { _regionId_NotInScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_NotInScopeRelation_MemberAddressListMap.size() + 1);
-        _regionId_NotInScopeRelation_MemberAddressListMap.put(ky, sq); return "regionId_NotInScopeRelation_MemberAddressList." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_NotInScopeRelation_MemberAddressList() { return xgetSQueMap("regionId_NotInScopeRelation_MemberAddressList"); }
+    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_NotInScopeRelation_MemberAddressList", sq); }
 
-    protected Map<String, MemberAddressCQ> _regionId_QueryDerivedReferrer_MemberAddressListMap;
-    public Map<String, MemberAddressCQ> getRegionId_QueryDerivedReferrer_MemberAddressList() { return _regionId_QueryDerivedReferrer_MemberAddressListMap; }
-    public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq) {
-        if (_regionId_QueryDerivedReferrer_MemberAddressListMap == null) { _regionId_QueryDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_regionId_QueryDerivedReferrer_MemberAddressListMap.size() + 1);
-        _regionId_QueryDerivedReferrer_MemberAddressListMap.put(ky, sq); return "regionId_QueryDerivedReferrer_MemberAddressList." + ky;
-    }
-    protected Map<String, Object> _regionId_QueryDerivedReferrer_MemberAddressListParameterMap;
-    public Map<String, Object> getRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return _regionId_QueryDerivedReferrer_MemberAddressListParameterMap; }
-    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object vl) {
-        if (_regionId_QueryDerivedReferrer_MemberAddressListParameterMap == null) { _regionId_QueryDerivedReferrer_MemberAddressListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_regionId_QueryDerivedReferrer_MemberAddressListParameterMap.size() + 1);
-        _regionId_QueryDerivedReferrer_MemberAddressListParameterMap.put(ky, vl); return "regionId_QueryDerivedReferrer_MemberAddressListParameter." + ky;
-    }
+    public Map<String, MemberAddressCQ> getRegionId_QueryDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
+    public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_QueryDerivedReferrer_MemberAddressList", sq); }
+    public Map<String, Object> getRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
+    public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object pm) { return xkeepSQuePm("regionId_QueryDerivedReferrer_MemberAddressList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -165,10 +129,9 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     public BsRegionCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
 
     protected ConditionValue _regionName;
-    public ConditionValue getRegionName() {
-        if (_regionName == null) { _regionName = nCV(); }
-        return _regionName;
-    }
+    public ConditionValue getRegionName()
+    { if (_regionName == null) { _regionName = nCV(); }
+      return _regionName; }
     protected ConditionValue getCValueRegionName() { return getRegionName(); }
 
     /** 
@@ -202,8 +165,7 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsRegionCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsRegionCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -219,8 +181,7 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsRegionCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsRegionCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -238,61 +199,32 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, RegionCQ> _scalarConditionMap;
-    public Map<String, RegionCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(RegionCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, RegionCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(RegionCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, RegionCQ> _specifyMyselfDerivedMap;
-    public Map<String, RegionCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(RegionCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, RegionCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(RegionCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, RegionCQ> _queryMyselfDerivedMap;
-    public Map<String, RegionCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(RegionCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, RegionCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(RegionCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, RegionCQ> _myselfExistsMap;
-    public Map<String, RegionCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(RegionCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, RegionCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(RegionCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, RegionCQ> _myselfInScopeMap;
-    public Map<String, RegionCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(RegionCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, RegionCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(RegionCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

@@ -89,10 +89,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId() {
-        if (_memberId == null) { _memberId = nCV(); }
-        return _memberId;
-    }
+    public ConditionValue getMemberId()
+    { if (_memberId == null) { _memberId = nCV(); }
+      return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
     /** 
@@ -110,10 +109,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _memberName;
-    public ConditionValue getMemberName() {
-        if (_memberName == null) { _memberName = nCV(); }
-        return _memberName;
-    }
+    public ConditionValue getMemberName()
+    { if (_memberName == null) { _memberName = nCV(); }
+      return _memberName; }
     protected ConditionValue getCValueMemberName() { return getMemberName(); }
 
     /** 
@@ -131,10 +129,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberName_Desc() { regOBD("MEMBER_NAME"); return this; }
 
     protected ConditionValue _withdrawalReasonCode;
-    public ConditionValue getWithdrawalReasonCode() {
-        if (_withdrawalReasonCode == null) { _withdrawalReasonCode = nCV(); }
-        return _withdrawalReasonCode;
-    }
+    public ConditionValue getWithdrawalReasonCode()
+    { if (_withdrawalReasonCode == null) { _withdrawalReasonCode = nCV(); }
+      return _withdrawalReasonCode; }
     protected ConditionValue getCValueWithdrawalReasonCode() { return getWithdrawalReasonCode(); }
 
     /** 
@@ -152,10 +149,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonCode_Desc() { regOBD("WITHDRAWAL_REASON_CODE"); return this; }
 
     protected ConditionValue _withdrawalReasonText;
-    public ConditionValue getWithdrawalReasonText() {
-        if (_withdrawalReasonText == null) { _withdrawalReasonText = nCV(); }
-        return _withdrawalReasonText;
-    }
+    public ConditionValue getWithdrawalReasonText()
+    { if (_withdrawalReasonText == null) { _withdrawalReasonText = nCV(); }
+      return _withdrawalReasonText; }
     protected ConditionValue getCValueWithdrawalReasonText() { return getWithdrawalReasonText(); }
 
     /** 
@@ -173,10 +169,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonText_Desc() { regOBD("WITHDRAWAL_REASON_TEXT"); return this; }
 
     protected ConditionValue _withdrawalReasonInputText;
-    public ConditionValue getWithdrawalReasonInputText() {
-        if (_withdrawalReasonInputText == null) { _withdrawalReasonInputText = nCV(); }
-        return _withdrawalReasonInputText;
-    }
+    public ConditionValue getWithdrawalReasonInputText()
+    { if (_withdrawalReasonInputText == null) { _withdrawalReasonInputText = nCV(); }
+      return _withdrawalReasonInputText; }
     protected ConditionValue getCValueWithdrawalReasonInputText() { return getWithdrawalReasonInputText(); }
 
     /** 
@@ -194,10 +189,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Desc() { regOBD("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
 
     protected ConditionValue _withdrawalDatetime;
-    public ConditionValue getWithdrawalDatetime() {
-        if (_withdrawalDatetime == null) { _withdrawalDatetime = nCV(); }
-        return _withdrawalDatetime;
-    }
+    public ConditionValue getWithdrawalDatetime()
+    { if (_withdrawalDatetime == null) { _withdrawalDatetime = nCV(); }
+      return _withdrawalDatetime; }
     protected ConditionValue getCValueWithdrawalDatetime() { return getWithdrawalDatetime(); }
 
     /** 
@@ -215,10 +209,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalDatetime_Desc() { regOBD("WITHDRAWAL_DATETIME"); return this; }
 
     protected ConditionValue _memberStatusCode;
-    public ConditionValue getMemberStatusCode() {
-        if (_memberStatusCode == null) { _memberStatusCode = nCV(); }
-        return _memberStatusCode;
-    }
+    public ConditionValue getMemberStatusCode()
+    { if (_memberStatusCode == null) { _memberStatusCode = nCV(); }
+      return _memberStatusCode; }
     protected ConditionValue getCValueMemberStatusCode() { return getMemberStatusCode(); }
 
     /** 
@@ -236,10 +229,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusCode_Desc() { regOBD("MEMBER_STATUS_CODE"); return this; }
 
     protected ConditionValue _memberStatusName;
-    public ConditionValue getMemberStatusName() {
-        if (_memberStatusName == null) { _memberStatusName = nCV(); }
-        return _memberStatusName;
-    }
+    public ConditionValue getMemberStatusName()
+    { if (_memberStatusName == null) { _memberStatusName = nCV(); }
+      return _memberStatusName; }
     protected ConditionValue getCValueMemberStatusName() { return getMemberStatusName(); }
 
     /** 
@@ -257,10 +249,9 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusName_Desc() { regOBD("MEMBER_STATUS_NAME"); return this; }
 
     protected ConditionValue _maxPurchasePrice;
-    public ConditionValue getMaxPurchasePrice() {
-        if (_maxPurchasePrice == null) { _maxPurchasePrice = nCV(); }
-        return _maxPurchasePrice;
-    }
+    public ConditionValue getMaxPurchasePrice()
+    { if (_maxPurchasePrice == null) { _maxPurchasePrice = nCV(); }
+      return _maxPurchasePrice; }
     protected ConditionValue getCValueMaxPurchasePrice() { return getMaxPurchasePrice(); }
 
     /** 
@@ -294,8 +285,7 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsSummaryWithdrawalCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsSummaryWithdrawalCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -311,8 +301,7 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsSummaryWithdrawalCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsSummaryWithdrawalCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -330,13 +319,8 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, SummaryWithdrawalCQ> _scalarConditionMap;
-    public Map<String, SummaryWithdrawalCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(SummaryWithdrawalCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, SummaryWithdrawalCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(SummaryWithdrawalCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

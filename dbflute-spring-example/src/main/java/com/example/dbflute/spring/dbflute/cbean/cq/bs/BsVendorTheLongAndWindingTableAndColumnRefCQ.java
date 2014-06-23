@@ -89,10 +89,9 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _theLongAndWindingTableAndColumnRefId;
-    public ConditionValue getTheLongAndWindingTableAndColumnRefId() {
-        if (_theLongAndWindingTableAndColumnRefId == null) { _theLongAndWindingTableAndColumnRefId = nCV(); }
-        return _theLongAndWindingTableAndColumnRefId;
-    }
+    public ConditionValue getTheLongAndWindingTableAndColumnRefId()
+    { if (_theLongAndWindingTableAndColumnRefId == null) { _theLongAndWindingTableAndColumnRefId = nCV(); }
+      return _theLongAndWindingTableAndColumnRefId; }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefId() { return getTheLongAndWindingTableAndColumnRefId(); }
 
     /** 
@@ -110,27 +109,16 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefId_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID"); return this; }
 
     protected ConditionValue _theLongAndWindingTableAndColumnId;
-    public ConditionValue getTheLongAndWindingTableAndColumnId() {
-        if (_theLongAndWindingTableAndColumnId == null) { _theLongAndWindingTableAndColumnId = nCV(); }
-        return _theLongAndWindingTableAndColumnId;
-    }
+    public ConditionValue getTheLongAndWindingTableAndColumnId()
+    { if (_theLongAndWindingTableAndColumnId == null) { _theLongAndWindingTableAndColumnId = nCV(); }
+      return _theLongAndWindingTableAndColumnId; }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnId() { return getTheLongAndWindingTableAndColumnId(); }
 
-    protected Map<String, VendorTheLongAndWindingTableAndColumnCQ> _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn() { return _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap; }
-    public String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) {
-        if (_theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap == null) { _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
-        _theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(ky, sq); return "theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn() { return xgetSQueMap("theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn"); }
+    public String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) { return xkeepSQue("theLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn", sq); }
 
-    protected Map<String, VendorTheLongAndWindingTableAndColumnCQ> _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn() { return _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap; }
-    public String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) {
-        if (_theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap == null) { _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.size() + 1);
-        _theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumnMap.put(ky, sq); return "theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnCQ> getTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn() { return xgetSQueMap("theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn"); }
+    public String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq) { return xkeepSQue("theLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -147,10 +135,9 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnId_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); return this; }
 
     protected ConditionValue _theLongAndWindingTableAndColumnRefDate;
-    public ConditionValue getTheLongAndWindingTableAndColumnRefDate() {
-        if (_theLongAndWindingTableAndColumnRefDate == null) { _theLongAndWindingTableAndColumnRefDate = nCV(); }
-        return _theLongAndWindingTableAndColumnRefDate;
-    }
+    public ConditionValue getTheLongAndWindingTableAndColumnRefDate()
+    { if (_theLongAndWindingTableAndColumnRefDate == null) { _theLongAndWindingTableAndColumnRefDate = nCV(); }
+      return _theLongAndWindingTableAndColumnRefDate; }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefDate() { return getTheLongAndWindingTableAndColumnRefDate(); }
 
     /** 
@@ -168,10 +155,9 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefDate_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"); return this; }
 
     protected ConditionValue _shortDate;
-    public ConditionValue getShortDate() {
-        if (_shortDate == null) { _shortDate = nCV(); }
-        return _shortDate;
-    }
+    public ConditionValue getShortDate()
+    { if (_shortDate == null) { _shortDate = nCV(); }
+      return _shortDate; }
     protected ConditionValue getCValueShortDate() { return getShortDate(); }
 
     /** 
@@ -205,8 +191,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsVendorTheLongAndWindingTableAndColumnRefCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsVendorTheLongAndWindingTableAndColumnRefCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -222,8 +207,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsVendorTheLongAndWindingTableAndColumnRefCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsVendorTheLongAndWindingTableAndColumnRefCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -247,26 +231,17 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public VendorTheLongAndWindingTableAndColumnCQ queryVendorTheLongAndWindingTableAndColumn() {
         return getConditionQueryVendorTheLongAndWindingTableAndColumn();
     }
-    protected VendorTheLongAndWindingTableAndColumnCQ _conditionQueryVendorTheLongAndWindingTableAndColumn;
     public VendorTheLongAndWindingTableAndColumnCQ getConditionQueryVendorTheLongAndWindingTableAndColumn() {
-        if (_conditionQueryVendorTheLongAndWindingTableAndColumn == null) {
-            _conditionQueryVendorTheLongAndWindingTableAndColumn = xcreateQueryVendorTheLongAndWindingTableAndColumn();
-            xsetupOuterJoinVendorTheLongAndWindingTableAndColumn();
-        }
-        return _conditionQueryVendorTheLongAndWindingTableAndColumn;
+        String prop = "vendorTheLongAndWindingTableAndColumn";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryVendorTheLongAndWindingTableAndColumn()); xsetupOuterJoinVendorTheLongAndWindingTableAndColumn(); }
+        return xgetQueRlMap(prop);
     }
     protected VendorTheLongAndWindingTableAndColumnCQ xcreateQueryVendorTheLongAndWindingTableAndColumn() {
-        String nrp = resolveNextRelationPath("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        return xinitRelCQ(new VendorTheLongAndWindingTableAndColumnCQ(this, xgetSqlClause(), jan, xgetNextNestLevel()), _baseCB, "vendorTheLongAndWindingTableAndColumn", nrp);
+        String nrp = xresolveNRP("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new VendorTheLongAndWindingTableAndColumnCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "vendorTheLongAndWindingTableAndColumn", nrp);
     }
-    protected void xsetupOuterJoinVendorTheLongAndWindingTableAndColumn() {
-        VendorTheLongAndWindingTableAndColumnCQ cq = getConditionQueryVendorTheLongAndWindingTableAndColumn();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
-        registerOuterJoin(cq, joinOnMap, "vendorTheLongAndWindingTableAndColumn");
-    }
-    public boolean hasConditionQueryVendorTheLongAndWindingTableAndColumn() { return _conditionQueryVendorTheLongAndWindingTableAndColumn != null; }
+    protected void xsetupOuterJoinVendorTheLongAndWindingTableAndColumn() { xregOutJo("vendorTheLongAndWindingTableAndColumn"); }
+    public boolean hasConditionQueryVendorTheLongAndWindingTableAndColumn() { return xhasQueRlMap("vendorTheLongAndWindingTableAndColumn"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -275,61 +250,32 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _scalarConditionMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _specifyMyselfDerivedMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _queryMyselfDerivedMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _myselfExistsMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _myselfInScopeMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

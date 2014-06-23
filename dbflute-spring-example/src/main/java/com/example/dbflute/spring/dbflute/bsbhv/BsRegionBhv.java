@@ -560,23 +560,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     }
 
     protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddressList(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
-        final MemberAddressBhv referrerBhv = xgetBSFLR().select(MemberAddressBhv.class);
-        return helpLoadReferrerInternally(regionList, option, new InternalLoadReferrerCallback<Region, Integer, MemberAddressCB, MemberAddress>() {
-            public Integer getPKVal(Region et)
-            { return et.getRegionId(); }
-            public void setRfLs(Region et, List<MemberAddress> ls)
-            { et.setMemberAddressList(ls); }
-            public MemberAddressCB newMyCB() { return referrerBhv.newConditionBean(); }
-            public void qyFKIn(MemberAddressCB cb, List<Integer> ls)
-            { cb.query().setRegionId_InScope(ls); }
-            public void qyOdFKAsc(MemberAddressCB cb) { cb.query().addOrderBy_RegionId_Asc(); }
-            public void spFKCol(MemberAddressCB cb) { cb.specify().columnRegionId(); }
-            public List<MemberAddress> selRfLs(MemberAddressCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(MemberAddress re) { return re.getRegionId(); }
-            public void setlcEt(MemberAddress re, Region le)
-            { re.setRegion(le); }
-            public String getRfPrNm() { return "memberAddressList"; }
-        });
+        return helpLoadReferrerInternally(regionList, option, "memberAddressList");
     }
 
     // ===================================================================================
@@ -1220,31 +1204,17 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<Region> typeOfSelectedEntity()
-    { return Region.class; }
-
-    protected Region downcast(Entity et)
-    { return helpEntityDowncastInternally(et, Region.class); }
-
-    protected RegionCB downcast(ConditionBean cb)
-    { return helpConditionBeanDowncastInternally(cb, RegionCB.class); }
-
+    protected Class<Region> typeOfSelectedEntity() { return Region.class; }
+    protected Region downcast(Entity et) { return helpEntityDowncastInternally(et, Region.class); }
+    protected RegionCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, RegionCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<Region> downcast(List<? extends Entity> ls)
-    { return (List<Region>)ls; }
-
+    protected List<Region> downcast(List<? extends Entity> ls) { return (List<Region>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<RegionCB> downcast(InsertOption<? extends ConditionBean> op)
-    { return (InsertOption<RegionCB>)op; }
-
+    protected InsertOption<RegionCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<RegionCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<RegionCB> downcast(UpdateOption<? extends ConditionBean> op)
-    { return (UpdateOption<RegionCB>)op; }
-
+    protected UpdateOption<RegionCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<RegionCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<RegionCB> downcast(DeleteOption<? extends ConditionBean> op)
-    { return (DeleteOption<RegionCB>)op; }
-
+    protected DeleteOption<RegionCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<RegionCB>)op; }
     @SuppressWarnings("unchecked")
     protected QueryInsertSetupper<Region, RegionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
     { return (QueryInsertSetupper<Region, RegionCB>)sp; }

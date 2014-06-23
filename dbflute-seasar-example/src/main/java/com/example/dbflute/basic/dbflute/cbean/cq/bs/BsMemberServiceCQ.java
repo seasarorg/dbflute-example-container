@@ -89,10 +89,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberServiceId;
-    public ConditionValue getMemberServiceId() {
-        if (_memberServiceId == null) { _memberServiceId = nCV(); }
-        return _memberServiceId;
-    }
+    public ConditionValue getMemberServiceId()
+    { if (_memberServiceId == null) { _memberServiceId = nCV(); }
+      return _memberServiceId; }
     protected ConditionValue getCValueMemberServiceId() { return getMemberServiceId(); }
 
     /** 
@@ -110,27 +109,16 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_MemberServiceId_Desc() { regOBD("MEMBER_SERVICE_ID"); return this; }
 
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId() {
-        if (_memberId == null) { _memberId = nCV(); }
-        return _memberId;
-    }
+    public ConditionValue getMemberId()
+    { if (_memberId == null) { _memberId = nCV(); }
+      return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    protected Map<String, MemberCQ> _memberId_InScopeRelation_MemberMap;
-    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return _memberId_InScopeRelation_MemberMap; }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) {
-        if (_memberId_InScopeRelation_MemberMap == null) { _memberId_InScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberMap.size() + 1);
-        _memberId_InScopeRelation_MemberMap.put(ky, sq); return "memberId_InScopeRelation_Member." + ky;
-    }
+    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return xgetSQueMap("memberId_InScopeRelation_Member"); }
+    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_InScopeRelation_Member", sq); }
 
-    protected Map<String, MemberCQ> _memberId_NotInScopeRelation_MemberMap;
-    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return _memberId_NotInScopeRelation_MemberMap; }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberMap == null) { _memberId_NotInScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberMap.put(ky, sq); return "memberId_NotInScopeRelation_Member." + ky;
-    }
+    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return xgetSQueMap("memberId_NotInScopeRelation_Member"); }
+    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_Member", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -147,10 +135,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _servicePointCount;
-    public ConditionValue getServicePointCount() {
-        if (_servicePointCount == null) { _servicePointCount = nCV(); }
-        return _servicePointCount;
-    }
+    public ConditionValue getServicePointCount()
+    { if (_servicePointCount == null) { _servicePointCount = nCV(); }
+      return _servicePointCount; }
     protected ConditionValue getCValueServicePointCount() { return getServicePointCount(); }
 
     /** 
@@ -168,27 +155,16 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_ServicePointCount_Desc() { regOBD("SERVICE_POINT_COUNT"); return this; }
 
     protected ConditionValue _serviceRankCode;
-    public ConditionValue getServiceRankCode() {
-        if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
-        return _serviceRankCode;
-    }
+    public ConditionValue getServiceRankCode()
+    { if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
+      return _serviceRankCode; }
     protected ConditionValue getCValueServiceRankCode() { return getServiceRankCode(); }
 
-    protected Map<String, ServiceRankCQ> _serviceRankCode_InScopeRelation_ServiceRankMap;
-    public Map<String, ServiceRankCQ> getServiceRankCode_InScopeRelation_ServiceRank() { return _serviceRankCode_InScopeRelation_ServiceRankMap; }
-    public String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq) {
-        if (_serviceRankCode_InScopeRelation_ServiceRankMap == null) { _serviceRankCode_InScopeRelation_ServiceRankMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_InScopeRelation_ServiceRankMap.size() + 1);
-        _serviceRankCode_InScopeRelation_ServiceRankMap.put(ky, sq); return "serviceRankCode_InScopeRelation_ServiceRank." + ky;
-    }
+    public Map<String, ServiceRankCQ> getServiceRankCode_InScopeRelation_ServiceRank() { return xgetSQueMap("serviceRankCode_InScopeRelation_ServiceRank"); }
+    public String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq) { return xkeepSQue("serviceRankCode_InScopeRelation_ServiceRank", sq); }
 
-    protected Map<String, ServiceRankCQ> _serviceRankCode_NotInScopeRelation_ServiceRankMap;
-    public Map<String, ServiceRankCQ> getServiceRankCode_NotInScopeRelation_ServiceRank() { return _serviceRankCode_NotInScopeRelation_ServiceRankMap; }
-    public String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq) {
-        if (_serviceRankCode_NotInScopeRelation_ServiceRankMap == null) { _serviceRankCode_NotInScopeRelation_ServiceRankMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_serviceRankCode_NotInScopeRelation_ServiceRankMap.size() + 1);
-        _serviceRankCode_NotInScopeRelation_ServiceRankMap.put(ky, sq); return "serviceRankCode_NotInScopeRelation_ServiceRank." + ky;
-    }
+    public Map<String, ServiceRankCQ> getServiceRankCode_NotInScopeRelation_ServiceRank() { return xgetSQueMap("serviceRankCode_NotInScopeRelation_ServiceRank"); }
+    public String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq) { return xkeepSQue("serviceRankCode_NotInScopeRelation_ServiceRank", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -205,10 +181,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_ServiceRankCode_Desc() { regOBD("SERVICE_RANK_CODE"); return this; }
 
     protected ConditionValue _registerDatetime;
-    public ConditionValue getRegisterDatetime() {
-        if (_registerDatetime == null) { _registerDatetime = nCV(); }
-        return _registerDatetime;
-    }
+    public ConditionValue getRegisterDatetime()
+    { if (_registerDatetime == null) { _registerDatetime = nCV(); }
+      return _registerDatetime; }
     protected ConditionValue getCValueRegisterDatetime() { return getRegisterDatetime(); }
 
     /** 
@@ -226,10 +201,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
 
     protected ConditionValue _registerUser;
-    public ConditionValue getRegisterUser() {
-        if (_registerUser == null) { _registerUser = nCV(); }
-        return _registerUser;
-    }
+    public ConditionValue getRegisterUser()
+    { if (_registerUser == null) { _registerUser = nCV(); }
+      return _registerUser; }
     protected ConditionValue getCValueRegisterUser() { return getRegisterUser(); }
 
     /** 
@@ -247,10 +221,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
 
     protected ConditionValue _updateDatetime;
-    public ConditionValue getUpdateDatetime() {
-        if (_updateDatetime == null) { _updateDatetime = nCV(); }
-        return _updateDatetime;
-    }
+    public ConditionValue getUpdateDatetime()
+    { if (_updateDatetime == null) { _updateDatetime = nCV(); }
+      return _updateDatetime; }
     protected ConditionValue getCValueUpdateDatetime() { return getUpdateDatetime(); }
 
     /** 
@@ -268,10 +241,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
 
     protected ConditionValue _updateUser;
-    public ConditionValue getUpdateUser() {
-        if (_updateUser == null) { _updateUser = nCV(); }
-        return _updateUser;
-    }
+    public ConditionValue getUpdateUser()
+    { if (_updateUser == null) { _updateUser = nCV(); }
+      return _updateUser; }
     protected ConditionValue getCValueUpdateUser() { return getUpdateUser(); }
 
     /** 
@@ -289,10 +261,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
 
     protected ConditionValue _versionNo;
-    public ConditionValue getVersionNo() {
-        if (_versionNo == null) { _versionNo = nCV(); }
-        return _versionNo;
-    }
+    public ConditionValue getVersionNo()
+    { if (_versionNo == null) { _versionNo = nCV(); }
+      return _versionNo; }
     protected ConditionValue getCValueVersionNo() { return getVersionNo(); }
 
     /** 
@@ -326,8 +297,7 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsMemberServiceCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsMemberServiceCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -343,8 +313,7 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsMemberServiceCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsMemberServiceCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -371,31 +340,17 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public MemberCQ queryMember() {
         return getConditionQueryMember();
     }
-    protected MemberCQ _conditionQueryMember;
     public MemberCQ getConditionQueryMember() {
-        if (_conditionQueryMember == null) {
-            _conditionQueryMember = xcreateQueryMember();
-            xsetupOuterJoinMember();
-        }
-        return _conditionQueryMember;
+        String prop = "member";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
+        return xgetQueRlMap(prop);
     }
     protected MemberCQ xcreateQueryMember() {
-        String nrp = resolveNextRelationPath("MEMBER_SERVICE", "member");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MemberCQ cq = new MemberCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("member");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER_SERVICE", "member"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "member", nrp);
     }
-    protected void xsetupOuterJoinMember() {
-        MemberCQ cq = getConditionQueryMember();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_ID", "MEMBER_ID");
-        registerOuterJoin(cq, joinOnMap, "member");
-    }
-    public boolean hasConditionQueryMember() {
-        return _conditionQueryMember != null;
-    }
+    protected void xsetupOuterJoinMember() { xregOutJo("member"); }
+    public boolean hasConditionQueryMember() { return xhasQueRlMap("member"); }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -405,31 +360,17 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public ServiceRankCQ queryServiceRank() {
         return getConditionQueryServiceRank();
     }
-    protected ServiceRankCQ _conditionQueryServiceRank;
     public ServiceRankCQ getConditionQueryServiceRank() {
-        if (_conditionQueryServiceRank == null) {
-            _conditionQueryServiceRank = xcreateQueryServiceRank();
-            xsetupOuterJoinServiceRank();
-        }
-        return _conditionQueryServiceRank;
+        String prop = "serviceRank";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryServiceRank()); xsetupOuterJoinServiceRank(); }
+        return xgetQueRlMap(prop);
     }
     protected ServiceRankCQ xcreateQueryServiceRank() {
-        String nrp = resolveNextRelationPath("MEMBER_SERVICE", "serviceRank");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        ServiceRankCQ cq = new ServiceRankCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("serviceRank");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER_SERVICE", "serviceRank"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new ServiceRankCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "serviceRank", nrp);
     }
-    protected void xsetupOuterJoinServiceRank() {
-        ServiceRankCQ cq = getConditionQueryServiceRank();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("SERVICE_RANK_CODE", "SERVICE_RANK_CODE");
-        registerOuterJoin(cq, joinOnMap, "serviceRank");
-    }
-    public boolean hasConditionQueryServiceRank() {
-        return _conditionQueryServiceRank != null;
-    }
+    protected void xsetupOuterJoinServiceRank() { xregOutJo("serviceRank"); }
+    public boolean hasConditionQueryServiceRank() { return xhasQueRlMap("serviceRank"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -438,61 +379,32 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, MemberServiceCQ> _scalarConditionMap;
-    public Map<String, MemberServiceCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(MemberServiceCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, MemberServiceCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(MemberServiceCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, MemberServiceCQ> _specifyMyselfDerivedMap;
-    public Map<String, MemberServiceCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(MemberServiceCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, MemberServiceCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(MemberServiceCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, MemberServiceCQ> _queryMyselfDerivedMap;
-    public Map<String, MemberServiceCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(MemberServiceCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, MemberServiceCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(MemberServiceCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MemberServiceCQ> _myselfExistsMap;
-    public Map<String, MemberServiceCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(MemberServiceCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, MemberServiceCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(MemberServiceCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, MemberServiceCQ> _myselfInScopeMap;
-    public Map<String, MemberServiceCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(MemberServiceCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, MemberServiceCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(MemberServiceCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal
