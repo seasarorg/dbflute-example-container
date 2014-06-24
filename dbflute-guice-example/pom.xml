@@ -14,7 +14,7 @@
 		<dbflute.version>1.0.5J</dbflute.version>
 		<h2.jdbc.version>1.4.178</h2.jdbc.version>
 		<guice.version>3.0</guice.version>
-		<utflute.version>0.4.5</utflute.version>
+		<utflute.version>0.4.6</utflute.version>
 	</properties>
 
 	<url>http://dbflute.sandbox.seasar.org/</url>
