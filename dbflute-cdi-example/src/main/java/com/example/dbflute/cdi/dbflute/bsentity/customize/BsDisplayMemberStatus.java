@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.cdi.dbflute.allcommon.CDef;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 
@@ -226,9 +226,6 @@ public abstract class BsDisplayMemberStatus implements Entity, Serializable, Clo
     }
 
     // ===================================================================================
-    //                                                           Classification Name/Alias
-    //                                                           =========================
-    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
@@ -408,7 +405,7 @@ public abstract class BsDisplayMemberStatus implements Entity, Serializable, Clo
      */
     public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
-        this._memberStatusCode = memberStatusCode;
+        _memberStatusCode = memberStatusCode;
     }
 
     /**
@@ -425,7 +422,7 @@ public abstract class BsDisplayMemberStatus implements Entity, Serializable, Clo
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 
     /**
@@ -446,6 +443,6 @@ public abstract class BsDisplayMemberStatus implements Entity, Serializable, Clo
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 }

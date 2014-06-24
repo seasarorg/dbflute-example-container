@@ -13,7 +13,7 @@
 ## either express or implied. See the License for the specific language
 ## governing permissions and limitations under the License.
 ##
-${database.allClassCopyright}package ${glPackageBaseBhv};
+${database.allClassCopyright}package ${myBaseBhvPackageName};
 #set ($myClassName = "${myBaseBhvClassName}")
 
 import java.util.List;
@@ -21,6 +21,8 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 #if ($database.isMakeFlatExpansion())
 import org.seasar.dbflute.dbmeta.hierarchy.HierarchyArranger;
@@ -28,8 +30,10 @@ import org.seasar.dbflute.dbmeta.hierarchy.HierarchyBasicRequest;
 import org.seasar.dbflute.dbmeta.hierarchy.HierarchyRequest;
 #end
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
-#if ($database.isRelationOptionalEntityOriginalClass())
+#if ($table.needsBasicOptionalEntityImport())
+import ${database.basicOptionalEntityClassName};
+#end
+#if ($table.needsRelationOptionalEntityNextImport())
 import ${database.relationOptionalEntityClassName};
 #end
 import org.seasar.dbflute.outsidesql.executor.*;
@@ -37,6 +41,9 @@ import org.seasar.dbflute.outsidesql.executor.*;
 import ${glPackageBaseCommon}.${glCDef};
 #end
 import ${glPackageExtendedBhv}.*;
+#if ($table.hasReferrerLoader())
+import ${myReferrerLoaderPackageName}.*;
+#end
 import ${glPackageExtendedEntity}.*;
 import ${myDBMetaPackageName}.*;
 import ${glPackageCB}.*;
@@ -90,26 +97,30 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return ${myDBMetaClassName}.getInstance(); }
+#if ($table.isCompatibleNewMyEntityConditionBean())
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
     public ${myDBMetaClassName} getMyDBMeta() { return ${myDBMetaClassName}.getInstance(); }
+#end
 
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public ${myExtendedObjectClassName} newEntity() { return new ${myExtendedObjectClassName}(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public ${myConditionBeanClassName} newConditionBean() { return new ${myConditionBeanClassName}(); }
+#if ($table.isCompatibleNewMyEntityConditionBean())
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public ${myExtendedObjectClassName} newMyEntity() { return new ${myExtendedObjectClassName}(); }
 
     /** @return The instance of new condition-bean as my table type. (NotNull) */
     public ${myConditionBeanClassName} newMyConditionBean() { return new ${myConditionBeanClassName}(); }
+#end
 
     // ===================================================================================
     //                                                                        Count Select
@@ -126,6 +137,10 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(${myConditionBeanClassName} cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(${myConditionBeanClassName} cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -139,10 +154,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -200,31 +212,30 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectEntity(${myConditionBeanClassName} cb) {
+        return facadeSelectEntity(cb);
+    }
+
+    protected ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} facadeSelectEntity(${myConditionBeanClassName} cb) {
 #if ($table.isAvailableSelectEntityPlainReturn())
-        return doSelectEntity(cb, ${myExtendedObjectClassName}.class);
+        return doSelectEntity(cb, typeOfSelectedEntity());
 #else
-        return doSelectOptionalEntity(cb, ${myExtendedObjectClassName}.class);
+        return doSelectOptionalEntity(cb, typeOfSelectedEntity());
 #end
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, ${myConditionBeanClassName}>() {
-            public List<ENTITY> callbackSelectList(${myConditionBeanClassName} lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectOptionalEntity(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
 #if ($table.isAvailableSelectEntityPlainReturn())
-        return selectEntity(downcast(cb));
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 #else
-        return selectEntity(downcast(cb)).orElseNull();
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElseNull(); }
 #end
-    }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -242,25 +253,25 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     ${table.selectEntityWithDeletedCheckModifier} ${myExtendedObjectClassName} selectEntityWithDeletedCheck(${myConditionBeanClassName} cb) {
-        return doSelectEntityWithDeletedCheck(cb, ${myExtendedObjectClassName}.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected ${myExtendedObjectClassName} facadeSelectEntityWithDeletedCheck(${myConditionBeanClassName} cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectEntityWithDeletedCheck(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, ${myConditionBeanClassName}>() {
-            public List<ENTITY> callbackSelectList(${myConditionBeanClassName} lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 #if ($table.hasPrimaryKey())
 
     /**
      * Select the entity by the primary-key value.
      * ${table.primaryKeyArgsJavaDocString}
-#if ($table.isAvailableSelectEntityPlainReturn())
+#if ($table.isCompatibleSelectByPKPlainReturn())
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
@@ -269,20 +280,24 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
-#if ($table.isAvailableSelectEntityPlainReturn())
-        return doSelectByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${table.filterSelectByPKOptionalReturnIfNeeds($myExtendedObjectClassName)} selectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+        return facadeSelectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsCallingString});
+    }
+
+    protected ${table.filterSelectByPKOptionalReturnIfNeeds($myExtendedObjectClassName)} facadeSelectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+#if ($table.isCompatibleSelectByPKPlainReturn())
+        return doSelectByPK(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
 #else
-        return doSelectOptionalByPK(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+        return doSelectOptionalByPK(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
 #end
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPK(${table.primaryKeyArgsString}, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), tp);
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectOptionalByPK(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(${table.primaryKeyArgsCallingString}, entityType), ${table.primaryKeyArgsCallingString});
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectOptionalByPK(${table.primaryKeyArgsString}, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(${table.primaryKeyArgsCallingString}, tp), ${table.primaryKeyArgsCallingString});
     }
 #if ($table.isCompatibleSelectByPKWithDeletedCheck())
 
@@ -295,18 +310,17 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ${myExtendedObjectClassName} selectByPK${table.selectByPKSuffix}WithDeletedCheck(${table.primaryKeyArgsString}) {
-        return doSelectByPKWithDeletedCheck(${table.primaryKeyArgsCallingString}, ${myExtendedObjectClassName}.class);
+        return doSelectByPKWithDeletedCheck(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), entityType);
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), tp);
     }
 #end
 
     protected ${myConditionBeanClassName} xprepareCBAsPK(${table.primaryKeyArgsString}) {
         ${table.primaryKeyArgsAssertString}
-        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptPrimaryKey(${table.primaryKeyArgsCallingString});
-        return cb;
+        return newConditionBean().acceptPK(${table.primaryKeyArgsCallingString});
     }
 #end
 #foreach ($uq in $table.keyableUniqueList)
@@ -319,18 +333,21 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<${myExtendedObjectClassName}> selectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
-        return doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}, ${myExtendedObjectClassName}.class);
+    public ${table.filterSelectEntityOptionalReturn(${myExtendedObjectClassName})} selectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return facadeSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
     }
 
-    protected <ENTITY extends ${myExtendedObjectClassName}> OptionalEntity<ENTITY> doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}), entityType), ${uq.argsCallingString});
+    protected ${table.filterSelectEntityOptionalReturn(${myExtendedObjectClassName})} facadeSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}), tp), ${uq.argsCallingString});
     }
 
     protected ${myConditionBeanClassName} xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
         ${uq.argsAssertString}
-        ${myConditionBeanClassName} cb = newMyConditionBean(); cb.acceptUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
-        return cb;
+        return newConditionBean().acceptUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
     }
 #end
 
@@ -353,20 +370,25 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<${myExtendedObjectClassName}> selectList(${myConditionBeanClassName} cb) {
-        return doSelectList(cb, ${myExtendedObjectClassName}.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<${myExtendedObjectClassName}> facadeSelectList(${myConditionBeanClassName} cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> ListResultBean<ENTITY> doSelectList(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, ${myConditionBeanClassName}>() {
-            public List<ENTITY> callbackSelectList(${myConditionBeanClassName} lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
+#if ($table.isEntityDerivedMappable())
+
     @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
+    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() {
+        return true;
     }
+#end
 
     // ===================================================================================
     //                                                                         Page Select
@@ -394,21 +416,18 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<${myExtendedObjectClassName}> selectPage(${myConditionBeanClassName} cb) {
-        return doSelectPage(cb, ${myExtendedObjectClassName}.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<${myExtendedObjectClassName}> facadeSelectPage(${myConditionBeanClassName} cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> PagingResultBean<ENTITY> doSelectPage(${myConditionBeanClassName} cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, ${myConditionBeanClassName}>() {
-            public int callbackSelectCount(${myConditionBeanClassName} cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(${myConditionBeanClassName} cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -428,16 +447,17 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param entityRowHandler The handler of entity row of ${myExtendedObjectClassName}. (NotNull)
      */
     public void selectCursor(${myConditionBeanClassName} cb, EntityRowHandler<${myExtendedObjectClassName}> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, ${myExtendedObjectClassName}.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(${myConditionBeanClassName} cb, EntityRowHandler<${myExtendedObjectClassName}> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ${myExtendedObjectClassName}> void doSelectCursor(${myConditionBeanClassName} cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, ${myConditionBeanClassName}>() {
-            public void callbackSelectCursor(${myConditionBeanClassName} cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(${myConditionBeanClassName} cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -458,23 +478,22 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<${myConditionBeanClassName}, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<${myConditionBeanClassName}, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends ${myConditionBeanClassName}> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<${myConditionBeanClassName}, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends ${myConditionBeanClassName}> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends ${myConditionBeanClassName}> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -487,6 +506,10 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The next value. (NotNull)
      */
     public ${table.sequenceReturnType} selectNextVal() {
+        return facadeSelectNextVal();
+    }
+
+    protected ${table.sequenceReturnType} facadeSelectNextVal() {
         return doSelectNextVal(${table.sequenceReturnType}.class);
     }
 
@@ -498,7 +521,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     @Override
     protected Number doReadNextVal() {
 #if ($table.isUseSequence())
-        return selectNextVal();
+        return facadeSelectNextVal();
 #else
         String msg = "This table is NOT related to sequence: " + getTableDbName();
         throw new UnsupportedOperationException(msg);
@@ -507,6 +530,10 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #foreach ($col in $table.subColumnSequenceColumnList)
 
     public ${col.javaNative} selectNextValFor${col.javaName}() {
+        return facadeSelectNextValFor${col.javaName}();
+    }
+
+    protected ${col.javaNative} facadeSelectNextValFor${col.javaName}() {
         return doSelectNextValFor${col.javaName}(null, null); // sequence cache is unsupported by default
     }
 
@@ -515,10 +542,85 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     }
 #end
 
-#if (${table.hasPrimaryKey()} && $table.hasReferrerAsMany())
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+## needs referrer loader when no referrer-as-many for pull-out
+#if ($table.hasReferrerLoader())
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ReferrerLoaderHandler<${myReferrerLoaderClassName}> handler) {
+        xassLRArg(${myEntityListVariableName}, handler);
+        handler.handle(new ${myReferrerLoaderClassName}().ready(${myEntityListVariableName}, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(${myExtendedObjectClassName} ${myEntityVariableName}, ReferrerLoaderHandler<${myReferrerLoaderClassName}> handler) {
+        xassLRArg(${myEntityVariableName}, handler);
+        handler.handle(new ${myReferrerLoaderClassName}().ready(xnewLRAryLs(${myEntityVariableName}), _behaviorSelector));
+    }
+
+#end
+#if ($table.hasLoadReferrer())
 #foreach ($referrer in $table.referrerAsManyList)
 #set ($referrerEntityClassName = "${referrer.referrerTableExtendedEntityClassName}")
 #set ($referrerBhvClassName = "${referrer.referrerTableExtendedBehaviorClassName}")
@@ -557,7 +659,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
         xassLRArg(${myEntityListVariableName}, setupper);
         return doLoad${referrer.referrerJavaBeansRulePropertyNameInitCap}(${myEntityListVariableName}, new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(setupper));
     }
@@ -593,7 +695,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> setupper) {
         xassLRArg(${myEntityVariableName}, setupper);
         return doLoad${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(setupper));
     }
@@ -605,17 +707,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(${myExtendedObjectClassName} ${myEntityVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
         xassLRArg(${myEntityVariableName}, loadReferrerOption);
         return load${referrer.referrerJavaBeansRulePropertyNameInitCap}(xnewLRLs(${myEntityVariableName}), loadReferrerOption);
     }
 
-#end
-#if ($referrer.isSimpleKeyFK())
-#set ($referrerColumn = ${referrer.localColumnAsOne})
-#set ($localColumn = ${referrer.foreignColumnAsOne})
-#set ($keyJavaNative = "${referrerColumn.javaNative}")
-#if ($table.isAvailableLoadReferrerByOldOption())
     /**
      * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
@@ -623,130 +719,17 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
         xassLRArg(${myEntityListVariableName}, loadReferrerOption);
-        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerLoader<${referrerEntityClassName}>)EMPTY_LOADER; }
+        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerListGateway<${referrerEntityClassName}>)EMPTY_NREF_LGWAY; }
         return doLoad${referrer.referrerPropertyNameInitCap}(${myEntityListVariableName}, loadReferrerOption);
     }
 
 #end
-    protected NestedReferrerLoader<${referrerEntityClassName}> doLoad${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
-        final ${referrerBhvClassName} referrerBhv = xgetBSFLR().select(${referrerBhvClassName}.class);
-        return helpLoadReferrerInternally(${myEntityListVariableName}, option, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
-            public ${keyJavaNative} getPKVal(${myExtendedObjectClassName} et)
-#if ($referrer.canImplicitConversion())
-            { if (et.get${localColumn.javaName}() == null) { return null; }
-#if ($referrer.isConvertToReferrerByToString())
-              return et.get${localColumn.javaName}().toString(); }
-#elseif ($referrer.isConvertToReferrerByConstructor())
-              return new ${keyJavaNative}(et.get${localColumn.javaName}().toString()); }
-#elseif ($referrer.isConvertToReferrerByValueOf())
-              return ${keyJavaNative}.valueOf(et.get${localColumn.javaName}().toString()); }
-#else
-              return et.get${localColumn.javaName}(); }
-#end
-#else
-            { return et.get${localColumn.javaName}(); }
-#end
-            public void setRfLs(${myExtendedObjectClassName} et, List<${referrerEntityClassName}> ls)
-            { et.set${referrer.referrerPropertyNameInitCap}(ls); }
-            public ${referrerCBClassName} newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(${referrerCBClassName} cb, List<${keyJavaNative}> ls)
-            { cb.query().set${referrerColumn.javaName}_InScope(ls); }
-            public void qyOdFKAsc(${referrerCBClassName} cb) { cb.query().addOrderBy_${referrerColumn.javaName}_Asc(); }
-            public void spFKCol(${referrerCBClassName} cb) { cb.specify().column${referrerColumn.javaName}(); }
-            public List<${referrerEntityClassName}> selRfLs(${referrerCBClassName} cb) { return referrerBhv.selectList(cb); }
-            public ${keyJavaNative} getFKVal(${referrerEntityClassName} re) { return re.get${referrerColumn.javaName}(); }
-            public void setlcEt(${referrerEntityClassName} re, ${myExtendedObjectClassName} le)
-#if ($referrer.isForeignPropertyOptionalEntity())
-            { re.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(le)); }
-#else
-            { re.set${referrer.foreignPropertyNameInitCap}(le); }
-#end
-            public String getRfPrNm() { return "${referrer.referrerPropertyName}"; }
-        });
+    protected NestedReferrerListGateway<${referrerEntityClassName}> doLoad${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
+        return helpLoadReferrerInternally(${myEntityListVariableName}, option, "${referrer.referrerPropertyName}");
     }
 
-#else
-#set ($keyJavaNative = "java.util.Map<String, Object>")
-#if ($table.isAvailableLoadReferrerByOldOption())
-    /**
-     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
-     * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<${referrerEntityClassName}> load${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
-        xassLRArg(${myEntityListVariableName}, loadReferrerOption);
-        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerLoader<${referrerEntityClassName}>)EMPTY_LOADER; }
-        return doLoad${referrer.referrerPropertyNameInitCap}(${myEntityListVariableName}, loadReferrerOption);
-    }
-
-#end
-    protected NestedReferrerLoader<${referrerEntityClassName}> doLoad${referrer.referrerPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
-        final ${referrerBhvClassName} referrerBhv = xgetBSFLR().select(${referrerBhvClassName}.class);
-        return helpLoadReferrerInternally(${myEntityListVariableName}, option, new InternalLoadReferrerCallback<${myExtendedObjectClassName}, ${keyJavaNative}, ${referrerCBClassName}, ${referrerEntityClassName}>() {
-            public ${keyJavaNative} getPKVal(${myExtendedObjectClassName} et) {
-                ${keyJavaNative} primaryKeyMap = new java.util.LinkedHashMap<String, Object>();
-#foreach ($col in $referrer.foreignColumnList)
-                primaryKeyMap.put("${col.javaName}", et.get${col.javaName}());
-#end
-                return primaryKeyMap;
-            }
-            public void setRfLs(${myExtendedObjectClassName} et, List<${referrerEntityClassName}> ls) { et.set${referrer.referrerPropertyNameInitCap}(ls); }
-            public ${referrerCBClassName} newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(${referrerCBClassName} cb, List<${keyJavaNative}> ls) {
-                final String aliasName = cb.getSqlClause().getBasePointAliasName();
-                String identity = null;
-                StringBuilder sb = new StringBuilder();
-                for (${keyJavaNative} primaryKeyMap : ls) {
-                    if (sb.length() > 0) { sb.append(")").append(ln()).append("     or ("); }
-#set ($referrerColumnIndex = 0)
-#foreach ($localColumn in $referrer.foreignColumnList)
-#set ($referrerColumn = $referrer.getLocalColumnByForeignColumn($localColumn))
-#if ($referrerColumnIndex > 0)
-                    sb.append(" and ");
-#end
-                    sb.append(aliasName).append(".${referrerColumn.name} = ");
-                    identity = "${referrer.referrerJavaBeansRulePropertyName}${localColumn.javaName}";
-                    sb.append(cb.query().xregisterFreeParameterToThemeList(identity, primaryKeyMap.get("${localColumn.javaName}")));
-#set ($referrerColumnIndex = $referrerColumnIndex + 1)
-#end
-                }
-                sb.insert(0, "((").append("))");
-                cb.getSqlClause().registerWhereClause(sb.toString(), aliasName);
-            }
-            public void qyOdFKAsc(${referrerCBClassName} cb) {
-#foreach ($col in $referrer.localColumnList)
-                cb.query().addOrderBy_${col.javaName}_Asc();
-#end
-            }
-            public void spFKCol(${referrerCBClassName} cb) {
-#foreach ($col in $referrer.localColumnList)
-                cb.specify().column${col.javaName}();
-#end
-            }
-            public List<${referrerEntityClassName}> selRfLs(${referrerCBClassName} cb) { return referrerBhv.selectList(cb); }
-            public ${keyJavaNative} getFKVal(${referrerEntityClassName} re) {
-                ${keyJavaNative} foreignKeyMap = new java.util.LinkedHashMap<String, Object>();
-#foreach ($col in $referrer.localColumnList)
-#set ($foreignColumn = $referrer.getForeignColumnByLocalColumn($col))
-                foreignKeyMap.put("${foreignColumn.javaName}", re.get${col.javaName}());
-#end
-                return foreignKeyMap;
-            }
-            public void setlcEt(${referrerEntityClassName} re, ${myExtendedObjectClassName} le)
-#if ($referrer.isForeignPropertyOptionalEntity())
-            { re.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(le)); }
-#else
-            { re.set${referrer.foreignPropertyNameInitCap}(le); }
-#end
-            public String getRfPrNm() { return "${referrer.referrerPropertyName}"; }
-        });
-    }
-
-#end
 #end
 #end
     // ===================================================================================
@@ -759,33 +742,9 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<${foreignEntityClassName}> pullout${fk.foreignPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        return helpPulloutInternally(${myEntityListVariableName}, new InternalPulloutCallback<${myExtendedObjectClassName}, ${foreignEntityClassName}>() {
-            public ${foreignEntityClassName} getFr(${myExtendedObjectClassName} et)
-#if ($fk.isForeignPropertyOptionalEntity())
-            { return et.get${fk.foreignPropertyNameInitCap}().get(); }
-#else
-            { return et.get${fk.foreignPropertyNameInitCap}(); }
-#end
-            public boolean hasRf() { return ${fk.canBeReferrer()}; }
-#if ($fk.canBeReferrer())
-#if ($fk.isOneToOne())
-            public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-#if ($fk.isReferrerPropertyOptionalEntityAsOne())
-            { if (!ls.isEmpty()) { et.set${fk.referrerPropertyNameInitCapAsOne}(${database.relationOptionalEntitySimpleName}.of(ls.get(0))); } }
-#else
-            { if (!ls.isEmpty()) { et.set${fk.referrerPropertyNameInitCapAsOne}(ls.get(0)); } }
-#end
-#else
-            public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-            { et.set${fk.referrerPropertyNameInitCap}(ls); }
-#end
-#else
-            public void setRfLs(${foreignEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-            { throw new UnsupportedOperationException(); }
-#end
-        });
-    }
+    public List<${foreignEntityClassName}> pullout${fk.foreignPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpPulloutInternally(${myEntityListVariableName}, "${fk.foreignPropertyName}"); }
+
 #end
 #foreach ($referrer in $table.referrerAsOneList)
 #set ($referrerEntityClassName = $referrer.referrerTableExtendedEntityClassName)
@@ -794,25 +753,10 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
      * @return The list of referrer-as-one table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<${referrerEntityClassName}> pullout${referrer.referrerPropertyNameInitCapAsOne}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        return helpPulloutInternally(${myEntityListVariableName}, new InternalPulloutCallback<${myExtendedObjectClassName}, ${referrerEntityClassName}>() {
-            public ${referrerEntityClassName} getFr(${myExtendedObjectClassName} et)
-#if ($referrer.isReferrerPropertyOptionalEntityAsOne())
-            { return et.get${referrer.referrerPropertyNameInitCapAsOne}().get(); }
-#else
-            { return et.get${referrer.referrerPropertyNameInitCapAsOne}(); }
-#end
-            public boolean hasRf() { return ${referrer.canBeReferrer()}; }
-            public void setRfLs(${referrerEntityClassName} et, List<${myExtendedObjectClassName}> ls)
-#if ($referrer.isForeignPropertyOptionalEntity())
-            { if (!ls.isEmpty()) { et.set${referrer.foreignPropertyNameInitCap}(${database.relationOptionalEntitySimpleName}.of(ls.get(0))); } }
-#else
-            { if (!ls.isEmpty()) { et.set${referrer.foreignPropertyNameInitCap}(ls.get(0)); } }
-#end
-        });
-    }
-#end
+    public List<${referrerEntityClassName}> pullout${referrer.referrerPropertyNameInitCapAsOne}(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpPulloutInternally(${myEntityListVariableName}, "${referrer.referrerPropertyNameAsOne}"); }
 
+#end
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -823,27 +767,21 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<${pkCol.javaNative}> extract${pkCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        return helpExtractListInternally(${myEntityListVariableName}, new InternalExtractCallback<${myExtendedObjectClassName}, ${pkCol.javaNative}>() {
-            public ${pkCol.javaNative} getCV(${myExtendedObjectClassName} et) { return et.get${pkCol.javaName}(); }
-        });
-    }
+    public List<${pkCol.javaNative}> extract${pkCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpExtractListInternally(${myEntityListVariableName}, "${pkCol.javaBeansRulePropertyName}"); }
+
 #end
 #foreach ($uqCol in $table.singleUniqueUQColumnList)
-
     /**
      * Extract the value list of (single) unique key ${uqCol.uncapitalisedJavaName}.
      * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<${uqCol.javaNative}> extract${uqCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        return helpExtractListInternally(${myEntityListVariableName}, new InternalExtractCallback<${myExtendedObjectClassName}, ${uqCol.javaNative}>() {
-            public ${uqCol.javaNative} getCV(${myExtendedObjectClassName} et) { return et.get${uqCol.javaName}(); }
-        });
-    }
+    public List<${uqCol.javaNative}> extract${uqCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpExtractListInternally(${myEntityListVariableName}, "${uqCol.javaBeansRulePropertyName}"); }
+
 #end
 #if ($table.isWritable())
-
     // ===================================================================================
     //                                                                       Entity Update
     //                                                                       =============
@@ -861,38 +799,29 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param ${myEntityVariableName} The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param ${myEntityVariableName} The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(${myExtendedObjectClassName} ${myEntityVariableName}) {
 #if ($database.isCompatibleInsertColumnNotNullOnly())
-        InsertOption<${myConditionBeanClassName}> option = new InsertOption<${myConditionBeanClassName}>();
-        option.xtoBeCompatibleInsertColumnNotNullOnly();
-        doInsert(${myEntityVariableName}, option);
+        InsertOption<${myConditionBeanClassName}> op = new InsertOption<${myConditionBeanClassName}>();
+        op.xtoBeCompatibleInsertColumnNotNullOnly();
+        doInsert(${myEntityVariableName}, op);
 #else
         doInsert(${myEntityVariableName}, null);
 #end
     }
 
-    protected void doInsert(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareInsertOption(op);
-        delegateInsert(${myEntityVariableName}, op);
+    protected void doInsert(${myExtendedObjectClassName} et, InsertOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<${myConditionBeanClassName}> op) {
-        if (op == null) { return; }
-        assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) {
-            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    @Override
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
-    }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -907,7 +836,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     ${myEntityVariableName}Bhv.<span style="color: #DD4747">update</span>(${myEntityVariableName});
@@ -915,54 +844,37 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      *     ...
      * }
      * </pre>
-     * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
 #if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final ${myExtendedObjectClassName} ${myEntityVariableName}) {
+    public void update(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doUpdate(${myEntityVariableName}, null);
     }
 
-    protected void doUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, final UpdateOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareUpdateOption(op);
-        helpUpdateInternally(${myEntityVariableName}, new InternalUpdateCallback<${myExtendedObjectClassName}>() {
-            public int callbackDelegateUpdate(${myExtendedObjectClassName} et) { return delegateUpdate(et, op); } });
+    protected void doUpdate(${myExtendedObjectClassName} et, UpdateOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
 
     protected void prepareUpdateOption(UpdateOption<${myConditionBeanClassName}> op) {
-        if (op == null) { return; }
-        assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected ${myConditionBeanClassName} createCBForVaryingUpdate() {
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected ${myConditionBeanClassName} createCBForVaryingUpdate()
+    { ${myConditionBeanClassName} cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected ${myConditionBeanClassName} createCBForSpecifiedUpdate() {
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected ${myConditionBeanClassName} createCBForSpecifiedUpdate()
+    { ${myConditionBeanClassName} cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
-    @Override
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
-    }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 #if ($table.hasOptimisticLock())
 
     /**
@@ -974,37 +886,31 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">updateNonstrict</span>(${myEntityVariableName});
      * </pre>
-     * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final ${myExtendedObjectClassName} ${myEntityVariableName}) {
+    public void updateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doUpdateNonstrict(${myEntityVariableName}, null);
     }
 
-    protected void doUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, final UpdateOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(${myEntityVariableName}, new InternalUpdateNonstrictCallback<${myExtendedObjectClassName}>() {
-            public int callbackDelegateUpdateNonstrict(${myExtendedObjectClassName} et) { return delegateUpdateNonstrict(et, op); } });
+    protected void doUpdateNonstrict(${myExtendedObjectClassName} et, UpdateOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
     }
 #end
 
-    @Override
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
 #if ($table.hasOptimisticLock())
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
+    { doUpdateNonstrict(downcast(et), downcast(op)); }
 #else
-        doModify(et, op);
+    { doModify(et, op); }
 #end
-    }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1014,7 +920,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #end
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull, ...depends on insert or update)
 #if ($table.hasOptimisticLock())
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
@@ -1024,63 +930,41 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}) {
-        doInesrtOrUpdate(${myEntityVariableName}, null, null);
+        doInsertOrUpdate(${myEntityVariableName}, null, null);
     }
 
-    protected void doInesrtOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, final InsertOption<${myConditionBeanClassName}> iop, final UpdateOption<${myConditionBeanClassName}> uop) {
-        helpInsertOrUpdateInternally(${myEntityVariableName}, new InternalInsertOrUpdateCallback<${myExtendedObjectClassName}, ${myConditionBeanClassName}>() {
-            public void callbackInsert(${myExtendedObjectClassName} et) { doInsert(et, iop); }
-            public void callbackUpdate(${myExtendedObjectClassName} et) { doUpdate(et, uop); }
-            public ${myConditionBeanClassName} callbackNewMyConditionBean() { return newMyConditionBean(); }
-            public int callbackSelectCount(${myConditionBeanClassName} cb) { return selectCount(cb); }
-        });
+    protected void doInsertOrUpdate(${myExtendedObjectClassName} et, InsertOption<${myConditionBeanClassName}> iop, UpdateOption<${myConditionBeanClassName}> uop) {
+        assertObjectNotNull("${myEntityVariableName}", et); helpInsertOrUpdateInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<${myConditionBeanClassName}>();
-            uop = uop != null ? uop : new UpdateOption<${myConditionBeanClassName}>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
 #if ($table.hasOptimisticLock())
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
-        doInesrtOrUpdateNonstrict(${myEntityVariableName}, null, null);
+        doInsertOrUpdateNonstrict(${myEntityVariableName}, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, final InsertOption<${myConditionBeanClassName}> iop, final UpdateOption<${myConditionBeanClassName}> uop) {
-        helpInsertOrUpdateInternally(${myEntityVariableName}, new InternalInsertOrUpdateNonstrictCallback<${myExtendedObjectClassName}>() {
-            public void callbackInsert(${myExtendedObjectClassName} et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(${myExtendedObjectClassName} et) { doUpdateNonstrict(et, uop); }
-        });
+    protected void doInsertOrUpdateNonstrict(${myExtendedObjectClassName} et, InsertOption<${myConditionBeanClassName}> iop, UpdateOption<${myConditionBeanClassName}> uop) {
+        assertObjectNotNull("${myEntityVariableName}", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
     }
 #end
 
-    @Override
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
 #if ($table.hasOptimisticLock())
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<${myConditionBeanClassName}>();
-            uop = uop != null ? uop : new UpdateOption<${myConditionBeanClassName}>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
+    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 #else
-        doCreateOrModify(et, iop, uop);
+    { doCreateOrModify(et, iop, uop); }
 #end
-    }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1091,7 +975,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <pre>
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     ${myEntityVariableName}Bhv.<span style="color: #DD4747">delete</span>(${myEntityVariableName});
@@ -1099,10 +983,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      *     ...
      * }
      * </pre>
-     * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
 #if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
 #else
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
 #end
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1111,23 +996,13 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         doDelete(${myEntityVariableName}, null);
     }
 
-    protected void doDelete(${myExtendedObjectClassName} ${myEntityVariableName}, final DeleteOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareDeleteOption(op);
-        helpDeleteInternally(${myEntityVariableName}, new InternalDeleteCallback<${myExtendedObjectClassName}>() {
-            public int callbackDelegateDelete(${myExtendedObjectClassName} et) { return delegateDelete(et, op); } });
+    protected void doDelete(${myExtendedObjectClassName} et, final DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<${myConditionBeanClassName}> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<${myConditionBeanClassName}> op) { if (op != null) { assertDeleteOptionStatus(op); } }
 
-    @Override
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
-    }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 #if ($table.hasOptimisticLock())
 
     /**
@@ -1135,12 +1010,12 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <pre>
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">deleteNonstrict</span>(${myEntityVariableName});
      * </pre>
-     * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -1148,48 +1023,41 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         doDeleteNonstrict(${myEntityVariableName}, null);
     }
 
-    protected void doDeleteNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, final DeleteOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(${myEntityVariableName}, new InternalDeleteNonstrictCallback<${myExtendedObjectClassName}>() {
-            public int callbackDelegateDeleteNonstrict(${myExtendedObjectClassName} et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrict(${myExtendedObjectClassName} et, final DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
+#if ($table.isCompatibleDeleteNonstrictIgnoreDeleted())
 
     /**
      * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(${myEntityVariableName});
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} ${myEntityVariableName}) {
         doDeleteNonstrictIgnoreDeleted(${myEntityVariableName}, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} ${myEntityVariableName}, final DeleteOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
-        prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(${myEntityVariableName}, new InternalDeleteNonstrictIgnoreDeletedCallback<${myExtendedObjectClassName}>() {
-            public int callbackDelegateDeleteNonstrict(${myExtendedObjectClassName} et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} et, final DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
+#end
 #end
 
-    @Override
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
 #if ($table.hasOptimisticLock())
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
+    { doDeleteNonstrict(downcast(et), downcast(op)); }
 #else
-        doRemove(et, op);
+    { doRemove(et, op); }
 #end
-    }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -1219,32 +1087,28 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        InsertOption<${myConditionBeanClassName}> op = createInsertUpdateOption();
-        return doBatchInsert(${myEntityListVariableName}, op);
+        return doBatchInsert(${myEntityListVariableName}, null);
     }
 
-    protected int[] doBatchInsert(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, InsertOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityListVariableName}", ${myEntityListVariableName});
-        prepareBatchInsertOption(${myEntityListVariableName}, op);
-        return delegateBatchInsert(${myEntityListVariableName}, op);
+    protected int[] doBatchInsert(List<${myExtendedObjectClassName}> ls, InsertOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityListVariableName}", ls);
+        InsertOption<${myConditionBeanClassName}> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, InsertOption<${myConditionBeanClassName}> op) {
+    protected void prepareBatchInsertOption(List<${myExtendedObjectClassName}> ls, InsertOption<${myConditionBeanClassName}> op) {
 #if ($database.isBatchInsertColumnModifiedPropertiesFragmentedAllowed())
         op.xallowInsertColumnModifiedPropertiesFragmented();
 #end
 #if ($database.isCompatibleBatchInsertDefaultEveryColumn())
         op.xtoBeCompatibleBatchInsertDefaultEveryColumn();
 #end
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(${myEntityListVariableName});
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
-    @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1270,7 +1134,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * }
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">batchUpdate</span>(${myEntityListVariableName});
      * </pre>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+#end
      * @return The array of updated count. (NotNull, EmptyAllowed)
 #if ($table.hasOptimisticLock())
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -1279,32 +1147,28 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #end
      */
     public int[] batchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        UpdateOption<${myConditionBeanClassName}> op = createPlainUpdateOption();
-        return doBatchUpdate(${myEntityListVariableName}, op);
+        return doBatchUpdate(${myEntityListVariableName}, null);
     }
 
-    protected int[] doBatchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, UpdateOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityListVariableName}", ${myEntityListVariableName});
-        prepareBatchUpdateOption(${myEntityListVariableName}, op);
-        return delegateBatchUpdate(${myEntityListVariableName}, op);
+    protected int[] doBatchUpdate(List<${myExtendedObjectClassName}> ls, UpdateOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityListVariableName}", ls);
+        UpdateOption<${myConditionBeanClassName}> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, UpdateOption<${myConditionBeanClassName}> op) {
+    protected void prepareBatchUpdateOption(List<${myExtendedObjectClassName}> ls, UpdateOption<${myConditionBeanClassName}> op) {
 #if ($database.isBatchUpdateColumnModifiedPropertiesFragmentedAllowed())
         op.xallowUpdateColumnModifiedPropertiesFragmented();
 #end
 #if ($database.isCompatibleBatchUpdateDefaultEveryColumn())
         op.xtoBeCompatibleBatchUpdateDefaultEveryColumn();
 #end
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(${myEntityListVariableName});
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
-    @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1333,7 +1197,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
      * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+#end
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
 #if ($table.hasOptimisticLock())
@@ -1372,14 +1240,14 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
-        UpdateOption<${myConditionBeanClassName}> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(${myEntityListVariableName}, option);
+        return doBatchUpdateNonstrict(${myEntityListVariableName}, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, UpdateOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityListVariableName}", ${myEntityListVariableName});
-        prepareBatchUpdateOption(${myEntityListVariableName}, op);
-        return delegateBatchUpdateNonstrict(${myEntityListVariableName}, op);
+    protected int[] doBatchUpdateNonstrict(List<${myExtendedObjectClassName}> ls, UpdateOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityListVariableName}", ls);
+        UpdateOption<${myConditionBeanClassName}> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1415,14 +1283,12 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #end
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
 #if ($table.hasOptimisticLock())
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
+    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
 #else
-        return doLumpModify(ls, op);
+    { return doLumpModify(ls, op); }
 #end
-    }
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1443,17 +1309,13 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         return doBatchDelete(${myEntityListVariableName}, null);
     }
 
-    protected int[] doBatchDelete(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, DeleteOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityListVariableName}", ${myEntityListVariableName});
+    protected int[] doBatchDelete(List<${myExtendedObjectClassName}> ls, DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityListVariableName}", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(${myEntityListVariableName}, op);
+        return delegateBatchDelete(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 #if ($table.hasOptimisticLock())
 
     /**
@@ -1467,22 +1329,19 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         return doBatchDeleteNonstrict(${myEntityListVariableName}, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, DeleteOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityListVariableName}", ${myEntityListVariableName});
+    protected int[] doBatchDeleteNonstrict(List<${myExtendedObjectClassName}> ls, DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityListVariableName}", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(${myEntityListVariableName}, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 #end
 
-    @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
 #if ($table.hasOptimisticLock())
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
+    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
 #else
-        return doLumpRemove(ls, op);
+    { return doLumpRemove(ls, op); }
 #end
-    }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -1503,7 +1362,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1518,24 +1377,16 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     }
 
     protected int doQueryInsert(QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}> sp, InsertOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("setupper", sp);
-        prepareInsertOption(op);
-        ${myExtendedObjectClassName} e = new ${myExtendedObjectClassName}();
-        ${myConditionBeanClassName} cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
+        ${myExtendedObjectClassName} et = newEntity(); ${myConditionBeanClassName} cb = createCBForQueryInsert();
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected ${myConditionBeanClassName} createCBForQueryInsert() {
-        ${myConditionBeanClassName} cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected ${myConditionBeanClassName} createCBForQueryInsert()
+    { ${myConditionBeanClassName} cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
-    @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
-    }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
+    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1547,7 +1398,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
@@ -1563,17 +1414,13 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         return doQueryUpdate(${myEntityVariableName}, cb, null);
     }
 
-    protected int doQueryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, ${myConditionBeanClassName} cb, UpdateOption<${myConditionBeanClassName}> op) {
-        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName}); assertCBStateValid(cb);
-        prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(${myEntityVariableName}, cb, op) : 0;
+    protected int doQueryUpdate(${myExtendedObjectClassName} et, ${myConditionBeanClassName} cb, UpdateOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); assertCBStateValid(cb); prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (${myConditionBeanClassName})cb); }
-        else { return varyingQueryUpdate(downcast(et), (${myConditionBeanClassName})cb, downcast(op)); }
-    }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
+    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
@@ -1591,16 +1438,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     }
 
     protected int doQueryDelete(${myConditionBeanClassName} cb, DeleteOption<${myConditionBeanClassName}> op) {
-        assertCBStateValid(cb);
-        prepareDeleteOption(op);
+        assertCBStateValid(cb); prepareDeleteOption(op);
         return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((${myConditionBeanClassName})cb); }
-        else { return varyingQueryDelete((${myConditionBeanClassName})cb, downcast(op)); }
-    }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1623,7 +1465,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingInsert</span>(${myEntityVariableName}, option);
      * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param ${myEntityVariableName} The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param ${myEntityVariableName} The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1644,7 +1486,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * ${myEntityVariableName}.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1659,7 +1501,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      *     ...
      * }
      * </pre>
-     * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
+#end
      * @param option The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1684,7 +1530,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
      * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * UpdateOption&lt;${myConditionBeanClassName}&gt; option = new UpdateOption&lt;${myConditionBeanClassName}&gt;();
@@ -1695,7 +1541,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * ${myEntityVariableName}Bhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(${myEntityVariableName}, option);
      * </pre>
-     * @param ${myEntityVariableName} The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1710,7 +1556,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
@@ -1723,14 +1569,14 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      */
     public void varyingInsertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> insertOption, UpdateOption<${myConditionBeanClassName}> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(${myEntityVariableName}, insertOption, updateOption);
+        doInsertOrUpdate(${myEntityVariableName}, insertOption, updateOption);
     }
 #if ($table.hasOptimisticLock())
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param ${myEntityVariableName} The entity of insert or update target. (NotNull)
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1739,7 +1585,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      */
     public void varyingInsertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, InsertOption<${myConditionBeanClassName}> insertOption, UpdateOption<${myConditionBeanClassName}> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(${myEntityVariableName}, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(${myEntityVariableName}, insertOption, updateOption);
     }
 #end
 
@@ -1751,7 +1597,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #end
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
 #if ($table.hasOptimisticLock())
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1770,7 +1616,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param ${myEntityVariableName} The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1883,7 +1729,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setPK...(value);</span>
      * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
      * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
@@ -1938,8 +1784,8 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @param ${myEntityVariableName} The entity for insert. (NotNull)
      */
     public void insert(${myExtendedObjectClassName} ${myEntityVariableName}) {
-        assertEntityNotNull(${myEntityVariableName});
-        delegateInsert(${myEntityVariableName}, null);
+        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
+        delegateInsertNoPK(${myEntityVariableName}, null);
     }
 #end
 #end
@@ -1981,95 +1827,6 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     public OutsideSqlBasicExecutor<${myExtendedBhvClassName}> outsideSql() {
         return doOutsideSql();
     }
-
-    // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(${myConditionBeanClassName} cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(${myConditionBeanClassName} cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends ${myExtendedObjectClassName}> void delegateSelectCursor(${myConditionBeanClassName} cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends ${myExtendedObjectClassName}> List<ENTITY> delegateSelectList(${myConditionBeanClassName} cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-#if ($table.isUseSequence())
-    protected <RESULT> RESULT delegateSelectNextVal(Class<RESULT> tp) { return invoke(createSelectNextValCommand(tp)); }
-#end
-#if ($table.isUseSubColumnSequence())
-    protected <RESULT> RESULT delegateSelectNextValSub(Class<RESULT> tp, String col, String seq, Integer inc, Integer cac)
-    { return invoke(createSelectNextValSubCommand(tp, col, seq, inc, cac)); }
-#end
-#if ($table.isWritable())
-
-    // -----------------------------------------------------
-    //                                                Update
-    //                                                ------
-    protected int delegateInsert(${myExtendedObjectClassName} et, InsertOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeInsert(et, op)) { return 0; }
-      return invoke(createInsertEntityCommand(et, op)); }
-    protected int delegateUpdate(${myExtendedObjectClassName} et, UpdateOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-#if ($table.hasOptimisticLock())
-      return invoke(createUpdateEntityCommand(et, op)); }
-#else
-      return delegateUpdateNonstrict(et, op); }
-#end
-    protected int delegateUpdateNonstrict(${myExtendedObjectClassName} et, UpdateOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
-    protected int delegateDelete(${myExtendedObjectClassName} et, DeleteOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-#if ($table.hasOptimisticLock())
-      return invoke(createDeleteEntityCommand(et, op)); }
-#else
-      return delegateDeleteNonstrict(et, op); }
-#end
-    protected int delegateDeleteNonstrict(${myExtendedObjectClassName} et, DeleteOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
-
-    protected int[] delegateBatchInsert(List<${myExtendedObjectClassName}> ls, InsertOption<${myConditionBeanClassName}> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchInsertCommand(processBatchInternally(ls, op), op)); }
-    protected int[] delegateBatchUpdate(List<${myExtendedObjectClassName}> ls, UpdateOption<${myConditionBeanClassName}> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-#if ($table.hasOptimisticLock())
-      return invoke(createBatchUpdateCommand(processBatchInternally(ls, op, false), op)); }
-#else
-      return delegateBatchUpdateNonstrict(ls, op); }
-#end
-    protected int[] delegateBatchUpdateNonstrict(List<${myExtendedObjectClassName}> ls, UpdateOption<${myConditionBeanClassName}> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-    protected int[] delegateBatchDelete(List<${myExtendedObjectClassName}> ls, DeleteOption<${myConditionBeanClassName}> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-#if ($table.hasOptimisticLock())
-      return invoke(createBatchDeleteCommand(processBatchInternally(ls, op, false), op)); }
-#else
-      return delegateBatchDeleteNonstrict(ls, op); }
-#end
-    protected int[] delegateBatchDeleteNonstrict(List<${myExtendedObjectClassName}> ls, DeleteOption<${myConditionBeanClassName}> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-
-    protected int delegateQueryInsert(${myExtendedObjectClassName} et, ${myConditionBeanClassName} inCB, ConditionBean resCB, InsertOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(${myExtendedObjectClassName} et, ${myConditionBeanClassName} cb, UpdateOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
-    protected int delegateQueryDelete(${myConditionBeanClassName} cb, DeleteOption<${myConditionBeanClassName}> op)
-    { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
-#else
-#if ($table.isAvailableNonPrimaryKeyWritable())
-    protected int delegateInsert(${myExtendedObjectClassName} et, InsertOption<${myConditionBeanClassName}> op) {
-        // only filtering for extension is supported (filtering for common columns is unsupported)
-        assertEntityNotNull(et); filterEntityOfInsert(et, op);
-        return invoke(createInsertEntityCommand(et, op));
-    }
-#end
-#end
 #if ($table.hasBehaviorFilterBeforeColumn())
 
     // ===================================================================================
@@ -2110,7 +1867,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return Hierarchy request of ${myExtendedObjectClassName}. (NotNull)
      */
     public <SOURCE> ${glHierarchyBasicRequest}<${myExtendedObjectClassName}, ${myDBMetaClassName}.${table.relationTraceClassName}RelationTrace> createHierarchyBasicRequest(List<SOURCE> sourceList) {
-        final ${glHierarchyBasicRequest}<${myExtendedObjectClassName}, ${myDBMetaClassName}.${table.relationTraceClassName}RelationTrace> request = new ${glHierarchyBasicRequest}<${myExtendedObjectClassName}, ${myDBMetaClassName}.${table.relationTraceClassName}RelationTrace>(${myExtendedObjectClassName}.class);
+        final ${glHierarchyBasicRequest}<${myExtendedObjectClassName}, ${myDBMetaClassName}.${table.relationTraceClassName}RelationTrace> request = new ${glHierarchyBasicRequest}<${myExtendedObjectClassName}, ${myDBMetaClassName}.${table.relationTraceClassName}RelationTrace>(typeOfSelectedEntity());
         request.registerSourceList(sourceList);
         return request;
     }
@@ -2125,68 +1882,42 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     }
 #end
 
+#if ($table.hasOptimisticLock())
     // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
+#if ($table.isUseVersionNo() && $table.isVersionNoHasValueMethodValid())
     @Override
     protected boolean hasVersionNoValue(Entity et) {
-#if ($table.isUseVersionNo())
-        return !(downcast(et).get${table.versionNoJavaName}() + "").equals("null");// For primitive type
-#else
-        return false;
-#end
+        return downcast(et).get${table.versionNoJavaName}() != null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+#end
+#if ($table.isUseUpdateDate())
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
-#if ($table.isUseUpdateDate())
         return downcast(et).get${table.updateDateJavaName}() != null;
-#else
-        return false;
+    }
+
 #end
-    }
-
+#end
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected ${myExtendedObjectClassName} downcast(Entity et) {
-        return helpEntityDowncastInternally(et, ${myExtendedObjectClassName}.class);
-    }
-
-    protected ${myConditionBeanClassName} downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, ${myConditionBeanClassName}.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<${myExtendedObjectClassName}> typeOfSelectedEntity() { return ${myExtendedObjectClassName}.class; }
+    protected ${myExtendedObjectClassName} downcast(Entity et) { return helpEntityDowncastInternally(et, ${myExtendedObjectClassName}.class); }
+    protected ${myConditionBeanClassName} downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, ${myConditionBeanClassName}.class); }
     @SuppressWarnings("unchecked")
-    protected List<${myExtendedObjectClassName}> downcast(List<? extends Entity> ls) {
-        return (List<${myExtendedObjectClassName}>)ls;
-    }
+    protected List<${myExtendedObjectClassName}> downcast(List<? extends Entity> ls) { return (List<${myExtendedObjectClassName}>)ls; }
 #if ($table.isWritable())
-
     @SuppressWarnings("unchecked")
-    protected InsertOption<${myConditionBeanClassName}> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<${myConditionBeanClassName}>)op;
-    }
-
+    protected InsertOption<${myConditionBeanClassName}> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<${myConditionBeanClassName}>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<${myConditionBeanClassName}> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<${myConditionBeanClassName}>)op;
-    }
-
+    protected UpdateOption<${myConditionBeanClassName}> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<${myConditionBeanClassName}>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<${myConditionBeanClassName}> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<${myConditionBeanClassName}>)op;
-    }
-
+    protected DeleteOption<${myConditionBeanClassName}> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<${myConditionBeanClassName}>)op; }
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}>)sp;
-    }
+    protected QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}>)sp; }
 #end
 }

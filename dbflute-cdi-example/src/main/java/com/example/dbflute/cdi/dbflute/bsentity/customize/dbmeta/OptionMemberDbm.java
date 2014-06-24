@@ -220,7 +220,7 @@ public class OptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public OptionMember newEntity() { return new OptionMember(); }
     public OptionMember newMyEntity() { return new OptionMember(); }
 
     // ===================================================================================

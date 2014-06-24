@@ -76,13 +76,18 @@ $database.checkProperties()
 #set ($glDBCurrent = "${glProjectPrefix}DBCurrent")
 #set ($glDBFluteConfig = "${glProjectPrefix}DBFluteConfig")
 #set ($glDBFluteInitializer = "${glProjectPrefix}DBFluteInitializer")
+#set ($glDBFlutist = "${glProjectPrefix}DBFlutist")
 #set ($glDBMetaInstanceHandler = "${glProjectPrefix}DBMetaInstanceHandler")
 #set ($glEntityDefinedCommonColumn = "${glProjectPrefix}EntityDefinedCommonColumn")
 #set ($glImplementedBehaviorSelector = "${glProjectPrefix}ImplementedBehaviorSelector")
 #set ($glImplementedCommonColumnAutoSetupper = "${glProjectPrefix}ImplementedCommonColumnAutoSetupper")
 #set ($glImplementedInvokerAssistant = "${glProjectPrefix}ImplementedInvokerAssistant")
 #set ($glImplementedSqlClauseCreator = "${glProjectPrefix}ImplementedSqlClauseCreator")
+#set ($glScrBhvHelper = "${glProjectPrefix}ScrBhvHelper")
+#set ($glScrBhvOption = "${glProjectPrefix}ScrBhvOption")
 #set ($glScrCBeanHelper = "${glProjectPrefix}ScrCBeanHelper")
+#set ($glScrCBeanOption = "${glProjectPrefix}ScrCBeanOption")
+#set ($glScrInternalDbGateway = "${glProjectPrefix}ScrInternalDbGateway")
 
 ## ===================================================================================
 ##                                                                            Variable
@@ -99,7 +104,7 @@ $database.checkProperties()
 ##                                               -------
 #set ($glPackageBaseCommon = "${database.baseCommonPackage}")
 #set ($glPackageBaseBhv = "${database.baseBehaviorPackage}")
-#set ($glPackageBaseCustomizeDao = "${database.baseDaoPackage}.customize" )
+#set ($glPackageBaseReferrerLoader = "${database.referrerLoaderPackage}")
 #set ($glPackageBaseEntity = "${database.baseEntityPackage}")
 #set ($glPackageBaseCustomizeEntity = "${database.baseEntityPackage}.customize" )
 #set ($glPackageExtendedBhv = "${database.extendedBehaviorPackage}")
@@ -112,7 +117,7 @@ $database.checkProperties()
 #set ($glPackageCQ = "${database.extendedConditionBeanPackage}.cq")
 #set ($glPackageCIQ = "${database.conditionBeanPackage}.cq.ciq")
 #set ($glPackageNss = "${database.conditionBeanPackage}.nss")
-#set ($glPackageBaseDBMeta = "${glPackageBaseEntity}.dbmeta")
+#set ($glPackageBaseDBMeta = "${database.DBMetaPackage}")
 #set ($glPackageBaseCustomizeDBMeta = "${glPackageBaseCustomizeEntity}.dbmeta")
 
 ## *****************************************************************************************************************
@@ -144,6 +149,10 @@ $database.info("    parse('DBFluteInitializer');")
 #set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glDBFluteInitializer}.${glClassFileExtension}" )
 $generator.parse("om/${glResourceDirectory}/allcommon/DBFluteInitializer.${glTemplateFileExtension}",$path,"", "")
 
+$database.info("    parse('DBFlutist');")
+#set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glDBFlutist}.${glClassFileExtension}" )
+$generator.parse("om/${glResourceDirectory}/allcommon/DBFlutist.${glTemplateFileExtension}",$path ,"" ,"")
+
 $database.info("    parse('DBMetaInstanceHandler');")
 #set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glDBMetaInstanceHandler}.${glClassFileExtension}" )
 $generator.parse("om/${glResourceDirectory}/allcommon/DBMetaInstanceHandler.${glTemplateFileExtension}",$path,"", "")
@@ -168,9 +177,25 @@ $database.info("    parse('ImplementedSqlClauseCreator');")
 #set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glImplementedSqlClauseCreator}.${glClassFileExtension}" )
 $generator.parse("om/${glResourceDirectory}/allcommon/ImplementedSqlClauseCreator.${glTemplateFileExtension}",$path ,"" ,"")
 
+$database.info("    parse('ScrBhvHelper');")
+#set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glScrBhvHelper}.${glClassFileExtension}" )
+$generator.parse("om/${glResourceDirectory}/allcommon/ScrBhvHelper.${glTemplateFileExtension}",$path ,"" ,"")
+
+$database.info("    parse('ScrBhvOption');")
+#set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glScrBhvOption}.${glClassFileExtension}" )
+$generator.parse("om/${glResourceDirectory}/allcommon/ScrBhvOption.${glTemplateFileExtension}",$path ,"" ,"")
+
 $database.info("    parse('ScrCBeanHelper');")
 #set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glScrCBeanHelper}.${glClassFileExtension}" )
 $generator.parse("om/${glResourceDirectory}/allcommon/ScrCBeanHelper.${glTemplateFileExtension}",$path ,"" ,"")
+
+$database.info("    parse('ScrCBeanOption');")
+#set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glScrCBeanOption}.${glClassFileExtension}" )
+$generator.parse("om/${glResourceDirectory}/allcommon/ScrCBeanOption.${glTemplateFileExtension}",$path ,"" ,"")
+
+$database.info("    parse('ScrInternalDbGateway');")
+#set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glScrInternalDbGateway}.${glClassFileExtension}" )
+$generator.parse("om/${glResourceDirectory}/allcommon/ScrInternalDbGateway.${glTemplateFileExtension}",$path ,"" ,"")
 
 $database.info("}")
 
@@ -241,6 +266,9 @@ $database.info("}")
 #set ($path = $database.getPackageAsPath(${glPackageBaseBhv}))
 $database.makeDirectory($path)
 
+#set ($path = $database.getPackageAsPath(${glPackageBaseReferrerLoader}))
+$database.makeDirectory($path)
+
 #set ($path = $database.getPackageAsPath(${glPackageBaseEntity}))
 $database.makeDirectory($path)
 
@@ -297,10 +325,17 @@ $database.info("public void parseTableClass() {")
   #set ($myExtendedBhvClassName = "${table.extendedBehaviorClassName}")
   #set ($myExtendedBhvPackageName = "${glPackageExtendedBhv}")
 
+  #set ($myReferrerLoaderClassName = "${table.referrerLoaderClassName}")
+  #set ($myReferrerLoaderPackageName = "${glPackageBaseReferrerLoader}")
+
   #set ($myBaseObjectClassName = "${table.baseEntityClassName}")
+  #set ($myImmutableBaseObjectClassName = "${table.immutableBaseEntityClassName}")
+  #set ($myMutableBaseObjectClassName = "${table.mutableBaseEntityClassName}")
   #set ($myBaseEntityPackageName = "${glPackageBaseEntity}")
 
   #set ($myExtendedObjectClassName = "${table.extendedEntityClassName}")
+  #set ($myImmutableExtendedObjectClassName = "${table.immutableExtendedEntityClassName}")
+  #set ($myMutableExtendedObjectClassName = "${table.mutableExtendedEntityClassName}")
   #set ($myExtendedEntityPackageName = "${glPackageExtendedEntity}")
 
   #set ($myBaseConditionBeanClassName = "${table.baseConditionBeanClassName}")
@@ -331,19 +366,30 @@ $database.info("public void parseTableClass() {")
   #set ($isExistBehavior = true)
   #set ($isExistDao = false)
 
-  #if (!$table.isSuppressDBAccessClass())
-    #set ( $path = "${database.getPackageAsPath(${glPackageBaseBhv})}${myBaseBhvClassName}.${glClassFileExtension}" )
+  #if ($table.hasBehavior())
+    #set ( $path = "${database.getPackageAsPath(${myBaseBhvPackageName})}${myBaseBhvClassName}.${glClassFileExtension}" )
     $generator.parse("om/${glResourceDirectory}/bsbhv/BaseBhv.${glTemplateFileExtension}", $path, "table", $table)
   #end
-  #set ( $path = "${database.getPackageAsPath(${glPackageBaseEntity})}${myBaseObjectClassName}.${glClassFileExtension}" )
+
+  #if ($table.hasReferrerLoader())
+    #set ( $path = "${database.getPackageAsPath(${myReferrerLoaderPackageName})}${myReferrerLoaderClassName}.${glClassFileExtension}" )
+    $generator.parse("om/${glResourceDirectory}/bsbhv/ReferrerLoader.${glTemplateFileExtension}", $path, "table", $table)
+  #end
+
+  #set ( $path = "${database.getPackageAsPath(${myBaseEntityPackageName})}${myBaseObjectClassName}.${glClassFileExtension}" )
   $generator.parse("om/${glResourceDirectory}/bsentity/BaseEntity.${glTemplateFileExtension}", $path, "table", $table)
+
+  #if ($table.isMakeImmutableEntity())
+    #set ( $path = "${database.getPackageAsPath(${glPackageBaseEntity})}${myImmutableBaseObjectClassName}.${glClassFileExtension}" )
+    $generator.parse("om/${glResourceDirectory}/bsentity/ImmutableBaseEntity.${glTemplateFileExtension}", $path, "table", $table)
+  #end
 
   #set ( $path = "${database.getPackageAsPath(${glPackageBaseDBMeta})}${myDBMetaClassName}.${glClassFileExtension}" )
   $generator.parse("om/${glResourceDirectory}/bsentity/dbmeta/DBMetaImpl.${glTemplateFileExtension}",$path,"", "")
 
-  #if (!$table.isSuppressDBAccessClass())
+  #if ($table.hasBehavior())
     #if (!$database.isStopGenerateExtendedBhv())
-      #set ( $path = "${database.getPackageAsPath(${glPackageExtendedBhv})}${myExtendedBhvClassName}.${glClassFileExtension}" )
+      #set ( $path = "${database.getPackageAsPath(${myExtendedBhvPackageName})}${myExtendedBhvClassName}.${glClassFileExtension}" )
       #if (!$files.file(${generator.outputPath},$path).exists())
         $generator.parse("om/${glResourceDirectory}/exbhv/ExtendedBhv.${glTemplateFileExtension}", $path, "table", $table)
       #end
@@ -352,11 +398,19 @@ $database.info("public void parseTableClass() {")
   #end
 
   #if (!$database.isStopGenerateExtendedEntity())
-    #set ( $path = "${database.getPackageAsPath(${glPackageExtendedEntity})}${myExtendedObjectClassName}.${glClassFileExtension}" )
+    #set ( $path = "${database.getPackageAsPath(${myExtendedEntityPackageName})}${myExtendedObjectClassName}.${glClassFileExtension}" )
     #if (!$files.file(${generator.outputPath},$path).exists())
       $generator.parse("om/${glResourceDirectory}/exentity/ExtendedEntity.${glTemplateFileExtension}", $path, "table", $table)
     #end
     $database.reflectAllExCopyright($path)
+
+    #if ($table.isMakeImmutableEntity())
+      #set ( $path = "${database.getPackageAsPath(${glPackageExtendedEntity})}${myImmutableExtendedObjectClassName}.${glClassFileExtension}" )
+      #if (!$files.file(${generator.outputPath},$path).exists())
+        $generator.parse("om/${glResourceDirectory}/exentity/ImmutableExtendedEntity.${glTemplateFileExtension}", $path, "table", $table)
+      #end
+      $database.reflectAllExCopyright($path)
+    #end
   #end
 
   #set ( $path = "${database.getPackageAsPath(${glPackageBaseCB})}${myBaseConditionBeanClassName}.${glClassFileExtension}" )

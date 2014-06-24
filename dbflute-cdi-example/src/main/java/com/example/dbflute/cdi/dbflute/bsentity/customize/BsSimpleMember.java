@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.Date;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 
 /**
@@ -328,7 +328,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -349,7 +349,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -368,7 +368,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable 
      */
     public void setBirthdate(java.util.Date birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
-        this._birthdate = birthdate;
+        _birthdate = birthdate;
     }
 
     /**
@@ -385,6 +385,6 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable 
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 }

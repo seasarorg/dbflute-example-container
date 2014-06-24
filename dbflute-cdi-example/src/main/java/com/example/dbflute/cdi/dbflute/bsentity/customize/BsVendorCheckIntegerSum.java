@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 
 /**
@@ -293,6 +293,6 @@ public abstract class BsVendorCheckIntegerSum implements Entity, Serializable, C
      */
     public void setIntegerNonDigitSum(Integer integerNonDigitSum) {
         __modifiedProperties.addPropertyName("integerNonDigitSum");
-        this._integerNonDigitSum = integerNonDigitSum;
+        _integerNonDigitSum = integerNonDigitSum;
     }
 }

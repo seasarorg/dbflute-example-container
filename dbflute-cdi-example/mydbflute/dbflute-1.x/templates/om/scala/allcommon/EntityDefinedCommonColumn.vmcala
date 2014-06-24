@@ -54,14 +54,6 @@ trait ${glEntityDefinedCommonColumn} extends Entity {
      * $database.buildClassificationApplicationCommentForJavaDoc($classificationElement)
      */
     def set${javaName}_${classificationElement.name}(): Unit;
-#if ($database.isMakeEntityOldStyleClassify())
-
-    /**
-     * Same as set${javaName}_${classificationElement.name}. <br />
-     * $database.buildClassificationApplicationCommentForJavaDoc($classificationElement)
-     */
-    def classify${javaName}${classificationElement.name}(): Unit;
-#end
 
     /**
      * Is the value of ${uncapitalisedJavaName} '${classificationElement.name}'? <br />

@@ -265,7 +265,7 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MemberSecurity newEntity() { return new MemberSecurity(); }
     public MemberSecurity newMyEntity() { return new MemberSecurity(); }
 
     // ===================================================================================

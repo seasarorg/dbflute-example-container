@@ -194,7 +194,7 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public ServiceRank newEntity() { return new ServiceRank(); }
     public ServiceRank newMyEntity() { return new ServiceRank(); }
 
     // ===================================================================================

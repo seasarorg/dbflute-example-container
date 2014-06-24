@@ -124,7 +124,7 @@ public class VendorCheckIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public VendorCheckIntegerSum newEntity() { return new VendorCheckIntegerSum(); }
     public VendorCheckIntegerSum newMyEntity() { return new VendorCheckIntegerSum(); }
 
     // ===================================================================================

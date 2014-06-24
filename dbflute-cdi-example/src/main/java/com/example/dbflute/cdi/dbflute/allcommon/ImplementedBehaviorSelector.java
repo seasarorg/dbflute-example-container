@@ -5,7 +5,7 @@ package com.example.dbflute.cdi.dbflute.allcommon;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,8 +35,8 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** The cache of behavior. */
-    protected final Map<Class<? extends BehaviorReadable>, BehaviorReadable> _behaviorCache = newHashMap();
+    /** The concurrent cache of behavior. */
+    protected final Map<Class<? extends BehaviorReadable>, BehaviorReadable> _behaviorCache = newConcurrentHashMap();
 
     /** The container of CDI. */
     protected BeanManager _container;
@@ -165,8 +165,8 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
         return DfTypeUtil.toClassTitle(obj);
     }
 
-    protected <KEY, VALUE> HashMap<KEY, VALUE> newHashMap() {
-        return new HashMap<KEY, VALUE>();
+    protected <KEY, VALUE> ConcurrentHashMap<KEY, VALUE> newConcurrentHashMap() {
+        return new ConcurrentHashMap<KEY, VALUE>();
     }
 
     // ===================================================================================

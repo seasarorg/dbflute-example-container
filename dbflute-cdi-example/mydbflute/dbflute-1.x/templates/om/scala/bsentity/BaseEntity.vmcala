@@ -16,25 +16,42 @@
 ${database.allClassCopyright}package ${myBaseEntityPackageName};
 #set ($myClassName = "${myBaseObjectClassName}")
 
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters._;
 
+// #avoided same name type in Java and Scala
 import java.lang.Long;
+import java.lang.Boolean;
+
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 #if ($table.hasUtilDateColumn())
 import java.util.Date;
 #end
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 #if (!$table.hasAllCommonColumn() || $table.hasRelation())
 import org.seasar.dbflute.Entity;
 #end
-#if ($table.hasOptionalRelation())
+import org.seasar.dbflute.dbmeta.DBMeta;
+#if ($table.needsMappingValueType())
+import org.seasar.dbflute.dbmeta.MappingValueType;
+#end
+#if ($table.isEntityDerivedMappable())
+import org.seasar.dbflute.dbmeta.DerivedMappable;
+#end
+#if ($table.needsRelationOptionalEntityImport())
 import ${database.relationOptionalEntityClassName};
 #end
 import org.seasar.dbflute.Entity.EntityUniqueDrivenProperties;
 import org.seasar.dbflute.Entity.EntityModifiedProperties;
+#if ($table.isEntityDerivedMappable())
+import org.seasar.dbflute.Entity.EntityDerivedMap;
+#end
 import org.seasar.dbflute.Entity.FunCustodial;
+import org.seasar.dbflute.helper.beans.DfCoupleProperties;
+import org.seasar.dbflute.immutable.DBableEntity;
 #if ($table.hasAllCommonColumn())
 import ${glPackageBaseCommon}.${glEntityDefinedCommonColumn};
 #end
@@ -103,11 +120,7 @@ import ${table.relationalNullObjectProviderPackage}._;
  * </pre>
  * @author ${database.classAuthor}
  */
-abstract class $myClassName extends ${myEntityInterfaceName} with Serializable with Cloneable {
-
-    // ===================================================================================
-    //                                                                          Definition
-    //                                                                          ==========
+abstract class $myClassName extends ${myEntityInterfaceName} with DBableEntity[${myImmutableExtendedObjectClassName}] with Serializable with Cloneable${table.derivedMappableDefinition} {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -117,7 +130,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     //                                                ------
 #foreach ($col in $table.columns)
     /** ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}} */
-    protected var _${col.uncapitalisedJavaName}: ${col.javaNative} = null;
+    protected var _${col.uncapitalisedJavaName}: ${col.javaNative} = ${col.javaNativeVariableDefaultValue};
 
 #end
     // -----------------------------------------------------
@@ -128,6 +141,11 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 
     /** The modified properties for this entity. (NotNull) */
     protected val __modifiedProperties: EntityModifiedProperties = newModifiedProperties();
+#if ($table.isEntityDerivedMappable())
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected var __derivedMap: EntityDerivedMap = null;
+#end
 #if ($table.hasAllCommonColumn())
 
     /** Is common column auto set up effective? */
@@ -136,6 +154,39 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 
     /** Is the entity created by DBFlute select process? */
     protected var __createdBySelect: Boolean = false;
+
+    // ===================================================================================
+    //                                                                           Immutable
+    //                                                                           =========
+    /**
+     * {@inheritDoc}
+     */
+    def acceptImmutable(immu: ${myImmutableExtendedObjectClassName}): ${myExtendedObjectClassName} = {
+#foreach ($col in $table.columns)
+        set${col.javaName}${col.classificationMethodSuffix}(${col.convertToMutablePropertyValue("immu.${col.uncapitalisedJavaName}")});
+#end
+#foreach ($fk in $table.foreignKeys)
+        set${fk.foreignJavaBeansRulePropertyNameInitCap}(immu.${fk.foreignPropertyName}.map(new ${fk.foreignTableExtendedEntityClassName}().acceptImmutable(_)))
+#end
+#foreach ($referrer in $table.referrerAsOneList)
+        set${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(immu.${referrer.referrerPropertyNameAsOne}.map(new ${referrer.referrerTableExtendedEntityClassName}().acceptImmutable(_)))
+#end
+#foreach ($referrer in $table.referrerAsManyList)
+        set${referrer.referrerJavaBeansRulePropertyNameInitCap}(immu.${referrer.referrerPropertyName}.map(new ${referrer.referrerTableExtendedEntityClassName}().acceptImmutable(_)).asJava)
+#end
+        __uniqueDrivenProperties.clear();
+        immu.getMyUniqueDrivenProperties().foreach(__uniqueDrivenProperties.addPropertyName(_))
+        __modifiedProperties.clear();
+        immu.getModifiedProperties().foreach(__modifiedProperties.addPropertyName(_))
+        return this.asInstanceOf[${myExtendedObjectClassName}];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    def toImmutable(): ${myImmutableExtendedObjectClassName} = {
+        return new ${myImmutableExtendedObjectClassName}(this.asInstanceOf[${myExtendedObjectClassName}]);
+    }
 
     // ===================================================================================
     //                                                                          Table Name
@@ -174,7 +225,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     /**
      * {@inheritDoc}
      */
-    def hasPrimaryKeyValue(): Boolean = {
+    def hasPrimaryKeyValue(): scala.Boolean = {
 #foreach ($col in $table.primaryKey)
         if (get${col.javaName}() == null) { return false; }
 #end
@@ -203,7 +254,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         return __uniqueDrivenProperties.getPropertyNames();
     }
 
-    def newUniqueDrivenProperties(): EntityUniqueDrivenProperties = {
+    protected def newUniqueDrivenProperties(): EntityUniqueDrivenProperties = {
         return new EntityUniqueDrivenProperties();
     }
 
@@ -278,26 +329,6 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         set${col.javaName}As${col.classificationName}(${glCDef}.${col.classificationName}.${classificationElement.name});
     }
 
-#if ($database.isMakeEntityOldStyleClassify())
-    /**
-     * Same as set${col.javaName}_${classificationElement.name}. <br />
-     * $database.buildClassificationApplicationCommentForJavaDoc($classificationElement)
-     */
-    def classify${col.javaName}${classificationElement.name}(): Unit = {
-        set${col.javaName}_${classificationElement.name}();
-    }
-
-#end
-#end
-#if ($database.isMakeEntityOldStyleClassify())
-    /**
-     * Same as set${col.javaName}As${col.classificationName}(cdef). <br />
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
-     */
-    def classify${col.javaName}(cdef: ${glCDef}.${col.classificationName}): Unit = {
-        set${col.javaName}As${col.classificationName}(cdef);
-    }
-
 #end
 #end
 #end
@@ -350,9 +381,9 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
      * Get the value of the column '${col.uncapitalisedJavaName}' as classification name.
      * @return The string of classification name. (NullAllowed: when the column value is null)
      */
-    def get${col.JavaName}Name(): String = {
+    def get${col.javaName}Name(): String = {
         val cdef: ${glCDef}.${col.classificationName} = get${col.javaName}As${col.classificationName}();
-        return if (cdef != null) { cdef.name() } else { null };
+        return if (cdef != null) { cdef.name } else { null };
     }
 
 #end
@@ -361,7 +392,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
      * Get the value of the column '${col.uncapitalisedJavaName}' as classification alias.
      * @return The string of classification alias. (NullAllowed: when the column value is null)
      */
-    def get${col.JavaName}Alias(): String = {
+    def get${col.javaName}Alias(): String = {
         val cdef: ${glCDef}.${col.classificationName} = get${col.javaName}As${col.classificationName}();
         return if (cdef != null) { cdef.alias } else { null };
     }
@@ -383,8 +414,8 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     protected var ${foreignVariableName}: ${foreignEntityClassName} = null;
 
     /**
-     * ${fk.foreignDispForJavaDoc}
-     * @return The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * [get] ${fk.foreignDispForJavaDoc}
+     * @return The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
     def get${fk.foreignJavaBeansRulePropertyNameInitCap}(): ${foreignEntityClassName} = {
 #if ($foreignTable.canBeRelationalNullObjectForeign())
@@ -393,25 +424,27 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         }
 #end
 #if ($fk.isForeignPropertyOptionalEntity())
-        return if (${foreignVariableName} != null) { ${foreignVariableName}; } else { ${database.relationOptionalEntityClassName}.relationEmpty(this, "${fk.foreignJavaBeansRulePropertyName}"); }
+        return if (${foreignVariableName} != null) { ${foreignVariableName}; } else { ${database.relationOptionalEntityClassName}.empty; }
 #else
         return ${foreignVariableName};
 #end
     }
 
     /**
-     * ${fk.foreignDispForJavaDoc}
-     * @param ${fk.foreignPropertyName} The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (NullAllowed)
+     * [set] ${fk.foreignDispForJavaDoc}
+     * @param ${fk.foreignPropertyName} The entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (EmptyAllowed)
      */
     def set${fk.foreignJavaBeansRulePropertyNameInitCap}(${fk.foreignPropertyName}: ${foreignEntityClassName}): Unit = {
         ${foreignVariableName} = ${fk.foreignPropertyName};
     }
-#if ($table.isMakeEntityChaseRelation())
 
-    def chase${fk.foreignJavaBeansRulePropertyNameInitCap}(): ${foreignEntityClassName} = {
-        return ${foreignVariableName} != null ? ${foreignVariableName} : new ${foreignEntityClassName}();
+    /**
+     * [convert] ${fk.foreignDispForJavaDoc}
+     * @return The new-created immutable entity of foreign property '${fk.foreignJavaBeansRulePropertyName}'. (NotNull)
+     */
+    def toImmutable${fk.foreignJavaBeansRulePropertyNameInitCap}(): ${fk.foreignPropertyImmutableEntityDefinitionType} = {
+        return get${fk.foreignJavaBeansRulePropertyNameInitCap}().map(_.toImmutable());
     }
-#end
 
 #end
 #foreach ($referrer in $table.referrerAsOneList)
@@ -422,35 +455,37 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     protected var ${referrerVariableName}: ${referrerEntityClassName} = null;
 
     /**
-     * ${referrer.referrerDispAsOneForJavaDoc}
-     * @return the entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (NullAllowed: when e.g. no data, no setupSelect)
+     * [get] ${referrer.referrerDispAsOneForJavaDoc}
+     * @return the entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (EmptyAllowed: when e.g. no data, no setupSelect)
      */
-    def get${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(): ${referrerEntityClassName} = {
+    def get${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(): ${referrerEntityClassName} = {
 #if ($referrerTable.canBeRelationalNullObjectForeign())
         if (${referrerVariableName} == null) {
             ${referrerVariableName} = ${referrer.relationalNullObjectProviderReferrerExp};
         }
 #end
 #if ($referrer.isReferrerPropertyOptionalEntityAsOne())
-        return if (${referrerVariableName} != null) { ${referrerVariableName}; } else { ${database.relationOptionalEntityClassName}.relationEmpty(this, "${referrer.referrerJavaBeansRulePropertyNameAsOne}"); }
+        return if (${referrerVariableName} != null) { ${referrerVariableName}; } else { ${database.relationOptionalEntityClassName}.empty; }
 #else
         return ${referrerVariableName};
 #end
     }
 
     /**
-     * ${referrer.referrerDispAsOneForJavaDoc}
-     * @param ${referrer.referrerJavaBeansRulePropertyNameAsOne} The entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (NullAllowed)
+     * [set] ${referrer.referrerDispAsOneForJavaDoc}
+     * @param ${referrer.referrerJavaBeansRulePropertyNameAsOne} The entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (EmptyAllowed)
      */
-    def set${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(${referrer.referrerJavaBeansRulePropertyNameAsOne}: ${referrerEntityClassName}): Unit = {
+    def set${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(${referrer.referrerJavaBeansRulePropertyNameAsOne}: ${referrerEntityClassName}): Unit = {
         ${referrerVariableName} = ${referrer.referrerJavaBeansRulePropertyNameAsOne};
     }
-#if ($table.isMakeEntityChaseRelation())
 
-    def chase${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(): ${referrerEntityClassName} = {
-        return ${referrerVariableName} != null ? ${referrerVariableName} : new ${referrerEntityClassName}();
+    /**
+     * [convert] ${referrer.referrerDispAsOneForJavaDoc}
+     * @return The new-created immutable entity of foreign property(referrer-as-one) '${referrer.referrerJavaBeansRulePropertyNameAsOne}'. (NotNull)
+     */
+    def toImmutable${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(): ${referrer.referrerPropertyImmutableEntityDefinitionTypeAsOne} = {
+        return get${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}().map(_.toImmutable());
     }
-#end
 
 #end
     // ===================================================================================
@@ -461,23 +496,31 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 #set ($referrerEntityClassName = "${referrer.referrerTableExtendedEntityClassName}")
 #set ($referrerVariableName = "_${referrer.referrerPropertyName}")
     /** ${referrer.referrerSimpleDisp}. */
-    protected var $referrerVariableName: scala.collection.immutable.List[${referrerEntityClassName}] = null;
+    protected var ${referrerVariableName}: List[${referrerEntityClassName}] = null;
 
     /**
-     * ${referrer.referrerDispForJavaDoc}
+     * [get] ${referrer.referrerDispForJavaDoc}
      * @return The entity list of referrer property '${referrer.referrerJavaBeansRulePropertyName}'. (NotNull: even if no loading, returns empty list)
      */
-    def get${referrer.referrerJavaBeansRulePropertyNameInitCap}(): scala.collection.immutable.List[${referrerEntityClassName}] = {
+    def get${referrer.referrerJavaBeansRulePropertyNameInitCap}(): List[${referrerEntityClassName}] = {
         if (${referrerVariableName} == null) { ${referrerVariableName} = newReferrerList(); }
         return ${referrerVariableName};
     }
 
     /**
-     * ${referrer.referrerDispForJavaDoc}
+     * [set] ${referrer.referrerDispForJavaDoc}
      * @param ${referrer.referrerPropertyName} The entity list of referrer property '${referrer.referrerJavaBeansRulePropertyName}'. (NullAllowed)
      */
-    def set${referrer.referrerJavaBeansRulePropertyNameInitCap}(${referrer.referrerPropertyName}: scala.collection.immutable.List[${referrerEntityClassName}]): Unit = {
+    def set${referrer.referrerJavaBeansRulePropertyNameInitCap}(${referrer.referrerPropertyName}: List[${referrerEntityClassName}]): Unit = {
         ${referrerVariableName} = ${referrer.referrerPropertyName};
+    }
+
+    /**
+     * [convert] ${referrer.referrerDispForJavaDoc}
+     * @return The new-created immutable list of immutable entity of the referrer property '${referrer.referrerJavaBeansRulePropertyName}'. (NotNull)
+     */
+    def toImmutable${referrer.referrerJavaBeansRulePropertyNameInitCap}(): scala.collection.immutable.List[${referrer.referrerTableImmutableExtendedEntityClassName}] = {
+        return toScalaList(${referrerVariableName}).map(_.toImmutable());
     }
 
 #end
@@ -528,8 +571,8 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 
 #end
 #end
-    protected def newReferrerList[ELEMENT](): scala.collection.immutable.List[ELEMENT] = {
-        return scala.collection.immutable.List(); // #pending actually fixed empty list
+    protected def newReferrerList[ELEMENT](): List[ELEMENT] = {
+        return new ArrayList[ELEMENT]();
     }
 
     // ===================================================================================
@@ -552,7 +595,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     /**
      * {@inheritDoc}
      */
-    def hasModification(): Boolean = {
+    def hasModification(): scala.Boolean = {
         return !__modifiedProperties.isEmpty();
     }
 
@@ -573,7 +616,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     /**
      * {@inheritDoc}
      */
-    def createdBySelect(): Boolean = {
+    def createdBySelect(): scala.Boolean = {
         return __createdBySelect;
     }
 #if (${table.hasAllCommonColumn()})
@@ -598,10 +641,46 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
     /**
      * {@inheritDoc}
      */
-    def canCommonColumnAutoSetup(): Boolean = {
+    def canCommonColumnAutoSetup(): scala.Boolean = {
         return __canCommonColumnAutoSetup;
     }
 #end
+#if ($table.isEntityDerivedMappable())
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    def registerDerivedValue(aliasName: String, selectedValue: Object): Unit = {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    def derived[VALUE](aliasName: String): VALUE = {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected def newDerivedMap(): EntityDerivedMap = {
+        return new EntityDerivedMap();
+    }
+#end
+
+    // ===================================================================================
+    //                                                                        Scala Helper
+    //                                                                        ============
+    protected def toScalaList[ENTITY](javaList: Collection[ENTITY]): scala.collection.immutable.List[ENTITY] = {
+        if (javaList == null) { return scala.collection.immutable.List(); }
+        return scala.collection.immutable.List.fromArray(javaList.toArray).asInstanceOf[scala.collection.immutable.List[ENTITY]];
+    }
 
     // ===================================================================================
     //                                                                      Basic Override
@@ -616,18 +695,18 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         obj match {
             case obj: $myClassName => {
                 val other: $myClassName = obj.asInstanceOf[$myClassName];
-                {
+                {(
 #set ($equalsCount = 0)
 #foreach ($col in $table.equalsHashcodeColumnList)
-                    #if ($equalsCount > 0) &&#end xSV(get${col.javaName}(), other.get${col.javaName}())
+                    #if ($equalsCount > 0)&&#end xSV(get${col.javaName}(), other.get${col.javaName}())
 #set ($equalsCount = $equalsCount + 1)
 #end
-                }
+                )}
             }
             case _ => false
         }
     }
-    protected def xSV(v1: Object, v2: Object): Boolean = {
+    protected def xSV(v1: Object, v2: Object): scala.Boolean = {
         return FunCustodial.isSameValue(v1, v2);
     }
 
@@ -639,7 +718,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         var hs: Int = 17;
         hs = xCH(hs, getTableDbName());
 #foreach ($col in $table.equalsHashcodeColumnList)
-        hs = xCH(hs, get${col.JavaName}());
+        hs = xCH(hs, get${col.javaName}());
 #end
         return hs;
     }
@@ -682,9 +761,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 #end
 #foreach ($referrer in $table.referrerAsManyList)
 #set ($referrerVariableName = "_${referrer.referrerPropertyName}")
-        if (${referrerVariableName} != null) {
-            ${referrerVariableName}.foreach(et => { if (et != null) { sb.append(li).append(xbRDS(et, "${referrer.referrerPropertyName}")) } });
-        }
+        toScalaList(${referrerVariableName}).foreach(et => { if (et != null) { sb.append(li).append(xbRDS(et, "${referrer.referrerPropertyName}")) } });
 #end
 #end
         return sb.toString();
@@ -696,14 +773,14 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 #end
 #if ($table.hasOptionalRelation())
     protected def xbRDS[ET <: Entity](et: ${database.relationOptionalEntityClassName}[ET], name: String): String = {
-        return et.get().buildDisplayString(name, true, true);
+        return et.get.buildDisplayString(name, true, true);
     }
 #end
 
     /**
      * {@inheritDoc}
      */
-    def buildDisplayString(name: String, column: Boolean, relation: Boolean): String = {
+    def buildDisplayString(name: String, column: scala.Boolean, relation: scala.Boolean): String = {
         val sb: StringBuilder = new StringBuilder();
         if (name != null) { sb.append(name).append(if (column || relation) { ":" } else { "" }); }
         if (column) { sb.append(buildColumnString()); }
@@ -795,16 +872,6 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 #else
 
 #end
-#if ($col.needsStringClobHandling())
-    /** The value type annotation. {${col.columnDefinitionLineDisp}} */
-    val ${col.javaBeansRulePropertyName}_VALUE_TYPE: String = "stringClobType";
-
-#end
-#if ($col.needsBytesOidHandling())
-    /** The value type annotation. {${col.columnDefinitionLineDisp}} */
-    val ${col.javaBeansRulePropertyName}_VALUE_TYPE: String = "bytesOidType";
-
-#end
     /**
      * [get] ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}} <br />
 #if ($col.isCommentForJavaDocValid())
@@ -816,6 +883,12 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
      * @return The value of the column '${col.name}'. (NullAllowed even if selected: for no constraint)
 #end
      */
+#if ($col.needsStringClobHandling())
+    @MappingValueType(keyName = "stringClobType")
+#end
+#if ($col.needsBytesOidHandling())
+    @MappingValueType(keyName = "bytesOidType")
+#end
     def get${col.javaName}(): ${col.javaNative} = {
 #if ($col.isEntityConvertEmptyStringToNull())
         return convertEmptyToNull(_${col.uncapitalisedJavaName});
@@ -840,7 +913,7 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
         checkImplicitSet("${col.name}", ${glCDef}.DefMeta.${col.classificationName}, ${col.uncapitalisedJavaName});
 #end
         __modifiedProperties.addPropertyName("${col.javaBeansRulePropertyName}");
-        this._${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
+        _${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
     }
 #set ($propertyLoopIndex = $propertyLoopIndex + 1)
 #end
@@ -852,20 +925,20 @@ abstract class $myClassName extends ${myEntityInterfaceName} with Serializable w
 #set ($javaNative = ${database.convertJavaNativeByJdbcType(${columnType})})
 #set ($javaName = ${database.convertJavaNameByJdbcNameAsColumn(${filteredColumnName})})
 #set ($uncapitalisedJavaName = ${database.convertUncapitalisedJavaNameByJdbcNameAsColumn(${filteredColumnName})})
-#set ($targetJavaName = ${table.findTargetColumnJavaNameByCommonColumnName(${columnName})})
+#set ($targetUncapitalisedJavaName = ${table.findTargetColumnUncapitalisedJavaNameByCommonColumnName(${columnName})})
 
     /**
      * {@inheritDoc}
      */
     def get${javaName}(): ${javaNative} = {
-        return get${targetJavaName}();
+        return ${targetUncapitalisedJavaName}();
     }
 
     /**
      * {@inheritDoc}
      */
     def set${javaName}(${uncapitalisedJavaName}: ${javaNative}): Unit = {
-        set${targetJavaName}(${uncapitalisedJavaName});
+        ${targetUncapitalisedJavaName}(${uncapitalisedJavaName});
     }
 #end
 #end

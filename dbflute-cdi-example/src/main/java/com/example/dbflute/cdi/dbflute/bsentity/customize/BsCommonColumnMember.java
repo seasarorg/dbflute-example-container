@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 
 /**
@@ -337,7 +337,7 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -358,7 +358,7 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setMemberName(String memberName) {
         __modifiedProperties.addPropertyName("memberName");
-        this._memberName = memberName;
+        _memberName = memberName;
     }
 
     /**
@@ -381,7 +381,7 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -402,7 +402,7 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -423,7 +423,7 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -444,6 +444,6 @@ public abstract class BsCommonColumnMember implements Entity, Serializable, Clon
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 }

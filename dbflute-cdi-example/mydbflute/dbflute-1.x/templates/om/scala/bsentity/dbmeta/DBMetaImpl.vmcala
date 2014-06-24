@@ -16,8 +16,10 @@
 ${database.allClassCopyright}package ${myDBMetaPackageName};
 #set ($myClassName = "${myDBMetaClassName}")
 
-// #avoided same name type
+// #avoided same name type in Java and Scala
 import java.lang.Long;
+import java.lang.Boolean;
+## to resolve implicit conversion? e.g. dgctb()
 import java.math.BigDecimal;
 
 import java.util.List;
@@ -26,7 +28,7 @@ import java.util.HashMap
 
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
-#if ($table.hasOptionalRelation())
+#if ($table.needsRelationOptionalEntityImport())
 import ${database.relationOptionalEntityClassName};
 #end
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
@@ -142,8 +144,8 @@ object ${myClassName} extends AbstractDBMeta {
 #foreach ($referrer in $table.referrerAsOneList)
 #set ($setupperClassName = "Efpg${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}")
     class ${setupperClassName} extends PropertyGateway {
-        def read(et: Entity): Object = { return et.asInstanceOf[${myExtendedObjectClassName}].get${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(); }
-        def write(et: Entity, vl: Object): Unit = { et.asInstanceOf[${myExtendedObjectClassName}].set${referrer.referrerJavaBeansRulePropertyNameAsOneInitCap}(vl.asInstanceOf[${referrer.referrerPropertyEntityDefinitionTypeAsOne}]); }
+        def read(et: Entity): Object = { return et.asInstanceOf[${myExtendedObjectClassName}].get${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(); }
+        def write(et: Entity, vl: Object): Unit = { et.asInstanceOf[${myExtendedObjectClassName}].set${referrer.referrerJavaBeansRulePropertyNameInitCapAsOne}(vl.asInstanceOf[${referrer.referrerPropertyEntityDefinitionTypeAsOne}]); }
     }
 #end
 #end
@@ -213,8 +215,8 @@ object ${myClassName} extends AbstractDBMeta {
         throw new UnsupportedOperationException("The table does not have primary key: " + getTableDbName());
     }
 #end
-    def hasPrimaryKey(): Boolean = { return ${table.hasPrimaryKey()}; }
-    def hasCompoundPrimaryKey(): Boolean = { return ${table.hasCompoundPrimaryKey()}; }
+    def hasPrimaryKey(): scala.Boolean = { return ${table.hasPrimaryKey()}; }
+    def hasCompoundPrimaryKey(): scala.Boolean = { return ${table.hasCompoundPrimaryKey()}; }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -276,32 +278,28 @@ object ${myClassName} extends AbstractDBMeta {
     }
 #end
 
-    override def getReferrerPropertyListType(): Class[_] = {
-        return classOf[scala.collection.immutable.List[_]];
-    }
-
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
 #if ($table.isUseIdentity())
-    override def hasIdentity(): Boolean = { return true; }
+    override def hasIdentity(): scala.Boolean = { return true; }
 #end
 #if ($table.isUseSequence())
-    override def hasSequence(): Boolean = { return true; }
+    override def hasSequence(): scala.Boolean = { return true; }
     override def getSequenceName(): String = { return "${table.sequenceSqlName}"; }
     override def getSequenceIncrementSize(): Integer = { return ${table.sequenceIncrementSizeExpression}; }
     override def getSequenceCacheSize(): Integer = { return ${table.sequenceCacheSizeExpression}; }
 #end
 #if ($table.isUseVersionNo())
-    override def hasVersionNo(): Boolean = { return true; }
+    override def hasVersionNo(): scala.Boolean = { return true; }
     override def getVersionNoColumnInfo(): ColumnInfo = { return _column${table.versionNoJavaName}; }
 #end
 #if ($table.isUseUpdateDate())
-    override def hasUpdateDate(): Boolean = { return true; }
+    override def hasUpdateDate(): scala.Boolean = { return true; }
     override def getUpdateDateColumnInfo(): ColumnInfo = { return _column${table.updateDateJavaName}; }
 #end
 #if ($table.hasAllCommonColumn())
-    override def hasCommonColumn(): Boolean = { return true; }
+    override def hasCommonColumn(): scala.Boolean = { return true; }
     override def getCommonColumnInfoList(): List[ColumnInfo] =
     { return newArrayList(${table.commonColumnListSetupExpression}); }
     override def getCommonColumnInfoBeforeInsertList(): List[ColumnInfo] =
@@ -333,8 +331,7 @@ object ${myClassName} extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    def newEntity(): Entity = { return newMyEntity(); }
-    def newMyEntity(): ${myExtendedObjectClassName} = { return new ${myExtendedObjectClassName}(); }
+    def newEntity(): ${myExtendedObjectClassName} = { return new ${myExtendedObjectClassName}(); }
 
     // ===================================================================================
     //                                                                   Map Communication

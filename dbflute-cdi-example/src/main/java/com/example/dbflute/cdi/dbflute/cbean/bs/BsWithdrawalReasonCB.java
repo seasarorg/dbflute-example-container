@@ -83,21 +83,35 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
+     * @return this. (NotNull)
+     */
+    public WithdrawalReasonCB acceptPK(String withdrawalReasonCode) {
+        assertObjectNotNull("withdrawalReasonCode", withdrawalReasonCode);
+        BsWithdrawalReasonCB cb = this;
+        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);
+        return (WithdrawalReasonCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
      */
     public void acceptPrimaryKey(String withdrawalReasonCode) {
         assertObjectNotNull("withdrawalReasonCode", withdrawalReasonCode);
         BsWithdrawalReasonCB cb = this;
-        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);;
+        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer displayOrder) {
+    public WithdrawalReasonCB acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         BsWithdrawalReasonCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
+        return (WithdrawalReasonCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

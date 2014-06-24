@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 import com.example.dbflute.cdi.dbflute.exentity.*;
 
@@ -371,7 +371,7 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
      */
     public void setUnpaidManId(Integer unpaidManId) {
         __modifiedProperties.addPropertyName("unpaidManId");
-        this._unpaidManId = unpaidManId;
+        _unpaidManId = unpaidManId;
     }
 
     /**
@@ -392,7 +392,7 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
      */
     public void setUnpaidManName(String unpaidManName) {
         __modifiedProperties.addPropertyName("unpaidManName");
-        this._unpaidManName = unpaidManName;
+        _unpaidManName = unpaidManName;
     }
 
     /**
@@ -409,7 +409,7 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
      */
     public void setUnpaidPriceSummary(Long unpaidPriceSummary) {
         __modifiedProperties.addPropertyName("unpaidPriceSummary");
-        this._unpaidPriceSummary = unpaidPriceSummary;
+        _unpaidPriceSummary = unpaidPriceSummary;
     }
 
     /**
@@ -426,6 +426,6 @@ public abstract class BsUnpaidSummaryMember implements Entity, Serializable, Clo
      */
     public void setStatusName(String statusName) {
         __modifiedProperties.addPropertyName("statusName");
-        this._statusName = statusName;
+        _statusName = statusName;
     }
 }
