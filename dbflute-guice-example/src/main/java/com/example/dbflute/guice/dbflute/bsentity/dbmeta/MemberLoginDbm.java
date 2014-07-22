@@ -55,7 +55,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     }
     public static class EpgLoginDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getLoginDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public class EpgMobileLoginFlg implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getMobileLoginFlg(); }
@@ -113,9 +113,9 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_17D34538_2793_46FF_B039_CC492B3795E5", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A5141A68_BB2E_43FE_AEB7_3B0281EC04A6", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
-    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.sql.Timestamp.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", org.joda.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
     protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, "ログイン時会員ステータスコード", String.class, "loginMemberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "memberStatus", null, CDef.DefMeta.MemberStatus);
 

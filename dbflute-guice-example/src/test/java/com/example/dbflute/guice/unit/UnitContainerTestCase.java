@@ -8,6 +8,8 @@ import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.BehaviorSelector;
 import org.seasar.dbflute.bhv.BehaviorWritable;
 import org.seasar.dbflute.bhv.DeleteOption;
@@ -124,5 +126,13 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         deleteAll(MemberWithdrawalBhv.class);
         deleteAll(PurchasePaymentBhv.class);
         deleteAll(PurchaseBhv.class);
+    }
+
+    protected LocalDate currentLocalDate() {
+        return LocalDate.now();
+    }
+
+    protected LocalDateTime currentLocalDateTime() {
+        return LocalDateTime.now();
     }
 }

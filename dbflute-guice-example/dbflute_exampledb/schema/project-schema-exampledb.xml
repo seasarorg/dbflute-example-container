@@ -8,7 +8,7 @@
         <column autoIncrement="true"
             comment="会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_564BFB6A_63F3_452A_A79C_DC6E99C51EEB"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_293010A0_04EA_4699_9538_6483AFC1BFC7"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -25,13 +25,13 @@
             required="true" size="3" type="CHAR"/>
         <column
             comment="正式会員日時: 会員が正式に確定した(正式会員になった)日時。&#xa;一度確定したらもう二度と更新されないはずだ！"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="FORMALIZED_DATETIME" size="23, 10" type="TIMESTAMP"/>
         <column comment="生年月日: 必須項目ではないので、このデータがない会員もいる。" dbType="DATE"
-            javaType="java.util.Date" name="BIRTHDATE" size="8" type="DATE"/>
+            javaType="org.joda.time.LocalDate" name="BIRTHDATE" size="8" type="DATE"/>
         <column
             comment="登録日時: レコードが登録された日時。&#xa;会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...&#xa;仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column
             comment="登録ユーザ: レコードを登録したユーザ。&#xa;会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。"
@@ -39,7 +39,7 @@
             required="true" size="200" type="VARCHAR"/>
         <column
             comment="更新日時: レコードが（最後に）更新された日時。&#xa;業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column
             comment="更新ユーザ: レコードを更新したユーザ。&#xa;システムは誰が何をしたのかちゃんと覚えているのさ。"
@@ -72,7 +72,7 @@
         <column autoIncrement="true"
             comment="会員住所ID: 会員住所を識別するID。&#xa;期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6090E8F2_566F_4BE3_966D_F40416F343CE"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_02B05849_D18E_42BB_B468_8B96E2F96C83"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -82,11 +82,11 @@
             required="true" size="10" type="INTEGER"/>
         <column
             comment="有効開始日: 一つの有効期間の開始を示す日付。&#xa;前の有効終了日の次の日の値が格納される。"
-            dbType="DATE" javaType="java.util.Date"
+            dbType="DATE" javaType="org.joda.time.LocalDate"
             name="VALID_BEGIN_DATE" required="true" size="8" type="DATE"/>
         <column
             comment="有効終了日: 有効期間の終了日。&#xa;期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。"
-            dbType="DATE" javaType="java.util.Date"
+            dbType="DATE" javaType="org.joda.time.LocalDate"
             name="VALID_END_DATE" required="true" size="8" type="DATE"/>
         <column comment="住所: まるごと住所" dbType="VARCHAR" javaType="String"
             name="ADDRESS" required="true" size="200" type="VARCHAR"/>
@@ -94,13 +94,13 @@
             javaType="Integer" name="REGION_ID" required="true"
             size="10" type="INTEGER"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -129,7 +129,7 @@
         name="MEMBER_FOLLOWING" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員フォローイングID: 連番"
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8A247D73_731C_4355_80D4_8B2B63839C29"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5719DF86_0396_409D_9021_4CE9DF3E76E8"
             javaType="Long" name="MEMBER_FOLLOWING_ID"
             pkName="CONSTRAINT_BD" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -140,7 +140,7 @@
             dbType="INTEGER" javaType="Integer" name="YOUR_MEMBER_ID"
             required="true" size="10" type="INTEGER"/>
         <column comment="その瞬間: ふりかえるとちょっと恥ずかしい気持ちになる日時"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="FOLLOW_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <foreign-key foreignSchema="EXAMPLEDB.PUBLIC"
             foreignTable="MEMBER" name="FK_MEMBER_FOLLOWING_MY_MEMBER">
@@ -173,7 +173,7 @@
         name="MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員ログインID: "
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_17D34538_2793_46FF_B039_CC492B3795E5"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A5141A68_BB2E_43FE_AEB7_3B0281EC04A6"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BDA" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -181,7 +181,7 @@
             name="MEMBER_ID" required="true" size="10" type="INTEGER"/>
         <column
             comment="ログイン日時: ログインした瞬間の日時。&#xa;同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="LOGIN_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="モバイルログインフラグ: モバイル機器からのログインか否か。"
             dbType="INTEGER" javaType="Integer" name="MOBILE_LOGIN_FLG"
@@ -233,13 +233,13 @@
             dbType="INTEGER" javaType="Integer"
             name="REMINDER_USE_COUNT" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -255,7 +255,7 @@
         <column autoIncrement="true"
             comment="会員サービスID: 独立した主キーとなるが、実質的に会員IDとは one-to-one である。"
             dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9CC19F83_0DA0_412D_A1E5_938281572526"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6E76BC09_97E6_4077_81F4_805D52F1A643"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -269,13 +269,13 @@
             javaType="String" name="SERVICE_RANK_CODE" required="true"
             size="3" type="CHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -341,16 +341,16 @@
             name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
         <column
             comment="退会日時: 退会した瞬間の日時。&#xa;正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。"
-            dbType="TIMESTAMP" javaType="java.sql.Timestamp"
+            dbType="TIMESTAMP" javaType="org.joda.time.LocalDateTime"
             name="WITHDRAWAL_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -369,7 +369,7 @@
     </table>
     <table comment="商品:" name="PRODUCT" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FCA1CDD3_9B72_4BAA_84AE_C401AC792F0E"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7E61021A_E9AB_4CC0_A70A_3829E8604485"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column
@@ -387,13 +387,13 @@
         <column comment="定価:" dbType="INTEGER" javaType="Integer"
             name="REGULAR_PRICE" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -459,7 +459,7 @@
         comment="購入: 一つの商品に対する購入を表現する(購入履歴とも言える)。&#xa;実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。"
         name="PURCHASE" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0FF169CE_0711_4B61_91F6_573FF911D12D"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22BDA057_D993_43CF_8745_458C0206034D"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column
@@ -470,8 +470,8 @@
             javaType="Integer" name="PRODUCT_ID" required="true"
             size="10" type="INTEGER"/>
         <column comment="購入日時: 購入した瞬間の日時。" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="PURCHASE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="PURCHASE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="購入数量: 購入した商品の一回の購入における数量。" dbType="INTEGER"
             javaType="Integer" name="PURCHASE_COUNT" required="true"
             size="10" type="INTEGER"/>
@@ -483,13 +483,13 @@
             dbType="INTEGER" javaType="Integer"
             name="PAYMENT_COMPLETE_FLG" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="BIGINT" javaType="Long"
@@ -530,7 +530,7 @@
         name="PURCHASE_PAYMENT" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="購入支払ID: 連番"
             dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1238F82C_45E7_4132_8573_FE36D9532CEA"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7C5DB2C2_A7C0_4B21_9A76_F693A6C5856E"
             javaType="Long" name="PURCHASE_PAYMENT_ID"
             pkName="CONSTRAINT_C" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -540,19 +540,19 @@
             javaType="java.math.BigDecimal" name="PAYMENT_AMOUNT"
             required="true" size="10, 2" type="DECIMAL"/>
         <column comment="支払日時: 支払ったときの日時" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="PAYMENT_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="PAYMENT_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="支払方法コード: 手渡しや銀行振込など" dbType="CHAR"
             javaType="String" name="PAYMENT_METHOD_CODE" required="true"
             size="3" type="CHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="REGISTER_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="REGISTER_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="REGISTER_USER" required="true" size="200" type="VARCHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="UPDATE_DATETIME"
-            required="true" size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="UPDATE_DATETIME" required="true" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="VARCHAR" javaType="String"
             name="UPDATE_USER" required="true" size="200" type="VARCHAR"/>
         <foreign-key foreignSchema="EXAMPLEDB.PUBLIC"
@@ -616,7 +616,7 @@
         <column comment="" dbType="CHAR" javaType="String"
             name="PRODUCT_STATUS_CODE" size="3" type="CHAR"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp"
+            javaType="org.joda.time.LocalDateTime"
             name="LATEST_PURCHASE_DATETIME" size="23, 10" type="TIMESTAMP"/>
     </table>
     <table name="SUMMARY_WITHDRAWAL" schema="EXAMPLEDB.PUBLIC" type="VIEW">
@@ -631,8 +631,8 @@
         <column comment="" dbType="CLOB" javaType="String"
             name="WITHDRAWAL_REASON_INPUT_TEXT" size="2147483647" type="CLOB"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="WITHDRAWAL_DATETIME"
-            size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="WITHDRAWAL_DATETIME" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="CHAR" javaType="String"
             name="MEMBER_STATUS_CODE" size="3" type="CHAR"/>
         <column comment="" dbType="VARCHAR" javaType="String"
@@ -687,11 +687,12 @@
             name="TYPE_OF_INTEGER" size="10" type="INTEGER"/>
         <column comment="" dbType="BIGINT" javaType="Long"
             name="TYPE_OF_BIGINT" size="19" type="BIGINT"/>
-        <column comment="" dbType="DATE" javaType="java.util.Date"
-            name="TYPE_OF_DATE" size="8" type="DATE"/>
+        <column comment="" dbType="DATE"
+            javaType="org.joda.time.LocalDate" name="TYPE_OF_DATE"
+            size="8" type="DATE"/>
         <column comment="" dbType="TIMESTAMP"
-            javaType="java.sql.Timestamp" name="TYPE_OF_TIMESTAMP"
-            size="23, 10" type="TIMESTAMP"/>
+            javaType="org.joda.time.LocalDateTime"
+            name="TYPE_OF_TIMESTAMP" size="23, 10" type="TIMESTAMP"/>
         <column comment="" dbType="TIME" javaType="java.sql.Time"
             name="TYPE_OF_TIME" size="6" type="TIME"/>
         <column comment="" dbType="BOOLEAN" javaType="Boolean"
@@ -713,7 +714,7 @@
     </table>
     <table name="VENDOR_IDENTITY_ONLY" schema="EXAMPLEDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_E1286E8C_ECB4_490A_AA5E_00ABA869E966"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_A0D4B753_1D74_4341_A021_1D7FA4CBC88A"
             javaType="Long" name="IDENTITY_ONLY_ID"
             pkName="CONSTRAINT_A3" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -750,11 +751,13 @@
         <column comment="" dbType="BIGINT" javaType="Long"
             name="THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"
             required="true" size="19" type="BIGINT"/>
-        <column comment="" dbType="DATE" javaType="java.util.Date"
+        <column comment="" dbType="DATE"
+            javaType="org.joda.time.LocalDate"
             name="THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"
             required="true" size="8" type="DATE"/>
-        <column comment="" dbType="DATE" javaType="java.util.Date"
-            name="SHORT_DATE" required="true" size="8" type="DATE"/>
+        <column comment="" dbType="DATE"
+            javaType="org.joda.time.LocalDate" name="SHORT_DATE"
+            required="true" size="8" type="DATE"/>
         <foreign-key foreignSchema="EXAMPLEDB.PUBLIC"
             foreignTable="VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN" name="FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF">
             <reference
@@ -783,27 +786,27 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_E1286E8C_ECB4_490A_AA5E_00ABA869E966" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_7C5DB2C2_A7C0_4B21_9A76_F693A6C5856E" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_6090E8F2_566F_4BE3_966D_F40416F343CE" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_02B05849_D18E_42BB_B468_8B96E2F96C83" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_564BFB6A_63F3_452A_A79C_DC6E99C51EEB" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_9CC19F83_0DA0_412D_A1E5_938281572526" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_5719DF86_0396_409D_9021_4CE9DF3E76E8" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_NOT_RELATED_TO_TABLE" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_17D34538_2793_46FF_B039_CC492B3795E5" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_8A247D73_731C_4355_80D4_8B2B63839C29" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_0FF169CE_0711_4B61_91F6_573FF911D12D" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_A0D4B753_1D74_4341_A021_1D7FA4CBC88A" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="8" name="SEQ_PURCHASE" schema="EXAMPLEDB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_1238F82C_45E7_4132_8573_FE36D9532CEA" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_MEMBER" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_FCA1CDD3_9B72_4BAA_84AE_C401AC792F0E" schema="EXAMPLEDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_293010A0_04EA_4699_9538_6483AFC1BFC7" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_22BDA057_D993_43CF_8745_458C0206034D" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_7E61021A_E9AB_4CC0_A70A_3829E8604485" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="3" name="SEQ_MEMBER_LOGIN" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_6E76BC09_97E6_4077_81F4_805D52F1A643" schema="EXAMPLEDB.PUBLIC"/>
+        <sequence incrementSize="1"
+            name="SYSTEM_SEQUENCE_A5141A68_BB2E_43FE_AEB7_3B0281EC04A6" schema="EXAMPLEDB.PUBLIC"/>
         <sequence incrementSize="-1" name="SEQ_DECREMENT" schema="EXAMPLEDB.PUBLIC"/>
     </sequenceGroup>
     <procedureGroup>

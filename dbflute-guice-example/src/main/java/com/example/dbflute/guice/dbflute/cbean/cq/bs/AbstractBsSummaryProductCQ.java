@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -613,7 +616,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setLatestPurchaseDatetime_Equal(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime_Equal(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         regLatestPurchaseDatetime(CK_EQ,  latestPurchaseDatetime);
     }
 
@@ -622,7 +625,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setLatestPurchaseDatetime_GreaterThan(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime_GreaterThan(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         regLatestPurchaseDatetime(CK_GT,  latestPurchaseDatetime);
     }
 
@@ -631,7 +634,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setLatestPurchaseDatetime_LessThan(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime_LessThan(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         regLatestPurchaseDatetime(CK_LT,  latestPurchaseDatetime);
     }
 
@@ -640,7 +643,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setLatestPurchaseDatetime_GreaterEqual(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime_GreaterEqual(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         regLatestPurchaseDatetime(CK_GE,  latestPurchaseDatetime);
     }
 
@@ -649,7 +652,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setLatestPurchaseDatetime_LessEqual(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime_LessEqual(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         regLatestPurchaseDatetime(CK_LE, latestPurchaseDatetime);
     }
 
@@ -662,8 +665,8 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setLatestPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueLatestPurchaseDatetime(), "LATEST_PURCHASE_DATETIME", fromToOption);
+    public void setLatestPurchaseDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueLatestPurchaseDatetime(), "LATEST_PURCHASE_DATETIME", fromToOption);
     }
 
     /**
@@ -677,7 +680,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param fromDate The from-date(yyyy/MM/dd) of latestPurchaseDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of latestPurchaseDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setLatestPurchaseDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setLatestPurchaseDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setLatestPurchaseDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -916,6 +919,15 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

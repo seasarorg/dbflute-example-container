@@ -1,6 +1,5 @@
 package com.example.dbflute.guice.dbflute.howto;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
@@ -28,6 +29,7 @@ import com.example.dbflute.guice.dbflute.exentity.Product;
 import com.example.dbflute.guice.dbflute.exentity.ProductStatus;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
 import com.example.dbflute.guice.dbflute.exentity.WithdrawalReason;
+import com.example.dbflute.guice.dbflute.nogen.JodaUtil;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
 /**
@@ -849,7 +851,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             Long purchaseId = purchase.getPurchaseId();
             Integer memberId = purchase.getMemberId();
             Integer productId = purchase.getProductId();
-            Timestamp purchaseDatetime = purchase.getPurchaseDatetime();
+            LocalDateTime purchaseDatetime = purchase.getPurchaseDatetime();
             log("[PURCHASE] " + purchaseId + ", " + memberId + ", " + productId + ", " + purchaseDatetime);
             purchaseIdList.add(purchaseId);
             memberIdSet.add(memberId);
@@ -1098,7 +1100,8 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         Date fromDate = new Date(cal.getTimeInMillis());
         cal.set(2007, 11, 1);// 2007/12/01
         Date toDate = new Date(cal.getTimeInMillis());
-        cb.query().setFormalizedDatetime_DateFromTo(fromDate, toDate);// *Point!
+        cb.query().setFormalizedDatetime_DateFromTo(JodaUtil.toLocalDateTime(fromDate),
+                JodaUtil.toLocalDateTime(toDate)); // *Point!
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
@@ -1183,7 +1186,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         Calendar cal = Calendar.getInstance();
         cal.set(1967, 0, 1);// 1967/01/01
-        cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
+        cb.query().setBirthdate_LessThan(LocalDate.now());
         cb.unionAll(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {
                 unionCB.query().setBirthdate_IsNull();
@@ -1356,7 +1359,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseDatetime_LessThan(currentTimestamp());
+                subCB.query().setPurchaseDatetime_LessThan(currentLocalDateTime());
                 subCB.query().setPurchaseCount_GreaterEqual(2);
             }
         });

@@ -1,6 +1,5 @@
 package com.example.dbflute.guice.dbflute.howto;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -8,6 +7,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.ManualOrderBean;
@@ -33,6 +33,7 @@ import com.example.dbflute.guice.dbflute.exentity.MemberStatus;
 import com.example.dbflute.guice.dbflute.exentity.MemberWithdrawal;
 import com.example.dbflute.guice.dbflute.exentity.Product;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
+import com.example.dbflute.guice.dbflute.nogen.JodaUtil;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
 /**
@@ -245,7 +246,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean nulls = true;
         boolean border = false;
         for (Member member : memberList) {
-            final Date birthday = member.getBirthdate();
+            final LocalDate birthday = member.getBirthdate();
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthday);
             if (nulls) {
                 if (birthday != null && !border) {
@@ -277,7 +278,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean nulls = false;
         boolean border = false;
         for (Member member : memberList) {
-            final Date birthday = member.getBirthdate();
+            final LocalDate birthday = member.getBirthdate();
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthday);
             if (nulls) {
                 assertNull(birthday);
@@ -315,7 +316,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean nulls = false;
         boolean border = false;
         for (Member member : memberList) {
-            final Date birthday = member.getBirthdate();
+            final LocalDate birthday = member.getBirthdate();
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthday);
             if (nulls) {
                 assertNull(birthday);
@@ -991,7 +992,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_scalarSubQuery_Equal_max() {
         // ## Arrange ##
-        Date expected = selectExpectedMaxBirthdayOnFormalized();
+        LocalDate expected = selectExpectedMaxBirthdayOnFormalized();
 
         MemberCB cb = new MemberCB();
         cb.query().setMemberStatusCode_Equal_Formalized();
@@ -1008,7 +1009,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
-            Date Birthdate = member.getBirthdate();
+            LocalDate Birthdate = member.getBirthdate();
             assertEquals(expected, Birthdate);
         }
 
@@ -1038,16 +1039,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         //    cb.query().scalar_GreaterThan().avg(new SubQuery<Xxx>) {...
     }
 
-    protected Date selectExpectedMaxBirthdayOnFormalized() {
-        Date expected = null;
+    protected LocalDate selectExpectedMaxBirthdayOnFormalized() {
+        LocalDate expected = null;
         {
             MemberCB cb = new MemberCB();
             cb.query().setMemberStatusCode_Equal_Formalized();
             ListResultBean<Member> listAll = memberBhv.selectList(cb);
             for (Member member : listAll) {
-                Date day = member.getBirthdate();
-                if (day != null && (expected == null || expected.getTime() < day.getTime())) {
-                    expected = day;
+                LocalDate current = member.getBirthdate();
+                if (current != null && (expected == null || expected.isBefore(current))) {
+                    expected = current;
                 }
             }
         }
@@ -1112,7 +1113,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         Calendar cal = Calendar.getInstance();
         cal.set(2005, 11, 12); // 2005/12/12
-        Date targetDate = cal.getTime();
+        LocalDate targetDate = JodaUtil.toLocalDate(cal.getTime());
 
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberAddressAsValid(targetDate);
@@ -1123,8 +1124,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        final SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        final String formattedTargetDate = fmt.format(targetDate);
+        final String formattedTargetDate = targetDate.toString("yyyy/MM/dd");
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
             final String memberName = member.getMemberName();
@@ -1132,8 +1132,8 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 public void accept(MemberAddress address) {
                     assertNotNull(address.getValidBeginDate());
                     assertNotNull(address.getValidEndDate());
-                    String validBeginDate = fmt.format(address.getValidBeginDate());
-                    String validEndDate = fmt.format(address.getValidEndDate());
+                    String validBeginDate = address.getValidBeginDate().toString("yyyy/MM/dd");
+                    String validEndDate = address.getValidEndDate().toString("yyyy/MM/dd");
                     assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
                     assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
                     log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
@@ -1176,7 +1176,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         Calendar cal = Calendar.getInstance();
         cal.set(2005, 11, 12); // 2005/12/12
-        final Date targetDate = cal.getTime();
+        final LocalDate targetDate = JodaUtil.toLocalDate(cal.getTime());
         final String targetChar = "i";
 
         MemberCB cb = new MemberCB();
@@ -1197,8 +1197,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 cb.query().setValidEndDate_GreaterEqual(targetDate);
             }
         });
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
+        String formattedTargetDate = targetDate.toString("yyyy/MM/dd");
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
             assertFalse(member.getMemberAddressAsValid().isPresent()); // because of no setup-select.
@@ -1206,8 +1205,8 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             assertEquals(1, memberAddressList.size());
             MemberAddress address = memberAddressList.get(0);
             String memberName = member.getMemberName();
-            Date validBeginDate = address.getValidBeginDate();
-            Date validEndDate = address.getValidEndDate();
+            LocalDate validBeginDate = address.getValidBeginDate();
+            LocalDate validEndDate = address.getValidEndDate();
             log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
             assertTrue(address.getAddress().contains("a"));
         }

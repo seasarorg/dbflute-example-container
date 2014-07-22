@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -447,7 +450,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_Equal(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_Equal(org.joda.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_EQ,  withdrawalDatetime);
     }
 
@@ -456,7 +459,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_GreaterThan(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_GreaterThan(org.joda.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_GT,  withdrawalDatetime);
     }
 
@@ -465,7 +468,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_LessThan(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_LessThan(org.joda.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_LT,  withdrawalDatetime);
     }
 
@@ -474,7 +477,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_GreaterEqual(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_GreaterEqual(org.joda.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_GE,  withdrawalDatetime);
     }
 
@@ -483,7 +486,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_LessEqual(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_LessEqual(org.joda.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_LE, withdrawalDatetime);
     }
 
@@ -496,8 +499,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
+    public void setWithdrawalDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
     }
 
     /**
@@ -511,7 +514,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param fromDate The from-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setWithdrawalDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setWithdrawalDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setWithdrawalDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -971,6 +974,15 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

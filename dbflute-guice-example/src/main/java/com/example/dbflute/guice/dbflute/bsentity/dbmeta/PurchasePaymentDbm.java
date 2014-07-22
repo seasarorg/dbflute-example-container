@@ -63,7 +63,7 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     }
     public static class EpgPaymentDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getPaymentDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public class EpgPaymentMethodCode implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getPaymentMethodCode(); }
@@ -75,7 +75,7 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((PurchasePayment)et).setRegisterDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getRegisterUser(); }
@@ -83,7 +83,7 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((PurchasePayment)et).setUpdateDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getUpdateUser(); }
@@ -123,14 +123,14 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1238F82C_45E7_4132_8573_FE36D9532CEA", false, null, null, null, null, null);
+    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7C5DB2C2_A7C0_4B21_9A76_F693A6C5856E", false, null, null, null, null, null);
     protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, "購入ID", Long.class, "purchaseId", null, false, false, true, "BIGINT", 19, 0, null, false, null, null, "purchase", null, null);
     protected final ColumnInfo _columnPaymentAmount = cci("PAYMENT_AMOUNT", "PAYMENT_AMOUNT", null, "支払金額", java.math.BigDecimal.class, "paymentAmount", null, false, false, true, "DECIMAL", 10, 2, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnPaymentDatetime = cci("PAYMENT_DATETIME", "PAYMENT_DATETIME", null, "支払日時", java.sql.Timestamp.class, "paymentDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPaymentDatetime = cci("PAYMENT_DATETIME", "PAYMENT_DATETIME", null, "支払日時", org.joda.time.LocalDateTime.class, "paymentDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnPaymentMethodCode = cci("PAYMENT_METHOD_CODE", "PAYMENT_METHOD_CODE", null, "支払方法コード", String.class, "paymentMethodCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, null, null, CDef.DefMeta.PaymentMethod);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, org.joda.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, org.joda.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
 
     /**

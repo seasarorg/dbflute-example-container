@@ -3,6 +3,7 @@ package com.example.dbflute.guice.dbflute.howto;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
@@ -21,6 +22,7 @@ import com.example.dbflute.guice.dbflute.exentity.Purchase;
 import com.example.dbflute.guice.dbflute.exentity.customize.OptionMember;
 import com.example.dbflute.guice.dbflute.exentity.customize.PurchaseMaxPriceMember;
 import com.example.dbflute.guice.dbflute.exentity.customize.UnpaidSummaryMember;
+import com.example.dbflute.guice.dbflute.nogen.JodaUtil;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
 public class BehaviorMiddleTest extends UnitContainerTestCase {
@@ -368,8 +370,8 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         final String lastNextDate = "2006-09-05";
         String path = MemberBhv.PATH_selectOptionMember;
         OptionMemberPmb pmb = new OptionMemberPmb();
-        pmb.setFromFormalizedDate_FromDate(DfTypeUtil.toTimestamp("2003-02-25"));
-        pmb.setToFormalizedDate_ToDate(DfTypeUtil.toTimestamp(lastDate));
+        pmb.setFromFormalizedDate_FromDate(JodaUtil.toLocalDate(DfTypeUtil.toTimestamp("2003-02-25")));
+        pmb.setToFormalizedDate_ToDate(JodaUtil.toLocalDate(DfTypeUtil.toTimestamp(lastDate)));
         Class<OptionMember> entityType = OptionMember.class;
 
         // ## Act ##
@@ -380,9 +382,9 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         boolean existsLastDate = false;
         for (OptionMember member : memberList) {
             String memberName = member.getMemberName();
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             log(memberName + ", " + formalizedDatetime);
-            if (DfTypeUtil.toString(formalizedDatetime, "yyyy-MM-dd").equals(lastDate)) {
+            if (formalizedDatetime.toString("yyyy-MM-dd").equals(lastDate)) {
                 existsLastDate = true;
             }
         }

@@ -72,7 +72,7 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberSecurity)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setRegisterDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((MemberSecurity)et).setRegisterDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
         public Object read(Entity et) { return ((MemberSecurity)et).getRegisterUser(); }
@@ -80,7 +80,7 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberSecurity)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setUpdateDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((MemberSecurity)et).setUpdateDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
         public Object read(Entity et) { return ((MemberSecurity)et).getUpdateUser(); }
@@ -129,9 +129,9 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnReminderQuestion = cci("REMINDER_QUESTION", "REMINDER_QUESTION", null, "リマインダ質問", String.class, "reminderQuestion", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnReminderAnswer = cci("REMINDER_ANSWER", "REMINDER_ANSWER", null, "リマインダ回答", String.class, "reminderAnswer", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnReminderUseCount = cci("REMINDER_USE_COUNT", "REMINDER_USE_COUNT", null, "リマインダ利用回数", Integer.class, "reminderUseCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, org.joda.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, org.joda.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 

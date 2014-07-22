@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -65,7 +64,7 @@ public abstract class BsMemberLoginDto implements Serializable {
 
     /** (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _loginDatetime;
+    protected org.joda.time.LocalDateTime _loginDatetime;
 
     /** (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} */
     @JsonKey
@@ -356,8 +355,7 @@ public abstract class BsMemberLoginDto implements Serializable {
      * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getLoginDatetime() {
+    public org.joda.time.LocalDateTime getLoginDatetime() {
         return _loginDatetime;
     }
 
@@ -365,7 +363,7 @@ public abstract class BsMemberLoginDto implements Serializable {
      * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
-    public void setLoginDatetime(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime(org.joda.time.LocalDateTime loginDatetime) {
         __modifiedProperties.add("loginDatetime");
         this._loginDatetime = loginDatetime;
     }

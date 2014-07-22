@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -381,6 +384,15 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -49,13 +48,13 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberAddressId = entity.getMemberAddressId();
  * Integer memberId = entity.getMemberId();
- * java.util.Date validBeginDate = entity.getValidBeginDate();
- * java.util.Date validEndDate = entity.getValidEndDate();
+ * org.joda.time.LocalDate validBeginDate = entity.getValidBeginDate();
+ * org.joda.time.LocalDate validEndDate = entity.getValidEndDate();
  * String address = entity.getAddress();
  * Integer regionId = entity.getRegionId();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * org.joda.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * org.joda.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * Long versionNo = entity.getVersionNo();
  * entity.setMemberAddressId(memberAddressId);
@@ -94,10 +93,10 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     protected Integer _memberId;
 
     /** (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} */
-    protected java.util.Date _validBeginDate;
+    protected org.joda.time.LocalDate _validBeginDate;
 
     /** (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _validEndDate;
+    protected org.joda.time.LocalDate _validEndDate;
 
     /** (住所)ADDRESS: {NotNull, VARCHAR(200)} */
     protected String _address;
@@ -106,13 +105,13 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     protected Integer _regionId;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -182,7 +181,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(8). (NotNull)
      */
-    public void uniqueBy(Integer memberId, java.util.Date validBeginDate) {
+    public void uniqueBy(Integer memberId, org.joda.time.LocalDate validBeginDate) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
         __uniqueDrivenProperties.addPropertyName("validBeginDate");
@@ -533,8 +532,8 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         String dm = ", ";
         sb.append(dm).append(getMemberAddressId());
         sb.append(dm).append(getMemberId());
-        sb.append(dm).append(xfUD(getValidBeginDate()));
-        sb.append(dm).append(xfUD(getValidEndDate()));
+        sb.append(dm).append(getValidBeginDate());
+        sb.append(dm).append(getValidEndDate());
         sb.append(dm).append(getAddress());
         sb.append(dm).append(getRegionId());
         sb.append(dm).append(getRegisterDatetime());
@@ -547,12 +546,6 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
@@ -618,7 +611,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getValidBeginDate() {
+    public org.joda.time.LocalDate getValidBeginDate() {
         return _validBeginDate;
     }
 
@@ -626,7 +619,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setValidBeginDate(java.util.Date validBeginDate) {
+    public void setValidBeginDate(org.joda.time.LocalDate validBeginDate) {
         __modifiedProperties.addPropertyName("validBeginDate");
         _validBeginDate = validBeginDate;
     }
@@ -635,7 +628,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [get] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_END_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getValidEndDate() {
+    public org.joda.time.LocalDate getValidEndDate() {
         return _validEndDate;
     }
 
@@ -643,7 +636,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [set] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
      * @param validEndDate The value of the column 'VALID_END_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setValidEndDate(java.util.Date validEndDate) {
+    public void setValidEndDate(org.joda.time.LocalDate validEndDate) {
         __modifiedProperties.addPropertyName("validEndDate");
         _validEndDate = validEndDate;
     }
@@ -686,7 +679,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -694,7 +687,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -720,7 +713,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -728,7 +721,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
         _updateDatetime = updateDatetime;
     }

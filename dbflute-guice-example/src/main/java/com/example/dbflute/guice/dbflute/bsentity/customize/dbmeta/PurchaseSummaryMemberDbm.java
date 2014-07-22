@@ -54,11 +54,11 @@ public class PurchaseSummaryMemberDbm extends AbstractDBMeta {
     }
     public static class EpgBirthdate implements PropertyGateway {
         public Object read(Entity et) { return ((PurchaseSummaryMember)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((PurchaseSummaryMember)et).setBirthdate((java.util.Date)vl); }
+        public void write(Entity et, Object vl) { ((PurchaseSummaryMember)et).setBirthdate((org.joda.time.LocalDate)vl); }
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((PurchaseSummaryMember)et).getFormalizedDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchaseSummaryMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((PurchaseSummaryMember)et).setFormalizedDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgPurchaseSummary implements PropertyGateway {
         public Object read(Entity et) { return ((PurchaseSummaryMember)et).getPurchaseSummary(); }
@@ -83,8 +83,8 @@ public class PurchaseSummaryMemberDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.util.Date.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", java.sql.Timestamp.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", org.joda.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", org.joda.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnPurchaseSummary = cci("PURCHASE_SUMMARY", "PURCHASE_SUMMARY", null, null, Long.class, "purchaseSummary", null, false, false, false, "BIGINT", 10, 0, null, false, null, null, null, null, null);
 
     /**

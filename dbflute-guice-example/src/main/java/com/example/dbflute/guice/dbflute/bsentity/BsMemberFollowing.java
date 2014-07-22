@@ -47,7 +47,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * Long memberFollowingId = entity.getMemberFollowingId();
  * Integer myMemberId = entity.getMyMemberId();
  * Integer yourMemberId = entity.getYourMemberId();
- * java.sql.Timestamp followDatetime = entity.getFollowDatetime();
+ * org.joda.time.LocalDateTime followDatetime = entity.getFollowDatetime();
  * entity.setMemberFollowingId(memberFollowingId);
  * entity.setMyMemberId(myMemberId);
  * entity.setYourMemberId(yourMemberId);
@@ -80,7 +80,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
     protected Integer _yourMemberId;
 
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _followDatetime;
+    protected org.joda.time.LocalDateTime _followDatetime;
 
     // -----------------------------------------------------
     //                                              Internal
@@ -451,7 +451,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * [get] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'FOLLOW_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getFollowDatetime() {
+    public org.joda.time.LocalDateTime getFollowDatetime() {
         return _followDatetime;
     }
 
@@ -459,7 +459,7 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
      * [set] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setFollowDatetime(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime(org.joda.time.LocalDateTime followDatetime) {
         __modifiedProperties.addPropertyName("followDatetime");
         _followDatetime = followDatetime;
     }

@@ -58,11 +58,11 @@ public class OptionMemberDbm extends AbstractDBMeta {
     }
     public static class EpgBirthdate implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setBirthdate((java.util.Date)vl); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setBirthdate((org.joda.time.LocalDate)vl); }
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getFormalizedDatetime(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
@@ -111,8 +111,8 @@ public class OptionMemberDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.util.Date.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", java.sql.Timestamp.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", org.joda.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", org.joda.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, null, null, CDef.DefMeta.MemberStatus);
     protected final ColumnInfo _columnStatusDisplayOrder = cci("STATUS_DISPLAY_ORDER", "STATUS_DISPLAY_ORDER", null, "表示順", Integer.class, "statusDisplayOrder", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);

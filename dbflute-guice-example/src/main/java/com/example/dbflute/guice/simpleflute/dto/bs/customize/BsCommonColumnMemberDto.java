@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
@@ -63,7 +62,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
 
     /** (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} */
     @JsonKey
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** (登録ユーザ)REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} */
     @JsonKey
@@ -71,7 +70,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
 
     /** (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} */
     @JsonKey
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} */
     @JsonKey
@@ -207,8 +206,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [get] (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -216,7 +214,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [set] (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.add("registerDatetime");
         this._registerDatetime = registerDatetime;
     }
@@ -242,8 +240,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [get] (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -251,7 +248,7 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [set] (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.add("updateDatetime");
         this._updateDatetime = updateDatetime;
     }

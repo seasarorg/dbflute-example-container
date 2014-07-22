@@ -53,7 +53,7 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     }
     public static class EpgBirthdate implements PropertyGateway {
         public Object read(Entity et) { return ((SimpleMember)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((SimpleMember)et).setBirthdate((java.util.Date)vl); }
+        public void write(Entity et, Object vl) { ((SimpleMember)et).setBirthdate((org.joda.time.LocalDate)vl); }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((SimpleMember)et).getMemberStatusName(); }
@@ -78,7 +78,7 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.util.Date.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", org.joda.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
     /**

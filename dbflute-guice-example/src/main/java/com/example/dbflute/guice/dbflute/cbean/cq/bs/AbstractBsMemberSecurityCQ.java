@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -528,7 +531,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_Equal(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_Equal(org.joda.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
@@ -556,7 +559,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_Equal(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_Equal(org.joda.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
@@ -828,6 +831,15 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

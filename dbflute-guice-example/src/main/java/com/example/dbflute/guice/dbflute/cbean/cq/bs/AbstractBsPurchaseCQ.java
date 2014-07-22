@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -491,7 +494,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
      * @param purchaseDatetime The value of purchaseDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setPurchaseDatetime_Equal(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime_Equal(org.joda.time.LocalDateTime purchaseDatetime) {
         regPurchaseDatetime(CK_EQ,  purchaseDatetime);
     }
 
@@ -500,7 +503,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
      * @param purchaseDatetime The value of purchaseDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setPurchaseDatetime_GreaterThan(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime_GreaterThan(org.joda.time.LocalDateTime purchaseDatetime) {
         regPurchaseDatetime(CK_GT,  purchaseDatetime);
     }
 
@@ -509,7 +512,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
      * @param purchaseDatetime The value of purchaseDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setPurchaseDatetime_LessThan(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime_LessThan(org.joda.time.LocalDateTime purchaseDatetime) {
         regPurchaseDatetime(CK_LT,  purchaseDatetime);
     }
 
@@ -518,7 +521,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
      * @param purchaseDatetime The value of purchaseDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setPurchaseDatetime_GreaterEqual(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime_GreaterEqual(org.joda.time.LocalDateTime purchaseDatetime) {
         regPurchaseDatetime(CK_GE,  purchaseDatetime);
     }
 
@@ -527,7 +530,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
      * @param purchaseDatetime The value of purchaseDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setPurchaseDatetime_LessEqual(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime_LessEqual(org.joda.time.LocalDateTime purchaseDatetime) {
         regPurchaseDatetime(CK_LE, purchaseDatetime);
     }
 
@@ -540,8 +543,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of purchaseDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValuePurchaseDatetime(), "PURCHASE_DATETIME", fromToOption);
+    public void setPurchaseDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValuePurchaseDatetime(), "PURCHASE_DATETIME", fromToOption);
     }
 
     /**
@@ -555,7 +558,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of purchaseDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of purchaseDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setPurchaseDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setPurchaseDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setPurchaseDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -902,7 +905,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_Equal(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_Equal(org.joda.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
@@ -930,7 +933,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_Equal(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_Equal(org.joda.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
@@ -1202,6 +1205,15 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

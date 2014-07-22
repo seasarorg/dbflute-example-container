@@ -58,7 +58,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     }
     public static class EpgFollowDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberFollowing)et).getFollowDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberFollowing)et).setFollowDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((MemberFollowing)et).setFollowDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -100,10 +100,10 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8A247D73_731C_4355_80D4_8B2B63839C29", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5719DF86_0396_409D_9021_4CE9DF3E76E8", false, null, null, null, null, null);
     protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByMyMemberId", null, null);
     protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByYourMemberId", null, null);
-    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", java.sql.Timestamp.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", org.joda.time.LocalDateTime.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
 
     /**
      * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}

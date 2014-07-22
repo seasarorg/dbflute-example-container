@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -61,8 +60,8 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * java.math.BigDecimal typeOfNumericMaxdecimal = entity.getTypeOfNumericMaxdecimal();
  * Integer typeOfInteger = entity.getTypeOfInteger();
  * Long typeOfBigint = entity.getTypeOfBigint();
- * java.util.Date typeOfDate = entity.getTypeOfDate();
- * java.sql.Timestamp typeOfTimestamp = entity.getTypeOfTimestamp();
+ * org.joda.time.LocalDate typeOfDate = entity.getTypeOfDate();
+ * org.joda.time.LocalDateTime typeOfTimestamp = entity.getTypeOfTimestamp();
  * java.sql.Time typeOfTime = entity.getTypeOfTime();
  * Boolean typeOfBoolean = entity.getTypeOfBoolean();
  * byte[] typeOfBinary = entity.getTypeOfBinary();
@@ -170,10 +169,10 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
     protected Long _typeOfBigint;
 
     /** TYPE_OF_DATE: {DATE(8)} */
-    protected java.util.Date _typeOfDate;
+    protected org.joda.time.LocalDate _typeOfDate;
 
     /** TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _typeOfTimestamp;
+    protected org.joda.time.LocalDateTime _typeOfTimestamp;
 
     /** TYPE_OF_TIME: {TIME(6)} */
     protected java.sql.Time _typeOfTime;
@@ -435,7 +434,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
         sb.append(dm).append(getTypeOfNumericMaxdecimal());
         sb.append(dm).append(getTypeOfInteger());
         sb.append(dm).append(getTypeOfBigint());
-        sb.append(dm).append(xfUD(getTypeOfDate()));
+        sb.append(dm).append(getTypeOfDate());
         sb.append(dm).append(getTypeOfTimestamp());
         sb.append(dm).append(getTypeOfTime());
         sb.append(dm).append(getTypeOfBoolean());
@@ -451,12 +450,6 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String xfBA(byte[] bytes) { // formatByteArray()
         return FunCustodial.toString(bytes);
@@ -773,7 +766,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [get] TYPE_OF_DATE: {DATE(8)} <br />
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getTypeOfDate() {
+    public org.joda.time.LocalDate getTypeOfDate() {
         return _typeOfDate;
     }
 
@@ -781,7 +774,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [set] TYPE_OF_DATE: {DATE(8)} <br />
      * @param typeOfDate The value of the column 'TYPE_OF_DATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfDate(java.util.Date typeOfDate) {
+    public void setTypeOfDate(org.joda.time.LocalDate typeOfDate) {
         __modifiedProperties.addPropertyName("typeOfDate");
         _typeOfDate = typeOfDate;
     }
@@ -790,7 +783,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getTypeOfTimestamp() {
+    public org.joda.time.LocalDateTime getTypeOfTimestamp() {
         return _typeOfTimestamp;
     }
 
@@ -798,7 +791,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [set] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @param typeOfTimestamp The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfTimestamp(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp(org.joda.time.LocalDateTime typeOfTimestamp) {
         __modifiedProperties.addPropertyName("typeOfTimestamp");
         _typeOfTimestamp = typeOfTimestamp;
     }

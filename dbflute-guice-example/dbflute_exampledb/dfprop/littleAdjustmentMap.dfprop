@@ -53,6 +53,9 @@ map:{
     #; isCompatibleSelectByPKOldStyle = true
     #; isCompatibleSelectByPKWithDeletedCheck = true
 
+    # the test of joda-time
+    ; isAvailableJodaTimeEntity = true
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
     #   [true]

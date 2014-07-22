@@ -7,6 +7,10 @@ import org.seasar.dbflute.jdbc.*;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 
@@ -30,10 +34,10 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     protected java.math.BigDecimal _bigDecimal;
 
     /** The parameter of date. */
-    protected Date _date;
+    protected org.joda.time.LocalDate _date;
 
     /** The parameter of timestamp. */
-    protected java.sql.Timestamp _timestamp;
+    protected org.joda.time.LocalDateTime _timestamp;
 
     /** The parameter of exists. */
     protected boolean _exists;
@@ -132,8 +136,23 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {
@@ -164,7 +183,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
         sb.append(dm).append(_string);
         sb.append(dm).append(_integer);
         sb.append(dm).append(_bigDecimal);
-        sb.append(dm).append(formatUtilDate(_date));
+        sb.append(dm).append(_date);
         sb.append(dm).append(_timestamp);
         sb.append(dm).append(_exists);
         sb.append(dm).append(_notExists);
@@ -231,15 +250,15 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [get] date <br />
      * @return The value of date. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getDate() {
-        return toUtilDate(_date);
+    public org.joda.time.LocalDate getDate() {
+        return _date;
     }
 
     /**
      * [set] date <br />
      * @param date The value of date. (NullAllowed)
      */
-    public void setDate(Date date) {
+    public void setDate(org.joda.time.LocalDate date) {
         _date = date;
     }
 
@@ -247,7 +266,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [get] timestamp <br />
      * @return The value of timestamp. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getTimestamp() {
+    public org.joda.time.LocalDateTime getTimestamp() {
         return _timestamp;
     }
 
@@ -255,7 +274,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [set] timestamp <br />
      * @param timestamp The value of timestamp. (NullAllowed)
      */
-    public void setTimestamp(java.sql.Timestamp timestamp) {
+    public void setTimestamp(org.joda.time.LocalDateTime timestamp) {
         _timestamp = timestamp;
     }
 

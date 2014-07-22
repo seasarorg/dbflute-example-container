@@ -539,7 +539,7 @@ dl.procedurelist dd.column pre {
 
   <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
-&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=24)</a></span>
+&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=20)</a></span>
 </h2>
 <p class="tablecomment">会員のプロフィールやアカウントなどの基本情報を保持する。<br />基本的に物理削除はなく、退会したらステータスが退会会員になる。<br />ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。</p>
 <table summary="Columns in MEMBER">
@@ -651,7 +651,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 会員が正式に確定した(正式会員になった)日時。<br />一度確定したらもう二度と更新されないはずだ！</td>
 		<td class="subcell">formalizedDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -669,7 +669,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 必須項目ではないので、このデータがない会員もいる。</td>
 		<td class="subcell">birthdate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -687,7 +687,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> レコードが登録された日時。<br />会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br />仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -723,7 +723,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> レコードが（最後に）更新された日時。<br />業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -839,7 +839,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 一つの有効期間の開始を示す日付。<br />前の有効終了日の次の日の値が格納される。</td>
 		<td class="subcell">validBeginDate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -857,7 +857,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 有効期間の終了日。<br />期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は&nbsp;9999/12/31&nbsp;となる。</td>
 		<td class="subcell">validEndDate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -911,7 +911,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -947,7 +947,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -1081,7 +1081,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> ふりかえるとちょっと恥ずかしい気持ちになる日時</td>
 		<td class="subcell">followDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 </table>
   <h2 id="member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">
@@ -1161,7 +1161,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> ログインした瞬間の日時。<br />同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)</td>
 		<td class="subcell">loginDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1331,7 +1331,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -1367,7 +1367,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -1519,7 +1519,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -1555,7 +1555,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -1788,7 +1788,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 退会した瞬間の日時。<br />正式会員日時と違い、こっちは&nbsp;one-to-one&nbsp;の別テーブルで管理されている。</td>
 		<td class="subcell">withdrawalDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -1806,7 +1806,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -1842,7 +1842,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -2029,7 +2029,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -2065,7 +2065,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -2359,7 +2359,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 購入した瞬間の日時。</td>
 		<td class="subcell">purchaseDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2431,7 +2431,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -2467,7 +2467,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -2601,7 +2601,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 支払ったときの日時</td>
 		<td class="subcell">paymentDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2637,7 +2637,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">registerDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -2673,7 +2673,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> &nbsp;</td>
 		<td class="subcell">updateDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -3276,7 +3276,7 @@ VENDOR_CHECK
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">typeOfDate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">19</td>
@@ -3293,7 +3293,7 @@ VENDOR_CHECK
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">typeOfTimestamp</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">20</td>
@@ -3695,7 +3695,7 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">theLongAndWindingTableAndColumnRefDate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -3712,7 +3712,7 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">shortDate</td>
-		<td class="subcell">Date</td>
+		<td class="subcell">LocalDate</td>
 	</tr>
 </table>
   <h2 id="withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">
@@ -3901,7 +3901,7 @@ SUMMARY_PRODUCT
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">latestPurchaseDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 </table>
   <h2 id="summary_withdrawal" title="type=VIEW, primaryKey={}, nameLength=18, columnCount=9">
@@ -4027,7 +4027,7 @@ SUMMARY_WITHDRAWAL
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">withdrawalDatetime</td>
-		<td class="subcell">Timestamp</td>
+		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -4477,36 +4477,6 @@ SUMMARY_WITHDRAWAL
 	<dt>&nbsp;whitebox_wrongexample_selectIfCommentWrongExpression</dt>
 	<dd class="subinfo">
 		<span class="file">MemberBhv_selectIfCommentWrongExpression.sql</span>
-	</dd>
-	<dt>(Simple&nbsp;Member&nbsp;Select)selectSqlApBasicMember</dt>
-	<dd>
-		<pre class="commentdesc"> This SQL is the most basic example for outsideSql.
- It uses CustomizeEntity and ParameterBean.</pre>
-	</dd>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApBasicMember.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApCursorMember</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApCursorMember.sql</span>
-		<span class="ctet">(df:entity *cursor)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApNoMark</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApNoMark.sql</span>
-	</dd>
-	<dt>&nbsp;subdirectory_selectSqlApSubDirectoryCheck</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApSubDirectoryCheck.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
 	</dd>
 </dl>
 <h3 id="member_status_sql"><a href="#member_status">MEMBER_STATUS</a></h3>

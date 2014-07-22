@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -69,11 +68,11 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
 
     /** (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _withdrawalDatetime;
+    protected org.joda.time.LocalDateTime _withdrawalDatetime;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -81,7 +80,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -355,8 +354,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [get] (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getWithdrawalDatetime() {
+    public org.joda.time.LocalDateTime getWithdrawalDatetime() {
         return _withdrawalDatetime;
     }
 
@@ -364,7 +362,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [set] (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
-    public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime(org.joda.time.LocalDateTime withdrawalDatetime) {
         __modifiedProperties.add("withdrawalDatetime");
         this._withdrawalDatetime = withdrawalDatetime;
     }
@@ -373,8 +371,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -382,7 +379,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.add("registerDatetime");
         this._registerDatetime = registerDatetime;
     }
@@ -408,8 +405,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -417,7 +413,7 @@ public abstract class BsMemberWithdrawalDto implements Serializable {
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.add("updateDatetime");
         this._updateDatetime = updateDatetime;
     }

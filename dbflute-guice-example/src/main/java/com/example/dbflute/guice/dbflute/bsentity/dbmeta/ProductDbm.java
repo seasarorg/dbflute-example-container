@@ -81,7 +81,7 @@ public class ProductDbm extends AbstractDBMeta {
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((Product)et).setRegisterDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Product)et).setRegisterDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getRegisterUser(); }
@@ -89,7 +89,7 @@ public class ProductDbm extends AbstractDBMeta {
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((Product)et).setUpdateDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Product)et).setUpdateDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getUpdateUser(); }
@@ -139,15 +139,15 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FCA1CDD3_9B72_4BAA_84AE_C401AC792F0E", false, null, null, null, "purchaseList", null);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7E61021A_E9AB_4CC0_A70A_3829E8604485", false, null, null, null, "purchaseList", null);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, "商品ハンドルコード", String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null);
     protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, null, String.class, "productStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productStatus", null, CDef.DefMeta.ProductStatus);
     protected final ColumnInfo _columnRegularPrice = cci("REGULAR_PRICE", "REGULAR_PRICE", null, "定価", Integer.class, "regularPrice", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, org.joda.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, org.joda.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 

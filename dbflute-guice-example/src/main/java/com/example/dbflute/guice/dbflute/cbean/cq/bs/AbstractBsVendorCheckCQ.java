@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -1878,8 +1881,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_DATE: {DATE(8)}
      * @param typeOfDate The value of typeOfDate as equal. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfDate_Equal(java.util.Date typeOfDate) {
-        regTypeOfDate(CK_EQ,  fCTPD(typeOfDate));
+    public void setTypeOfDate_Equal(org.joda.time.LocalDate typeOfDate) {
+        regTypeOfDate(CK_EQ,  typeOfDate);
     }
 
     /**
@@ -1887,8 +1890,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_DATE: {DATE(8)}
      * @param typeOfDate The value of typeOfDate as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfDate_GreaterThan(java.util.Date typeOfDate) {
-        regTypeOfDate(CK_GT,  fCTPD(typeOfDate));
+    public void setTypeOfDate_GreaterThan(org.joda.time.LocalDate typeOfDate) {
+        regTypeOfDate(CK_GT,  typeOfDate);
     }
 
     /**
@@ -1896,8 +1899,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_DATE: {DATE(8)}
      * @param typeOfDate The value of typeOfDate as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfDate_LessThan(java.util.Date typeOfDate) {
-        regTypeOfDate(CK_LT,  fCTPD(typeOfDate));
+    public void setTypeOfDate_LessThan(org.joda.time.LocalDate typeOfDate) {
+        regTypeOfDate(CK_LT,  typeOfDate);
     }
 
     /**
@@ -1905,8 +1908,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_DATE: {DATE(8)}
      * @param typeOfDate The value of typeOfDate as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfDate_GreaterEqual(java.util.Date typeOfDate) {
-        regTypeOfDate(CK_GE,  fCTPD(typeOfDate));
+    public void setTypeOfDate_GreaterEqual(org.joda.time.LocalDate typeOfDate) {
+        regTypeOfDate(CK_GE,  typeOfDate);
     }
 
     /**
@@ -1914,8 +1917,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_DATE: {DATE(8)}
      * @param typeOfDate The value of typeOfDate as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfDate_LessEqual(java.util.Date typeOfDate) {
-        regTypeOfDate(CK_LE, fCTPD(typeOfDate));
+    public void setTypeOfDate_LessEqual(org.joda.time.LocalDate typeOfDate) {
+        regTypeOfDate(CK_LE, typeOfDate);
     }
 
     /**
@@ -1927,8 +1930,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setTypeOfDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValueTypeOfDate(), "TYPE_OF_DATE", fromToOption);
+    public void setTypeOfDate_FromTo(org.joda.time.LocalDate fromDatetime, org.joda.time.LocalDate toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueTypeOfDate(), "TYPE_OF_DATE", fromToOption);
     }
 
     /**
@@ -1942,7 +1945,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no to-condition)
      */
-    public void setTypeOfDate_DateFromTo(Date fromDate, Date toDate) {
+    public void setTypeOfDate_DateFromTo(org.joda.time.LocalDate fromDate, org.joda.time.LocalDate toDate) {
         setTypeOfDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1966,7 +1969,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @param typeOfTimestamp The value of typeOfTimestamp as equal. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTimestamp_Equal(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp_Equal(org.joda.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_EQ,  typeOfTimestamp);
     }
 
@@ -1975,7 +1978,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @param typeOfTimestamp The value of typeOfTimestamp as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTimestamp_GreaterThan(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp_GreaterThan(org.joda.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_GT,  typeOfTimestamp);
     }
 
@@ -1984,7 +1987,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @param typeOfTimestamp The value of typeOfTimestamp as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTimestamp_LessThan(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp_LessThan(org.joda.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_LT,  typeOfTimestamp);
     }
 
@@ -1993,7 +1996,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @param typeOfTimestamp The value of typeOfTimestamp as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTimestamp_GreaterEqual(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp_GreaterEqual(org.joda.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_GE,  typeOfTimestamp);
     }
 
@@ -2002,7 +2005,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @param typeOfTimestamp The value of typeOfTimestamp as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTimestamp_LessEqual(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp_LessEqual(org.joda.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_LE, typeOfTimestamp);
     }
 
@@ -2015,8 +2018,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP", fromToOption);
+    public void setTypeOfTimestamp_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP", fromToOption);
     }
 
     /**
@@ -2030,7 +2033,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setTypeOfTimestamp_DateFromTo(Date fromDate, Date toDate) {
+    public void setTypeOfTimestamp_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setTypeOfTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -2814,6 +2817,15 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

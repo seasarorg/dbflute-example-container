@@ -300,7 +300,7 @@ public class BsMemberCB extends AbstractConditionBean {
      * @param targetDate The bind parameter of fixed condition for targetDate. (NotNull)
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public MemberAddressNss setupSelect_MemberAddressAsValid(final java.util.Date targetDate) {
+    public MemberAddressNss setupSelect_MemberAddressAsValid(final org.joda.time.LocalDate targetDate) {
         assertSetupSelectPurpose("memberAddressAsValid");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberAddressAsValid(targetDate); } });
         if (_nssMemberAddressAsValid == null || !_nssMemberAddressAsValid.hasConditionQuery())
@@ -524,7 +524,7 @@ public class BsMemberCB extends AbstractConditionBean {
          * @param targetDate The bind parameter of fixed condition for targetDate. (NotNull)
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public MemberAddressCB.HpSpecification specifyMemberAddressAsValid(final java.util.Date targetDate) {
+        public MemberAddressCB.HpSpecification specifyMemberAddressAsValid(final org.joda.time.LocalDate targetDate) {
             assertRelation("memberAddressAsValid");
             if (_memberAddressAsValid == null) {
                 _memberAddressAsValid = new MemberAddressCB.HpSpecification(_baseCB, new HpSpQyCall<MemberAddressCQ>() {

@@ -49,11 +49,11 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * Long purchasePaymentId = entity.getPurchasePaymentId();
  * Long purchaseId = entity.getPurchaseId();
  * java.math.BigDecimal paymentAmount = entity.getPaymentAmount();
- * java.sql.Timestamp paymentDatetime = entity.getPaymentDatetime();
+ * org.joda.time.LocalDateTime paymentDatetime = entity.getPaymentDatetime();
  * String paymentMethodCode = entity.getPaymentMethodCode();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * org.joda.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * org.joda.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * entity.setPurchasePaymentId(purchasePaymentId);
  * entity.setPurchaseId(purchaseId);
@@ -92,19 +92,19 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     protected java.math.BigDecimal _paymentAmount;
 
     /** (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _paymentDatetime;
+    protected org.joda.time.LocalDateTime _paymentDatetime;
 
     /** (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} */
     protected String _paymentMethodCode;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -593,7 +593,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [get] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getPaymentDatetime() {
+    public org.joda.time.LocalDateTime getPaymentDatetime() {
         return _paymentDatetime;
     }
 
@@ -601,7 +601,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [set] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br />
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setPaymentDatetime(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime(org.joda.time.LocalDateTime paymentDatetime) {
         __modifiedProperties.addPropertyName("paymentDatetime");
         _paymentDatetime = paymentDatetime;
     }
@@ -628,7 +628,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -636,7 +636,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -662,7 +662,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -670,7 +670,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
         _updateDatetime = updateDatetime;
     }

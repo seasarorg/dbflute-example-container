@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
@@ -76,7 +75,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -84,7 +83,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -279,8 +278,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -288,7 +286,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.add("registerDatetime");
         this._registerDatetime = registerDatetime;
     }
@@ -314,8 +312,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -323,7 +320,7 @@ public abstract class BsMemberSecurityDto implements Serializable {
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.add("updateDatetime");
         this._updateDatetime = updateDatetime;
     }

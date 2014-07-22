@@ -7,6 +7,10 @@ import org.seasar.dbflute.jdbc.*;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 
@@ -33,7 +37,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     protected java.math.BigDecimal _bigDecimal2;
 
     /** The parameter of date1. */
-    protected Date _date1;
+    protected org.joda.time.LocalDate _date1;
 
     /** The parameter of date2. */
     protected java.util.Date _date2;
@@ -48,7 +52,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     protected java.sql.Time _time2;
 
     /** The parameter of timestamp1. */
-    protected java.sql.Timestamp _timestamp1;
+    protected org.joda.time.LocalDateTime _timestamp1;
 
     /** The parameter of timestamp2. */
     protected java.sql.Timestamp _timestamp2;
@@ -156,8 +160,23 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {
@@ -189,7 +208,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(dm).append(_integer1);
         sb.append(dm).append(_bigDecimal1);
         sb.append(dm).append(_bigDecimal2);
-        sb.append(dm).append(formatUtilDate(_date1));
+        sb.append(dm).append(_date1);
         sb.append(dm).append(formatUtilDate(_date2));
         sb.append(dm).append(_date3);
         sb.append(dm).append(_time1);
@@ -279,15 +298,15 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [get] date1 <br />
      * @return The value of date1. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getDate1() {
-        return toUtilDate(_date1);
+    public org.joda.time.LocalDate getDate1() {
+        return _date1;
     }
 
     /**
      * [set] date1 <br />
      * @param date1 The value of date1. (NullAllowed)
      */
-    public void setDate1(Date date1) {
+    public void setDate1(org.joda.time.LocalDate date1) {
         _date1 = date1;
     }
 
@@ -359,7 +378,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [get] timestamp1 <br />
      * @return The value of timestamp1. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getTimestamp1() {
+    public org.joda.time.LocalDateTime getTimestamp1() {
         return _timestamp1;
     }
 
@@ -367,7 +386,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [set] timestamp1 <br />
      * @param timestamp1 The value of timestamp1. (NullAllowed)
      */
-    public void setTimestamp1(java.sql.Timestamp timestamp1) {
+    public void setTimestamp1(org.joda.time.LocalDateTime timestamp1) {
         _timestamp1 = timestamp1;
     }
 

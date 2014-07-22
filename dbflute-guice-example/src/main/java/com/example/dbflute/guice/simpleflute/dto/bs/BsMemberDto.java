@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -73,15 +72,15 @@ public abstract class BsMemberDto implements Serializable {
 
     /** (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected org.joda.time.LocalDateTime _formalizedDatetime;
 
     /** (生年月日)BIRTHDATE: {DATE(8)} */
     @JsonKey
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -89,7 +88,7 @@ public abstract class BsMemberDto implements Serializable {
 
     /** (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -362,7 +361,7 @@ public abstract class BsMemberDto implements Serializable {
         sb.append(c).append(getMemberAccount());
         sb.append(c).append(getMemberStatusCode());
         sb.append(c).append(getFormalizedDatetime());
-        sb.append(c).append(xfUD(getBirthdate()));
+        sb.append(c).append(getBirthdate());
         sb.append(c).append(getRegisterDatetime());
         sb.append(c).append(getRegisterUser());
         sb.append(c).append(getUpdateDatetime());
@@ -371,12 +370,6 @@ public abstract class BsMemberDto implements Serializable {
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
 
     // ===================================================================================
@@ -454,8 +447,7 @@ public abstract class BsMemberDto implements Serializable {
      * [get] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
@@ -463,7 +455,7 @@ public abstract class BsMemberDto implements Serializable {
      * [set] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
         __modifiedProperties.add("formalizedDatetime");
         this._formalizedDatetime = formalizedDatetime;
     }
@@ -472,8 +464,7 @@ public abstract class BsMemberDto implements Serializable {
      * [get] (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -481,7 +472,7 @@ public abstract class BsMemberDto implements Serializable {
      * [set] (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.add("birthdate");
         this._birthdate = birthdate;
     }
@@ -490,8 +481,7 @@ public abstract class BsMemberDto implements Serializable {
      * [get] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -499,7 +489,7 @@ public abstract class BsMemberDto implements Serializable {
      * [set] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.add("registerDatetime");
         this._registerDatetime = registerDatetime;
     }
@@ -525,8 +515,7 @@ public abstract class BsMemberDto implements Serializable {
      * [get] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -534,7 +523,7 @@ public abstract class BsMemberDto implements Serializable {
      * [set] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.add("updateDatetime");
         this._updateDatetime = updateDatetime;
     }

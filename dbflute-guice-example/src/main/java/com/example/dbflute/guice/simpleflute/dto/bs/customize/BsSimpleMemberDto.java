@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
@@ -63,7 +62,7 @@ public abstract class BsSimpleMemberDto implements Serializable {
 
     /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
     @JsonKey
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     @JsonKey
@@ -145,17 +144,11 @@ public abstract class BsSimpleMemberDto implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(c).append(getMemberId());
         sb.append(c).append(getMemberName());
-        sb.append(c).append(xfUD(getBirthdate()));
+        sb.append(c).append(getBirthdate());
         sb.append(c).append(getMemberStatusName());
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
 
     // ===================================================================================
@@ -199,8 +192,7 @@ public abstract class BsSimpleMemberDto implements Serializable {
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -208,7 +200,7 @@ public abstract class BsSimpleMemberDto implements Serializable {
      * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.add("birthdate");
         this._birthdate = birthdate;
     }

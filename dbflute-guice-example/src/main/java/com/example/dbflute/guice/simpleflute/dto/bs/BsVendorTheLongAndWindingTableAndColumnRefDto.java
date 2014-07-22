@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
@@ -64,11 +63,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
 
     /** THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} */
     @JsonKey
-    protected java.util.Date _theLongAndWindingTableAndColumnRefDate;
+    protected org.joda.time.LocalDate _theLongAndWindingTableAndColumnRefDate;
 
     /** SHORT_DATE: {NotNull, DATE(8)} */
     @JsonKey
-    protected java.util.Date _shortDate;
+    protected org.joda.time.LocalDate _shortDate;
 
     // -----------------------------------------------------
     //                                              Internal
@@ -150,17 +149,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
         StringBuilder sb = new StringBuilder();
         sb.append(c).append(getTheLongAndWindingTableAndColumnRefId());
         sb.append(c).append(getTheLongAndWindingTableAndColumnId());
-        sb.append(c).append(xfUD(getTheLongAndWindingTableAndColumnRefDate()));
-        sb.append(c).append(xfUD(getShortDate()));
+        sb.append(c).append(getTheLongAndWindingTableAndColumnRefDate());
+        sb.append(c).append(getShortDate());
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
 
     // ===================================================================================
@@ -204,8 +197,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getTheLongAndWindingTableAndColumnRefDate() {
+    public org.joda.time.LocalDate getTheLongAndWindingTableAndColumnRefDate() {
         return _theLongAndWindingTableAndColumnRefDate;
     }
 
@@ -213,7 +205,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @param theLongAndWindingTableAndColumnRefDate The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (NullAllowed)
      */
-    public void setTheLongAndWindingTableAndColumnRefDate(java.util.Date theLongAndWindingTableAndColumnRefDate) {
+    public void setTheLongAndWindingTableAndColumnRefDate(org.joda.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         __modifiedProperties.add("theLongAndWindingTableAndColumnRefDate");
         this._theLongAndWindingTableAndColumnRefDate = theLongAndWindingTableAndColumnRefDate;
     }
@@ -222,8 +214,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [get] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'SHORT_DATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getShortDate() {
+    public org.joda.time.LocalDate getShortDate() {
         return _shortDate;
     }
 
@@ -231,7 +222,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [set] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @param shortDate The value of the column 'SHORT_DATE'. (NullAllowed)
      */
-    public void setShortDate(java.util.Date shortDate) {
+    public void setShortDate(org.joda.time.LocalDate shortDate) {
         __modifiedProperties.add("shortDate");
         this._shortDate = shortDate;
     }

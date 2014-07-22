@@ -234,19 +234,19 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<Purchase> selectByUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+    public OptionalEntity<Purchase> selectByUniqueOf(Integer memberId, Integer productId, org.joda.time.LocalDateTime purchaseDatetime) {
         return facadeSelectByUniqueOf(memberId, productId, purchaseDatetime);
     }
 
-    protected OptionalEntity<Purchase> facadeSelectByUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+    protected OptionalEntity<Purchase> facadeSelectByUniqueOf(Integer memberId, Integer productId, org.joda.time.LocalDateTime purchaseDatetime) {
         return doSelectByUniqueOf(memberId, productId, purchaseDatetime, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Purchase> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime, Class<ENTITY> tp) {
+    protected <ENTITY extends Purchase> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Integer productId, org.joda.time.LocalDateTime purchaseDatetime, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, productId, purchaseDatetime), tp), memberId, productId, purchaseDatetime);
     }
 
-    protected PurchaseCB xprepareCBAsUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+    protected PurchaseCB xprepareCBAsUniqueOf(Integer memberId, Integer productId, org.joda.time.LocalDateTime purchaseDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
         return newConditionBean().acceptUniqueOf(memberId, productId, purchaseDatetime);
     }

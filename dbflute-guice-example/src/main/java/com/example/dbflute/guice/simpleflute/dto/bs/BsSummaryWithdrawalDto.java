@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
@@ -75,7 +74,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
 
     /** WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _withdrawalDatetime;
+    protected org.joda.time.LocalDateTime _withdrawalDatetime;
 
     /** MEMBER_STATUS_CODE: {CHAR(3)} */
     @JsonKey
@@ -279,8 +278,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
      * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getWithdrawalDatetime() {
+    public org.joda.time.LocalDateTime getWithdrawalDatetime() {
         return _withdrawalDatetime;
     }
 
@@ -288,7 +286,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
      * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
-    public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime(org.joda.time.LocalDateTime withdrawalDatetime) {
         __modifiedProperties.add("withdrawalDatetime");
         this._withdrawalDatetime = withdrawalDatetime;
     }

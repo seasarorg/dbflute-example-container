@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -45,7 +44,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberId = entity.getMemberId();
  * String memberName = entity.getMemberName();
- * java.util.Date birthdate = entity.getBirthdate();
+ * org.joda.time.LocalDate birthdate = entity.getBirthdate();
  * String memberStatusName = entity.getMemberStatusName();
  * entity.setMemberId(memberId);
  * entity.setMemberName(memberName);
@@ -76,7 +75,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable,
     protected String _memberName;
 
     /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     protected String _memberStatusName;
@@ -304,19 +303,13 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable,
         String dm = ", ";
         sb.append(dm).append(getMemberId());
         sb.append(dm).append(getMemberName());
-        sb.append(dm).append(xfUD(getBirthdate()));
+        sb.append(dm).append(getBirthdate());
         sb.append(dm).append(getMemberStatusName());
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String buildRelationString() {
         return "";
@@ -375,7 +368,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable,
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -383,7 +376,7 @@ public abstract class BsSimpleMember implements Entity, Serializable, Cloneable,
      * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
         _birthdate = birthdate;
     }

@@ -7,6 +7,10 @@ import org.seasar.dbflute.jdbc.*;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 
@@ -24,10 +28,10 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
     protected Integer _memberId;
 
     /** The parameter of birthdateFrom:ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
-    protected Date _birthdateFrom;
+    protected org.joda.time.LocalDate _birthdateFrom;
 
     /** The parameter of formalizedDatetimeFrom:ref(MEMBER.FORMALIZED_DATETIME) :: refers to (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)}. */
-    protected java.sql.Timestamp _formalizedDatetimeFrom;
+    protected org.joda.time.LocalDateTime _formalizedDatetimeFrom;
 
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
@@ -111,8 +115,23 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {
@@ -141,7 +160,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
         final String dm = ", ";
         final StringBuilder sb = new StringBuilder();
         sb.append(dm).append(_memberId);
-        sb.append(dm).append(formatUtilDate(_birthdateFrom));
+        sb.append(dm).append(_birthdateFrom);
         sb.append(dm).append(_formalizedDatetimeFrom);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
@@ -171,15 +190,15 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
      * [get] birthdateFrom:ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @return The value of birthdateFrom. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getBirthdateFrom() {
-        return toUtilDate(_birthdateFrom);
+    public org.joda.time.LocalDate getBirthdateFrom() {
+        return _birthdateFrom;
     }
 
     /**
      * [set] birthdateFrom:ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @param birthdateFrom The value of birthdateFrom. (NullAllowed)
      */
-    public void setBirthdateFrom(Date birthdateFrom) {
+    public void setBirthdateFrom(org.joda.time.LocalDate birthdateFrom) {
         _birthdateFrom = birthdateFrom;
     }
 
@@ -187,7 +206,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
      * [get] formalizedDatetimeFrom:ref(MEMBER.FORMALIZED_DATETIME) :: refers to (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @return The value of formalizedDatetimeFrom. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getFormalizedDatetimeFrom() {
+    public org.joda.time.LocalDateTime getFormalizedDatetimeFrom() {
         return _formalizedDatetimeFrom;
     }
 
@@ -195,7 +214,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
      * [set] formalizedDatetimeFrom:ref(MEMBER.FORMALIZED_DATETIME) :: refers to (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @param formalizedDatetimeFrom The value of formalizedDatetimeFrom. (NullAllowed)
      */
-    public void setFormalizedDatetimeFrom(java.sql.Timestamp formalizedDatetimeFrom) {
+    public void setFormalizedDatetimeFrom(org.joda.time.LocalDateTime formalizedDatetimeFrom) {
         _formalizedDatetimeFrom = formalizedDatetimeFrom;
     }
 }

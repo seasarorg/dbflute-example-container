@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -374,7 +377,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_Equal(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_Equal(org.joda.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_EQ,  followDatetime);
     }
 
@@ -383,7 +386,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_GreaterThan(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_GreaterThan(org.joda.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_GT,  followDatetime);
     }
 
@@ -392,7 +395,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_LessThan(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_LessThan(org.joda.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_LT,  followDatetime);
     }
 
@@ -401,7 +404,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_GreaterEqual(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_GreaterEqual(org.joda.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_GE,  followDatetime);
     }
 
@@ -410,7 +413,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_LessEqual(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_LessEqual(org.joda.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_LE, followDatetime);
     }
 
@@ -423,8 +426,8 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueFollowDatetime(), "FOLLOW_DATETIME", fromToOption);
+    public void setFollowDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueFollowDatetime(), "FOLLOW_DATETIME", fromToOption);
     }
 
     /**
@@ -438,7 +441,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param fromDate The from-date(yyyy/MM/dd) of followDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of followDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setFollowDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setFollowDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setFollowDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -665,6 +668,15 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

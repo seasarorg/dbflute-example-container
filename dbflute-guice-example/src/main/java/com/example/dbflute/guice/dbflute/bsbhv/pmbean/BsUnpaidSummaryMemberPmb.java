@@ -8,6 +8,10 @@ import org.seasar.dbflute.jdbc.*;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
@@ -107,8 +111,23 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {

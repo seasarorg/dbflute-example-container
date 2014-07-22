@@ -10,6 +10,10 @@ import org.seasar.dbflute.cbean.coption.FromToOption;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
@@ -40,10 +44,10 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     protected LikeSearchOption _memberAccountInternalLikeSearchOption;
 
     /** The parameter of fromFormalizedDate:fromDate. */
-    protected Date _fromFormalizedDate;
+    protected org.joda.time.LocalDate _fromFormalizedDate;
 
     /** The parameter of toFormalizedDate:toDate. */
-    protected Date _toFormalizedDate;
+    protected org.joda.time.LocalDate _toFormalizedDate;
 
     /** The parameter of memberStatusCode:cls(MemberStatus). */
     protected String _memberStatusCode;
@@ -52,7 +56,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     protected Integer _displayOrder;
 
     /** The parameter of birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
-    protected Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** The parameter of status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected String _status;
@@ -147,8 +151,23 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {
@@ -198,11 +217,11 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberId);
         sb.append(dm).append(_memberName);
         sb.append(dm).append(_memberAccount);
-        sb.append(dm).append(formatUtilDate(_fromFormalizedDate));
-        sb.append(dm).append(formatUtilDate(_toFormalizedDate));
+        sb.append(dm).append(_fromFormalizedDate);
+        sb.append(dm).append(_toFormalizedDate);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
-        sb.append(dm).append(formatUtilDate(_birthdate));
+        sb.append(dm).append(_birthdate);
         sb.append(dm).append(_status);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
@@ -284,32 +303,32 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * [get] fromFormalizedDate:fromDate <br />
      * @return The value of fromFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getFromFormalizedDate() {
-        return toUtilDate(_fromFormalizedDate);
+    public org.joda.time.LocalDate getFromFormalizedDate() {
+        return _fromFormalizedDate;
     }
 
     /**
      * [set as fromDate] fromFormalizedDate:fromDate <br />
      * @param fromFormalizedDate The value of fromFormalizedDate. (NullAllowed)
      */
-    public void setFromFormalizedDate_FromDate(Date fromFormalizedDate) {
-        _fromFormalizedDate = new FromToOption().compareAsDate().filterFromDate(fromFormalizedDate);
+    public void setFromFormalizedDate_FromDate(org.joda.time.LocalDate fromFormalizedDate) {
+        _fromFormalizedDate = toLocalDate(new FromToOption().compareAsDate().filterFromDate(toUtilDate(fromFormalizedDate)), org.joda.time.LocalDate.class);
     }
 
     /**
      * [get] toFormalizedDate:toDate <br />
      * @return The value of toFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getToFormalizedDate() {
-        return toUtilDate(_toFormalizedDate);
+    public org.joda.time.LocalDate getToFormalizedDate() {
+        return _toFormalizedDate;
     }
 
     /**
      * [set as toDate] toFormalizedDate:toDate <br />
      * @param toFormalizedDate The value of toFormalizedDate. (NullAllowed)
      */
-    public void setToFormalizedDate_ToDate(Date toFormalizedDate) {
-        _toFormalizedDate = new FromToOption().compareAsDate().filterToDate(toFormalizedDate);
+    public void setToFormalizedDate_ToDate(org.joda.time.LocalDate toFormalizedDate) {
+        _toFormalizedDate = toLocalDate(new FromToOption().compareAsDate().filterToDate(toUtilDate(toFormalizedDate)), org.joda.time.LocalDate.class);
     }
 
     /**
@@ -372,16 +391,16 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * [get] birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @return The value of birthdate. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getBirthdate() {
-        return toUtilDate(_birthdate);
+    public org.joda.time.LocalDate getBirthdate() {
+        return _birthdate;
     }
 
     /**
      * [set as fromDate] birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @param birthdate The value of birthdate. (NullAllowed)
      */
-    public void setBirthdate_FromDate(Date birthdate) {
-        _birthdate = new FromToOption().compareAsDate().filterFromDate(birthdate);
+    public void setBirthdate_FromDate(org.joda.time.LocalDate birthdate) {
+        _birthdate = toLocalDate(new FromToOption().compareAsDate().filterFromDate(toUtilDate(birthdate)), org.joda.time.LocalDate.class);
     }
 
     /**

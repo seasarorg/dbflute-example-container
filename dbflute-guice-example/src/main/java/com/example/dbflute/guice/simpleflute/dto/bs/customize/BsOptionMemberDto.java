@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 
@@ -64,11 +63,11 @@ public abstract class BsOptionMemberDto implements Serializable {
 
     /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
     @JsonKey
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} */
     @JsonKey
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected org.joda.time.LocalDateTime _formalizedDatetime;
 
     /** (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} */
     @JsonKey
@@ -318,7 +317,7 @@ public abstract class BsOptionMemberDto implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(c).append(getMemberId());
         sb.append(c).append(getMemberName());
-        sb.append(c).append(xfUD(getBirthdate()));
+        sb.append(c).append(getBirthdate());
         sb.append(c).append(getFormalizedDatetime());
         sb.append(c).append(getMemberStatusCode());
         sb.append(c).append(getStatusDisplayOrder());
@@ -328,12 +327,6 @@ public abstract class BsOptionMemberDto implements Serializable {
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
 
     // ===================================================================================
@@ -377,8 +370,7 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -386,7 +378,7 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.add("birthdate");
         this._birthdate = birthdate;
     }
@@ -395,8 +387,7 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
@@ -404,7 +395,7 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
         __modifiedProperties.add("formalizedDatetime");
         this._formalizedDatetime = formalizedDatetime;
     }

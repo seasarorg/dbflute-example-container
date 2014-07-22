@@ -7,6 +7,10 @@ import org.seasar.dbflute.jdbc.*;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
 import org.seasar.dbflute.util.DfCollectionUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 
@@ -24,7 +28,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
     protected String _memberStatusCode;
 
     /** The parameter of formalizedDatetime. */
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected org.joda.time.LocalDateTime _formalizedDatetime;
 
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
@@ -116,8 +120,23 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
         return DfTypeUtil.toBoolean(obj);
     }
 
-    protected Date toUtilDate(Date date) {
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
         return DfTypeUtil.toDate(date); // if sub class, re-create as pure date
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) {
+        if (LocalDate.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDate.fromDateFields(date);
+        } else if (LocalDateTime.class.isAssignableFrom(localType)) {
+            return (DATE)LocalDateTime.fromDateFields(date);
+        }
+        return null; // unreachable
     }
 
     protected String formatUtilDate(Date date) {
@@ -199,7 +218,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
      * [get] formalizedDatetime <br />
      * @return The value of formalizedDatetime. (Nullable, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
@@ -207,7 +226,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
      * [set] formalizedDatetime <br />
      * @param formalizedDatetime The value of formalizedDatetime. (NullAllowed)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
         _formalizedDatetime = formalizedDatetime;
     }
 }

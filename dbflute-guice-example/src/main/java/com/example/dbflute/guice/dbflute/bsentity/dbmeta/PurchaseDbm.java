@@ -66,7 +66,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     }
     public static class EpgPurchaseDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getPurchaseDatetime(); }
-        public void write(Entity et, Object vl) { ((Purchase)et).setPurchaseDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Purchase)et).setPurchaseDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgPurchaseCount implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getPurchaseCount(); }
@@ -86,7 +86,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((Purchase)et).setRegisterDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Purchase)et).setRegisterDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getRegisterUser(); }
@@ -94,7 +94,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((Purchase)et).setUpdateDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Purchase)et).setUpdateDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getUpdateUser(); }
@@ -156,16 +156,16 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0FF169CE_0711_4B61_91F6_573FF911D12D", false, null, null, null, "purchasePaymentList", null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_22BDA057_D993_43CF_8745_458C0206034D", false, null, null, null, "purchasePaymentList", null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member,memberLoginAsBizManyToOne", null, null);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "product,summaryProduct", null, null);
-    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.sql.Timestamp.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", org.joda.time.LocalDateTime.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnPurchaseCount = cci("PURCHASE_COUNT", "PURCHASE_COUNT", null, "購入数量", Integer.class, "purchaseCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnPurchasePrice = cci("PURCHASE_PRICE", "PURCHASE_PRICE", null, "購入価格", Integer.class, "purchasePrice", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnPaymentCompleteFlg = cci("PAYMENT_COMPLETE_FLG", "PAYMENT_COMPLETE_FLG", null, "支払完了フラグ", Integer.class, "paymentCompleteFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, org.joda.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, org.joda.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 

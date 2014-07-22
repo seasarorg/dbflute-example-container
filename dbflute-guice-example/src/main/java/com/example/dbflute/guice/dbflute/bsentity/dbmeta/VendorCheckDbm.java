@@ -137,11 +137,11 @@ public class VendorCheckDbm extends AbstractDBMeta {
     }
     public static class EpgTypeOfDate implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getTypeOfDate(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfDate((java.util.Date)vl); }
+        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfDate((org.joda.time.LocalDate)vl); }
     }
     public static class EpgTypeOfTimestamp implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getTypeOfTimestamp(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTimestamp((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTimestamp((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgTypeOfTime implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getTypeOfTime(); }
@@ -213,8 +213,8 @@ public class VendorCheckDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnTypeOfNumericMaxdecimal = cci("TYPE_OF_NUMERIC_MAXDECIMAL", "TYPE_OF_NUMERIC_MAXDECIMAL", null, null, java.math.BigDecimal.class, "typeOfNumericMaxdecimal", null, false, false, false, "DECIMAL", 38, 38, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfInteger = cci("TYPE_OF_INTEGER", "TYPE_OF_INTEGER", null, null, Integer.class, "typeOfInteger", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBigint = cci("TYPE_OF_BIGINT", "TYPE_OF_BIGINT", null, null, Long.class, "typeOfBigint", null, false, false, false, "BIGINT", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfDate = cci("TYPE_OF_DATE", "TYPE_OF_DATE", null, null, java.util.Date.class, "typeOfDate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfTimestamp = cci("TYPE_OF_TIMESTAMP", "TYPE_OF_TIMESTAMP", null, null, java.sql.Timestamp.class, "typeOfTimestamp", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfDate = cci("TYPE_OF_DATE", "TYPE_OF_DATE", null, null, org.joda.time.LocalDate.class, "typeOfDate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfTimestamp = cci("TYPE_OF_TIMESTAMP", "TYPE_OF_TIMESTAMP", null, null, org.joda.time.LocalDateTime.class, "typeOfTimestamp", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfTime = cci("TYPE_OF_TIME", "TYPE_OF_TIME", null, null, java.sql.Time.class, "typeOfTime", null, false, false, false, "TIME", 6, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, Boolean.class, "typeOfBoolean", null, false, false, false, "BOOLEAN", 1, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBinary = cci("TYPE_OF_BINARY", "TYPE_OF_BINARY", null, null, byte[].class, "typeOfBinary", null, false, false, false, "VARBINARY", 2147483647, 0, null, false, null, null, null, null, null);

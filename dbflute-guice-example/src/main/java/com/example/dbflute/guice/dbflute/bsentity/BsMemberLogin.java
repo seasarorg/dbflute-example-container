@@ -47,7 +47,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long memberLoginId = entity.getMemberLoginId();
  * Integer memberId = entity.getMemberId();
- * java.sql.Timestamp loginDatetime = entity.getLoginDatetime();
+ * org.joda.time.LocalDateTime loginDatetime = entity.getLoginDatetime();
  * Integer mobileLoginFlg = entity.getMobileLoginFlg();
  * String loginMemberStatusCode = entity.getLoginMemberStatusCode();
  * entity.setMemberLoginId(memberLoginId);
@@ -80,7 +80,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
     protected Integer _memberId;
 
     /** (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _loginDatetime;
+    protected org.joda.time.LocalDateTime _loginDatetime;
 
     /** (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} */
     protected Integer _mobileLoginFlg;
@@ -147,7 +147,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
      * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param loginDatetime (ログイン日時): +UQ, IX, NotNull, TIMESTAMP(23, 10). (NotNull)
      */
-    public void uniqueBy(Integer memberId, java.sql.Timestamp loginDatetime) {
+    public void uniqueBy(Integer memberId, org.joda.time.LocalDateTime loginDatetime) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
         __uniqueDrivenProperties.addPropertyName("loginDatetime");
@@ -608,7 +608,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
      * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getLoginDatetime() {
+    public org.joda.time.LocalDateTime getLoginDatetime() {
         return _loginDatetime;
     }
 
@@ -616,7 +616,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
      * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setLoginDatetime(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime(org.joda.time.LocalDateTime loginDatetime) {
         __modifiedProperties.addPropertyName("loginDatetime");
         _loginDatetime = loginDatetime;
     }

@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -73,7 +72,7 @@ public abstract class BsSummaryProductDto implements Serializable {
 
     /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _latestPurchaseDatetime;
+    protected org.joda.time.LocalDateTime _latestPurchaseDatetime;
 
     // -----------------------------------------------------
     //                                              Internal
@@ -334,8 +333,7 @@ public abstract class BsSummaryProductDto implements Serializable {
      * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getLatestPurchaseDatetime() {
+    public org.joda.time.LocalDateTime getLatestPurchaseDatetime() {
         return _latestPurchaseDatetime;
     }
 
@@ -343,7 +341,7 @@ public abstract class BsSummaryProductDto implements Serializable {
      * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @param latestPurchaseDatetime The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed)
      */
-    public void setLatestPurchaseDatetime(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime(org.joda.time.LocalDateTime latestPurchaseDatetime) {
         __modifiedProperties.add("latestPurchaseDatetime");
         this._latestPurchaseDatetime = latestPurchaseDatetime;
     }

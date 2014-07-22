@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -374,7 +377,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setPaymentDatetime_Equal(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime_Equal(org.joda.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_EQ,  paymentDatetime);
     }
 
@@ -383,7 +386,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setPaymentDatetime_GreaterThan(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime_GreaterThan(org.joda.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_GT,  paymentDatetime);
     }
 
@@ -392,7 +395,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setPaymentDatetime_LessThan(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime_LessThan(org.joda.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_LT,  paymentDatetime);
     }
 
@@ -401,7 +404,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setPaymentDatetime_GreaterEqual(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime_GreaterEqual(org.joda.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_GE,  paymentDatetime);
     }
 
@@ -410,7 +413,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setPaymentDatetime_LessEqual(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime_LessEqual(org.joda.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_LE, paymentDatetime);
     }
 
@@ -423,8 +426,8 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of paymentDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setPaymentDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValuePaymentDatetime(), "PAYMENT_DATETIME", fromToOption);
+    public void setPaymentDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValuePaymentDatetime(), "PAYMENT_DATETIME", fromToOption);
     }
 
     /**
@@ -438,7 +441,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param fromDate The from-date(yyyy/MM/dd) of paymentDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of paymentDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setPaymentDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setPaymentDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setPaymentDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -603,7 +606,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_Equal(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_Equal(org.joda.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
@@ -631,7 +634,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_Equal(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_Equal(org.joda.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
@@ -874,6 +877,15 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

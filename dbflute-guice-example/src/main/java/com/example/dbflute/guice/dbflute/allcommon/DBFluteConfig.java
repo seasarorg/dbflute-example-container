@@ -30,6 +30,16 @@ import org.seasar.dbflute.s2dao.valuetype.plugin.OracleArrayType;
 import org.seasar.dbflute.s2dao.valuetype.plugin.OracleStructType;
 import org.seasar.dbflute.twowaysql.DisplaySqlBuilder;
 import org.seasar.dbflute.util.DfReflectionUtil;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Types;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
+import org.seasar.dbflute.s2dao.valuetype.TnAbstractValueType;
+import org.seasar.dbflute.util.DfTypeUtil;
 
 /**
  * @author DBFlute(AutoGenerator)
@@ -113,6 +123,10 @@ public class DBFluteConfig {
             _logDateFormat = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
             _logTimestampFormat = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
         }
+
+        // uses Joda-Time
+        TnValueTypes.registerBasicValueType(currentDBDef(), LocalDate.class, new JodaDateType());
+        TnValueTypes.registerBasicValueType(currentDBDef(), LocalDateTime.class, new JodaDateTimeType());
     }
 
     // ===================================================================================
@@ -837,4 +851,115 @@ public class DBFluteConfig {
             return null;
         }
     }    
+
+    // ===================================================================================
+    //                                                                     Joda-Time Class
+    //                                                                     ===============
+    public static class JodaDateType extends TnAbstractValueType {
+
+        public JodaDateType() {
+            super(Types.DATE);
+        }
+
+        public Object getValue(ResultSet rs, int index) throws SQLException {
+            return toLocalDate(rs.getDate(index));
+        }
+
+        public Object getValue(ResultSet rs, String columnName) throws SQLException {
+            return toLocalDate(rs.getDate(columnName));
+        }
+
+        public Object getValue(CallableStatement cs, int index) throws SQLException {
+            return toLocalDate(cs.getDate(index));
+        }
+
+        public Object getValue(CallableStatement cs, String parameterName) throws SQLException {
+            return toLocalDate(cs.getDate(parameterName));
+        }
+
+        public void bindValue(Connection conn, PreparedStatement ps, int index, Object value) throws SQLException {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setDate(index, toSqlDate(value));
+            }
+    
+        }
+
+        public void bindValue(Connection conn, CallableStatement cs, String parameterName, Object value)
+                throws SQLException {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setDate(parameterName, toSqlDate(value));
+            }
+        }
+
+        protected LocalDate toLocalDate(java.sql.Date date) {
+            return date != null ? LocalDate.fromDateFields(date) : null;
+        }
+
+        protected java.sql.Date toSqlDate(Object date) {
+            if (date != null && date instanceof ReadablePartial) {
+                return new java.sql.Date(((ReadablePartial) date).toDateTime(null).withTimeAtStartOfDay().getMillis());
+            } else if (date != null && date instanceof ReadableInstant) {
+                return new java.sql.Date(((ReadableInstant) date).getMillis());
+            }
+            return DfTypeUtil.toSqlDate(date);
+        }
+    }
+
+    public static class JodaDateTimeType extends TnAbstractValueType {
+
+        public JodaDateTimeType() {
+            super(Types.TIMESTAMP);
+        }
+
+        public Object getValue(ResultSet rs, int index) throws SQLException {
+            return toLocalDateTime(rs.getTimestamp(index));
+        }
+
+        public Object getValue(ResultSet rs, String columnName) throws SQLException {
+            return toLocalDateTime(rs.getTimestamp(columnName));
+        }
+
+        public Object getValue(CallableStatement cs, int index) throws SQLException {
+            return toLocalDateTime(cs.getTimestamp(index));
+        }
+
+        public Object getValue(CallableStatement cs, String parameterName) throws SQLException {
+            return toLocalDateTime(cs.getTimestamp(parameterName));
+        }
+
+        public void bindValue(Connection conn, PreparedStatement ps, int index, Object value) throws SQLException {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setTimestamp(index, toTimestamp(value));
+            }
+    
+        }
+
+        public void bindValue(Connection conn, CallableStatement cs, String parameterName, Object value)
+                throws SQLException {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setTimestamp(parameterName, toTimestamp(value));
+            }
+        }
+
+        protected LocalDateTime toLocalDateTime(java.sql.Timestamp timestamp) {
+            return timestamp != null ? LocalDateTime.fromDateFields(timestamp) : null;
+        }
+
+        protected java.sql.Timestamp toTimestamp(Object date) {
+            if (date != null && date instanceof ReadablePartial) {
+                return new java.sql.Timestamp(((ReadablePartial) date).toDateTime(null).getMillis());
+            } else if (date != null && date instanceof ReadableInstant) {
+                return new java.sql.Timestamp(((ReadableInstant) date).getMillis());
+            }
+            return DfTypeUtil.toTimestamp(date);
+        }
+    }
 }

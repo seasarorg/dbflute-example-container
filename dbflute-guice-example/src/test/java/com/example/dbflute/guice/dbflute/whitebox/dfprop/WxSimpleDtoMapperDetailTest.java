@@ -37,7 +37,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
+        cb.setupSelect_MemberAddressAsValid(currentLocalDate());
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
         memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {

@@ -73,15 +73,15 @@ public class MemberDbm extends AbstractDBMeta {
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getFormalizedDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Member)et).setFormalizedDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgBirthdate implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((Member)et).setBirthdate((java.util.Date)vl); }
+        public void write(Entity et, Object vl) { ((Member)et).setBirthdate((org.joda.time.LocalDate)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setRegisterDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Member)et).setRegisterDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getRegisterUser(); }
@@ -89,7 +89,7 @@ public class MemberDbm extends AbstractDBMeta {
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setUpdateDatetime((java.sql.Timestamp)vl); }
+        public void write(Entity et, Object vl) { ((Member)et).setUpdateDatetime((org.joda.time.LocalDateTime)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getUpdateUser(); }
@@ -159,15 +159,15 @@ public class MemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_564BFB6A_63F3_452A_A79C_DC6E99C51EEB", false, null, null, "memberAddressAsValid,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_293010A0_04EA_4699_9538_6483AFC1BFC7", false, null, null, "memberAddressAsValid,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberAccount = cci("MEMBER_ACCOUNT", "MEMBER_ACCOUNT", null, "会員アカウント", String.class, "memberAccount", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "memberStatus", null, CDef.DefMeta.MemberStatus);
-    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", java.sql.Timestamp.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.util.Date.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, "登録日時", java.sql.Timestamp.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", org.joda.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", org.joda.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, "登録日時", org.joda.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, "登録ユーザ", String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
-    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, "更新日時", java.sql.Timestamp.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
+    protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, "更新日時", org.joda.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, "更新ユーザ", String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, "バージョンNO", Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null);
 

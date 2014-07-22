@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -45,8 +44,8 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberId = entity.getMemberId();
  * String memberName = entity.getMemberName();
- * java.util.Date birthdate = entity.getBirthdate();
- * java.sql.Timestamp formalizedDatetime = entity.getFormalizedDatetime();
+ * org.joda.time.LocalDate birthdate = entity.getBirthdate();
+ * org.joda.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
  * Long purchaseSummary = entity.getPurchaseSummary();
  * entity.setMemberId(memberId);
  * entity.setMemberName(memberName);
@@ -78,10 +77,10 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
     protected String _memberName;
 
     /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} */
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected org.joda.time.LocalDateTime _formalizedDatetime;
 
     /** PURCHASE_SUMMARY: {BIGINT(10)} */
     protected Long _purchaseSummary;
@@ -311,7 +310,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
         String dm = ", ";
         sb.append(dm).append(getMemberId());
         sb.append(dm).append(getMemberName());
-        sb.append(dm).append(xfUD(getBirthdate()));
+        sb.append(dm).append(getBirthdate());
         sb.append(dm).append(getFormalizedDatetime());
         sb.append(dm).append(getPurchaseSummary());
         if (sb.length() > dm.length()) {
@@ -319,12 +318,6 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String buildRelationString() {
         return "";
@@ -383,7 +376,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -391,7 +384,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
         _birthdate = birthdate;
     }
@@ -400,7 +393,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
@@ -408,7 +401,7 @@ public abstract class BsPurchaseSummaryMember implements Entity, Serializable, C
      * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
         __modifiedProperties.addPropertyName("formalizedDatetime");
         _formalizedDatetime = formalizedDatetime;
     }

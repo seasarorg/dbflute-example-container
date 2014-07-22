@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -270,8 +273,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @param validBeginDate The value of validBeginDate as equal. (NullAllowed: if null, no condition)
      */
-    public void setValidBeginDate_Equal(java.util.Date validBeginDate) {
-        regValidBeginDate(CK_EQ,  fCTPD(validBeginDate));
+    public void setValidBeginDate_Equal(org.joda.time.LocalDate validBeginDate) {
+        regValidBeginDate(CK_EQ,  validBeginDate);
     }
 
     /**
@@ -279,8 +282,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @param validBeginDate The value of validBeginDate as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setValidBeginDate_GreaterThan(java.util.Date validBeginDate) {
-        regValidBeginDate(CK_GT,  fCTPD(validBeginDate));
+    public void setValidBeginDate_GreaterThan(org.joda.time.LocalDate validBeginDate) {
+        regValidBeginDate(CK_GT,  validBeginDate);
     }
 
     /**
@@ -288,8 +291,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @param validBeginDate The value of validBeginDate as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setValidBeginDate_LessThan(java.util.Date validBeginDate) {
-        regValidBeginDate(CK_LT,  fCTPD(validBeginDate));
+    public void setValidBeginDate_LessThan(org.joda.time.LocalDate validBeginDate) {
+        regValidBeginDate(CK_LT,  validBeginDate);
     }
 
     /**
@@ -297,8 +300,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @param validBeginDate The value of validBeginDate as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setValidBeginDate_GreaterEqual(java.util.Date validBeginDate) {
-        regValidBeginDate(CK_GE,  fCTPD(validBeginDate));
+    public void setValidBeginDate_GreaterEqual(org.joda.time.LocalDate validBeginDate) {
+        regValidBeginDate(CK_GE,  validBeginDate);
     }
 
     /**
@@ -306,8 +309,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @param validBeginDate The value of validBeginDate as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setValidBeginDate_LessEqual(java.util.Date validBeginDate) {
-        regValidBeginDate(CK_LE, fCTPD(validBeginDate));
+    public void setValidBeginDate_LessEqual(org.joda.time.LocalDate validBeginDate) {
+        regValidBeginDate(CK_LE, validBeginDate);
     }
 
     /**
@@ -319,8 +322,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setValidBeginDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValueValidBeginDate(), "VALID_BEGIN_DATE", fromToOption);
+    public void setValidBeginDate_FromTo(org.joda.time.LocalDate fromDatetime, org.joda.time.LocalDate toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueValidBeginDate(), "VALID_BEGIN_DATE", fromToOption);
     }
 
     /**
@@ -334,7 +337,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of validBeginDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of validBeginDate. (NullAllowed: if null, no to-condition)
      */
-    public void setValidBeginDate_DateFromTo(Date fromDate, Date toDate) {
+    public void setValidBeginDate_DateFromTo(org.joda.time.LocalDate fromDate, org.joda.time.LocalDate toDate) {
         setValidBeginDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -346,8 +349,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
      * @param validEndDate The value of validEndDate as equal. (NullAllowed: if null, no condition)
      */
-    public void setValidEndDate_Equal(java.util.Date validEndDate) {
-        regValidEndDate(CK_EQ,  fCTPD(validEndDate));
+    public void setValidEndDate_Equal(org.joda.time.LocalDate validEndDate) {
+        regValidEndDate(CK_EQ,  validEndDate);
     }
 
     /**
@@ -355,8 +358,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
      * @param validEndDate The value of validEndDate as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setValidEndDate_GreaterThan(java.util.Date validEndDate) {
-        regValidEndDate(CK_GT,  fCTPD(validEndDate));
+    public void setValidEndDate_GreaterThan(org.joda.time.LocalDate validEndDate) {
+        regValidEndDate(CK_GT,  validEndDate);
     }
 
     /**
@@ -364,8 +367,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
      * @param validEndDate The value of validEndDate as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setValidEndDate_LessThan(java.util.Date validEndDate) {
-        regValidEndDate(CK_LT,  fCTPD(validEndDate));
+    public void setValidEndDate_LessThan(org.joda.time.LocalDate validEndDate) {
+        regValidEndDate(CK_LT,  validEndDate);
     }
 
     /**
@@ -373,8 +376,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
      * @param validEndDate The value of validEndDate as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setValidEndDate_GreaterEqual(java.util.Date validEndDate) {
-        regValidEndDate(CK_GE,  fCTPD(validEndDate));
+    public void setValidEndDate_GreaterEqual(org.joda.time.LocalDate validEndDate) {
+        regValidEndDate(CK_GE,  validEndDate);
     }
 
     /**
@@ -382,8 +385,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * (有効終了日)VALID_END_DATE: {NotNull, DATE(8)}
      * @param validEndDate The value of validEndDate as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setValidEndDate_LessEqual(java.util.Date validEndDate) {
-        regValidEndDate(CK_LE, fCTPD(validEndDate));
+    public void setValidEndDate_LessEqual(org.joda.time.LocalDate validEndDate) {
+        regValidEndDate(CK_LE, validEndDate);
     }
 
     /**
@@ -395,8 +398,8 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setValidEndDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValueValidEndDate(), "VALID_END_DATE", fromToOption);
+    public void setValidEndDate_FromTo(org.joda.time.LocalDate fromDatetime, org.joda.time.LocalDate toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueValidEndDate(), "VALID_END_DATE", fromToOption);
     }
 
     /**
@@ -410,7 +413,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of validEndDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of validEndDate. (NullAllowed: if null, no to-condition)
      */
-    public void setValidEndDate_DateFromTo(Date fromDate, Date toDate) {
+    public void setValidEndDate_DateFromTo(org.joda.time.LocalDate fromDate, org.joda.time.LocalDate toDate) {
         setValidEndDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -667,7 +670,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_Equal(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_Equal(org.joda.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
@@ -695,7 +698,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_Equal(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_Equal(org.joda.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
@@ -967,6 +970,15 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

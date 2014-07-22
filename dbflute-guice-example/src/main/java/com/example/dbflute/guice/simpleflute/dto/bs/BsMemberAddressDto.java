@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -65,11 +64,11 @@ public abstract class BsMemberAddressDto implements Serializable {
 
     /** (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} */
     @JsonKey
-    protected java.util.Date _validBeginDate;
+    protected org.joda.time.LocalDate _validBeginDate;
 
     /** (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} */
     @JsonKey
-    protected java.util.Date _validEndDate;
+    protected org.joda.time.LocalDate _validEndDate;
 
     /** (住所)ADDRESS: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -81,7 +80,7 @@ public abstract class BsMemberAddressDto implements Serializable {
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -89,7 +88,7 @@ public abstract class BsMemberAddressDto implements Serializable {
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     @JsonKey
@@ -293,8 +292,8 @@ public abstract class BsMemberAddressDto implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(c).append(getMemberAddressId());
         sb.append(c).append(getMemberId());
-        sb.append(c).append(xfUD(getValidBeginDate()));
-        sb.append(c).append(xfUD(getValidEndDate()));
+        sb.append(c).append(getValidBeginDate());
+        sb.append(c).append(getValidEndDate());
         sb.append(c).append(getAddress());
         sb.append(c).append(getRegionId());
         sb.append(c).append(getRegisterDatetime());
@@ -305,12 +304,6 @@ public abstract class BsMemberAddressDto implements Serializable {
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
 
     // ===================================================================================
@@ -354,8 +347,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getValidBeginDate() {
+    public org.joda.time.LocalDate getValidBeginDate() {
         return _validBeginDate;
     }
 
@@ -363,7 +355,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
-    public void setValidBeginDate(java.util.Date validBeginDate) {
+    public void setValidBeginDate(org.joda.time.LocalDate validBeginDate) {
         __modifiedProperties.add("validBeginDate");
         this._validBeginDate = validBeginDate;
     }
@@ -372,8 +364,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [get] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'VALID_END_DATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getValidEndDate() {
+    public org.joda.time.LocalDate getValidEndDate() {
         return _validEndDate;
     }
 
@@ -381,7 +372,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [set] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
      * @param validEndDate The value of the column 'VALID_END_DATE'. (NullAllowed)
      */
-    public void setValidEndDate(java.util.Date validEndDate) {
+    public void setValidEndDate(org.joda.time.LocalDate validEndDate) {
         __modifiedProperties.add("validEndDate");
         this._validEndDate = validEndDate;
     }
@@ -424,8 +415,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -433,7 +423,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.add("registerDatetime");
         this._registerDatetime = registerDatetime;
     }
@@ -459,8 +449,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -468,7 +457,7 @@ public abstract class BsMemberAddressDto implements Serializable {
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.add("updateDatetime");
         this._updateDatetime = updateDatetime;
     }

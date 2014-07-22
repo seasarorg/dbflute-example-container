@@ -9,6 +9,9 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 import com.example.dbflute.guice.dbflute.cbean.cq.*;
@@ -270,7 +273,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_Equal(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_Equal(org.joda.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_EQ,  loginDatetime);
     }
 
@@ -279,7 +282,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_GreaterThan(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_GreaterThan(org.joda.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_GT,  loginDatetime);
     }
 
@@ -288,7 +291,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_LessThan(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_LessThan(org.joda.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_LT,  loginDatetime);
     }
 
@@ -297,7 +300,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_GreaterEqual(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_GreaterEqual(org.joda.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_GE,  loginDatetime);
     }
 
@@ -306,7 +309,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_LessEqual(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_LessEqual(org.joda.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_LE, loginDatetime);
     }
 
@@ -319,8 +322,8 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueLoginDatetime(), "LOGIN_DATETIME", fromToOption);
+    public void setLoginDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValueLoginDatetime(), "LOGIN_DATETIME", fromToOption);
     }
 
     /**
@@ -334,7 +337,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of loginDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of loginDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setLoginDatetime_DateFromTo(Date fromDate, Date toDate) {
+    public void setLoginDatetime_DateFromTo(org.joda.time.LocalDateTime fromDate, org.joda.time.LocalDateTime toDate) {
         setLoginDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -831,6 +834,15 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      */
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
+    }
+
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
     }
 
     // ===================================================================================

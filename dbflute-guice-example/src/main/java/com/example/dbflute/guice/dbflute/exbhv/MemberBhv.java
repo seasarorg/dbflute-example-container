@@ -1,11 +1,11 @@
 package com.example.dbflute.guice.dbflute.exbhv;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import com.example.dbflute.guice.dbflute.exbhv.cursor.PurchaseSummaryMemberCursor;
 import com.example.dbflute.guice.dbflute.exbhv.cursor.PurchaseSummaryMemberCursorHandler;
@@ -38,8 +38,8 @@ public class MemberBhv extends com.example.dbflute.guice.dbflute.bsbhv.BsMemberB
                 while (cursor.next()) {
                     final Integer memberId = cursor.getMemberId();
                     final String memberName = cursor.getMemberName();
-                    final Date birthdate = cursor.getBirthdate();
-                    final Timestamp formalizedDatetime = cursor.getFormalizedDatetime();
+                    final LocalDate birthdate = cursor.getBirthdate();
+                    final LocalDateTime formalizedDatetime = cursor.getFormalizedDatetime();
                     final Long purchaseSummary = cursor.getPurchaseSummary();
 
                     // ここではただログに出力するだけ

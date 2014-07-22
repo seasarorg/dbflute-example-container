@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
@@ -68,7 +67,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
 
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _followDatetime;
+    protected org.joda.time.LocalDateTime _followDatetime;
 
     // -----------------------------------------------------
     //                                              Internal
@@ -225,8 +224,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
      * [get] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'FOLLOW_DATETIME'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getFollowDatetime() {
+    public org.joda.time.LocalDateTime getFollowDatetime() {
         return _followDatetime;
     }
 
@@ -234,7 +232,7 @@ public abstract class BsMemberFollowingDto implements Serializable {
      * [set] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (NullAllowed)
      */
-    public void setFollowDatetime(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime(org.joda.time.LocalDateTime followDatetime) {
         __modifiedProperties.add("followDatetime");
         this._followDatetime = followDatetime;
     }

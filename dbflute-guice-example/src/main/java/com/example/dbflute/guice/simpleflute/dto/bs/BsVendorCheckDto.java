@@ -123,11 +123,11 @@ public abstract class BsVendorCheckDto implements Serializable {
 
     /** TYPE_OF_DATE: {DATE(8)} */
     @JsonKey
-    protected java.util.Date _typeOfDate;
+    protected org.joda.time.LocalDate _typeOfDate;
 
     /** TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} */
     @JsonKey
-    protected java.sql.Timestamp _typeOfTimestamp;
+    protected org.joda.time.LocalDateTime _typeOfTimestamp;
 
     /** TYPE_OF_TIME: {TIME(6)} */
     @JsonKey
@@ -250,7 +250,7 @@ public abstract class BsVendorCheckDto implements Serializable {
         sb.append(c).append(getTypeOfNumericMaxdecimal());
         sb.append(c).append(getTypeOfInteger());
         sb.append(c).append(getTypeOfBigint());
-        sb.append(c).append(xfUD(getTypeOfDate()));
+        sb.append(c).append(getTypeOfDate());
         sb.append(c).append(getTypeOfTimestamp());
         sb.append(c).append(getTypeOfTime());
         sb.append(c).append(getTypeOfBoolean());
@@ -264,12 +264,6 @@ public abstract class BsVendorCheckDto implements Serializable {
         if (sb.length() > 0) { sb.delete(0, c.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(java.util.Date date) { // formatUtilDate()
-        return date != null ? new java.text.SimpleDateFormat(xgDP()).format(date) : null;
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String xfBA(byte[] bytes) { // formatByteArray()
         return "byte[" + (bytes != null ? String.valueOf(bytes.length) : "null") + "]";
@@ -571,8 +565,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_DATE: {DATE(8)} <br />
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd")
-    public java.util.Date getTypeOfDate() {
+    public org.joda.time.LocalDate getTypeOfDate() {
         return _typeOfDate;
     }
 
@@ -580,7 +573,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [set] TYPE_OF_DATE: {DATE(8)} <br />
      * @param typeOfDate The value of the column 'TYPE_OF_DATE'. (NullAllowed)
      */
-    public void setTypeOfDate(java.util.Date typeOfDate) {
+    public void setTypeOfDate(org.joda.time.LocalDate typeOfDate) {
         __modifiedProperties.add("typeOfDate");
         this._typeOfDate = typeOfDate;
     }
@@ -589,8 +582,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed)
      */
-    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
-    public java.sql.Timestamp getTypeOfTimestamp() {
+    public org.joda.time.LocalDateTime getTypeOfTimestamp() {
         return _typeOfTimestamp;
     }
 
@@ -598,7 +590,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [set] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @param typeOfTimestamp The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed)
      */
-    public void setTypeOfTimestamp(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp(org.joda.time.LocalDateTime typeOfTimestamp) {
         __modifiedProperties.add("typeOfTimestamp");
         this._typeOfTimestamp = typeOfTimestamp;
     }

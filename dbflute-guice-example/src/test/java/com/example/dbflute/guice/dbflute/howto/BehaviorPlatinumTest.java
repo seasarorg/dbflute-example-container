@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.bhv.ReferrerListHandler;
 import org.seasar.dbflute.cbean.EntityRowHandler;
@@ -40,6 +42,7 @@ import com.example.dbflute.guice.dbflute.exentity.Product;
 import com.example.dbflute.guice.dbflute.exentity.Purchase;
 import com.example.dbflute.guice.dbflute.exentity.customize.SimpleMember;
 import com.example.dbflute.guice.dbflute.exentity.customize.UnpaidSummaryMember;
+import com.example.dbflute.guice.dbflute.nogen.JodaUtil;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
 
 public class BehaviorPlatinumTest extends UnitContainerTestCase {
@@ -404,8 +407,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(LocalDateTime.fromDateFields(currentTimestamp()));
+            member.setBirthdate(LocalDate.now());
             expectedVersionNoList.add(member.getVersionNo());
             ++count;
         }
@@ -434,8 +437,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(LocalDateTime.fromDateFields(currentTimestamp()));
+            member.setBirthdate(LocalDate.now());
             member.setVersionNo(null);// *Point!
             ++count;
         }
@@ -591,7 +594,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
-        pmb.setFormalizedDatetime(DfTypeUtil.toTimestamp("2003-08-12 12:34:56.147"));
+        pmb.setFormalizedDatetime(LocalDateTime.fromDateFields(DfTypeUtil.toTimestamp("2003-08-12 12:34:56.147")));
 
         // ## Act & Assert ##
         memberBhv.makeCsvPurchaseSummaryMember(pmb);
@@ -653,7 +656,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // 検索条件
         ResolvedPackageNamePmb pmb = new ResolvedPackageNamePmb();
-        pmb.setDate1(new java.util.Date()); // java.util.Dateで検索できることを確認
+        pmb.setDate1(JodaUtil.toLocalDate(new java.util.Date())); // java.util.Dateで検索できることを確認
         List<String> statusList = new ArrayList<String>();
         statusList.add(CDef.MemberStatus.Formalized.code());
         statusList.add(CDef.MemberStatus.Withdrawal.code());
@@ -775,12 +778,13 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_insert_disableCommonColumnAutoSetup() {
         // ## Arrange ##
-        Timestamp expectedTimestamp = new Timestamp(currentTimestamp().getTime() - 10000000000l);
+        LocalDateTime expectedTimestamp = LocalDateTime.fromDateFields(new Timestamp(
+                currentTimestamp().getTime() - 10000000000l));
         Member member = new Member();
         member.setMemberName("Billy Joel");
         member.setMemberAccount("martinjoel");
-        member.setBirthdate(currentDate());
-        member.setFormalizedDatetime(currentTimestamp());
+        member.setBirthdate(LocalDate.now());
+        member.setFormalizedDatetime(currentLocalDateTime());
         member.setMemberStatusCode_Formalized();
         member.setRegisterDatetime(expectedTimestamp);
         member.setRegisterUser("suppressRegisterUser");
@@ -795,9 +799,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         final MemberCB cb = new MemberCB();
         cb.acceptPrimaryKeyMap(member.getDBMeta().extractPrimaryKeyMap(member));
         final Member actualMember = memberBhv.selectEntityWithDeletedCheck(cb);
-        final Timestamp registerDatetime = actualMember.getRegisterDatetime();
+        final LocalDateTime registerDatetime = actualMember.getRegisterDatetime();
         final String registerUser = actualMember.getRegisterUser();
-        final Timestamp updateDatetime = actualMember.getUpdateDatetime();
+        final LocalDateTime updateDatetime = actualMember.getUpdateDatetime();
         final String updateUser = actualMember.getUpdateUser();
         log("registerDatetime = " + registerDatetime);
         assertNotNull(registerDatetime);

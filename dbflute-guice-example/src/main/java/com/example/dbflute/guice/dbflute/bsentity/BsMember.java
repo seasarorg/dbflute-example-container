@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -51,11 +50,11 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * String memberName = entity.getMemberName();
  * String memberAccount = entity.getMemberAccount();
  * String memberStatusCode = entity.getMemberStatusCode();
- * java.sql.Timestamp formalizedDatetime = entity.getFormalizedDatetime();
- * java.util.Date birthdate = entity.getBirthdate();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * org.joda.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
+ * org.joda.time.LocalDate birthdate = entity.getBirthdate();
+ * org.joda.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * org.joda.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * Long versionNo = entity.getVersionNo();
  * entity.setMemberId(memberId);
@@ -100,19 +99,19 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected String _memberStatusCode;
 
     /** (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected org.joda.time.LocalDateTime _formalizedDatetime;
 
     /** (生年月日)BIRTHDATE: {DATE(8)} */
-    protected java.util.Date _birthdate;
+    protected org.joda.time.LocalDate _birthdate;
 
     /** (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected org.joda.time.LocalDateTime _registerDatetime;
 
     /** (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected org.joda.time.LocalDateTime _updateDatetime;
 
     /** (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -688,7 +687,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
         sb.append(dm).append(getMemberAccount());
         sb.append(dm).append(getMemberStatusCode());
         sb.append(dm).append(getFormalizedDatetime());
-        sb.append(dm).append(xfUD(getBirthdate()));
+        sb.append(dm).append(getBirthdate());
         sb.append(dm).append(getRegisterDatetime());
         sb.append(dm).append(getRegisterUser());
         sb.append(dm).append(getUpdateDatetime());
@@ -699,12 +698,6 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
@@ -817,7 +810,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [get] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
@@ -825,7 +818,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [set] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
         __modifiedProperties.addPropertyName("formalizedDatetime");
         _formalizedDatetime = formalizedDatetime;
     }
@@ -834,7 +827,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [get] (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getBirthdate() {
+    public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
@@ -842,7 +835,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [set] (生年月日)BIRTHDATE: {DATE(8)} <br />
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(org.joda.time.LocalDate birthdate) {
         __modifiedProperties.addPropertyName("birthdate");
         _birthdate = birthdate;
     }
@@ -851,7 +844,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [get] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -859,7 +852,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [set] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -885,7 +878,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [get] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
 
@@ -893,7 +886,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
      * [set] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
         _updateDatetime = updateDatetime;
     }

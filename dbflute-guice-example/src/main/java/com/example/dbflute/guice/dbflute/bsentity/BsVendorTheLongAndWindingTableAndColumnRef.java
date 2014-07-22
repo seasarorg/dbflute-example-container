@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Date;
 
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
@@ -47,8 +46,8 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long theLongAndWindingTableAndColumnRefId = entity.getTheLongAndWindingTableAndColumnRefId();
  * Long theLongAndWindingTableAndColumnId = entity.getTheLongAndWindingTableAndColumnId();
- * java.util.Date theLongAndWindingTableAndColumnRefDate = entity.getTheLongAndWindingTableAndColumnRefDate();
- * java.util.Date shortDate = entity.getShortDate();
+ * org.joda.time.LocalDate theLongAndWindingTableAndColumnRefDate = entity.getTheLongAndWindingTableAndColumnRefDate();
+ * org.joda.time.LocalDate shortDate = entity.getShortDate();
  * entity.setTheLongAndWindingTableAndColumnRefId(theLongAndWindingTableAndColumnRefId);
  * entity.setTheLongAndWindingTableAndColumnId(theLongAndWindingTableAndColumnId);
  * entity.setTheLongAndWindingTableAndColumnRefDate(theLongAndWindingTableAndColumnRefDate);
@@ -78,10 +77,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     protected Long _theLongAndWindingTableAndColumnId;
 
     /** THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _theLongAndWindingTableAndColumnRefDate;
+    protected org.joda.time.LocalDate _theLongAndWindingTableAndColumnRefDate;
 
     /** SHORT_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _shortDate;
+    protected org.joda.time.LocalDate _shortDate;
 
     // -----------------------------------------------------
     //                                              Internal
@@ -329,19 +328,13 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
         String dm = ", ";
         sb.append(dm).append(getTheLongAndWindingTableAndColumnRefId());
         sb.append(dm).append(getTheLongAndWindingTableAndColumnId());
-        sb.append(dm).append(xfUD(getTheLongAndWindingTableAndColumnRefDate()));
-        sb.append(dm).append(xfUD(getShortDate()));
+        sb.append(dm).append(getTheLongAndWindingTableAndColumnRefDate());
+        sb.append(dm).append(getShortDate());
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
-    }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
@@ -406,7 +399,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getTheLongAndWindingTableAndColumnRefDate() {
+    public org.joda.time.LocalDate getTheLongAndWindingTableAndColumnRefDate() {
         return _theLongAndWindingTableAndColumnRefDate;
     }
 
@@ -414,7 +407,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @param theLongAndWindingTableAndColumnRefDate The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setTheLongAndWindingTableAndColumnRefDate(java.util.Date theLongAndWindingTableAndColumnRefDate) {
+    public void setTheLongAndWindingTableAndColumnRefDate(org.joda.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         __modifiedProperties.addPropertyName("theLongAndWindingTableAndColumnRefDate");
         _theLongAndWindingTableAndColumnRefDate = theLongAndWindingTableAndColumnRefDate;
     }
@@ -423,7 +416,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * [get] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'SHORT_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getShortDate() {
+    public org.joda.time.LocalDate getShortDate() {
         return _shortDate;
     }
 
@@ -431,7 +424,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
      * [set] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @param shortDate The value of the column 'SHORT_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setShortDate(java.util.Date shortDate) {
+    public void setShortDate(org.joda.time.LocalDate shortDate) {
         __modifiedProperties.addPropertyName("shortDate");
         _shortDate = shortDate;
     }
