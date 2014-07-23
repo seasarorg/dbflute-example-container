@@ -62,7 +62,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * Long typeOfBigint = entity.getTypeOfBigint();
  * org.joda.time.LocalDate typeOfDate = entity.getTypeOfDate();
  * org.joda.time.LocalDateTime typeOfTimestamp = entity.getTypeOfTimestamp();
- * java.sql.Time typeOfTime = entity.getTypeOfTime();
+ * org.joda.time.LocalTime typeOfTime = entity.getTypeOfTime();
  * Boolean typeOfBoolean = entity.getTypeOfBoolean();
  * byte[] typeOfBinary = entity.getTypeOfBinary();
  * byte[] typeOfBlob = entity.getTypeOfBlob();
@@ -175,7 +175,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
     protected org.joda.time.LocalDateTime _typeOfTimestamp;
 
     /** TYPE_OF_TIME: {TIME(6)} */
-    protected java.sql.Time _typeOfTime;
+    protected org.joda.time.LocalTime _typeOfTime;
 
     /** TYPE_OF_BOOLEAN: {BOOLEAN(1)} */
     protected Boolean _typeOfBoolean;
@@ -800,7 +800,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [get] TYPE_OF_TIME: {TIME(6)} <br />
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Time getTypeOfTime() {
+    public org.joda.time.LocalTime getTypeOfTime() {
         return _typeOfTime;
     }
 
@@ -808,7 +808,7 @@ public abstract class BsVendorCheck implements Entity, Serializable, Cloneable, 
      * [set] TYPE_OF_TIME: {TIME(6)} <br />
      * @param typeOfTime The value of the column 'TYPE_OF_TIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfTime(java.sql.Time typeOfTime) {
+    public void setTypeOfTime(org.joda.time.LocalTime typeOfTime) {
         __modifiedProperties.addPropertyName("typeOfTime");
         _typeOfTime = typeOfTime;
     }

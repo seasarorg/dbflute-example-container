@@ -54,7 +54,7 @@ map:{
     #; isCompatibleSelectByPKWithDeletedCheck = true
 
     # the test of joda-time
-    ; isAvailableJodaTimeEntity = true
+    ; isAvailableJodaTimeLocalDateEntity = true
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)

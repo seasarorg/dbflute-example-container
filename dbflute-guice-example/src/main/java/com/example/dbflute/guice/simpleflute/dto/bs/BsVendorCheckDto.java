@@ -3,7 +3,6 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
-import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
@@ -131,7 +130,7 @@ public abstract class BsVendorCheckDto implements Serializable {
 
     /** TYPE_OF_TIME: {TIME(6)} */
     @JsonKey
-    protected java.sql.Time _typeOfTime;
+    protected org.joda.time.LocalTime _typeOfTime;
 
     /** TYPE_OF_BOOLEAN: {BOOLEAN(1)} */
     @JsonKey
@@ -599,8 +598,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_TIME: {TIME(6)} <br />
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed)
      */
-    @JSONHint(format="HH:mm:ss")
-    public java.sql.Time getTypeOfTime() {
+    public org.joda.time.LocalTime getTypeOfTime() {
         return _typeOfTime;
     }
 
@@ -608,7 +606,7 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [set] TYPE_OF_TIME: {TIME(6)} <br />
      * @param typeOfTime The value of the column 'TYPE_OF_TIME'. (NullAllowed)
      */
-    public void setTypeOfTime(java.sql.Time typeOfTime) {
+    public void setTypeOfTime(org.joda.time.LocalTime typeOfTime) {
         __modifiedProperties.add("typeOfTime");
         this._typeOfTime = typeOfTime;
     }

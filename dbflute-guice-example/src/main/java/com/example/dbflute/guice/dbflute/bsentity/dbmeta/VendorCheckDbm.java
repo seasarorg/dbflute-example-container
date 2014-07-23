@@ -145,7 +145,7 @@ public class VendorCheckDbm extends AbstractDBMeta {
     }
     public static class EpgTypeOfTime implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getTypeOfTime(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTime((java.sql.Time)vl); }
+        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTime((org.joda.time.LocalTime)vl); }
     }
     public static class EpgTypeOfBoolean implements PropertyGateway {
         public Object read(Entity et) { return ((VendorCheck)et).getTypeOfBoolean(); }
@@ -215,7 +215,7 @@ public class VendorCheckDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnTypeOfBigint = cci("TYPE_OF_BIGINT", "TYPE_OF_BIGINT", null, null, Long.class, "typeOfBigint", null, false, false, false, "BIGINT", 19, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfDate = cci("TYPE_OF_DATE", "TYPE_OF_DATE", null, null, org.joda.time.LocalDate.class, "typeOfDate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfTimestamp = cci("TYPE_OF_TIMESTAMP", "TYPE_OF_TIMESTAMP", null, null, org.joda.time.LocalDateTime.class, "typeOfTimestamp", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnTypeOfTime = cci("TYPE_OF_TIME", "TYPE_OF_TIME", null, null, java.sql.Time.class, "typeOfTime", null, false, false, false, "TIME", 6, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTypeOfTime = cci("TYPE_OF_TIME", "TYPE_OF_TIME", null, null, org.joda.time.LocalTime.class, "typeOfTime", null, false, false, false, "TIME", 6, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, Boolean.class, "typeOfBoolean", null, false, false, false, "BOOLEAN", 1, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBinary = cci("TYPE_OF_BINARY", "TYPE_OF_BINARY", null, null, byte[].class, "typeOfBinary", null, false, false, false, "VARBINARY", 2147483647, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTypeOfBlob = cci("TYPE_OF_BLOB", "TYPE_OF_BLOB", null, null, byte[].class, "typeOfBlob", null, false, false, false, "BLOB", 2147483647, 0, null, false, null, null, null, null, null);

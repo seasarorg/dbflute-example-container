@@ -2057,7 +2057,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIME: {TIME(6)}
      * @param typeOfTime The value of typeOfTime as equal. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTime_Equal(java.sql.Time typeOfTime) {
+    public void setTypeOfTime_Equal(org.joda.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_EQ,  typeOfTime);
     }
 
@@ -2066,7 +2066,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIME: {TIME(6)}
      * @param typeOfTime The value of typeOfTime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTime_GreaterThan(java.sql.Time typeOfTime) {
+    public void setTypeOfTime_GreaterThan(org.joda.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_GT,  typeOfTime);
     }
 
@@ -2075,7 +2075,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIME: {TIME(6)}
      * @param typeOfTime The value of typeOfTime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTime_LessThan(java.sql.Time typeOfTime) {
+    public void setTypeOfTime_LessThan(org.joda.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_LT,  typeOfTime);
     }
 
@@ -2084,7 +2084,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIME: {TIME(6)}
      * @param typeOfTime The value of typeOfTime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTime_GreaterEqual(java.sql.Time typeOfTime) {
+    public void setTypeOfTime_GreaterEqual(org.joda.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_GE,  typeOfTime);
     }
 
@@ -2093,7 +2093,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * TYPE_OF_TIME: {TIME(6)}
      * @param typeOfTime The value of typeOfTime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setTypeOfTime_LessEqual(java.sql.Time typeOfTime) {
+    public void setTypeOfTime_LessEqual(org.joda.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_LE, typeOfTime);
     }
 
