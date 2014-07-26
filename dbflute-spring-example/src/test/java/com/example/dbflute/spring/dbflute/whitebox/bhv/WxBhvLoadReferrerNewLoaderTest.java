@@ -523,6 +523,50 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         assertMarked("formalized");
     }
 
+    public void test_loadReferrer_pullout_setupSelect_mightBeNull() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        cb.query().addOrderBy_Birthdate_Desc();
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
+            public void handle(LoaderOfMember loader) {
+                loader.pulloutMemberWithdrawalAsOne().pulloutWithdrawalReason()
+                        .loadMemberWithdrawalList(new ConditionBeanSetupper<MemberWithdrawalCB>() {
+                            public void setup(MemberWithdrawalCB referrerCB) {
+                            }
+                        });
+            }
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
+            if (withdrawal != null) {
+                WithdrawalReason reason = withdrawal.getWithdrawalReason();
+                if (reason != null) {
+                    List<MemberWithdrawal> withdrawalList = reason.getMemberWithdrawalList();
+                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime(), reason.getDisplayOrder(),
+                            withdrawalList.size());
+                    markHere("exists");
+                } else {
+                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime());
+                    markHere("noReason");
+                }
+            } else {
+                log(member.getMemberName());
+                markHere("noWithdrawal");
+            }
+        }
+        log(currentDate().getTime());
+        assertMarked("exists");
+        assertMarked("noReason");
+        assertMarked("noWithdrawal");
+    }
+
     // ===================================================================================
     //                                                                         No Referrer
     //                                                                         ===========

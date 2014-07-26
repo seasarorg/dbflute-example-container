@@ -1,14 +1,18 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
+import org.seasar.dbflute.cbean.SubQuery;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberAddressCB;
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
+import com.example.dbflute.guice.dbflute.cbean.MemberLoginCB;
+import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.dtomapper.MemberDtoMapper;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.guice.dbflute.exentity.Member;
@@ -29,6 +33,92 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private MemberBhv memberBhv;
+
+    // ===================================================================================
+    //                                                                      Mapping to DTO
+    //                                                                      ==============
+    public void test_mappingToDtoList_DerivedReferrer_basic() throws Exception {
+        // ## Arrange ##
+        MemberDtoMapper mapper = new MemberDtoMapper();
+        MemberCB cb = new MemberCB();
+        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            public void query(MemberLoginCB subCB) {
+                subCB.specify().columnLoginDatetime();
+            }
+        }, Member.PROP_latestLoginDatetime);
+        cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+            public void query(PurchaseCB subCB) {
+                subCB.specify().columnProductId();
+            }
+        }, Member.PROP_productKindCount);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Act ##
+        List<MemberDto> dtoList = mapper.mappingToDtoList(memberList);
+        assertHasAnyElement(dtoList);
+        for (MemberDto dto : dtoList) {
+            // ## Assert ##
+            Date loginDatetime = dto.getLatestLoginDatetime();
+            Integer loginCount = dto.getLoginCount();
+            Integer productKindCount = dto.getProductKindCount();
+            if (loginDatetime != null) {
+                markHere("loginDatetime");
+            }
+            assertNull(loginCount);
+            if (productKindCount != null) {
+                markHere("productKindCount");
+            }
+            log(dto.getMemberName(), loginDatetime, loginCount, productKindCount);
+            assertNull(dto.getMemberStatus());
+        }
+        assertMarked("loginDatetime");
+        assertMarked("productKindCount");
+    }
+
+    // ===================================================================================
+    //                                                                   Mapping to Entity
+    //                                                                   =================
+    public void test_mappingToEntityList_DerivedReferrer_basic() throws Exception {
+        // ## Arrange ##
+        MemberDtoMapper mapper = new MemberDtoMapper();
+        List<MemberDto> dtoList;
+        {
+            MemberCB cb = new MemberCB();
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                }
+            }, Member.PROP_latestLoginDatetime);
+            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnProductId();
+                }
+            }, Member.PROP_productKindCount);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            dtoList = mapper.mappingToDtoList(memberList);
+        }
+
+        // ## Act ##
+        List<Member> memberList = mapper.mappingToEntityList(dtoList);
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            // ## Assert ##
+            Date loginDatetime = member.getLatestLoginDatetime();
+            Integer loginCount = member.getLoginCount();
+            Integer productKindCount = member.getProductKindCount();
+            if (loginDatetime != null) {
+                markHere("loginDatetime");
+            }
+            assertNull(loginCount);
+            if (productKindCount != null) {
+                markHere("productKindCount");
+            }
+            log(member.getMemberName(), loginDatetime, loginCount, productKindCount);
+            assertFalse(member.getMemberStatus().isPresent());
+        }
+        assertMarked("loginDatetime");
+        assertMarked("productKindCount");
+    }
 
     // ===================================================================================
     //                                                                      Instance Cache

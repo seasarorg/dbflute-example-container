@@ -11,8 +11,14 @@ import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.helper.beans.DfBeanDesc;
+import org.seasar.dbflute.helper.beans.DfPropertyDesc;
+import org.seasar.dbflute.helper.beans.factory.DfBeanDescFactory;
+import org.seasar.dbflute.jdbc.Classification;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 import com.example.dbflute.guice.simpleflute.dto.customize.*;
+import com.example.dbflute.guice.dbflute.dtomapper.customize.*;
 
 /**
  * The DTO mapper of PmCommentHint. <br />
@@ -59,6 +65,7 @@ public abstract class BsPmCommentHintDtoMapper implements DtoMapper<PmCommentHin
     //                                                                           =========
     protected final Map<Entity, Object> _relationDtoMap;
     protected final Map<Object, Entity> _relationEntityMap;
+    protected boolean _exceptCommonColumn;
     protected boolean _reverseReference; // default: one-way reference
     protected boolean _instanceCache = true; // default: cached
 
@@ -91,6 +98,7 @@ public abstract class BsPmCommentHintDtoMapper implements DtoMapper<PmCommentHin
         PmCommentHintDto dto = new PmCommentHintDto();
         dto.setMemberId(entity.getMemberId());
         dto.setMemberName(entity.getMemberName());
+        reflectDerivedProperty(entity, dto, true);
         return dto;
     }
 
@@ -132,6 +140,7 @@ public abstract class BsPmCommentHintDtoMapper implements DtoMapper<PmCommentHin
         if (needsMapping(dto, dto.getMemberName(), "memberName")) {
             entity.setMemberName(dto.getMemberName());
         }
+        reflectDerivedProperty(entity, dto, false);
         return entity;
     }
 
@@ -202,6 +211,39 @@ public abstract class BsPmCommentHintDtoMapper implements DtoMapper<PmCommentHin
         _instanceCache = false;
     }
 
+    // -----------------------------------------------------
+    //                                      Derived Property
+    //                                      ----------------
+    protected void reflectDerivedProperty(Entity entity, Object dto, boolean toDto) {
+        DfBeanDesc entityDesc = DfBeanDescFactory.getBeanDesc(entity.getClass());
+        DfBeanDesc dtoDesc = DfBeanDescFactory.getBeanDesc(dto.getClass());
+        DBMeta dbmeta = entity.getDBMeta();
+        for (String propertyName : entityDesc.getProppertyNameList()) {
+            if (dbmeta.hasColumn(propertyName)
+                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
+                    || !dtoDesc.hasPropertyDesc(propertyName)) {
+                continue;
+            }
+            DfPropertyDesc entityProp = entityDesc.getPropertyDesc(propertyName);
+            Class<?> propertyType = entityProp.getPropertyType();
+            if (List.class.isAssignableFrom(propertyType)
+                    || Entity.class.isAssignableFrom(propertyType)
+                    || Classification.class.isAssignableFrom(propertyType)) {
+                continue;
+            }
+            if (entityProp.isReadable() && entityProp.isWritable()) {
+                DfPropertyDesc dtoProp = dtoDesc.getPropertyDesc(propertyName);
+                if (dtoProp.isReadable() && dtoProp.isWritable()) {
+                    if (toDto) {
+                        dtoProp.setValue(dto, entityProp.getValue(entity));
+                    } else {
+                        entityProp.setValue(entity, dtoProp.getValue(dto));
+                    }
+                }
+            }
+        }
+    }
+
     // ===================================================================================
     //                                                                   Suppress Relation
     //                                                                   =================
@@ -225,10 +267,55 @@ public abstract class BsPmCommentHintDtoMapper implements DtoMapper<PmCommentHin
         }
     }
 
+    protected boolean isExceptCommonColumn() {
+        return _exceptCommonColumn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setExceptCommonColumn(boolean exceptCommonColumn) {
+        _exceptCommonColumn = exceptCommonColumn;
+    }
+
+    protected boolean isReverseReference() {
+        return _reverseReference;
+    }
+
     /**
      * {@inheritDoc}
      */
     public void setReverseReference(boolean reverseReference) {
         _reverseReference = reverseReference;
+    }
+
+    // -----------------------------------------------------
+    //                                           Easy-to-Use
+    //                                           -----------
+    /**
+     * Enable base-only mapping that means the mapping ignores all references.
+     * @return this. (NotNull)
+     */
+    public PmCommentHintDtoMapper baseOnlyMapping() {
+        setBaseOnlyMapping(true);
+        return (PmCommentHintDtoMapper)this;
+    }
+
+    /**
+     * Enable except common column that means the mapping excepts common column.
+     * @return this. (NotNull)
+     */
+    public PmCommentHintDtoMapper exceptCommonColumn() {
+        setExceptCommonColumn(true);
+        return (PmCommentHintDtoMapper)this;
+    }
+
+    /**
+     * Enable reverse reference that means the mapping contains reverse references.
+     * @return this. (NotNull)
+     */
+    public PmCommentHintDtoMapper reverseReference() {
+        setReverseReference(true);
+        return (PmCommentHintDtoMapper)this;
     }
 }

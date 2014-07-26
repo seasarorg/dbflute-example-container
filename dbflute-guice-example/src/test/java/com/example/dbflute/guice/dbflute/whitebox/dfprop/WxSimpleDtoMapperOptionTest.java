@@ -143,4 +143,87 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
             }
         }
     }
+
+    // ===================================================================================
+    //                                                                Ignore Common Column
+    //                                                                ====================
+    public void test_mappingToDtoList_exceptCommonColumn_toDto() throws Exception {
+        // ## Arrange ##
+        MemberDtoMapper mapper = new MemberDtoMapper();
+        mapper.setExceptCommonColumn(true);
+        final MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        cb.setupSelect_MemberSecurityAsOne();
+        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        assertHasAnyElement(memberList);
+        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+            public void setup(PurchaseCB cb) {
+                cb.setupSelect_Product();
+            }
+        });
+
+        // ## Act ##
+        List<MemberDto> dtoList = mapper.mappingToDtoList(memberList);
+
+        // ## Assert ##
+        for (MemberDto memberDto : dtoList) {
+            log(memberDto);
+            assertNotNull(memberDto.getMemberName());
+            assertNotNull(memberDto.getMemberAccount());
+            assertNull(memberDto.getRegisterDatetime());
+            assertNull(memberDto.getRegisterUser());
+            assertNull(memberDto.getUpdateDatetime());
+            assertNull(memberDto.getUpdateUser());
+            assertNotNull(memberDto.getMemberStatus());
+            assertNotNull(memberDto.getMemberStatus().getMemberStatusName());
+            assertNotNull(memberDto.getMemberSecurityAsOne());
+            assertNotNull(memberDto.getMemberSecurityAsOne().getLoginPassword());
+            assertNull(memberDto.getMemberSecurityAsOne().getRegisterDatetime());
+            assertNull(memberDto.getMemberSecurityAsOne().getRegisterUser());
+        }
+    }
+
+    public void test_mappingToDtoList_exceptCommonColumn_toEntity() throws Exception {
+        // ## Arrange ##
+        List<MemberDto> dtoList;
+        {
+            MemberDtoMapper mapper = new MemberDtoMapper();
+            final MemberCB cb = new MemberCB();
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            assertHasAnyElement(memberList);
+            memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+                public void setup(PurchaseCB cb) {
+                    cb.setupSelect_Product();
+                }
+            });
+            dtoList = mapper.mappingToDtoList(memberList);
+            for (Member member : memberList) {
+                assertNotNull(member.getRegisterDatetime());
+            }
+        }
+
+        // ## Act ##
+        List<Member> memberList = new MemberDtoMapper().exceptCommonColumn().mappingToEntityList(dtoList);
+
+        // ## Assert ##
+        for (Member member : memberList) {
+            log(member);
+            assertNotNull(member.getMemberName());
+            assertNotNull(member.getMemberAccount());
+            assertNull(member.getRegisterDatetime());
+            assertNull(member.getRegisterUser());
+            assertNull(member.getUpdateDatetime());
+            assertNull(member.getUpdateUser());
+            assertTrue(member.getMemberStatus().isPresent());
+            assertNotNull(member.getMemberStatus().get().getMemberStatusName());
+            assertTrue(member.getMemberSecurityAsOne().isPresent());
+            assertNotNull(member.getMemberSecurityAsOne().get().getLoginPassword());
+            assertNull(member.getMemberSecurityAsOne().get().getRegisterDatetime());
+            assertNull(member.getMemberSecurityAsOne().get().getRegisterUser());
+        }
+    }
 }

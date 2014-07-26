@@ -12,6 +12,11 @@ import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.helper.beans.DfBeanDesc;
+import org.seasar.dbflute.helper.beans.DfPropertyDesc;
+import org.seasar.dbflute.helper.beans.factory.DfBeanDescFactory;
+import org.seasar.dbflute.jdbc.Classification;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
@@ -62,6 +67,7 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
     //                                                                           =========
     protected final Map<Entity, Object> _relationDtoMap;
     protected final Map<Object, Entity> _relationEntityMap;
+    protected boolean _exceptCommonColumn;
     protected boolean _reverseReference; // default: one-way reference
     protected boolean _instanceCache = true; // default: cached
     protected boolean _suppressPurchase;
@@ -98,20 +104,30 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
         if (cachedLocalDto != null) {
             return (PurchasePaymentDto)cachedLocalDto;
         }
+        boolean exceptCommonColumn = isExceptCommonColumn();
         PurchasePaymentDto dto = new PurchasePaymentDto();
         dto.setPurchasePaymentId(entity.getPurchasePaymentId());
         dto.setPurchaseId(entity.getPurchaseId());
         dto.setPaymentAmount(entity.getPaymentAmount());
         dto.setPaymentDatetime(entity.getPaymentDatetime());
         dto.setPaymentMethodCode(entity.getPaymentMethodCode());
-        dto.setRegisterDatetime(entity.getRegisterDatetime());
-        dto.setRegisterUser(entity.getRegisterUser());
-        dto.setUpdateDatetime(entity.getUpdateDatetime());
-        dto.setUpdateUser(entity.getUpdateUser());
+        if (!exceptCommonColumn) {
+            dto.setRegisterDatetime(entity.getRegisterDatetime());
+        }
+        if (!exceptCommonColumn) {
+            dto.setRegisterUser(entity.getRegisterUser());
+        }
+        if (!exceptCommonColumn) {
+            dto.setUpdateDatetime(entity.getUpdateDatetime());
+        }
+        if (!exceptCommonColumn) {
+            dto.setUpdateUser(entity.getUpdateUser());
+        }
+        reflectDerivedProperty(entity, dto, true);
         if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only a DTO that has a primary key value
             _relationDtoMap.put(localKey, dto);
         }
-        boolean reverseReference = _reverseReference;
+        boolean reverseReference = isReverseReference();
         if (!_suppressPurchase && entity.getPurchase().isPresent()) {
             Purchase relationEntity = entity.getPurchase().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
@@ -124,6 +140,7 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
                 }
             } else {
                 PurchaseDtoMapper mapper = new PurchaseDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressPurchasePaymentList();
@@ -177,6 +194,7 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
         if (cachedLocalEntity != null) {
             return (PurchasePayment)cachedLocalEntity;
         }
+        boolean exceptCommonColumn = isExceptCommonColumn();
         PurchasePayment entity = new PurchasePayment();
         if (needsMapping(dto, dto.getPurchasePaymentId(), "purchasePaymentId")) {
             entity.setPurchasePaymentId(dto.getPurchasePaymentId());
@@ -193,22 +211,23 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
         if (needsMapping(dto, dto.getPaymentMethodCode(), "paymentMethodCode")) {
             entity.setPaymentMethodCodeAsPaymentMethod(CDef.PaymentMethod.codeOf(dto.getPaymentMethodCode()));
         }
-        if (needsMapping(dto, dto.getRegisterDatetime(), "registerDatetime")) {
+        if (needsMapping(dto, dto.getRegisterDatetime(), "registerDatetime") && !exceptCommonColumn) {
             entity.setRegisterDatetime(dto.getRegisterDatetime());
         }
-        if (needsMapping(dto, dto.getRegisterUser(), "registerUser")) {
+        if (needsMapping(dto, dto.getRegisterUser(), "registerUser") && !exceptCommonColumn) {
             entity.setRegisterUser(dto.getRegisterUser());
         }
-        if (needsMapping(dto, dto.getUpdateDatetime(), "updateDatetime")) {
+        if (needsMapping(dto, dto.getUpdateDatetime(), "updateDatetime") && !exceptCommonColumn) {
             entity.setUpdateDatetime(dto.getUpdateDatetime());
         }
-        if (needsMapping(dto, dto.getUpdateUser(), "updateUser")) {
+        if (needsMapping(dto, dto.getUpdateUser(), "updateUser") && !exceptCommonColumn) {
             entity.setUpdateUser(dto.getUpdateUser());
         }
+        reflectDerivedProperty(entity, dto, false);
         if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only an entity that has a primary key value
             _relationEntityMap.put(localKey, entity);
         }
-        boolean reverseReference = _reverseReference;
+        boolean reverseReference = isReverseReference();
         if (!_suppressPurchase && dto.getPurchase() != null) {
             PurchaseDto relationDto = dto.getPurchase();
             Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
@@ -221,6 +240,7 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
                 }
             } else {
                 PurchaseDtoMapper mapper = new PurchaseDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressPurchasePaymentList();
@@ -304,6 +324,39 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
         _instanceCache = false;
     }
 
+    // -----------------------------------------------------
+    //                                      Derived Property
+    //                                      ----------------
+    protected void reflectDerivedProperty(Entity entity, Object dto, boolean toDto) {
+        DfBeanDesc entityDesc = DfBeanDescFactory.getBeanDesc(entity.getClass());
+        DfBeanDesc dtoDesc = DfBeanDescFactory.getBeanDesc(dto.getClass());
+        DBMeta dbmeta = entity.getDBMeta();
+        for (String propertyName : entityDesc.getProppertyNameList()) {
+            if (dbmeta.hasColumn(propertyName)
+                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
+                    || !dtoDesc.hasPropertyDesc(propertyName)) {
+                continue;
+            }
+            DfPropertyDesc entityProp = entityDesc.getPropertyDesc(propertyName);
+            Class<?> propertyType = entityProp.getPropertyType();
+            if (List.class.isAssignableFrom(propertyType)
+                    || Entity.class.isAssignableFrom(propertyType)
+                    || Classification.class.isAssignableFrom(propertyType)) {
+                continue;
+            }
+            if (entityProp.isReadable() && entityProp.isWritable()) {
+                DfPropertyDesc dtoProp = dtoDesc.getPropertyDesc(propertyName);
+                if (dtoProp.isReadable() && dtoProp.isWritable()) {
+                    if (toDto) {
+                        dtoProp.setValue(dto, entityProp.getValue(entity));
+                    } else {
+                        entityProp.setValue(entity, dtoProp.getValue(dto));
+                    }
+                }
+            }
+        }
+    }
+
     // ===================================================================================
     //                                                                   Suppress Relation
     //                                                                   =================
@@ -332,10 +385,55 @@ public abstract class BsPurchasePaymentDtoMapper implements DtoMapper<PurchasePa
         }
     }
 
+    protected boolean isExceptCommonColumn() {
+        return _exceptCommonColumn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setExceptCommonColumn(boolean exceptCommonColumn) {
+        _exceptCommonColumn = exceptCommonColumn;
+    }
+
+    protected boolean isReverseReference() {
+        return _reverseReference;
+    }
+
     /**
      * {@inheritDoc}
      */
     public void setReverseReference(boolean reverseReference) {
         _reverseReference = reverseReference;
+    }
+
+    // -----------------------------------------------------
+    //                                           Easy-to-Use
+    //                                           -----------
+    /**
+     * Enable base-only mapping that means the mapping ignores all references.
+     * @return this. (NotNull)
+     */
+    public PurchasePaymentDtoMapper baseOnlyMapping() {
+        setBaseOnlyMapping(true);
+        return (PurchasePaymentDtoMapper)this;
+    }
+
+    /**
+     * Enable except common column that means the mapping excepts common column.
+     * @return this. (NotNull)
+     */
+    public PurchasePaymentDtoMapper exceptCommonColumn() {
+        setExceptCommonColumn(true);
+        return (PurchasePaymentDtoMapper)this;
+    }
+
+    /**
+     * Enable reverse reference that means the mapping contains reverse references.
+     * @return this. (NotNull)
+     */
+    public PurchasePaymentDtoMapper reverseReference() {
+        setReverseReference(true);
+        return (PurchasePaymentDtoMapper)this;
     }
 }

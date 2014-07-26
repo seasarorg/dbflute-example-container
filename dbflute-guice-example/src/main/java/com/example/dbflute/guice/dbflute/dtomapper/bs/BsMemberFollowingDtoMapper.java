@@ -12,6 +12,11 @@ import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.bhv.DtoMapper;
 import org.seasar.dbflute.bhv.InstanceKeyDto;
 import org.seasar.dbflute.bhv.InstanceKeyEntity;
+import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.helper.beans.DfBeanDesc;
+import org.seasar.dbflute.helper.beans.DfPropertyDesc;
+import org.seasar.dbflute.helper.beans.factory.DfBeanDescFactory;
+import org.seasar.dbflute.jdbc.Classification;
 import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
@@ -61,6 +66,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
     //                                                                           =========
     protected final Map<Entity, Object> _relationDtoMap;
     protected final Map<Object, Entity> _relationEntityMap;
+    protected boolean _exceptCommonColumn;
     protected boolean _reverseReference; // default: one-way reference
     protected boolean _instanceCache = true; // default: cached
     protected boolean _suppressMemberByMyMemberId;
@@ -98,15 +104,17 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         if (cachedLocalDto != null) {
             return (MemberFollowingDto)cachedLocalDto;
         }
+        boolean exceptCommonColumn = isExceptCommonColumn();
         MemberFollowingDto dto = new MemberFollowingDto();
         dto.setMemberFollowingId(entity.getMemberFollowingId());
         dto.setMyMemberId(entity.getMyMemberId());
         dto.setYourMemberId(entity.getYourMemberId());
         dto.setFollowDatetime(entity.getFollowDatetime());
+        reflectDerivedProperty(entity, dto, true);
         if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only a DTO that has a primary key value
             _relationDtoMap.put(localKey, dto);
         }
-        boolean reverseReference = _reverseReference;
+        boolean reverseReference = isReverseReference();
         if (!_suppressMemberByMyMemberId && entity.getMemberByMyMemberId().isPresent()) {
             Member relationEntity = entity.getMemberByMyMemberId().get();
             Entity relationKey = createInstanceKeyEntity(relationEntity);
@@ -119,6 +127,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             } else {
                 MemberDtoMapper mapper = new MemberDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByMyMemberIdList();
@@ -144,6 +153,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             } else {
                 MemberDtoMapper mapper = new MemberDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByYourMemberIdList();
@@ -197,6 +207,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         if (cachedLocalEntity != null) {
             return (MemberFollowing)cachedLocalEntity;
         }
+        boolean exceptCommonColumn = isExceptCommonColumn();
         MemberFollowing entity = new MemberFollowing();
         if (needsMapping(dto, dto.getMemberFollowingId(), "memberFollowingId")) {
             entity.setMemberFollowingId(dto.getMemberFollowingId());
@@ -210,10 +221,11 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         if (needsMapping(dto, dto.getFollowDatetime(), "followDatetime")) {
             entity.setFollowDatetime(dto.getFollowDatetime());
         }
+        reflectDerivedProperty(entity, dto, false);
         if (instanceCache && entity.hasPrimaryKeyValue()) { // caches only an entity that has a primary key value
             _relationEntityMap.put(localKey, entity);
         }
-        boolean reverseReference = _reverseReference;
+        boolean reverseReference = isReverseReference();
         if (!_suppressMemberByMyMemberId && dto.getMemberByMyMemberId() != null) {
             MemberDto relationDto = dto.getMemberByMyMemberId();
             Object relationKey = createInstanceKeyDto(relationDto, relationDto.instanceHash());
@@ -226,6 +238,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             } else {
                 MemberDtoMapper mapper = new MemberDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByMyMemberIdList();
@@ -251,6 +264,7 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             } else {
                 MemberDtoMapper mapper = new MemberDtoMapper(_relationDtoMap, _relationEntityMap);
+                mapper.setExceptCommonColumn(exceptCommonColumn);
                 mapper.setReverseReference(reverseReference);
                 if (!instanceCache) { mapper.disableInstanceCache(); }
                 mapper.suppressMemberFollowingByYourMemberIdList();
@@ -334,6 +348,39 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         _instanceCache = false;
     }
 
+    // -----------------------------------------------------
+    //                                      Derived Property
+    //                                      ----------------
+    protected void reflectDerivedProperty(Entity entity, Object dto, boolean toDto) {
+        DfBeanDesc entityDesc = DfBeanDescFactory.getBeanDesc(entity.getClass());
+        DfBeanDesc dtoDesc = DfBeanDescFactory.getBeanDesc(dto.getClass());
+        DBMeta dbmeta = entity.getDBMeta();
+        for (String propertyName : entityDesc.getProppertyNameList()) {
+            if (dbmeta.hasColumn(propertyName)
+                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
+                    || !dtoDesc.hasPropertyDesc(propertyName)) {
+                continue;
+            }
+            DfPropertyDesc entityProp = entityDesc.getPropertyDesc(propertyName);
+            Class<?> propertyType = entityProp.getPropertyType();
+            if (List.class.isAssignableFrom(propertyType)
+                    || Entity.class.isAssignableFrom(propertyType)
+                    || Classification.class.isAssignableFrom(propertyType)) {
+                continue;
+            }
+            if (entityProp.isReadable() && entityProp.isWritable()) {
+                DfPropertyDesc dtoProp = dtoDesc.getPropertyDesc(propertyName);
+                if (dtoProp.isReadable() && dtoProp.isWritable()) {
+                    if (toDto) {
+                        dtoProp.setValue(dto, entityProp.getValue(entity));
+                    } else {
+                        entityProp.setValue(entity, dtoProp.getValue(dto));
+                    }
+                }
+            }
+        }
+    }
+
     // ===================================================================================
     //                                                                   Suppress Relation
     //                                                                   =================
@@ -367,10 +414,55 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         }
     }
 
+    protected boolean isExceptCommonColumn() {
+        return _exceptCommonColumn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setExceptCommonColumn(boolean exceptCommonColumn) {
+        _exceptCommonColumn = exceptCommonColumn;
+    }
+
+    protected boolean isReverseReference() {
+        return _reverseReference;
+    }
+
     /**
      * {@inheritDoc}
      */
     public void setReverseReference(boolean reverseReference) {
         _reverseReference = reverseReference;
+    }
+
+    // -----------------------------------------------------
+    //                                           Easy-to-Use
+    //                                           -----------
+    /**
+     * Enable base-only mapping that means the mapping ignores all references.
+     * @return this. (NotNull)
+     */
+    public MemberFollowingDtoMapper baseOnlyMapping() {
+        setBaseOnlyMapping(true);
+        return (MemberFollowingDtoMapper)this;
+    }
+
+    /**
+     * Enable except common column that means the mapping excepts common column.
+     * @return this. (NotNull)
+     */
+    public MemberFollowingDtoMapper exceptCommonColumn() {
+        setExceptCommonColumn(true);
+        return (MemberFollowingDtoMapper)this;
+    }
+
+    /**
+     * Enable reverse reference that means the mapping contains reverse references.
+     * @return this. (NotNull)
+     */
+    public MemberFollowingDtoMapper reverseReference() {
+        setReverseReference(true);
+        return (MemberFollowingDtoMapper)this;
     }
 }
