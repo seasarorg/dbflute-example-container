@@ -7,6 +7,8 @@ import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.ManualOrderBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
+import org.seasar.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.seasar.dbflute.cbean.coption.ColumnConversionOption;
 import org.seasar.dbflute.util.Srl;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
@@ -22,7 +24,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.9.4C (2012/04/26 Wednesday)
  */
-public class WxCBDreamCruiseManualOrderTest extends UnitContainerTestCase {
+public class WxCBManualOrderDreamCruiseTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -210,6 +212,60 @@ public class WxCBDreamCruiseManualOrderTest extends UnitContainerTestCase {
         String exp = "(dfloc.MEMBER_ID * dfrel_4.SERVICE_POINT_COUNT) * dfrel_3.REMINDER_USE_COUNT";
         assertTrue(sql.contains("order by " + exp + " asc"));
         assertEquals(2, Srl.count(sql, "left outer join"));
+    }
+
+    // ===================================================================================
+    //                                                                             Convert
+    //                                                                             =======
+    public void test_DreamCruise_ManualOrder_convert_basic() throws Exception {
+        // ## Arrange ##
+        ListResultBean<MemberService> serviceList = memberServiceBhv.selectList(new MemberServiceCB());
+        Map<Integer, MemberService> serviceMap = new HashMap<Integer, MemberService>();
+        for (MemberService service : serviceList) {
+            serviceMap.put(service.getMemberId(), service);
+        }
+        MemberCB cb = new MemberCB();
+        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+        ManualOrderBean mob = new ManualOrderBean();
+        mob.convert(new ColumnConversionOption().coalesce(0));
+        mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+        cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("order by (coalesce(dfloc.MEMBER_ID, 0)) * dfrel"));
+        assertTrue(sql.contains(".SERVICE_POINT_COUNT asc"));
+    }
+
+    public void test_DreamCruise_ManualOrder_convert_both() throws Exception {
+        // ## Arrange ##
+        ListResultBean<MemberService> serviceList = memberServiceBhv.selectList(new MemberServiceCB());
+        Map<Integer, MemberService> serviceMap = new HashMap<Integer, MemberService>();
+        for (MemberService service : serviceList) {
+            serviceMap.put(service.getMemberId(), service);
+        }
+        MemberCB cb = new MemberCB();
+        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+        ManualOrderBean mob = new ManualOrderBean();
+        mob.convert(new ColumnConversionOption().coalesce(0));
+        HpSpecifiedColumn columnPoint = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+        columnPoint.convert(new ColumnConversionOption().coalesce(0));
+        mob.multiply(columnPoint);
+        mob.convert(new ColumnConversionOption().coalesce(0));
+        cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("order by coalesce(((coalesce(dfloc.MEMBER_ID, 0)) * coalesce(dfrel"));
+        assertTrue(sql.contains(".SERVICE_POINT_COUNT, 0)), 0) asc"));
     }
 
     // ===================================================================================

@@ -13,7 +13,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.9.4C (2012/04/26 Wednesday)
  */
-public class WxCBDreamCruiseLikeSearchTest extends UnitContainerTestCase {
+public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
