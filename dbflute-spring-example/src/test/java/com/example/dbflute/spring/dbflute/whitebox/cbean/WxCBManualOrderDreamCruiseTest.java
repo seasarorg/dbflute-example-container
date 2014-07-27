@@ -268,6 +268,35 @@ public class WxCBManualOrderDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(sql.contains(".SERVICE_POINT_COUNT, 0)), 0) asc"));
     }
 
+    public void test_DreamCruise_ManualOrder_convert_nested() throws Exception {
+        // ## Arrange ##
+        ListResultBean<MemberService> serviceList = memberServiceBhv.selectList(new MemberServiceCB());
+        Map<Integer, MemberService> serviceMap = new HashMap<Integer, MemberService>();
+        for (MemberService service : serviceList) {
+            serviceMap.put(service.getMemberId(), service);
+        }
+        MemberCB cb = new MemberCB();
+        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+        ManualOrderBean mob = new ManualOrderBean();
+        mob.convert(new ColumnConversionOption().coalesce(0));
+        HpSpecifiedColumn columnPoint = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+        columnPoint.convert(new ColumnConversionOption().coalesce(0)).plus(
+                dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount());
+        mob.multiply(columnPoint);
+        mob.convert(new ColumnConversionOption().coalesce(0));
+        cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("order by coalesce(((coalesce(dfloc.MEMBER_ID, 0)) * (coalesce(dfrel"));
+        assertTrue(sql.contains(".SERVICE_POINT_COUNT, 0)) + dfrel"));
+        assertTrue(sql.contains("3.REMINDER_USE_COUNT), 0)"));
+    }
+
     // ===================================================================================
     //                                                                               Union
     //                                                                               =====
