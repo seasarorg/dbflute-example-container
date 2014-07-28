@@ -356,16 +356,12 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
         DfBeanDesc dtoDesc = DfBeanDescFactory.getBeanDesc(dto.getClass());
         DBMeta dbmeta = entity.getDBMeta();
         for (String propertyName : entityDesc.getProppertyNameList()) {
-            if (dbmeta.hasColumn(propertyName)
-                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
-                    || !dtoDesc.hasPropertyDesc(propertyName)) {
+            if (isOutOfDerivedPropertyName(entity, dto, toDto, dbmeta, entityDesc, dtoDesc, propertyName)) {
                 continue;
             }
             DfPropertyDesc entityProp = entityDesc.getPropertyDesc(propertyName);
             Class<?> propertyType = entityProp.getPropertyType();
-            if (List.class.isAssignableFrom(propertyType)
-                    || Entity.class.isAssignableFrom(propertyType)
-                    || Classification.class.isAssignableFrom(propertyType)) {
+            if (isOutOfDerivedPropertyType(entity, dto, toDto, propertyName, propertyType)) {
                 continue;
             }
             if (entityProp.isReadable() && entityProp.isWritable()) {
@@ -379,6 +375,21 @@ public abstract class BsMemberFollowingDtoMapper implements DtoMapper<MemberFoll
                 }
             }
         }
+    }
+
+    protected boolean isOutOfDerivedPropertyName(Entity entity, Object dto, boolean toDto
+                                               , DBMeta dbmeta, DfBeanDesc entityDesc, DfBeanDesc dtoDesc
+                                               , String propertyName) {
+        return dbmeta.hasColumn(propertyName)
+                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
+                    || !dtoDesc.hasPropertyDesc(propertyName);
+    }
+
+    protected boolean isOutOfDerivedPropertyType(Entity entity, Object dto, boolean toDto
+                                               , String propertyName, Class<?> propertyType) {
+        return List.class.isAssignableFrom(propertyType)
+                || Entity.class.isAssignableFrom(propertyType)
+                || Classification.class.isAssignableFrom(propertyType);
     }
 
     // ===================================================================================

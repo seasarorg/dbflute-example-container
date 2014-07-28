@@ -691,18 +691,15 @@ public abstract class BsMemberDtoMapper implements DtoMapper<Member, MemberDto>,
         DfBeanDesc dtoDesc = DfBeanDescFactory.getBeanDesc(dto.getClass());
         DBMeta dbmeta = entity.getDBMeta();
         for (String propertyName : entityDesc.getProppertyNameList()) {
-            if (dbmeta.hasColumn(propertyName)
-                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
-                    || !dtoDesc.hasPropertyDesc(propertyName)) {
+            if (isOutOfDerivedPropertyName(entity, dto, toDto, dbmeta, entityDesc, dtoDesc, propertyName)) {
                 continue;
             }
             DfPropertyDesc entityProp = entityDesc.getPropertyDesc(propertyName);
             Class<?> propertyType = entityProp.getPropertyType();
-            if (isOutOfDerivedProperty(entity, dto, toDto, propertyType)) {
+            if (isOutOfDerivedPropertyType(entity, dto, toDto, propertyName, propertyType)) {
                 continue;
             }
             if (entityProp.isReadable() && entityProp.isWritable()) {
-                System.out.println("***: " + propertyName);
                 DfPropertyDesc dtoProp = dtoDesc.getPropertyDesc(propertyName);
                 if (dtoProp.isReadable() && dtoProp.isWritable()) {
                     if (toDto) {
@@ -715,7 +712,16 @@ public abstract class BsMemberDtoMapper implements DtoMapper<Member, MemberDto>,
         }
     }
 
-    protected boolean isOutOfDerivedProperty(Entity entity, Object dto, boolean toDto, Class<?> propertyType) {
+    protected boolean isOutOfDerivedPropertyName(Entity entity, Object dto, boolean toDto
+                                               , DBMeta dbmeta, DfBeanDesc entityDesc, DfBeanDesc dtoDesc
+                                               , String propertyName) {
+        return dbmeta.hasColumn(propertyName)
+                    || dbmeta.hasForeign(propertyName) || dbmeta.hasReferrer(propertyName)
+                    || !dtoDesc.hasPropertyDesc(propertyName);
+    }
+
+    protected boolean isOutOfDerivedPropertyType(Entity entity, Object dto, boolean toDto
+                                               , String propertyName, Class<?> propertyType) {
         return List.class.isAssignableFrom(propertyType)
                 || Entity.class.isAssignableFrom(propertyType)
                 || Classification.class.isAssignableFrom(propertyType);

@@ -69,6 +69,19 @@ map:{
     }
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o jacksonDecorationMap: (NotRequired - Default map:{})
+    #  You can decarate for Jackson. (for example, using JsonFormat annotaton)
+    #   o datePattern: format pattern of DATE type (NotRequired - Default null)
+    #   o timestampPattern: format pattern of TIMESTAMP type (NotRequired - Default null)
+    #   o timePattern: format pattern of TIME type (NotRequired - Default null)
+    #
+    ; jacksonDecorationMap = map:{
+        ; datePattern = yyyy-MM-dd
+        ; timestampPattern = yyyy-MM-dd HH:mm:ss.SSS
+        ; timePattern = HH:mm:ss
+    }
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o gwtDecorationMap: (NotRequired - Default map:{})
     #  You can decarate for GWT.
     #   o isSuppressJavaDependency:
