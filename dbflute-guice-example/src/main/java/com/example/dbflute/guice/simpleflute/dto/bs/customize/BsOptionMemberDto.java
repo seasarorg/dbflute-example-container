@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 
 /**
@@ -370,6 +372,8 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
@@ -387,6 +391,8 @@ public abstract class BsOptionMemberDto implements Serializable {
      * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;
     }

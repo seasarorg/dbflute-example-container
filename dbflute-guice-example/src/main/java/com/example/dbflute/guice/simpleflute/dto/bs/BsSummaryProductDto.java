@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
@@ -333,6 +335,8 @@ public abstract class BsSummaryProductDto implements Serializable {
      * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getLatestPurchaseDatetime() {
         return _latestPurchaseDatetime;
     }

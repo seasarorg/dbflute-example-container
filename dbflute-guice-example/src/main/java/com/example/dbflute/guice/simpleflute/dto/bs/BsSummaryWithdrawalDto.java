@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The simple DTO of SUMMARY_WITHDRAWAL as VIEW. <br />
@@ -278,6 +280,8 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
      * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getWithdrawalDatetime() {
         return _withdrawalDatetime;
     }

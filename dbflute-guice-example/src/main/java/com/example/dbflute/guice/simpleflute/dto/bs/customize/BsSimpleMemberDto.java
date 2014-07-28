@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The simple DTO of SimpleMember. <br />
@@ -192,6 +194,8 @@ public abstract class BsSimpleMemberDto implements Serializable {
      * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }

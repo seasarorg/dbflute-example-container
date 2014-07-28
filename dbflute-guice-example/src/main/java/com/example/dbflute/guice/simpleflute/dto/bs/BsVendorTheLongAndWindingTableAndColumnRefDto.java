@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
@@ -197,6 +199,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public org.joda.time.LocalDate getTheLongAndWindingTableAndColumnRefDate() {
         return _theLongAndWindingTableAndColumnRefDate;
     }
@@ -214,6 +218,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
      * [get] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'SHORT_DATE'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public org.joda.time.LocalDate getShortDate() {
         return _shortDate;
     }

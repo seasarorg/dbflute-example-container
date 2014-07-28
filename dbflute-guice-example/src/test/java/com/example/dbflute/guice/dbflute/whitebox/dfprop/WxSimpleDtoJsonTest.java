@@ -1,11 +1,13 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
+import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 import junit.framework.AssertionFailedError;
 import net.arnx.jsonic.JSON;
+import net.arnx.jsonic.JSONHint;
 
 import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
@@ -23,6 +25,7 @@ import com.example.dbflute.guice.dbflute.nogen.JodaUtil;
 import com.example.dbflute.guice.simpleflute.dto.MemberDto;
 import com.example.dbflute.guice.simpleflute.dto.PurchaseDto;
 import com.example.dbflute.guice.unit.UnitContainerTestCase;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author jflute
@@ -207,7 +210,7 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                          Decoration
     //                                                                          ==========
-    public void test_JSON_decoration_Date_and_Timestamp() {
+    public void test_JSONIC_decoration_Date_and_Timestamp() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberId_Equal(3);
@@ -243,5 +246,27 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
         //assertNotNull(decoded);
         //assertEquals(birthdate, decoded.getBirthdate());
         //assertEquals(formalized, decoded.getFormalizedDatetime());
+    }
+
+    public void test_JSONIC_annotation() throws Exception {
+        // ## Arrange ##
+        Method method = MemberDto.class.getMethod("getBirthdate", (Class<?>[]) null);
+
+        // ## Act ##
+        JSONHint jsonFormat = method.getAnnotation(JSONHint.class);
+
+        // ## Assert ##
+        assertEquals("yyyy-MM-dd", jsonFormat.format());
+    }
+
+    public void test_Jackson_annotation() throws Exception {
+        // ## Arrange ##
+        Method method = MemberDto.class.getMethod("getBirthdate", (Class<?>[]) null);
+
+        // ## Act ##
+        JsonFormat jsonFormat = method.getAnnotation(JsonFormat.class);
+
+        // ## Assert ##
+        assertEquals("yyyy-MM-dd", jsonFormat.pattern());
     }
 }

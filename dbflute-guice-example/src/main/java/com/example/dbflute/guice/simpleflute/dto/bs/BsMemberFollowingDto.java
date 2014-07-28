@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
@@ -224,6 +226,8 @@ public abstract class BsMemberFollowingDto implements Serializable {
      * [get] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'FOLLOW_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getFollowDatetime() {
         return _followDatetime;
     }

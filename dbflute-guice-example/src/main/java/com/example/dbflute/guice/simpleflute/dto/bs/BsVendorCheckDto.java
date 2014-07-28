@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The simple DTO of VENDOR_CHECK as TABLE. <br />
@@ -564,6 +566,8 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_DATE: {DATE(8)} <br />
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     public org.joda.time.LocalDate getTypeOfDate() {
         return _typeOfDate;
     }
@@ -581,6 +585,8 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getTypeOfTimestamp() {
         return _typeOfTimestamp;
     }
@@ -598,6 +604,8 @@ public abstract class BsVendorCheckDto implements Serializable {
      * [get] TYPE_OF_TIME: {TIME(6)} <br />
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed)
      */
+    @JSONHint(format="HH:mm:ss")
+    @JsonFormat(pattern="HH:mm:ss")
     public org.joda.time.LocalTime getTypeOfTime() {
         return _typeOfTime;
     }

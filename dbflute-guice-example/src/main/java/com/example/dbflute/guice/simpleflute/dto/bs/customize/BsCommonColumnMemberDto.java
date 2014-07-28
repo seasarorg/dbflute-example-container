@@ -3,7 +3,9 @@ package com.example.dbflute.guice.simpleflute.dto.bs.customize;
 import java.io.Serializable;
 import java.util.*;
 
+import net.arnx.jsonic.JSONHint;
 import net.vvakame.util.jsonpullparser.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The simple DTO of CommonColumnMember. <br />
@@ -206,6 +208,8 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [get] (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getRegisterDatetime() {
         return _registerDatetime;
     }
@@ -240,6 +244,8 @@ public abstract class BsCommonColumnMemberDto implements Serializable {
      * [get] (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
+    @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     public org.joda.time.LocalDateTime getUpdateDatetime() {
         return _updateDatetime;
     }
