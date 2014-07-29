@@ -12,6 +12,7 @@ import org.seasar.dbflute.cbean.ScalarQuery;
 import org.seasar.dbflute.cbean.SpecifyQuery;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
+import org.seasar.dbflute.exception.QueryIllegalPurposeException;
 import org.seasar.dbflute.exception.SpecifyRelationIllegalPurposeException;
 import org.seasar.dbflute.util.Srl;
 
@@ -33,7 +34,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.6.0 (2008/01/16 Wednesday)
  */
-public class WxCBScalarConditionTest extends UnitContainerTestCase {
+public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -468,6 +469,31 @@ public class WxCBScalarConditionTest extends UnitContainerTestCase {
             // ## Assert ##
             fail();
         } catch (SpecifyRelationIllegalPurposeException e) {
+            // OK
+            log(e.getMessage());
+        }
+    }
+
+    public void test_scalarCondition_partitionBy_query() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+            public void query(MemberCB subCB) {
+                subCB.specify().columnBirthdate();
+            }
+        }).partitionBy(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberStatusCode();
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            }
+        });
+
+        // ## Act ##
+        try {
+            memberBhv.selectList(cb);
+            // ## Assert ##
+            fail();
+        } catch (QueryIllegalPurposeException e) {
             // OK
             log(e.getMessage());
         }

@@ -239,4 +239,37 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
             assertEquals(Integer.valueOf(displayOrder + 1), memberId);
         }
     }
+
+    // ===================================================================================
+    //                                                                  SpecifyColculation 
+    //                                                                  ==================
+    public void test_ColumnQuery_SpecifyCalculation_plus() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        cb.specify().specifyMemberStatus().columnDisplayOrder();
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberId();
+            }
+        }).equal(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().specifyMemberStatus().columnDisplayOrder().plus(3);
+            }
+        }).plus(1);
+        cb.query().addOrderBy_MemberId_Asc();
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        for (Member member : memberList) {
+            Integer memberId = member.getMemberId();
+            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            log(memberId + ", " + displayOrder);
+            assertEquals(Integer.valueOf(displayOrder + 3 + 1), memberId);
+        }
+    }
+
 }

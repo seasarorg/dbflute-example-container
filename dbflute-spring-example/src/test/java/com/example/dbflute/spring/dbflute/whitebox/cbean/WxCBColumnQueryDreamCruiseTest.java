@@ -34,7 +34,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
-    public void test_DreamCruise_ColumnQuery_basic() throws Exception {
+    public void test_ColumnQuery_DreamCruise_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();
@@ -69,7 +69,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
         assertEquals(expectedList, memberList);
     }
 
-    public void test_DreamCruise_ColumnQuery_calculation_basic() throws Exception {
+    public void test_ColumnQuery_DreamCruise_calculation_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();
@@ -122,7 +122,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
         return memberBhv.selectList(cb);
     }
 
-    public void test_DreamCruise_ColumnQuery_relation_convert() throws Exception {
+    public void test_ColumnQuery_DreamCruise_relation_convert() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();
@@ -160,9 +160,69 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                  SpecifyCalculation
+    //                                                                  ==================
+    public void test_ColumnQuery_DreamCruise_SpecifyCalculation_leftPlain_rightDream() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.specify().columnBirthdate();
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberId().plus(3);
+            }
+        }).lessEqual(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                        subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
+                    }
+                }, null);
+            }
+        }).multiply(5);
+
+        // ## Act ##
+        memberBhv.selectList(cb); // expect no exception
+
+        // ## Assert ##
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("where dfloc.MEMBER_ID + 3 <= (select max("));
+        assertTrue(sql.contains(" <= (select max(sub1loc.PURCHASE_PRICE + sub1loc.PURCHASE_COUNT)"));
+        assertTrue(sql.contains(") * 5"));
+    }
+
+    public void test_ColumnQuery_DreamCruise_SpecifyCalculation_leftDream_rightPlain() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.specify().columnBirthdate();
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                        subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
+                    }
+                }, null);
+            }
+        }).lessEqual(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnMemberId().plus(3);
+            }
+        }).multiply(5);
+
+        // ## Act ##
+        memberBhv.selectList(cb); // expect no exception
+
+        // ## Assert ##
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("where (select max(sub1loc.PURCHASE_PRICE + sub1loc.PURCHASE_COUNT)"));
+        assertTrue(sql.contains(") <= (dfloc.MEMBER_ID + 3) * 5"));
+    }
+
+    // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
-    public void test_DreamCruise_ColumnQuery_MyselfExists_basic() throws Exception {
+    public void test_ColumnQuery_DreamCruise_MyselfExists_basic() throws Exception {
         // ## Arrange ##
         MemberAddress first;
         {

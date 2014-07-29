@@ -27,6 +27,7 @@ map:{
     ; baseMapperPackage = com.example.dbflute.guice.dbflute.dtomapper.bs
 	; extendedMapperPackage = com.example.dbflute.guice.dbflute.dtomapper
 	#; isMappingReverseReference = true
+	#; isMappingExceptCommonColumn = true
 
     # Class and Package for CDef
     ; simpleCDefClass = AppCDef

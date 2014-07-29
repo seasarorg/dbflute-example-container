@@ -31,8 +31,8 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
 public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
 
     // ===================================================================================
-    //                                                                           Attribute
-    //                                                                           =========
+    //                                                                        Attribute
+    //                                                                        =========
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
 

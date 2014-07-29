@@ -37,7 +37,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.6.0 (2008/01/16 Wednesday)
  */
-public class WxBhvScalarSelectTest extends UnitContainerTestCase {
+public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -257,6 +257,49 @@ public class WxBhvScalarSelectTest extends UnitContainerTestCase {
             // ## Assert ##
             log("sum = " + sum);
             assertEquals(expected, sum); // should be selected uniquely
+            assertTrue(markSet.contains("handle"));
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_ScalarSelect_with_UnionQuery_PrimaryKey_sum() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberServiceAsOne();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        Integer expected = 0;
+        for (Member member : memberList) {
+            Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
+            log("pointCount = " + pointCount);
+            expected = expected + pointCount;
+        }
+        final Set<String> markSet = new HashSet<String>();
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                MemberServiceDbm dbm = MemberServiceDbm.getInstance();
+                String displaySql = info.getDisplaySql();
+                assertTrue(Srl.contains(displaySql, dbm.columnMemberServiceId().getColumnDbName()));
+                assertFalse(Srl.contains(displaySql, dbm.columnServicePointCount().getColumnDbName()));
+                assertFalse(Srl.contains(displaySql, dbm.columnServiceRankCode().getColumnDbName()));
+                markSet.add("handle");
+            }
+        });
+
+        // ## Act ##
+        try {
+            Integer sum = memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
+                public void query(MemberServiceCB cb) {
+                    cb.specify().columnMemberServiceId();
+                    cb.union(new UnionQuery<MemberServiceCB>() {
+                        public void query(MemberServiceCB unionCB) {
+                        }
+                    });
+                }
+            });
+
+            // ## Assert ##
+            log("sum = " + sum);
             assertTrue(markSet.contains("handle"));
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
