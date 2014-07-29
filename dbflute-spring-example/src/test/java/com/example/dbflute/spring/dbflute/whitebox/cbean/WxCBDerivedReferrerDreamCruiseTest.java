@@ -181,4 +181,38 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(sql.contains("sub2loc.PAYMENT_AMOUNT + sub2loc.PURCHASE_PAYMENT_ID), 3) + 4"));
         assertTrue(sql.contains("where sub2loc.PURCHASE_ID = sub1loc.PURCHASE_ID"));
     }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    public void test_QueryDerivedReferrer_SpecifyCalculation_DreamCruise_basic() throws Exception {
+        MemberCB cb = new MemberCB();
+        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            public void query(PurchaseCB subCB) {
+                subCB.specify().columnPurchasePrice().plus(3);
+            }
+        }).greaterEqual(100);
+        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            public void query(PurchaseCB subCB) {
+                PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
+            }
+        }).greaterEqual(2000);
+        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        cb.query().addOrderBy_Birthdate_Desc();
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
+        }
+        String sql = cb.toDisplaySql();
+        assertTrue(sql.contains("where (select max(sub1loc.PURCHASE_PRICE + 3)"));
+        assertTrue(sql.contains(") >= 100"));
+        assertTrue(sql.contains("  and (select max(sub1loc.PURCHASE_PRICE + sub1rel_0.MEMBER_ID)"));
+        assertTrue(sql.contains(") >= 2000"));
+    }
 }
