@@ -75,7 +75,7 @@ public class DBFluteConfig {
     protected boolean _thatsBadTimingDetect = false;
     protected boolean _emptyStringQueryAllowed;
     protected boolean _emptyStringParameterAllowed;
-    protected boolean _invalidQueryChecked;
+    protected boolean _invalidQueryChecked = false;
     protected boolean _disableSelectIndex;
     protected boolean _checkCountBeforeQueryUpdate = false;
 

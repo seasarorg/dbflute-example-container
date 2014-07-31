@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.seasar.dbflute.cbean.SpecifyQuery;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
+import org.seasar.dbflute.cbean.coption.ColumnConversionOption;
 import org.seasar.dbflute.cbean.coption.DerivedReferrerOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 import org.seasar.dbflute.util.Srl;
@@ -86,6 +87,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 });
             }
         });
+        log(ln() + cb.getSqlClause().getClause());
 
         // ## Act ##
         serviceRankBhv.selectList(cb); // expect no exception
@@ -200,6 +202,82 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         assertTrue(rear.contains(", 456), 7)"));
         assertTrue(rear.contains(" ) + 888) - 654"));
         assertTrue(rear.contains(">= '2011-12-21 00:00:00.000'"));
+    }
+
+    public void test_ColumnQuery_in_ExistsReferrer_rightDerived_SpecifyCalculation() throws Exception {
+        // ## Arrange ##
+        ServiceRankCB cb = new ServiceRankCB();
+        cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+            public void query(MemberServiceCB subCB) {
+                subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
+                    public void specify(MemberServiceCB cb) {
+                        cb.specify().columnServicePointCount();
+                    }
+                }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
+                    public void specify(MemberServiceCB cb) {
+                        cb.specify().specifyServiceRank().derivedMemberServiceList()
+                                .avg(new SubQuery<MemberServiceCB>() {
+                                    public void query(MemberServiceCB subCB) {
+                                        subCB.specify().columnServicePointCount()
+                                                .convert(new ColumnConversionOption().coalesce(9));
+                                        subCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                                    }
+                                }, null, new DerivedReferrerOption().coalesce(123).round(8));
+                    }
+                });
+            }
+        });
+
+        // ## Act ##
+        serviceRankBhv.selectList(cb); // expect no exception
+        String displaySql = cb.toDisplaySql();
+
+        // ## Assert ##
+        assertTrue(displaySql.contains("where exists (select sub1loc.SERVICE_RANK_CODE"));
+        assertTrue(displaySql.contains("and sub1loc.SERVICE_POINT_COUNT > (select round(coalesce(avg(coalesce("));
+        assertTrue(displaySql.contains("round(coalesce(avg(coalesce(sub2loc.SERVICE_POINT_COUNT, 9)), 123), 8)"));
+        assertTrue(displaySql.contains("where sub2loc.SERVICE_RANK_CODE = sub1rel_1.SERVICE_RANK_CODE"));
+        assertTrue(displaySql.contains("= 'ColumnQueryUser'"));
+    }
+
+    // ===================================================================================
+    //                                                            (Specify)DerivedReferrer
+    //                                                            ========================
+    public void test_ColumnQuery_in_DerivedReferrer_rightDerived_SpecifyCalculation() throws Exception {
+        // ## Arrange ##
+        ServiceRankCB cb = new ServiceRankCB();
+        cb.specify().derivedMemberServiceList().max(new SubQuery<MemberServiceCB>() {
+            public void query(MemberServiceCB subCB) {
+                subCB.specify().columnServicePointCount();
+                subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
+                    public void specify(MemberServiceCB cb) {
+                        cb.specify().columnServicePointCount();
+                    }
+                }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
+                    public void specify(MemberServiceCB cb) {
+                        cb.specify().specifyServiceRank().derivedMemberServiceList()
+                                .avg(new SubQuery<MemberServiceCB>() {
+                                    public void query(MemberServiceCB subCB) {
+                                        subCB.specify().columnServicePointCount()
+                                                .convert(new ColumnConversionOption().coalesce(9));
+                                        subCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                                    }
+                                }, null, new DerivedReferrerOption().coalesce(123).round(8));
+                    }
+                });
+            }
+        }, ServiceRank.ALIAS_loginCount);
+
+        // ## Act ##
+        serviceRankBhv.selectList(cb); // expect no exception
+        String displaySql = cb.toDisplaySql();
+
+        // ## Assert ##
+        assertTrue(displaySql.contains(", (select max(sub1loc.SERVICE_POINT_COUNT)"));
+        assertTrue(displaySql.contains("and sub1loc.SERVICE_POINT_COUNT > (select round(coalesce(avg(coalesce("));
+        assertTrue(displaySql.contains("round(coalesce(avg(coalesce(sub2loc.SERVICE_POINT_COUNT, 9)), 123), 8)"));
+        assertTrue(displaySql.contains("where sub2loc.SERVICE_RANK_CODE = sub1rel_1.SERVICE_RANK_CODE"));
+        assertTrue(displaySql.contains("= 'ColumnQueryUser'"));
     }
 
     // ===================================================================================

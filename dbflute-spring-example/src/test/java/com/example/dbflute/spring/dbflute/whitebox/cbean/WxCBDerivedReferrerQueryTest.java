@@ -236,4 +236,6 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
         assertTrue(sql.contains("where sub1main.MEMBER_ID = dfloc.MEMBER_ID"));
         assertTrue(sql.contains(") >= 1"));
     }
+
+    // *(Query)DerivedReferrer using DreamCruise is at WxCBDerivedReferrerDreamCruiseTest
 }

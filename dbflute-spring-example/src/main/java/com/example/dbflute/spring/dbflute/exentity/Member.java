@@ -44,6 +44,12 @@ public class Member extends BsMember {
     protected Integer _loginCount;
     protected Integer _productKindCount;
 
+    /** TOTAL_PAYMENT_AMOUNT: Derived Referrer Alias. */
+    public static final String ALIAS_totalPaymentAmount = "TOTAL_PAYMENT_AMOUNT";
+
+    /** TOTAL_PAYMENT_AMOUNT: (Derived Referrer) */
+    protected Integer _totalPaymentAmount;
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
@@ -77,5 +83,21 @@ public class Member extends BsMember {
 
     public void setProductKindCount(Integer productKindCount) {
         this._productKindCount = productKindCount;
+    }
+
+    /**
+     * [get] TOTAL_PAYMENT_AMOUNT: (Derived Referrer)
+     * @return The value of the column 'TOTAL_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public Integer getTotalPaymentAmount() {
+        return _totalPaymentAmount;
+    }
+
+    /**
+     * [set] TOTAL_PAYMENT_AMOUNT: (Derived Referrer)
+     * @param totalPaymentAmount The value of the column 'TOTAL_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public void setTotalPaymentAmount(Integer totalPaymentAmount) {
+        _totalPaymentAmount = totalPaymentAmount;
     }
 }
