@@ -3,11 +3,11 @@ package com.example.dbflute.guice.dbflute.howto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.ManualOrderBean;
@@ -746,7 +746,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean existsNullLoginDatetime = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             if (latestLoginDatetime != null) {
                 existsLoginDatetime = true;
             } else {

@@ -1,6 +1,6 @@
 package com.example.dbflute.guice.dbflute.exentity;
 
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 
 /**
  * The entity of MEMBER.
@@ -18,11 +18,17 @@ public class Member extends com.example.dbflute.guice.dbflute.bsentity.BsMember 
     public static final String PROP_loginCount = "loginCount";
     public static final String PROP_productKindCount = "productKindCount";
 
+    /** HIGHEST_PURCHASE_PRICE: Derived Referrer Alias. */
+    public static final String PROP_highestPurchasePrice = "HIGHEST_PURCHASE_PRICE";
+
+    /** PROP_TOTAL_PAYMENT_AMOUNT: Derived Referrer Alias. */
+    public static final String PROP_totalPaymentAmount = "PROP_TOTAL_PAYMENT_AMOUNT";
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     /** 導出カラム「最終ログイン日時」のためのプロパティ。これは手動で作成する。 */
-    protected Date _latestLoginDatetime;
+    protected LocalDateTime _latestLoginDatetime;
 
     /** 導出カラム「ログイン回数」のためのプロパティ。これは手動で作成する。 */
     protected Integer _loginCount;
@@ -30,14 +36,20 @@ public class Member extends com.example.dbflute.guice.dbflute.bsentity.BsMember 
     /** 導出カラム「プロダクト種類数」のためのプロパティ。これは手動で作成する。 */
     protected Integer _productKindCount;
 
+    /** HIGHEST_PURCHASE_PRICE: (Derived Referrer) */
+    protected Integer _highestPurchasePrice;
+
+    /** PROP_TOTAL_PAYMENT_AMOUNT: (Derived Referrer) */
+    protected Integer _propTotalPaymentAmount;
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public Date getLatestLoginDatetime() {
+    public LocalDateTime getLatestLoginDatetime() {
         return _latestLoginDatetime;
     }
 
-    public void setLatestLoginDatetime(Date latestLoginDatetime) {
+    public void setLatestLoginDatetime(LocalDateTime latestLoginDatetime) {
         _latestLoginDatetime = latestLoginDatetime;
     }
 
@@ -55,5 +67,37 @@ public class Member extends com.example.dbflute.guice.dbflute.bsentity.BsMember 
 
     public void setProductKindCount(Integer productKindCount) {
         this._productKindCount = productKindCount;
+    }
+
+    /**
+     * [get] HIGHEST_PURCHASE_PRICE: (Derived Referrer)
+     * @return The value of the column 'HIGHEST_PURCHASE_PRICE'. (NullAllowed)
+     */
+    public Integer getHighestPurchasePrice() {
+        return _highestPurchasePrice;
+    }
+
+    /**
+     * [set] HIGHEST_PURCHASE_PRICE: (Derived Referrer)
+     * @param highestPurchasePrice The value of the column 'HIGHEST_PURCHASE_PRICE'. (NullAllowed)
+     */
+    public void setHighestPurchasePrice(Integer highestPurchasePrice) {
+        _highestPurchasePrice = highestPurchasePrice;
+    }
+
+    /**
+     * [get] PROP_TOTAL_PAYMENT_AMOUNT: (Derived Referrer)
+     * @return The value of the column 'PROP_TOTAL_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public Integer getPropTotalPaymentAmount() {
+        return _propTotalPaymentAmount;
+    }
+
+    /**
+     * [set] PROP_TOTAL_PAYMENT_AMOUNT: (Derived Referrer)
+     * @param propTotalPaymentAmount The value of the column 'PROP_TOTAL_PAYMENT_AMOUNT'. (NullAllowed)
+     */
+    public void setPropTotalPaymentAmount(Integer propTotalPaymentAmount) {
+        _propTotalPaymentAmount = propTotalPaymentAmount;
     }
 }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
@@ -103,7 +104,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             // ## Assert ##
-            Date loginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime loginDatetime = member.getLatestLoginDatetime();
             Integer loginCount = member.getLoginCount();
             Integer productKindCount = member.getProductKindCount();
             if (loginDatetime != null) {
