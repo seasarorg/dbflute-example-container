@@ -42,8 +42,8 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         if (DBFluteConfig.getInstance().isPagingCountLeastJoin()) {
             enablePagingCountLeastJoin();
         }
-        if (DBFluteConfig.getInstance().isCheckCountBeforeQueryUpdate()) {
-            enableCheckCountBeforeQueryUpdate();
+        if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
+            enableQueryUpdateCountPreCheck();
         }
     }
 

@@ -140,16 +140,16 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
     //                                                                              ======
     protected void setupSqlClauseOption(SqlClause sqlClause) {
         if (isInnerJoinAutoDetect()) {
-            sqlClause.allowInnerJoinAutoDetect();
+            sqlClause.enableInnerJoinAutoDetect();
         }
         if (isThatsBadTimingDetect()) {
-            sqlClause.allowThatsBadTimingDetect();
+            sqlClause.enableThatsBadTimingDetect();
         }
         if (isEmptyStringQueryAllowed()) {
-            sqlClause.allowEmptyStringQuery();
+            sqlClause.enableEmptyStringQuery();
         }
-        if (isInvalidQueryChecked()) {
-            sqlClause.checkInvalidQuery();
+        if (isNullOrEmptyQueryChecked()) {
+            sqlClause.checkNullOrEmptyQuery();
         }
         if (isDisableSelectIndex()) {
             sqlClause.disableSelectIndex();
@@ -175,8 +175,8 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
 	    return DBFluteConfig.getInstance().isEmptyStringQueryAllowed();
     }
 
-    protected boolean isInvalidQueryChecked() {
-	    return DBFluteConfig.getInstance().isInvalidQueryChecked();
+    protected boolean isNullOrEmptyQueryChecked() {
+	    return DBFluteConfig.getInstance().isNullOrEmptyQueryChecked();
     }
 
     protected boolean isDisableSelectIndex() {

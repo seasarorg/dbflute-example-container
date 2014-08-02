@@ -42,7 +42,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
@@ -54,8 +54,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
         cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
@@ -81,7 +81,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
@@ -93,8 +93,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
         cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
@@ -120,7 +120,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
@@ -132,8 +132,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
         cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
@@ -204,7 +204,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.suppressInnerJoinAutoDetect();
+            cb.disableInnerJoinAutoDetect();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
@@ -219,8 +219,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
@@ -249,7 +249,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
@@ -265,8 +265,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
@@ -297,7 +297,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         int expectedCount;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
@@ -313,8 +313,8 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             assertTrue(cb.toDisplaySql().contains("left outer join"));
         }
         MemberCB cb = new MemberCB();
-        cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
@@ -340,6 +340,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void test_innerJoin_ColumnQuery_DerivedReferrer() {
         // ## Arrange ##
         int expectedCount;
@@ -365,7 +366,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         }
         MemberCB cb = new MemberCB();
         cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {

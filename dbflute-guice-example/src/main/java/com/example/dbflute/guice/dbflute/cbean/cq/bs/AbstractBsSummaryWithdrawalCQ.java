@@ -941,6 +941,9 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
         SummaryWithdrawalCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -975,6 +978,10 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

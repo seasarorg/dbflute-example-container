@@ -166,7 +166,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb);
         }
         MemberCB cb = new MemberCB();
-        cb.allowInnerJoinAutoDetect();
+        cb.enableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
@@ -203,7 +203,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb);
         }
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
@@ -240,7 +240,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb);
         }
         MemberCB cb = new MemberCB();
-        cb.allowInnerJoinAutoDetect();
+        cb.enableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setDisplayOrder_Equal(1);
@@ -277,7 +277,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb);
         }
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setDisplayOrder_Equal(1);
@@ -353,7 +353,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     public void test_CountLeastJoin_ColumnQuery_innerJoinAutoDetect() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.allowInnerJoinAutoDetect();
+        cb.enableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.setupSelect_MemberServiceAsOne().withServiceRank();
@@ -394,7 +394,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     public void test_CountLeastJoin_ColumnQuery_leftOuterJoinBasis() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.setupSelect_MemberServiceAsOne().withServiceRank();
@@ -438,7 +438,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     public void test_CountLeastJoin_ExistsReferrer() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.allowInnerJoinAutoDetect();
+        cb.enableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.setupSelect_MemberServiceAsOne().withServiceRank();
@@ -474,7 +474,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     public void test_CountLeastJoin_QueryDerivedReferrer() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.allowInnerJoinAutoDetect();
+        cb.enableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         cb.setupSelect_MemberServiceAsOne().withServiceRank();

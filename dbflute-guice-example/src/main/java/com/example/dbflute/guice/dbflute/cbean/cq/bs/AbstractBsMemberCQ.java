@@ -1473,6 +1473,9 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(MemberCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1507,6 +1510,10 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

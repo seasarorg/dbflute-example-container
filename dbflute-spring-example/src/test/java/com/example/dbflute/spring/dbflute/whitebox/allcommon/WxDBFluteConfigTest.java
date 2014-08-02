@@ -71,7 +71,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(Srl.contains(cb.toDisplaySql(), "MEMBER_NAME = ''"));
-        cb.allowEmptyStringQuery(); // expect no exception
+        cb.enableEmptyStringQuery(); // expect no exception
     }
 
     public void test_invalidQuery_emptyStringParameterAllowed_basic() throws Exception {

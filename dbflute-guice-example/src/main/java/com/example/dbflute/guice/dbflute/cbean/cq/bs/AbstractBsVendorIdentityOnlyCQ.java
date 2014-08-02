@@ -351,6 +351,9 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
     public abstract String keepMyselfInScope(VendorIdentityOnlyCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -385,6 +388,10 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

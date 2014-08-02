@@ -79,7 +79,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     public void test_badTiming_allRight() {
         // ## Arrange ##
         final MemberStatusCB cb = new MemberStatusCB();
-        cb.allowThatsBadTiming();
+        cb.enableThatsBadTiming();
         cb.query().setDisplayOrder_Equal(3);
         cb.query().existsMemberList(new SubQuery<MemberCB>() {
             public void query(MemberCB memberCB) {
@@ -415,7 +415,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     //                                                                         ===========
     protected MemberCB createCB() {
         final MemberCB cb = new MemberCB();
-        cb.allowThatsBadTiming();
+        cb.enableThatsBadTiming();
         return cb;
     }
 }

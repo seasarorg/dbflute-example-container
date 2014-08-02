@@ -513,6 +513,9 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
     protected abstract ConditionValue getCValueDisplayOrder();
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -547,6 +550,10 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

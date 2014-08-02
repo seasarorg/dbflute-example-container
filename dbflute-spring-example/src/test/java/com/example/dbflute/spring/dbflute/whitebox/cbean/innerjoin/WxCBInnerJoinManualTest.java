@@ -28,7 +28,7 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.query().queryMemberStatus().setDisplayOrder_Equal(1);
         cb.query().queryMemberStatus().innerJoin();
 
@@ -51,7 +51,7 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne();
         cb.query().queryMemberWithdrawalAsOne().innerJoin();
@@ -76,7 +76,7 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.setupSelect_MemberWithdrawalAsOne();
         cb.query().queryMemberWithdrawalAsOne().innerJoin();
         cb.setupSelect_MemberStatus();
@@ -101,7 +101,7 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.query().queryMemberStatus().inline().setDisplayOrder_Equal(1);
         cb.query().queryMemberStatus().innerJoin();
 
@@ -127,7 +127,7 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        cb.getSqlClause().suppressInnerJoinAutoDetect();
+        cb.getSqlClause().disableInnerJoinAutoDetect();
         cb.query().queryMemberStatus().setDisplayOrder_Equal(1);
         cb.query().queryMemberStatus().innerJoin();
         cb.union(new UnionQuery<MemberCB>() {

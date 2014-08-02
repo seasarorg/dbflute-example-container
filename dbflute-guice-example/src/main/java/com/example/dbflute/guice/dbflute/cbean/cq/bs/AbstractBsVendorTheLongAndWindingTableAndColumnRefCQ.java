@@ -607,6 +607,9 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     }
     public abstract String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -641,6 +644,10 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

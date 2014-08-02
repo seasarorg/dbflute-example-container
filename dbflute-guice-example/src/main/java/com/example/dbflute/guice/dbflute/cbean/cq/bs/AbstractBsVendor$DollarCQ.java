@@ -416,6 +416,9 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(Vendor$DollarCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -450,6 +453,10 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
+
+    // ===================================================================================
+    //                                                                    Small Adjustment
+    //                                                                    ================
 
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {

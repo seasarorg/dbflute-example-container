@@ -30,7 +30,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberStatus().setDisplayOrder_Equal(1);
 
         // ## Act ##
@@ -52,7 +52,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberWithdrawalAsOne();
 
@@ -74,7 +74,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberStatus().inline().setDisplayOrder_Equal(1);
 
         // ## Act ##
@@ -98,14 +98,14 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().setMemberStatusCode_Equal_Withdrawal();
             cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             countAll = memberBhv.selectCount(cb);
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setDisplayOrder_Equal(1);
 
         // ## Act ##
@@ -130,13 +130,13 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().setMemberStatusCode_NotEqual_Withdrawal();
             countAll = memberBhv.selectCount(cb);
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().setMemberId_IsNull();
 
         // ## Act ##
@@ -157,7 +157,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setMemberStatusCode_NotEqual_Withdrawal();
@@ -168,7 +168,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_IsNull();
 
         // ## Act ##
@@ -189,7 +189,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonInputText_IsNullOrEmpty();
@@ -199,7 +199,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonInputText_IsNullOrEmpty();
 
         // ## Act ##
@@ -220,13 +220,13 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().setMemberStatusCode_Equal_Withdrawal();
             countAll = memberBhv.selectCount(cb);
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().setMemberId_IsNotNull();
 
         // ## Act ##
@@ -247,14 +247,14 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll;
         {
             MemberCB cb = new MemberCB();
-            cb.getSqlClause().suppressInnerJoinAutoDetect();
+            cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.query().setMemberStatusCode_Equal_Withdrawal();
             cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             countAll = memberBhv.selectCount(cb);
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_IsNotNull();
 
         // ## Act ##
@@ -278,7 +278,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(new MemberCB());
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.query().queryMemberStatus().setDisplayOrder_Equal(1);
         cb.union(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {
@@ -315,7 +315,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
                 orCB.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_Equal_Prd();
@@ -350,7 +350,7 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         }
 
         MemberCB cb = new MemberCB();
-        allowWhereUsedInnerJoinOnly(cb);
+        enableWhereUsedInnerJoinOnly(cb);
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
                 orCB.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_IsNull();
@@ -371,8 +371,8 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         }
     }
 
-    protected void allowWhereUsedInnerJoinOnly(ConditionBean cb) {
-        cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().allowWhereUsedInnerJoin();
+    protected void enableWhereUsedInnerJoinOnly(ConditionBean cb) {
+        cb.disableInnerJoinAutoDetect();
+        cb.getSqlClause().enableWhereUsedInnerJoin();
     }
 }

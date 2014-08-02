@@ -17,7 +17,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.7.8 (2010/12/20 Monday)
  */
-public class WxCBInvalidQueryTest extends UnitContainerTestCase {
+public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -25,8 +25,47 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
     private MemberBhv memberBhv;
 
     // ===================================================================================
-    //                                                                       Invalid Query
-    //                                                                       =============
+    //                                                                               Check
+    //                                                                               =====
+    // -----------------------------------------------------
+    //                                                 Basic
+    //                                                 -----
+    public void test_checkNullOrEmptyQuery_basic() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.query().setMemberId_Equal(null); // no exception
+        cb.query().setMemberName_PrefixSearch(""); // no exception
+        cb.checkNullOrEmptyQuery();
+
+        // ## Act ##
+        try {
+            cb.query().setMemberId_Equal(null);
+
+            // ## Assert ##
+            fail();
+        } catch (InvalidQueryRegisteredException e) {
+            // OK
+            log(e.getMessage());
+            assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
+        }
+        try {
+            cb.query().setMemberName_PrefixSearch("");
+
+            fail();
+        } catch (InvalidQueryRegisteredException e) {
+            // OK
+            log(e.getMessage());
+            assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
+        }
+
+        // ## Act ##
+        cb.query().setMemberId_Equal(3);
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+
+        // ## Assert ##
+        assertEquals(Integer.valueOf(3), actual.getMemberId());
+    }
+
     public void test_checkInvalidQuery_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
@@ -63,10 +102,13 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         assertEquals(Integer.valueOf(3), actual.getMemberId());
     }
 
-    public void test_checkInvalidQuery_fromTo() {
+    // -----------------------------------------------------
+    //                                                FromTo
+    //                                                ------
+    public void test_checkNullOrEmptyQuery_fromTo_oneSide() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.checkInvalidQuery();
+        cb.checkNullOrEmptyQuery();
 
         // ## Act ##
         cb.query().setBirthdate_DateFromTo(DfTypeUtil.toDate("2006-09-26"), null); // OK
@@ -85,10 +127,13 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_checkInvalidQuery_splitBy_basic() {
+    // -----------------------------------------------------
+    //                                               SplitBy
+    //                                               -------
+    public void test_checkNullOrEmptyQuery_splitBy_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.checkInvalidQuery();
+        cb.checkNullOrEmptyQuery();
         LikeSearchOption option = new LikeSearchOption().splitByPipeLine();
 
         // ## Act ##
@@ -108,6 +153,9 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         }
     }
 
+    // -----------------------------------------------------
+    //                                              SubQuery
+    //                                              --------
     public void test_checkInvalidQuery_subquery() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
@@ -135,6 +183,9 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         }
     }
 
+    // -----------------------------------------------------
+    //                                                 Union
+    //                                                 -----
     public void test_checkInvalidQuery_union() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
@@ -162,7 +213,10 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_throughInvalidQuery_basic() {
+    // ===================================================================================
+    //                                                                              Ignore
+    //                                                                              ======
+    public void test_ignoreNullOrEmptyQuery_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberId_Equal(null); // no exception
@@ -189,7 +243,7 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
             log(e.getMessage());
             assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
         }
-        cb.acceptInvalidQuery();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberId_Equal(null); // no exception
         cb.query().setMemberName_PrefixSearch(""); // no exception
 
@@ -201,46 +255,17 @@ public class WxCBInvalidQueryTest extends UnitContainerTestCase {
         assertEquals(Integer.valueOf(3), actual.getMemberId());
     }
 
-    // ===================================================================================
-    //                                                                        Empty String
-    //                                                                        ============
-    public void test_allowEmptyStringQuery_basic() {
+    public void test_ignoreNullOrEmptyQuery_fromTo_oneSide() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setMemberName_Equal("");
+        cb.specify().columnMemberName(); // remove BIRTHDATE to assert
+        cb.ignoreNullOrEmptyQuery();
 
         // ## Act ##
-        cb.allowEmptyStringQuery();
+        cb.query().setBirthdate_DateFromTo(null, null);
 
-        // ## Assert ##
-        cb.query().setMemberAccount_Equal("");
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertFalse(sql.contains(" dfloc.MEMBER_NAME = ''"));
-        assertTrue(sql.contains(" dfloc.MEMBER_ACCOUNT = ''"));
-    }
-
-    public void test_allowEmptyStringQuery_subquery() {
-        // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductHandleCode_Equal("");
-            }
-        });
-
-        // ## Act ##
-        cb.allowEmptyStringQuery();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductStatusCode_Equal("");
-            }
-        });
-
-        // ## Assert ##
-        String sql = cb.toDisplaySql();
-        log(ln() + sql);
-        assertFalse(sql.contains("PRODUCT_HANDLE_CODE = ''"));
-        assertTrue(sql.contains("PRODUCT_STATUS_CODE = ''"));
+        assertNotContains(sql, "BIRTHDATE");
     }
 }

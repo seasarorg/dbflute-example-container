@@ -42,8 +42,8 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
         if (DBFluteConfig.getInstance().isPagingCountLeastJoin()) {
             enablePagingCountLeastJoin();
         }
-        if (DBFluteConfig.getInstance().isCheckCountBeforeQueryUpdate()) {
-            enableCheckCountBeforeQueryUpdate();
+        if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
+            enableQueryUpdateCountPreCheck();
         }
     }
 
