@@ -11,6 +11,7 @@ import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.chelper.HpSpecifiedColumn;
 import org.seasar.dbflute.cbean.coption.ColumnConversionOption;
 import org.seasar.dbflute.cbean.coption.DerivedReferrerOption;
+import org.seasar.dbflute.exception.SQLFailureException;
 import org.seasar.dbflute.jdbc.SqlLogHandler;
 import org.seasar.dbflute.jdbc.SqlLogInfo;
 
@@ -98,13 +99,14 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
             }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, ", (select max(sub1loc.PURCHASE_PRICE) + 3");
-            assertContains(sql, ", (select max(sub1loc.PURCHASE_PRICE) + dfrel_4.SERVICE_POINT_COUNT");
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertContains(pagingSql, ", (select max(sub1loc.PURCHASE_PRICE) + 3");
+            assertContains(pagingSql, ", (select max(sub1loc.PURCHASE_PRICE) + dfrel_4.SERVICE_POINT_COUNT");
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertContains(secondInfo.getDisplaySql(), "select count(*)");
-            assertNotContains(secondInfo.getDisplaySql(), "MEMBER_SERVICE");
+            String countSql = secondInfo.getDisplaySql();
+            assertContains(countSql, "select count(*)");
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -301,13 +303,14 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
             }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, ", (select max((sub1loc.PURCHASE_PRICE + (round(sub1rel_0.MEMBER_ID, 4)))");
-            assertContains(sql, " + (round(sub1rel_0.MEMBER_ID, 4))) / dfrel_4.SERVICE_POINT_COUNT)");
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertContains(pagingSql, ", (select max((sub1loc.PURCHASE_PRICE + (round(sub1rel_0.MEMBER_ID, 4)))");
+            assertContains(pagingSql, " + (round(sub1rel_0.MEMBER_ID, 4))) / dfrel_4.SERVICE_POINT_COUNT)");
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertTrue(secondInfo.getDisplaySql().contains("select count(*)"));
-            assertFalse(secondInfo.getDisplaySql().contains("join"));
+            String countSql = secondInfo.getDisplaySql();
+            assertContains(countSql, "select count(*)");
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -637,21 +640,32 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         });
         try {
             // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectPage(cb); // expect no exception
+            try {
+                memberBhv.selectPage(cb);
+                fail();
+            } catch (SQLFailureException e) {
+                String msg = e.getMessage();
+                log(msg);
+                assertContains(msg, "must be in the GROUP BY list"); // H2 says
+            }
 
             // ## Assert ##
-            assertHasAnyElement(memberList);
-            for (Member member : memberList) {
-                log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
-            }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, ", (select max((sub1loc.PURCHASE_PRICE + (round(sub1rel_0.MEMBER_ID, 4)))");
-            assertContains(sql, " + (round(sub1rel_0.MEMBER_ID, 4))) / dfrel_4.SERVICE_POINT_COUNT)");
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertNotContains(pagingSql, "select count(*)");
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(pagingSql, "where (select max(sub1loc.PURCHASE_PRICE + 3)");
+            assertContains(pagingSql, "      ) >= dfloc.VERSION_NO");
+            assertContains(pagingSql, "  and (select max(sub1loc.PURCHASE_PRICE) + dfrel_4.SERVICE_POINT_COUNT");
+            assertContains(pagingSql, "      ) >= 3");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertTrue(secondInfo.getDisplaySql().contains("select count(*)"));
-            assertFalse(secondInfo.getDisplaySql().contains("join"));
+            String countSql = secondInfo.getDisplaySql();
+            assertContains(countSql, "select count(*)");
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(countSql, "where (select max(sub1loc.PURCHASE_PRICE + 3)");
+            assertContains(countSql, "      ) >= dfloc.VERSION_NO");
+            assertContains(countSql, "  and (select max(sub1loc.PURCHASE_PRICE) + dfrel_4.SERVICE_POINT_COUNT");
+            assertContains(countSql, "      ) >= 3");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -692,13 +706,21 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
             }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, ", (select max((sub1loc.PURCHASE_PRICE + (round(sub1rel_0.MEMBER_ID, 4)))");
-            assertContains(sql, " + (round(sub1rel_0.MEMBER_ID, 4))) / dfrel_4.SERVICE_POINT_COUNT)");
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertNotContains(pagingSql, "select count(*)");
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(pagingSql, "where (select max(sub1loc.PURCHASE_PRICE + 3)");
+            assertContains(pagingSql, "      ) >= dfloc.VERSION_NO");
+            assertContains(pagingSql, "  and (select max(sub1loc.PURCHASE_PRICE + sub1rel_0.MEMBER_ID)");
+            assertContains(pagingSql, "      ) >= dfloc.VERSION_NO + dfrel_4.SERVICE_POINT_COUNT");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertTrue(secondInfo.getDisplaySql().contains("select count(*)"));
-            assertFalse(secondInfo.getDisplaySql().contains("join"));
+            String countSql = secondInfo.getDisplaySql();
+            assertContains(countSql, "select count(*)");
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(countSql, "where (select max(sub1loc.PURCHASE_PRICE + 3)");
+            assertContains(countSql, "      ) >= dfloc.VERSION_NO");
+            assertContains(countSql, "  and (select max(sub1loc.PURCHASE_PRICE + sub1rel_0.MEMBER_ID)");
+            assertContains(countSql, "      ) >= dfloc.VERSION_NO + dfrel_4.SERVICE_POINT_COUNT");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }

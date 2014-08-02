@@ -67,12 +67,16 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
             }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
-            assertContains(sql, "and sub1loc.MEMBER_ID > sub1loc.PRODUCT_ID + dfrel_4.SERVICE_POINT_COUNT");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(pagingSql, "where exists (select sub1loc.MEMBER_ID");
+            assertContains(pagingSql, "  and sub1loc.MEMBER_ID < dfrel_4.SERVICE_POINT_COUNT");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertTrue(secondInfo.getDisplaySql().contains("select count(*)"));
-            assertTrue(secondInfo.getDisplaySql().contains("join"));
+            String countSql = secondInfo.getDisplaySql();
+            assertContains(countSql, "select count(*)");
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(countSql, "where exists (select sub1loc.MEMBER_ID");
+            assertContains(countSql, "  and sub1loc.MEMBER_ID < dfrel_4.SERVICE_POINT_COUNT");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -115,12 +119,14 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
             }
             SqlLogInfo firstInfo = infoList.get(0);
-            String sql = firstInfo.getDisplaySql();
-            assertContains(sql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
-            assertContains(sql, "and sub1loc.MEMBER_ID > sub1loc.PRODUCT_ID + dfrel_4.SERVICE_POINT_COUNT");
+            String pagingSql = firstInfo.getDisplaySql();
+            assertContains(pagingSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(pagingSql, "and sub1loc.MEMBER_ID < sub1loc.PRODUCT_ID + dfrel_4.SERVICE_POINT_COUNT");
             SqlLogInfo secondInfo = infoList.get(1);
-            assertTrue(secondInfo.getDisplaySql().contains("select count(*)"));
-            assertTrue(secondInfo.getDisplaySql().contains("join"));
+            String countSql = secondInfo.getDisplaySql();
+            assertTrue(countSql.contains("select count(*)"));
+            assertContains(countSql, "left outer join MEMBER_SERVICE dfrel_4 on dfloc.MEMBER_ID = dfrel_4.MEMBER_ID");
+            assertContains(countSql, "and sub1loc.MEMBER_ID < sub1loc.PRODUCT_ID + dfrel_4.SERVICE_POINT_COUNT");
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
