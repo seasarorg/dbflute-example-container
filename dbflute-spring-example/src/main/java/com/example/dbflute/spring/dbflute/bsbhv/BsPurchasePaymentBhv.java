@@ -20,7 +20,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -166,11 +165,11 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> ENTITY doSelectEntity(PurchasePaymentCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> ENTITY doSelectEntity(PurchasePaymentCB cb, Class<? extends ENTITY> tp) {
         return helpSelectEntityInternally(cb, tp);
     }
 
-    protected <ENTITY extends PurchasePayment> OptionalEntity<ENTITY> doSelectOptionalEntity(PurchasePaymentCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> OptionalEntity<ENTITY> doSelectOptionalEntity(PurchasePaymentCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -199,7 +198,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> ENTITY doSelectEntityWithDeletedCheck(PurchasePaymentCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> ENTITY doSelectEntityWithDeletedCheck(PurchasePaymentCB cb, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
@@ -221,7 +220,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return doSelectByPK(purchasePaymentId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> ENTITY doSelectByPK(Long purchasePaymentId, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> ENTITY doSelectByPK(Long purchasePaymentId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(purchasePaymentId), tp);
     }
 
@@ -276,7 +275,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> ListResultBean<ENTITY> doSelectList(PurchasePaymentCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> ListResultBean<ENTITY> doSelectList(PurchasePaymentCB cb, Class<? extends ENTITY> tp) {
         return helpSelectListInternally(cb, tp);
     }
 
@@ -315,7 +314,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> PagingResultBean<ENTITY> doSelectPage(PurchasePaymentCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> PagingResultBean<ENTITY> doSelectPage(PurchasePaymentCB cb, Class<? extends ENTITY> tp) {
         return helpSelectPageInternally(cb, tp);
     }
 
@@ -346,7 +345,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends PurchasePayment> void doSelectCursor(PurchasePaymentCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+    protected <ENTITY extends PurchasePayment> void doSelectCursor(PurchasePaymentCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp);
@@ -376,13 +375,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
 
     protected <RESULT> HpSLSFunction<PurchasePaymentCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends PurchasePaymentCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
     }
 
     protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
@@ -521,11 +513,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("purchasePayment", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
-    protected void prepareInsertOption(InsertOption<PurchasePaymentCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
@@ -557,18 +544,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
     protected void doUpdate(PurchasePayment et, UpdateOption<PurchasePaymentCB> op) {
         assertObjectNotNull("purchasePayment", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
-
-    protected void prepareUpdateOption(UpdateOption<PurchasePaymentCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected PurchasePaymentCB createCBForVaryingUpdate()
-    { PurchasePaymentCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected PurchasePaymentCB createCBForSpecifiedUpdate()
-    { PurchasePaymentCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
@@ -623,8 +598,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("purchasePayment", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<PurchasePaymentCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
@@ -668,11 +641,8 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<PurchasePayment> ls, InsertOption<PurchasePaymentCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
+    @Override
+    protected boolean isBatchInsertColumnModifiedPropertiesFragmentedDisallowed() { return true; }
 
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
@@ -709,11 +679,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
         UpdateOption<PurchasePaymentCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
         prepareBatchUpdateOption(ls, rlop); // required
         return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<PurchasePayment> ls, UpdateOption<PurchasePaymentCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
     }
 
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
@@ -1120,7 +1085,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<PurchasePayment> typeOfSelectedEntity() { return PurchasePayment.class; }
+    protected Class<? extends PurchasePayment> typeOfSelectedEntity() { return PurchasePayment.class; }
     protected PurchasePayment downcast(Entity et) { return helpEntityDowncastInternally(et, PurchasePayment.class); }
     protected PurchasePaymentCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, PurchasePaymentCB.class); }
     @SuppressWarnings("unchecked")

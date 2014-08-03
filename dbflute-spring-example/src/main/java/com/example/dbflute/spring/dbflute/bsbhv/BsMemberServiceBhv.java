@@ -20,7 +20,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -166,11 +165,11 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> ENTITY doSelectEntity(MemberServiceCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> ENTITY doSelectEntity(MemberServiceCB cb, Class<? extends ENTITY> tp) {
         return helpSelectEntityInternally(cb, tp);
     }
 
-    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectOptionalEntity(MemberServiceCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectOptionalEntity(MemberServiceCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -199,7 +198,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> ENTITY doSelectEntityWithDeletedCheck(MemberServiceCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> ENTITY doSelectEntityWithDeletedCheck(MemberServiceCB cb, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
@@ -221,7 +220,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectByPK(memberServiceId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> ENTITY doSelectByPK(Integer memberServiceId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> ENTITY doSelectByPK(Integer memberServiceId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(memberServiceId), tp);
     }
 
@@ -266,7 +265,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectByUniqueOf(memberId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId), tp), memberId);
     }
 
@@ -301,7 +300,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> ListResultBean<ENTITY> doSelectList(MemberServiceCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> ListResultBean<ENTITY> doSelectList(MemberServiceCB cb, Class<? extends ENTITY> tp) {
         return helpSelectListInternally(cb, tp);
     }
 
@@ -340,7 +339,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> PagingResultBean<ENTITY> doSelectPage(MemberServiceCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> PagingResultBean<ENTITY> doSelectPage(MemberServiceCB cb, Class<? extends ENTITY> tp) {
         return helpSelectPageInternally(cb, tp);
     }
 
@@ -371,7 +370,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberService> void doSelectCursor(MemberServiceCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberService> void doSelectCursor(MemberServiceCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp);
@@ -401,13 +400,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
 
     protected <RESULT> HpSLSFunction<MemberServiceCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends MemberServiceCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
     }
 
     protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
@@ -562,11 +554,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("memberService", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
-    protected void prepareInsertOption(InsertOption<MemberServiceCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
@@ -598,18 +585,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     protected void doUpdate(MemberService et, UpdateOption<MemberServiceCB> op) {
         assertObjectNotNull("memberService", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
-
-    protected void prepareUpdateOption(UpdateOption<MemberServiceCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected MemberServiceCB createCBForVaryingUpdate()
-    { MemberServiceCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected MemberServiceCB createCBForSpecifiedUpdate()
-    { MemberServiceCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
@@ -708,8 +683,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("memberService", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<MemberServiceCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     /**
@@ -797,11 +770,8 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<MemberService> ls, InsertOption<MemberServiceCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
+    @Override
+    protected boolean isBatchInsertColumnModifiedPropertiesFragmentedDisallowed() { return true; }
 
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
@@ -838,11 +808,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
         UpdateOption<MemberServiceCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
         prepareBatchUpdateOption(ls, rlop); // required
         return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<MemberService> ls, UpdateOption<MemberServiceCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
     }
 
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
@@ -1427,7 +1392,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<MemberService> typeOfSelectedEntity() { return MemberService.class; }
+    protected Class<? extends MemberService> typeOfSelectedEntity() { return MemberService.class; }
     protected MemberService downcast(Entity et) { return helpEntityDowncastInternally(et, MemberService.class); }
     protected MemberServiceCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberServiceCB.class); }
     @SuppressWarnings("unchecked")
