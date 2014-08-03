@@ -539,7 +539,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
+     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
      * @param regionList The entity list of region. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -724,9 +724,6 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable {
         prepareBatchInsertOption(ls, rlop); // required
         return delegateBatchInsert(ls, rlop);
     }
-
-    @Override
-    protected boolean isBatchInsertColumnModifiedPropertiesFragmentedDisallowed() { return true; }
 
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 

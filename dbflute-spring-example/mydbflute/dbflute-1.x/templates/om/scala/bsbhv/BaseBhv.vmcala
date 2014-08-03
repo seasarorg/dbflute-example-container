@@ -430,12 +430,6 @@ abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassName} {
         return doScalarSelect(resultType, newConditionBean());
     }
 
-    protected def doScalarSelect[RESULT, CB <: ${myConditionBeanClassName}](tp: Class[RESULT], cb: CB): HpSLSFunction[CB, RESULT] = {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLSFunction[CB, RESULT](cb, tp, createHpSLSExecutor());
-    }
-
     protected def doReadScalar[RESULT](tp: Class[RESULT]): HpSLSFunction[_ <: ConditionBean, RESULT] = { facadeScalarSelect(tp) }
 
     // ===================================================================================

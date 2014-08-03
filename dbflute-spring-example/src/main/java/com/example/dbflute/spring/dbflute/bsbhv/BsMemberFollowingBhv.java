@@ -675,9 +675,6 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         return delegateBatchInsert(ls, rlop);
     }
 
-    @Override
-    protected boolean isBatchInsertColumnModifiedPropertiesFragmentedDisallowed() { return true; }
-
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
