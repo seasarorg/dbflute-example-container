@@ -224,7 +224,7 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(memberFollowingId), tp);
     }
 
-    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberFollowingId, tp), memberFollowingId);
     }
 

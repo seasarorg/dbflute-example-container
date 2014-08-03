@@ -224,7 +224,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
         return doSelectEntity(xprepareCBAsPK(theLongAndWindingTableAndColumnId), tp);
     }
 
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumn> OptionalEntity<ENTITY> doSelectOptionalByPK(Long theLongAndWindingTableAndColumnId, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorTheLongAndWindingTableAndColumn> OptionalEntity<ENTITY> doSelectOptionalByPK(Long theLongAndWindingTableAndColumnId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(theLongAndWindingTableAndColumnId, tp), theLongAndWindingTableAndColumnId);
     }
 

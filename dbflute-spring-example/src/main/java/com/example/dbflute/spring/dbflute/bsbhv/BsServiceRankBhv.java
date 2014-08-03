@@ -224,7 +224,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(serviceRankCode), tp);
     }
 
-    protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(String serviceRankCode, Class<ENTITY> tp) {
+    protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(String serviceRankCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(serviceRankCode, tp), serviceRankCode);
     }
 

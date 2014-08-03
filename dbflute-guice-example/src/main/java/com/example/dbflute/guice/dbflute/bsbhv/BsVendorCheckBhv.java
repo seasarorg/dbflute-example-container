@@ -5,7 +5,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -159,11 +158,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(VendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         return helpSelectEntityInternally(cb, tp);
     }
 
-    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(VendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -192,7 +191,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntityWithDeletedCheck(VendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> ENTITY doSelectEntityWithDeletedCheck(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
@@ -215,11 +214,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectOptionalByPK(vendorCheckId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectByPK(Long vendorCheckId, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> ENTITY doSelectByPK(Long vendorCheckId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(vendorCheckId), tp);
     }
 
-    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Long vendorCheckId, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Long vendorCheckId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(vendorCheckId, tp), vendorCheckId);
     }
 
@@ -254,7 +253,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> ListResultBean<ENTITY> doSelectList(VendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> ListResultBean<ENTITY> doSelectList(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         return helpSelectListInternally(cb, tp);
     }
 
@@ -298,7 +297,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> PagingResultBean<ENTITY> doSelectPage(VendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> PagingResultBean<ENTITY> doSelectPage(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         return helpSelectPageInternally(cb, tp);
     }
 
@@ -329,7 +328,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> void doSelectCursor(VendorCheckCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> void doSelectCursor(VendorCheckCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         helpSelectCursorInternally(cb, handler, tp);
@@ -359,13 +358,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
 
     protected <RESULT> HpSLSFunction<VendorCheckCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
         return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends VendorCheckCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
     }
 
     protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
@@ -496,11 +488,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("vendorCheck", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
-    protected void prepareInsertOption(InsertOption<VendorCheckCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
     protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
@@ -532,18 +519,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     protected void doUpdate(VendorCheck et, UpdateOption<VendorCheckCB> op) {
         assertObjectNotNull("vendorCheck", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
-
-    protected void prepareUpdateOption(UpdateOption<VendorCheckCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected VendorCheckCB createCBForVaryingUpdate()
-    { VendorCheckCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected VendorCheckCB createCBForSpecifiedUpdate()
-    { VendorCheckCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
     protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
@@ -598,8 +573,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         assertObjectNotNull("vendorCheck", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<VendorCheckCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
     protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
@@ -643,12 +616,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<VendorCheck> ls, InsertOption<VendorCheckCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
-
     protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
@@ -684,11 +651,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         UpdateOption<VendorCheckCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
         prepareBatchUpdateOption(ls, rlop); // required
         return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<VendorCheck> ls, UpdateOption<VendorCheckCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
     }
 
     protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
@@ -1095,7 +1057,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected Class<VendorCheck> typeOfSelectedEntity() { return VendorCheck.class; }
+    protected Class<? extends VendorCheck> typeOfSelectedEntity() { return VendorCheck.class; }
     protected VendorCheck downcast(Entity et) { return helpEntityDowncastInternally(et, VendorCheck.class); }
     protected VendorCheckCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, VendorCheckCB.class); }
     @SuppressWarnings("unchecked")

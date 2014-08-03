@@ -229,7 +229,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(vendorCheckId), tp);
     }
 
-    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Long vendorCheckId, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Long vendorCheckId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(vendorCheckId, tp), vendorCheckId);
     }
 

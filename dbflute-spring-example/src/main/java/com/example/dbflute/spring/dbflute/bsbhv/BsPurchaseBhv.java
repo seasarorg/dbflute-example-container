@@ -226,7 +226,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(purchaseId), tp);
     }
 
-    protected <ENTITY extends Purchase> OptionalEntity<ENTITY> doSelectOptionalByPK(Long purchaseId, Class<ENTITY> tp) {
+    protected <ENTITY extends Purchase> OptionalEntity<ENTITY> doSelectOptionalByPK(Long purchaseId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(purchaseId, tp), purchaseId);
     }
 

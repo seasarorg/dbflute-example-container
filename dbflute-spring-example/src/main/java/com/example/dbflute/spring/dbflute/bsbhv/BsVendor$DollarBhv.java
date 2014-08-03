@@ -224,7 +224,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(vendor$DollarId), tp);
     }
 
-    protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<ENTITY> tp) {
+    protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(vendor$DollarId, tp), vendor$DollarId);
     }
 

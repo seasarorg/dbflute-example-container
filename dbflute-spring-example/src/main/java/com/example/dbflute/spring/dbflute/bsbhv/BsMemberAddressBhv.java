@@ -224,7 +224,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(memberAddressId), tp);
     }
 
-    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberAddressId, tp), memberAddressId);
     }
 

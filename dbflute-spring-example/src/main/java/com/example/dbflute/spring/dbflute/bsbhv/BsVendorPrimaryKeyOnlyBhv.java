@@ -224,7 +224,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return doSelectEntity(xprepareCBAsPK(primaryKeyOnlyId), tp);
     }
 
-    protected <ENTITY extends VendorPrimaryKeyOnly> OptionalEntity<ENTITY> doSelectOptionalByPK(Long primaryKeyOnlyId, Class<ENTITY> tp) {
+    protected <ENTITY extends VendorPrimaryKeyOnly> OptionalEntity<ENTITY> doSelectOptionalByPK(Long primaryKeyOnlyId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(primaryKeyOnlyId, tp), primaryKeyOnlyId);
     }
 

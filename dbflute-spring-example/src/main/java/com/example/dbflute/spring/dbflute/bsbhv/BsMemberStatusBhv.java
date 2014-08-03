@@ -226,7 +226,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(memberStatusCode), tp);
     }
 
-    protected <ENTITY extends MemberStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String memberStatusCode, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String memberStatusCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberStatusCode, tp), memberStatusCode);
     }
 

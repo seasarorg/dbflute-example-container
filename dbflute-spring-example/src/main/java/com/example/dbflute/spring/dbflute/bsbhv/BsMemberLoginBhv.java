@@ -224,7 +224,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(memberLoginId), tp);
     }
 
-    protected <ENTITY extends MemberLogin> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberLoginId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberLogin> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberLoginId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberLoginId, tp), memberLoginId);
     }
 

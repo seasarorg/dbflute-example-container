@@ -224,7 +224,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doSelectEntity(xprepareCBAsPK(productCategoryCode), tp);
     }
 
-    protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<ENTITY> tp) {
+    protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productCategoryCode, tp), productCategoryCode);
     }
 
