@@ -994,8 +994,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
     }
 
     protected int[] doBatchDeleteNonstrict(List<Purchase> ls, DeleteOption<PurchaseCB> op) {
-        assertObjectNotNull("purchaseList", ls);
-        prepareDeleteOption(op);
+        assertObjectNotNull("purchaseList", ls); prepareDeleteOption(op);
         return delegateBatchDeleteNonstrict(ls, op);
     }
 
@@ -1040,9 +1039,6 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable {
         Purchase et = newEntity(); PurchaseCB cb = createCBForQueryInsert();
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
-
-    protected PurchaseCB createCBForQueryInsert()
-    { PurchaseCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }

@@ -1034,8 +1034,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
     }
 
     protected int[] doBatchDeleteNonstrict(List<Product> ls, DeleteOption<ProductCB> op) {
-        assertObjectNotNull("productList", ls);
-        prepareDeleteOption(op);
+        assertObjectNotNull("productList", ls); prepareDeleteOption(op);
         return delegateBatchDeleteNonstrict(ls, op);
     }
 
@@ -1080,9 +1079,6 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable {
         Product et = newEntity(); ProductCB cb = createCBForQueryInsert();
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
-
-    protected ProductCB createCBForQueryInsert()
-    { ProductCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }

@@ -807,9 +807,6 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable {
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected MemberLoginCB createCBForQueryInsert()
-    { MemberLoginCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
 

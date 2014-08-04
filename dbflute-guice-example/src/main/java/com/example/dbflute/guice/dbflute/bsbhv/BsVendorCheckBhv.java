@@ -752,9 +752,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected VendorCheckCB createCBForQueryInsert()
-    { VendorCheckCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
 

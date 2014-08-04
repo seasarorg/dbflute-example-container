@@ -790,9 +790,6 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable {
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected MemberFollowingCB createCBForQueryInsert()
-    { MemberFollowingCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
 

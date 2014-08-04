@@ -894,9 +894,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected ServiceRankCB createCBForQueryInsert()
-    { ServiceRankCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
 

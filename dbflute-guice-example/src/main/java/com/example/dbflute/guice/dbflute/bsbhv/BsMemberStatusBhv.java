@@ -918,9 +918,6 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable {
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected MemberStatusCB createCBForQueryInsert()
-    { MemberStatusCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
 

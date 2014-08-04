@@ -866,8 +866,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable {
     }
 
     protected int[] doBatchDeleteNonstrict(List<MemberWithdrawal> ls, DeleteOption<MemberWithdrawalCB> op) {
-        assertObjectNotNull("memberWithdrawalList", ls);
-        prepareDeleteOption(op);
+        assertObjectNotNull("memberWithdrawalList", ls); prepareDeleteOption(op);
         return delegateBatchDeleteNonstrict(ls, op);
     }
 
@@ -912,9 +911,6 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable {
         MemberWithdrawal et = newEntity(); MemberWithdrawalCB cb = createCBForQueryInsert();
         return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
-
-    protected MemberWithdrawalCB createCBForQueryInsert()
-    { MemberWithdrawalCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
     protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
     { return doQueryInsert(downcast(setupper), downcast(op)); }
