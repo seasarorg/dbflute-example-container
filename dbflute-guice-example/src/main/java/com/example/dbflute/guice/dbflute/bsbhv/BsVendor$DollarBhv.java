@@ -48,19 +48,13 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
+public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor$Dollar, Vendor$DollarCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "VENDOR_$_DOLLAR"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -71,9 +65,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public Vendor$Dollar newEntity() { return new Vendor$Dollar(); }
-
     /** {@inheritDoc} */
     public Vendor$DollarCB newConditionBean() { return new Vendor$DollarCB(); }
 
@@ -94,22 +85,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public int selectCount(Vendor$DollarCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(Vendor$DollarCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(Vendor$DollarCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(Vendor$DollarCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -154,10 +129,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectEntity(Vendor$DollarCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
     protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalEntity(Vendor$DollarCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
@@ -182,17 +153,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public Vendor$Dollar selectEntityWithDeletedCheck(Vendor$DollarCB cb) {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
-
-    protected Vendor$Dollar facadeSelectEntityWithDeletedCheck(Vendor$DollarCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectEntityWithDeletedCheck(Vendor$DollarCB cb, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -245,20 +205,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<Vendor$Dollar> facadeSelectList(Vendor$DollarCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Vendor$Dollar> ListResultBean<ENTITY> doSelectList(Vendor$DollarCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() {
-        return true;
-    }
+    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -289,16 +237,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<Vendor$Dollar> facadeSelectPage(Vendor$DollarCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Vendor$Dollar> PagingResultBean<ENTITY> doSelectPage(Vendor$DollarCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -318,16 +256,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(Vendor$DollarCB cb, EntityRowHandler<Vendor$Dollar> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(Vendor$DollarCB cb, EntityRowHandler<Vendor$Dollar> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Vendor$Dollar> void doSelectCursor(Vendor$DollarCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -351,12 +279,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<Vendor$DollarCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<Vendor$DollarCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -480,12 +402,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         doInsert(vendor$Dollar, null);
     }
 
-    protected void doInsert(Vendor$Dollar et, InsertOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -512,15 +428,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         doUpdate(vendor$Dollar, null);
     }
 
-    protected void doUpdate(Vendor$Dollar et, UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -533,16 +440,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public void insertOrUpdate(Vendor$Dollar vendor$Dollar) {
         doInsertOrUpdate(vendor$Dollar, null, null);
     }
-
-    protected void doInsertOrUpdate(Vendor$Dollar et, InsertOption<Vendor$DollarCB> iop, UpdateOption<Vendor$DollarCB> uop) {
-        assertObjectNotNull("vendor$Dollar", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -564,15 +461,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public void delete(Vendor$Dollar vendor$Dollar) {
         doDelete(vendor$Dollar, null);
     }
-
-    protected void doDelete(Vendor$Dollar et, final DeleteOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -605,15 +493,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doBatchInsert(vendor$DollarList, null);
     }
 
-    protected int[] doBatchInsert(List<Vendor$Dollar> ls, InsertOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", ls);
-        InsertOption<Vendor$DollarCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -641,15 +520,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<Vendor$Dollar> vendor$DollarList) {
         return doBatchUpdate(vendor$DollarList, null);
     }
-
-    protected int[] doBatchUpdate(List<Vendor$Dollar> ls, UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", ls);
-        UpdateOption<Vendor$DollarCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -683,10 +553,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doBatchUpdate(vendor$DollarList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -697,17 +563,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<Vendor$Dollar> vendor$DollarList) {
         return doBatchDelete(vendor$DollarList, null);
     }
-
-    protected int[] doBatchDelete(List<Vendor$Dollar> ls, DeleteOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$DollarList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -742,15 +597,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> sp, InsertOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        Vendor$Dollar et = newEntity(); Vendor$DollarCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
-
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
@@ -777,14 +623,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(vendor$Dollar, cb, null);
     }
 
-    protected int doQueryUpdate(Vendor$Dollar et, Vendor$DollarCB cb, UpdateOption<Vendor$DollarCB> op) {
-        assertObjectNotNull("vendor$Dollar", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -799,13 +637,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     public int queryDelete(Vendor$DollarCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(Vendor$DollarCB cb, DeleteOption<Vendor$DollarCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1048,13 +879,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
+    //                                                                         Type Helper
+    //                                                                         ===========
     protected Class<? extends Vendor$Dollar> typeOfSelectedEntity() { return Vendor$Dollar.class; }
-    protected Vendor$Dollar downcast(Entity et) { return helpEntityDowncastInternally(et, Vendor$Dollar.class); }
-    protected Vendor$DollarCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, Vendor$DollarCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<Vendor$Dollar> downcast(List<? extends Entity> ls) { return (List<Vendor$Dollar>)ls; }
+    protected Class<Vendor$Dollar> typeOfHandlingEntity() { return Vendor$Dollar.class; }
+    protected Class<Vendor$DollarCB> typeOfHandlingConditionBean() { return Vendor$DollarCB.class; }
     @SuppressWarnings("unchecked")
     protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<Vendor$DollarCB>)op; }
     @SuppressWarnings("unchecked")

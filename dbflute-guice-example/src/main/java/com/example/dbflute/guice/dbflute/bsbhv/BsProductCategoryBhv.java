@@ -48,19 +48,13 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
+public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<ProductCategory, ProductCategoryCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "PRODUCT_CATEGORY"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -71,9 +65,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public ProductCategory newEntity() { return new ProductCategory(); }
-
     /** {@inheritDoc} */
     public ProductCategoryCB newConditionBean() { return new ProductCategoryCB(); }
 
@@ -94,22 +85,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public int selectCount(ProductCategoryCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(ProductCategoryCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(ProductCategoryCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(ProductCategoryCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -154,10 +129,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ProductCategory> ENTITY doSelectEntity(ProductCategoryCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
     protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalEntity(ProductCategoryCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
@@ -182,17 +153,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public ProductCategory selectEntityWithDeletedCheck(ProductCategoryCB cb) {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
-
-    protected ProductCategory facadeSelectEntityWithDeletedCheck(ProductCategoryCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductCategory> ENTITY doSelectEntityWithDeletedCheck(ProductCategoryCB cb, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -245,20 +205,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<ProductCategory> facadeSelectList(ProductCategoryCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductCategory> ListResultBean<ENTITY> doSelectList(ProductCategoryCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() {
-        return true;
-    }
+    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -289,16 +237,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<ProductCategory> facadeSelectPage(ProductCategoryCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductCategory> PagingResultBean<ENTITY> doSelectPage(ProductCategoryCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -318,16 +256,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(ProductCategoryCB cb, EntityRowHandler<ProductCategory> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(ProductCategoryCB cb, EntityRowHandler<ProductCategory> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductCategory> void doSelectCursor(ProductCategoryCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -351,12 +279,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<ProductCategoryCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -624,12 +546,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         doInsert(productCategory, null);
     }
 
-    protected void doInsert(ProductCategory et, InsertOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -656,15 +572,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         doUpdate(productCategory, null);
     }
 
-    protected void doUpdate(ProductCategory et, UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -677,16 +584,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public void insertOrUpdate(ProductCategory productCategory) {
         doInsertOrUpdate(productCategory, null, null);
     }
-
-    protected void doInsertOrUpdate(ProductCategory et, InsertOption<ProductCategoryCB> iop, UpdateOption<ProductCategoryCB> uop) {
-        assertObjectNotNull("productCategory", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -708,15 +605,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public void delete(ProductCategory productCategory) {
         doDelete(productCategory, null);
     }
-
-    protected void doDelete(ProductCategory et, final DeleteOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -749,15 +637,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doBatchInsert(productCategoryList, null);
     }
 
-    protected int[] doBatchInsert(List<ProductCategory> ls, InsertOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", ls);
-        InsertOption<ProductCategoryCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -785,15 +664,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<ProductCategory> productCategoryList) {
         return doBatchUpdate(productCategoryList, null);
     }
-
-    protected int[] doBatchUpdate(List<ProductCategory> ls, UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", ls);
-        UpdateOption<ProductCategoryCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -827,10 +697,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doBatchUpdate(productCategoryList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -841,17 +707,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<ProductCategory> productCategoryList) {
         return doBatchDelete(productCategoryList, null);
     }
-
-    protected int[] doBatchDelete(List<ProductCategory> ls, DeleteOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategoryList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -886,15 +741,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<ProductCategory, ProductCategoryCB> sp, InsertOption<ProductCategoryCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        ProductCategory et = newEntity(); ProductCategoryCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
-
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
@@ -921,14 +767,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(productCategory, cb, null);
     }
 
-    protected int doQueryUpdate(ProductCategory et, ProductCategoryCB cb, UpdateOption<ProductCategoryCB> op) {
-        assertObjectNotNull("productCategory", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -943,13 +781,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     public int queryDelete(ProductCategoryCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(ProductCategoryCB cb, DeleteOption<ProductCategoryCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1192,13 +1023,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
+    //                                                                         Type Helper
+    //                                                                         ===========
     protected Class<? extends ProductCategory> typeOfSelectedEntity() { return ProductCategory.class; }
-    protected ProductCategory downcast(Entity et) { return helpEntityDowncastInternally(et, ProductCategory.class); }
-    protected ProductCategoryCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, ProductCategoryCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<ProductCategory> downcast(List<? extends Entity> ls) { return (List<ProductCategory>)ls; }
+    protected Class<ProductCategory> typeOfHandlingEntity() { return ProductCategory.class; }
+    protected Class<ProductCategoryCB> typeOfHandlingConditionBean() { return ProductCategoryCB.class; }
     @SuppressWarnings("unchecked")
     protected InsertOption<ProductCategoryCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ProductCategoryCB>)op; }
     @SuppressWarnings("unchecked")

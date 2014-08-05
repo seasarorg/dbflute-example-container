@@ -63,7 +63,7 @@ import com.example.dbflute.spring.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
+public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCheck, VendorCheckCB> {
 
     // ===================================================================================
     //                                                                          Definition
@@ -77,12 +77,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "VENDOR_CHECK"; }
-
-    // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
     /** {@inheritDoc} */
@@ -94,9 +88,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public VendorCheck newEntity() { return new VendorCheck(); }
-
     /** {@inheritDoc} */
     public VendorCheckCB newConditionBean() { return new VendorCheckCB(); }
 
@@ -123,22 +114,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public int selectCount(VendorCheckCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(VendorCheckCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(VendorCheckCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(VendorCheckCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -170,10 +145,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntity(VendorCheckCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
     protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(VendorCheckCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
@@ -198,17 +169,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public VendorCheck selectEntityWithDeletedCheck(VendorCheckCB cb) {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
-
-    protected VendorCheck facadeSelectEntityWithDeletedCheck(VendorCheckCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorCheck> ENTITY doSelectEntityWithDeletedCheck(VendorCheckCB cb, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -276,16 +236,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<VendorCheck> facadeSelectList(VendorCheckCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorCheck> ListResultBean<ENTITY> doSelectList(VendorCheckCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -315,16 +265,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<VendorCheck> facadeSelectPage(VendorCheckCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorCheck> PagingResultBean<ENTITY> doSelectPage(VendorCheckCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -344,16 +284,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(VendorCheckCB cb, EntityRowHandler<VendorCheck> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(VendorCheckCB cb, EntityRowHandler<VendorCheck> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorCheck> void doSelectCursor(VendorCheckCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -377,12 +307,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<VendorCheckCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<VendorCheckCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -506,12 +430,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         doInsert(vendorCheck, null);
     }
 
-    protected void doInsert(VendorCheck et, InsertOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheck", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -538,15 +456,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         doUpdate(vendorCheck, null);
     }
 
-    protected void doUpdate(VendorCheck et, UpdateOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheck", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -559,16 +468,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public void insertOrUpdate(VendorCheck vendorCheck) {
         doInsertOrUpdate(vendorCheck, null, null);
     }
-
-    protected void doInsertOrUpdate(VendorCheck et, InsertOption<VendorCheckCB> iop, UpdateOption<VendorCheckCB> uop) {
-        assertObjectNotNull("vendorCheck", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -590,15 +489,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public void delete(VendorCheck vendorCheck) {
         doDelete(vendorCheck, null);
     }
-
-    protected void doDelete(VendorCheck et, final DeleteOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheck", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -631,15 +521,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doBatchInsert(vendorCheckList, null);
     }
 
-    protected int[] doBatchInsert(List<VendorCheck> ls, InsertOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheckList", ls);
-        InsertOption<VendorCheckCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -667,15 +548,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<VendorCheck> vendorCheckList) {
         return doBatchUpdate(vendorCheckList, null);
     }
-
-    protected int[] doBatchUpdate(List<VendorCheck> ls, UpdateOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheckList", ls);
-        UpdateOption<VendorCheckCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -709,10 +581,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doBatchUpdate(vendorCheckList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -723,17 +591,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<VendorCheck> vendorCheckList) {
         return doBatchDelete(vendorCheckList, null);
     }
-
-    protected int[] doBatchDelete(List<VendorCheck> ls, DeleteOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheckList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -768,15 +625,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<VendorCheck, VendorCheckCB> sp, InsertOption<VendorCheckCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        VendorCheck et = newEntity(); VendorCheckCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
-
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
@@ -803,14 +651,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(vendorCheck, cb, null);
     }
 
-    protected int doQueryUpdate(VendorCheck et, VendorCheckCB cb, UpdateOption<VendorCheckCB> op) {
-        assertObjectNotNull("vendorCheck", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -825,13 +665,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     public int queryDelete(VendorCheckCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(VendorCheckCB cb, DeleteOption<VendorCheckCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1074,13 +907,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
+    //                                                                         Type Helper
+    //                                                                         ===========
     protected Class<? extends VendorCheck> typeOfSelectedEntity() { return VendorCheck.class; }
-    protected VendorCheck downcast(Entity et) { return helpEntityDowncastInternally(et, VendorCheck.class); }
-    protected VendorCheckCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, VendorCheckCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<VendorCheck> downcast(List<? extends Entity> ls) { return (List<VendorCheck>)ls; }
+    protected Class<VendorCheck> typeOfHandlingEntity() { return VendorCheck.class; }
+    protected Class<VendorCheckCB> typeOfHandlingConditionBean() { return VendorCheckCB.class; }
     @SuppressWarnings("unchecked")
     protected InsertOption<VendorCheckCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorCheckCB>)op; }
     @SuppressWarnings("unchecked")

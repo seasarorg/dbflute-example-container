@@ -63,19 +63,13 @@ import com.example.dbflute.spring.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
+public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceRank, ServiceRankCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "SERVICE_RANK"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -89,9 +83,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public ServiceRank newEntity() { return new ServiceRank(); }
-
     /** {@inheritDoc} */
     public ServiceRankCB newConditionBean() { return new ServiceRankCB(); }
 
@@ -118,22 +109,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public int selectCount(ServiceRankCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(ServiceRankCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(ServiceRankCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(ServiceRankCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -165,10 +140,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ServiceRank> ENTITY doSelectEntity(ServiceRankCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
     protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalEntity(ServiceRankCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
@@ -193,17 +164,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public ServiceRank selectEntityWithDeletedCheck(ServiceRankCB cb) {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
-
-    protected ServiceRank facadeSelectEntityWithDeletedCheck(ServiceRankCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ServiceRank> ENTITY doSelectEntityWithDeletedCheck(ServiceRankCB cb, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -296,16 +256,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<ServiceRank> facadeSelectList(ServiceRankCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ServiceRank> ListResultBean<ENTITY> doSelectList(ServiceRankCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -335,16 +285,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<ServiceRank> facadeSelectPage(ServiceRankCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ServiceRank> PagingResultBean<ENTITY> doSelectPage(ServiceRankCB cb, Class<? extends ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -364,16 +304,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(ServiceRankCB cb, EntityRowHandler<ServiceRank> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(ServiceRankCB cb, EntityRowHandler<ServiceRank> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ServiceRank> void doSelectCursor(ServiceRankCB cb, EntityRowHandler<ENTITY> handler, Class<? extends ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -397,12 +327,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<ServiceRankCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<ServiceRankCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -626,12 +550,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doInsert(serviceRank, null);
     }
 
-    protected void doInsert(ServiceRank et, InsertOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRank", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -658,15 +576,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         doUpdate(serviceRank, null);
     }
 
-    protected void doUpdate(ServiceRank et, UpdateOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRank", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -679,16 +588,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public void insertOrUpdate(ServiceRank serviceRank) {
         doInsertOrUpdate(serviceRank, null, null);
     }
-
-    protected void doInsertOrUpdate(ServiceRank et, InsertOption<ServiceRankCB> iop, UpdateOption<ServiceRankCB> uop) {
-        assertObjectNotNull("serviceRank", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -710,15 +609,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public void delete(ServiceRank serviceRank) {
         doDelete(serviceRank, null);
     }
-
-    protected void doDelete(ServiceRank et, final DeleteOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRank", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -751,15 +641,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doBatchInsert(serviceRankList, null);
     }
 
-    protected int[] doBatchInsert(List<ServiceRank> ls, InsertOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRankList", ls);
-        InsertOption<ServiceRankCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -787,15 +668,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<ServiceRank> serviceRankList) {
         return doBatchUpdate(serviceRankList, null);
     }
-
-    protected int[] doBatchUpdate(List<ServiceRank> ls, UpdateOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRankList", ls);
-        UpdateOption<ServiceRankCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -829,10 +701,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doBatchUpdate(serviceRankList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -843,17 +711,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<ServiceRank> serviceRankList) {
         return doBatchDelete(serviceRankList, null);
     }
-
-    protected int[] doBatchDelete(List<ServiceRank> ls, DeleteOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRankList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -888,15 +745,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<ServiceRank, ServiceRankCB> sp, InsertOption<ServiceRankCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        ServiceRank et = newEntity(); ServiceRankCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
-
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
@@ -923,14 +771,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(serviceRank, cb, null);
     }
 
-    protected int doQueryUpdate(ServiceRank et, ServiceRankCB cb, UpdateOption<ServiceRankCB> op) {
-        assertObjectNotNull("serviceRank", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -945,13 +785,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     public int queryDelete(ServiceRankCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(ServiceRankCB cb, DeleteOption<ServiceRankCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1194,13 +1027,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
+    //                                                                         Type Helper
+    //                                                                         ===========
     protected Class<? extends ServiceRank> typeOfSelectedEntity() { return ServiceRank.class; }
-    protected ServiceRank downcast(Entity et) { return helpEntityDowncastInternally(et, ServiceRank.class); }
-    protected ServiceRankCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, ServiceRankCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<ServiceRank> downcast(List<? extends Entity> ls) { return (List<ServiceRank>)ls; }
+    protected Class<ServiceRank> typeOfHandlingEntity() { return ServiceRank.class; }
+    protected Class<ServiceRankCB> typeOfHandlingConditionBean() { return ServiceRankCB.class; }
     @SuppressWarnings("unchecked")
     protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ServiceRankCB>)op; }
     @SuppressWarnings("unchecked")
