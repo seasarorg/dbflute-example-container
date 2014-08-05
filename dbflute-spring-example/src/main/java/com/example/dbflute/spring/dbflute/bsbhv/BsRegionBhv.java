@@ -686,7 +686,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * regionBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;Region, RegionCB&gt;() {
-     *     public ConditionBean setup(region entity, RegionCB intoCB) {
+     *     public ConditionBean setup(Region entity, RegionCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -705,7 +705,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<Region, RegionCB> setupper) {
@@ -897,7 +897,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */

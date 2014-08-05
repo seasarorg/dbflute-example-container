@@ -694,7 +694,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * summaryProductBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;SummaryProduct, SummaryProductCB&gt;() {
-     *     public ConditionBean setup(summaryProduct entity, SummaryProductCB intoCB) {
+     *     public ConditionBean setup(SummaryProduct entity, SummaryProductCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -713,7 +713,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<SummaryProduct, SummaryProductCB> setupper) {
@@ -905,7 +905,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */

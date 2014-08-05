@@ -813,7 +813,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * memberStatusBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberStatus, MemberStatusCB&gt;() {
-     *     public ConditionBean setup(memberStatus entity, MemberStatusCB intoCB) {
+     *     public ConditionBean setup(MemberStatus entity, MemberStatusCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -832,7 +832,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<MemberStatus, MemberStatusCB> setupper) {
@@ -1024,7 +1024,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */

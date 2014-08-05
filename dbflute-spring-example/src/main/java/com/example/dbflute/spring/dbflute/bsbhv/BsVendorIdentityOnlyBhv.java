@@ -594,7 +594,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * vendorIdentityOnlyBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;VendorIdentityOnly, VendorIdentityOnlyCB&gt;() {
-     *     public ConditionBean setup(vendorIdentityOnly entity, VendorIdentityOnlyCB intoCB) {
+     *     public ConditionBean setup(VendorIdentityOnly entity, VendorIdentityOnlyCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -613,7 +613,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<VendorIdentityOnly, VendorIdentityOnlyCB> setupper) {
@@ -805,7 +805,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */

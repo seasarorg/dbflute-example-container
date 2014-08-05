@@ -258,6 +258,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
     public void test_query_Equal_ArgumentNull() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberId_Equal(null);// *Point!
 
         // ## Act & Assert ##
@@ -281,6 +282,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
     public void test_query_Equal_ArgumentEmptyString() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberName_Equal("");// *Point!
 
         // ## Act ##
