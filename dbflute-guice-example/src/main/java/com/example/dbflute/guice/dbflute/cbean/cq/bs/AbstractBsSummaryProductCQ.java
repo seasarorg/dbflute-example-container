@@ -47,7 +47,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * PRODUCT_ID: {PK, INTEGER(10)}

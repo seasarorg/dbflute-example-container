@@ -59,7 +59,6 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}

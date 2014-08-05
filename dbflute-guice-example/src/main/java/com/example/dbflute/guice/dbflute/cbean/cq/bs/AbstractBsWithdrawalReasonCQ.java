@@ -47,7 +47,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
@@ -373,7 +372,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     protected void regWithdrawalReasonText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
     protected abstract ConditionValue getCValueWithdrawalReasonText();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}

@@ -47,7 +47,6 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
@@ -163,7 +162,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     protected void regMemberLoginId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberLoginId(), "MEMBER_LOGIN_ID"); }
     protected abstract ConditionValue getCValueMemberLoginId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -343,7 +342,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
 
     protected void regLoginDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLoginDatetime(), "LOGIN_DATETIME"); }
     protected abstract ConditionValue getCValueLoginDatetime();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}

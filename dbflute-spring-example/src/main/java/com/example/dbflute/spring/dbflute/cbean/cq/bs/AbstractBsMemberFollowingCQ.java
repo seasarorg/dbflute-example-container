@@ -59,7 +59,6 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
@@ -175,7 +174,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     protected void regMemberFollowingId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberFollowingId(), "MEMBER_FOLLOWING_ID"); }
     protected abstract ConditionValue getCValueMemberFollowingId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
@@ -309,7 +308,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     protected void regMyMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMyMemberId(), "MY_MEMBER_ID"); }
     protected abstract ConditionValue getCValueMyMemberId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}

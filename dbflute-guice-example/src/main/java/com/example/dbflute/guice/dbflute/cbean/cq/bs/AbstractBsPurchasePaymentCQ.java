@@ -47,7 +47,6 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
@@ -163,7 +162,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     protected void regPurchasePaymentId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchasePaymentId(), "PURCHASE_PAYMENT_ID"); }
     protected abstract ConditionValue getCValuePurchasePaymentId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
@@ -267,7 +266,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     protected void regPurchaseId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchaseId(), "PURCHASE_ID"); }
     protected abstract ConditionValue getCValuePurchaseId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}

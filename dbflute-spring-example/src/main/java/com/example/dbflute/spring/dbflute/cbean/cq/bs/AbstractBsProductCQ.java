@@ -59,7 +59,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
@@ -861,7 +860,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
     protected abstract ConditionValue getCValueProductStatusCode();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (定価)REGULAR_PRICE: {NotNull, INTEGER(10)}
@@ -1361,7 +1360,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}

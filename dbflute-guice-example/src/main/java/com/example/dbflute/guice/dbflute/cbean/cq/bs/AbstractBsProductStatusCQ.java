@@ -47,7 +47,6 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
@@ -483,7 +482,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     protected void regProductStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
     protected abstract ConditionValue getCValueProductStatusName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}

@@ -47,7 +47,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MEMBER_ID: {INTEGER(10)}
@@ -701,7 +700,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void regMemberStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberStatusName(), "MEMBER_STATUS_NAME"); }
     protected abstract ConditionValue getCValueMemberStatusName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MAX_PURCHASE_PRICE: {INTEGER(10)}

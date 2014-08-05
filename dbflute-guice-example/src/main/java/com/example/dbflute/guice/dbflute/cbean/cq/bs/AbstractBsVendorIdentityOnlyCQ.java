@@ -47,7 +47,6 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}

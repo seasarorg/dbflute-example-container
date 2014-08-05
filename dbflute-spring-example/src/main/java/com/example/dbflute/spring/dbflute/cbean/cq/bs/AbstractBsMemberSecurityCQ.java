@@ -59,7 +59,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
@@ -571,7 +570,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     protected void regReminderAnswer(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueReminderAnswer(), "REMINDER_ANSWER"); }
     protected abstract ConditionValue getCValueReminderAnswer();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
@@ -1071,7 +1070,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}

@@ -47,7 +47,6 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
@@ -163,7 +162,7 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
 
     protected void regMemberServiceId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberServiceId(), "MEMBER_SERVICE_ID"); }
     protected abstract ConditionValue getCValueMemberServiceId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -267,7 +266,7 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
 
     protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
     protected abstract ConditionValue getCValueMemberId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
@@ -602,7 +601,7 @@ public abstract class AbstractBsMemberServiceCQ extends AbstractConditionQuery {
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}

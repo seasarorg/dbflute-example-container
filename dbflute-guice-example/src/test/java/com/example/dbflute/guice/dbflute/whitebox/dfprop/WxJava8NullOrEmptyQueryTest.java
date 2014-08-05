@@ -40,6 +40,7 @@ public class WxJava8NullOrEmptyQueryTest extends UnitContainerTestCase {
     public void test_checkNullOrEmptyQuery_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberId_Equal(null); // no exception
         cb.query().setMemberName_PrefixSearch(""); // no exception
         cb.checkNullOrEmptyQuery();

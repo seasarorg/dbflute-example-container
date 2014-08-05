@@ -59,7 +59,6 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}

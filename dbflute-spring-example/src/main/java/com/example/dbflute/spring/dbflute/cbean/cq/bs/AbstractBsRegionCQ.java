@@ -59,7 +59,6 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}

@@ -59,7 +59,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
@@ -1024,7 +1023,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}

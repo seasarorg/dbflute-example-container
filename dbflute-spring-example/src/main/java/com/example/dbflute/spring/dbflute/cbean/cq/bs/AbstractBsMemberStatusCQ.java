@@ -59,7 +59,6 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
@@ -702,7 +701,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     protected void regDescription(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDescription(), "DESCRIPTION"); }
     protected abstract ConditionValue getCValueDescription();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}

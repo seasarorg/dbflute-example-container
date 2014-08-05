@@ -1,6 +1,5 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +58,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         assertHasAnyElement(dtoList);
         for (MemberDto dto : dtoList) {
             // ## Assert ##
-            Date loginDatetime = dto.getLatestLoginDatetime();
+            LocalDateTime loginDatetime = dto.getLatestLoginDatetime();
             Integer loginCount = dto.getLoginCount();
             Integer productKindCount = dto.getProductKindCount();
             if (loginDatetime != null) {

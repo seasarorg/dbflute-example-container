@@ -47,7 +47,6 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
@@ -374,7 +373,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
 
     protected void regShortName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortName(), "SHORT_NAME"); }
     protected abstract ConditionValue getCValueShortName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * SHORT_SIZE: {NotNull, INTEGER(10)}

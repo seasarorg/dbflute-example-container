@@ -1,6 +1,6 @@
 package com.example.dbflute.guice.simpleflute.dto;
 
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 
 import com.example.dbflute.guice.simpleflute.dto.bs.BsMemberDto;
 
@@ -21,18 +21,18 @@ public class MemberDto extends BsMemberDto {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected Date _latestLoginDatetime;
+    protected LocalDateTime _latestLoginDatetime;
     protected Integer _loginCount;
     protected Integer _productKindCount;
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public Date getLatestLoginDatetime() {
+    public LocalDateTime getLatestLoginDatetime() {
         return _latestLoginDatetime;
     }
 
-    public void setLatestLoginDatetime(Date latestLoginDatetime) {
+    public void setLatestLoginDatetime(LocalDateTime latestLoginDatetime) {
         _latestLoginDatetime = latestLoginDatetime;
     }
 

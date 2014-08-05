@@ -59,7 +59,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
@@ -735,7 +734,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfText(), "TYPE_OF_TEXT"); }
     protected abstract ConditionValue getCValueTypeOfText();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
@@ -851,7 +850,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericInteger(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericInteger(), "TYPE_OF_NUMERIC_INTEGER"); }
     protected abstract ConditionValue getCValueTypeOfNumericInteger();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
@@ -967,7 +966,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericBigint(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericBigint(), "TYPE_OF_NUMERIC_BIGINT"); }
     protected abstract ConditionValue getCValueTypeOfNumericBigint();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
@@ -1083,7 +1082,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericDecimal(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericDecimal(), "TYPE_OF_NUMERIC_DECIMAL"); }
     protected abstract ConditionValue getCValueTypeOfNumericDecimal();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
@@ -1199,7 +1198,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericIntegerMin(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericIntegerMin(), "TYPE_OF_NUMERIC_INTEGER_MIN"); }
     protected abstract ConditionValue getCValueTypeOfNumericIntegerMin();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
@@ -1315,7 +1314,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericIntegerMax(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericIntegerMax(), "TYPE_OF_NUMERIC_INTEGER_MAX"); }
     protected abstract ConditionValue getCValueTypeOfNumericIntegerMax();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
@@ -1431,7 +1430,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericBigintMin(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericBigintMin(), "TYPE_OF_NUMERIC_BIGINT_MIN"); }
     protected abstract ConditionValue getCValueTypeOfNumericBigintMin();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
@@ -1547,7 +1546,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericBigintMax(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericBigintMax(), "TYPE_OF_NUMERIC_BIGINT_MAX"); }
     protected abstract ConditionValue getCValueTypeOfNumericBigintMax();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
@@ -1663,7 +1662,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericSuperintMin(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericSuperintMin(), "TYPE_OF_NUMERIC_SUPERINT_MIN"); }
     protected abstract ConditionValue getCValueTypeOfNumericSuperintMin();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
@@ -1779,7 +1778,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericSuperintMax(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericSuperintMax(), "TYPE_OF_NUMERIC_SUPERINT_MAX"); }
     protected abstract ConditionValue getCValueTypeOfNumericSuperintMax();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
@@ -1895,7 +1894,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfNumericMaxdecimal(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfNumericMaxdecimal(), "TYPE_OF_NUMERIC_MAXDECIMAL"); }
     protected abstract ConditionValue getCValueTypeOfNumericMaxdecimal();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_INTEGER: {INTEGER(10)}
@@ -2011,7 +2010,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfInteger(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfInteger(), "TYPE_OF_INTEGER"); }
     protected abstract ConditionValue getCValueTypeOfInteger();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_BIGINT: {BIGINT(19)}
@@ -2388,6 +2387,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     protected void regTypeOfBoolean(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfBoolean(), "TYPE_OF_BOOLEAN"); }
     protected abstract ConditionValue getCValueTypeOfBoolean();
 
+
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_BINARY: {VARBINARY(2147483647)}
@@ -2403,6 +2403,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     protected void regTypeOfBinary(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfBinary(), "TYPE_OF_BINARY"); }
     protected abstract ConditionValue getCValueTypeOfBinary();
 
+
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_BLOB: {BLOB(2147483647)}
@@ -2417,6 +2418,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfBlob(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfBlob(), "TYPE_OF_BLOB"); }
     protected abstract ConditionValue getCValueTypeOfBlob();
+
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />

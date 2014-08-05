@@ -309,7 +309,8 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         Integer afterMemberId = 4;
         MemberCB cb = new MemberCB();
         cb.query().setMemberId_Equal(beforeMemberId);
-        cb.query().setMemberId_Equal(afterMemberId);// *Point!
+        cb.enableOverridingQuery();
+        cb.query().setMemberId_Equal(afterMemberId); // *Point!
 
         // ## Act ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb);
@@ -330,7 +331,8 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         Integer afterMemberId = beforeMemberId;
         MemberCB cb = new MemberCB();
         cb.query().setMemberId_Equal(beforeMemberId);
-        cb.query().setMemberId_Equal(afterMemberId);// *Point!
+        cb.enableOverridingQuery();
+        cb.query().setMemberId_Equal(afterMemberId); // *Point!
 
         // ## Act ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb);
