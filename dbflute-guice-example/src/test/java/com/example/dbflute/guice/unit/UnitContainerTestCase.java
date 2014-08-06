@@ -128,6 +128,14 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         deleteAll(PurchaseBhv.class);
     }
 
+    protected LocalDate toLocalDate(String exp) {
+        return LocalDate.fromDateFields(toDate(exp));
+    }
+
+    protected LocalDateTime toLocalDateTime(String exp) {
+        return LocalDateTime.fromDateFields(toTimestamp(exp));
+    }
+
     protected LocalDate currentLocalDate() {
         return LocalDate.now();
     }

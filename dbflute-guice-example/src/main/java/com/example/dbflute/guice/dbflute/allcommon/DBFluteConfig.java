@@ -126,7 +126,7 @@ public class DBFluteConfig {
             _logTimestampFormat = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
         }
 
-        // uses Joda-Time
+        // uses JodaTime
         TnValueTypes.registerBasicValueType(currentDBDef(), LocalDate.class, new JodaLocalDateType());
         TnValueTypes.registerBasicValueType(currentDBDef(), LocalDateTime.class, new JodaLocalDateTimeType());
         TnValueTypes.registerBasicValueType(currentDBDef(), LocalTime.class, new JodaLocalTimeType());
@@ -873,8 +873,8 @@ public class DBFluteConfig {
     }    
 
     // ===================================================================================
-    //                                                                     Joda-Time Class
-    //                                                                     ===============
+    //                                                                      JodaTime Class
+    //                                                                      ==============
     public static class JodaLocalDateType extends TnAbstractValueType {
 
         public JodaLocalDateType() {

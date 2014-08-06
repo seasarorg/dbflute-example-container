@@ -221,7 +221,7 @@ public class DBFluteConfig {
     }
 
     public void setInvalidQueryChecked(boolean invalidQueryChecked) { // for compatible
-        setNullOrEmptyQueryAllowed(invalidQueryChecked);
+        setNullOrEmptyQueryAllowed(!invalidQueryChecked);
     }
 
     public boolean isEmptyStringQueryAllowed() {

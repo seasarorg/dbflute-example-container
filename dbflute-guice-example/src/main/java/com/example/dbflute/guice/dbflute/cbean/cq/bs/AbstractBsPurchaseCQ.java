@@ -10,6 +10,8 @@ import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.ReadableInstant;
 import org.joda.time.ReadablePartial;
 import com.example.dbflute.guice.dbflute.allcommon.*;
@@ -543,7 +545,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @param fromToOption The option of from-to. (NotNull)
      */
     public void setPurchaseDatetime_FromTo(org.joda.time.LocalDateTime fromDatetime, org.joda.time.LocalDateTime toDatetime, FromToOption fromToOption) {
-        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValuePurchaseDatetime(), "PURCHASE_DATETIME", fromToOption);
+        regFTQ(toTimestamp(fromDatetime), toTimestamp(toDatetime), getCValuePurchaseDatetime(), "PURCHASE_DATETIME", fromToOption);
     }
 
     /**
@@ -1212,7 +1214,6 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                    Small Adjustment
     //                                                                    ================
-
     protected Date toUtilDate(Object date) {
         if (date != null && date instanceof ReadablePartial) {
             return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
@@ -1222,6 +1223,24 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
         return DfTypeUtil.toDate(date);
     }
 
+    protected java.sql.Timestamp toTimestamp(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new java.sql.Timestamp(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new java.sql.Timestamp(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toTimestamp(date);
+    }
+
+    @Override
+    protected Object filterFromToRegisteredDate(Date date, String columnDbName) {
+        if (date instanceof java.sql.Timestamp) {
+            return LocalDateTime.fromDateFields(date);
+        } else { // basically pure Date
+            return LocalDate.fromDateFields(date);
+        }
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1229,6 +1248,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
         return new PurchaseCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return PurchaseCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
