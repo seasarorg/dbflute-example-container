@@ -884,13 +884,4 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
     protected Class<? extends VendorIdentityOnly> typeOfSelectedEntity() { return VendorIdentityOnly.class; }
     protected Class<VendorIdentityOnly> typeOfHandlingEntity() { return VendorIdentityOnly.class; }
     protected Class<VendorIdentityOnlyCB> typeOfHandlingConditionBean() { return VendorIdentityOnlyCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<VendorIdentityOnlyCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorIdentityOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorIdentityOnlyCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorIdentityOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorIdentityOnlyCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorIdentityOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorIdentityOnly, VendorIdentityOnlyCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<VendorIdentityOnly, VendorIdentityOnlyCB>)sp; }
 }

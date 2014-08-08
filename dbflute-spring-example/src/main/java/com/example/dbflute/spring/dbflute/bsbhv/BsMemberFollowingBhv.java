@@ -949,13 +949,4 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable<Memb
     protected Class<? extends MemberFollowing> typeOfSelectedEntity() { return MemberFollowing.class; }
     protected Class<MemberFollowing> typeOfHandlingEntity() { return MemberFollowing.class; }
     protected Class<MemberFollowingCB> typeOfHandlingConditionBean() { return MemberFollowingCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberFollowingCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberFollowingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberFollowingCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberFollowingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberFollowingCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberFollowingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberFollowing, MemberFollowingCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberFollowing, MemberFollowingCB>)sp; }
 }

@@ -915,13 +915,4 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     protected Class<? extends PurchasePayment> typeOfSelectedEntity() { return PurchasePayment.class; }
     protected Class<PurchasePayment> typeOfHandlingEntity() { return PurchasePayment.class; }
     protected Class<PurchasePaymentCB> typeOfHandlingConditionBean() { return PurchasePaymentCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<PurchasePaymentCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<PurchasePaymentCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<PurchasePaymentCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<PurchasePaymentCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<PurchasePaymentCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<PurchasePaymentCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<PurchasePayment, PurchasePaymentCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<PurchasePayment, PurchasePaymentCB>)sp; }
 }

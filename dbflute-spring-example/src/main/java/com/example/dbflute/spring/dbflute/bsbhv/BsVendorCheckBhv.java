@@ -912,13 +912,4 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
     protected Class<? extends VendorCheck> typeOfSelectedEntity() { return VendorCheck.class; }
     protected Class<VendorCheck> typeOfHandlingEntity() { return VendorCheck.class; }
     protected Class<VendorCheckCB> typeOfHandlingConditionBean() { return VendorCheckCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<VendorCheckCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorCheckCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorCheckCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorCheck, VendorCheckCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<VendorCheck, VendorCheckCB>)sp; }
 }

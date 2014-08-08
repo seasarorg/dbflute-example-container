@@ -907,13 +907,4 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     protected Class<? extends VendorPrimaryKeyOnly> typeOfSelectedEntity() { return VendorPrimaryKeyOnly.class; }
     protected Class<VendorPrimaryKeyOnly> typeOfHandlingEntity() { return VendorPrimaryKeyOnly.class; }
     protected Class<VendorPrimaryKeyOnlyCB> typeOfHandlingConditionBean() { return VendorPrimaryKeyOnlyCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<VendorPrimaryKeyOnlyCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorPrimaryKeyOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorPrimaryKeyOnlyCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorPrimaryKeyOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorPrimaryKeyOnlyCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorPrimaryKeyOnlyCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<VendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB>)sp; }
 }

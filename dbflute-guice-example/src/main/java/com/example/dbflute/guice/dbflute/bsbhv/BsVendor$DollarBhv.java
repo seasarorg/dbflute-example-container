@@ -884,13 +884,4 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     protected Class<? extends Vendor$Dollar> typeOfSelectedEntity() { return Vendor$Dollar.class; }
     protected Class<Vendor$Dollar> typeOfHandlingEntity() { return Vendor$Dollar.class; }
     protected Class<Vendor$DollarCB> typeOfHandlingConditionBean() { return Vendor$DollarCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<Vendor$DollarCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<Vendor$DollarCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<Vendor$DollarCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<Vendor$DollarCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<Vendor$DollarCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<Vendor$DollarCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<Vendor$Dollar, Vendor$DollarCB>)sp; }
 }

@@ -1188,13 +1188,4 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
     protected Class<? extends MemberAddress> typeOfSelectedEntity() { return MemberAddress.class; }
     protected Class<MemberAddress> typeOfHandlingEntity() { return MemberAddress.class; }
     protected Class<MemberAddressCB> typeOfHandlingConditionBean() { return MemberAddressCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberAddressCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberAddressCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberAddressCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberAddress, MemberAddressCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberAddress, MemberAddressCB>)sp; }
 }

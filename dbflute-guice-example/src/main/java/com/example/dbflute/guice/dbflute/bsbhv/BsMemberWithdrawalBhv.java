@@ -1117,13 +1117,4 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     protected Class<? extends MemberWithdrawal> typeOfSelectedEntity() { return MemberWithdrawal.class; }
     protected Class<MemberWithdrawal> typeOfHandlingEntity() { return MemberWithdrawal.class; }
     protected Class<MemberWithdrawalCB> typeOfHandlingConditionBean() { return MemberWithdrawalCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberWithdrawalCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberWithdrawalCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberWithdrawalCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberWithdrawalCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberWithdrawalCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberWithdrawalCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>)sp; }
 }

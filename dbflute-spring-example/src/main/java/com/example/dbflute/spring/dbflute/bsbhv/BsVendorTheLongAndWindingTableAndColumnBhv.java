@@ -1032,13 +1032,4 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
     protected Class<? extends VendorTheLongAndWindingTableAndColumn> typeOfSelectedEntity() { return VendorTheLongAndWindingTableAndColumn.class; }
     protected Class<VendorTheLongAndWindingTableAndColumn> typeOfHandlingEntity() { return VendorTheLongAndWindingTableAndColumn.class; }
     protected Class<VendorTheLongAndWindingTableAndColumnCB> typeOfHandlingConditionBean() { return VendorTheLongAndWindingTableAndColumnCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<VendorTheLongAndWindingTableAndColumnCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<VendorTheLongAndWindingTableAndColumnCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<VendorTheLongAndWindingTableAndColumnCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<VendorTheLongAndWindingTableAndColumnCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<VendorTheLongAndWindingTableAndColumn, VendorTheLongAndWindingTableAndColumnCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<VendorTheLongAndWindingTableAndColumn, VendorTheLongAndWindingTableAndColumnCB>)sp; }
 }

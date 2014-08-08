@@ -1054,13 +1054,4 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
     protected Class<? extends MemberStatus> typeOfSelectedEntity() { return MemberStatus.class; }
     protected Class<MemberStatus> typeOfHandlingEntity() { return MemberStatus.class; }
     protected Class<MemberStatusCB> typeOfHandlingConditionBean() { return MemberStatusCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberStatusCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberStatusCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberStatusCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberStatus, MemberStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberStatus, MemberStatusCB>)sp; }
 }
