@@ -874,5 +874,5 @@ public class DBFluteConfig {
             }
             return null;
         }
-    }    
+    }
 }

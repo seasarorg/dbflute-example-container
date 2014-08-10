@@ -49,6 +49,12 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /** The parameter of toFormalizedDate:toDate. */
     protected org.joda.time.LocalDate _toFormalizedDate;
 
+    /** The parameter of fromFormalizedOptionDate:fromDate(option). */
+    protected org.joda.time.LocalDate _fromFormalizedOptionDate;
+
+    /** The parameter of toFormalizedOptionDate:toDate(option). */
+    protected org.joda.time.LocalDate _toFormalizedOptionDate;
+
     /** The parameter of memberStatusCode:cls(MemberStatus). */
     protected String _memberStatusCode;
 
@@ -219,6 +225,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberAccount);
         sb.append(dm).append(_fromFormalizedDate);
         sb.append(dm).append(_toFormalizedDate);
+        sb.append(dm).append(_fromFormalizedOptionDate);
+        sb.append(dm).append(_toFormalizedOptionDate);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
         sb.append(dm).append(_birthdate);
@@ -329,6 +337,42 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      */
     public void setToFormalizedDate_ToDate(org.joda.time.LocalDate toFormalizedDate) {
         _toFormalizedDate = toLocalDate(new FromToOption().compareAsDate().filterToDate(toUtilDate(toFormalizedDate)), org.joda.time.LocalDate.class);
+    }
+
+    /**
+     * [get] fromFormalizedOptionDate:fromDate(option) <br />
+     * @return The value of fromFormalizedOptionDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     */
+    public org.joda.time.LocalDate getFromFormalizedOptionDate() {
+        return _fromFormalizedOptionDate;
+    }
+
+    /**
+     * [set as fromScope] fromFormalizedOptionDate:fromDate(option) <br />
+     * @param fromFormalizedOptionDate The value of fromFormalizedOptionDate. (NullAllowed)
+     * @param fromFormalizedOptionDateOption The option of from-to scope for fromFormalizedOptionDate. (NotNull)
+     */
+    public void setFromFormalizedOptionDate_FromDate(org.joda.time.LocalDate fromFormalizedOptionDate, FromToOption fromFormalizedOptionDateOption) {
+        assertFromToOptionValid("fromFormalizedOptionDateOption", fromFormalizedOptionDateOption);
+        _fromFormalizedOptionDate = toLocalDate(fromFormalizedOptionDateOption.filterFromDate(toUtilDate(fromFormalizedOptionDate)), org.joda.time.LocalDate.class);
+    }
+
+    /**
+     * [get] toFormalizedOptionDate:toDate(option) <br />
+     * @return The value of toFormalizedOptionDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     */
+    public org.joda.time.LocalDate getToFormalizedOptionDate() {
+        return _toFormalizedOptionDate;
+    }
+
+    /**
+     * [set as toScope] toFormalizedOptionDate:toDate(option) <br />
+     * @param toFormalizedOptionDate The value of toFormalizedOptionDate. (NullAllowed)
+     * @param toFormalizedOptionDateOption The option of from-to scope for toFormalizedOptionDate. (NotNull)
+     */
+    public void setToFormalizedOptionDate_ToDate(org.joda.time.LocalDate toFormalizedOptionDate, FromToOption toFormalizedOptionDateOption) {
+        assertFromToOptionValid("toFormalizedOptionDateOption", toFormalizedOptionDateOption);
+        _toFormalizedOptionDate = toLocalDate(toFormalizedOptionDateOption.filterToDate(toUtilDate(toFormalizedOptionDate)), org.joda.time.LocalDate.class);
     }
 
     /**

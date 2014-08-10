@@ -6,6 +6,8 @@
 -- !!String memberAccount:like!!
 -- !!Date fromFormalizedDate:fromDate!!
 -- !!Date toFormalizedDate:toDate!!
+-- !!Date fromFormalizedOptionDate:fromDate(option)!!
+-- !!Date toFormalizedOptionDate:toDate(option)!!
 -- !!String memberStatusCode:cls(MemberStatus)!!
 -- !!Integer displayOrder:ref(MemberStatus)!!
 -- !!Date birthdate:fromDate|ref(Member)!!
@@ -39,6 +41,12 @@ select member.MEMBER_ID
    /*END*/
    /*IF pmb.toFormalizedDate != null*/
    and member.FORMALIZED_DATETIME < /*pmb.toFormalizedDate*/'1974-04-17'
+   /*END*/
+   /*IF pmb.fromFormalizedOptionDate != null*/
+   and member.FORMALIZED_DATETIME >= /*pmb.fromFormalizedOptionDate*/'1964-12-27'
+   /*END*/
+   /*IF pmb.toFormalizedOptionDate != null*/
+   and member.FORMALIZED_DATETIME < /*pmb.toFormalizedOptionDate*/'1974-04-17'
    /*END*/
    /*IF pmb.memberStatusCode != null*/
    and member.MEMBER_STATUS_CODE = /*pmb.memberStatusCode*/'WDL'
