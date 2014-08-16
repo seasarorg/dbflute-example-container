@@ -1040,13 +1040,4 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
     protected Class<? extends SummaryProduct> typeOfSelectedEntity() { return SummaryProduct.class; }
     protected Class<SummaryProduct> typeOfHandlingEntity() { return SummaryProduct.class; }
     protected Class<SummaryProductCB> typeOfHandlingConditionBean() { return SummaryProductCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<SummaryProductCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<SummaryProductCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<SummaryProductCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<SummaryProductCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<SummaryProductCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<SummaryProductCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<SummaryProduct, SummaryProductCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<SummaryProduct, SummaryProductCB>)sp; }
 }

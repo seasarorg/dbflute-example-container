@@ -173,7 +173,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     //                                                                            ========
     /**
      * [get] schema <br />
-     * @return The value of schema. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of schema. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSchema() {
         return filterStringParameter(_schema);
@@ -189,7 +189,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
 
     /**
      * [get] schemaDot <br />
-     * @return The value of schemaDot. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of schemaDot. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSchemaDot() {
         return filterStringParameter(_schemaDot);

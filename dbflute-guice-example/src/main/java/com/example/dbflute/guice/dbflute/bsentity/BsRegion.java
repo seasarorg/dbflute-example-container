@@ -466,7 +466,8 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable, Deriv
      * [set] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
-    public void setRegionId(Integer regionId) {
+    protected void setRegionId(Integer regionId) {
+        checkImplicitSet("REGION_ID", CDef.DefMeta.Region, regionId);
         __modifiedProperties.addPropertyName("regionId");
         _regionId = regionId;
     }
@@ -490,5 +491,9 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable, Deriv
 
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

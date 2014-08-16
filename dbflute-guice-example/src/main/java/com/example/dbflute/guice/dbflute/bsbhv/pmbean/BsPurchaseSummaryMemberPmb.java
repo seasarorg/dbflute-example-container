@@ -176,18 +176,10 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
     //                                                                            ========
     /**
      * [get] memberStatusCode:cls(MemberStatus) <br />
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
         return filterStringParameter(_memberStatusCode);
-    }
-
-    /**
-     * [set] memberStatusCode:cls(MemberStatus) <br />
-     * @param memberStatusCode The value of memberStatusCode. (NullAllowed)
-     */
-    public void setMemberStatusCode(String memberStatusCode) {
-        _memberStatusCode = memberStatusCode;
     }
 
     /**
@@ -216,7 +208,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
 
     /**
      * [get] formalizedDatetime <br />
-     * @return The value of formalizedDatetime. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of formalizedDatetime. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDateTime getFormalizedDatetime() {
         return _formalizedDatetime;

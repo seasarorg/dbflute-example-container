@@ -350,7 +350,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param mobileLoginFlg The value of mobileLoginFlg as equal. (NullAllowed: if null, no condition)
      */
-    public void setMobileLoginFlg_Equal(Integer mobileLoginFlg) {
+    protected void setMobileLoginFlg_Equal(Integer mobileLoginFlg) {
         doSetMobileLoginFlg_Equal(mobileLoginFlg);
     }
 
@@ -389,7 +389,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param mobileLoginFlg The value of mobileLoginFlg as notEqual. (NullAllowed: if null, no condition)
      */
-    public void setMobileLoginFlg_NotEqual(Integer mobileLoginFlg) {
+    protected void setMobileLoginFlg_NotEqual(Integer mobileLoginFlg) {
         doSetMobileLoginFlg_NotEqual(mobileLoginFlg);
     }
 
@@ -477,7 +477,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @param loginMemberStatusCode The value of loginMemberStatusCode as equal. (NullAllowed: if null (or empty), no condition)
      */
-    public void setLoginMemberStatusCode_Equal(String loginMemberStatusCode) {
+    protected void setLoginMemberStatusCode_Equal(String loginMemberStatusCode) {
         doSetLoginMemberStatusCode_Equal(fRES(loginMemberStatusCode));
     }
 
@@ -524,7 +524,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @param loginMemberStatusCode The value of loginMemberStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
-    public void setLoginMemberStatusCode_NotEqual(String loginMemberStatusCode) {
+    protected void setLoginMemberStatusCode_NotEqual(String loginMemberStatusCode) {
         doSetLoginMemberStatusCode_NotEqual(fRES(loginMemberStatusCode));
     }
 

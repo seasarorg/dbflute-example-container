@@ -162,7 +162,7 @@ public abstract class BsPaymentCompletePurchasePmb extends SimplePagingBean impl
     //                                                                            ========
     /**
      * [get] paymentCompleteFlg:cls(Flg.True) <br />
-     * @return The value of paymentCompleteFlg. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
         return _paymentCompleteFlg;

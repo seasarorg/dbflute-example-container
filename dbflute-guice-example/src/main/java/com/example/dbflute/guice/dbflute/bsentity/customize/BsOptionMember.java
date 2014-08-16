@@ -18,7 +18,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  *     
  * 
  * [column]
- *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, STATUS_DISPLAY_ORDER, MEMBER_STATUS_NAME, DUMMY_FLG, DUMMY_NOFLG
+ *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, STATUS_DISPLAY_ORDER, DUMMY_FLG, DUMMY_NOFLG
  * 
  * [sequence]
  *     
@@ -48,8 +48,8 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * org.joda.time.LocalDate birthdate = entity.getBirthdate();
  * org.joda.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
  * String memberStatusCode = entity.getMemberStatusCode();
- * Integer statusDisplayOrder = entity.getStatusDisplayOrder();
  * String memberStatusName = entity.getMemberStatusName();
+ * Integer statusDisplayOrder = entity.getStatusDisplayOrder();
  * Integer dummyFlg = entity.getDummyFlg();
  * Integer dummyNoflg = entity.getDummyNoflg();
  * entity.setMemberId(memberId);
@@ -57,8 +57,8 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * entity.setBirthdate(birthdate);
  * entity.setFormalizedDatetime(formalizedDatetime);
  * entity.setMemberStatusCode(memberStatusCode);
- * entity.setStatusDisplayOrder(statusDisplayOrder);
  * entity.setMemberStatusName(memberStatusName);
+ * entity.setStatusDisplayOrder(statusDisplayOrder);
  * entity.setDummyFlg(dummyFlg);
  * entity.setDummyNoflg(dummyNoflg);
  * = = = = = = = = = =/
@@ -94,11 +94,11 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
     /** (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} */
     protected String _memberStatusCode;
 
+    /** (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
+    protected String _memberStatusName;
+
     /** (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} */
     protected Integer _statusDisplayOrder;
-
-    /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
-    protected String _memberStatusName;
 
     /** DUMMY_FLG: {INTEGER(10), classification=Flg} */
     protected Integer _dummyFlg;
@@ -434,8 +434,8 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
         if (!xSV(getBirthdate(), other.getBirthdate())) { return false; }
         if (!xSV(getFormalizedDatetime(), other.getFormalizedDatetime())) { return false; }
         if (!xSV(getMemberStatusCode(), other.getMemberStatusCode())) { return false; }
-        if (!xSV(getStatusDisplayOrder(), other.getStatusDisplayOrder())) { return false; }
         if (!xSV(getMemberStatusName(), other.getMemberStatusName())) { return false; }
+        if (!xSV(getStatusDisplayOrder(), other.getStatusDisplayOrder())) { return false; }
         if (!xSV(getDummyFlg(), other.getDummyFlg())) { return false; }
         if (!xSV(getDummyNoflg(), other.getDummyNoflg())) { return false; }
         return true;
@@ -456,8 +456,8 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
         hs = xCH(hs, getBirthdate());
         hs = xCH(hs, getFormalizedDatetime());
         hs = xCH(hs, getMemberStatusCode());
-        hs = xCH(hs, getStatusDisplayOrder());
         hs = xCH(hs, getMemberStatusName());
+        hs = xCH(hs, getStatusDisplayOrder());
         hs = xCH(hs, getDummyFlg());
         hs = xCH(hs, getDummyNoflg());
         return hs;
@@ -509,8 +509,8 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
         sb.append(dm).append(getBirthdate());
         sb.append(dm).append(getFormalizedDatetime());
         sb.append(dm).append(getMemberStatusCode());
-        sb.append(dm).append(getStatusDisplayOrder());
         sb.append(dm).append(getMemberStatusName());
+        sb.append(dm).append(getStatusDisplayOrder());
         sb.append(dm).append(getDummyFlg());
         sb.append(dm).append(getDummyNoflg());
         if (sb.length() > dm.length()) {
@@ -618,9 +618,27 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br />
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setMemberStatusCode(String memberStatusCode) {
+    protected void setMemberStatusCode(String memberStatusCode) {
+        checkImplicitSet("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         __modifiedProperties.addPropertyName("memberStatusCode");
         _memberStatusCode = memberStatusCode;
+    }
+
+    /**
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
+     */
+    public String getMemberStatusName() {
+        return convertEmptyToNull(_memberStatusName);
+    }
+
+    /**
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if update: for the constraint)
+     */
+    public void setMemberStatusName(String memberStatusName) {
+        __modifiedProperties.addPropertyName("memberStatusName");
+        _memberStatusName = memberStatusName;
     }
 
     /**
@@ -641,23 +659,6 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getMemberStatusName() {
-        return convertEmptyToNull(_memberStatusName);
-    }
-
-    /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setMemberStatusName(String memberStatusName) {
-        __modifiedProperties.addPropertyName("memberStatusName");
-        _memberStatusName = memberStatusName;
-    }
-
-    /**
      * [get] DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
      * @return The value of the column 'DUMMY_FLG'. (NullAllowed even if selected: for no constraint)
      */
@@ -669,7 +670,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      * [set] DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
      * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setDummyFlg(Integer dummyFlg) {
+    protected void setDummyFlg(Integer dummyFlg) {
         checkImplicitSet("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
         __modifiedProperties.addPropertyName("dummyFlg");
         _dummyFlg = dummyFlg;

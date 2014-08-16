@@ -61,10 +61,10 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     protected Date _toFormalizedDate;
 
     /** The parameter of fromFormalizedMonth:fromDate(option). */
-    protected Date _fromFormalizedMonth;
+    protected java.sql.Timestamp _fromFormalizedMonth;
 
     /** The parameter of toFormalizedMonth:toDate(option). */
-    protected Date _toFormalizedMonth;
+    protected java.sql.Timestamp _toFormalizedMonth;
 
     /** The parameter of memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected String _memberStatusCode;
@@ -236,8 +236,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberAccount);
         sb.append(dm).append(formatUtilDate(_fromFormalizedDate));
         sb.append(dm).append(formatUtilDate(_toFormalizedDate));
-        sb.append(dm).append(formatUtilDate(_fromFormalizedMonth));
-        sb.append(dm).append(formatUtilDate(_toFormalizedMonth));
+        sb.append(dm).append(_fromFormalizedMonth);
+        sb.append(dm).append(_toFormalizedMonth);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
         sb.append(dm).append(formatUtilDate(_birthdate));
@@ -257,7 +257,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     //                                                                            ========
     /**
      * [get] memberId <br />
-     * @return The value of memberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
         return _memberId;
@@ -273,7 +273,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
@@ -298,7 +298,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberAccount:like <br />
-     * @return The value of memberAccount. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberAccount. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberAccount() {
         return filterStringParameter(_memberAccount);
@@ -325,7 +325,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] fromFormalizedDate:fromDate <br />
-     * @return The value of fromFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of fromFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getFromFormalizedDate() {
         return toUtilDate(_fromFormalizedDate);
@@ -341,7 +341,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] toFormalizedDate:toDate <br />
-     * @return The value of toFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of toFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getToFormalizedDate() {
         return toUtilDate(_toFormalizedDate);
@@ -357,10 +357,10 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] fromFormalizedMonth:fromDate(option) <br />
-     * @return The value of fromFormalizedMonth. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of fromFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getFromFormalizedMonth() {
-        return toUtilDate(_fromFormalizedMonth);
+    public java.sql.Timestamp getFromFormalizedMonth() {
+        return _fromFormalizedMonth;
     }
 
     /**
@@ -368,17 +368,17 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * @param fromFormalizedMonth The value of fromFormalizedMonth. (NullAllowed)
      * @param fromFormalizedMonthOption The option of from-to scope for fromFormalizedMonth. (NotNull)
      */
-    public void setFromFormalizedMonth_FromDate(Date fromFormalizedMonth, FromToOption fromFormalizedMonthOption) {
+    public void setFromFormalizedMonth_FromDate(java.sql.Timestamp fromFormalizedMonth, FromToOption fromFormalizedMonthOption) {
         assertFromToOptionValid("fromFormalizedMonthOption", fromFormalizedMonthOption);
         _fromFormalizedMonth = fromFormalizedMonthOption.filterFromDate(fromFormalizedMonth);
     }
 
     /**
      * [get] toFormalizedMonth:toDate(option) <br />
-     * @return The value of toFormalizedMonth. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of toFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getToFormalizedMonth() {
-        return toUtilDate(_toFormalizedMonth);
+    public java.sql.Timestamp getToFormalizedMonth() {
+        return _toFormalizedMonth;
     }
 
     /**
@@ -386,7 +386,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * @param toFormalizedMonth The value of toFormalizedMonth. (NullAllowed)
      * @param toFormalizedMonthOption The option of from-to scope for toFormalizedMonth. (NotNull)
      */
-    public void setToFormalizedMonth_ToDate(Date toFormalizedMonth, FromToOption toFormalizedMonthOption) {
+    public void setToFormalizedMonth_ToDate(java.sql.Timestamp toFormalizedMonth, FromToOption toFormalizedMonthOption) {
         assertFromToOptionValid("toFormalizedMonthOption", toFormalizedMonthOption);
         _toFormalizedMonth = toFormalizedMonthOption.filterToDate(toFormalizedMonth);
     }
@@ -394,7 +394,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * reference option (including classification)
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
         return filterStringParameter(_memberStatusCode);
@@ -438,7 +438,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
-     * @return The value of displayOrder. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of displayOrder. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getDisplayOrder() {
         return _displayOrder;
@@ -455,7 +455,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * several options
-     * @return The value of birthdate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getBirthdate() {
         return toUtilDate(_birthdate);
@@ -473,7 +473,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] status:cls(MemberStatus) <br />
      * direct classification setting
-     * @return The value of status. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of status. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatus() {
         return filterStringParameter(_status);
@@ -518,7 +518,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] statusFormalized:cls(MemberStatus.Formalized) <br />
      * fixed classification setting
-     * @return The value of statusFormalized. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of statusFormalized. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatusFormalized() {
         return filterStringParameter(_statusFormalized);
@@ -527,7 +527,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * classification to list
-     * @return The value of statusList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
         return _statusList;
@@ -545,7 +545,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] statusFixedList:cls(MemberStatus.Formalized, Withdrawal) <br />
      * fixed classification list
-     * @return The value of statusFixedList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of statusFixedList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getStatusFixedList() {
         return _statusFixedList;
@@ -554,7 +554,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] paymentCompleteFlg:cls(Flg) <br />
      * direct one as Integer
-     * @return The value of paymentCompleteFlg. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
         return _paymentCompleteFlg;
@@ -590,7 +590,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] paymentCompleteTrue:cls(Flg.True) <br />
      * fixed one as Integer
-     * @return The value of paymentCompleteTrue. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of paymentCompleteTrue. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteTrue() {
         return _paymentCompleteTrue;

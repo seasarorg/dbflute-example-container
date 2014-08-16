@@ -181,7 +181,7 @@ public class BsMemberChangedToWithdrawalForcedlyPmb implements ExecuteHandlingPm
     //                                                                            ========
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
@@ -206,7 +206,7 @@ public class BsMemberChangedToWithdrawalForcedlyPmb implements ExecuteHandlingPm
 
     /**
      * [get] formalizedDatetime <br />
-     * @return The value of formalizedDatetime. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of formalizedDatetime. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Timestamp getFormalizedDatetime() {
         return _formalizedDatetime;

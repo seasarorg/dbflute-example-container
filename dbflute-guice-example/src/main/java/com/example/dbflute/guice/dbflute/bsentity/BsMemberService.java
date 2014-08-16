@@ -641,7 +641,8 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
      * [set] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br />
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setServiceRankCode(String serviceRankCode) {
+    protected void setServiceRankCode(String serviceRankCode) {
+        checkImplicitSet("SERVICE_RANK_CODE", CDef.DefMeta.ServiceRank, serviceRankCode);
         __modifiedProperties.addPropertyName("serviceRankCode");
         _serviceRankCode = serviceRankCode;
     }
@@ -733,5 +734,9 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
 
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

@@ -494,7 +494,8 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable,
      * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br />
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setMemberStatusCode(String memberStatusCode) {
+    protected void setMemberStatusCode(String memberStatusCode) {
+        checkImplicitSet("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         __modifiedProperties.addPropertyName("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
@@ -552,5 +553,9 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable,
 
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

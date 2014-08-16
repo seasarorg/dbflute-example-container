@@ -160,7 +160,7 @@ public class BsVendorUnsupportedAliasPmb implements ExecuteHandlingPmb<VendorChe
     //                                                                            ========
     /**
      * [get] vendorCheckId:ref(VENDOR_CHECK) :: refers to VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br />
-     * @return The value of vendorCheckId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of vendorCheckId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Long getVendorCheckId() {
         return _vendorCheckId;

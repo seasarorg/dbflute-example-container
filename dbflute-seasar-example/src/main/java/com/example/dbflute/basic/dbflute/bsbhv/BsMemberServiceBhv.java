@@ -1195,13 +1195,4 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
     protected Class<? extends MemberService> typeOfSelectedEntity() { return MemberService.class; }
     protected Class<MemberService> typeOfHandlingEntity() { return MemberService.class; }
     protected Class<MemberServiceCB> typeOfHandlingConditionBean() { return MemberServiceCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberServiceCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberServiceCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberServiceCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberServiceCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberServiceCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberServiceCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberService, MemberServiceCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberService, MemberServiceCB>)sp; }
 }

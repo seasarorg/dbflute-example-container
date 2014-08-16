@@ -1125,13 +1125,4 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     protected Class<? extends ProductStatus> typeOfSelectedEntity() { return ProductStatus.class; }
     protected Class<ProductStatus> typeOfHandlingEntity() { return ProductStatus.class; }
     protected Class<ProductStatusCB> typeOfHandlingConditionBean() { return ProductStatusCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<ProductStatusCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ProductStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<ProductStatusCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<ProductStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<ProductStatusCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<ProductStatusCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<ProductStatus, ProductStatusCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<ProductStatus, ProductStatusCB>)sp; }
 }

@@ -54,6 +54,9 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
     /** The parameter of unpaidMemberOnly. */
     protected boolean _unpaidMemberOnly;
 
+    /** The parameter of unpaidSmallPaymentAmount. */
+    protected java.math.BigDecimal _unpaidSmallPaymentAmount;
+
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -172,6 +175,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
         sb.append(dm).append(_memberName);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_unpaidMemberOnly);
+        sb.append(dm).append(_unpaidSmallPaymentAmount);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -182,7 +186,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
     //                                                                            ========
     /**
      * [get] memberId <br />
-     * @return The value of memberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
         return _memberId;
@@ -198,7 +202,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
@@ -223,7 +227,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
         return filterStringParameter(_memberStatusCode);
@@ -263,7 +267,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [get] unpaidMemberOnly <br />
-     * @return The value of unpaidMemberOnly. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of unpaidMemberOnly. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getUnpaidMemberOnly() {
         return _unpaidMemberOnly;
@@ -275,5 +279,21 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
      */
     public void setUnpaidMemberOnly(boolean unpaidMemberOnly) {
         _unpaidMemberOnly = unpaidMemberOnly;
+    }
+
+    /**
+     * [get] unpaidSmallPaymentAmount <br />
+     * @return The value of unpaidSmallPaymentAmount. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public java.math.BigDecimal getUnpaidSmallPaymentAmount() {
+        return _unpaidSmallPaymentAmount;
+    }
+
+    /**
+     * [set] unpaidSmallPaymentAmount <br />
+     * @param unpaidSmallPaymentAmount The value of unpaidSmallPaymentAmount. (NullAllowed)
+     */
+    public void setUnpaidSmallPaymentAmount(java.math.BigDecimal unpaidSmallPaymentAmount) {
+        _unpaidSmallPaymentAmount = unpaidSmallPaymentAmount;
     }
 }

@@ -173,7 +173,7 @@ public class BsPmCommentOrderByIfPmb implements ListHandlingPmb<MemberBhv, PmCom
     //                                                                            ========
     /**
      * [get] orderByMemberId <br />
-     * @return The value of orderByMemberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of orderByMemberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getOrderByMemberId() {
         return _orderByMemberId;
@@ -189,7 +189,7 @@ public class BsPmCommentOrderByIfPmb implements ListHandlingPmb<MemberBhv, PmCom
 
     /**
      * [get] orderByMemberAccount <br />
-     * @return The value of orderByMemberAccount. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of orderByMemberAccount. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getOrderByMemberAccount() {
         return _orderByMemberAccount;

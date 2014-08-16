@@ -164,7 +164,7 @@ public class BsParameterNonAutoDetectPmb implements ExecuteHandlingPmb<MemberBhv
     //                                                                            ========
     /**
      * [get] normalInteger <br />
-     * @return The value of normalInteger. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of normalInteger. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getNormalInteger() {
         return _normalInteger;
@@ -180,7 +180,7 @@ public class BsParameterNonAutoDetectPmb implements ExecuteHandlingPmb<MemberBhv
 
     /**
      * [get] noTestValue <br />
-     * @return The value of noTestValue. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of noTestValue. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getNoTestValue() {
         return _noTestValue;

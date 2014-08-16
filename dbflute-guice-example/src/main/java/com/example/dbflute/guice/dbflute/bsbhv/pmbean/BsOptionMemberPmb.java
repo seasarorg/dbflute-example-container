@@ -49,23 +49,38 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /** The parameter of toFormalizedDate:toDate. */
     protected org.joda.time.LocalDate _toFormalizedDate;
 
-    /** The parameter of fromFormalizedOptionDate:fromDate(option). */
-    protected org.joda.time.LocalDate _fromFormalizedOptionDate;
+    /** The parameter of fromFormalizedMonth:fromDate(option). */
+    protected org.joda.time.LocalDateTime _fromFormalizedMonth;
 
-    /** The parameter of toFormalizedOptionDate:toDate(option). */
-    protected org.joda.time.LocalDate _toFormalizedOptionDate;
+    /** The parameter of toFormalizedMonth:toDate(option). */
+    protected org.joda.time.LocalDateTime _toFormalizedMonth;
 
-    /** The parameter of memberStatusCode:cls(MemberStatus). */
+    /** The parameter of memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected String _memberStatusCode;
 
-    /** The parameter of displayOrder:ref(MemberStatus) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}. */
+    /** The parameter of displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}. */
     protected Integer _displayOrder;
 
-    /** The parameter of birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
+    /** The parameter of birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
     protected org.joda.time.LocalDate _birthdate;
 
-    /** The parameter of status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    /** The parameter of status:cls(MemberStatus). */
     protected String _status;
+
+    /** The parameter of statusFormalized:cls(MemberStatus.Formalized). */
+    protected String _statusFormalized = CDef.MemberStatus.Formalized.code();
+
+    /** The parameter of statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    protected List<com.example.dbflute.guice.dbflute.allcommon.CDef.MemberStatus> _statusList;
+
+    /** The parameter of statusFixedList:cls(MemberStatus.Formalized, Withdrawal). */
+    protected List<String> _statusFixedList = newArrayList(CDef.MemberStatus.Formalized.code(), CDef.MemberStatus.Withdrawal.code());
+
+    /** The parameter of paymentCompleteFlg:cls(Flg). */
+    protected Integer _paymentCompleteFlg;
+
+    /** The parameter of paymentCompleteTrue:cls(Flg.True). */
+    protected Integer _paymentCompleteTrue = toNumber(CDef.Flg.True.code(), Integer.class);
 
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
@@ -225,12 +240,17 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberAccount);
         sb.append(dm).append(_fromFormalizedDate);
         sb.append(dm).append(_toFormalizedDate);
-        sb.append(dm).append(_fromFormalizedOptionDate);
-        sb.append(dm).append(_toFormalizedOptionDate);
+        sb.append(dm).append(_fromFormalizedMonth);
+        sb.append(dm).append(_toFormalizedMonth);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
         sb.append(dm).append(_birthdate);
         sb.append(dm).append(_status);
+        sb.append(dm).append(_statusFormalized);
+        sb.append(dm).append(_statusList);
+        sb.append(dm).append(_statusFixedList);
+        sb.append(dm).append(_paymentCompleteFlg);
+        sb.append(dm).append(_paymentCompleteTrue);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -241,7 +261,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     //                                                                            ========
     /**
      * [get] memberId <br />
-     * @return The value of memberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
         return _memberId;
@@ -257,7 +277,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
@@ -282,7 +302,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberAccount:like <br />
-     * @return The value of memberAccount. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberAccount. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberAccount() {
         return filterStringParameter(_memberAccount);
@@ -309,7 +329,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] fromFormalizedDate:fromDate <br />
-     * @return The value of fromFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of fromFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDate getFromFormalizedDate() {
         return _fromFormalizedDate;
@@ -325,7 +345,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] toFormalizedDate:toDate <br />
-     * @return The value of toFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of toFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDate getToFormalizedDate() {
         return _toFormalizedDate;
@@ -340,59 +360,55 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [get] fromFormalizedOptionDate:fromDate(option) <br />
-     * @return The value of fromFormalizedOptionDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] fromFormalizedMonth:fromDate(option) <br />
+     * @return The value of fromFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public org.joda.time.LocalDate getFromFormalizedOptionDate() {
-        return _fromFormalizedOptionDate;
+    public org.joda.time.LocalDateTime getFromFormalizedMonth() {
+        return _fromFormalizedMonth;
     }
 
     /**
-     * [set as fromScope] fromFormalizedOptionDate:fromDate(option) <br />
-     * @param fromFormalizedOptionDate The value of fromFormalizedOptionDate. (NullAllowed)
-     * @param fromFormalizedOptionDateOption The option of from-to scope for fromFormalizedOptionDate. (NotNull)
+     * [set as fromScope] fromFormalizedMonth:fromDate(option) <br />
+     * @param fromFormalizedMonth The value of fromFormalizedMonth. (NullAllowed)
+     * @param fromFormalizedMonthOption The option of from-to scope for fromFormalizedMonth. (NotNull)
      */
-    public void setFromFormalizedOptionDate_FromDate(org.joda.time.LocalDate fromFormalizedOptionDate, FromToOption fromFormalizedOptionDateOption) {
-        assertFromToOptionValid("fromFormalizedOptionDateOption", fromFormalizedOptionDateOption);
-        _fromFormalizedOptionDate = toLocalDate(fromFormalizedOptionDateOption.filterFromDate(toUtilDate(fromFormalizedOptionDate)), org.joda.time.LocalDate.class);
+    public void setFromFormalizedMonth_FromDate(org.joda.time.LocalDateTime fromFormalizedMonth, FromToOption fromFormalizedMonthOption) {
+        assertFromToOptionValid("fromFormalizedMonthOption", fromFormalizedMonthOption);
+        _fromFormalizedMonth = toLocalDate(fromFormalizedMonthOption.filterFromDate(toUtilDate(fromFormalizedMonth)), org.joda.time.LocalDateTime.class);
     }
 
     /**
-     * [get] toFormalizedOptionDate:toDate(option) <br />
-     * @return The value of toFormalizedOptionDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] toFormalizedMonth:toDate(option) <br />
+     * @return The value of toFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public org.joda.time.LocalDate getToFormalizedOptionDate() {
-        return _toFormalizedOptionDate;
+    public org.joda.time.LocalDateTime getToFormalizedMonth() {
+        return _toFormalizedMonth;
     }
 
     /**
-     * [set as toScope] toFormalizedOptionDate:toDate(option) <br />
-     * @param toFormalizedOptionDate The value of toFormalizedOptionDate. (NullAllowed)
-     * @param toFormalizedOptionDateOption The option of from-to scope for toFormalizedOptionDate. (NotNull)
+     * [set as toScope] toFormalizedMonth:toDate(option) <br />
+     * @param toFormalizedMonth The value of toFormalizedMonth. (NullAllowed)
+     * @param toFormalizedMonthOption The option of from-to scope for toFormalizedMonth. (NotNull)
      */
-    public void setToFormalizedOptionDate_ToDate(org.joda.time.LocalDate toFormalizedOptionDate, FromToOption toFormalizedOptionDateOption) {
-        assertFromToOptionValid("toFormalizedOptionDateOption", toFormalizedOptionDateOption);
-        _toFormalizedOptionDate = toLocalDate(toFormalizedOptionDateOption.filterToDate(toUtilDate(toFormalizedOptionDate)), org.joda.time.LocalDate.class);
+    public void setToFormalizedMonth_ToDate(org.joda.time.LocalDateTime toFormalizedMonth, FromToOption toFormalizedMonthOption) {
+        assertFromToOptionValid("toFormalizedMonthOption", toFormalizedMonthOption);
+        _toFormalizedMonth = toLocalDate(toFormalizedMonthOption.filterToDate(toUtilDate(toFormalizedMonth)), org.joda.time.LocalDateTime.class);
     }
 
     /**
-     * [get] memberStatusCode:cls(MemberStatus) <br />
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * reference option (including classification)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
-        return filterStringParameter(_memberStatusCode);
+        String filtered = filterStringParameter(_memberStatusCode);
+        filtered = handleShortChar("memberStatusCode", filtered, 3);
+        return filtered;
     }
 
     /**
-     * [set] memberStatusCode:cls(MemberStatus) <br />
-     * @param memberStatusCode The value of memberStatusCode. (NullAllowed)
-     */
-    public void setMemberStatusCode(String memberStatusCode) {
-        _memberStatusCode = memberStatusCode;
-    }
-
-    /**
-     * [set as Formalized] memberStatusCode:cls(MemberStatus) <br />
+     * [set as Formalized] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * reference option (including classification) <br />
      * as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -400,7 +416,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [set as Withdrawal] memberStatusCode:cls(MemberStatus) <br />
+     * [set as Withdrawal] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * reference option (including classification) <br />
      * withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -408,7 +425,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [set as Provisional] memberStatusCode:cls(MemberStatus) <br />
+     * [set as Provisional] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * reference option (including classification) <br />
      * first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {
@@ -416,15 +434,15 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [get] displayOrder:ref(MemberStatus) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
-     * @return The value of displayOrder. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * @return The value of displayOrder. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getDisplayOrder() {
         return _displayOrder;
     }
 
     /**
-     * [set] displayOrder:ref(MemberStatus) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [set] displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
      * @param displayOrder The value of displayOrder. (NullAllowed)
      */
     public void setDisplayOrder(Integer displayOrder) {
@@ -432,15 +450,17 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [get] birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
-     * @return The value of birthdate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
+     * several options
+     * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDate getBirthdate() {
         return _birthdate;
     }
 
     /**
-     * [set as fromDate] birthdate:fromDate|ref(Member) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
+     * [set as fromDate] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
+     * several options
      * @param birthdate The value of birthdate. (NullAllowed)
      */
     public void setBirthdate_FromDate(org.joda.time.LocalDate birthdate) {
@@ -448,25 +468,17 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [get] status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * @return The value of status. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * [get] status:cls(MemberStatus) <br />
+     * direct classification setting
+     * @return The value of status. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatus() {
-        String filtered = filterStringParameter(_status);
-        filtered = handleShortChar("status", filtered, 3);
-        return filtered;
+        return filterStringParameter(_status);
     }
 
     /**
-     * [set] status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * @param status The value of status. (NullAllowed)
-     */
-    public void setStatus(String status) {
-        _status = status;
-    }
-
-    /**
-     * [set as Formalized] status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * [set as Formalized] status:cls(MemberStatus) <br />
+     * direct classification setting <br />
      * as formal member, allowed to use all service
      */
     public void setStatus_Formalized() {
@@ -474,7 +486,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [set as Withdrawal] status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * [set as Withdrawal] status:cls(MemberStatus) <br />
+     * direct classification setting <br />
      * withdrawal is fixed, not allowed to use service
      */
     public void setStatus_Withdrawal() {
@@ -482,10 +495,83 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [set as Provisional] status:cls(MemberStatus)|ref(Member.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * [set as Provisional] status:cls(MemberStatus) <br />
+     * direct classification setting <br />
      * first status after entry, allowed to use only part of service
      */
     public void setStatus_Provisional() {
         _status = CDef.MemberStatus.Provisional.code();
+    }
+
+    /**
+     * [get] statusFormalized:cls(MemberStatus.Formalized) <br />
+     * fixed classification setting
+     * @return The value of statusFormalized. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public String getStatusFormalized() {
+        return filterStringParameter(_statusFormalized);
+    }
+
+    /**
+     * [get] statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * classification to list
+     * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public List<com.example.dbflute.guice.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
+        return _statusList;
+    }
+
+    /**
+     * [set] statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * classification to list
+     * @param statusList The value of statusList. (NullAllowed)
+     */
+    public void setStatusList(List<com.example.dbflute.guice.dbflute.allcommon.CDef.MemberStatus> statusList) {
+        _statusList = statusList;
+    }
+
+    /**
+     * [get] statusFixedList:cls(MemberStatus.Formalized, Withdrawal) <br />
+     * fixed classification list
+     * @return The value of statusFixedList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public List<String> getStatusFixedList() {
+        return _statusFixedList;
+    }
+
+    /**
+     * [get] paymentCompleteFlg:cls(Flg) <br />
+     * direct one as Integer
+     * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public Integer getPaymentCompleteFlg() {
+        return _paymentCompleteFlg;
+    }
+
+    /**
+     * [set as True] paymentCompleteFlg:cls(Flg) <br />
+     * direct one as Integer <br />
+     * means valid
+     */
+    public void setPaymentCompleteFlg_True() {
+        _paymentCompleteFlg = toNumber(CDef.Flg.True.code(), Integer.class);
+    }
+
+    /**
+     * [set as False] paymentCompleteFlg:cls(Flg) <br />
+     * direct one as Integer <br />
+     * means invalid
+     */
+    public void setPaymentCompleteFlg_False() {
+        _paymentCompleteFlg = toNumber(CDef.Flg.False.code(), Integer.class);
+    }
+
+    /**
+     * [get] paymentCompleteTrue:cls(Flg.True) <br />
+     * fixed one as Integer
+     * @return The value of paymentCompleteTrue. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public Integer getPaymentCompleteTrue() {
+        return _paymentCompleteTrue;
     }
 }

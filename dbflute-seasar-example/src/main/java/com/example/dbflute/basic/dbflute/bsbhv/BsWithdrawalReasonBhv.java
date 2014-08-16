@@ -1033,13 +1033,4 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
     protected Class<? extends WithdrawalReason> typeOfSelectedEntity() { return WithdrawalReason.class; }
     protected Class<WithdrawalReason> typeOfHandlingEntity() { return WithdrawalReason.class; }
     protected Class<WithdrawalReasonCB> typeOfHandlingConditionBean() { return WithdrawalReasonCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<WithdrawalReasonCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<WithdrawalReasonCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<WithdrawalReasonCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<WithdrawalReasonCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<WithdrawalReasonCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<WithdrawalReasonCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<WithdrawalReason, WithdrawalReasonCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<WithdrawalReason, WithdrawalReasonCB>)sp; }
 }

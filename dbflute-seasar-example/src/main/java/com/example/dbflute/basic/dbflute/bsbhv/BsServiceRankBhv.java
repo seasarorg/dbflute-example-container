@@ -1033,13 +1033,4 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     protected Class<? extends ServiceRank> typeOfSelectedEntity() { return ServiceRank.class; }
     protected Class<ServiceRank> typeOfHandlingEntity() { return ServiceRank.class; }
     protected Class<ServiceRankCB> typeOfHandlingConditionBean() { return ServiceRankCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<ServiceRankCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ServiceRankCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<ServiceRankCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<ServiceRankCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<ServiceRankCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<ServiceRankCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<ServiceRank, ServiceRankCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<ServiceRank, ServiceRankCB>)sp; }
 }

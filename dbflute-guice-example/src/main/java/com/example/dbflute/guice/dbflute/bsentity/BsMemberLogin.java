@@ -633,7 +633,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
      * [set] (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
      * @param mobileLoginFlg The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if update: for the constraint)
      */
-    public void setMobileLoginFlg(Integer mobileLoginFlg) {
+    protected void setMobileLoginFlg(Integer mobileLoginFlg) {
         checkImplicitSet("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
         __modifiedProperties.addPropertyName("mobileLoginFlg");
         _mobileLoginFlg = mobileLoginFlg;
@@ -651,7 +651,8 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
      * [set] (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * @param loginMemberStatusCode The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setLoginMemberStatusCode(String loginMemberStatusCode) {
+    protected void setLoginMemberStatusCode(String loginMemberStatusCode) {
+        checkImplicitSet("LOGIN_MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, loginMemberStatusCode);
         __modifiedProperties.addPropertyName("loginMemberStatusCode");
         _loginMemberStatusCode = loginMemberStatusCode;
     }

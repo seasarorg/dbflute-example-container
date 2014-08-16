@@ -1,7 +1,10 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
+import java.lang.reflect.Field;
+
 import org.seasar.dbflute.exception.CharParameterShortSizeException;
 import org.seasar.dbflute.jdbc.ParameterUtil.ShortCharHandlingMode;
+import org.seasar.dbflute.util.DfReflectionUtil;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.pmbean.OptionMemberPmb;
@@ -34,18 +37,19 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
-        pmb.setMemberStatusCode("AB");
-        pmb.getMemberStatusCode(); // no exception because of not 'ref'
-        pmb.setStatus("AB");
-        try {
-            pmb.getStatus();
+        setMemberStatusCode(pmb, "AB");
+        setStatus(pmb, "AB");
 
-            // ## Assert ##
+        // ## Assert ##
+        try {
+            pmb.getMemberStatusCode();
+
             fail();
         } catch (CharParameterShortSizeException e) {
             // OK
             log(e.getMessage());
         }
+        pmb.getStatus(); // no exception because of not 'ref'
     }
 
     public void test_shortChar_parameterBean_rfillByExtension() {
@@ -58,12 +62,12 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode("AB");
-        pmb.setStatus("AB");
+        setMemberStatusCode(pmb, "AB");
+        setStatus(pmb, "AB");
 
         // ## Assert ##
-        assertEquals("AB", pmb.getMemberStatusCode());
-        assertEquals("AB ", pmb.getStatus());
+        assertEquals("AB ", pmb.getMemberStatusCode());
+        assertEquals("AB", pmb.getStatus());
     }
 
     public void test_shortChar_parameterBean_lfillByExtension() {
@@ -76,12 +80,12 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode("AB");
-        pmb.setStatus("AB");
+        setMemberStatusCode(pmb, "AB");
+        setStatus(pmb, "AB");
 
         // ## Assert ##
-        assertEquals("AB", pmb.getMemberStatusCode());
-        assertEquals(" AB", pmb.getStatus());
+        assertEquals(" AB", pmb.getMemberStatusCode());
+        assertEquals("AB", pmb.getStatus());
     }
 
     public void test_shortChar_parameterBean_rfillByExtension_null() {
@@ -94,8 +98,8 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode(null);
-        pmb.setStatus(null);
+        setMemberStatusCode(pmb, null);
+        setStatus(pmb, null);
 
         // ## Assert ##
         assertNull(pmb.getMemberStatusCode());
@@ -112,8 +116,8 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode("");
-        pmb.setStatus("");
+        setMemberStatusCode(pmb, "");
+        setStatus(pmb, "");
 
         // ## Assert ##
         assertNull(pmb.getMemberStatusCode());
@@ -130,11 +134,26 @@ public class WxShortCharHandlingExceptionTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode(" ");
-        pmb.setStatus(" ");
+        setMemberStatusCode(pmb, " ");
+        setStatus(pmb, " ");
 
         // ## Assert ##
-        assertEquals(" ", pmb.getMemberStatusCode());
-        assertEquals("   ", pmb.getStatus());
+        assertEquals("   ", pmb.getMemberStatusCode());
+        assertEquals(" ", pmb.getStatus());
+    }
+
+    // ===================================================================================
+    //                                                                         Test Helper
+    //                                                                         ===========
+    protected void setMemberStatusCode(OptionMemberPmb pmb, String value) {
+        Field field = DfReflectionUtil.getWholeField(pmb.getClass(), "_memberStatusCode");
+        field.setAccessible(true);
+        DfReflectionUtil.setValue(field, pmb, value);
+    }
+
+    protected void setStatus(OptionMemberPmb pmb, String value) {
+        Field field = DfReflectionUtil.getWholeField(pmb.getClass(), "_status");
+        field.setAccessible(true);
+        DfReflectionUtil.setValue(field, pmb, value);
     }
 }

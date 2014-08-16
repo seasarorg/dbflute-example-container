@@ -24,7 +24,7 @@ select member.MEMBER_ID
     /*END*/
  /*BEGIN*/where
    /*IF pmb.memberId != null*/member.MEMBER_ID = /*pmb.memberId*/3/*END*/
-   /*IF pmb.memberName != null*/and member.MEMBER_NAME like /*pmb.memberName*/'ス' || '%'/*END*/
+   /*IF pmb.memberName != null*/and member.MEMBER_NAME like /*pmb.memberName*/'S' || '%'/*END*/
    /*IF pmb.memberStatusCode != null*/and member.MEMBER_STATUS_CODE = /*pmb.memberStatusCode*/'FML'/*END*/
    /*IF pmb.unpaidMemberOnly*/
    and exists (select 'yes'

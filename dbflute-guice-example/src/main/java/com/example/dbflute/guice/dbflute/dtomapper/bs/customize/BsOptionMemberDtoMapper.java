@@ -28,7 +28,7 @@ import com.example.dbflute.guice.dbflute.dtomapper.customize.*;
  *     
  * 
  * [column]
- *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, STATUS_DISPLAY_ORDER, MEMBER_STATUS_NAME, DUMMY_FLG, DUMMY_NOFLG
+ *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, STATUS_DISPLAY_ORDER, DUMMY_FLG, DUMMY_NOFLG
  * 
  * [sequence]
  *     
@@ -102,8 +102,8 @@ public abstract class BsOptionMemberDtoMapper implements DtoMapper<OptionMember,
         dto.setBirthdate(entity.getBirthdate());
         dto.setFormalizedDatetime(entity.getFormalizedDatetime());
         dto.setMemberStatusCode(entity.getMemberStatusCode());
-        dto.setStatusDisplayOrder(entity.getStatusDisplayOrder());
         dto.setMemberStatusName(entity.getMemberStatusName());
+        dto.setStatusDisplayOrder(entity.getStatusDisplayOrder());
         dto.setDummyFlg(entity.getDummyFlg());
         dto.setDummyNoflg(entity.getDummyNoflg());
         reflectDerivedProperty(entity, dto, true);
@@ -157,11 +157,11 @@ public abstract class BsOptionMemberDtoMapper implements DtoMapper<OptionMember,
         if (needsMapping(dto, dto.getMemberStatusCode(), "memberStatusCode")) {
             entity.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.codeOf(dto.getMemberStatusCode()));
         }
-        if (needsMapping(dto, dto.getStatusDisplayOrder(), "statusDisplayOrder")) {
-            entity.setStatusDisplayOrder(dto.getStatusDisplayOrder());
-        }
         if (needsMapping(dto, dto.getMemberStatusName(), "memberStatusName")) {
             entity.setMemberStatusName(dto.getMemberStatusName());
+        }
+        if (needsMapping(dto, dto.getStatusDisplayOrder(), "statusDisplayOrder")) {
+            entity.setStatusDisplayOrder(dto.getStatusDisplayOrder());
         }
         if (needsMapping(dto, dto.getDummyFlg(), "dummyFlg")) {
             entity.setDummyFlgAsFlg(CDef.Flg.codeOf(dto.getDummyFlg()));

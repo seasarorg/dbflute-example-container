@@ -172,7 +172,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
     //                                                                            ========
     /**
      * [get] memberId:ref(MEMBER) :: refers to (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10)} <br />
-     * @return The value of memberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
         return _memberId;
@@ -188,7 +188,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
 
     /**
      * [get] birthdateFrom:ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
-     * @return The value of birthdateFrom. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of birthdateFrom. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDate getBirthdateFrom() {
         return _birthdateFrom;
@@ -204,7 +204,7 @@ public class BsCompareDatePmb implements ExecuteHandlingPmb<MemberBhv>, FetchBea
 
     /**
      * [get] formalizedDatetimeFrom:ref(MEMBER.FORMALIZED_DATETIME) :: refers to (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
-     * @return The value of formalizedDatetimeFrom. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of formalizedDatetimeFrom. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDateTime getFormalizedDatetimeFrom() {
         return _formalizedDatetimeFrom;

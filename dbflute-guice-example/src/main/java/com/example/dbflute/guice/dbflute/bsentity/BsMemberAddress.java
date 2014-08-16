@@ -670,7 +670,8 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
-    public void setRegionId(Integer regionId) {
+    protected void setRegionId(Integer regionId) {
+        checkImplicitSet("REGION_ID", CDef.DefMeta.Region, regionId);
         __modifiedProperties.addPropertyName("regionId");
         _regionId = regionId;
     }
@@ -762,5 +763,9 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
 
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

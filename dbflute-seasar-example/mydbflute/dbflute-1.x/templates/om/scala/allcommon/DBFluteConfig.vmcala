@@ -52,6 +52,21 @@ import org.seasar.framework.exception.SQLRuntimeException;
 #if ($database.isTargetContainerSpring())
 import org.springframework.jdbc.datasource.DataSourceUtils;
 #end
+#if ($database.isAvailableJodaTimeEntity())
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Types;
+#if ($database.isAvailableJodaTimeLocalDateEntity())
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+#end
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
+import org.seasar.dbflute.s2dao.valuetype.TnAbstractValueType;
+import org.seasar.dbflute.util.DfTypeUtil;
+#end
 
 /**
  * @author ${database.classAuthor}
@@ -75,9 +90,10 @@ object ${glDBFluteConfig} {
     protected var _pagingCountLeastJoin: Boolean = ${database.isPagingCountLeastJoin()};
     protected var _innerJoinAutoDetect: Boolean = ${database.isInnerJoinAutoDetect()};
     protected var _thatsBadTimingDetect: Boolean = ${database.isThatsBadTimingDetect()};
+    protected var _nullOrEmptyQueryAllowed: Boolean = ${database.isNullOrEmptyQueryAllowed()};
     protected var _emptyStringQueryAllowed: Boolean = false;
     protected var _emptyStringParameterAllowed: Boolean = false;
-    protected var _nullOrEmptyChecked: Boolean = false;
+    protected var _overridingQueryAllowed: Boolean = ${database.isOverridingQueryAllowed()};
     protected var _disableSelectIndex: Boolean = false;
     protected var _queryUpdateCountPreCheck: Boolean = ${database.isQueryUpdateCountPreCheck()};
 
@@ -143,10 +159,27 @@ object ${glDBFluteConfig} {
         _logDateFormat = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
         _logTimestampFormat = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
     }
+
+    // for Scala type mapping (e.g. ParameterBean)
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[scala.math.BigDecimal], new ScalaBigDecimalType());
 #if ($database.isDatabaseOracle() && $database.isAvailableDatabaseNativeJDBC())
 
     // treats as uses Oracle date of database native JDBC to get best performances
     TnValueTypes.registerBasicValueType(DBDef.Oracle, java.util.Date.class, new ImplementedOracleDateType());
+#end
+#if ($database.isAvailableJava8TimeLocalDateEntity())
+
+    // uses Java8-Time
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalDate], new LocalDateType());
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalDateTime], new LocalDateTimeType());
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalTime], new LocalDateTimeType());
+#end
+#if ($database.isAvailableJodaTimeLocalDateEntity())
+
+    // uses JodaTime
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalDate], new JodaLocalDateType());
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalDateTime], new JodaLocalDateTimeType());
+    TnValueTypes.registerBasicValueType(currentDBDef(), classOf[LocalTime], new JodaLocalTimeType());
 #end
 
     // ===================================================================================
@@ -209,12 +242,29 @@ object ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                       Invalid Query
     //                                                                       =============
+    def isNullOrEmptyQueryAllowed(): Boolean = {
+        return _nullOrEmptyQueryAllowed;
+    }
+
+    /**
+     * Set whether null-or-empty query is allowed or not. <br />
+     * This configuration is only for ConditionBean.
+     * @param nullOrEmptyQueryAllowed The determination, true or false.
+     */
+    def setNullOrEmptyQueryAllowed(nullOrEmptyQueryAllowed: Boolean): Unit = {
+        assertNotLocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting nullOrEmptyQueryAllowed: " + nullOrEmptyQueryAllowed);
+        }
+        _nullOrEmptyQueryAllowed = nullOrEmptyQueryAllowed;
+    }
+
     def isEmptyStringQueryAllowed(): Boolean = {
         return _emptyStringQueryAllowed;
     }
 
     /**
-     * Set whether an empty string for query is allowed or not. {default: false}<br />
+     * Set whether an empty string for query is allowed or not. <br />
      * This configuration is only for ConditionBean.
      * @param emptyStringQueryAllowed The determination, true or false.
      */
@@ -231,7 +281,7 @@ object ${glDBFluteConfig} {
     }
 
     /**
-     * Set whether an empty string for parameter is allowed or not. {default: false}<br />
+     * Set whether an empty string for parameter is allowed or not. <br />
      * This configuration is only for ParameterBean.
      * @param emptyStringParameterAllowed The determination, true or false.
      */
@@ -243,21 +293,21 @@ object ${glDBFluteConfig} {
         _emptyStringParameterAllowed = emptyStringParameterAllowed;
     }
 
-    def isNullOrEmptyQueryChecked(): Boolean = {
-        return _nullOrEmptyChecked;
+    def isOverridingQueryAllowed(): Boolean = {
+        return _overridingQueryAllowed;
     }
 
     /**
-     * Set whether an invalid query is checked or not. {default: false}<br />
+     * Set whether overriding query is allowed or not. <br />
      * This configuration is only for ConditionBean.
-     * @param nullOrEmptyChecked The determination, true or false.
+     * @param overridingQueryAllowed The determination, true or false.
      */
-    def setNullOrEmptyQueryChecked(nullOrEmptyChecked: Boolean): Unit = {
+    def setOverridingQueryAllowed(overridingQueryAllowed: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
-            _log.info("...Setting nullOrEmptyChecked: " + nullOrEmptyChecked);
+            _log.info("...Setting overridingQueryAllowed: " + overridingQueryAllowed);
         }
-        _nullOrEmptyChecked = nullOrEmptyChecked;
+        _overridingQueryAllowed = overridingQueryAllowed;
     }
 
     // ===================================================================================
@@ -936,5 +986,203 @@ object ${glDBFluteConfig} {
             }
             return null;
         }
-    }    
+    }
+
+    // ===================================================================================
+    //                                                                          Scala Type
+    //                                                                          ==========
+    class ScalaBigDecimalType extends TnAbstractValueType(Types.DECIMAL) {
+
+        def getValue(rs: ResultSet, index: Int): Object = {
+            return toScalaBigDecimal(rs.getBigDecimal(index));
+        }
+
+        def getValue(rs: ResultSet, columnName: String ): Object = {
+            return toScalaBigDecimal(rs.getBigDecimal(columnName));
+        }
+
+        def getValue(cs: CallableStatement, index: Int): Object = {
+            return toScalaBigDecimal(cs.getBigDecimal(index));
+        }
+
+        def getValue(cs: CallableStatement, parameterName: String): Object = {
+            return toScalaBigDecimal(cs.getBigDecimal(parameterName));
+        }
+
+        def bindValue(conn: Connection, ps: PreparedStatement, index: Int, value: Object): Unit = {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setBigDecimal(index, toJavaBigDecimal(value));
+            }
+        }
+
+        def bindValue(conn: Connection, cs: CallableStatement, parameterName: String, value: Object): Unit = {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setBigDecimal(parameterName, toJavaBigDecimal(value));
+            }
+        }
+
+        protected def toScalaBigDecimal(decimal: java.math.BigDecimal): scala.math.BigDecimal = {
+            return if (decimal != null) { scala.math.BigDecimal(decimal) } else { null };
+        }
+
+        protected def toJavaBigDecimal(decimal: Object): java.math.BigDecimal = {
+            if (decimal != null && decimal.isInstanceOf[scala.math.BigDecimal]) {
+                return decimal.asInstanceOf[scala.math.BigDecimal].underlying;
+            }
+            return DfTypeUtil.toBigDecimal(decimal);
+        }
+    }
+#if ($database.isAvailableJodaTimeLocalDateEntity())
+
+    // ===================================================================================
+    //                                                                       JodaTime Type
+    //                                                                       =============
+    class JodaLocalDateType extends TnAbstractValueType(Types.DATE) {
+
+        def getValue(rs: ResultSet, index: Int): Object = {
+            return toLocalDate(rs.getDate(index));
+        }
+
+        def getValue(rs: ResultSet, columnName: String): Object = {
+            return toLocalDate(rs.getDate(columnName));
+        }
+
+        def getValue(cs: CallableStatement, index: Int): Object = {
+            return toLocalDate(cs.getDate(index));
+        }
+
+        def getValue(cs: CallableStatement, parameterName: String): Object = {
+            return toLocalDate(cs.getDate(parameterName));
+        }
+
+        def bindValue(conn: Connection, ps: PreparedStatement, index: Int, value: Object): Unit = {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setDate(index, toSqlDate(value));
+            }
+        }
+
+        def bindValue(conn: Connection, cs: CallableStatement, parameterName: String, value: Object): Unit = {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setDate(parameterName, toSqlDate(value));
+            }
+        }
+
+        protected def toLocalDate(date: java.sql.Date): LocalDate = {
+            return if (date != null) { LocalDate.fromDateFields(date) } else { null };
+        }
+
+        protected def toSqlDate(date: Object): java.sql.Date = {
+            if (date != null && date.isInstanceOf[ReadablePartial]) {
+                return new java.sql.Date(date.asInstanceOf[ReadablePartial].toDateTime(null).withTimeAtStartOfDay().getMillis());
+            } else if (date != null && date.isInstanceOf[ReadableInstant]) {
+                return new java.sql.Date(date.asInstanceOf[ReadableInstant].getMillis());
+            }
+            return DfTypeUtil.toSqlDate(date);
+        }
+    }
+
+    class JodaLocalDateTimeType extends TnAbstractValueType(Types.TIMESTAMP) {
+
+        def getValue(rs: ResultSet, index: Int): Object = {
+            return toLocalDateTime(rs.getTimestamp(index));
+        }
+
+        def getValue(rs: ResultSet, columnName: String ): Object = {
+            return toLocalDateTime(rs.getTimestamp(columnName));
+        }
+
+        def getValue(cs: CallableStatement, index: Int): Object = {
+            return toLocalDateTime(cs.getTimestamp(index));
+        }
+
+        def getValue(cs: CallableStatement, parameterName: String): Object = {
+            return toLocalDateTime(cs.getTimestamp(parameterName));
+        }
+
+        def bindValue(conn: Connection, ps: PreparedStatement, index: Int, value: Object): Unit = {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setTimestamp(index, toTimestamp(value));
+            }
+        }
+
+        def bindValue(conn: Connection, cs: CallableStatement, parameterName: String, value: Object): Unit = {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setTimestamp(parameterName, toTimestamp(value));
+            }
+        }
+
+        protected def toLocalDateTime(timestamp: java.sql.Timestamp): LocalDateTime = {
+            return if (timestamp != null) { LocalDateTime.fromDateFields(timestamp) } else { null };
+        }
+
+        protected def toTimestamp(date: Object): java.sql.Timestamp = {
+            if (date != null && date.isInstanceOf[ReadablePartial]) {
+                return new java.sql.Timestamp(date.asInstanceOf[ReadablePartial].toDateTime(null).getMillis());
+            } else if (date != null && date.isInstanceOf[ReadableInstant]) {
+                return new java.sql.Timestamp(date.asInstanceOf[ReadableInstant].getMillis());
+            }
+            return DfTypeUtil.toTimestamp(date);
+        }
+    }
+
+    class JodaLocalTimeType extends TnAbstractValueType(Types.TIME) {
+
+        def getValue(rs: ResultSet, index: Int): Object = {
+            return toLocalTime(rs.getTime(index));
+        }
+
+        def getValue(rs: ResultSet, columnName: String ): Object = {
+            return toLocalTime(rs.getTime(columnName));
+        }
+
+        def getValue(cs: CallableStatement, index: Int): Object = {
+            return toLocalTime(cs.getTime(index));
+        }
+
+        def getValue(cs: CallableStatement, parameterName: String): Object = {
+            return toLocalTime(cs.getTime(parameterName));
+        }
+
+        def bindValue(conn: Connection, ps: PreparedStatement, index: Int, value: Object): Unit = {
+            if (value == null) {
+                setNull(ps, index);
+            } else {
+                ps.setTime(index, toTime(value));
+            }
+        }
+
+        def bindValue(conn: Connection, cs: CallableStatement, parameterName: String, value: Object): Unit = {
+            if (value == null) {
+                setNull(cs, parameterName);
+            } else {
+                cs.setTime(parameterName, toTime(value));
+            }
+        }
+
+        protected def toLocalTime(time: java.sql.Time): LocalTime = {
+            return if (time != null) { LocalTime.fromDateFields(time) } else { null };
+        }
+
+        protected def toTime(date: Object): java.sql.Time = {
+            if (date != null && date.isInstanceOf[ReadablePartial]) {
+                return new java.sql.Time(date.asInstanceOf[ReadablePartial].toDateTime(null).getMillis());
+            } else if (date != null && date.isInstanceOf[ReadableInstant]) {
+                return new java.sql.Time(date.asInstanceOf[ReadableInstant].getMillis());
+            }
+            return DfTypeUtil.toTime(date);
+        }
+    }
+#end
 }

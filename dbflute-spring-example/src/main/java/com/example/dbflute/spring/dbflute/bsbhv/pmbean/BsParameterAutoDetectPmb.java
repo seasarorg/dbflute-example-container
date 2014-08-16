@@ -321,7 +321,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     /**
      * [get] normalInteger <br />
      * memberId's comment
-     * @return The value of normalInteger. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of normalInteger. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getNormalInteger() {
         return _normalInteger;
@@ -338,7 +338,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] noTestValue <br />
-     * @return The value of noTestValue. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of noTestValue. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getNoTestValue() {
         return filterStringParameter(_noTestValue);
@@ -354,7 +354,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] prefixSearchOption:likePrefix <br />
-     * @return The value of prefixSearchOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of prefixSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getPrefixSearchOption() {
         return filterStringParameter(_prefixSearchOption);
@@ -379,7 +379,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br />
-     * @return The value of suffixSearchOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of suffixSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSuffixSearchOption() {
         return filterStringParameter(_suffixSearchOption);
@@ -405,7 +405,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     /**
      * [get] containSearchOption:likeContain <br />
      * comment with implicit(likeContain)
-     * @return The value of containSearchOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of containSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getContainSearchOption() {
         return filterStringParameter(_containSearchOption);
@@ -431,7 +431,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] normalLikeSearchOption:like <br />
-     * @return The value of normalLikeSearchOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of normalLikeSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getNormalLikeSearchOption() {
         return filterStringParameter(_normalLikeSearchOption);
@@ -459,7 +459,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     /**
      * [get] normalCls:cls(MemberStatus.Withdrawal) <br />
      * fixed classification
-     * @return The value of normalCls. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of normalCls. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getNormalCls() {
         return filterStringParameter(_normalCls);
@@ -467,7 +467,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] normalDate <br />
-     * @return The value of normalDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of normalDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getNormalDate() {
         return toUtilDate(_normalDate);
@@ -483,7 +483,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] fromDateOption:fromDate <br />
-     * @return The value of fromDateOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of fromDateOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getFromDateOption() {
         return toUtilDate(_fromDateOption);
@@ -499,7 +499,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] toDateOption:toDate <br />
-     * @return The value of toDateOption. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of toDateOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getToDateOption() {
         return toUtilDate(_toDateOption);
@@ -515,7 +515,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] duplicateFromDate:fromDate <br />
-     * @return The value of duplicateFromDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of duplicateFromDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getDuplicateFromDate() {
         return toUtilDate(_duplicateFromDate);
@@ -531,7 +531,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] integerList <br />
-     * @return The value of integerList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of integerList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<Integer> getIntegerList() {
         return _integerList;
@@ -547,7 +547,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * @return The value of cdefList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of cdefList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getCdefList() {
         return _cdefList;
@@ -563,7 +563,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * @return The value of memberStatusCodeList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCodeList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getMemberStatusCodeList() {
         return _memberStatusCodeList;
@@ -579,7 +579,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] forCommentBasic:likePrefix <br />
-     * @return The value of forCommentBasic. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of forCommentBasic. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getForCommentBasic() {
         return _forCommentBasic;
@@ -604,7 +604,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] nestedForList <br />
-     * @return The value of nestedForList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of nestedForList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<List<List<Integer>>> getNestedForList() {
         return _nestedForList;
@@ -620,7 +620,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] bindInIfCommentForList <br />
-     * @return The value of bindInIfCommentForList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bindInIfCommentForList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<Date> getBindInIfCommentForList() {
         return _bindInIfCommentForList;
@@ -636,7 +636,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentOnly <br />
-     * @return The value of ifCommentOnly. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentOnly. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getIfCommentOnly() {
         return _ifCommentOnly;
@@ -652,7 +652,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentAndFirst <br />
-     * @return The value of ifCommentAndFirst. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentAndFirst. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getIfCommentAndFirst() {
         return _ifCommentAndFirst;
@@ -668,7 +668,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentAndSecond <br />
-     * @return The value of ifCommentAndSecond. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentAndSecond. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getIfCommentAndSecond() {
         return filterStringParameter(_ifCommentAndSecond);
@@ -684,7 +684,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentAndThird <br />
-     * @return The value of ifCommentAndThird. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentAndThird. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getIfCommentAndThird() {
         return _ifCommentAndThird;
@@ -700,7 +700,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentBooleanNotFormal <br />
-     * @return The value of ifCommentBooleanNotFormal. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentBooleanNotFormal. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getIfCommentBooleanNotFormal() {
         return _ifCommentBooleanNotFormal;
@@ -716,7 +716,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] ifCommentBooleanNotWrongSyntax <br />
-     * @return The value of ifCommentBooleanNotWrongSyntax. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of ifCommentBooleanNotWrongSyntax. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getIfCommentBooleanNotWrongSyntax() {
         return filterStringParameter(_ifCommentBooleanNotWrongSyntax);
@@ -732,7 +732,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] overriddenFromDate <br />
-     * @return The value of overriddenFromDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of overriddenFromDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getOverriddenFromDate() {
         return filterStringParameter(_overriddenFromDate);
@@ -748,7 +748,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] definedBoolean <br />
-     * @return The value of definedBoolean. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of definedBoolean. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getDefinedBoolean() {
         return _definedBoolean;

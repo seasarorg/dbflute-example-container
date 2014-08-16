@@ -1099,13 +1099,4 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     protected Class<? extends ProductCategory> typeOfSelectedEntity() { return ProductCategory.class; }
     protected Class<ProductCategory> typeOfHandlingEntity() { return ProductCategory.class; }
     protected Class<ProductCategoryCB> typeOfHandlingConditionBean() { return ProductCategoryCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<ProductCategoryCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<ProductCategoryCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<ProductCategoryCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<ProductCategoryCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<ProductCategoryCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<ProductCategoryCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<ProductCategory, ProductCategoryCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<ProductCategory, ProductCategoryCB>)sp; }
 }

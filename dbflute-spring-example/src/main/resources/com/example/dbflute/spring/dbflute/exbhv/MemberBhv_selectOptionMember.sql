@@ -20,8 +20,8 @@
 -- !!String memberAccount:like!!
 -- !!Date fromFormalizedDate:fromDate!!
 -- !!Date toFormalizedDate:toDate!!
--- !!Date fromFormalizedMonth:fromDate(option)!!
--- !!Date toFormalizedMonth:toDate(option)!!
+-- !!Timestamp fromFormalizedMonth:fromDate(option)!!
+-- !!Timestamp toFormalizedMonth:toDate(option)!!
 -- !!String memberStatusCode:ref(MEMBER)!! // reference option (including classification)
 -- !!Integer displayOrder:ref(MEMBER_STATUS)!!
 -- !!Date birthdate:fromDate|ref(MEMBER.BIRTHDATE)!! // several options

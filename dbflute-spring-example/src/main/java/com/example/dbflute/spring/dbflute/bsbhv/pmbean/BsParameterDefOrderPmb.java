@@ -164,7 +164,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                                            ========
     /**
      * [get] overProp <br />
-     * @return The value of overProp. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of overProp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getOverProp() {
         return _overProp;
@@ -180,7 +180,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
 
     /**
      * [get] underProp <br />
-     * @return The value of underProp. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of underProp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getUnderProp() {
         return _underProp;

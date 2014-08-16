@@ -618,7 +618,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
      * [set] (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br />
      * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setPaymentMethodCode(String paymentMethodCode) {
+    protected void setPaymentMethodCode(String paymentMethodCode) {
         checkImplicitSet("PAYMENT_METHOD_CODE", CDef.DefMeta.PaymentMethod, paymentMethodCode);
         __modifiedProperties.addPropertyName("paymentMethodCode");
         _paymentMethodCode = paymentMethodCode;

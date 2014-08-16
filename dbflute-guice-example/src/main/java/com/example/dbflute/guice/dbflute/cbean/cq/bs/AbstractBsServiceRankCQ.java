@@ -54,7 +54,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
      * @param serviceRankCode The value of serviceRankCode as equal. (NullAllowed: if null (or empty), no condition)
      */
-    public void setServiceRankCode_Equal(String serviceRankCode) {
+    protected void setServiceRankCode_Equal(String serviceRankCode) {
         doSetServiceRankCode_Equal(fRES(serviceRankCode));
     }
 
@@ -117,7 +117,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
      * @param serviceRankCode The value of serviceRankCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
-    public void setServiceRankCode_NotEqual(String serviceRankCode) {
+    protected void setServiceRankCode_NotEqual(String serviceRankCode) {
         doSetServiceRankCode_NotEqual(fRES(serviceRankCode));
     }
 
@@ -509,7 +509,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param newAcceptableFlg The value of newAcceptableFlg as equal. (NullAllowed: if null, no condition)
      */
-    public void setNewAcceptableFlg_Equal(Integer newAcceptableFlg) {
+    protected void setNewAcceptableFlg_Equal(Integer newAcceptableFlg) {
         doSetNewAcceptableFlg_Equal(newAcceptableFlg);
     }
 
@@ -548,7 +548,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param newAcceptableFlg The value of newAcceptableFlg as notEqual. (NullAllowed: if null, no condition)
      */
-    public void setNewAcceptableFlg_NotEqual(Integer newAcceptableFlg) {
+    protected void setNewAcceptableFlg_NotEqual(Integer newAcceptableFlg) {
         doSetNewAcceptableFlg_NotEqual(newAcceptableFlg);
     }
 

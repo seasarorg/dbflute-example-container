@@ -56,6 +56,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     /*df:beginQueryPath*/
     public static final String PATH_selectLatestFormalizedDatetime = "selectLatestFormalizedDatetime";
     public static final String PATH_selectMemberName = "selectMemberName";
+    /** The example for select using options */
     public static final String PATH_selectOptionMember = "selectOptionMember";
     public static final String PATH_selectPurchaseMaxPriceMember = "selectPurchaseMaxPriceMember";
     public static final String PATH_selectPurchaseSummaryMember = "selectPurchaseSummaryMember";

@@ -656,7 +656,8 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
      * [set] PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setProductStatusCode(String productStatusCode) {
+    protected void setProductStatusCode(String productStatusCode) {
+        checkImplicitSet("PRODUCT_STATUS_CODE", CDef.DefMeta.ProductStatus, productStatusCode);
         __modifiedProperties.addPropertyName("productStatusCode");
         _productStatusCode = productStatusCode;
     }
@@ -765,5 +766,9 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
 
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
 }

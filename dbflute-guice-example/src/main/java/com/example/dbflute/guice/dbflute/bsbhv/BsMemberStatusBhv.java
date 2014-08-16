@@ -10,6 +10,7 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
+import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.bsbhv.loader.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -163,23 +164,23 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<MemberStatus> selectByPK(String memberStatusCode) {
+    public OptionalEntity<MemberStatus> selectByPK(CDef.MemberStatus memberStatusCode) {
         return facadeSelectByPK(memberStatusCode);
     }
 
-    protected OptionalEntity<MemberStatus> facadeSelectByPK(String memberStatusCode) {
+    protected OptionalEntity<MemberStatus> facadeSelectByPK(CDef.MemberStatus memberStatusCode) {
         return doSelectOptionalByPK(memberStatusCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberStatus> ENTITY doSelectByPK(String memberStatusCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MemberStatus> ENTITY doSelectByPK(CDef.MemberStatus memberStatusCode, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(memberStatusCode), tp);
     }
 
-    protected <ENTITY extends MemberStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String memberStatusCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MemberStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(CDef.MemberStatus memberStatusCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberStatusCode, tp), memberStatusCode);
     }
 
-    protected MemberStatusCB xprepareCBAsPK(String memberStatusCode) {
+    protected MemberStatusCB xprepareCBAsPK(CDef.MemberStatus memberStatusCode) {
         assertObjectNotNull("memberStatusCode", memberStatusCode);
         return newConditionBean().acceptPK(memberStatusCode);
     }

@@ -746,7 +746,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * [set] (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
      * @param paymentCompleteFlg The value of the column 'PAYMENT_COMPLETE_FLG'. (basically NotNull if update: for the constraint)
      */
-    public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
+    protected void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
         checkImplicitSet("PAYMENT_COMPLETE_FLG", CDef.DefMeta.Flg, paymentCompleteFlg);
         __modifiedProperties.addPropertyName("paymentCompleteFlg");
         _paymentCompleteFlg = paymentCompleteFlg;

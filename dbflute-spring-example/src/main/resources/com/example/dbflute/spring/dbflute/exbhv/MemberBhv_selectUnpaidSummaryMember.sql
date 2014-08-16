@@ -45,6 +45,13 @@ select mb.MEMBER_ID as UNPAID_MAN_ID
                  from PURCHASE purchase
                 where purchase.MEMBER_ID = mb.MEMBER_ID
                   and purchase.PAYMENT_COMPLETE_FLG = 0
+                  /*IF pmb.unpaidSmallPaymentAmount != null*/
+                  and not exists (select 'yes-yes'
+                                    from PURCHASE_PAYMENT payment
+                                   where payment.PURCHASE_ID = purchase.PURCHASE_ID
+                                     and payment.PAYMENT_AMOUNT <= /*pmb.unpaidSmallPaymentAmount*/2.3
+                      )
+                  /*END*/
        )
    /*END*/
  /*END*/

@@ -43,8 +43,8 @@ public class OptionMemberDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgBirthdate(), "birthdate");
         setupEpg(_epgMap, new EpgFormalizedDatetime(), "formalizedDatetime");
         setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
-        setupEpg(_epgMap, new EpgStatusDisplayOrder(), "statusDisplayOrder");
         setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
+        setupEpg(_epgMap, new EpgStatusDisplayOrder(), "statusDisplayOrder");
         setupEpg(_epgMap, new EpgDummyFlg(), "dummyFlg");
         setupEpg(_epgMap, new EpgDummyNoflg(), "dummyNoflg");
     }
@@ -72,13 +72,13 @@ public class OptionMemberDbm extends AbstractDBMeta {
             ((OptionMember)et).setMemberStatusCodeAsMemberStatus((CDef.MemberStatus)gcls(col, vl));
         }
     }
-    public static class EpgStatusDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setStatusDisplayOrder(cti(vl)); }
-    }
     public static class EpgMemberStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusName(); }
         public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusName((String)vl); }
+    }
+    public static class EpgStatusDisplayOrder implements PropertyGateway {
+        public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((OptionMember)et).setStatusDisplayOrder(cti(vl)); }
     }
     public class EpgDummyFlg implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
@@ -114,8 +114,8 @@ public class OptionMemberDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", org.joda.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", org.joda.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, null, null, CDef.DefMeta.MemberStatus);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnStatusDisplayOrder = cci("STATUS_DISPLAY_ORDER", "STATUS_DISPLAY_ORDER", null, "表示順", Integer.class, "statusDisplayOrder", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnDummyFlg = cci("DUMMY_FLG", "DUMMY_FLG", null, null, Integer.class, "dummyFlg", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
     protected final ColumnInfo _columnDummyNoflg = cci("DUMMY_NOFLG", "DUMMY_NOFLG", null, null, Integer.class, "dummyNoflg", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
@@ -145,15 +145,15 @@ public class OptionMemberDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnMemberStatusCode() { return _columnMemberStatusCode; }
     /**
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
+    /**
      * (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnStatusDisplayOrder() { return _columnStatusDisplayOrder; }
-    /**
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
     /**
      * DUMMY_FLG: {INTEGER(10), classification=Flg}
      * @return The information object of specified column. (NotNull)
@@ -172,8 +172,8 @@ public class OptionMemberDbm extends AbstractDBMeta {
         ls.add(columnBirthdate());
         ls.add(columnFormalizedDatetime());
         ls.add(columnMemberStatusCode());
-        ls.add(columnStatusDisplayOrder());
         ls.add(columnMemberStatusName());
+        ls.add(columnStatusDisplayOrder());
         ls.add(columnDummyFlg());
         ls.add(columnDummyNoflg());
         return ls;

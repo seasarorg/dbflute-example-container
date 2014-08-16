@@ -229,7 +229,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     //                                                                            ========
     /**
      * [get] memberId <br />
-     * @return The value of memberId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
         return _memberId;
@@ -245,7 +245,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
@@ -270,7 +270,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberAccount:like <br />
-     * @return The value of memberAccount. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberAccount. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberAccount() {
         return filterStringParameter(_memberAccount);
@@ -297,7 +297,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] fromFormalizedDate:fromDate <br />
-     * @return The value of fromFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of fromFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getFromFormalizedDate() {
         return toUtilDate(_fromFormalizedDate);
@@ -313,7 +313,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] toFormalizedDate:toDate <br />
-     * @return The value of toFormalizedDate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of toFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getToFormalizedDate() {
         return toUtilDate(_toFormalizedDate);
@@ -330,7 +330,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * テーブルのカラムを参照して関連付け (区分値も関連付けられる)
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
         return filterStringParameter(_memberStatusCode);
@@ -365,7 +365,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
-     * @return The value of displayOrder. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of displayOrder. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getDisplayOrder() {
         return _displayOrder;
@@ -382,7 +382,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
      * 複数のオプションを付与
-     * @return The value of birthdate. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getBirthdate() {
         return toUtilDate(_birthdate);
@@ -400,7 +400,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * [get] status:cls(MemberStatus) <br />
      * 直接区分値に関連付ける
-     * @return The value of status. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of status. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatus() {
         return filterStringParameter(_status);

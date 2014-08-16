@@ -949,13 +949,4 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
     protected Class<? extends MemberLogin> typeOfSelectedEntity() { return MemberLogin.class; }
     protected Class<MemberLogin> typeOfHandlingEntity() { return MemberLogin.class; }
     protected Class<MemberLoginCB> typeOfHandlingConditionBean() { return MemberLoginCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberLoginCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberLoginCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberLoginCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberLoginCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberLoginCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberLoginCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberLogin, MemberLoginCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberLogin, MemberLoginCB>)sp; }
 }

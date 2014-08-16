@@ -15,7 +15,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
  *     
  * 
  * [column]
- *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, STATUS_DISPLAY_ORDER, MEMBER_STATUS_NAME, DUMMY_FLG, DUMMY_NOFLG
+ *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, STATUS_DISPLAY_ORDER, DUMMY_FLG, DUMMY_NOFLG
  * 
  * [sequence]
  *     
@@ -75,13 +75,13 @@ public abstract class BsOptionMemberDto implements Serializable {
     @JsonKey
     protected String _memberStatusCode;
 
+    /** (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
+    @JsonKey
+    protected String _memberStatusName;
+
     /** (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} */
     @JsonKey
     protected Integer _statusDisplayOrder;
-
-    /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
-    @JsonKey
-    protected String _memberStatusName;
 
     /** DUMMY_FLG: {INTEGER(10), classification=Flg} */
     @JsonKey
@@ -277,8 +277,8 @@ public abstract class BsOptionMemberDto implements Serializable {
         if (!helpComparingValue(getBirthdate(), otherEntity.getBirthdate())) { return false; }
         if (!helpComparingValue(getFormalizedDatetime(), otherEntity.getFormalizedDatetime())) { return false; }
         if (!helpComparingValue(getMemberStatusCode(), otherEntity.getMemberStatusCode())) { return false; }
-        if (!helpComparingValue(getStatusDisplayOrder(), otherEntity.getStatusDisplayOrder())) { return false; }
         if (!helpComparingValue(getMemberStatusName(), otherEntity.getMemberStatusName())) { return false; }
+        if (!helpComparingValue(getStatusDisplayOrder(), otherEntity.getStatusDisplayOrder())) { return false; }
         if (!helpComparingValue(getDummyFlg(), otherEntity.getDummyFlg())) { return false; }
         if (!helpComparingValue(getDummyNoflg(), otherEntity.getDummyNoflg())) { return false; }
         return true;
@@ -297,8 +297,8 @@ public abstract class BsOptionMemberDto implements Serializable {
         result = xCH(result, getBirthdate());
         result = xCH(result, getFormalizedDatetime());
         result = xCH(result, getMemberStatusCode());
-        result = xCH(result, getStatusDisplayOrder());
         result = xCH(result, getMemberStatusName());
+        result = xCH(result, getStatusDisplayOrder());
         result = xCH(result, getDummyFlg());
         result = xCH(result, getDummyNoflg());
         return result;
@@ -322,8 +322,8 @@ public abstract class BsOptionMemberDto implements Serializable {
         sb.append(c).append(getBirthdate());
         sb.append(c).append(getFormalizedDatetime());
         sb.append(c).append(getMemberStatusCode());
-        sb.append(c).append(getStatusDisplayOrder());
         sb.append(c).append(getMemberStatusName());
+        sb.append(c).append(getStatusDisplayOrder());
         sb.append(c).append(getDummyFlg());
         sb.append(c).append(getDummyNoflg());
         if (sb.length() > 0) { sb.delete(0, c.length()); }
@@ -424,6 +424,23 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
+     */
+    public String getMemberStatusName() {
+        return _memberStatusName;
+    }
+
+    /**
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
+     */
+    public void setMemberStatusName(String memberStatusName) {
+        __modifiedProperties.add("memberStatusName");
+        this._memberStatusName = memberStatusName;
+    }
+
+    /**
      * [get] (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} <br />
      * @return The value of the column 'STATUS_DISPLAY_ORDER'. (NullAllowed)
      */
@@ -438,23 +455,6 @@ public abstract class BsOptionMemberDto implements Serializable {
     public void setStatusDisplayOrder(Integer statusDisplayOrder) {
         __modifiedProperties.add("statusDisplayOrder");
         this._statusDisplayOrder = statusDisplayOrder;
-    }
-
-    /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
-     */
-    public String getMemberStatusName() {
-        return _memberStatusName;
-    }
-
-    /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
-     */
-    public void setMemberStatusName(String memberStatusName) {
-        __modifiedProperties.add("memberStatusName");
-        this._memberStatusName = memberStatusName;
     }
 
     /**

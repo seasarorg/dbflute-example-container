@@ -177,7 +177,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     //                                                                            ========
     /**
      * [get] conditionMap:like <br />
-     * @return The value of conditionMap. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of conditionMap. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, Object> getConditionMap() {
         return _conditionMap;

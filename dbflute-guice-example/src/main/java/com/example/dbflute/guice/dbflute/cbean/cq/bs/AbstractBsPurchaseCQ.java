@@ -779,7 +779,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param paymentCompleteFlg The value of paymentCompleteFlg as equal. (NullAllowed: if null, no condition)
      */
-    public void setPaymentCompleteFlg_Equal(Integer paymentCompleteFlg) {
+    protected void setPaymentCompleteFlg_Equal(Integer paymentCompleteFlg) {
         doSetPaymentCompleteFlg_Equal(paymentCompleteFlg);
     }
 
@@ -818,7 +818,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param paymentCompleteFlg The value of paymentCompleteFlg as notEqual. (NullAllowed: if null, no condition)
      */
-    public void setPaymentCompleteFlg_NotEqual(Integer paymentCompleteFlg) {
+    protected void setPaymentCompleteFlg_NotEqual(Integer paymentCompleteFlg) {
         doSetPaymentCompleteFlg_NotEqual(paymentCompleteFlg);
     }
 

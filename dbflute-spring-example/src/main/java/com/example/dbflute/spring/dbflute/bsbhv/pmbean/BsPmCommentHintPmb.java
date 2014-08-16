@@ -173,7 +173,7 @@ public class BsPmCommentHintPmb implements ListHandlingPmb<MemberBhv, PmCommentH
     //                                                                            ========
     /**
      * [get] emptyMethodCheck <br />
-     * @return The value of emptyMethodCheck. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of emptyMethodCheck. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getEmptyMethodCheck() {
         return _emptyMethodCheck;
@@ -189,7 +189,7 @@ public class BsPmCommentHintPmb implements ListHandlingPmb<MemberBhv, PmCommentH
 
     /**
      * [get] statusList <br />
-     * @return The value of statusList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Collection<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
         return _statusList;

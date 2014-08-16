@@ -1000,13 +1000,4 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     protected Class<? extends Region> typeOfSelectedEntity() { return Region.class; }
     protected Class<Region> typeOfHandlingEntity() { return Region.class; }
     protected Class<RegionCB> typeOfHandlingConditionBean() { return RegionCB.class; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<RegionCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<RegionCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<RegionCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<RegionCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<RegionCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<RegionCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<Region, RegionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<Region, RegionCB>)sp; }
 }

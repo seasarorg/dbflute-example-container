@@ -456,7 +456,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as equal. (NullAllowed: if null (or empty), no condition)
      */
-    public void setProductStatusCode_Equal(String productStatusCode) {
+    protected void setProductStatusCode_Equal(String productStatusCode) {
         doSetProductStatusCode_Equal(fRES(productStatusCode));
     }
 
@@ -503,7 +503,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
-    public void setProductStatusCode_NotEqual(String productStatusCode) {
+    protected void setProductStatusCode_NotEqual(String productStatusCode) {
         doSetProductStatusCode_NotEqual(fRES(productStatusCode));
     }
 

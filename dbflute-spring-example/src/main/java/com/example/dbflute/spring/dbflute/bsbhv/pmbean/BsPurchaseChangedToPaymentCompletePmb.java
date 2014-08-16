@@ -181,7 +181,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     //                                                                            ========
     /**
      * [get] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
-     * @return The value of paymentCompleteFlg. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
         return _paymentCompleteFlg;
@@ -213,7 +213,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
 
     /**
      * [get] memberName:likePrefix <br />
-     * @return The value of memberName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
         return filterStringParameter(_memberName);
