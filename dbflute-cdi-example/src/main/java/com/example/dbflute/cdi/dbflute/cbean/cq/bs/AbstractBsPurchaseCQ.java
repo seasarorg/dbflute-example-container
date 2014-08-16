@@ -47,7 +47,6 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)}
@@ -163,7 +162,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regPurchaseId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchaseId(), "PURCHASE_ID"); }
     protected abstract ConditionValue getCValuePurchaseId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
@@ -297,7 +296,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
     protected abstract ConditionValue getCValueMemberId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT}
@@ -507,7 +506,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regPurchaseDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchaseDatetime(), "PURCHASE_DATETIME"); }
     protected abstract ConditionValue getCValuePurchaseDatetime();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)}
@@ -611,7 +610,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regPurchaseCount(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchaseCount(), "PURCHASE_COUNT"); }
     protected abstract ConditionValue getCValuePurchaseCount();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)}
@@ -715,7 +714,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regPurchasePrice(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePurchasePrice(), "PURCHASE_PRICE"); }
     protected abstract ConditionValue getCValuePurchasePrice();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
@@ -1166,7 +1165,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}
@@ -1458,6 +1457,9 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(PurchaseCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1494,8 +1496,8 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1524,6 +1526,11 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1531,6 +1538,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
         return new PurchaseCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return PurchaseCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

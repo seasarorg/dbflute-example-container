@@ -155,16 +155,23 @@ class ${glImplementedSqlClauseCreator} extends SqlClauseCreator {
     //                                                                              ======
     protected def setupSqlClauseOption(sqlClause: SqlClause): Unit = {
         if (isInnerJoinAutoDetect()) {
-            sqlClause.allowInnerJoinAutoDetect();
+            sqlClause.enableInnerJoinAutoDetect();
         }
         if (isThatsBadTimingDetect()) {
-            sqlClause.allowThatsBadTimingDetect();
+            sqlClause.enableThatsBadTimingDetect();
+        }
+        if (isNullOrEmptyQueryAllowed()) {
+            sqlClause.ignoreNullOrEmptyQuery();
+        } else { // mainly here on Scala
+            sqlClause.checkNullOrEmptyQuery();
         }
         if (isEmptyStringQueryAllowed()) {
-            sqlClause.allowEmptyStringQuery();
+            sqlClause.enableEmptyStringQuery();
         }
-        if (isInvalidQueryChecked()) {
-            sqlClause.checkInvalidQuery();
+        if (isOverridingQueryAllowed()) {
+            sqlClause.enableOverridingQuery();
+        } else { // mainly here on Scala
+            sqlClause.disableOverridingQuery();
         }
         if (isDisableSelectIndex()) {
             sqlClause.disableSelectIndex();
@@ -186,12 +193,16 @@ class ${glImplementedSqlClauseCreator} extends SqlClauseCreator {
 	    return ${glDBFluteConfig}.isThatsBadTimingDetect();
     }
 
+    protected def isNullOrEmptyQueryAllowed(): Boolean = {
+	    return ${glDBFluteConfig}.isNullOrEmptyQueryAllowed();
+    }
+
     protected def isEmptyStringQueryAllowed(): Boolean = {
 	    return ${glDBFluteConfig}.isEmptyStringQueryAllowed();
     }
 
-    protected def isInvalidQueryChecked(): Boolean = {
-	    return ${glDBFluteConfig}.isInvalidQueryChecked();
+    protected def isOverridingQueryAllowed(): Boolean = {
+	    return ${glDBFluteConfig}.isOverridingQueryAllowed();
     }
 
     protected def isDisableSelectIndex(): Boolean = {

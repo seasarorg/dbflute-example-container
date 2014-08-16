@@ -8,7 +8,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -52,19 +51,13 @@ import com.example.dbflute.cdi.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
+public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<MemberAddress, MemberAddressCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "MEMBER_ADDRESS"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -78,9 +71,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public MemberAddress newEntity() { return new MemberAddress(); }
-
     /** {@inheritDoc} */
     public MemberAddressCB newConditionBean() { return new MemberAddressCB(); }
 
@@ -107,22 +97,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public int selectCount(MemberAddressCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(MemberAddressCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(MemberAddressCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(MemberAddressCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -154,11 +128,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberAddress> ENTITY doSelectEntity(MemberAddressCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalEntity(MemberAddressCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalEntity(MemberAddressCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -183,17 +153,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected MemberAddress facadeSelectEntityWithDeletedCheck(MemberAddressCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberAddress> ENTITY doSelectEntityWithDeletedCheck(MemberAddressCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     /**
      * Select the entity by the primary-key value.
      * @param memberAddressId (会員住所ID): PK, ID, NotNull, INTEGER(10). (NotNull)
@@ -209,11 +168,11 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doSelectByPK(memberAddressId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberAddress> ENTITY doSelectByPK(Integer memberAddressId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> ENTITY doSelectByPK(Integer memberAddressId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(memberAddressId), tp);
     }
 
-    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberAddressId, tp), memberAddressId);
     }
 
@@ -255,7 +214,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doSelectByUniqueOf(memberId, validBeginDate, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate, Class<ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, validBeginDate), tp), memberId, validBeginDate);
     }
 
@@ -286,16 +245,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<MemberAddress> facadeSelectList(MemberAddressCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberAddress> ListResultBean<ENTITY> doSelectList(MemberAddressCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -325,16 +274,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<MemberAddress> facadeSelectPage(MemberAddressCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberAddress> PagingResultBean<ENTITY> doSelectPage(MemberAddressCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -354,16 +293,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(MemberAddressCB cb, EntityRowHandler<MemberAddress> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(MemberAddressCB cb, EntityRowHandler<MemberAddress> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberAddress> void doSelectCursor(MemberAddressCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -387,19 +316,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<MemberAddressCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<MemberAddressCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends MemberAddressCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -539,17 +455,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         doInsert(memberAddress, null);
     }
 
-    protected void doInsert(MemberAddress et, InsertOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void prepareInsertOption(InsertOption<MemberAddressCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
      * <pre>
@@ -576,24 +481,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         doUpdate(memberAddress, null);
     }
 
-    protected void doUpdate(MemberAddress et, UpdateOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void prepareUpdateOption(UpdateOption<MemberAddressCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected MemberAddressCB createCBForVaryingUpdate()
-    { MemberAddressCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected MemberAddressCB createCBForSpecifiedUpdate()
-    { MemberAddressCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -617,13 +504,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         doUpdateNonstrict(memberAddress, null);
     }
 
-    protected void doUpdateNonstrict(MemberAddress et, UpdateOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
-    }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doUpdateNonstrict(downcast(et), downcast(op)); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -637,13 +517,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         doInsertOrUpdate(memberAddress, null, null);
     }
 
-    protected void doInsertOrUpdate(MemberAddress et, InsertOption<MemberAddressCB> iop, UpdateOption<MemberAddressCB> uop) {
-        assertObjectNotNull("memberAddress", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
@@ -656,13 +529,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public void insertOrUpdateNonstrict(MemberAddress memberAddress) {
         doInsertOrUpdateNonstrict(memberAddress, null, null);
     }
-
-    protected void doInsertOrUpdateNonstrict(MemberAddress et, InsertOption<MemberAddressCB> iop, UpdateOption<MemberAddressCB> uop) {
-        assertObjectNotNull("memberAddress", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
@@ -685,14 +551,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         doDelete(memberAddress, null);
     }
 
-    protected void doDelete(MemberAddress et, final DeleteOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void prepareDeleteOption(DeleteOption<MemberAddressCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
@@ -709,10 +567,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public void deleteNonstrict(MemberAddress memberAddress) {
         doDeleteNonstrict(memberAddress, null);
-    }
-
-    protected void doDeleteNonstrict(MemberAddress et, final DeleteOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -736,9 +590,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     protected void doDeleteNonstrictIgnoreDeleted(MemberAddress et, final DeleteOption<MemberAddressCB> op) {
         assertObjectNotNull("memberAddress", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -771,21 +622,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doBatchInsert(memberAddressList, null);
     }
 
-    protected int[] doBatchInsert(List<MemberAddress> ls, InsertOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddressList", ls);
-        InsertOption<MemberAddressCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected void prepareBatchInsertOption(List<MemberAddress> ls, InsertOption<MemberAddressCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -813,20 +649,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<MemberAddress> memberAddressList) {
         return doBatchUpdate(memberAddressList, null);
     }
-
-    protected int[] doBatchUpdate(List<MemberAddress> ls, UpdateOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddressList", ls);
-        UpdateOption<MemberAddressCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<MemberAddress> ls, UpdateOption<MemberAddressCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -888,13 +710,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doBatchUpdateNonstrict(memberAddressList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<MemberAddress> ls, UpdateOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddressList", ls);
-        UpdateOption<MemberAddressCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop);
-        return delegateBatchUpdateNonstrict(ls, rlop);
-    }
-
     /**
      * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -926,10 +741,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doBatchUpdateNonstrict(memberAddressList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -940,14 +751,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<MemberAddress> memberAddressList) {
         return doBatchDelete(memberAddressList, null);
     }
-
-    protected int[] doBatchDelete(List<MemberAddress> ls, DeleteOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddressList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -960,15 +763,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(memberAddressList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<MemberAddress> ls, DeleteOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddressList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(ls, op);
-    }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
@@ -976,7 +770,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * memberAddressBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberAddress, MemberAddressCB&gt;() {
-     *     public ConditionBean setup(memberAddress entity, MemberAddressCB intoCB) {
+     *     public ConditionBean setup(MemberAddress entity, MemberAddressCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -995,24 +789,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<MemberAddress, MemberAddressCB> setupper) {
         return doQueryInsert(setupper, null);
     }
-
-    protected int doQueryInsert(QueryInsertSetupper<MemberAddress, MemberAddressCB> sp, InsertOption<MemberAddressCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        MemberAddress et = newEntity(); MemberAddressCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected MemberAddressCB createCBForQueryInsert()
-    { MemberAddressCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1040,14 +822,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(memberAddress, cb, null);
     }
 
-    protected int doQueryUpdate(MemberAddress et, MemberAddressCB cb, UpdateOption<MemberAddressCB> op) {
-        assertObjectNotNull("memberAddress", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -1062,13 +836,6 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     public int queryDelete(MemberAddressCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(MemberAddressCB cb, DeleteOption<MemberAddressCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1301,7 +1068,7 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
@@ -1401,25 +1168,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable {
     //                                                                Optimistic Lock Info
     //                                                                ====================
     @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return downcast(et).getVersionNo() != null;
-    }
+    protected boolean hasVersionNoValue(Entity et) { return downcast(et).getVersionNo() != null; }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<MemberAddress> typeOfSelectedEntity() { return MemberAddress.class; }
-    protected MemberAddress downcast(Entity et) { return helpEntityDowncastInternally(et, MemberAddress.class); }
-    protected MemberAddressCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MemberAddressCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<MemberAddress> downcast(List<? extends Entity> ls) { return (List<MemberAddress>)ls; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<MemberAddressCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<MemberAddressCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<MemberAddressCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<MemberAddressCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MemberAddress, MemberAddressCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<MemberAddress, MemberAddressCB>)sp; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends MemberAddress> typeOfSelectedEntity() { return MemberAddress.class; }
+    protected Class<MemberAddress> typeOfHandlingEntity() { return MemberAddress.class; }
+    protected Class<MemberAddressCB> typeOfHandlingConditionBean() { return MemberAddressCB.class; }
 }

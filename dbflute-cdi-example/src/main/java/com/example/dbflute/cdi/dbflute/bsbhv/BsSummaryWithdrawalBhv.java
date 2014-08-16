@@ -8,7 +8,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -52,19 +51,13 @@ import com.example.dbflute.cdi.dbflute.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
+public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<SummaryWithdrawal, SummaryWithdrawalCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "SUMMARY_WITHDRAWAL"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -78,9 +71,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public SummaryWithdrawal newEntity() { return new SummaryWithdrawal(); }
-
     /** {@inheritDoc} */
     public SummaryWithdrawalCB newConditionBean() { return new SummaryWithdrawalCB(); }
 
@@ -107,22 +97,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     public int selectCount(SummaryWithdrawalCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(SummaryWithdrawalCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(SummaryWithdrawalCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(SummaryWithdrawalCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -154,11 +128,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends SummaryWithdrawal> OptionalEntity<ENTITY> doSelectOptionalEntity(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends SummaryWithdrawal> OptionalEntity<ENTITY> doSelectOptionalEntity(SummaryWithdrawalCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -183,17 +153,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected SummaryWithdrawal facadeSelectEntityWithDeletedCheck(SummaryWithdrawalCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends SummaryWithdrawal> ENTITY doSelectEntityWithDeletedCheck(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         List Select
     //                                                                         ===========
@@ -215,16 +174,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     public ListResultBean<SummaryWithdrawal> selectList(SummaryWithdrawalCB cb) {
         return facadeSelectList(cb);
     }
-
-    protected ListResultBean<SummaryWithdrawal> facadeSelectList(SummaryWithdrawalCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends SummaryWithdrawal> ListResultBean<ENTITY> doSelectList(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -255,16 +204,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<SummaryWithdrawal> facadeSelectPage(SummaryWithdrawalCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends SummaryWithdrawal> PagingResultBean<ENTITY> doSelectPage(SummaryWithdrawalCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -284,16 +223,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
      */
     public void selectCursor(SummaryWithdrawalCB cb, EntityRowHandler<SummaryWithdrawal> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<SummaryWithdrawal> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends SummaryWithdrawal> void doSelectCursor(SummaryWithdrawalCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -317,19 +246,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     public <RESULT> HpSLSFunction<SummaryWithdrawalCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<SummaryWithdrawalCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends SummaryWithdrawalCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -461,11 +377,9 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<SummaryWithdrawal> typeOfSelectedEntity() { return SummaryWithdrawal.class; }
-    protected SummaryWithdrawal downcast(Entity et) { return helpEntityDowncastInternally(et, SummaryWithdrawal.class); }
-    protected SummaryWithdrawalCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, SummaryWithdrawalCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<SummaryWithdrawal> downcast(List<? extends Entity> ls) { return (List<SummaryWithdrawal>)ls; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends SummaryWithdrawal> typeOfSelectedEntity() { return SummaryWithdrawal.class; }
+    protected Class<SummaryWithdrawal> typeOfHandlingEntity() { return SummaryWithdrawal.class; }
+    protected Class<SummaryWithdrawalCB> typeOfHandlingConditionBean() { return SummaryWithdrawalCB.class; }
 }

@@ -184,7 +184,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
     //                                                                            ========
     /**
      * [get] string <br />
-     * @return The value of string. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of string. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getString() {
         return filterStringParameter(_string);
@@ -200,7 +200,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] integer <br />
-     * @return The value of integer. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of integer. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getInteger() {
         return _integer;
@@ -216,7 +216,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] bigDecimal <br />
-     * @return The value of bigDecimal. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bigDecimal. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.math.BigDecimal getBigDecimal() {
         return _bigDecimal;
@@ -232,7 +232,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] date <br />
-     * @return The value of date. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of date. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getDate() {
         return toUtilDate(_date);
@@ -248,7 +248,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] timestamp <br />
-     * @return The value of timestamp. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of timestamp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Timestamp getTimestamp() {
         return _timestamp;
@@ -264,7 +264,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] exists <br />
-     * @return The value of exists. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of exists. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getExists() {
         return _exists;
@@ -280,7 +280,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] notExists <br />
-     * @return The value of notExists. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of notExists. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getNotExists() {
         return _notExists;
@@ -296,7 +296,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] list <br />
-     * @return The value of list. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of list. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getList() {
         return _list;
@@ -312,7 +312,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] map <br />
-     * @return The value of map. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of map. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, Integer> getMap() {
         return _map;
@@ -328,7 +328,7 @@ public class BsSupportedExpressionPmb implements ExecuteHandlingPmb<MemberBhv>, 
 
     /**
      * [get] cdef <br />
-     * @return The value of cdef. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of cdef. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public com.example.dbflute.cdi.dbflute.allcommon.CDef getCdef() {
         return _cdef;

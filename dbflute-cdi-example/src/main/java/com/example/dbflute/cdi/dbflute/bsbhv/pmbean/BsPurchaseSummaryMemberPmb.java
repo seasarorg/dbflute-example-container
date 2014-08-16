@@ -181,7 +181,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
     //                                                                            ========
     /**
      * [get] memberStatusCode:cls(MemberStatus) <br />
-     * @return The value of memberStatusCode. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
         return filterStringParameter(_memberStatusCode);
@@ -221,7 +221,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
 
     /**
      * [get] formalizedDatetime <br />
-     * @return The value of formalizedDatetime. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of formalizedDatetime. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Timestamp getFormalizedDatetime() {
         return _formalizedDatetime;
@@ -237,7 +237,7 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
 
     /**
      * [get] memberNameList:likeContain <br />
-     * @return The value of memberNameList. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of memberNameList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getMemberNameList() {
         return _memberNameList;

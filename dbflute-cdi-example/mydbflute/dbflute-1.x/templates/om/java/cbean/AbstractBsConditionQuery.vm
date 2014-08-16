@@ -25,6 +25,13 @@ import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
+#if ($database.isAvailableJodaTimeEntity())
+import org.seasar.dbflute.util.DfTypeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.ReadableInstant;
+import org.joda.time.ReadablePartial;
+#end
 import ${glPackageBaseCommon}.*;
 import ${glPackageCB}.*;
 import ${glPackageCQ}.*;
@@ -57,15 +64,19 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         return "${table.tableDbName}";
     }
 
+#set ($columnLoopIndex = 0)
+#foreach ($col in $table.columns)
+#if ($columnLoopIndex == 0)
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-#foreach ($col in $table.columns)
+#else
+
+#end
 #set ($tmpJavaName = "${col.javaName}")
 #set ($tmpUncapitalisedJavaName = "${col.uncapitalisedJavaName}")
 #set ($fk = $col.foreignKey)
 #if (${col.isJavaNativeStringObject()})
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
@@ -581,7 +592,6 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.isJavaNativeNumberObject()})
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
@@ -1047,7 +1057,6 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.isJavaNativeDateObject()})
-
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
@@ -1122,9 +1131,13 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void set${tmpJavaName}_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    public void set${tmpJavaName}_FromTo(${col.fromToJavaNativeDate} fromDatetime, ${col.fromToJavaNativeDate} toDatetime, FromToOption fromToOption) {
 #if ($col.isJavaNativeUtilDate())
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+#elseif ($col.isJavaNativeNextLocalDate())
+        regFTQ(toUtilDate(fromDatetime), toUtilDate(toDatetime), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+#elseif ($col.isJavaNativeNextLocalDateTime())
+        regFTQ(toTimestamp(fromDatetime), toTimestamp(toDatetime), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
 #else
         regFTQ((fromDatetime != null ? new ${col.javaNative}(fromDatetime.getTime()) : null), (toDatetime != null ? new ${col.javaNative}(toDatetime.getTime()) : null), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
 #end
@@ -1143,7 +1156,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of ${col.uncapitalisedJavaName}. (NullAllowed: if null, no to-condition)
      */
-    public void set${tmpJavaName}_DateFromTo(Date fromDate, Date toDate) {
+    public void set${tmpJavaName}_DateFromTo(${col.fromToJavaNativeDate} fromDate, ${col.fromToJavaNativeDate} toDate) {
         set${tmpJavaName}_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 #end
@@ -1179,7 +1192,6 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.isJavaNativeBooleanObject()})
-
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
@@ -1205,7 +1217,6 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 #if (${col.isJavaNativeUUIDObject()})
-
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * ${col.aliasExpression}${col.name}: {${col.columnDefinitionLineDisp}}
@@ -1257,6 +1268,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 
     protected void reg${tmpJavaName}(ConditionKey ky, Object vl) { regQ(ky, vl, getCValue${tmpJavaName}(), "${col.name}"); }
     protected abstract ConditionValue getCValue${tmpJavaName}();
+#set ($columnLoopIndex = $columnLoopIndex + 1)
 #end
 #if ($table.isAvailableMyselfScalarCondition())
 
@@ -1564,6 +1576,9 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1598,11 +1613,11 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     public void withManualOrder(ManualOrderBean mob) { // is user public!
         xdoWithManualOrder(mob);
     }
-#if ($table.isMakeConditionQueryPlainListManualOrder())
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
+#if ($table.isMakeConditionQueryPlainListManualOrder())
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1630,8 +1645,44 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         manualOrderBean.acceptOrderValueList(orderValueList);
         withManualOrder(manualOrderBean);
     }
-#end
 
+#end
+#if ($table.isCompatibleConditionBeanFromToOneSideAllowed())
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
+#end
+#if ($database.isAvailableJodaTimeEntity())
+    protected Date toUtilDate(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new Date(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new Date(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toDate(date);
+    }
+
+    protected java.sql.Timestamp toTimestamp(Object date) {
+        if (date != null && date instanceof ReadablePartial) {
+            return new java.sql.Timestamp(((ReadablePartial) date).toDateTime(null).getMillis());
+        } else if (date != null && date instanceof ReadableInstant) {
+            return new java.sql.Timestamp(((ReadableInstant) date).getMillis());
+        }
+        return DfTypeUtil.toTimestamp(date);
+    }
+
+    @Override
+    protected Object filterFromToRegisteredDate(Date date, String columnDbName) {
+        if (date instanceof java.sql.Timestamp) {
+            return LocalDateTime.fromDateFields(date);
+        } else { // basically pure Date
+            return LocalDate.fromDateFields(date);
+        }
+    }
+
+#end
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1639,6 +1690,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
         return new ${myConditionBeanClassName}();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return ${myConditionQueryClassName}.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

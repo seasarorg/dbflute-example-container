@@ -59,11 +59,12 @@ public class DBFluteConfig {
     protected boolean _pagingCountLeastJoin = true;
     protected boolean _innerJoinAutoDetect = true;
     protected boolean _thatsBadTimingDetect = false;
+    protected boolean _nullOrEmptyQueryAllowed = true;
     protected boolean _emptyStringQueryAllowed;
     protected boolean _emptyStringParameterAllowed;
-    protected boolean _invalidQueryChecked;
+    protected boolean _overridingQueryAllowed = true;
     protected boolean _disableSelectIndex;
-    protected boolean _checkCountBeforeQueryUpdate = false;
+    protected boolean _queryUpdateCountPreCheck = false;
 
     // logging
     protected boolean _queryLogLevelInfo;
@@ -189,14 +190,35 @@ public class DBFluteConfig {
     // ===================================================================================
     //                                                                       Invalid Query
     //                                                                       =============
+    public boolean isNullOrEmptyQueryAllowed() {
+        return _nullOrEmptyQueryAllowed;
+    }
+
+    /**
+     * Set whether null-or-empty query is allowed or not. <br />
+     * This configuration is only for ConditionBean.
+     * @param nullOrEmptyQueryAllowed The determination, true or false.
+     */
+    public void setNullOrEmptyQueryAllowed(boolean nullOrEmptyQueryAllowed) {
+        assertNotLocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting nullOrEmptyQueryAllowed: " + nullOrEmptyQueryAllowed);
+        }
+        _nullOrEmptyQueryAllowed = nullOrEmptyQueryAllowed;
+    }
+
+    public void setInvalidQueryChecked(boolean invalidQueryChecked) { // for compatible
+        setNullOrEmptyQueryAllowed(!invalidQueryChecked);
+    }
+
     public boolean isEmptyStringQueryAllowed() {
         return _emptyStringQueryAllowed;
     }
 
     /**
-     * Set whether an empty string for query is allowed or not. {default: false}<br />
+     * Set whether an empty string for query is allowed or not. <br />
      * This configuration is only for ConditionBean.
-     * @param emptyStringQueryAllowed Determination.
+     * @param emptyStringQueryAllowed The determination, true or false.
      */
     public void setEmptyStringQueryAllowed(boolean emptyStringQueryAllowed) {
         assertNotLocked();
@@ -211,9 +233,9 @@ public class DBFluteConfig {
     }
 
     /**
-     * Set whether an empty string for parameter is allowed or not. {default: false}<br />
+     * Set whether an empty string for parameter is allowed or not. <br />
      * This configuration is only for ParameterBean.
-     * @param emptyStringParameterAllowed Determination.
+     * @param emptyStringParameterAllowed The determination, true or false.
      */
     public void setEmptyStringParameterAllowed(boolean emptyStringParameterAllowed) {
         assertNotLocked();
@@ -223,21 +245,21 @@ public class DBFluteConfig {
         _emptyStringParameterAllowed = emptyStringParameterAllowed;
     }
 
-    public boolean isInvalidQueryChecked() {
-        return _invalidQueryChecked;
+    public boolean isOverridingQueryAllowed() {
+        return _overridingQueryAllowed;
     }
 
     /**
-     * Set whether an invalid query is checked or not. {default: false}<br />
+     * Set whether overriding query is allowed or not. <br />
      * This configuration is only for ConditionBean.
-     * @param invalidQueryChecked Determination.
+     * @param overridingQueryAllowed The determination, true or false.
      */
-    public void setInvalidQueryChecked(boolean invalidQueryChecked) {
+    public void setOverridingQueryAllowed(boolean overridingQueryAllowed) {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
-            _log.info("...Setting invalidQueryChecked: " + invalidQueryChecked);
+            _log.info("...Setting overridingQueryAllowed: " + overridingQueryAllowed);
         }
-        _invalidQueryChecked = invalidQueryChecked;
+        _overridingQueryAllowed = overridingQueryAllowed;
     }
 
     // ===================================================================================
@@ -258,16 +280,16 @@ public class DBFluteConfig {
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
-    public boolean isCheckCountBeforeQueryUpdate() {
-        return _checkCountBeforeQueryUpdate;
+    public boolean isQueryUpdateCountPreCheck() {
+        return _queryUpdateCountPreCheck;
     }
 
-    public void setCheckCountBeforeQueryUpdate(boolean checkCountBeforeQueryUpdate) {
+    public void setQueryUpdateCountPreCheck(boolean queryUpdateCountPreCheck) {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
-            _log.info("...Setting checkCountBeforeQueryUpdate: " + checkCountBeforeQueryUpdate);
+            _log.info("...Setting queryUpdateCountPreCheck: " + queryUpdateCountPreCheck);
         }
-        _checkCountBeforeQueryUpdate = checkCountBeforeQueryUpdate;
+        _queryUpdateCountPreCheck = queryUpdateCountPreCheck;
     }
 
     // ===================================================================================
@@ -839,5 +861,5 @@ public class DBFluteConfig {
             }
             return null;
         }
-    }    
+    }
 }
