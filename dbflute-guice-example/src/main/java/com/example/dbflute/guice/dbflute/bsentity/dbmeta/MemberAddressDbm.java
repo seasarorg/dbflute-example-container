@@ -76,7 +76,12 @@ public class MemberAddressDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnRegionId();
             ccls(col, vl);
-            ((MemberAddress)et).setRegionIdAsRegion((CDef.Region)gcls(col, vl));
+            CDef.Region cls = (CDef.Region)gcls(col, vl);
+            if (cls != null) {
+                ((MemberAddress)et).setRegionIdAsRegion(cls);
+            } else {
+                ((MemberAddress)et).mynativeMappingRegionId(ctn(vl, Integer.class));
+            }
         }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {

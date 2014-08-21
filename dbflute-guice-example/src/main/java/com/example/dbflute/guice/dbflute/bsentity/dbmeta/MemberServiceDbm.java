@@ -66,7 +66,12 @@ public class MemberServiceDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnServiceRankCode();
             ccls(col, vl);
-            ((MemberService)et).setServiceRankCodeAsServiceRank((CDef.ServiceRank)gcls(col, vl));
+            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
+            if (cls != null) {
+                ((MemberService)et).setServiceRankCodeAsServiceRank(cls);
+            } else {
+                ((MemberService)et).mynativeMappingServiceRankCode((String)vl);
+            }
         }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {

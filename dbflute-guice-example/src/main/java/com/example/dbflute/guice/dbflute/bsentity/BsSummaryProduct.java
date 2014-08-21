@@ -543,7 +543,6 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setProductStatusCode(String productStatusCode) {
-        checkImplicitSet("PRODUCT_STATUS_CODE", CDef.DefMeta.ProductStatus, productStatusCode);
         __modifiedProperties.addPropertyName("productStatusCode");
         _productStatusCode = productStatusCode;
     }
@@ -569,7 +568,11 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
         return FunCustodial.convertEmptyToNull(value);
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    /**
+     * For framework so basically DON'T use this method.
+     * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingProductStatusCode(String productStatusCode) {
+        setProductStatusCode(productStatusCode);
     }
 }

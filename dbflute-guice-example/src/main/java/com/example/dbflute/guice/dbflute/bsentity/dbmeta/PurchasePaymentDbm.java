@@ -70,7 +70,12 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnPaymentMethodCode();
             ccls(col, vl);
-            ((PurchasePayment)et).setPaymentMethodCodeAsPaymentMethod((CDef.PaymentMethod)gcls(col, vl));
+            CDef.PaymentMethod cls = (CDef.PaymentMethod)gcls(col, vl);
+            if (cls != null) {
+                ((PurchasePayment)et).setPaymentMethodCodeAsPaymentMethod(cls);
+            } else {
+                ((PurchasePayment)et).mynativeMappingPaymentMethodCode((String)vl);
+            }
         }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {

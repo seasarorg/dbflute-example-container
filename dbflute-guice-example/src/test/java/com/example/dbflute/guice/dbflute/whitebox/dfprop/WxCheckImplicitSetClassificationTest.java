@@ -1,6 +1,6 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
-import org.seasar.dbflute.exception.IllegalClassificationCodeException;
+import org.seasar.dbflute.exception.UndefinedClassificationCodeException;
 import org.seasar.dbflute.unit.core.PlainTestCase;
 
 import com.example.dbflute.guice.dbflute.bsentity.dbmeta.PurchaseDbm;
@@ -22,7 +22,7 @@ public class WxCheckImplicitSetClassificationTest extends PlainTestCase {
 
             // ## Assert ##
             fail();
-        } catch (IllegalClassificationCodeException e) {
+        } catch (UndefinedClassificationCodeException e) {
             log(e.getMessage());
         }
     }

@@ -467,7 +467,6 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable, Deriv
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     protected void setRegionId(Integer regionId) {
-        checkImplicitSet("REGION_ID", CDef.DefMeta.Region, regionId);
         __modifiedProperties.addPropertyName("regionId");
         _regionId = regionId;
     }
@@ -493,7 +492,11 @@ public abstract class BsRegion implements Entity, Serializable, Cloneable, Deriv
         return FunCustodial.convertEmptyToNull(value);
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    /**
+     * For framework so basically DON'T use this method.
+     * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingRegionId(Integer regionId) {
+        setRegionId(regionId);
     }
 }

@@ -619,7 +619,6 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setMemberStatusCode(String memberStatusCode) {
-        checkImplicitSet("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         __modifiedProperties.addPropertyName("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
@@ -699,5 +698,21 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
         FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingMemberStatusCode(String memberStatusCode) {
+        setMemberStatusCode(memberStatusCode);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingDummyFlg(Integer dummyFlg) {
+        setDummyFlg(dummyFlg);
     }
 }

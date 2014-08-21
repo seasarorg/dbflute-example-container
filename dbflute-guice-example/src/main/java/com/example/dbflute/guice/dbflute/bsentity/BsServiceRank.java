@@ -601,7 +601,6 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable, 
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setServiceRankCode(String serviceRankCode) {
-        checkImplicitSet("SERVICE_RANK_CODE", CDef.DefMeta.ServiceRank, serviceRankCode);
         __modifiedProperties.addPropertyName("serviceRankCode");
         _serviceRankCode = serviceRankCode;
     }
@@ -698,5 +697,21 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable, 
 
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
         FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingServiceRankCode(String serviceRankCode) {
+        setServiceRankCode(serviceRankCode);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingNewAcceptableFlg(Integer newAcceptableFlg) {
+        setNewAcceptableFlg(newAcceptableFlg);
     }
 }

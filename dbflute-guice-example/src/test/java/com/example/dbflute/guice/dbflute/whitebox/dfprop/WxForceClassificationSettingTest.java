@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 import java.lang.reflect.Field;
 
 import org.seasar.dbflute.dbmeta.info.ColumnInfo;
-import org.seasar.dbflute.exception.IllegalClassificationCodeException;
+import org.seasar.dbflute.exception.UndefinedClassificationCodeException;
 import org.seasar.dbflute.optional.OptionalObjectConsumer;
 import org.seasar.dbflute.util.DfReflectionUtil;
 
@@ -75,7 +75,7 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
 
             // ## Assert ##
             fail();
-        } catch (IllegalClassificationCodeException e) {
+        } catch (UndefinedClassificationCodeException e) {
             // OK
             log(e.getMessage());
         }

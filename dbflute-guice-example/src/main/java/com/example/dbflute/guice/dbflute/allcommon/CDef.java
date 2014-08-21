@@ -5,6 +5,7 @@ import java.util.*;
 import org.seasar.dbflute.jdbc.Classification;
 import org.seasar.dbflute.jdbc.ClassificationCodeType;
 import org.seasar.dbflute.jdbc.ClassificationMeta;
+import org.seasar.dbflute.jdbc.ClassificationUndefinedHandlingType;
 
 /**
  * The definition of classification.
@@ -711,6 +712,10 @@ public interface CDef extends Classification {
         /** method of payment for purchase */
         PaymentMethod
         ;
+        public String classificationName() {
+            return name(); // same as definition name
+        }
+
         public Classification codeOf(Object code) {
             if ("Flg".equals(name())) { return CDef.Flg.codeOf(code); }
             if ("MemberStatus".equals(name())) { return CDef.MemberStatus.codeOf(code); }
@@ -774,6 +779,18 @@ public interface CDef extends Classification {
             if ("ProductStatus".equals(name())) { return ClassificationCodeType.String; }
             if ("PaymentMethod".equals(name())) { return ClassificationCodeType.String; }
             return ClassificationCodeType.String; // as default
+        }
+
+        public ClassificationUndefinedHandlingType undefinedHandlingType() {
+            if ("Flg".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("MemberStatus".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("ServiceRank".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("Region".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("WithdrawalReason".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("ProductCategory".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("ProductStatus".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("PaymentMethod".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            return ClassificationUndefinedHandlingType.LOGGING; // as default
         }
     }
 }

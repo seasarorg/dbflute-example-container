@@ -699,4 +699,12 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
         FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingPaymentMethodCode(String paymentMethodCode) {
+        setPaymentMethodCode(paymentMethodCode);
+    }
 }

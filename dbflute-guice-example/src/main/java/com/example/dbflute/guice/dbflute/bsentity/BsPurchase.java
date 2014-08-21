@@ -844,4 +844,12 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
         FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
     }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param paymentCompleteFlg The value of the column 'PAYMENT_COMPLETE_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingPaymentCompleteFlg(Integer paymentCompleteFlg) {
+        setPaymentCompleteFlg(paymentCompleteFlg);
+    }
 }
