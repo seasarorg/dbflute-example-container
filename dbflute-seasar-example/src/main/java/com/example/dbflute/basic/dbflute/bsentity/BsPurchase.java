@@ -734,7 +734,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
      * @param paymentCompleteFlg The value of the column 'PAYMENT_COMPLETE_FLG'. (basically NotNull if update: for the constraint)
      */
     protected void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
-        checkImplicitSet("PAYMENT_COMPLETE_FLG", CDef.DefMeta.Flg, paymentCompleteFlg);
+        checkClassificationCode("PAYMENT_COMPLETE_FLG", CDef.DefMeta.Flg, paymentCompleteFlg);
         __modifiedProperties.addPropertyName("paymentCompleteFlg");
         _paymentCompleteFlg = paymentCompleteFlg;
     }
@@ -824,11 +824,19 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         _versionNo = versionNo;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param paymentCompleteFlg The value of the column 'PAYMENT_COMPLETE_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingPaymentCompleteFlg(Integer paymentCompleteFlg) {
+        setPaymentCompleteFlg(paymentCompleteFlg);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

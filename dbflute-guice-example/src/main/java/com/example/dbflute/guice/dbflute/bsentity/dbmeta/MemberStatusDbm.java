@@ -47,7 +47,6 @@ public class MemberStatusDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnMemberStatusCode();
-            ccls(col, vl);
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
                 ((MemberStatus)et).setMemberStatusCodeAsMemberStatus(cls);

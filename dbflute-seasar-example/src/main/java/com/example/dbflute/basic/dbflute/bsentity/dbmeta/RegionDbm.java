@@ -61,7 +61,12 @@ public class RegionDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnRegionId();
             ccls(col, vl);
-            ((Region)et).setRegionIdAsRegion((CDef.Region)gcls(col, vl));
+            CDef.Region cls = (CDef.Region)gcls(col, vl);
+            if (cls != null) {
+                ((Region)et).setRegionIdAsRegion(cls);
+            } else {
+                ((Region)et).mynativeMappingRegionId(ctn(vl, Integer.class));
+            }
         }
     }
     public static class EpgRegionName implements PropertyGateway {

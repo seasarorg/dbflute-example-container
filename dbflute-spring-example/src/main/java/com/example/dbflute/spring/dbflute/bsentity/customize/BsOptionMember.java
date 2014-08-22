@@ -714,7 +714,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed: null update allowed for no constraint)
      */
     public void setDummyFlg(Integer dummyFlg) {
-        checkImplicitSet("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
+        checkClassificationCode("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
         __modifiedProperties.addPropertyName("dummyFlg");
         _dummyFlg = dummyFlg;
     }
@@ -738,7 +738,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
         _dummyNoflg = dummyNoflg;
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

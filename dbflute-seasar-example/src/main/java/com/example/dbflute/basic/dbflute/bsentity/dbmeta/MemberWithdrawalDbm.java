@@ -72,7 +72,12 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnWithdrawalReasonCode();
             ccls(col, vl);
-            ((MemberWithdrawal)et).setWithdrawalReasonCodeAsWithdrawalReason((CDef.WithdrawalReason)gcls(col, vl));
+            CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
+            if (cls != null) {
+                ((MemberWithdrawal)et).setWithdrawalReasonCodeAsWithdrawalReason(cls);
+            } else {
+                ((MemberWithdrawal)et).mynativeMappingWithdrawalReasonCode((String)vl);
+            }
         }
     }
     public static class EpgWithdrawalReasonInputText implements PropertyGateway {

@@ -231,9 +231,6 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

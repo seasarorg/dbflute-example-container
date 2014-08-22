@@ -76,7 +76,12 @@ public class SummaryProductDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnProductStatusCode();
             ccls(col, vl);
-            ((SummaryProduct)et).setProductStatusCodeAsProductStatus((CDef.ProductStatus)gcls(col, vl));
+            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
+            if (cls != null) {
+                ((SummaryProduct)et).setProductStatusCodeAsProductStatus(cls);
+            } else {
+                ((SummaryProduct)et).mynativeMappingProductStatusCode((String)vl);
+            }
         }
     }
     public static class EpgLatestPurchaseDatetime implements PropertyGateway {

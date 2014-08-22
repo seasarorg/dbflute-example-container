@@ -643,7 +643,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
      * @param mobileLoginFlg The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if update: for the constraint)
      */
     protected void setMobileLoginFlg(Integer mobileLoginFlg) {
-        checkImplicitSet("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
+        checkClassificationCode("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
         __modifiedProperties.addPropertyName("mobileLoginFlg");
         _mobileLoginFlg = mobileLoginFlg;
     }
@@ -667,11 +667,27 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable {
         _loginMemberStatusCode = loginMemberStatusCode;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param mobileLoginFlg The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingMobileLoginFlg(Integer mobileLoginFlg) {
+        setMobileLoginFlg(mobileLoginFlg);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param loginMemberStatusCode The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingLoginMemberStatusCode(String loginMemberStatusCode) {
+        setLoginMemberStatusCode(loginMemberStatusCode);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

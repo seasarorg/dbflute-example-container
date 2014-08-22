@@ -33,6 +33,37 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    #
+    # #migtojava8
+    # *also outsideSqlDefinitionMap.dfprop
+    #
+    ; isCompatibleBeforeJava8 = false
+
+    # compile compatible
+    ; isCompatibleSelectByPKOldStyle = true
+    ; isCompatibleSelectByPKPlainReturn = true
+    ; isCompatibleSelectByPKWithDeletedCheck = true
+    ; isMakeConditionQueryExistsReferrerToOne = true
+    ; isMakeConditionQueryInScopeRelationToOne = true
+    ; isMakeConditionQueryPlainListManualOrder = true
+    ; isAvailableSelectEntityPlainReturn = true
+    ; isAvailableRelationPlainEntity = true
+    ; isCompatibleNewMyEntityConditionBean = true
+    ; isCompatibleDeleteNonstrictIgnoreDeleted = true
+    ; isCompatibleLoadReferrerOldOption = true
+    ; isCompatibleConditionBeanAcceptPKOldStyle = true
+    ; isCompatibleConditionBeanOldNamingCheckInvalid = true
+    ; isCompatibleConditionBeanOldNamingOption = true
+
+    # runtime compatible
+    ; isNullOrEmptyQueryAllowed = true
+    ; isOverridingQueryAllowed = true
+    ; isCompatibleConditionBeanFromToOneSideAllowed = true
+    ; isCompatibleOrScopeQueryPurposeNoCheck = true
+    ; isSuppressDefaultCheckClassificationCode = true
+    ; isThatsBadTimingDetect = false
+    ; isEntityDerivedMappable = false
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
     #   [true]

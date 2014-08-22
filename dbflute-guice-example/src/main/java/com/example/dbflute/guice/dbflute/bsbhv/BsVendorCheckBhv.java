@@ -209,9 +209,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

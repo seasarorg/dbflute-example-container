@@ -205,9 +205,6 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

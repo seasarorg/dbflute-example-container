@@ -61,7 +61,6 @@ public class SummaryProductDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((SummaryProduct)et).getProductStatusCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnProductStatusCode();
-            ccls(col, vl);
             CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
             if (cls != null) {
                 ((SummaryProduct)et).setProductStatusCodeAsProductStatus(cls);

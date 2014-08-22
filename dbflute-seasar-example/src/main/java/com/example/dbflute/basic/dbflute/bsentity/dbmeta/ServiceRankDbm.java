@@ -65,7 +65,12 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnServiceRankCode();
             ccls(col, vl);
-            ((ServiceRank)et).setServiceRankCodeAsServiceRank((CDef.ServiceRank)gcls(col, vl));
+            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
+            if (cls != null) {
+                ((ServiceRank)et).setServiceRankCodeAsServiceRank(cls);
+            } else {
+                ((ServiceRank)et).mynativeMappingServiceRankCode((String)vl);
+            }
         }
     }
     public static class EpgServiceRankName implements PropertyGateway {
@@ -81,7 +86,12 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnNewAcceptableFlg();
             ccls(col, vl);
-            ((ServiceRank)et).setNewAcceptableFlgAsFlg((CDef.Flg)gcls(col, vl));
+            CDef.Flg cls = (CDef.Flg)gcls(col, vl);
+            if (cls != null) {
+                ((ServiceRank)et).setNewAcceptableFlgAsFlg(cls);
+            } else {
+                ((ServiceRank)et).mynativeMappingNewAcceptableFlg(ctn(vl, Integer.class));
+            }
         }
     }
     public static class EpgDescription implements PropertyGateway {

@@ -205,9 +205,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

@@ -782,14 +782,14 @@ public interface CDef extends Classification {
         }
 
         public ClassificationUndefinedHandlingType undefinedHandlingType() {
-            if ("Flg".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
-            if ("MemberStatus".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("Flg".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
+            if ("MemberStatus".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
             if ("ServiceRank".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
-            if ("Region".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("Region".equals(name())) { return ClassificationUndefinedHandlingType.ALLOWED; }
             if ("WithdrawalReason".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
             if ("ProductCategory".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
             if ("ProductStatus".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
-            if ("PaymentMethod".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
+            if ("PaymentMethod".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
             return ClassificationUndefinedHandlingType.LOGGING; // as default
         }
     }

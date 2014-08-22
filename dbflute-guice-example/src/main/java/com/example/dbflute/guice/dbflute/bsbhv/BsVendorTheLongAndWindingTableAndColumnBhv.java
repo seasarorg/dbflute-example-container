@@ -230,9 +230,6 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

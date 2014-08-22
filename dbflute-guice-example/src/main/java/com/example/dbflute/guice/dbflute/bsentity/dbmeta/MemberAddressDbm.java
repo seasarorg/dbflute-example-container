@@ -71,18 +71,9 @@ public class MemberAddressDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberAddress)et).getAddress(); }
         public void write(Entity et, Object vl) { ((MemberAddress)et).setAddress((String)vl); }
     }
-    public class EpgRegionId implements PropertyGateway {
+    public static class EpgRegionId implements PropertyGateway {
         public Object read(Entity et) { return ((MemberAddress)et).getRegionId(); }
-        public void write(Entity et, Object vl) {
-            ColumnInfo col = columnRegionId();
-            ccls(col, vl);
-            CDef.Region cls = (CDef.Region)gcls(col, vl);
-            if (cls != null) {
-                ((MemberAddress)et).setRegionIdAsRegion(cls);
-            } else {
-                ((MemberAddress)et).mynativeMappingRegionId(ctn(vl, Integer.class));
-            }
-        }
+        public void write(Entity et, Object vl) { ((MemberAddress)et).setRegionId(cti(vl)); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberAddress)et).getRegisterDatetime(); }
@@ -144,7 +135,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_83AA91FE_D8CD_4D13_8195_7837B5E1E8AF", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_DD6192C2_5469_437A_9223_B32A53CA7A5E", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnValidBeginDate = cci("VALID_BEGIN_DATE", "VALID_BEGIN_DATE", null, "有効開始日", org.joda.time.LocalDate.class, "validBeginDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnValidEndDate = cci("VALID_END_DATE", "VALID_END_DATE", null, "有効終了日", org.joda.time.LocalDate.class, "validEndDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);

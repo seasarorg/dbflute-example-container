@@ -176,9 +176,6 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

@@ -37,17 +37,8 @@ map:{
     # the test of suppressing behavior for table classification
     ; isSuppressTableClassificationDBAccessClass = true
 
-    # the test of suppressing to-one ExistsReferrer
-    ; isMakeConditionQueryExistsReferrerToOne = false
-
-    # the test of suppressing to-one InScopeRelation
-    ; isMakeConditionQueryInScopeRelationToOne = false
-
     # the test of java8
     ; isCompatibleBeforeJava8 = false
-
-    # the test of derived-mappable
-    ; isEntityDerivedMappable = true
 
     # these are compatible option
     #; isCompatibleSelectByPKOldStyle = true
@@ -55,6 +46,10 @@ map:{
 
     # the test of joda-time
     ; isAvailableJodaTimeLocalDateEntity = true
+
+    # classification handling option
+    #; classificationUndefinedHandlingType = ALLOWED
+    #; isMakeClassificationNativeTypeSetter = true
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
@@ -125,7 +120,7 @@ map:{
     #   [false]
     #     Non.
     #
-    ; isCheckSelectedClassification = true
+    #; isCheckSelectedClassification = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

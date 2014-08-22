@@ -31,7 +31,7 @@ map:{
     ; Flg = list:{
         ; map:{
             ; topComment=general boolean classification for every flg-column
-            ; codeType=Number; isCheckImplicitSet=true
+            ; codeType=Number ; undefinedHandlingType=EXCEPTION
         }
         ; map:{code=1;name=True ;alias=Yes ;comment=means valid; subItemMap=map:{key1=value1}}
         ; map:{code=0;name=False;alias=No  ;comment=means invalid; subItemMap=map:{key1=value1}}
@@ -44,6 +44,7 @@ map:{
         # for the test of default code type
         ; map:{
             ; topComment=status of member from entry to withdrawal
+            ; codeType=String ; undefinedHandlingType=EXCEPTION
             # because this has its own outsideSql
             ; isSuppressDBAccessClass=false
         }
@@ -55,7 +56,10 @@ map:{
         }
     }
     ; ServiceRank = list:{
-        ; map:{topComment=rank of service member gets; codeType=Number}
+        ; map:{
+            ; topComment=rank of service member gets
+            ; codeType=Number ; undefinedHandlingType=LOGGING
+        }
         ; map:{
             ; table=SERVICE_RANK
             ; code=SERVICE_RANK_CODE; name=SERVICE_RANK_NAME
@@ -63,7 +67,11 @@ map:{
         }
     }
     ; Region = list:{
-        ; map:{topComment=mainly region of member address; codeType=Number}
+        ; map:{
+            ; topComment=mainly region of member address
+            ; codeType=Number ; undefinedHandlingType=ALLOWED
+            ; isMakeNativeTypeSetter=true
+        }
         ; map:{
             ; table=REGION
             ; code=REGION_ID; name=REGION_NAME
@@ -103,7 +111,7 @@ map:{
     ; PaymentMethod = list:{
         ; map:{
             ; topComment=method of payment for purchase; codeType=String
-            ; isCheckImplicitSet=true
+            ; undefinedHandlingType=EXCEPTION
             ; groupingMap = map:{
                 ; recommended = map:{
                     ; groupComment = the most recommended method

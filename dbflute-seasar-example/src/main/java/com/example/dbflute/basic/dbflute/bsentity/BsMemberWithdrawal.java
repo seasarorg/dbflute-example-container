@@ -698,6 +698,14 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
         _versionNo = versionNo;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingWithdrawalReasonCode(String withdrawalReasonCode) {
+        setWithdrawalReasonCode(withdrawalReasonCode);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }

@@ -61,7 +61,6 @@ public class MemberLoginDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberLogin)et).getMobileLoginFlg(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnMobileLoginFlg();
-            ccls(col, vl);
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
                 ((MemberLogin)et).setMobileLoginFlgAsFlg(cls);
@@ -74,7 +73,6 @@ public class MemberLoginDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberLogin)et).getLoginMemberStatusCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnLoginMemberStatusCode();
-            ccls(col, vl);
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
                 ((MemberLogin)et).setLoginMemberStatusCodeAsMemberStatus(cls);
@@ -123,7 +121,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_82966C1B_0CEB_49D2_92CA_DF96FFAB0295", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6110D3B0_E0CB_47E9_A890_B82371A5B042", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", org.joda.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);

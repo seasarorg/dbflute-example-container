@@ -512,6 +512,14 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
         _displayOrder = displayOrder;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingWithdrawalReasonCode(String withdrawalReasonCode) {
+        setWithdrawalReasonCode(withdrawalReasonCode);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }

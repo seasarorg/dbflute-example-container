@@ -660,7 +660,7 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
      * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
      */
     protected void setNewAcceptableFlg(Integer newAcceptableFlg) {
-        checkImplicitSet("NEW_ACCEPTABLE_FLG", CDef.DefMeta.Flg, newAcceptableFlg);
+        checkClassificationCode("NEW_ACCEPTABLE_FLG", CDef.DefMeta.Flg, newAcceptableFlg);
         __modifiedProperties.addPropertyName("newAcceptableFlg");
         _newAcceptableFlg = newAcceptableFlg;
     }
@@ -703,11 +703,27 @@ public abstract class BsServiceRank implements Entity, Serializable, Cloneable {
         _displayOrder = displayOrder;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingServiceRankCode(String serviceRankCode) {
+        setServiceRankCode(serviceRankCode);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingNewAcceptableFlg(Integer newAcceptableFlg) {
+        setNewAcceptableFlg(newAcceptableFlg);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }
 
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

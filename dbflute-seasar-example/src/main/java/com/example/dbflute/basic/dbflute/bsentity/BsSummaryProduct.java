@@ -556,6 +556,14 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
         _latestPurchaseDatetime = latestPurchaseDatetime;
     }
 
+    /**
+     * For framework so basically DON'T use this method.
+     * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingProductStatusCode(String productStatusCode) {
+        setProductStatusCode(productStatusCode);
+    }
+
     protected String convertEmptyToNull(String value) {
         return FunCustodial.convertEmptyToNull(value);
     }

@@ -46,7 +46,6 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnWithdrawalReasonCode();
-            ccls(col, vl);
             CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
             if (cls != null) {
                 ((WithdrawalReason)et).setWithdrawalReasonCodeAsWithdrawalReason(cls);

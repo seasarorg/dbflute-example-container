@@ -49,7 +49,6 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((ServiceRank)et).getServiceRankCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnServiceRankCode();
-            ccls(col, vl);
             CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
             if (cls != null) {
                 ((ServiceRank)et).setServiceRankCodeAsServiceRank(cls);
@@ -70,7 +69,6 @@ public class ServiceRankDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((ServiceRank)et).getNewAcceptableFlg(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnNewAcceptableFlg();
-            ccls(col, vl);
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
                 ((ServiceRank)et).setNewAcceptableFlgAsFlg(cls);

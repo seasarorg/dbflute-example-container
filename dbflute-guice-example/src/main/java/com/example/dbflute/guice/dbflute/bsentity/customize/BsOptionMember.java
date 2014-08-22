@@ -619,6 +619,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setMemberStatusCode(String memberStatusCode) {
+        checkClassificationCode("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         __modifiedProperties.addPropertyName("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
@@ -670,7 +671,7 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setDummyFlg(Integer dummyFlg) {
-        checkImplicitSet("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
+        checkClassificationCode("DUMMY_FLG", CDef.DefMeta.Flg, dummyFlg);
         __modifiedProperties.addPropertyName("dummyFlg");
         _dummyFlg = dummyFlg;
     }
@@ -692,14 +693,6 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
         _dummyNoflg = dummyNoflg;
     }
 
-    protected String convertEmptyToNull(String value) {
-        return FunCustodial.convertEmptyToNull(value);
-    }
-
-    protected void checkImplicitSet(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkImplicitSet(this, columnDbName, meta, value);
-    }
-
     /**
      * For framework so basically DON'T use this method.
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
@@ -714,5 +707,13 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable,
      */
     public void mynativeMappingDummyFlg(Integer dummyFlg) {
         setDummyFlg(dummyFlg);
+    }
+
+    protected String convertEmptyToNull(String value) {
+        return FunCustodial.convertEmptyToNull(value);
+    }
+
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

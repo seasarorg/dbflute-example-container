@@ -21,6 +21,11 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    # the test of required SQL comment check option
+    ; isRequiredSqlTitle = false
+    ; isRequiredSqlDescription = false
+    ; isCheckRequiredSqlCommentAlsoSql2Entity = false
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isGenerateProcedureParameterBean: (NotRequired - Default false)
     #   [true]

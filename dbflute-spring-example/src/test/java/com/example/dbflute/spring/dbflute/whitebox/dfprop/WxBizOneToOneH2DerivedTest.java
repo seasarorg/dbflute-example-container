@@ -121,10 +121,12 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
                     @Override
                     public void registerOuterJoin(String foreignAliasName, String foreignTableDbName,
                             String localAliasName, String localTableDbName,
-                            Map<ColumnRealName, ColumnRealName> joinOnMap, ForeignInfo foreignInfo,
-                            String fixedCondition, FixedConditionResolver fixedConditionResolver) {
+                            Map<ColumnRealName, ColumnRealName> joinOnMap, String relationPath,
+                            ForeignInfo foreignInfo, String fixedCondition,
+                            FixedConditionResolver fixedConditionResolver) {
                         registerOuterJoinFixedInline(foreignAliasName, foreignTableDbName, localAliasName,
-                                localTableDbName, joinOnMap, foreignInfo, fixedCondition, fixedConditionResolver);
+                                localTableDbName, joinOnMap, relationPath, foreignInfo, fixedCondition,
+                                fixedConditionResolver);
                     }
                 };
             }

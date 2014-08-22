@@ -62,7 +62,12 @@ public class ProductStatusDbm extends AbstractDBMeta {
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnProductStatusCode();
             ccls(col, vl);
-            ((ProductStatus)et).setProductStatusCodeAsProductStatus((CDef.ProductStatus)gcls(col, vl));
+            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
+            if (cls != null) {
+                ((ProductStatus)et).setProductStatusCodeAsProductStatus(cls);
+            } else {
+                ((ProductStatus)et).mynativeMappingProductStatusCode((String)vl);
+            }
         }
     }
     public static class EpgProductStatusName implements PropertyGateway {

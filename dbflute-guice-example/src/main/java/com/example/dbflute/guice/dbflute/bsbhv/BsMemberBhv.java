@@ -252,9 +252,6 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
         return facadeSelectList(cb);
     }
 
-    @Override
-    protected boolean isSuppressSpecifyDerivedReferrerEntityPropertyCheck() { return true; }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
