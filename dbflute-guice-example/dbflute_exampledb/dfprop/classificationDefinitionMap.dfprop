@@ -45,8 +45,6 @@ map:{
         ; map:{
             ; topComment=status of member from entry to withdrawal
             ; codeType=String ; undefinedHandlingType=EXCEPTION
-            # because this has its own outsideSql
-            ; isSuppressDBAccessClass=false
         }
         ; map:{
             ; table=MEMBER_STATUS
@@ -102,7 +100,12 @@ map:{
         }
     }
     ; ProductStatus = list:{
-        ; map:{topComment=status for product; codeType=String}
+        ; map:{
+            ; topComment=status for product
+            ; codeType=String
+            # the test of suppressing DB access classs
+            ; isSuppressDBAccessClass=true
+        }
         ; map:{
             ; table=PRODUCT_STATUS
             ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME

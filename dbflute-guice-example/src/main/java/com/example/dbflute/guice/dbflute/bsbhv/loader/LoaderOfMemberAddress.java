@@ -67,6 +67,14 @@ public class LoaderOfMemberAddress {
         return _foreignMemberLoader;
     }
 
+    protected LoaderOfRegion _foreignRegionLoader;
+    public LoaderOfRegion pulloutRegion() {
+        if (_foreignRegionLoader != null) { return _foreignRegionLoader; }
+        List<Region> pulledList = myBhv().pulloutRegion(_selectedList);
+        _foreignRegionLoader = new LoaderOfRegion().ready(pulledList, _selector);
+        return _foreignRegionLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

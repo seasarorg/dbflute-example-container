@@ -68,7 +68,6 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnMemberStatusCode();
-            ccls(col, vl);
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
                 ((OptionMember)et).setMemberStatusCodeAsMemberStatus(cls);
@@ -89,7 +88,6 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
         public void write(Entity et, Object vl) {
             ColumnInfo col = columnDummyFlg();
-            ccls(col, vl);
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
                 ((OptionMember)et).setDummyFlgAsFlg(cls);

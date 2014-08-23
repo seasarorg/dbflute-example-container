@@ -34,15 +34,8 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    # the test of suppressing behavior for table classification
-    ; isSuppressTableClassificationDBAccessClass = true
-
     # the test of java8
     ; isCompatibleBeforeJava8 = false
-
-    # these are compatible option
-    #; isCompatibleSelectByPKOldStyle = true
-    #; isCompatibleSelectByPKWithDeletedCheck = true
 
     # the test of joda-time
     ; isAvailableJodaTimeLocalDateEntity = true

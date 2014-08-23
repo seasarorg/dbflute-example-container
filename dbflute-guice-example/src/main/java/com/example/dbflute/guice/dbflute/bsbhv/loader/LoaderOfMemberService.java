@@ -67,6 +67,14 @@ public class LoaderOfMemberService {
         return _foreignMemberLoader;
     }
 
+    protected LoaderOfServiceRank _foreignServiceRankLoader;
+    public LoaderOfServiceRank pulloutServiceRank() {
+        if (_foreignServiceRankLoader != null) { return _foreignServiceRankLoader; }
+        List<ServiceRank> pulledList = myBhv().pulloutServiceRank(_selectedList);
+        _foreignServiceRankLoader = new LoaderOfServiceRank().ready(pulledList, _selector);
+        return _foreignServiceRankLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

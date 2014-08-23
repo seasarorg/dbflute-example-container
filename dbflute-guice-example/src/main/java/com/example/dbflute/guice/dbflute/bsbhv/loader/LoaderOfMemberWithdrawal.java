@@ -67,6 +67,14 @@ public class LoaderOfMemberWithdrawal {
         return _foreignMemberLoader;
     }
 
+    protected LoaderOfWithdrawalReason _foreignWithdrawalReasonLoader;
+    public LoaderOfWithdrawalReason pulloutWithdrawalReason() {
+        if (_foreignWithdrawalReasonLoader != null) { return _foreignWithdrawalReasonLoader; }
+        List<WithdrawalReason> pulledList = myBhv().pulloutWithdrawalReason(_selectedList);
+        _foreignWithdrawalReasonLoader = new LoaderOfWithdrawalReason().ready(pulledList, _selector);
+        return _foreignWithdrawalReasonLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

@@ -173,6 +173,7 @@ public class PurchaseMaxPriceMemberDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public PurchaseMaxPriceMember newEntity() { return new PurchaseMaxPriceMember(); }
+    public PurchaseMaxPriceMember newMyEntity() { return new PurchaseMaxPriceMember(); }
 
     // ===================================================================================
     //                                                                   Map Communication

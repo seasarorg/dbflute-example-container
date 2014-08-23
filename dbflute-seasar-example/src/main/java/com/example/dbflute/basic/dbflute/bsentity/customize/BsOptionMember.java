@@ -651,7 +651,6 @@ public abstract class BsOptionMember implements Entity, Serializable, Cloneable 
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setMemberStatusCode(String memberStatusCode) {
-        checkClassificationCode("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         __modifiedProperties.addPropertyName("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
