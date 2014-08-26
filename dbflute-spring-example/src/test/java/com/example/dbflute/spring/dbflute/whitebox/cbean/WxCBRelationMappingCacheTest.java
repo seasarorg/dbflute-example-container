@@ -1,6 +1,8 @@
 package com.example.dbflute.spring.dbflute.whitebox.cbean;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.bhv.ReferrerLoaderHandler;
@@ -29,7 +31,7 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                      First Relation
     //                                                                      ==============
-    public void test_() throws Exception {
+    public void test_compare_cached_with_nonCached_basic() throws Exception {
         // ## Arrange ##
         // ## Act ##
         ListResultBean<Member> cachedList = selectMemberList(false);
@@ -38,6 +40,8 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
         // ## Assert ##
         assertHasAnyElement(cachedList);
         assertHasAnyElement(nonCachedList);
+        Map<String, MemberStatus> cachedStatusMap = new HashMap<String, MemberStatus>();
+        Map<String, MemberStatus> nonCachedStatusMap = new HashMap<String, MemberStatus>();
         for (int i = 0; i < cachedList.size(); i++) {
             Member cached = cachedList.get(i);
             Member nonCached = nonCachedList.get(i);
@@ -54,6 +58,24 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
             assertEquals(cachedLoginSize, nonCachedLoginSize);
             if (!cachedLoginList.isEmpty()) {
                 markHere("existsLogin");
+            }
+            {
+                String cachedStatusCode = cachedStatus.getMemberStatusCode();
+                MemberStatus existingCachedStatus = cachedStatusMap.get(cachedStatusCode);
+                if (existingCachedStatus != null) {
+                    assertTrue(existingCachedStatus == cachedStatus); // same instance
+                } else {
+                    cachedStatusMap.put(cachedStatusCode, cachedStatus);
+                }
+            }
+            {
+                String nonCachedStatusCode = nonCachedStatus.getMemberStatusCode();
+                MemberStatus existingNonCachedStatus = nonCachedStatusMap.get(nonCachedStatusCode);
+                if (existingNonCachedStatus != null) {
+                    assertNotSame(existingNonCachedStatus, nonCachedStatus); // not same instance
+                } else {
+                    nonCachedStatusMap.put(nonCachedStatusCode, nonCachedStatus);
+                }
             }
         }
         assertMarked("existsLogin");

@@ -162,4 +162,80 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         }
         assertEquals(expectedCodeSet, actualCodeSet);
     }
+
+    // ===================================================================================
+    //                                                                      Hash Collision
+    //                                                                      ==============
+    public void test_HashCollision_basic() throws Exception {
+        // ## Arrange ##
+        List<Member> memberList = newArrayList();
+        final MemberStatus firstStatus;
+        {
+            Member member = new Member();
+            member.setMemberId(1);
+            firstStatus = new MemberStatus() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public int instanceHash() {
+                    return 1;
+                }
+            };
+            firstStatus.setMemberStatusCode_Formalized();
+            firstStatus.setMemberStatusName("sea");
+            member.setMemberStatus(firstStatus);
+            memberList.add(member);
+        }
+        {
+            Member member = new Member();
+            member.setMemberId(2);
+            MemberStatus status = new MemberStatus() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public int instanceHash() {
+                    return 1;
+                }
+            };
+            status.setMemberStatusCode_Provisional();
+            status.setMemberStatusName("land");
+            member.setMemberStatus(status);
+            memberList.add(member);
+        }
+        {
+            Member member = new Member();
+            member.setMemberId(3);
+            MemberStatus status = new MemberStatus() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public int instanceHash() {
+                    return 2;
+                }
+            };
+            status.setMemberStatusCode_Formalized();
+            status.setMemberStatusName("iks");
+            member.setMemberStatus(status);
+            memberList.add(member);
+        }
+        {
+            Member member = new Member();
+            member.setMemberId(4);
+            member.setMemberStatus(firstStatus);
+            memberList.add(member);
+        }
+
+        // ## Act ##
+        List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
+
+        // ## Assert ##
+        assertHasAnyElement(statusList);
+        for (MemberStatus status : statusList) {
+            log(status, status.instanceHash());
+        }
+        assertEquals(3, statusList.size());
+        assertEquals("sea", statusList.get(0).getMemberStatusName());
+        assertEquals("land", statusList.get(1).getMemberStatusName());
+        assertEquals("iks", statusList.get(2).getMemberStatusName());
+    }
 }
