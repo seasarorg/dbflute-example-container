@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dbflute.version>1.0.5K-RC1</dbflute.version>
+		<dbflute.version>1.0.5K</dbflute.version>
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
 

@@ -95,7 +95,7 @@ public class DBFluteModule implements Extension {
      * @param beanManager The manager of CDI beans. (NotNull)
      */
     protected void setupBehaviors(final AfterBeanDiscovery event, final BeanManager beanManager) {
-        final List<Class<? extends AbstractBehaviorReadable>> typeList = new ArrayList<Class<? extends AbstractBehaviorReadable>>();
+        final List<Class<? extends AbstractBehaviorReadable<?, ?>>> typeList = new ArrayList<Class<? extends AbstractBehaviorReadable<?, ?>>>();
         typeList.add(MemberBhv.class);
         typeList.add(MemberAddressBhv.class);
         typeList.add(MemberLoginBhv.class);
@@ -122,8 +122,8 @@ public class DBFluteModule implements Extension {
      * @param beanManager The manager of CDI beans. (NotNull)
      * @param typeList The list of behavior types to be registered. (NotNull)
      */
-    protected void doSetupBehaviors(final AfterBeanDiscovery event, final BeanManager beanManager, final List<Class<? extends AbstractBehaviorReadable>> typeList) {
-        for (Class<? extends AbstractBehaviorReadable> clazz : typeList) {
+    protected void doSetupBehaviors(final AfterBeanDiscovery event, final BeanManager beanManager, final List<Class<? extends AbstractBehaviorReadable<?, ?>>> typeList) {
+        for (Class<? extends AbstractBehaviorReadable<?, ?>> clazz : typeList) {
             event.addBean(newBehaviorBean(beanManager, clazz));
         }
     }
@@ -339,7 +339,7 @@ public class DBFluteModule implements Extension {
      * @param <BEHAVIOR> The type of behavior.
      * @return Behavior-bean. (NotNull)
      */
-    public <BEHAVIOR extends AbstractBehaviorReadable> BehaviorBean<BEHAVIOR> newBehaviorBean(final BeanManager beanManager, final Class<BEHAVIOR> beanClass) {
+    public <BEHAVIOR extends AbstractBehaviorReadable<?, ?>> BehaviorBean<BEHAVIOR> newBehaviorBean(final BeanManager beanManager, final Class<BEHAVIOR> beanClass) {
         return new BehaviorBean<BEHAVIOR>(beanManager, beanClass);
     }
 
@@ -347,7 +347,7 @@ public class DBFluteModule implements Extension {
      * Behavior implementation of {@link Bean}.
      * @param <BEHAVIOR> The type of behavior.
      */
-    public class BehaviorBean<BEHAVIOR extends AbstractBehaviorReadable> extends DBFluteBean<BEHAVIOR> {
+    public class BehaviorBean<BEHAVIOR extends AbstractBehaviorReadable<?, ?>> extends DBFluteBean<BEHAVIOR> {
         protected final BeanManager beanManager;
 
         public BehaviorBean(final BeanManager beanManager, final Class<BEHAVIOR> beanClass) {
@@ -367,7 +367,7 @@ public class DBFluteModule implements Extension {
 
             if (instance instanceof AbstractBehaviorWritable) {
                 bean = beanManager.resolve(beanManager.getBeans(CommonColumnAutoSetupper.class, createDBFluteAnnotationLiteral()));
-                ((AbstractBehaviorWritable) instance).setCommonColumnAutoSetupper(
+                ((AbstractBehaviorWritable<?, ?>) instance).setCommonColumnAutoSetupper(
                         (CommonColumnAutoSetupper) beanManager.getReference(bean, bean.getBeanClass(), beanManager.createCreationalContext(bean)));
             }
         }
