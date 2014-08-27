@@ -33,12 +33,14 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    #
     # #migtojava8
     # *also outsideSqlDefinitionMap.dfprop
-    #
     ; isCompatibleBeforeJava8 = false
 
+    # _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+    # for future DBFlute
+    # http://d.hatena.ne.jp/jflute/20140530/java8
+    # _/_/_/_/_/_/_/_/_/
     # compile compatible (true if compatible)
     ; isCompatibleSelectByPKOldStyle = true
     ; isCompatibleSelectByPKPlainReturn = true
