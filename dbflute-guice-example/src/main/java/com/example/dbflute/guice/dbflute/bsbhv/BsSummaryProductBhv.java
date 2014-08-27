@@ -205,6 +205,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

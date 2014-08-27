@@ -39,7 +39,7 @@ map:{
     #
     ; isCompatibleBeforeJava8 = false
 
-    # compile compatible
+    # compile compatible (true if compatible)
     ; isCompatibleSelectByPKOldStyle = true
     ; isCompatibleSelectByPKPlainReturn = true
     ; isCompatibleSelectByPKWithDeletedCheck = true
@@ -55,14 +55,18 @@ map:{
     ; isCompatibleConditionBeanOldNamingCheckInvalid = true
     ; isCompatibleConditionBeanOldNamingOption = true
 
-    # runtime compatible
+    # compile compatible (false if compatible)
+    ; isEntityDerivedMappable = false
+
+    # runtime compatible (true if compatible)
     ; isNullOrEmptyQueryAllowed = true
     ; isOverridingQueryAllowed = true
     ; isCompatibleConditionBeanFromToOneSideAllowed = true
     ; isCompatibleOrScopeQueryPurposeNoCheck = true
     ; isSuppressDefaultCheckClassificationCode = true
+
+    # runtime compatible (false if compatible)
     ; isThatsBadTimingDetect = false
-    ; isEntityDerivedMappable = false
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)

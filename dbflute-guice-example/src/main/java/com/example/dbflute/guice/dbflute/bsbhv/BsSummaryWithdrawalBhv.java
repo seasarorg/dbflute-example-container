@@ -176,6 +176,9 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

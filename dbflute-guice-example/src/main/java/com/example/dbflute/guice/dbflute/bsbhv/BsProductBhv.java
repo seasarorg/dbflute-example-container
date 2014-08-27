@@ -230,6 +230,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

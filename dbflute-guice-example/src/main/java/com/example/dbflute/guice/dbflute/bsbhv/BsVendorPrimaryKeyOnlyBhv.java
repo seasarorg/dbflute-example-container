@@ -205,6 +205,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

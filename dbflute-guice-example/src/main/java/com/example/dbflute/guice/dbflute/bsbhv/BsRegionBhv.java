@@ -205,6 +205,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

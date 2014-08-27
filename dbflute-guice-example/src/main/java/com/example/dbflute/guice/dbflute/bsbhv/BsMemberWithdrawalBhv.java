@@ -205,6 +205,9 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
         return facadeSelectList(cb);
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
