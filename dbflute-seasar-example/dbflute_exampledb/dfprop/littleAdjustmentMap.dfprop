@@ -59,6 +59,7 @@ map:{
 
     # compile compatible (false if compatible)
     ; isEntityDerivedMappable = false
+    ; isAvailableJava8TimeLocalDateEntity = false
 
     # runtime compatible (true if compatible)
     ; isNullOrEmptyQueryAllowed = true
