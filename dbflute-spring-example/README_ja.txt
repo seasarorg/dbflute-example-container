@@ -90,10 +90,8 @@ Eclipseのデフォルトをそのまま使われている方は、dbflute-sprin
 「formatter.xml」をインポートして試してみるのも良いかと思います。
 
 
-
-
 # ========================================================================================
 #                                                                            Demo Resource
 #                                                                            =============
 -- alter table MEMBER alter column MEMBER_ACCOUNT VARCHAR(80) NOT NULL; 
-
+-- alter table MEMBER add column ARGENTINA_READING VARCHAR(30);

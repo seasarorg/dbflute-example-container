@@ -21,7 +21,6 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
@@ -75,7 +74,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     //                                                                              DBMeta
     //                                                                              ======
     /** {@inheritDoc} */
-    public DBMeta getDBMeta() { return MemberSecurityDbm.getInstance(); }
+    public MemberSecurityDbm getDBMeta() { return MemberSecurityDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
     public MemberSecurityDbm getMyDBMeta() { return MemberSecurityDbm.getInstance(); }
