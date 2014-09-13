@@ -46,4 +46,30 @@ public class WxCBColumnQueryConvertTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         assertEquals(countAll, memberList.size());
     }
+
+    // ===================================================================================
+    //                                                                         Illegal Use 
+    //                                                                         ===========
+    public void test_ColumnQuery_convert_nullSet() throws Exception {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnFormalizedDatetime();
+            }
+        }).greaterEqual(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnBirthdate();
+            }
+        }).convert(new ColumnConversionOption().addDay((Integer) null));
+        cb.query().addOrderBy_MemberId_Asc();
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        String sql = cb.toDisplaySql();
+        assertContains(sql, "where dfloc.FORMALIZED_DATETIME >= dfloc.BIRTHDATE");
+    }
 }

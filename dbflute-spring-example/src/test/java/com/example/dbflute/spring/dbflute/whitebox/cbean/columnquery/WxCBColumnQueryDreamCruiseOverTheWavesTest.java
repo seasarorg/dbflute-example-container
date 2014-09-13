@@ -23,7 +23,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.9.4C (2012/04/26 Wednesday)
  */
-public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
+public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -34,7 +34,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
-    public void test_ColumnQuery_DreamCruise_basic() throws Exception {
+    public void test_ColumnQuery_OverTheWaves_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();
@@ -69,7 +69,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
         assertEquals(expectedList, memberList);
     }
 
-    public void test_ColumnQuery_DreamCruise_calculation_basic() throws Exception {
+    public void test_ColumnQuery_OverTheWaves_calculation_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();
@@ -122,7 +122,7 @@ public class WxCBColumnQueryDreamCruiseTest extends UnitContainerTestCase {
         return memberBhv.selectList(cb);
     }
 
-    public void test_ColumnQuery_DreamCruise_relation_convert() throws Exception {
+    public void test_ColumnQuery_OverTheWaves_relation_convert() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
         MemberCB cb = new MemberCB();

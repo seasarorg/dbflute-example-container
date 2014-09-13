@@ -112,6 +112,30 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         }
     }
 
+    public void test_SepcifyDerivedReferrer_option_DreamCruise_convert() throws Exception {
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        DerivedReferrerOption option = new DerivedReferrerOption()
+                .addDay(cb.dreamCruiseCB().specify().columnMemberId());
+        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            public void query(PurchaseCB subCB) {
+                subCB.specify().columnPurchaseDatetime();
+            }
+        }, Member.ALIAS_highestPurchasePrice, option);
+        cb.query().addOrderBy_Birthdate_Desc();
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log(member.getMemberName(), member.getHighestPurchasePrice(), member.getLoginCount());
+        }
+        String sql = cb.toDisplaySql();
+        assertContains(sql, ", (select dateadd(day, dfloc.MEMBER_ID, max(sub1loc.PURCHASE_DATETIME))");
+    }
+
     // ===================================================================================
     //                                                                  SpecifyCalculation
     //                                                                  ==================
