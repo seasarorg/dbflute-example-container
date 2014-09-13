@@ -27,6 +27,7 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.IllegalBehaviorStateException;
 import org.seasar.dbflute.util.DfTraceViewUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.seasar.dbflute.util.Srl;
 
 import org.springframework.context.ApplicationContext;
 
@@ -153,12 +154,16 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     protected <COMPONENT> COMPONENT getComponent(Class<COMPONENT> componentType) { // only for behavior
         assertObjectNotNull("componentType", componentType);
         assertObjectNotNull("_container", _container);
-		return (COMPONENT)_container.getBean(initUncap(toClassTitle(componentType)));
+		return (COMPONENT)_container.getBean(replace(initUncap(toClassTitle(componentType)), "$", ""));
     }
 
     // ===================================================================================
     //                                                                      General Helper
     //                                                                      ==============
+    protected String replace(String str, String fromStr, String toStr) {
+        return Srl.replace(str, fromStr, toStr);
+    }
+
     protected String initUncap(String str) {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
