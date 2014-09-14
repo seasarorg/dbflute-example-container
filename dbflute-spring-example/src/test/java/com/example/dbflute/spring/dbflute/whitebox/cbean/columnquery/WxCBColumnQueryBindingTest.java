@@ -63,6 +63,93 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                          Twice Call
+    //                                                                          ==========
+    public void test_ColumnQuery_rightDerived_twiceCall_coalesce() throws Exception {
+        // ## Arrange ##
+        MemberServiceCB cb = new MemberServiceCB();
+        cb.columnQuery(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().columnServicePointCount();
+            }
+        }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    public void query(MemberServiceCB subCB) {
+                        subCB.specify().columnServicePointCount();
+                        subCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                    }
+                }, null, new DerivedReferrerOption().coalesce(123).round(8).coalesce(456));
+            }
+        });
+
+        // ## Act ##
+        memberServiceBhv.selectList(cb); // expect no exception
+        String displaySql = cb.toDisplaySql();
+
+        // ## Assert ##
+        log(ln() + displaySql);
+        assertTrue(displaySql.contains("= 'ColumnQueryUser'"));
+        assertTrue(displaySql.contains("coalesce(round(coalesce(avg(sub1loc.SERVICE_POINT_COUNT), 123), 8), 456)"));
+    }
+
+    public void test_ColumnQuery_rightDerived_twiceCall_round() throws Exception {
+        // ## Arrange ##
+        MemberServiceCB cb = new MemberServiceCB();
+        cb.columnQuery(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().columnServicePointCount();
+            }
+        }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    public void query(MemberServiceCB subCB) {
+                        subCB.specify().columnServicePointCount();
+                        subCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                    }
+                }, null, new DerivedReferrerOption().round(8).round(9).trunc(1));
+            }
+        });
+
+        // ## Act ##
+        memberServiceBhv.selectList(cb); // expect no exception
+        String displaySql = cb.toDisplaySql();
+
+        // ## Assert ##
+        log(ln() + displaySql);
+        assertTrue(displaySql.contains("= 'ColumnQueryUser'"));
+        assertTrue(displaySql.contains("truncate(round(round(avg(sub1loc.SERVICE_POINT_COUNT), 8), 9), 1)"));
+    }
+
+    public void test_ColumnQuery_rightDerived_twiceCall_trunc() throws Exception {
+        // ## Arrange ##
+        MemberServiceCB cb = new MemberServiceCB();
+        cb.columnQuery(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().columnServicePointCount();
+            }
+        }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
+            public void specify(MemberServiceCB cb) {
+                cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    public void query(MemberServiceCB subCB) {
+                        subCB.specify().columnServicePointCount();
+                        subCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                    }
+                }, null, new DerivedReferrerOption().trunc(1).trunc(2).trunc(3));
+            }
+        });
+
+        // ## Act ##
+        memberServiceBhv.selectList(cb); // expect no exception
+        String displaySql = cb.toDisplaySql();
+
+        // ## Assert ##
+        log(ln() + displaySql);
+        assertTrue(displaySql.contains("= 'ColumnQueryUser'"));
+        assertTrue(displaySql.contains("truncate(truncate(truncate(avg(sub1loc.SERVICE_POINT_COUNT), 1), 2), 3)"));
+    }
+
+    // ===================================================================================
     //                                                                      ExistsReferrer
     //                                                                      ==============
     public void test_ColumnQuery_in_ExistsReferrer_rightDerived_basic() throws Exception {

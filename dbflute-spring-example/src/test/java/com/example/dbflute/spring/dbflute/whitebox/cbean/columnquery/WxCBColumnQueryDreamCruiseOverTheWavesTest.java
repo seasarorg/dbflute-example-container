@@ -57,6 +57,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 });
             }
         });
+        cb.addOrderBy_PK_Asc();
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
@@ -94,6 +95,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 });
             }
         });
+        cb.addOrderBy_PK_Asc();
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
@@ -119,6 +121,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 }).equal(1);
             }
         });
+        cb.addOrderBy_PK_Asc();
         return memberBhv.selectList(cb);
     }
 
@@ -145,6 +148,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 });
             }
         });
+        cb.addOrderBy_PK_Asc();
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb);

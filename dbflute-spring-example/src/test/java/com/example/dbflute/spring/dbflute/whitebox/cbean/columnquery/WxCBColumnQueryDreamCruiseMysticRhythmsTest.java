@@ -200,4 +200,65 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         assertContains(sql, "and dfloc.BIRTHDATE <= dateadd(minute, -1, dateadd(day, -dfloc.MEMBER_ID, '2014-09-20'))");
         assertContains(sql, "and dfloc.BIRTHDATE <= '2015-04-05'");
     }
+
+    // ===================================================================================
+    //                                                                           TwiceCall
+    //                                                                           =========
+    public void test_ColumnQuery_MysticRhythms_twiceCall() throws Exception {
+        // ## Arrange ##
+        {
+            Member member = new Member();
+            member.setBirthdate(toDate("2014/09/10"));
+            UpdateOption<MemberCB> option = new UpdateOption<MemberCB>().allowNonQueryUpdate();
+            memberBhv.varyingQueryUpdate(member, new MemberCB(), option);
+        }
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnBirthdate();
+            }
+        }).lessEqual(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.mysticRhythms(toDate("2015/04/05"));
+            }
+        }).convert(new ColumnConversionOption().addMonth(cb.dreamCruiseCB().specify().columnVersionNo()).addMonth(2));
+        ColumnConversionOption addDayOption = new ColumnConversionOption().addDay(
+                cb.dreamCruiseCB().specify().columnMemberId()).addDay(cb.dreamCruiseCB().specify().columnVersionNo());
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnBirthdate();
+            }
+        }).lessThan(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.mysticRhythms(toDate("2014/09/01"));
+            }
+        }).convert(addDayOption);
+        ColumnConversionOption onParandeOption = new ColumnConversionOption()
+                .subtractDay(cb.dreamCruiseCB().specify().columnMemberId().plus(99)).addMinute(-1)
+                .coalesce(cb.dreamCruiseCB().specify().columnBirthdate());
+        cb.columnQuery(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.specify().columnBirthdate();
+            }
+        }).greaterEqual(new SpecifyQuery<MemberCB>() {
+            public void specify(MemberCB cb) {
+                cb.mysticRhythms(toDate("2006/09/26"));
+            }
+        }).convert(onParandeOption);
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        String sql = cb.toDisplaySql();
+        assertContains(sql,
+                "where dfloc.BIRTHDATE <= dateadd(month, 2, dateadd(month, dfloc.VERSION_NO, '2015-04-05'))");
+        assertContains(sql,
+                "and dfloc.BIRTHDATE < dateadd(day, dfloc.VERSION_NO, dateadd(day, dfloc.MEMBER_ID, '2014-09-01'))");
+        assertContains(
+                sql,
+                "and dfloc.BIRTHDATE >= coalesce(dateadd(minute, -1, dateadd(day, -dfloc.MEMBER_ID + 99, '2006-09-26')), dfloc.BIRTHDATE)");
+    }
 }
