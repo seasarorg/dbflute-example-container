@@ -393,7 +393,7 @@ public class BsRegionCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<RegionCB> columnQuery(final SpecifyQuery<RegionCB> leftSpecifyQuery) {
-        return new HpColQyOperand<RegionCB>(new HpColQyHandler<RegionCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<RegionCB>() {
             public HpCalculator handle(SpecifyQuery<RegionCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

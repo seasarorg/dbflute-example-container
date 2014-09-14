@@ -437,7 +437,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<PurchasePaymentCB> columnQuery(final SpecifyQuery<PurchasePaymentCB> leftSpecifyQuery) {
-        return new HpColQyOperand<PurchasePaymentCB>(new HpColQyHandler<PurchasePaymentCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<PurchasePaymentCB>() {
             public HpCalculator handle(SpecifyQuery<PurchasePaymentCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

@@ -402,7 +402,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorTheLongAndWindingTableAndColumnRefCB> columnQuery(final SpecifyQuery<VendorTheLongAndWindingTableAndColumnRefCB> leftSpecifyQuery) {
-        return new HpColQyOperand<VendorTheLongAndWindingTableAndColumnRefCB>(new HpColQyHandler<VendorTheLongAndWindingTableAndColumnRefCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<VendorTheLongAndWindingTableAndColumnRefCB>() {
             public HpCalculator handle(SpecifyQuery<VendorTheLongAndWindingTableAndColumnRefCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

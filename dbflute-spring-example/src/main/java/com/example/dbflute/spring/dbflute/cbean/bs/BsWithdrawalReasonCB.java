@@ -409,7 +409,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<WithdrawalReasonCB> columnQuery(final SpecifyQuery<WithdrawalReasonCB> leftSpecifyQuery) {
-        return new HpColQyOperand<WithdrawalReasonCB>(new HpColQyHandler<WithdrawalReasonCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<WithdrawalReasonCB>() {
             public HpCalculator handle(SpecifyQuery<WithdrawalReasonCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }
