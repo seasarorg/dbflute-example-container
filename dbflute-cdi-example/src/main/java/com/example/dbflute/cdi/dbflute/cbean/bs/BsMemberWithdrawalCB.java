@@ -488,7 +488,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MemberWithdrawalCB> columnQuery(final SpecifyQuery<MemberWithdrawalCB> leftSpecifyQuery) {
-        return new HpColQyOperand<MemberWithdrawalCB>(new HpColQyHandler<MemberWithdrawalCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<MemberWithdrawalCB>() {
             public HpCalculator handle(SpecifyQuery<MemberWithdrawalCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

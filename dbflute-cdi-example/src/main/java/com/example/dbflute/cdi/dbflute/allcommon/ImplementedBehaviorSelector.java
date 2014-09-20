@@ -15,6 +15,7 @@ import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.IllegalBehaviorStateException;
 import org.seasar.dbflute.util.DfTraceViewUtil;
 import org.seasar.dbflute.util.DfTypeUtil;
+import org.seasar.dbflute.util.Srl;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
@@ -157,6 +158,10 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     // ===================================================================================
     //                                                                      General Helper
     //                                                                      ==============
+    protected String replace(String str, String fromStr, String toStr) {
+        return Srl.replace(str, fromStr, toStr);
+    }
+
     protected String initUncap(String str) {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }

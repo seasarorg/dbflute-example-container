@@ -507,7 +507,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MemberServiceCB> columnQuery(final SpecifyQuery<MemberServiceCB> leftSpecifyQuery) {
-        return new HpColQyOperand<MemberServiceCB>(new HpColQyHandler<MemberServiceCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<MemberServiceCB>() {
             public HpCalculator handle(SpecifyQuery<MemberServiceCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

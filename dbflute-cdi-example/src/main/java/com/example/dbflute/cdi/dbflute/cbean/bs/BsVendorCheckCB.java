@@ -435,7 +435,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorCheckCB> columnQuery(final SpecifyQuery<VendorCheckCB> leftSpecifyQuery) {
-        return new HpColQyOperand<VendorCheckCB>(new HpColQyHandler<VendorCheckCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<VendorCheckCB>() {
             public HpCalculator handle(SpecifyQuery<VendorCheckCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }
