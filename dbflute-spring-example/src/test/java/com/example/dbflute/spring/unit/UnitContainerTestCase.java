@@ -5,7 +5,11 @@ import org.seasar.dbflute.bhv.BehaviorWritable;
 import org.seasar.dbflute.bhv.DeleteOption;
 import org.seasar.dbflute.cbean.ConditionBean;
 import org.seasar.dbflute.unit.spring.ContainerTestCase;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.example.dbflute.spring.JdbcBeansJavaConfig;
+import com.example.dbflute.spring.dbflute.allcommon.DBFluteBeansJavaConfig;
 import com.example.dbflute.spring.dbflute.exbhv.MemberAddressBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberFollowingBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberLoginBhv;
@@ -26,6 +30,14 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private BehaviorSelector _behaviorSelector;
+
+    // ===================================================================================
+    //                                                                             Prepare
+    //                                                                             =======
+    @Override
+    protected ApplicationContext provideDefaultApplicationContext() {
+        return new AnnotationConfigApplicationContext(JdbcBeansJavaConfig.class, DBFluteBeansJavaConfig.class);
+    }
 
     // ===================================================================================
     //                                                                         Data Helper

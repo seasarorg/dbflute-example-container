@@ -16,7 +16,7 @@
 		<dbflute.version>1.0.5L</dbflute.version>
 		<h2.jdbc.version>1.4.178</h2.jdbc.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<utflute.version>0.4.6</utflute.version>
+		<utflute.version>0.4.7</utflute.version>
 	</properties>
 
 	<licenses>
@@ -247,7 +247,11 @@
 			<version>1.2.14</version>
 			<scope>runtime</scope>
 		</dependency>
-
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>2.2.2</version>
+	</dependency>
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 		<!--                                                                       Testing -->
 		<!--                                                                       = = = = -->

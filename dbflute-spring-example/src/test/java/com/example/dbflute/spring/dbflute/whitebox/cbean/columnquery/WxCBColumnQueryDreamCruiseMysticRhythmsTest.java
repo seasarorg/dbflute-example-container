@@ -35,7 +35,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
         MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        
+
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().columnBirthdate();
@@ -45,7 +45,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 cb.mysticRhythms(toDate("2015/04/05"));
             }
         }).convert(new ColumnConversionOption().addMonth(dreamCruiseCB.specify().columnVersionNo()));
-        
+
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().columnBirthdate();
@@ -214,6 +214,21 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
             UpdateOption<MemberCB> option = new UpdateOption<MemberCB>().allowNonQueryUpdate();
             memberBhv.varyingQueryUpdate(member, new MemberCB(), option);
         }
+        // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+        // if use the same dreamCruiseCB instance:
+        // where dfloc.BIRTHDATE <= dateadd(month, 2, dateadd(month, dfloc.VERSION_NO, '2015-04-05'))
+        //   and dfloc.BIRTHDATE < dateadd(day, dfloc.VERSION_NO, dateadd(day, dfloc.MEMBER_ID + 99, '2014-09-01'))
+        //   and dfloc.BIRTHDATE >= coalesce(dateadd(minute, -1, dateadd(day, -dfloc.MEMBER_ID + 99, '2006-09-26')), dfloc.BIRTHDATE)
+        //
+        // expected:
+        // where dfloc.BIRTHDATE <= dateadd(month, 2, dateadd(month, dfloc.VERSION_NO, '2015-04-05'))
+        //   and dfloc.BIRTHDATE < dateadd(day, dfloc.VERSION_NO, dateadd(day, dfloc.MEMBER_ID, '2014-09-01'))
+        //   and dfloc.BIRTHDATE >= coalesce(dateadd(minute, -1, dateadd(day, -dfloc.MEMBER_ID + 99, '2006-09-26')), dfloc.BIRTHDATE)
+        //
+        // cb.dreamCruiseCB().specify().columnMemberId().plus(99)
+        // The same instance of specified column is returned from from the dreamCruiseCB
+        // _/_/_/_/_/_/_/_/_/_/
+
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
         cb.columnQuery(new SpecifyQuery<MemberCB>() {
