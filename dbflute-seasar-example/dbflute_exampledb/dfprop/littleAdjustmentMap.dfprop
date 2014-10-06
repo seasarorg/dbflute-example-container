@@ -48,8 +48,14 @@ map:{
     ; isMakeConditionQueryExistsReferrerToOne = true
     ; isMakeConditionQueryInScopeRelationToOne = true
     ; isMakeConditionQueryPlainListManualOrder = true
+    ; isMakeDirectConditionBeanSetup = true
+    ; isMakeBatchUpdateSpecifyColumn = true
     ; isAvailableSelectEntityPlainReturn = true
     ; isAvailableRelationPlainEntity = true
+    ; isMakeConditionQueryPrefixSearch = true
+    ; isMakeConditionQueryDateFromTo = true
+    ; isMakeDirectConditionOptionSetup = true
+    ; isMakeDirectConditionManualOrder = true
     ; isCompatibleNewMyEntityConditionBean = true
     ; isCompatibleDeleteNonstrictIgnoreDeleted = true
     ; isCompatibleLoadReferrerOldOption = true
@@ -59,7 +65,10 @@ map:{
     ; isCompatibleBizOneToOneImplicitReverseFkAllowed = true
 
     # compile compatible (false if compatible)
+    ; isMakeCallbackConditionBeanSetup = false
     ; isEntityDerivedMappable = false
+    ; isMakeCallbackConditionOptionSetup = false
+    ; isMakeCallbackConditionManualOrder = false
     ; isAvailableJava8TimeLocalDateEntity = false
 
     # runtime compatible (true if compatible)
