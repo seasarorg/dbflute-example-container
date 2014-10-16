@@ -51,6 +51,6 @@ public class MemberBhv extends com.example.dbflute.guice.dbflute.bsbhv.BsMemberB
                 return null;// ここで処理が完結してるので戻り値は不要
             }
         };
-        outsideSql().cursorHandling().selectCursor(PATH_selectPurchaseSummaryMember, pmb, handler);
+        outsideSql().selectCursor(pmb, handler);
     }
 }

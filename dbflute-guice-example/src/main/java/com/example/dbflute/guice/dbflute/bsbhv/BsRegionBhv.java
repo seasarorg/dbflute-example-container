@@ -367,7 +367,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
+     * regionBhv.<span style="color: #DD4747">loadMemberAddress</span>(regionList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -391,16 +391,16 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(List<Region> regionList, ReferrerConditionSetupper<MemberAddressCB> setupper) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, ReferrerConditionSetupper<MemberAddressCB> setupper) {
         xassLRArg(regionList, setupper);
-        return doLoadMemberAddressList(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
+        return doLoadMemberAddress(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
+     * regionBhv.<span style="color: #DD4747">loadMemberAddress</span>(regionList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -422,12 +422,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(Region region, ReferrerConditionSetupper<MemberAddressCB> setupper) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, ReferrerConditionSetupper<MemberAddressCB> setupper) {
         xassLRArg(region, setupper);
-        return doLoadMemberAddressList(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
+        return doLoadMemberAddress(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddressList(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
+    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddress(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
         return helpLoadReferrerInternally(regionList, option, "memberAddressList");
     }
 
@@ -941,7 +941,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<RegionBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<RegionBhv> outsideSql() {
         return doOutsideSql();
     }
 

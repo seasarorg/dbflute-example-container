@@ -43,7 +43,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
         assertHasAnyElement(memberList);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }
@@ -71,7 +71,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberSecurityAsOne();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
         assertHasAnyElement(memberList);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }
@@ -106,7 +106,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
         assertHasAnyElement(memberList);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }
@@ -157,7 +157,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
         cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
         assertHasAnyElement(memberList);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }
@@ -195,7 +195,7 @@ public class WxSimpleDtoMapperOptionTest extends UnitContainerTestCase {
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             final ListResultBean<Member> memberList = memberBhv.selectList(cb);
             assertHasAnyElement(memberList);
-            memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+            memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
                 public void setup(PurchaseCB cb) {
                     cb.setupSelect_Product();
                 }

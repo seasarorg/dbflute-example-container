@@ -159,13 +159,13 @@ public class WxSimpleDtoJsonTest extends UnitContainerTestCase {
     public void test_JSON_referrer_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
             }
         });
         cb.fetchFirst(1);
         Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().addOrderBy_PurchaseDatetime_Desc();
             }

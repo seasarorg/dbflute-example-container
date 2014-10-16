@@ -87,7 +87,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         final MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
         });

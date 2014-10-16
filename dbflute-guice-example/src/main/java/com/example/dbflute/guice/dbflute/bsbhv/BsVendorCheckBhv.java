@@ -877,7 +877,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<VendorCheckBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<VendorCheckBhv> outsideSql() {
         return doOutsideSql();
     }
 

@@ -392,7 +392,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br />
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefList'.
      * <pre>
-     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRefList</span>(vendorTheLongAndWindingTableAndColumnList, new ReferrerConditionSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRef</span>(vendorTheLongAndWindingTableAndColumnList, new ReferrerConditionSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void setup(VendorTheLongAndWindingTableAndColumnRefCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -416,16 +416,16 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, ReferrerConditionSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
+    public NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRef(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, ReferrerConditionSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
         xassLRArg(vendorTheLongAndWindingTableAndColumnList, setupper);
-        return doLoadVendorTheLongAndWindingTableAndColumnRefList(vendorTheLongAndWindingTableAndColumnList, new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
+        return doLoadVendorTheLongAndWindingTableAndColumnRef(vendorTheLongAndWindingTableAndColumnList, new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
     }
 
     /**
      * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br />
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefList'.
      * <pre>
-     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRefList</span>(vendorTheLongAndWindingTableAndColumnList, new ReferrerConditionSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * vendorTheLongAndWindingTableAndColumnBhv.<span style="color: #DD4747">loadVendorTheLongAndWindingTableAndColumnRef</span>(vendorTheLongAndWindingTableAndColumnList, new ReferrerConditionSetupper&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void setup(VendorTheLongAndWindingTableAndColumnRefCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -447,12 +447,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn, ReferrerConditionSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
+    public NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRef(VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn, ReferrerConditionSetupper<VendorTheLongAndWindingTableAndColumnRefCB> setupper) {
         xassLRArg(vendorTheLongAndWindingTableAndColumn, setupper);
-        return doLoadVendorTheLongAndWindingTableAndColumnRefList(xnewLRLs(vendorTheLongAndWindingTableAndColumn), new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
+        return doLoadVendorTheLongAndWindingTableAndColumnRef(xnewLRLs(vendorTheLongAndWindingTableAndColumn), new LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> doLoadVendorTheLongAndWindingTableAndColumnRefList(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef> option) {
+    protected NestedReferrerListGateway<VendorTheLongAndWindingTableAndColumnRef> doLoadVendorTheLongAndWindingTableAndColumnRef(List<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumnList, LoadReferrerOption<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRef> option) {
         return helpLoadReferrerInternally(vendorTheLongAndWindingTableAndColumnList, option, "vendorTheLongAndWindingTableAndColumnRefList");
     }
 
@@ -974,7 +974,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnBhv extends Abstrac
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<VendorTheLongAndWindingTableAndColumnBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<VendorTheLongAndWindingTableAndColumnBhv> outsideSql() {
         return doOutsideSql();
     }
 

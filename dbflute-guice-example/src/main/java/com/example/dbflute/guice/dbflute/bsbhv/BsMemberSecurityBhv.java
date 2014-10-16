@@ -1092,7 +1092,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<MemberSecurityBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<MemberSecurityBhv> outsideSql() {
         return doOutsideSql();
     }
 

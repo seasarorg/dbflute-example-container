@@ -712,7 +712,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
 
         // *Point!
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseCount_GreaterThan(2);
             }
@@ -722,7 +722,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB subCB) {
                 subCB.setupSelect_Product();
             }
@@ -749,21 +749,21 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //         --> cb.query() になる
         // 
         //    X-2. cb.query().ex まで書いて補完して子テーブルを選択してEnter!
-        //         --> cb.query().existsPurchaseList(subQuery) になる
+        //         --> cb.query().existsPurchase(subQuery) になる
         // 
-        //    X-3. cb.query().existsPurchaseList(new ) まで書いて補完してEnter!
+        //    X-3. cb.query().existsPurchase(new ) まで書いて補完してEnter!
         //         --> カーソル位置から入力する文字は「new 」
-        //         --> cb.query().existsPurchaseList(new SubQuery<PurchaseCB>) になる
+        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>) になる
         // 
-        //    X-4. cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {) まで書いて補完してEnter!
+        //    X-4. cb.query().existsPurchase(new SubQuery<PurchaseCB>() {) まで書いて補完してEnter!
         //         --> カーソル位置から入力する文字は「() {」
-        //         --> cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
         //             })
         //             になる
         //         --> [SubQuery<PurchaseCB>]部分と最後の行の[})]部分がコンパイルエラーになる
         // 
         //    X-5. コンパイルエラーの[SubQuery<PurchaseCB>]にカーソルを合わせてctrl + 1を押してEnter!
-        //         --> cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
         //                 public void query(PurchaseCB subCB) {
         //                     // todo Auto-generated method stub
         //                 }
@@ -772,7 +772,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //         --> 最後の行の[})]部分でセミコロンがないことでまだコンパイルエラーである
         // 
         //    X-6. セミコロンも付ける
-        //         --> cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
         //                 public void query(PurchaseCB subCB) {
         //                     // todo Auto-generated method stub
         //                 }
@@ -791,7 +791,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
 
         // *Point!
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().queryProduct().setProductName_PrefixSearch("Storm");
             }
@@ -801,7 +801,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB subCB) {
                 subCB.setupSelect_Product();
             }
@@ -833,7 +833,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         PurchaseCB cb = new PurchaseCB();
 
         // *Point!
-        cb.query().queryMember().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+        cb.query().queryMember().existsMemberLogin(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
                 subCB.query().setMobileLoginFlg_Equal_True();
             }
@@ -857,12 +857,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             memberIdSet.add(memberId);
         }
         MemberCB memberCB = new MemberCB();
-        memberCB.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+        memberCB.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
                 subCB.query().setMobileLoginFlg_Equal_True();
             }
         });
-        memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
             }
         });
@@ -892,7 +892,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
 
         // *Point!
-        cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().notExistsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseCount_GreaterThan(2);
             }
@@ -907,7 +907,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
                 subCB.setupSelect_Product();
             }
         };
-        memberBhv.loadPurchaseList(memberList, setuppper);
+        memberBhv.loadPurchase(memberList, setuppper);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
@@ -948,7 +948,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB subCB) {
                 subCB.setupSelect_Product();
             }
@@ -994,7 +994,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB subCB) {
                 subCB.setupSelect_Product();
             }
@@ -1041,7 +1041,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB subCB) {
                 subCB.setupSelect_Product();
             }
@@ -1357,7 +1357,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     public void test_toDisplaySql_SubQuery() {
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseDatetime_LessThan(currentLocalDateTime());
                 subCB.query().setPurchaseCount_GreaterEqual(2);

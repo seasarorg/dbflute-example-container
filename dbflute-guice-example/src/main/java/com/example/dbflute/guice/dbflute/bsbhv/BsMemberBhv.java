@@ -431,7 +431,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberAddressList</span>(memberList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberAddress</span>(memberList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -455,16 +455,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(List<Member> memberList, ReferrerConditionSetupper<MemberAddressCB> setupper) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Member> memberList, ReferrerConditionSetupper<MemberAddressCB> setupper) {
         xassLRArg(memberList, setupper);
-        return doLoadMemberAddressList(memberList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
+        return doLoadMemberAddress(memberList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberAddressList</span>(memberList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberAddress</span>(memberList, new ReferrerConditionSetupper&lt;MemberAddressCB&gt;() {
      *     public void setup(MemberAddressCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -486,12 +486,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(Member member, ReferrerConditionSetupper<MemberAddressCB> setupper) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Member member, ReferrerConditionSetupper<MemberAddressCB> setupper) {
         xassLRArg(member, setupper);
-        return doLoadMemberAddressList(xnewLRLs(member), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
+        return doLoadMemberAddress(xnewLRLs(member), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddressList(List<Member> memberList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
+    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddress(List<Member> memberList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
         return helpLoadReferrerInternally(memberList, option, "memberAddressList");
     }
 
@@ -499,7 +499,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberIdList</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberId</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -523,16 +523,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByMyMemberIdList(List<Member> memberList, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
+    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByMyMemberId(List<Member> memberList, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
         xassLRArg(memberList, setupper);
-        return doLoadMemberFollowingByMyMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
+        return doLoadMemberFollowingByMyMemberId(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberIdList</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByMyMemberId</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -554,12 +554,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByMyMemberIdList(Member member, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
+    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByMyMemberId(Member member, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
         xassLRArg(member, setupper);
-        return doLoadMemberFollowingByMyMemberIdList(xnewLRLs(member), new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
+        return doLoadMemberFollowingByMyMemberId(xnewLRLs(member), new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberFollowing> doLoadMemberFollowingByMyMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
+    protected NestedReferrerListGateway<MemberFollowing> doLoadMemberFollowingByMyMemberId(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
         return helpLoadReferrerInternally(memberList, option, "memberFollowingByMyMemberIdList");
     }
 
@@ -567,7 +567,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberIdList</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberId</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -591,16 +591,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByYourMemberIdList(List<Member> memberList, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
+    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByYourMemberId(List<Member> memberList, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
         xassLRArg(memberList, setupper);
-        return doLoadMemberFollowingByYourMemberIdList(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
+        return doLoadMemberFollowingByYourMemberId(memberList, new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberIdList</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberFollowingByYourMemberId</span>(memberList, new ReferrerConditionSetupper&lt;MemberFollowingCB&gt;() {
      *     public void setup(MemberFollowingCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -622,12 +622,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByYourMemberIdList(Member member, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
+    public NestedReferrerListGateway<MemberFollowing> loadMemberFollowingByYourMemberId(Member member, ReferrerConditionSetupper<MemberFollowingCB> setupper) {
         xassLRArg(member, setupper);
-        return doLoadMemberFollowingByYourMemberIdList(xnewLRLs(member), new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
+        return doLoadMemberFollowingByYourMemberId(xnewLRLs(member), new LoadReferrerOption<MemberFollowingCB, MemberFollowing>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberFollowing> doLoadMemberFollowingByYourMemberIdList(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
+    protected NestedReferrerListGateway<MemberFollowing> doLoadMemberFollowingByYourMemberId(List<Member> memberList, LoadReferrerOption<MemberFollowingCB, MemberFollowing> option) {
         return helpLoadReferrerInternally(memberList, option, "memberFollowingByYourMemberIdList");
     }
 
@@ -635,7 +635,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Load referrer of memberLoginList by the set-upper of referrer. <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberList, new ReferrerConditionSetupper&lt;MemberLoginCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberLogin</span>(memberList, new ReferrerConditionSetupper&lt;MemberLoginCB&gt;() {
      *     public void setup(MemberLoginCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -659,16 +659,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(List<Member> memberList, ReferrerConditionSetupper<MemberLoginCB> setupper) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(List<Member> memberList, ReferrerConditionSetupper<MemberLoginCB> setupper) {
         xassLRArg(memberList, setupper);
-        return doLoadMemberLoginList(memberList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(setupper));
+        return doLoadMemberLogin(memberList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberList, new ReferrerConditionSetupper&lt;MemberLoginCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadMemberLogin</span>(memberList, new ReferrerConditionSetupper&lt;MemberLoginCB&gt;() {
      *     public void setup(MemberLoginCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -690,12 +690,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(Member member, ReferrerConditionSetupper<MemberLoginCB> setupper) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(Member member, ReferrerConditionSetupper<MemberLoginCB> setupper) {
         xassLRArg(member, setupper);
-        return doLoadMemberLoginList(xnewLRLs(member), new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(setupper));
+        return doLoadMemberLogin(xnewLRLs(member), new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberLogin> doLoadMemberLoginList(List<Member> memberList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
+    protected NestedReferrerListGateway<MemberLogin> doLoadMemberLogin(List<Member> memberList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
         return helpLoadReferrerInternally(memberList, option, "memberLoginList");
     }
 
@@ -703,7 +703,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadPurchaseList</span>(memberList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadPurchase</span>(memberList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -727,16 +727,16 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(List<Member> memberList, ReferrerConditionSetupper<PurchaseCB> setupper) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(List<Member> memberList, ReferrerConditionSetupper<PurchaseCB> setupper) {
         xassLRArg(memberList, setupper);
-        return doLoadPurchaseList(memberList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
+        return doLoadPurchase(memberList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * <pre>
-     * memberBhv.<span style="color: #DD4747">loadPurchaseList</span>(memberList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
+     * memberBhv.<span style="color: #DD4747">loadPurchase</span>(memberList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -758,12 +758,12 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(Member member, ReferrerConditionSetupper<PurchaseCB> setupper) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(Member member, ReferrerConditionSetupper<PurchaseCB> setupper) {
         xassLRArg(member, setupper);
-        return doLoadPurchaseList(xnewLRLs(member), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
+        return doLoadPurchase(xnewLRLs(member), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<Purchase> doLoadPurchaseList(List<Member> memberList, LoadReferrerOption<PurchaseCB, Purchase> option) {
+    protected NestedReferrerListGateway<Purchase> doLoadPurchase(List<Member> memberList, LoadReferrerOption<PurchaseCB, Purchase> option) {
         return helpLoadReferrerInternally(memberList, option, "purchaseList");
     }
 
@@ -1536,7 +1536,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<MemberBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<MemberBhv> outsideSql() {
         return doOutsideSql();
     }
 

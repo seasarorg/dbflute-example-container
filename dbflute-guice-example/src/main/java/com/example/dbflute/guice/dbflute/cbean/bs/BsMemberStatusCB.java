@@ -341,7 +341,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER where ...) as FOO_MAX} <br />
          * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMember()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberCB&gt;() {
          *     public void query(MemberCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -350,7 +350,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<MemberCB, MemberStatusCQ> derivedMemberList() {
+        public HpSDRFunction<MemberCB, MemberStatusCQ> derivedMember() {
             assertDerived("memberList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberCB, MemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberCB, MemberStatusCQ>() {
                 public void setup(String fn, SubQuery<MemberCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
@@ -361,7 +361,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_LOGIN where ...) as FOO_MAX} <br />
          * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberLoginList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberLoginCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMemberLogin()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberLoginCB&gt;() {
          *     public void query(MemberLoginCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -370,7 +370,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<MemberLoginCB, MemberStatusCQ> derivedMemberLoginList() {
+        public HpSDRFunction<MemberLoginCB, MemberStatusCQ> derivedMemberLogin() {
             assertDerived("memberLoginList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberLoginCB, MemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberLoginCB, MemberStatusCQ>() {
                 public void setup(String fn, SubQuery<MemberLoginCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {

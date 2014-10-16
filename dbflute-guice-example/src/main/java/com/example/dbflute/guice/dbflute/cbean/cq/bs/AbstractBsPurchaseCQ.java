@@ -155,7 +155,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * {exists (select PURCHASE_ID from PURCHASE_PAYMENT where ...)} <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsPurchasePaymentList</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsPurchasePayment</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
      *     public void query(PurchasePaymentCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,7 +163,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of PurchasePaymentList for 'exists'. (NotNull)
      */
-    public void existsPurchasePaymentList(SubQuery<PurchasePaymentCB> subQuery) {
+    public void existsPurchasePayment(SubQuery<PurchasePaymentCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchasePaymentCB cb = new PurchasePaymentCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -177,7 +177,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * {not exists (select PURCHASE_ID from PURCHASE_PAYMENT where ...)} <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsPurchasePaymentList</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsPurchasePayment</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
      *     public void query(PurchasePaymentCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -185,7 +185,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of PurchaseId_NotExistsReferrer_PurchasePaymentList for 'not exists'. (NotNull)
      */
-    public void notExistsPurchasePaymentList(SubQuery<PurchasePaymentCB> subQuery) {
+    public void notExistsPurchasePayment(SubQuery<PurchasePaymentCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchasePaymentCB cb = new PurchasePaymentCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -238,7 +238,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from PURCHASE_PAYMENT where ...)} <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedPurchasePaymentList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedPurchasePayment()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
      *     public void query(PurchasePaymentCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -247,7 +247,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<PurchasePaymentCB> derivedPurchasePaymentList() {
+    public HpQDRFunction<PurchasePaymentCB> derivedPurchasePayment() {
         return xcreateQDRFunctionPurchasePaymentList();
     }
     protected HpQDRFunction<PurchasePaymentCB> xcreateQDRFunctionPurchasePaymentList() {

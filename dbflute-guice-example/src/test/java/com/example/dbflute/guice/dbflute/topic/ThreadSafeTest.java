@@ -73,15 +73,11 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                 return new Execution<List<SimpleMember>>() {
                     public List<SimpleMember> execute() {
                         // ## Arrange ##
-                        String path = MemberBhv.PATH_selectSimpleMember;
-
                         SimpleMemberPmb pmb = new SimpleMemberPmb();
                         pmb.setMemberName_PrefixSearch("S");
 
-                        Class<SimpleMember> entityType = SimpleMember.class;
-
                         // ## Act ##
-                        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+                        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
                         // ## Assert ##
                         assertNotSame(0, memberList.size());

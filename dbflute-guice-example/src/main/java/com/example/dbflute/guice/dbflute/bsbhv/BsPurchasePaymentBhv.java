@@ -881,7 +881,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<PurchasePaymentBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<PurchasePaymentBhv> outsideSql() {
         return doOutsideSql();
     }
 

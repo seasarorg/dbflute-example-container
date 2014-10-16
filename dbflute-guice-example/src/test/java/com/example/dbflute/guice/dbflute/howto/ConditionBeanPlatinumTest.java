@@ -184,7 +184,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_exists_union() {
         final MemberCB cb = new MemberCB();
         final LikeSearchOption option = new LikeSearchOption().likeContain();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB purchaseCB) {
                 purchaseCB.query().setPurchaseCount_GreaterThan(2);
                 purchaseCB.union(new UnionQuery<PurchaseCB>() {
@@ -209,7 +209,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 cb.setupSelect_Product();
             }
         };
-        memberBhv.loadPurchaseList(memberList, setuppper);
+        memberBhv.loadPurchase(memberList, setuppper);
         for (Member member : memberList) {
             log("[member] " + member.getMemberId() + ", " + member.getMemberName());
             final List<Purchase> purchaseList = member.getPurchaseList();
@@ -444,7 +444,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         cb.query().setMemberStatusCode_Equal_Withdrawal();
         cb.union(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {
-                unionCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                unionCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.query().setPurchasePrice_GreaterEqual(1500);
                     }
@@ -491,10 +491,10 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 cb.query().setPurchasePrice_GreaterEqual(1500);
             }
         };
-        memberBhv.loadPurchaseList(page1, setupper);
-        memberBhv.loadPurchaseList(page2, setupper);
-        memberBhv.loadPurchaseList(page3, setupper);
-        memberBhv.loadPurchaseList(lastPage, setupper);
+        memberBhv.loadPurchase(page1, setupper);
+        memberBhv.loadPurchase(page2, setupper);
+        memberBhv.loadPurchase(page3, setupper);
+        memberBhv.loadPurchase(lastPage, setupper);
         SelectPageUnionExistsSbuQueryAssertBoolean bl = new SelectPageUnionExistsSbuQueryAssertBoolean();
         findTarget_of_selectPage_union_existsSubQuery(page1, bl);
         findTarget_of_selectPage_union_existsSubQuery(page2, bl);
@@ -730,7 +730,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_sepcify_derivedReferrer_max() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+        cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
                 subCB.specify().columnLoginDatetime();// *Point!
                 subCB.query().setMobileLoginFlg_Equal_False();// Except Mobile
@@ -852,7 +852,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_addSepcifidDerivedOrderBy_count() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+        cb.specify().derivedMemberLogin().count(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
                 subCB.specify().columnMemberLoginId();// *Point!
                 subCB.query().setMobileLoginFlg_Equal_False();// Except Mobile
@@ -888,7 +888,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_sepcify_derivedReferrer_countDistinct() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+        cb.specify().derivedPurchase().countDistinct(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnProductId();
                 subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -925,7 +925,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         MemberCB cb = new MemberCB();
         cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+        cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchasePrice(); // *Point!
                 subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -936,7 +936,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPaymentCompleteFlg_Equal_True();
             }
@@ -1190,7 +1190,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
                 cb.query().setAddress_LikeSearch(targetChar, new LikeSearchOption().likeContain());
                 cb.query().setValidBeginDate_LessEqual(targetDate);

@@ -221,7 +221,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         final ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Act ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();// *Point!
                 cb.query().addOrderBy_PurchaseCount_Desc();
@@ -253,13 +253,13 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         ListResultBean<MemberStatus> memberStatusList = memberStatusBhv.selectList(cb);
 
         // ## Act ##
-        memberStatusBhv.loadMemberList(memberStatusList, new ConditionBeanSetupper<MemberCB>() {
+        memberStatusBhv.loadMember(memberStatusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
                 cb.query().addOrderBy_FormalizedDatetime_Desc();
             }
         }).withNestedReferrer(new ReferrerListHandler<Member>() {
             public void handle(List<Member> referrerList) {
-                memberBhv.loadPurchaseList(referrerList, new ConditionBeanSetupper<PurchaseCB>() {
+                memberBhv.loadPurchase(referrerList, new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB cb) {
                         cb.query().addOrderBy_PurchaseCount_Desc();
                         cb.query().addOrderBy_ProductId_Desc();
@@ -293,7 +293,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      * 「購入」の親テーブル「会員」の子テーブル「会員ログイン」を取得する。
      * 「会員ログイン」はモバイルフラグがtrueで絞り込んでログイン日時の降順で並べる。
      */
-    public void test_loadReferrer_pulloutMember_loadMemberLoginList() {
+    public void test_loadReferrer_pulloutMember_loadMemberLogin() {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();
         cb.setupSelect_Member();// *Point!
@@ -301,7 +301,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         List<Member> memberList = purchaseBhv.pulloutMember(purchaseList);// *Point!
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
                 cb.query().setMobileLoginFlg_Equal_True();
                 cb.query().addOrderBy_LoginDatetime_Desc();
@@ -570,7 +570,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         // SQL実行！
-        List<SimpleMember> resultList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> resultList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, resultList.size());
@@ -608,23 +608,15 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_configure() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectSimpleMember;
-
-        // 検索条件
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
-
-        // 戻り値Entityの型
-        Class<SimpleMember> entityType = SimpleMember.class;
 
         // コンフィグ
         StatementConfig statementConfig = new StatementConfig().typeForwardOnly().queryTimeout(7).maxRows(2);
 
         // ## Act ##
         // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig)
-                .selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(pmb);
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
@@ -667,7 +659,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##ß
         // SQL実行！
-        List<Member> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<Member> memberList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
@@ -692,7 +684,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_NotFound() {
         try {
-            memberBhv.outsideSql().selectList("sql/noexist/selectByNoExistSql.sql", null, Member.class);
+            memberBhv.outsideSql().traditionalStyle()
+                    .selectList("sql/noexist/selectByNoExistSql.sql", null, Member.class);
             fail();
         } catch (OutsideSqlNotFoundException e) {
             log(e.getMessage());
@@ -711,7 +704,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectBindVariableNotFoundProperty;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (BindVariableCommentNotFoundPropertyException e) {
             log(e.getMessage());
@@ -728,7 +721,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectEndCommentNotFound;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (EndCommentNotFoundException e) {
             log(e.getMessage());
@@ -744,7 +737,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (IfCommentNotBooleanResultException e) {
             log(e.getMessage());
@@ -760,7 +753,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectIfCommentWrongExpression;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (IfCommentWrongExpressionException e) {
             log(e.getMessage());
@@ -842,23 +835,15 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_paging_disablePagingReSelect() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
-
-        // 検索条件
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
-        pmb.setMemberStatusCode_Formalized();// 正式会員
+        pmb.setMemberStatusCode_Formalized();
         pmb.disablePagingReSelect();
-
-        // 戻り値Entityの型
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
         // ## Act ##
         // SQL実行！
         int pageSize = 3;
         pmb.paging(pageSize, 99999);
-        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());

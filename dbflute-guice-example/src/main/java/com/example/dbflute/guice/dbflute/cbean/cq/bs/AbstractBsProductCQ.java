@@ -155,7 +155,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,7 +163,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of PurchaseList for 'exists'. (NotNull)
      */
-    public void existsPurchaseList(SubQuery<PurchaseCB> subQuery) {
+    public void existsPurchase(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -177,7 +177,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {not exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -185,7 +185,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of ProductId_NotExistsReferrer_PurchaseList for 'not exists'. (NotNull)
      */
-    public void notExistsPurchaseList(SubQuery<PurchaseCB> subQuery) {
+    public void notExistsPurchase(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -238,7 +238,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedPurchaseList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedPurchase()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -247,7 +247,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<PurchaseCB> derivedPurchaseList() {
+    public HpQDRFunction<PurchaseCB> derivedPurchase() {
         return xcreateQDRFunctionPurchaseList();
     }
     protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionPurchaseList() {

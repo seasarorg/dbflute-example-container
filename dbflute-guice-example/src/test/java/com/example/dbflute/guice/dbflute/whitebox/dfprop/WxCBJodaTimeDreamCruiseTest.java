@@ -26,7 +26,7 @@ public class WxCBJodaTimeDreamCruiseTest extends UnitContainerTestCase {
     //                                                                  ==================
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_basic() throws Exception {
         MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnPurchaseDatetime().convert(new ColumnConversionOption().truncTime().addDay(1))
                         .convert(new ColumnConversionOption().addMonth(2));

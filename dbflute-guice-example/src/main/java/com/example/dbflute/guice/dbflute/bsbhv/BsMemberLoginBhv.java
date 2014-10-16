@@ -932,7 +932,7 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<MemberLoginBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<MemberLoginBhv> outsideSql() {
         return doOutsideSql();
     }
 

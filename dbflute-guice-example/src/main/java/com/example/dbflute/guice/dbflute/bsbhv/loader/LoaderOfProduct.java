@@ -61,14 +61,14 @@ public class LoaderOfProduct {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<Purchase> _referrerPurchaseList;
-    public NestedReferrerLoaderGateway<LoaderOfPurchase> loadPurchaseList(ReferrerConditionSetupper<PurchaseCB> setupper) {
-        myBhv().loadPurchaseList(_selectedList, setupper).withNestedReferrer(new ReferrerListHandler<Purchase>() {
-            public void handle(List<Purchase> referrerList) { _referrerPurchaseList = referrerList; }
+    protected List<Purchase> _referrerPurchase;
+    public NestedReferrerLoaderGateway<LoaderOfPurchase> loadPurchase(ReferrerConditionSetupper<PurchaseCB> setupper) {
+        myBhv().loadPurchase(_selectedList, setupper).withNestedReferrer(new ReferrerListHandler<Purchase>() {
+            public void handle(List<Purchase> referrerList) { _referrerPurchase = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfPurchase>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfPurchase> handler) {
-                handler.handle(new LoaderOfPurchase().ready(_referrerPurchaseList, _selector));
+                handler.handle(new LoaderOfPurchase().ready(_referrerPurchase, _selector));
             }
         };
     }

@@ -41,12 +41,12 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberDtoMapper mapper = new MemberDtoMapper();
         MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+        cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
                 subCB.specify().columnLoginDatetime();
             }
         }, Member.PROP_latestLoginDatetime);
-        cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+        cb.specify().derivedPurchase().countDistinct(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.specify().columnProductId();
             }
@@ -84,12 +84,12 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         List<MemberDto> dtoList;
         {
             MemberCB cb = new MemberCB();
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
             }, Member.PROP_latestLoginDatetime);
-            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().countDistinct(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnProductId();
                 }
@@ -129,7 +129,7 @@ public class WxSimpleDtoMapperDetailTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
         cb.setupSelect_MemberAddressAsValid(currentLocalDate());
         ListResultBean<Member> memberList = memberBhv.selectList(cb);
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
                 cb.setupSelect_Region();
             }

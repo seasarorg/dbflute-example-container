@@ -881,7 +881,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<VendorTheLongAndWindingTableAndColumnRefBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<VendorTheLongAndWindingTableAndColumnRefBhv> outsideSql() {
         return doOutsideSql();
     }
 

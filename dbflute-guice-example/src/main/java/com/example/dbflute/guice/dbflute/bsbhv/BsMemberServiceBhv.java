@@ -1133,7 +1133,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<MemberServiceBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<MemberServiceBhv> outsideSql() {
         return doOutsideSql();
     }
 

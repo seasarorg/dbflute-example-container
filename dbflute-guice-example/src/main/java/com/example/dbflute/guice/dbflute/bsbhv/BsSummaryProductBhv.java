@@ -367,7 +367,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
+     * summaryProductBhv.<span style="color: #DD4747">loadPurchase</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -391,16 +391,16 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(List<SummaryProduct> summaryProductList, ReferrerConditionSetupper<PurchaseCB> setupper) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(List<SummaryProduct> summaryProductList, ReferrerConditionSetupper<PurchaseCB> setupper) {
         xassLRArg(summaryProductList, setupper);
-        return doLoadPurchaseList(summaryProductList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
+        return doLoadPurchase(summaryProductList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * summaryProductBhv.<span style="color: #DD4747">loadPurchaseList</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
+     * summaryProductBhv.<span style="color: #DD4747">loadPurchase</span>(summaryProductList, new ReferrerConditionSetupper&lt;PurchaseCB&gt;() {
      *     public void setup(PurchaseCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -422,12 +422,12 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(SummaryProduct summaryProduct, ReferrerConditionSetupper<PurchaseCB> setupper) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(SummaryProduct summaryProduct, ReferrerConditionSetupper<PurchaseCB> setupper) {
         xassLRArg(summaryProduct, setupper);
-        return doLoadPurchaseList(xnewLRLs(summaryProduct), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
+        return doLoadPurchase(xnewLRLs(summaryProduct), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<Purchase> doLoadPurchaseList(List<SummaryProduct> summaryProductList, LoadReferrerOption<PurchaseCB, Purchase> option) {
+    protected NestedReferrerListGateway<Purchase> doLoadPurchase(List<SummaryProduct> summaryProductList, LoadReferrerOption<PurchaseCB, Purchase> option) {
         return helpLoadReferrerInternally(summaryProductList, option, "purchaseList");
     }
 
@@ -949,7 +949,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<SummaryProductBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<SummaryProductBhv> outsideSql() {
         return doOutsideSql();
     }
 

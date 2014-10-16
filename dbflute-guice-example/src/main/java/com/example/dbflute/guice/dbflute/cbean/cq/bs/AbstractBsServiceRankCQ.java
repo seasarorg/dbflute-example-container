@@ -226,7 +226,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {exists (select SERVICE_RANK_CODE from MEMBER_SERVICE where ...)} <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberServiceList</span>(new SubQuery&lt;MemberServiceCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberService</span>(new SubQuery&lt;MemberServiceCB&gt;() {
      *     public void query(MemberServiceCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -234,7 +234,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberServiceList for 'exists'. (NotNull)
      */
-    public void existsMemberServiceList(SubQuery<MemberServiceCB> subQuery) {
+    public void existsMemberService(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -248,7 +248,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {not exists (select SERVICE_RANK_CODE from MEMBER_SERVICE where ...)} <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberServiceList</span>(new SubQuery&lt;MemberServiceCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberService</span>(new SubQuery&lt;MemberServiceCB&gt;() {
      *     public void query(MemberServiceCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -256,7 +256,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of ServiceRankCode_NotExistsReferrer_MemberServiceList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberServiceList(SubQuery<MemberServiceCB> subQuery) {
+    public void notExistsMemberService(SubQuery<MemberServiceCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -309,7 +309,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_SERVICE where ...)} <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberServiceList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberServiceCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberService()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberServiceCB&gt;() {
      *     public void query(MemberServiceCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -318,7 +318,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberServiceCB> derivedMemberServiceList() {
+    public HpQDRFunction<MemberServiceCB> derivedMemberService() {
         return xcreateQDRFunctionMemberServiceList();
     }
     protected HpQDRFunction<MemberServiceCB> xcreateQDRFunctionMemberServiceList() {

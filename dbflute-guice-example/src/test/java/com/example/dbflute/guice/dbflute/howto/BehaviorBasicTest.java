@@ -421,19 +421,13 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_selectList_selectSimpleMember() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectSimpleMember;
-
         // 検索条件
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
 
-        // 戻り値Entityの型
-        Class<SimpleMember> entityType = SimpleMember.class;
-
         // ## Act ##ß
         // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
@@ -466,7 +460,7 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
         String pmb = "S";
 
         // ## Act ##
-        int updatedCount = memberBhv.outsideSql().execute(path, pmb);
+        int updatedCount = memberBhv.outsideSql().traditionalStyle().execute(path, pmb);
 
         // ## Assert ##
         log("updatedCount=" + updatedCount);

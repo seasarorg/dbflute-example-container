@@ -74,7 +74,7 @@ public class WxJava8OverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("land");
 
         // ## Act ##
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseDatetime_GreaterEqual(new LocalDateTime(2014, 8, 7, 0, 0));
                 subCB.query().setPurchaseDatetime_GreaterEqual(new LocalDateTime(2014, 8, 8, 0, 0));
@@ -94,7 +94,7 @@ public class WxJava8OverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("land");
 
         // ## Act ##
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 markHere("exists");
                 subCB.query().setPurchaseDatetime_GreaterEqual(new LocalDateTime(2014, 8, 7, 0, 0));
@@ -121,7 +121,7 @@ public class WxJava8OverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("land");
 
         // ## Act ##
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.enableOverridingQuery();
                 subCB.query().setPurchaseDatetime_GreaterEqual(new LocalDateTime(2014, 8, 7, 0, 0));

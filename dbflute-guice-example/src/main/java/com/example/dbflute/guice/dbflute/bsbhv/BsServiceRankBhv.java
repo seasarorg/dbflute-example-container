@@ -393,7 +393,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ReferrerConditionSetupper&lt;MemberServiceCB&gt;() {
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberService</span>(serviceRankList, new ReferrerConditionSetupper&lt;MemberServiceCB&gt;() {
      *     public void setup(MemberServiceCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -417,16 +417,16 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, ReferrerConditionSetupper<MemberServiceCB> setupper) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, ReferrerConditionSetupper<MemberServiceCB> setupper) {
         xassLRArg(serviceRankList, setupper);
-        return doLoadMemberServiceList(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
+        return doLoadMemberService(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ReferrerConditionSetupper&lt;MemberServiceCB&gt;() {
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberService</span>(serviceRankList, new ReferrerConditionSetupper&lt;MemberServiceCB&gt;() {
      *     public void setup(MemberServiceCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -448,12 +448,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(ServiceRank serviceRank, ReferrerConditionSetupper<MemberServiceCB> setupper) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, ReferrerConditionSetupper<MemberServiceCB> setupper) {
         xassLRArg(serviceRank, setupper);
-        return doLoadMemberServiceList(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
+        return doLoadMemberService(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
+    protected NestedReferrerListGateway<MemberService> doLoadMemberService(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
         return helpLoadReferrerInternally(serviceRankList, option, "memberServiceList");
     }
 
@@ -975,7 +975,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<ServiceRankBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<ServiceRankBhv> outsideSql() {
         return doOutsideSql();
     }
 

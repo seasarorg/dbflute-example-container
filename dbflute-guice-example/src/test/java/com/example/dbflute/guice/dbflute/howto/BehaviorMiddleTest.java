@@ -86,7 +86,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPurchaseCount_GreaterEqual(2);
                 cb.query().addOrderBy_PurchaseCount_Desc();
@@ -108,7 +108,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // select ... 
         //   from MEMBER dflocal
         // 
-        // {2}: memberBhv.loadPurchaseList(memberList, ...); 
+        // {2}: memberBhv.loadPurchase(memberList, ...); 
         // select ... 
         //   from PURCHASE dflocal 
         //  where dflocal.MEMBER_ID in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
@@ -117,7 +117,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // [Description]
         // A. 基点テーブルが複合PKの場合はサポートされない。
-        //    --> このExampleでは会員テーブル。もし複合PKならloadPurchaseList()メソッド自体が生成されない。
+        //    --> このExampleでは会員テーブル。もし複合PKならloadPurchase()メソッド自体が生成されない。
         // B. SubSelectフェッチなので「n+1問題」は発生しない。
         // C. 枝分かれの子テーブルを取得することも可能。
         // D. 子テーブルの親テーブルを取得することも可能。詳しくはBehaviorPlatinumTestにて
@@ -280,7 +280,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // ## Act ##
         // SQL実行！
-        List<String> memberNameList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<String> memberNameList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, memberNameList.size());
@@ -316,19 +316,12 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         testMember4.setMemberName("ストイコ100%ビッチ_その４");
         memberBhv.updateNonstrict(testMember4);
 
-        // SQLのパス
-        String path = "selectOptionMember";
-
-        // 検索条件
         OptionMemberPmb pmb = new OptionMemberPmb();
         pmb.setMemberName_PrefixSearch("ストイコ100%ビッチ_その");
 
-        // 戻り値Entityの型
-        Class<OptionMember> entityType = OptionMember.class;
-
         // ## Act ##
         // SQL実行！
-        List<OptionMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<OptionMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
         // ## Assert ##
         assertNotSame("テストの成立のため１件以上は必ずあること: " + memberList.size(), 0, memberList.size());
@@ -368,14 +361,12 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         final String firstDate = "2003-02-25";
         final String lastDate = "2006-09-04";
         final String lastNextDate = "2006-09-05";
-        String path = MemberBhv.PATH_selectOptionMember;
         OptionMemberPmb pmb = new OptionMemberPmb();
         pmb.setFromFormalizedDate_FromDate(JodaUtil.toLocalDate(DfTypeUtil.toTimestamp("2003-02-25")));
         pmb.setToFormalizedDate_ToDate(JodaUtil.toLocalDate(DfTypeUtil.toTimestamp(lastDate)));
-        Class<OptionMember> entityType = OptionMember.class;
 
         // ## Act ##
-        List<OptionMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<OptionMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
         // ## Assert ##
         assertNotSame(0, memberList.size());
@@ -398,29 +389,21 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
     //                                                ------
     public void test_outsideSql_manualPaging_selectPage() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseMaxPriceMember;
-
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
-
-        Class<PurchaseMaxPriceMember> entityType = PurchaseMaxPriceMember.class;
 
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1);// 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, 2);// 2st page
-        PagingResultBean<PurchaseMaxPriceMember> page2 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page2 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, 3);// 3st page
-        PagingResultBean<PurchaseMaxPriceMember> page3 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page3 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, page1.getAllPageCount());// latest page
-        PagingResultBean<PurchaseMaxPriceMember> lastPage = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> lastPage = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         showPage(page1, page2, page3, lastPage);
@@ -444,30 +427,22 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
     public void test_outsideSql_autoPaging_selectPage() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
-
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
-
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1);// 1st page
-        PagingResultBean<UnpaidSummaryMember> page1 = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, 2);// 2st page
-        PagingResultBean<UnpaidSummaryMember> page2 = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> page2 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, 3);// 3st page
-        PagingResultBean<UnpaidSummaryMember> page3 = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> page3 = memberBhv.outsideSql().selectPage(pmb);
 
         pmb.paging(pageSize, page1.getAllPageCount());// latest page
-        PagingResultBean<UnpaidSummaryMember> lastPage = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> lastPage = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         showPage(page1, page2, page3, lastPage);
@@ -497,18 +472,11 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_selectEntity_selectUnpaidSummaryMember() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
-
-        // 検索条件
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
         pmb.setMemberId(3);
 
-        // 戻り値Entityの型
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
-
         // ## Act ##
-        UnpaidSummaryMember member = memberBhv.outsideSql().entityHandling().selectEntity(path, pmb, entityType);
+        UnpaidSummaryMember member = memberBhv.outsideSql().selectEntity(pmb).get();
 
         // ## Assert ##
         log("unpaidSummaryMember=" + member);
@@ -525,19 +493,12 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_selectEntityWithDeletedCheck_selectUnpaidSummaryMember() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
-
-        // 検索条件
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
         pmb.setMemberId(99999);
 
-        // 戻り値Entityの型
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
-
         // ## Act & Assert ##
         try {
-            memberBhv.outsideSql().entityHandling().selectEntityWithDeletedCheck(path, pmb, entityType);
+            memberBhv.outsideSql().selectEntity(pmb).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK
@@ -564,7 +525,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         Class<Timestamp> entityType = Timestamp.class;// *Point!
 
         // ## Act ##
-        Timestamp maxValue = memberBhv.outsideSql().entityHandling().selectEntity(path, pmb, entityType);
+        Timestamp maxValue = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
 
         // ## Assert ##
         log("maxValue=" + maxValue);

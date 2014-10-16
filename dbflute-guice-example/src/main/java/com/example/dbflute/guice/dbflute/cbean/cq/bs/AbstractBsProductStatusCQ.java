@@ -194,7 +194,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {exists (select PRODUCT_STATUS_CODE from PRODUCT where ...)} <br />
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsProductList</span>(new SubQuery&lt;ProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsProduct</span>(new SubQuery&lt;ProductCB&gt;() {
      *     public void query(ProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -202,7 +202,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of ProductList for 'exists'. (NotNull)
      */
-    public void existsProductList(SubQuery<ProductCB> subQuery) {
+    public void existsProduct(SubQuery<ProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -216,7 +216,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {exists (select PRODUCT_STATUS_CODE from SUMMARY_PRODUCT where ...)} <br />
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsSummaryProductList</span>(new SubQuery&lt;SummaryProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsSummaryProduct</span>(new SubQuery&lt;SummaryProductCB&gt;() {
      *     public void query(SummaryProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -224,7 +224,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of SummaryProductList for 'exists'. (NotNull)
      */
-    public void existsSummaryProductList(SubQuery<SummaryProductCB> subQuery) {
+    public void existsSummaryProduct(SubQuery<SummaryProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         SummaryProductCB cb = new SummaryProductCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -238,7 +238,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {not exists (select PRODUCT_STATUS_CODE from PRODUCT where ...)} <br />
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsProductList</span>(new SubQuery&lt;ProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsProduct</span>(new SubQuery&lt;ProductCB&gt;() {
      *     public void query(ProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -246,7 +246,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of ProductStatusCode_NotExistsReferrer_ProductList for 'not exists'. (NotNull)
      */
-    public void notExistsProductList(SubQuery<ProductCB> subQuery) {
+    public void notExistsProduct(SubQuery<ProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -260,7 +260,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {not exists (select PRODUCT_STATUS_CODE from SUMMARY_PRODUCT where ...)} <br />
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsSummaryProductList</span>(new SubQuery&lt;SummaryProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsSummaryProduct</span>(new SubQuery&lt;SummaryProductCB&gt;() {
      *     public void query(SummaryProductCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -268,7 +268,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of ProductStatusCode_NotExistsReferrer_SummaryProductList for 'not exists'. (NotNull)
      */
-    public void notExistsSummaryProductList(SubQuery<SummaryProductCB> subQuery) {
+    public void notExistsSummaryProduct(SubQuery<SummaryProductCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         SummaryProductCB cb = new SummaryProductCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -360,7 +360,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from PRODUCT where ...)} <br />
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedProductList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedProduct()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCB&gt;() {
      *     public void query(ProductCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -369,7 +369,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<ProductCB> derivedProductList() {
+    public HpQDRFunction<ProductCB> derivedProduct() {
         return xcreateQDRFunctionProductList();
     }
     protected HpQDRFunction<ProductCB> xcreateQDRFunctionProductList() {
@@ -394,7 +394,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from SUMMARY_PRODUCT where ...)} <br />
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedSummaryProductList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;SummaryProductCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedSummaryProduct()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;SummaryProductCB&gt;() {
      *     public void query(SummaryProductCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -403,7 +403,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<SummaryProductCB> derivedSummaryProductList() {
+    public HpQDRFunction<SummaryProductCB> derivedSummaryProduct() {
         return xcreateQDRFunctionSummaryProductList();
     }
     protected HpQDRFunction<SummaryProductCB> xcreateQDRFunctionSummaryProductList() {

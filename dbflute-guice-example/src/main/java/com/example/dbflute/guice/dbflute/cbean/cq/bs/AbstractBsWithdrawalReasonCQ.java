@@ -210,7 +210,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberWithdrawal</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
      *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -218,7 +218,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @param subQuery The sub-query of MemberWithdrawalList for 'exists'. (NotNull)
      */
-    public void existsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
+    public void existsMemberWithdrawal(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -232,7 +232,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {not exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberWithdrawal</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
      *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -240,7 +240,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @param subQuery The sub-query of WithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
+    public void notExistsMemberWithdrawal(SubQuery<MemberWithdrawalCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -293,7 +293,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {FOO &lt;= (select max(BAR) from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberWithdrawalList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberWithdrawal()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
      *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -302,7 +302,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberWithdrawalCB> derivedMemberWithdrawalList() {
+    public HpQDRFunction<MemberWithdrawalCB> derivedMemberWithdrawal() {
         return xcreateQDRFunctionMemberWithdrawalList();
     }
     protected HpQDRFunction<MemberWithdrawalCB> xcreateQDRFunctionMemberWithdrawalList() {

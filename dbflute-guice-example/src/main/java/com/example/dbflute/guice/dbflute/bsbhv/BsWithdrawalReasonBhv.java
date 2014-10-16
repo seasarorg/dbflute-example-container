@@ -393,7 +393,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
-     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ReferrerConditionSetupper&lt;MemberWithdrawalCB&gt;() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawal</span>(withdrawalReasonList, new ReferrerConditionSetupper&lt;MemberWithdrawalCB&gt;() {
      *     public void setup(MemberWithdrawalCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -417,16 +417,16 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberWithdrawal> loadMemberWithdrawalList(List<WithdrawalReason> withdrawalReasonList, ReferrerConditionSetupper<MemberWithdrawalCB> setupper) {
+    public NestedReferrerListGateway<MemberWithdrawal> loadMemberWithdrawal(List<WithdrawalReason> withdrawalReasonList, ReferrerConditionSetupper<MemberWithdrawalCB> setupper) {
         xassLRArg(withdrawalReasonList, setupper);
-        return doLoadMemberWithdrawalList(withdrawalReasonList, new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
+        return doLoadMemberWithdrawal(withdrawalReasonList, new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
     }
 
     /**
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
-     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ReferrerConditionSetupper&lt;MemberWithdrawalCB&gt;() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawal</span>(withdrawalReasonList, new ReferrerConditionSetupper&lt;MemberWithdrawalCB&gt;() {
      *     public void setup(MemberWithdrawalCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
@@ -448,12 +448,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberWithdrawal> loadMemberWithdrawalList(WithdrawalReason withdrawalReason, ReferrerConditionSetupper<MemberWithdrawalCB> setupper) {
+    public NestedReferrerListGateway<MemberWithdrawal> loadMemberWithdrawal(WithdrawalReason withdrawalReason, ReferrerConditionSetupper<MemberWithdrawalCB> setupper) {
         xassLRArg(withdrawalReason, setupper);
-        return doLoadMemberWithdrawalList(xnewLRLs(withdrawalReason), new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
+        return doLoadMemberWithdrawal(xnewLRLs(withdrawalReason), new LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal>().xinit(setupper));
     }
 
-    protected NestedReferrerListGateway<MemberWithdrawal> doLoadMemberWithdrawalList(List<WithdrawalReason> withdrawalReasonList, LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal> option) {
+    protected NestedReferrerListGateway<MemberWithdrawal> doLoadMemberWithdrawal(List<WithdrawalReason> withdrawalReasonList, LoadReferrerOption<MemberWithdrawalCB, MemberWithdrawal> option) {
         return helpLoadReferrerInternally(withdrawalReasonList, option, "memberWithdrawalList");
     }
 
@@ -975,7 +975,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<WithdrawalReasonBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<WithdrawalReasonBhv> outsideSql() {
         return doOutsideSql();
     }
 

@@ -155,7 +155,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {exists (select MEMBER_ID from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberAddress</span>(new SubQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,7 +163,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberAddressList for 'exists'. (NotNull)
      */
-    public void existsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
+    public void existsMemberAddress(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -177,7 +177,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {exists (select MY_MEMBER_ID from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberFollowingByMyMemberIdList</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberFollowingByMyMemberId</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -185,7 +185,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberFollowingByMyMemberIdList for 'exists'. (NotNull)
      */
-    public void existsMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
+    public void existsMemberFollowingByMyMemberId(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -199,7 +199,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {exists (select YOUR_MEMBER_ID from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberFollowingByYourMemberIdList</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberFollowingByYourMemberId</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -207,7 +207,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberFollowingByYourMemberIdList for 'exists'. (NotNull)
      */
-    public void existsMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
+    public void existsMemberFollowingByYourMemberId(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -221,7 +221,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {exists (select MEMBER_ID from MEMBER_LOGIN where ...)} <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberLoginList</span>(new SubQuery&lt;MemberLoginCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberLogin</span>(new SubQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -229,7 +229,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberLoginList for 'exists'. (NotNull)
      */
-    public void existsMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
+    public void existsMemberLogin(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -243,7 +243,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {exists (select MEMBER_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -251,7 +251,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of PurchaseList for 'exists'. (NotNull)
      */
-    public void existsPurchaseList(SubQuery<PurchaseCB> subQuery) {
+    public void existsPurchase(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -265,7 +265,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {not exists (select MEMBER_ID from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberAddress</span>(new SubQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -273,7 +273,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberAddressList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
+    public void notExistsMemberAddress(SubQuery<MemberAddressCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -287,7 +287,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {not exists (select MY_MEMBER_ID from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberFollowingByMyMemberIdList</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberFollowingByMyMemberId</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -295,7 +295,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberFollowingByMyMemberIdList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberFollowingByMyMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
+    public void notExistsMemberFollowingByMyMemberId(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -309,7 +309,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {not exists (select YOUR_MEMBER_ID from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberFollowingByYourMemberIdList</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberFollowingByYourMemberId</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -317,7 +317,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberFollowingByYourMemberIdList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberFollowingByYourMemberIdList(SubQuery<MemberFollowingCB> subQuery) {
+    public void notExistsMemberFollowingByYourMemberId(SubQuery<MemberFollowingCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -331,7 +331,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {not exists (select MEMBER_ID from MEMBER_LOGIN where ...)} <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberLoginList</span>(new SubQuery&lt;MemberLoginCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberLogin</span>(new SubQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -339,7 +339,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberId_NotExistsReferrer_MemberLoginList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberLoginList(SubQuery<MemberLoginCB> subQuery) {
+    public void notExistsMemberLogin(SubQuery<MemberLoginCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -353,7 +353,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {not exists (select MEMBER_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -361,7 +361,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @param subQuery The sub-query of MemberId_NotExistsReferrer_PurchaseList for 'not exists'. (NotNull)
      */
-    public void notExistsPurchaseList(SubQuery<PurchaseCB> subQuery) {
+    public void notExistsPurchase(SubQuery<PurchaseCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subQuery.query(cb); } finally { unlock(); }
@@ -570,7 +570,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberAddressList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberAddress()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -579,7 +579,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberAddressCB> derivedMemberAddressList() {
+    public HpQDRFunction<MemberAddressCB> derivedMemberAddress() {
         return xcreateQDRFunctionMemberAddressList();
     }
     protected HpQDRFunction<MemberAddressCB> xcreateQDRFunctionMemberAddressList() {
@@ -604,7 +604,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberFollowingByMyMemberIdList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberFollowingByMyMemberId()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -613,7 +613,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberFollowingCB> derivedMemberFollowingByMyMemberIdList() {
+    public HpQDRFunction<MemberFollowingCB> derivedMemberFollowingByMyMemberId() {
         return xcreateQDRFunctionMemberFollowingByMyMemberIdList();
     }
     protected HpQDRFunction<MemberFollowingCB> xcreateQDRFunctionMemberFollowingByMyMemberIdList() {
@@ -638,7 +638,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_FOLLOWING where ...)} <br />
      * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberFollowingByYourMemberIdList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberFollowingByYourMemberId()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberFollowingCB&gt;() {
      *     public void query(MemberFollowingCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -647,7 +647,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberFollowingCB> derivedMemberFollowingByYourMemberIdList() {
+    public HpQDRFunction<MemberFollowingCB> derivedMemberFollowingByYourMemberId() {
         return xcreateQDRFunctionMemberFollowingByYourMemberIdList();
     }
     protected HpQDRFunction<MemberFollowingCB> xcreateQDRFunctionMemberFollowingByYourMemberIdList() {
@@ -672,7 +672,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_LOGIN where ...)} <br />
      * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberLoginList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberLoginCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberLogin()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -681,7 +681,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberLoginCB> derivedMemberLoginList() {
+    public HpQDRFunction<MemberLoginCB> derivedMemberLogin() {
         return xcreateQDRFunctionMemberLoginList();
     }
     protected HpQDRFunction<MemberLoginCB> xcreateQDRFunctionMemberLoginList() {
@@ -706,7 +706,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from PURCHASE where ...)} <br />
      * (購入)PURCHASE by MEMBER_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedPurchaseList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedPurchase()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -715,7 +715,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<PurchaseCB> derivedPurchaseList() {
+    public HpQDRFunction<PurchaseCB> derivedPurchase() {
         return xcreateQDRFunctionPurchaseList();
     }
     protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionPurchaseList() {

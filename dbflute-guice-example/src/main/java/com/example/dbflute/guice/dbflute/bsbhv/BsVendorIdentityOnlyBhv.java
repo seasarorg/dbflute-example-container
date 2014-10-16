@@ -873,7 +873,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      * </pre>
      * @return The basic executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<VendorIdentityOnlyBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<VendorIdentityOnlyBhv> outsideSql() {
         return doOutsideSql();
     }
 
