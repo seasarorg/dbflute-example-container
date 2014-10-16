@@ -897,7 +897,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<Vendor$DollarBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<Vendor$DollarBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

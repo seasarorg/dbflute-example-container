@@ -1022,7 +1022,8 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<WithdrawalReasonBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<WithdrawalReasonBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

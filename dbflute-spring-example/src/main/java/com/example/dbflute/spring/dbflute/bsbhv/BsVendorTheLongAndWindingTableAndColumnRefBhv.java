@@ -905,7 +905,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<VendorTheLongAndWindingTableAndColumnRefBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<VendorTheLongAndWindingTableAndColumnRefBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

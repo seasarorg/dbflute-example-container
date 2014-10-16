@@ -384,7 +384,8 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<SummaryWithdrawalBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<SummaryWithdrawalBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================
