@@ -889,7 +889,8 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<VendorCheckBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<VendorCheckBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

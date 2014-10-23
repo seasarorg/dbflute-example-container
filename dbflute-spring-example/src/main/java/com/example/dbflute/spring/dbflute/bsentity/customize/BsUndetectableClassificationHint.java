@@ -286,6 +286,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -304,6 +305,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return _memberStatusCode;
     }
 

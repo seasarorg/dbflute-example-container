@@ -15,6 +15,7 @@ import org.seasar.dbflute.cbean.PagingResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
+import org.seasar.dbflute.exception.NonSpecifiedColumnAccessException;
 import org.seasar.dbflute.jdbc.StatementConfig;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.optional.OptionalObjectConsumer;
@@ -676,14 +677,12 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             assertNotNull(member.getMemberId()); // PK
             assertNotNull(member.getMemberName()); // Specified
-            assertNull(member.getMemberAccount());
-            assertNull(member.getBirthdate());
-            assertNull(member.getFormalizedDatetime());
-            assertNull(member.getRegisterDatetime());
-            assertNull(member.getRegisterUser());
-            assertNull(member.getUpdateDatetime());
-            assertNull(member.getUpdateUser());
-            assertNull(member.getVersionNo());
+            try {
+                assertNull(member.getMemberAccount());
+                fail();
+            } catch (NonSpecifiedColumnAccessException e) {
+                log(e.getMessage());
+            }
             assertNotNull(member.getMemberStatusCode()); // SetupSelect FK
             MemberStatus status = member.getMemberStatus().get();
             assertNotNull(status.getMemberStatusCode()); // PK

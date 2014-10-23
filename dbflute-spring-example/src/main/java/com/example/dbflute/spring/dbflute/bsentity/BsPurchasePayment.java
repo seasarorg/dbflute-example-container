@@ -410,6 +410,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchasePaymentId() {
+        checkSpecifiedProperty("purchasePaymentId");
         return _purchasePaymentId;
     }
 
@@ -429,6 +430,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
+        checkSpecifiedProperty("purchaseId");
         return _purchaseId;
     }
 
@@ -448,6 +450,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getPaymentAmount() {
+        checkSpecifiedProperty("paymentAmount");
         return _paymentAmount;
     }
 
@@ -467,6 +470,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getPaymentDatetime() {
+        checkSpecifiedProperty("paymentDatetime");
         return _paymentDatetime;
     }
 
@@ -486,6 +490,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getPaymentMethodCode() {
+        checkSpecifiedProperty("paymentMethodCode");
         return _paymentMethodCode;
     }
 
@@ -505,6 +510,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -522,6 +528,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -539,6 +546,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -556,6 +564,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 

@@ -470,6 +470,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getServiceRankCode() {
+        checkSpecifiedProperty("serviceRankCode");
         return _serviceRankCode;
     }
 
@@ -490,6 +491,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'SERVICE_RANK_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getServiceRankName() {
+        checkSpecifiedProperty("serviceRankName");
         return _serviceRankName;
     }
 
@@ -511,6 +513,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'SERVICE_POINT_INCIDENCE'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getServicePointIncidence() {
+        checkSpecifiedProperty("servicePointIncidence");
         return _servicePointIncidence;
     }
 
@@ -531,6 +534,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if selected: for the constraint)
      */
     public Integer getNewAcceptableFlg() {
+        checkSpecifiedProperty("newAcceptableFlg");
         return _newAcceptableFlg;
     }
 
@@ -551,6 +555,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'DESCRIPTION'. (basically NotNull if selected: for the constraint)
      */
     public String getDescription() {
+        checkSpecifiedProperty("description");
         return _description;
     }
 
@@ -570,6 +575,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
+        checkSpecifiedProperty("displayOrder");
         return _displayOrder;
     }
 

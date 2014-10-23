@@ -445,6 +445,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -464,6 +465,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductName() {
+        checkSpecifiedProperty("productName");
         return _productName;
     }
 
@@ -484,6 +486,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductHandleCode() {
+        checkSpecifiedProperty("productHandleCode");
         return _productHandleCode;
     }
 
@@ -502,6 +505,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryCode() {
+        checkSpecifiedProperty("productCategoryCode");
         return _productCategoryCode;
     }
 
@@ -519,6 +523,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return _productStatusCode;
     }
 
@@ -536,6 +541,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGULAR_PRICE'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegularPrice() {
+        checkSpecifiedProperty("regularPrice");
         return _regularPrice;
     }
 
@@ -553,6 +559,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -570,6 +577,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -587,6 +595,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -604,6 +613,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -621,6 +631,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

@@ -188,6 +188,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
      * @return The value of the column 'VENDOR_$_DOLLAR_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getVendor$DollarId() {
+        checkSpecifiedProperty("vendor$DollarId");
         return _vendor$DollarId;
     }
 
@@ -205,6 +206,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
      * @return The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getVendor$DollarName() {
+        checkSpecifiedProperty("vendor$DollarName");
         return _vendor$DollarName;
     }
 

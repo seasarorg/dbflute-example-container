@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -426,6 +426,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MEMBER_LOGIN_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getMemberLoginId() {
+        checkSpecifiedProperty("memberLoginId");
         return _memberLoginId;
     }
 
@@ -443,6 +444,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -460,6 +462,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getLoginDatetime() {
+        checkSpecifiedProperty("loginDatetime");
         return _loginDatetime;
     }
 
@@ -477,6 +480,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMobileLoginFlg() {
+        checkSpecifiedProperty("mobileLoginFlg");
         return _mobileLoginFlg;
     }
 
@@ -495,6 +499,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginMemberStatusCode() {
+        checkSpecifiedProperty("loginMemberStatusCode");
         return convertEmptyToNull(_loginMemberStatusCode);
     }
 

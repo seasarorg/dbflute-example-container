@@ -344,6 +344,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'VENDOR_CHECK_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getVendorCheckId() {
+        checkSpecifiedProperty("vendorCheckId");
         return _vendorCheckId;
     }
 
@@ -361,6 +362,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_CHAR'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfChar() {
+        checkSpecifiedProperty("typeOfChar");
         return _typeOfChar;
     }
 
@@ -378,6 +380,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_VARCHAR'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfVarchar() {
+        checkSpecifiedProperty("typeOfVarchar");
         return _typeOfVarchar;
     }
 
@@ -395,6 +398,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_CLOB'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfClob() {
+        checkSpecifiedProperty("typeOfClob");
         return _typeOfClob;
     }
 
@@ -412,6 +416,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfText() {
+        checkSpecifiedProperty("typeOfText");
         return _typeOfText;
     }
 
@@ -429,6 +434,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericInteger() {
+        checkSpecifiedProperty("typeOfNumericInteger");
         return _typeOfNumericInteger;
     }
 
@@ -446,6 +452,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigint() {
+        checkSpecifiedProperty("typeOfNumericBigint");
         return _typeOfNumericBigint;
     }
 
@@ -463,6 +470,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericDecimal() {
+        checkSpecifiedProperty("typeOfNumericDecimal");
         return _typeOfNumericDecimal;
     }
 
@@ -480,6 +488,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMin() {
+        checkSpecifiedProperty("typeOfNumericIntegerMin");
         return _typeOfNumericIntegerMin;
     }
 
@@ -497,6 +506,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMax() {
+        checkSpecifiedProperty("typeOfNumericIntegerMax");
         return _typeOfNumericIntegerMax;
     }
 
@@ -514,6 +524,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMin() {
+        checkSpecifiedProperty("typeOfNumericBigintMin");
         return _typeOfNumericBigintMin;
     }
 
@@ -531,6 +542,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMax() {
+        checkSpecifiedProperty("typeOfNumericBigintMax");
         return _typeOfNumericBigintMax;
     }
 
@@ -548,6 +560,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMin() {
+        checkSpecifiedProperty("typeOfNumericSuperintMin");
         return _typeOfNumericSuperintMin;
     }
 
@@ -565,6 +578,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMax() {
+        checkSpecifiedProperty("typeOfNumericSuperintMax");
         return _typeOfNumericSuperintMax;
     }
 
@@ -582,6 +596,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericMaxdecimal() {
+        checkSpecifiedProperty("typeOfNumericMaxdecimal");
         return _typeOfNumericMaxdecimal;
     }
 
@@ -599,6 +614,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_INTEGER'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfInteger() {
+        checkSpecifiedProperty("typeOfInteger");
         return _typeOfInteger;
     }
 
@@ -616,6 +632,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BIGINT'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfBigint() {
+        checkSpecifiedProperty("typeOfBigint");
         return _typeOfBigint;
     }
 
@@ -633,6 +650,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed even if selected: for no constraint)
      */
     public java.util.Date getTypeOfDate() {
+        checkSpecifiedProperty("typeOfDate");
         return _typeOfDate;
     }
 
@@ -650,6 +668,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getTypeOfTimestamp() {
+        checkSpecifiedProperty("typeOfTimestamp");
         return _typeOfTimestamp;
     }
 
@@ -667,6 +686,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Time getTypeOfTime() {
+        checkSpecifiedProperty("typeOfTime");
         return _typeOfTime;
     }
 
@@ -684,6 +704,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed even if selected: for no constraint)
      */
     public Boolean getTypeOfBoolean() {
+        checkSpecifiedProperty("typeOfBoolean");
         return _typeOfBoolean;
     }
 
@@ -701,6 +722,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BINARY'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfBinary() {
+        checkSpecifiedProperty("typeOfBinary");
         return _typeOfBinary;
     }
 
@@ -718,6 +740,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BLOB'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfBlob() {
+        checkSpecifiedProperty("typeOfBlob");
         return _typeOfBlob;
     }
 
@@ -735,6 +758,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_UUID'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfUuid() {
+        checkSpecifiedProperty("typeOfUuid");
         return _typeOfUuid;
     }
 
@@ -752,6 +776,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_ARRAY'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfArray() {
+        checkSpecifiedProperty("typeOfArray");
         return _typeOfArray;
     }
 
@@ -769,6 +794,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_OTHER'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfOther() {
+        checkSpecifiedProperty("typeOfOther");
         return _typeOfOther;
     }
 
@@ -786,6 +812,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'J_A_V_A_BEANS_PROPERTY'. (NullAllowed even if selected: for no constraint)
      */
     public String getJAVABeansProperty() {
+        checkSpecifiedProperty("JAVABeansProperty");
         return _jAVABeansProperty;
     }
 
@@ -803,6 +830,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @return The value of the column 'J_POP_BEANS_PROPERTY'. (NullAllowed even if selected: for no constraint)
      */
     public String getJPopBeansProperty() {
+        checkSpecifiedProperty("JPopBeansProperty");
         return _jPopBeansProperty;
     }
 

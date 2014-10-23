@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -435,6 +435,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -452,6 +453,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductName() {
+        checkSpecifiedProperty("productName");
         return convertEmptyToNull(_productName);
     }
 
@@ -469,6 +471,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductHandleCode() {
+        checkSpecifiedProperty("productHandleCode");
         return convertEmptyToNull(_productHandleCode);
     }
 
@@ -486,6 +489,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryCode() {
+        checkSpecifiedProperty("productCategoryCode");
         return convertEmptyToNull(_productCategoryCode);
     }
 
@@ -503,6 +507,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return convertEmptyToNull(_productStatusCode);
     }
 
@@ -521,6 +526,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGULAR_PRICE'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegularPrice() {
+        checkSpecifiedProperty("regularPrice");
         return _regularPrice;
     }
 
@@ -538,6 +544,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -555,6 +562,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -572,6 +580,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -589,6 +598,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 
@@ -606,6 +616,7 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

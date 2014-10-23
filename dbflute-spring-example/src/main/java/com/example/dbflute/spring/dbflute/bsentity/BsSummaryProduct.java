@@ -345,6 +345,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -362,6 +363,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductName() {
+        checkSpecifiedProperty("productName");
         return _productName;
     }
 
@@ -379,6 +381,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductHandleCode() {
+        checkSpecifiedProperty("productHandleCode");
         return _productHandleCode;
     }
 
@@ -396,6 +399,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return _productStatusCode;
     }
 
@@ -413,6 +417,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getLatestPurchaseDatetime() {
+        checkSpecifiedProperty("latestPurchaseDatetime");
         return _latestPurchaseDatetime;
     }
 

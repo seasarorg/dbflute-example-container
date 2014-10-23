@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.seasar.dbflute.dbmeta.info.ColumnInfo;
 import org.seasar.dbflute.exception.UndefinedClassificationCodeException;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 import org.seasar.dbflute.util.DfReflectionUtil;
 
 import com.example.dbflute.guice.dbflute.bsentity.dbmeta.PurchaseDbm;
@@ -49,7 +49,7 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
         assertTrue(actual.isPaymentCompleteFlgTrue());
-        actual.getMember().required(new OptionalObjectConsumer<Member>() {
+        actual.getMember().alwaysPresent(new OptionalThingConsumer<Member>() {
             public void accept(Member obj) {
                 assertNotNull(obj.getMemberStatusCode());
                 assertNotNull(obj.getMemberStatusCodeAsMemberStatus());
@@ -62,11 +62,7 @@ public class WxForceClassificationSettingTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(3L);
         // because of CheckImplicitSet
-        ColumnInfo paymentCompleteFlg = PurchaseDbm.getInstance().columnPaymentCompleteFlg();
-        String propertyName = paymentCompleteFlg.getPropertyName();
-        Field field = DfReflectionUtil.getWholeField(purchase.getClass(), "_" + propertyName);
-        DfReflectionUtil.setValueForcedly(field, purchase, 99999);
-        purchase.modifiedProperties().add(propertyName);
+        purchase.xznocheckSetPaymentCompleteFlg(99999);
         purchaseBhv.updateNonstrict(purchase);
 
         // ## Act ##

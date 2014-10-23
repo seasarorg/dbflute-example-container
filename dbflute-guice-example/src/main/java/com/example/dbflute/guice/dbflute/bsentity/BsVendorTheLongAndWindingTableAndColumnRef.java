@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -217,6 +217,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getTheLongAndWindingTableAndColumnRefId() {
+        checkSpecifiedProperty("theLongAndWindingTableAndColumnRefId");
         return _theLongAndWindingTableAndColumnRefId;
     }
 
@@ -234,6 +235,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getTheLongAndWindingTableAndColumnId() {
+        checkSpecifiedProperty("theLongAndWindingTableAndColumnId");
         return _theLongAndWindingTableAndColumnId;
     }
 
@@ -251,6 +253,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getTheLongAndWindingTableAndColumnRefDate() {
+        checkSpecifiedProperty("theLongAndWindingTableAndColumnRefDate");
         return _theLongAndWindingTableAndColumnRefDate;
     }
 
@@ -268,6 +271,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * @return The value of the column 'SHORT_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getShortDate() {
+        checkSpecifiedProperty("shortDate");
         return _shortDate;
     }
 

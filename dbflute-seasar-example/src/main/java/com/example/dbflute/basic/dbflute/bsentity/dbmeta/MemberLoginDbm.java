@@ -21,9 +21,9 @@ import java.util.Map;
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
-import org.seasar.dbflute.dbmeta.PropertyGateway;
 import org.seasar.dbflute.dbmeta.info.*;
 import org.seasar.dbflute.dbmeta.name.*;
+import org.seasar.dbflute.dbmeta.property.PropertyGateway;
 import com.example.dbflute.basic.dbflute.allcommon.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
 
@@ -137,7 +137,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_53ED1A4E_D28F_4A22_BCF2_B170E5090259", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4EF828BF_0659_4774_9CC1_7AC8B6DC8BEF", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.sql.Timestamp.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。\n同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)", null, null, null);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, "モバイル機器からのログインか否か。", null, null, CDef.DefMeta.Flg);

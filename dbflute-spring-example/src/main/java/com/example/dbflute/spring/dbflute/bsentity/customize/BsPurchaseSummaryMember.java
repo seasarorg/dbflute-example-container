@@ -213,6 +213,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -233,6 +234,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return _memberName;
     }
 
@@ -253,6 +255,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public java.util.Date getBirthdate() {
+        checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
 
@@ -273,6 +276,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getFormalizedDatetime() {
+        checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
 
@@ -292,6 +296,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @return The value of the column 'PURCHASE_SUMMARY'. (NullAllowed even if selected: for no constraint)
      */
     public Long getPurchaseSummary() {
+        checkSpecifiedProperty("purchaseSummary");
         return _purchaseSummary;
     }
 

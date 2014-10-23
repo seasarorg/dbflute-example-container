@@ -3,13 +3,11 @@
  */
 package com.example.dbflute.cdi.dbflute.bsentity.customize;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 
 /**
@@ -54,7 +52,7 @@ import com.example.dbflute.cdi.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneable {
+public abstract class BsDoubleByteOnSql extends AbstractEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -76,18 +74,6 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
 
     /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     protected String _memberStatusName;
-
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -126,17 +112,6 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
-    }
-
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
@@ -148,148 +123,57 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof BsDoubleByteOnSql)) { return false; }
-        BsDoubleByteOnSql other = (BsDoubleByteOnSql)obj;
-        if (!xSV(getMemberId(), other.getMemberId())) { return false; }
-        if (!xSV(getMemberNameWithSpace(), other.getMemberNameWithSpace())) { return false; }
-        if (!xSV(getMemberStatusName(), other.getMemberStatusName())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof BsDoubleByteOnSql) {
+            BsDoubleByteOnSql other = (BsDoubleByteOnSql)obj;
+            if (!xSV(_memberId, other._memberId)) { return false; }
+            if (!xSV(_memberNameWithSpace, other._memberNameWithSpace)) { return false; }
+            if (!xSV(_memberStatusName, other._memberStatusName)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getMemberId());
-        hs = xCH(hs, getMemberNameWithSpace());
-        hs = xCH(hs, getMemberStatusName());
+        hs = xCH(hs, _memberId);
+        hs = xCH(hs, _memberNameWithSpace);
+        hs = xCH(hs, _memberStatusName);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
+
+    @Override
+    protected String doBuildStringWithRelation(String li) {
+        return "";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        return sb.toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
-        StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getMemberId());
-        sb.append(dm).append(getMemberNameWithSpace());
-        sb.append(dm).append(getMemberStatusName());
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberNameWithSpace));
+        sb.append(dm).append(xfND(_memberStatusName));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         return "";
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public DoubleByteOnSql clone() {
-        try {
-            return (DoubleByteOnSql)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (DoubleByteOnSql)super.clone();
     }
 
     // ===================================================================================
@@ -302,6 +186,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -321,6 +206,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberNameWithSpace() {
+        checkSpecifiedProperty("memberNameWithSpace");
         return _memberNameWithSpace;
     }
 
@@ -338,6 +224,7 @@ public abstract class BsDoubleByteOnSql implements Entity, Serializable, Cloneab
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return _memberStatusName;
     }
 

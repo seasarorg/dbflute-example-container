@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -407,6 +407,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -424,6 +425,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonCode() {
+        checkSpecifiedProperty("withdrawalReasonCode");
         return convertEmptyToNull(_withdrawalReasonCode);
     }
 
@@ -442,6 +444,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonInputText() {
+        checkSpecifiedProperty("withdrawalReasonInputText");
         return convertEmptyToNull(_withdrawalReasonInputText);
     }
 
@@ -459,6 +462,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getWithdrawalDatetime() {
+        checkSpecifiedProperty("withdrawalDatetime");
         return _withdrawalDatetime;
     }
 
@@ -476,6 +480,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -493,6 +498,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -510,6 +516,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -527,6 +534,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 
@@ -544,6 +552,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

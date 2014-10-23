@@ -1010,7 +1010,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<ServiceRankBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<ServiceRankBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

@@ -458,6 +458,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MEMBER_LOGIN_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getMemberLoginId() {
+        checkSpecifiedProperty("memberLoginId");
         return _memberLoginId;
     }
 
@@ -475,6 +476,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -494,6 +496,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLoginDatetime() {
+        checkSpecifiedProperty("loginDatetime");
         return _loginDatetime;
     }
 
@@ -514,6 +517,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMobileLoginFlg() {
+        checkSpecifiedProperty("mobileLoginFlg");
         return _mobileLoginFlg;
     }
 
@@ -534,6 +538,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @return The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginMemberStatusCode() {
+        checkSpecifiedProperty("loginMemberStatusCode");
         return _loginMemberStatusCode;
     }
 

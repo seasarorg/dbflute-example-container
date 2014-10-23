@@ -647,6 +647,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -667,6 +668,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return _memberName;
     }
 
@@ -688,6 +690,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberAccount() {
+        checkSpecifiedProperty("memberAccount");
         return _memberAccount;
     }
 
@@ -709,6 +712,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return _memberStatusCode;
     }
 
@@ -730,6 +734,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getFormalizedDatetime() {
+        checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
 
@@ -750,6 +755,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public java.util.Date getBirthdate() {
+        checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
 
@@ -771,6 +777,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -793,6 +800,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -814,6 +822,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -835,6 +844,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -856,6 +866,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

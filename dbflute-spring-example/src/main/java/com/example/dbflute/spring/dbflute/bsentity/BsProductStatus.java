@@ -348,6 +348,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return _productStatusCode;
     }
 
@@ -367,6 +368,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusName() {
+        checkSpecifiedProperty("productStatusName");
         return _productStatusName;
     }
 
@@ -386,6 +388,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
+        checkSpecifiedProperty("displayOrder");
         return _displayOrder;
     }
 

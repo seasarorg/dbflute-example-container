@@ -185,6 +185,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @return The value of the column 'DATE_TERM_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getDateTermId() {
+        checkSpecifiedProperty("dateTermId");
         return _dateTermId;
     }
 
@@ -202,6 +203,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @return The value of the column 'DATE_TERM_VALUE'. (basically NotNull if selected: for the constraint)
      */
     public String getDateTermValue() {
+        checkSpecifiedProperty("dateTermValue");
         return convertEmptyToNull(_dateTermValue);
     }
 
@@ -219,6 +221,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @return The value of the column 'BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getBeginDate() {
+        checkSpecifiedProperty("beginDate");
         return _beginDate;
     }
 
@@ -236,6 +239,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @return The value of the column 'END_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getEndDate() {
+        checkSpecifiedProperty("endDate");
         return _endDate;
     }
 

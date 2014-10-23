@@ -21,9 +21,9 @@ import java.util.Map;
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
-import org.seasar.dbflute.dbmeta.PropertyGateway;
 import org.seasar.dbflute.dbmeta.info.*;
 import org.seasar.dbflute.dbmeta.name.*;
+import org.seasar.dbflute.dbmeta.property.PropertyGateway;
 import com.example.dbflute.basic.dbflute.allcommon.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
 
@@ -156,7 +156,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B1C4D039_6FCB_4B5D_BB13_7506F20B81FC", false, null, null, null, "purchaseList", null);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C918A037_464C_46FD_8270_4875712AD183", false, null, null, null, "purchaseList", null);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。\n実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜", null, null, null);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, "商品ハンドルコード", String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, false, null, "これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ...", null, null, null);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null);

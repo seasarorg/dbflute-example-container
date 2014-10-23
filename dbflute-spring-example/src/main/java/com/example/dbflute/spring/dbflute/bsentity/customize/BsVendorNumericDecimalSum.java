@@ -180,6 +180,7 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
      * @return The value of the column 'DECIMAL_DIGIT_SUM'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getDecimalDigitSum() {
+        checkSpecifiedProperty("decimalDigitSum");
         return _decimalDigitSum;
     }
 

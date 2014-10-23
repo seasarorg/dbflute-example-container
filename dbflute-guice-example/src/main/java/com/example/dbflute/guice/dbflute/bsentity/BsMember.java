@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -597,6 +597,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -614,6 +615,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return convertEmptyToNull(_memberName);
     }
 
@@ -631,6 +633,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberAccount() {
+        checkSpecifiedProperty("memberAccount");
         return convertEmptyToNull(_memberAccount);
     }
 
@@ -648,6 +651,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return convertEmptyToNull(_memberStatusCode);
     }
 
@@ -666,6 +670,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDateTime getFormalizedDatetime() {
+        checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
 
@@ -683,6 +688,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDate getBirthdate() {
+        checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
 
@@ -700,6 +706,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -717,6 +724,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -734,6 +742,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -751,6 +760,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 
@@ -768,6 +778,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

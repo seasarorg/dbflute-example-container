@@ -284,6 +284,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'VENDOR_CHECK_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Long getVendorCheckId() {
+        checkSpecifiedProperty("vendorCheckId");
         return _vendorCheckId;
     }
 
@@ -301,6 +302,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfText() {
+        checkSpecifiedProperty("typeOfText");
         return _typeOfText;
     }
 
@@ -318,6 +320,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed even if selected: for no constraint)
      */
     public Boolean getTypeOfBoolean() {
+        checkSpecifiedProperty("typeOfBoolean");
         return _typeOfBoolean;
     }
 
@@ -335,6 +338,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericInteger() {
+        checkSpecifiedProperty("typeOfNumericInteger");
         return _typeOfNumericInteger;
     }
 
@@ -352,6 +356,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigint() {
+        checkSpecifiedProperty("typeOfNumericBigint");
         return _typeOfNumericBigint;
     }
 
@@ -369,6 +374,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericDecimal() {
+        checkSpecifiedProperty("typeOfNumericDecimal");
         return _typeOfNumericDecimal;
     }
 
@@ -386,6 +392,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMin() {
+        checkSpecifiedProperty("typeOfNumericIntegerMin");
         return _typeOfNumericIntegerMin;
     }
 
@@ -403,6 +410,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMax() {
+        checkSpecifiedProperty("typeOfNumericIntegerMax");
         return _typeOfNumericIntegerMax;
     }
 
@@ -420,6 +428,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMin() {
+        checkSpecifiedProperty("typeOfNumericBigintMin");
         return _typeOfNumericBigintMin;
     }
 
@@ -437,6 +446,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMax() {
+        checkSpecifiedProperty("typeOfNumericBigintMax");
         return _typeOfNumericBigintMax;
     }
 
@@ -454,6 +464,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMin() {
+        checkSpecifiedProperty("typeOfNumericSuperintMin");
         return _typeOfNumericSuperintMin;
     }
 
@@ -471,6 +482,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMax() {
+        checkSpecifiedProperty("typeOfNumericSuperintMax");
         return _typeOfNumericSuperintMax;
     }
 
@@ -488,6 +500,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericMaxdecimal() {
+        checkSpecifiedProperty("typeOfNumericMaxdecimal");
         return _typeOfNumericMaxdecimal;
     }
 
@@ -505,6 +518,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
      * @return The value of the column 'TYPE_OF_BLOB'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfBlob() {
+        checkSpecifiedProperty("typeOfBlob");
         return _typeOfBlob;
     }
 

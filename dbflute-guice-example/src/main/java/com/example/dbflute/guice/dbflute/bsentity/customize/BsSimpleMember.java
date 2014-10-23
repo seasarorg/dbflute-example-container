@@ -189,6 +189,7 @@ public abstract class BsSimpleMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -206,6 +207,7 @@ public abstract class BsSimpleMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return convertEmptyToNull(_memberName);
     }
 
@@ -223,6 +225,7 @@ public abstract class BsSimpleMember extends AbstractEntity {
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDate getBirthdate() {
+        checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
 
@@ -240,6 +243,7 @@ public abstract class BsSimpleMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return convertEmptyToNull(_memberStatusName);
     }
 

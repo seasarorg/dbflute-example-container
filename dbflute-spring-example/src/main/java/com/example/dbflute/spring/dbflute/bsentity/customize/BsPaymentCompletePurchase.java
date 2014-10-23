@@ -220,6 +220,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'PURCHASE_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Long getPurchaseId() {
+        checkSpecifiedProperty("purchaseId");
         return _purchaseId;
     }
 
@@ -239,6 +240,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -260,6 +262,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return _memberName;
     }
 
@@ -280,6 +283,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -300,6 +304,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductName() {
+        checkSpecifiedProperty("productName");
         return _productName;
     }
 
@@ -320,6 +325,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getPurchaseDatetime() {
+        checkSpecifiedProperty("purchaseDatetime");
         return _purchaseDatetime;
     }
 

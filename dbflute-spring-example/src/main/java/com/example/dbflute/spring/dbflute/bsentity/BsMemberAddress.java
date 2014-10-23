@@ -447,6 +447,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'MEMBER_ADDRESS_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberAddressId() {
+        checkSpecifiedProperty("memberAddressId");
         return _memberAddressId;
     }
 
@@ -468,6 +469,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -489,6 +491,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.util.Date getValidBeginDate() {
+        checkSpecifiedProperty("validBeginDate");
         return _validBeginDate;
     }
 
@@ -510,6 +513,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'VALID_END_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.util.Date getValidEndDate() {
+        checkSpecifiedProperty("validEndDate");
         return _validEndDate;
     }
 
@@ -530,6 +534,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'ADDRESS'. (basically NotNull if selected: for the constraint)
      */
     public String getAddress() {
+        checkSpecifiedProperty("address");
         return _address;
     }
 
@@ -549,6 +554,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
+        checkSpecifiedProperty("regionId");
         return _regionId;
     }
 
@@ -567,6 +573,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -584,6 +591,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -601,6 +609,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -618,6 +627,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -635,6 +645,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

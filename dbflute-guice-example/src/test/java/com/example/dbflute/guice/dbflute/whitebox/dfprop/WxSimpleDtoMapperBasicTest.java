@@ -289,13 +289,13 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
         Member entity = new MemberDtoMapper().mappingToEntity(dto);
 
         // ## Assert ##
-        assertEquals(dto.modifiedProperties().size(), entity.modifiedProperties().size());
-        assertTrue(dto.modifiedProperties().contains("memberId"));
-        assertTrue(entity.modifiedProperties().contains("memberId"));
-        assertTrue(dto.modifiedProperties().contains("birthdate"));
-        assertTrue(entity.modifiedProperties().contains("birthdate"));
-        assertFalse(dto.modifiedProperties().contains("memberName"));
-        assertFalse(entity.modifiedProperties().contains("memberName"));
+        assertEquals(dto.mymodifiedProperties().size(), entity.mymodifiedProperties().size());
+        assertTrue(dto.mymodifiedProperties().contains("memberId"));
+        assertTrue(entity.mymodifiedProperties().contains("memberId"));
+        assertTrue(dto.mymodifiedProperties().contains("birthdate"));
+        assertTrue(entity.mymodifiedProperties().contains("birthdate"));
+        assertFalse(dto.mymodifiedProperties().contains("memberName"));
+        assertFalse(entity.mymodifiedProperties().contains("memberName"));
         assertEquals(Integer.valueOf(3), entity.getMemberId());
         assertNull(entity.getBirthdate());
         assertNull(entity.getMemberName());
@@ -326,7 +326,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
             Member entity = mapper.mappingToEntity(dto);
 
             // ## Assert ##
-            Set<String> propertyNames = entity.modifiedProperties();
+            Set<String> propertyNames = entity.mymodifiedProperties();
             assertEquals(entity.getDBMeta().getColumnInfoList().size(), propertyNames.size());
             if (entity.getBirthdate() == null) {
                 assertTrue(propertyNames.contains("birthdate"));
@@ -362,7 +362,7 @@ public class WxSimpleDtoMapperBasicTest extends UnitContainerTestCase {
             Member entity = mapper.mappingToEntity(dto);
 
             // ## Assert ##
-            Set<String> propertyNames = entity.modifiedProperties();
+            Set<String> propertyNames = entity.mymodifiedProperties();
             if (entity.getBirthdate() == null) {
                 assertFalse(propertyNames.contains("birthdate"));
                 assertNotSame(entity.getDBMeta().getColumnInfoList().size(), propertyNames.size());

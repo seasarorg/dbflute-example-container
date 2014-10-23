@@ -43,7 +43,7 @@ public class WxCheckSelectedClassificationTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
         assertTrue(actual.isPaymentCompleteFlgTrue());
-        actual.getMember().required(new OptionalObjectConsumer<Member>() {
+        actual.getMember().alwaysPresent(new OptionalObjectConsumer<Member>() {
             public void accept(Member member) {
                 assertNotNull(member.getMemberStatusCode());
                 assertNotNull(member.getMemberStatusCodeAsMemberStatus());

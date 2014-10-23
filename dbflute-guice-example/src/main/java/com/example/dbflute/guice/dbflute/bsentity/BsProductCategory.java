@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -259,6 +259,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryCode() {
+        checkSpecifiedProperty("productCategoryCode");
         return convertEmptyToNull(_productCategoryCode);
     }
 
@@ -276,6 +277,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryName() {
+        checkSpecifiedProperty("productCategoryName");
         return convertEmptyToNull(_productCategoryName);
     }
 
@@ -293,6 +295,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getParentCategoryCode() {
+        checkSpecifiedProperty("parentCategoryCode");
         return convertEmptyToNull(_parentCategoryCode);
     }
 

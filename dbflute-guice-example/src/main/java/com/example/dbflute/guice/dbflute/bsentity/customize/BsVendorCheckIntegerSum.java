@@ -165,6 +165,7 @@ public abstract class BsVendorCheckIntegerSum extends AbstractEntity {
      * @return The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getIntegerNonDigitSum() {
+        checkSpecifiedProperty("integerNonDigitSum");
         return _integerNonDigitSum;
     }
 

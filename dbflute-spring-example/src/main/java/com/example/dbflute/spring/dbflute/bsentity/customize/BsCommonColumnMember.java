@@ -221,6 +221,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -241,6 +242,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return _memberName;
     }
 
@@ -263,6 +265,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -285,6 +288,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'REGISTER_USER'. (NullAllowed even if selected: for no constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -306,6 +310,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -327,6 +332,7 @@ public abstract class BsCommonColumnMember extends AbstractEntity {
      * @return The value of the column 'UPDATE_USER'. (NullAllowed even if selected: for no constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 

@@ -264,6 +264,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @return The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getMemberFollowingId() {
+        checkSpecifiedProperty("memberFollowingId");
         return _memberFollowingId;
     }
 
@@ -283,6 +284,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @return The value of the column 'MY_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMyMemberId() {
+        checkSpecifiedProperty("myMemberId");
         return _myMemberId;
     }
 
@@ -302,6 +304,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @return The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getYourMemberId() {
+        checkSpecifiedProperty("yourMemberId");
         return _yourMemberId;
     }
 
@@ -321,6 +324,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @return The value of the column 'FOLLOW_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getFollowDatetime() {
+        checkSpecifiedProperty("followDatetime");
         return _followDatetime;
     }
 

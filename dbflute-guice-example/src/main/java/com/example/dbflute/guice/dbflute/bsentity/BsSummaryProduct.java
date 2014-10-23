@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -335,6 +335,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -352,6 +353,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductName() {
+        checkSpecifiedProperty("productName");
         return convertEmptyToNull(_productName);
     }
 
@@ -369,6 +371,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductHandleCode() {
+        checkSpecifiedProperty("productHandleCode");
         return convertEmptyToNull(_productHandleCode);
     }
 
@@ -386,6 +389,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return convertEmptyToNull(_productStatusCode);
     }
 
@@ -404,6 +408,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDateTime getLatestPurchaseDatetime() {
+        checkSpecifiedProperty("latestPurchaseDatetime");
         return _latestPurchaseDatetime;
     }
 

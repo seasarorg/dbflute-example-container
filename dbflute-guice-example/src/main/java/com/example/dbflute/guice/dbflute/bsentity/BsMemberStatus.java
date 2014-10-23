@@ -337,6 +337,7 @@ public abstract class BsMemberStatus extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return convertEmptyToNull(_memberStatusCode);
     }
 
@@ -355,6 +356,7 @@ public abstract class BsMemberStatus extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return convertEmptyToNull(_memberStatusName);
     }
 
@@ -372,6 +374,7 @@ public abstract class BsMemberStatus extends AbstractEntity {
      * @return The value of the column 'DESCRIPTION'. (basically NotNull if selected: for the constraint)
      */
     public String getDescription() {
+        checkSpecifiedProperty("description");
         return convertEmptyToNull(_description);
     }
 
@@ -389,6 +392,7 @@ public abstract class BsMemberStatus extends AbstractEntity {
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
+        checkSpecifiedProperty("displayOrder");
         return _displayOrder;
     }
 

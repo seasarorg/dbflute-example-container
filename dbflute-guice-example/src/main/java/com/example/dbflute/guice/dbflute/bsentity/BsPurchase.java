@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -513,6 +513,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
+        checkSpecifiedProperty("purchaseId");
         return _purchaseId;
     }
 
@@ -530,6 +531,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -547,6 +549,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PRODUCT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getProductId() {
+        checkSpecifiedProperty("productId");
         return _productId;
     }
 
@@ -564,6 +567,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PURCHASE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getPurchaseDatetime() {
+        checkSpecifiedProperty("purchaseDatetime");
         return _purchaseDatetime;
     }
 
@@ -581,6 +585,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PURCHASE_COUNT'. (basically NotNull if selected: for the constraint)
      */
     public Integer getPurchaseCount() {
+        checkSpecifiedProperty("purchaseCount");
         return _purchaseCount;
     }
 
@@ -598,6 +603,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PURCHASE_PRICE'. (basically NotNull if selected: for the constraint)
      */
     public Integer getPurchasePrice() {
+        checkSpecifiedProperty("purchasePrice");
         return _purchasePrice;
     }
 
@@ -615,6 +621,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'PAYMENT_COMPLETE_FLG'. (basically NotNull if selected: for the constraint)
      */
     public Integer getPaymentCompleteFlg() {
+        checkSpecifiedProperty("paymentCompleteFlg");
         return _paymentCompleteFlg;
     }
 
@@ -633,6 +640,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -650,6 +658,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -667,6 +676,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -684,6 +694,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 
@@ -701,6 +712,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

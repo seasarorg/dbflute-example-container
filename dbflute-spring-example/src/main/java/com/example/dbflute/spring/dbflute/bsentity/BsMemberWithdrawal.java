@@ -421,6 +421,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -440,6 +441,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonCode() {
+        checkSpecifiedProperty("withdrawalReasonCode");
         return _withdrawalReasonCode;
     }
 
@@ -461,6 +463,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonInputText() {
+        checkSpecifiedProperty("withdrawalReasonInputText");
         return _withdrawalReasonInputText;
     }
 
@@ -482,6 +485,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getWithdrawalDatetime() {
+        checkSpecifiedProperty("withdrawalDatetime");
         return _withdrawalDatetime;
     }
 
@@ -501,6 +505,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -518,6 +523,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -535,6 +541,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -552,6 +559,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -569,6 +577,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

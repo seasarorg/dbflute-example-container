@@ -167,6 +167,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
      * @return The value of the column 'PRIMARY_KEY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPrimaryKeyOnlyId() {
+        checkSpecifiedProperty("primaryKeyOnlyId");
         return _primaryKeyOnlyId;
     }
 

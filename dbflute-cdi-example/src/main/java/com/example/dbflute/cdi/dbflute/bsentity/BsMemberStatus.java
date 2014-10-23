@@ -3,13 +3,11 @@
  */
 package com.example.dbflute.cdi.dbflute.bsentity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.cdi.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.cdi.dbflute.allcommon.CDef;
 import com.example.dbflute.cdi.dbflute.exentity.*;
@@ -63,7 +61,7 @@ import com.example.dbflute.cdi.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberStatus implements Entity, Serializable, Cloneable {
+public abstract class BsMemberStatus extends AbstractEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -88,18 +86,6 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
 
     /** (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
     protected Integer _displayOrder;
-
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -148,17 +134,6 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("displayOrder");
         setDisplayOrder(displayOrder);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -299,162 +274,67 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof BsMemberStatus)) { return false; }
-        BsMemberStatus other = (BsMemberStatus)obj;
-        if (!xSV(getMemberStatusCode(), other.getMemberStatusCode())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof BsMemberStatus) {
+            BsMemberStatus other = (BsMemberStatus)obj;
+            if (!xSV(_memberStatusCode, other._memberStatusCode)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getMemberStatusCode());
+        hs = xCH(hs, _memberStatusCode);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        String li = "\n  ";
-        if (_memberList != null) { for (Entity et : _memberList)
+        if (_memberList != null) { for (Member et : _memberList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberList")); } } }
-        if (_memberLoginList != null) { for (Entity et : _memberLoginList)
+        if (_memberLoginList != null) { for (MemberLogin et : _memberLoginList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberLoginList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
-        return et.buildDisplayString(name, true, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getMemberStatusCode());
-        sb.append(dm).append(getMemberStatusName());
-        sb.append(dm).append(getDescription());
-        sb.append(dm).append(getDisplayOrder());
+        sb.append(dm).append(xfND(_memberStatusCode));
+        sb.append(dm).append(xfND(_memberStatusName));
+        sb.append(dm).append(xfND(_description));
+        sb.append(dm).append(xfND(_displayOrder));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        String cm = ",";
         if (_memberList != null && !_memberList.isEmpty())
-        { sb.append(cm).append("memberList"); }
+        { sb.append(dm).append("memberList"); }
         if (_memberLoginList != null && !_memberLoginList.isEmpty())
-        { sb.append(cm).append("memberLoginList"); }
-        if (sb.length() > cm.length()) {
-            sb.delete(0, cm.length()).insert(0, "(").append(")");
+        { sb.append(dm).append("memberLoginList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public MemberStatus clone() {
-        try {
-            return (MemberStatus)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (MemberStatus)super.clone();
     }
 
     // ===================================================================================
@@ -469,6 +349,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return _memberStatusCode;
     }
 
@@ -490,6 +371,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return _memberStatusName;
     }
 
@@ -509,6 +391,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      * @return The value of the column 'DESCRIPTION'. (basically NotNull if selected: for the constraint)
      */
     public String getDescription() {
+        checkSpecifiedProperty("description");
         return _description;
     }
 
@@ -530,6 +413,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
+        checkSpecifiedProperty("displayOrder");
         return _displayOrder;
     }
 

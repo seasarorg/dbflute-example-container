@@ -271,6 +271,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
      * @return The value of the column 'UNPAID_MAN_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUnpaidManId() {
+        checkSpecifiedProperty("unpaidManId");
         return _unpaidManId;
     }
 
@@ -291,6 +292,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
      * @return The value of the column 'UNPAID_MAN_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getUnpaidManName() {
+        checkSpecifiedProperty("unpaidManName");
         return _unpaidManName;
     }
 
@@ -310,6 +312,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
      * @return The value of the column 'UNPAID_PRICE_SUMMARY'. (NullAllowed even if selected: for no constraint)
      */
     public Long getUnpaidPriceSummary() {
+        checkSpecifiedProperty("unpaidPriceSummary");
         return _unpaidPriceSummary;
     }
 
@@ -329,6 +332,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
      * @return The value of the column 'STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getStatusName() {
+        checkSpecifiedProperty("statusName");
         return _statusName;
     }
 

@@ -21,9 +21,9 @@ import java.util.Map;
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
-import org.seasar.dbflute.dbmeta.PropertyGateway;
 import org.seasar.dbflute.dbmeta.info.*;
 import org.seasar.dbflute.dbmeta.name.*;
+import org.seasar.dbflute.dbmeta.property.PropertyGateway;
 import com.example.dbflute.basic.dbflute.allcommon.*;
 import com.example.dbflute.basic.dbflute.exentity.*;
 
@@ -168,7 +168,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_96CEAA94_88AE_45E6_ABD0_66A34F0658AA", false, null, null, null, "purchasePaymentList", null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C94E7C44_0E24_499B_9D13_F33852BBEC64", false, null, null, null, "purchasePaymentList", null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "会員を参照するID。\n購入を識別する自然キー(複合ユニーク制約)の筆頭要素。", "member", null, null);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "あなたは何を買ったのか？", "product,summaryProduct", null, null);
     protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.sql.Timestamp.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "購入した瞬間の日時。", null, null, null);

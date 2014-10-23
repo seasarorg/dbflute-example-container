@@ -197,6 +197,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -215,6 +216,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberNameWithSpace() {
+        checkSpecifiedProperty("memberNameWithSpace");
         return _memberNameWithSpace;
     }
 
@@ -234,6 +236,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return _memberStatusName;
     }
 

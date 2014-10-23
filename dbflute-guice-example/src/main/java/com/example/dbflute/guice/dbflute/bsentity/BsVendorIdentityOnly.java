@@ -167,6 +167,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
      * @return The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getIdentityOnlyId() {
+        checkSpecifiedProperty("identityOnlyId");
         return _identityOnlyId;
     }
 

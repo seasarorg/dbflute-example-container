@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -284,6 +284,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -301,6 +302,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'LOGIN_PASSWORD'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginPassword() {
+        checkSpecifiedProperty("loginPassword");
         return convertEmptyToNull(_loginPassword);
     }
 
@@ -318,6 +320,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_QUESTION'. (basically NotNull if selected: for the constraint)
      */
     public String getReminderQuestion() {
+        checkSpecifiedProperty("reminderQuestion");
         return convertEmptyToNull(_reminderQuestion);
     }
 
@@ -335,6 +338,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_ANSWER'. (basically NotNull if selected: for the constraint)
      */
     public String getReminderAnswer() {
+        checkSpecifiedProperty("reminderAnswer");
         return convertEmptyToNull(_reminderAnswer);
     }
 
@@ -352,6 +356,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_USE_COUNT'. (basically NotNull if selected: for the constraint)
      */
     public Integer getReminderUseCount() {
+        checkSpecifiedProperty("reminderUseCount");
         return _reminderUseCount;
     }
 
@@ -369,6 +374,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -386,6 +392,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -403,6 +410,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -420,6 +428,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 
@@ -437,6 +446,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

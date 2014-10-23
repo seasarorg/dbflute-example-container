@@ -3,14 +3,11 @@
  */
 package com.example.dbflute.cdi.dbflute.bsentity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.Date;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.cdi.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.cdi.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.cdi.dbflute.allcommon.CDef;
@@ -77,7 +74,7 @@ import com.example.dbflute.cdi.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Serializable, Cloneable {
+public abstract class BsMemberAddress extends AbstractEntity implements EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -127,17 +124,8 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
     /** Is common column auto set up effective? */
     protected boolean __canCommonColumnAutoSetup = true;
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -190,17 +178,6 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         setMemberId(memberId);setValidBeginDate(validBeginDate);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
-    }
-
     // ===================================================================================
     //                                                             Classification Property
     //                                                             =======================
@@ -222,7 +199,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setRegionIdAsRegion(CDef.Region cdef) {
-        setRegionId(cdef != null ? FunCustodial.toNumber(cdef.code(), Integer.class) : null);
+        setRegionId(cdef != null ? toNumber(cdef.code(), Integer.class) : null);
     }
 
     // ===================================================================================
@@ -356,51 +333,6 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                       Common Column
     //                                                                       =============
     /**
@@ -427,126 +359,70 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof BsMemberAddress)) { return false; }
-        BsMemberAddress other = (BsMemberAddress)obj;
-        if (!xSV(getMemberAddressId(), other.getMemberAddressId())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof BsMemberAddress) {
+            BsMemberAddress other = (BsMemberAddress)obj;
+            if (!xSV(_memberAddressId, other._memberAddressId)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getMemberAddressId());
+        hs = xCH(hs, _memberAddressId);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        String li = "\n  ";
         if (_member != null)
         { sb.append(li).append(xbRDS(_member, "member")); }
         if (_region != null)
         { sb.append(li).append(xbRDS(_region, "region")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
-        return et.buildDisplayString(name, true, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getMemberAddressId());
-        sb.append(dm).append(getMemberId());
-        sb.append(dm).append(xfUD(getValidBeginDate()));
-        sb.append(dm).append(xfUD(getValidEndDate()));
-        sb.append(dm).append(getAddress());
-        sb.append(dm).append(getRegionId());
-        sb.append(dm).append(getRegisterDatetime());
-        sb.append(dm).append(getRegisterUser());
-        sb.append(dm).append(getUpdateDatetime());
-        sb.append(dm).append(getUpdateUser());
-        sb.append(dm).append(getVersionNo());
+        sb.append(dm).append(xfND(_memberAddressId));
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfUD(_validBeginDate));
+        sb.append(dm).append(xfUD(_validEndDate));
+        sb.append(dm).append(xfND(_address));
+        sb.append(dm).append(xfND(_regionId));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toString(date, xgDP());
-    }
-    protected String xgDP() { // getDatePattern
-        return "yyyy-MM-dd";
-    }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        String cm = ",";
-        if (_member != null) { sb.append(cm).append("member"); }
-        if (_region != null) { sb.append(cm).append("region"); }
-        if (sb.length() > cm.length()) {
-            sb.delete(0, cm.length()).insert(0, "(").append(")");
+        if (_member != null) { sb.append(dm).append("member"); }
+        if (_region != null) { sb.append(dm).append("region"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public MemberAddress clone() {
-        try {
-            return (MemberAddress)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (MemberAddress)super.clone();
     }
 
     // ===================================================================================
@@ -559,6 +435,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'MEMBER_ADDRESS_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberAddressId() {
+        checkSpecifiedProperty("memberAddressId");
         return _memberAddressId;
     }
 
@@ -583,6 +460,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -607,6 +485,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.util.Date getValidBeginDate() {
+        checkSpecifiedProperty("validBeginDate");
         return _validBeginDate;
     }
 
@@ -629,6 +508,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'VALID_END_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.util.Date getValidEndDate() {
+        checkSpecifiedProperty("validEndDate");
         return _validEndDate;
     }
 
@@ -650,6 +530,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'ADDRESS'. (basically NotNull if selected: for the constraint)
      */
     public String getAddress() {
+        checkSpecifiedProperty("address");
         return _address;
     }
 
@@ -671,6 +552,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
+        checkSpecifiedProperty("regionId");
         return _regionId;
     }
 
@@ -691,6 +573,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -708,6 +591,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -725,6 +609,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -742,6 +627,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -759,6 +645,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 

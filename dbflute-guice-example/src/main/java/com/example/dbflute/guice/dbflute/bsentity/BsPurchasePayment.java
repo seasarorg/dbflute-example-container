@@ -3,7 +3,7 @@ package com.example.dbflute.guice.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
+import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
@@ -397,6 +397,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchasePaymentId() {
+        checkSpecifiedProperty("purchasePaymentId");
         return _purchasePaymentId;
     }
 
@@ -414,6 +415,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
+        checkSpecifiedProperty("purchaseId");
         return _purchaseId;
     }
 
@@ -431,6 +433,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getPaymentAmount() {
+        checkSpecifiedProperty("paymentAmount");
         return _paymentAmount;
     }
 
@@ -448,6 +451,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getPaymentDatetime() {
+        checkSpecifiedProperty("paymentDatetime");
         return _paymentDatetime;
     }
 
@@ -465,6 +469,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getPaymentMethodCode() {
+        checkSpecifiedProperty("paymentMethodCode");
         return convertEmptyToNull(_paymentMethodCode);
     }
 
@@ -483,6 +488,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -500,6 +506,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return convertEmptyToNull(_registerUser);
     }
 
@@ -517,6 +524,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -534,6 +542,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return convertEmptyToNull(_updateUser);
     }
 

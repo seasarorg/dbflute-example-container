@@ -397,6 +397,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -414,6 +415,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return convertEmptyToNull(_memberName);
     }
 
@@ -431,6 +433,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDate getBirthdate() {
+        checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
 
@@ -448,6 +451,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDateTime getFormalizedDatetime() {
+        checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
 
@@ -465,6 +469,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return convertEmptyToNull(_memberStatusCode);
     }
 
@@ -483,6 +488,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return convertEmptyToNull(_memberStatusName);
     }
 
@@ -500,6 +506,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'STATUS_DISPLAY_ORDER'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getStatusDisplayOrder() {
+        checkSpecifiedProperty("statusDisplayOrder");
         return _statusDisplayOrder;
     }
 
@@ -517,6 +524,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'DUMMY_FLG'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getDummyFlg() {
+        checkSpecifiedProperty("dummyFlg");
         return _dummyFlg;
     }
 
@@ -535,6 +543,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * @return The value of the column 'DUMMY_NOFLG'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getDummyNoflg() {
+        checkSpecifiedProperty("dummyNoflg");
         return _dummyNoflg;
     }
 

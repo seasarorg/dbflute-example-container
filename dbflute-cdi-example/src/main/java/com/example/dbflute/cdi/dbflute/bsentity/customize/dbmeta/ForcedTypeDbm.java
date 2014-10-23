@@ -9,9 +9,9 @@ import java.util.Map;
 import org.seasar.dbflute.DBDef;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.AbstractDBMeta;
-import org.seasar.dbflute.dbmeta.PropertyGateway;
 import org.seasar.dbflute.dbmeta.info.*;
 import org.seasar.dbflute.dbmeta.name.*;
+import org.seasar.dbflute.dbmeta.property.PropertyGateway;
 import com.example.dbflute.cdi.dbflute.allcommon.*;
 import com.example.dbflute.cdi.dbflute.exentity.customize.*;
 

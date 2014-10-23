@@ -1169,7 +1169,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<PurchaseBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<PurchaseBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

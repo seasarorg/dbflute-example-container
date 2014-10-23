@@ -58,6 +58,9 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         if (DBFluteConfig.getInstance().isPagingCountLeastJoin()) {
             enablePagingCountLeastJoin();
         }
+        if (DBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
+            enableNonSpecifiedColumnAccess();
+        }
         if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }

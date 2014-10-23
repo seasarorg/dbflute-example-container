@@ -309,6 +309,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
+        checkSpecifiedProperty("regionId");
         return _regionId;
     }
 
@@ -326,6 +327,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @return The value of the column 'REGION_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getRegionName() {
+        checkSpecifiedProperty("regionName");
         return convertEmptyToNull(_regionName);
     }
 

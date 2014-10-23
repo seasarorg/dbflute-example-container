@@ -165,6 +165,7 @@ public abstract class BsForcedType extends AbstractEntity {
      * @return The value of the column 'MAX_MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigInteger getMaxMemberId() {
+        checkSpecifiedProperty("maxMemberId");
         return _maxMemberId;
     }
 
