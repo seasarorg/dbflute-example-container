@@ -519,9 +519,9 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_serviceRank != null)
+        if (_serviceRank != null && _serviceRank.isPresent())
         { sb.append(li).append(xbRDS(_serviceRank, "serviceRank")); }
         return sb.toString();
     }

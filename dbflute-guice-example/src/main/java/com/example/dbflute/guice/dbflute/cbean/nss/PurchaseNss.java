@@ -55,4 +55,11 @@ public class PurchaseNss {
         _query.doNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberLoginAsBizManyToOne(); }});
         return new MemberLoginNss(_query.queryMemberLoginAsBizManyToOne());
     }
+    /**
+     * With nested relation columns to select clause. <br />
+     * WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     */
+    public void withWhiteDateTermAsValid() {
+        _query.doNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryWhiteDateTermAsValid(); }});
+    }
 }

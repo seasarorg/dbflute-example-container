@@ -511,9 +511,9 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_productCategory != null)
+        if (_productCategory != null && _productCategory.isPresent())
         { sb.append(li).append(xbRDS(_productCategory, "productCategory")); }
-        if (_productStatus != null)
+        if (_productStatus != null && _productStatus.isPresent())
         { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
         if (_purchaseList != null) { for (Entity et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }

@@ -409,7 +409,7 @@ dl.procedurelist dd.column pre {
 		<td class="aliascell">購入</td>
 		<td><a href="#purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">PURCHASE</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell"><a href="#member" title="FK_PURCHASE_MEMBER">MEMBER</a>, <a href="#product" title="FK_PURCHASE_PRODUCT">PRODUCT</a>, <a href="#summary_product" class="additionalfk" title="FK_PURCHASE_SUMMARY_PRODUCT">SUMMARY_PRODUCT</a>, <a href="#member_login" class="additionalfk" title="FK_PURCHASE_BIZ_MANY_TO_ONE_TEST: fixedCondition=&quot;$$foreignAlias$$.MEMBER_STATUS_CODE = 'PRV'&quot;">MEMBER_LOGIN(AsBizManyToOne)</a></td>
+		<td class="relcell"><a href="#member" title="FK_PURCHASE_MEMBER">MEMBER</a>, <a href="#product" title="FK_PURCHASE_PRODUCT">PRODUCT</a>, <a href="#summary_product" class="additionalfk" title="FK_PURCHASE_SUMMARY_PRODUCT">SUMMARY_PRODUCT</a>, <a href="#member_login" class="additionalfk" title="FK_PURCHASE_BIZ_MANY_TO_ONE_TEST: fixedCondition=&quot;$$foreignAlias$$.MEMBER_STATUS_CODE = 'PRV'&quot;">MEMBER_LOGIN(AsBizManyToOne)</a>, <a href="#white_date_term" class="additionalfk" title="FK_PURCHASE_FIXED_ONLY_BIZ_ONE_TO_ONE_TEST: fixedCondition=&quot;$$foreignAlias$$.BEGIN_DATE &lt;= $$localAlias$$.PURCHASE_DATETIME\n     and $$foreignAlias$$.END_DATE &gt;= $$localAlias$$.PURCHASE_DATETIME&quot;">WHITE_DATE_TERM(AsValid)</a></td>
 		<td class="relcell"><a href="#purchase_payment" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE_PAYMENT</a></td>
 		<td class="commentcell"> 一つの商品に対する購入を表現する(購入履歴とも言える)。<br />実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。</td>
 		<td class="subcell">Purchase</td>
@@ -506,6 +506,16 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">22</td>
+		<td class="aliascell"></td>
+		<td><a href="#white_date_term" title="type=TABLE, primaryKey={DATE_TERM_ID}, nameLength=15, columnCount=4">WHITE_DATE_TERM</a></td>
+		<td class="typecell">TABLE</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="commentcell"> &nbsp;</td>
+		<td class="subcell">WhiteDateTerm</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">23</td>
 		<td class="aliascell">退会理由</td>
 		<td><a href="#withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">WITHDRAWAL_REASON</a></td>
 		<td class="typecell">TABLE</td>
@@ -515,7 +525,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">WithdrawalReason</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">23</td>
+		<td class="rownumcell">24</td>
 		<td class="aliascell"></td>
 		<td><a href="#summary_product" title="type=VIEW, primaryKey={PRODUCT_ID}, nameLength=15, columnCount=5">SUMMARY_PRODUCT</a></td>
 		<td class="typecell">VIEW</td>
@@ -525,7 +535,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">SummaryProduct</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">24</td>
+		<td class="rownumcell">25</td>
 		<td class="aliascell"></td>
 		<td><a href="#summary_withdrawal" title="type=VIEW, primaryKey={}, nameLength=18, columnCount=9">SUMMARY_WITHDRAWAL</a></td>
 		<td class="typecell">VIEW</td>
@@ -3712,6 +3722,98 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="subcell">shortDate</td>
+		<td class="subcell">LocalDate</td>
+	</tr>
+</table>
+  <h2 id="white_date_term" title="type=TABLE, primaryKey={DATE_TERM_ID}, nameLength=15, columnCount=4">
+WHITE_DATE_TERM
+</h2>
+<table summary="Columns in WHITE_DATE_TERM">
+	<thead>
+	<tr>
+		<th class="rownumhead">No.</th>
+		<th>PK</th>
+		<th>ID</th>
+		<th>UQ</th>
+		<th>IX</th>
+		<th>Not<br />Null</th>
+		<th>Alias</th>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Size</th>
+		<th>ForeignTable</th>
+		<th>ReferrerTable</th>
+		<th>Classification</th>
+		<th>PropertyName</th>
+		<th>JavaType</th>
+	</tr>
+	</thead>
+	<tr>
+		<td class="rownumcell">1</td>
+		<td class="flgcell" title="CONSTRAINT_F">o</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell"></td>
+		<td id="white_date_term_date_term_id">DATE_TERM_ID</td>
+		<td class="typecell">DECIMAL</td>
+		<td class="sizecell"> 16 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="subcell">dateTermId</td>
+		<td class="subcell">Long</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">2</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell"></td>
+		<td id="white_date_term_date_term_value">DATE_TERM_VALUE</td>
+		<td class="typecell">VARCHAR</td>
+		<td class="sizecell"> 200 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="subcell">dateTermValue</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">3</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell"></td>
+		<td id="white_date_term_begin_date">BEGIN_DATE</td>
+		<td class="typecell">DATE</td>
+		<td class="sizecell"> 8 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="subcell">beginDate</td>
+		<td class="subcell">LocalDate</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">4</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td class="aliascell"></td>
+		<td id="white_date_term_end_date">END_DATE</td>
+		<td class="typecell">DATE</td>
+		<td class="sizecell"> 8 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="subcell">endDate</td>
 		<td class="subcell">LocalDate</td>
 	</tr>
 </table>

@@ -482,7 +482,7 @@ public abstract class BsPurchasePayment implements EntityDefinedCommonColumn, Se
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_purchase != null)
+        if (_purchase != null && _purchase.isPresent())
         { sb.append(li).append(xbRDS(_purchase, "purchase")); }
         return sb.toString();
     }

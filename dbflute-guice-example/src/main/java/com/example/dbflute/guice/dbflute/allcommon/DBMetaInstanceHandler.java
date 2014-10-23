@@ -54,6 +54,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("VENDOR_PRIMARY_KEY_ONLY", "com.example.dbflute.guice.dbflute.bsentity.dbmeta.VendorPrimaryKeyOnlyDbm");
         tmpMap.put("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN", "com.example.dbflute.guice.dbflute.bsentity.dbmeta.VendorTheLongAndWindingTableAndColumnDbm");
         tmpMap.put("VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "com.example.dbflute.guice.dbflute.bsentity.dbmeta.VendorTheLongAndWindingTableAndColumnRefDbm");
+        tmpMap.put("WHITE_DATE_TERM", "com.example.dbflute.guice.dbflute.bsentity.dbmeta.WhiteDateTermDbm");
         tmpMap.put("WITHDRAWAL_REASON", "com.example.dbflute.guice.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);
     }

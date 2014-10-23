@@ -1,0 +1,14 @@
+map:{
+    ; schemaHtmlFileName = syncworld-schema-exampledb.html
+    ; historyHtmlFileName = syncworld-history-exampledb.html
+    ; coreCraftMetaDirPath = $$DEFAULT$$/syncworld
+
+    ; schemaSyncCheckMap = map:{
+        ; url = jdbc:h2:file:./dfprop/syncworld/syncworlddb
+        ; schema = PUBLIC
+        ; user = sa
+        ; password = 
+        ; resultHtmlFileName = syncworld-sync-check-result.html
+        ; craftMetaDirPath = $$DEFAULT$$/syncworld
+    }
+}

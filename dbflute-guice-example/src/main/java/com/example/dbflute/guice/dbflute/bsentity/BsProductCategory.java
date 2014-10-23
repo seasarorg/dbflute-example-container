@@ -345,7 +345,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_productCategorySelf != null)
+        if (_productCategorySelf != null && _productCategorySelf.isPresent())
         { sb.append(li).append(xbRDS(_productCategorySelf, "productCategorySelf")); }
         if (_productList != null) { for (Entity et : _productList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "productList")); } } }

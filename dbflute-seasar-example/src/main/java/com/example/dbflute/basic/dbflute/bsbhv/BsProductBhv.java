@@ -1271,7 +1271,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<ProductBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<ProductBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

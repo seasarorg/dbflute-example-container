@@ -27,13 +27,13 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne), WHITE_DATE_TERM(AsValid)
  *
  * [referrer table]
  *     PURCHASE_PAYMENT
  *
  * [foreign property]
- *     member, product, summaryProduct, memberLoginAsBizManyToOne
+ *     member, product, summaryProduct, memberLoginAsBizManyToOne, whiteDateTermAsValid
  *
  * [referrer property]
  *     purchasePaymentList
@@ -106,6 +106,14 @@ public class LoaderOfPurchase {
         List<MemberLogin> pulledList = myBhv().pulloutMemberLoginAsBizManyToOne(_selectedList);
         _foreignMemberLoginAsBizManyToOneLoader = new LoaderOfMemberLogin().ready(pulledList, _selector);
         return _foreignMemberLoginAsBizManyToOneLoader;
+    }
+
+    protected LoaderOfWhiteDateTerm _foreignWhiteDateTermAsValidLoader;
+    public LoaderOfWhiteDateTerm pulloutWhiteDateTermAsValid() {
+        if (_foreignWhiteDateTermAsValidLoader != null) { return _foreignWhiteDateTermAsValidLoader; }
+        List<WhiteDateTerm> pulledList = myBhv().pulloutWhiteDateTermAsValid(_selectedList);
+        _foreignWhiteDateTermAsValidLoader = new LoaderOfWhiteDateTerm().ready(pulledList, _selector);
+        return _foreignWhiteDateTermAsValidLoader;
     }
 
     // ===================================================================================

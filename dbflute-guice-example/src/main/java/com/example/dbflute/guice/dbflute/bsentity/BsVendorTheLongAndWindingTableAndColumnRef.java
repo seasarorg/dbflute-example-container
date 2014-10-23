@@ -310,7 +310,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_vendorTheLongAndWindingTableAndColumn != null)
+        if (_vendorTheLongAndWindingTableAndColumn != null && _vendorTheLongAndWindingTableAndColumn.isPresent())
         { sb.append(li).append(xbRDS(_vendorTheLongAndWindingTableAndColumn, "vendorTheLongAndWindingTableAndColumn")); }
         return sb.toString();
     }

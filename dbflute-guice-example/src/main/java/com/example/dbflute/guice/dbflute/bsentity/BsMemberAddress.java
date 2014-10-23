@@ -512,9 +512,9 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_region != null)
+        if (_region != null && _region.isPresent())
         { sb.append(li).append(xbRDS(_region, "region")); }
         return sb.toString();
     }

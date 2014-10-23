@@ -36,7 +36,7 @@ import com.example.dbflute.spring.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.7.0 (2010/05/23 Sunday)
  */
-public class WxParameterCommentTest extends UnitContainerTestCase {
+public class WxSql2EntityParameterCommentTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

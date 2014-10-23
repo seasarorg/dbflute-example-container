@@ -34,13 +34,13 @@ import com.example.dbflute.guice.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne), WHITE_DATE_TERM(AsValid)
  *
  * [referrer table]
  *     PURCHASE_PAYMENT
  *
  * [foreign property]
- *     member, product, summaryProduct, memberLoginAsBizManyToOne
+ *     member, product, summaryProduct, memberLoginAsBizManyToOne, whiteDateTermAsValid
  *
  * [referrer property]
  *     purchasePaymentList
@@ -509,6 +509,14 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      */
     public List<MemberLogin> pulloutMemberLoginAsBizManyToOne(List<Purchase> purchaseList)
     { return helpPulloutInternally(purchaseList, "memberLoginAsBizManyToOne"); }
+
+    /**
+     * Pull out the list of foreign table 'WhiteDateTerm'.
+     * @param purchaseList The list of purchase. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<WhiteDateTerm> pulloutWhiteDateTermAsValid(List<Purchase> purchaseList)
+    { return helpPulloutInternally(purchaseList, "whiteDateTermAsValid"); }
 
     // ===================================================================================
     //                                                                      Extract Column

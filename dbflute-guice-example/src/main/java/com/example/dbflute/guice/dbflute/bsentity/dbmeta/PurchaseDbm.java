@@ -120,6 +120,7 @@ public class PurchaseDbm extends AbstractDBMeta {
         setupEfpg(_efpgMap, new EfpgProduct(), "product");
         setupEfpg(_efpgMap, new EfpgSummaryProduct(), "summaryProduct");
         setupEfpg(_efpgMap, new EfpgMemberLoginAsBizManyToOne(), "memberLoginAsBizManyToOne");
+        setupEfpg(_efpgMap, new EfpgWhiteDateTermAsValid(), "whiteDateTermAsValid");
     }
     public class EfpgMember implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getMember(); }
@@ -141,6 +142,11 @@ public class PurchaseDbm extends AbstractDBMeta {
         @SuppressWarnings("unchecked")
         public void write(Entity et, Object vl) { ((Purchase)et).setMemberLoginAsBizManyToOne((OptionalEntity<MemberLogin>)vl); }
     }
+    public class EfpgWhiteDateTermAsValid implements PropertyGateway {
+        public Object read(Entity et) { return ((Purchase)et).getWhiteDateTermAsValid(); }
+        @SuppressWarnings("unchecked")
+        public void write(Entity et, Object vl) { ((Purchase)et).setWhiteDateTermAsValid((OptionalEntity<WhiteDateTerm>)vl); }
+    }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
 
@@ -160,7 +166,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_3C9DFD7B_E3FA_4509_95C5_790E56319520", false, null, null, null, "purchasePaymentList", null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_87BEC19E_687B_4055_9DC6_7AFB214EBBDA", false, null, null, null, "purchasePaymentList", null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member,memberLoginAsBizManyToOne", null, null);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "product,summaryProduct", null, null);
     protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", org.joda.time.LocalDateTime.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
@@ -302,6 +308,14 @@ public class PurchaseDbm extends AbstractDBMeta {
     public ForeignInfo foreignMemberLoginAsBizManyToOne() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberLoginDbm.getInstance().columnMemberId());
         return cfi("FK_PURCHASE_BIZ_MANY_TO_ONE_TEST", "memberLoginAsBizManyToOne", this, MemberLoginDbm.getInstance(), mp, 3, org.seasar.dbflute.optional.OptionalEntity.class, false, false, false, true, "$$foreignAlias$$.MEMBER_STATUS_CODE = 'PRV'", null, false, null);
+    }
+    /**
+     * WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignWhiteDateTermAsValid() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMapSized(4);
+        return cfi("FK_PURCHASE_FIXED_ONLY_BIZ_ONE_TO_ONE_TEST", "whiteDateTermAsValid", this, WhiteDateTermDbm.getInstance(), mp, 4, org.seasar.dbflute.optional.OptionalEntity.class, false, false, false, true, "$$foreignAlias$$.BEGIN_DATE <= $$localAlias$$.PURCHASE_DATETIME\n     and $$foreignAlias$$.END_DATE >= $$localAlias$$.PURCHASE_DATETIME", null, false, null);
     }
 
     // -----------------------------------------------------

@@ -62,5 +62,17 @@ map:{
         ; fixedCondition = $$foreignAlias$$.MEMBER_STATUS_CODE = 'PRV'
         ; fixedSuffix = AsBizManyToOne
     }
+
+    #
+    # for the test of fixed-only biz-one-to-one
+    #
+    ; FK_PURCHASE_FIXED_ONLY_BIZ_ONE_TO_ONE_TEST = map:{
+        ; localTableName  = PURCHASE ; foreignTableName  = WHITE_DATE_TERM
+        ; fixedCondition =
+         $$foreignAlias$$.BEGIN_DATE <= $$localAlias$$.PURCHASE_DATETIME
+     and $$foreignAlias$$.END_DATE >= $$localAlias$$.PURCHASE_DATETIME
+        ; fixedSuffix = AsValid
+        ; fixedOnlyJoin = true
+    }
 }
 # ----------------/

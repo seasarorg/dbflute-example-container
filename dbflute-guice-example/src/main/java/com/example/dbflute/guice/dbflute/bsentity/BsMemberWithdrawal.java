@@ -489,9 +489,9 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_withdrawalReason != null)
+        if (_withdrawalReason != null && _withdrawalReason.isPresent())
         { sb.append(li).append(xbRDS(_withdrawalReason, "withdrawalReason")); }
         return sb.toString();
     }

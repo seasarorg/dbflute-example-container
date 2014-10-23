@@ -368,7 +368,7 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
         return sb.toString();
     }

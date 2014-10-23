@@ -386,6 +386,9 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
         if (bq.hasConditionQueryMemberLoginAsBizManyToOne()) {
             uq.queryMemberLoginAsBizManyToOne().reflectRelationOnUnionQuery(bq.queryMemberLoginAsBizManyToOne(), uq.queryMemberLoginAsBizManyToOne());
         }
+        if (bq.hasConditionQueryWhiteDateTermAsValid()) {
+            uq.queryWhiteDateTermAsValid().reflectRelationOnUnionQuery(bq.queryWhiteDateTermAsValid(), uq.queryWhiteDateTermAsValid());
+        }
     }
 
     // ===================================================================================
@@ -470,6 +473,26 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     }
     protected void xsetupOuterJoinMemberLoginAsBizManyToOne() { xregOutJo("memberLoginAsBizManyToOne"); }
     public boolean hasConditionQueryMemberLoginAsBizManyToOne() { return xhasQueRlMap("memberLoginAsBizManyToOne"); }
+
+    /**
+     * Get the condition-query for relation table. <br />
+     * WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public WhiteDateTermCQ queryWhiteDateTermAsValid() {
+        return getConditionQueryWhiteDateTermAsValid();
+    }
+    public WhiteDateTermCQ getConditionQueryWhiteDateTermAsValid() {
+        String prop = "whiteDateTermAsValid";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryWhiteDateTermAsValid()); xsetupOuterJoinWhiteDateTermAsValid(); }
+        return xgetQueRlMap(prop);
+    }
+    protected WhiteDateTermCQ xcreateQueryWhiteDateTermAsValid() {
+        String nrp = xresolveNRP("PURCHASE", "whiteDateTermAsValid"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new WhiteDateTermCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "whiteDateTermAsValid", nrp);
+    }
+    protected void xsetupOuterJoinWhiteDateTermAsValid() { xregOutJo("whiteDateTermAsValid"); }
+    public boolean hasConditionQueryWhiteDateTermAsValid() { return xhasQueRlMap("whiteDateTermAsValid"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

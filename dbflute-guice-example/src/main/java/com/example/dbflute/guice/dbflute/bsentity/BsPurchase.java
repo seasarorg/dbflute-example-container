@@ -33,13 +33,13 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  *     VERSION_NO
  * 
  * [foreign table]
- *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne), WHITE_DATE_TERM(AsValid)
  * 
  * [referrer table]
  *     PURCHASE_PAYMENT
  * 
  * [foreign property]
- *     member, product, summaryProduct, memberLoginAsBizManyToOne
+ *     member, product, summaryProduct, memberLoginAsBizManyToOne, whiteDateTermAsValid
  * 
  * [referrer property]
  *     purchasePaymentList
@@ -374,6 +374,25 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         _memberLoginAsBizManyToOne = memberLoginAsBizManyToOne;
     }
 
+    /** WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'. */
+    protected OptionalEntity<WhiteDateTerm> _whiteDateTermAsValid;
+
+    /**
+     * [get] WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     * @return The entity of foreign property 'whiteDateTermAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<WhiteDateTerm> getWhiteDateTermAsValid() {
+        if (_whiteDateTermAsValid != null) { return _whiteDateTermAsValid; } else { return OptionalEntity.relationEmpty(this, "whiteDateTermAsValid"); }
+    }
+
+    /**
+     * [set] WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     * @param whiteDateTermAsValid The entity of foreign property 'whiteDateTermAsValid'. (NullAllowed)
+     */
+    public void setWhiteDateTermAsValid(OptionalEntity<WhiteDateTerm> whiteDateTermAsValid) {
+        _whiteDateTermAsValid = whiteDateTermAsValid;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -560,14 +579,16 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_product != null)
+        if (_product != null && _product.isPresent())
         { sb.append(li).append(xbRDS(_product, "product")); }
-        if (_summaryProduct != null)
+        if (_summaryProduct != null && _summaryProduct.isPresent())
         { sb.append(li).append(xbRDS(_summaryProduct, "summaryProduct")); }
-        if (_memberLoginAsBizManyToOne != null)
+        if (_memberLoginAsBizManyToOne != null && _memberLoginAsBizManyToOne.isPresent())
         { sb.append(li).append(xbRDS(_memberLoginAsBizManyToOne, "memberLoginAsBizManyToOne")); }
+        if (_whiteDateTermAsValid != null && _whiteDateTermAsValid.isPresent())
+        { sb.append(li).append(xbRDS(_whiteDateTermAsValid, "whiteDateTermAsValid")); }
         if (_purchasePaymentList != null) { for (Entity et : _purchasePaymentList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchasePaymentList")); } } }
         return sb.toString();
@@ -618,6 +639,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
         if (_product != null) { sb.append(cm).append("product"); }
         if (_summaryProduct != null) { sb.append(cm).append("summaryProduct"); }
         if (_memberLoginAsBizManyToOne != null) { sb.append(cm).append("memberLoginAsBizManyToOne"); }
+        if (_whiteDateTermAsValid != null) { sb.append(cm).append("whiteDateTermAsValid"); }
         if (_purchasePaymentList != null && !_purchasePaymentList.isEmpty())
         { sb.append(cm).append("purchasePaymentList"); }
         if (sb.length() > cm.length()) {

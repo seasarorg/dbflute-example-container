@@ -423,7 +423,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_productStatus != null)
+        if (_productStatus != null && _productStatus.isPresent())
         { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
         if (_purchaseList != null) { for (Entity et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }

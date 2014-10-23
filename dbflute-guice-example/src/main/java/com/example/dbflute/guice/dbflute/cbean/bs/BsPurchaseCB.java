@@ -377,6 +377,22 @@ public class BsPurchaseCB extends AbstractConditionBean {
         return _nssMemberLoginAsBizManyToOne;
     }
 
+    /**
+     * Set up relation columns to select clause. <br />
+     * WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+     * <pre>
+     * PurchaseCB cb = new PurchaseCB();
+     * cb.<span style="color: #DD4747">setupSelect_WhiteDateTermAsValid()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.query().setFoo...(value);
+     * Purchase purchase = purchaseBhv.selectEntityWithDeletedCheck(cb);
+     * ... = purchase.<span style="color: #DD4747">getWhiteDateTermAsValid()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * </pre>
+     */
+    public void setupSelect_WhiteDateTermAsValid() {
+        assertSetupSelectPurpose("whiteDateTermAsValid");
+        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryWhiteDateTermAsValid(); } });
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -423,6 +439,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         protected ProductCB.HpSpecification _product;
         protected SummaryProductCB.HpSpecification _summaryProduct;
         protected MemberLoginCB.HpSpecification _memberLoginAsBizManyToOne;
+        protected WhiteDateTermCB.HpSpecification _whiteDateTermAsValid;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<PurchaseCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
@@ -593,6 +610,27 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 }
             }
             return _memberLoginAsBizManyToOne;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br />
+         * WHITE_DATE_TERM by my , named 'whiteDateTermAsValid'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public WhiteDateTermCB.HpSpecification specifyWhiteDateTermAsValid() {
+            assertRelation("whiteDateTermAsValid");
+            if (_whiteDateTermAsValid == null) {
+                _whiteDateTermAsValid = new WhiteDateTermCB.HpSpecification(_baseCB, new HpSpQyCall<WhiteDateTermCQ>() {
+                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryWhiteDateTermAsValid(); }
+                    public WhiteDateTermCQ qy() { return _qyCall.qy().queryWhiteDateTermAsValid(); } }
+                    , _purpose, _dbmetaProvider);
+                if (xhasSyncQyCall()) { // inherits it
+                    _whiteDateTermAsValid.xsetSyncQyCall(new HpSpQyCall<WhiteDateTermCQ>() {
+                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryWhiteDateTermAsValid(); }
+                        public WhiteDateTermCQ qy() { return xsyncQyCall().qy().queryWhiteDateTermAsValid(); }
+                    });
+                }
+            }
+            return _whiteDateTermAsValid;
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />

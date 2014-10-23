@@ -342,9 +342,9 @@ public abstract class BsMemberFollowing implements Entity, Serializable, Cloneab
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
         String li = "\n  ";
-        if (_memberByMyMemberId != null)
+        if (_memberByMyMemberId != null && _memberByMyMemberId.isPresent())
         { sb.append(li).append(xbRDS(_memberByMyMemberId, "memberByMyMemberId")); }
-        if (_memberByYourMemberId != null)
+        if (_memberByYourMemberId != null && _memberByYourMemberId.isPresent())
         { sb.append(li).append(xbRDS(_memberByYourMemberId, "memberByYourMemberId")); }
         return sb.toString();
     }

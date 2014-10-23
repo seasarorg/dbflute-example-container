@@ -21,14 +21,6 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    #
-    # migtojava8
-    # *also littleAdjustmentMap.dfprop
-    #
-    ; isRequiredSqlTitle = false
-    ; isRequiredSqlDescription = false
-    ; isCheckRequiredSqlCommentAlsoSql2Entity = false
-
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isGenerateProcedureParameterBean: (NotRequired - Default false)
     #   [true]

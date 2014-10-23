@@ -13,8 +13,8 @@
 	<inceptionYear>2006</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.0.5M-00-SNAPSHOT</dbflute.version>
-		<h2.jdbc.version>1.4.181</h2.jdbc.version>
+		<dbflute.version>1.0.5M-RC1</dbflute.version>
+		<h2.jdbc.version>1.4.182</h2.jdbc.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<utflute.version>0.4.8</utflute.version>
 	</properties>

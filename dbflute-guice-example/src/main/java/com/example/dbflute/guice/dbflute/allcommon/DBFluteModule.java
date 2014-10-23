@@ -178,6 +178,11 @@ public class DBFluteModule extends AbstractModule {
             bind(VendorTheLongAndWindingTableAndColumnRefBhv.class).toInstance(bhv);
         }
         {
+            WhiteDateTermBhv bhv = new WhiteDateTermBhv();
+            bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
+            bind(WhiteDateTermBhv.class).toInstance(bhv);
+        }
+        {
             WithdrawalReasonBhv bhv = new WithdrawalReasonBhv();
             bhv.setBehaviorCommandInvoker(ker); bhv.setBehaviorSelector(tor); bhv.setCommonColumnAutoSetupper(per);
             bind(WithdrawalReasonBhv.class).toInstance(bhv);

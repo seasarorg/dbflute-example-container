@@ -28,13 +28,13 @@ import com.example.dbflute.guice.simpleflute.dto.*;
  *     VERSION_NO
  * 
  * [foreign-table]
- *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne)
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT, MEMBER_LOGIN(AsBizManyToOne), WHITE_DATE_TERM(AsValid)
  * 
  * [referrer-table]
  *     PURCHASE_PAYMENT
  * 
  * [foreign-property]
- *     member, product, summaryProduct, memberLoginAsBizManyToOne
+ *     member, product, summaryProduct, memberLoginAsBizManyToOne, whiteDateTermAsValid
  * 
  * [referrer-property]
  *     purchasePaymentList
@@ -223,6 +223,16 @@ public abstract class BsPurchaseDto implements Serializable {
 
     public void setMemberLoginAsBizManyToOne(MemberLoginDto memberLoginAsBizManyToOne) {
         this._memberLoginAsBizManyToOne = memberLoginAsBizManyToOne;
+    }
+
+    protected WhiteDateTermDto _whiteDateTermAsValid;
+
+    public WhiteDateTermDto getWhiteDateTermAsValid() {
+        return _whiteDateTermAsValid;
+    }
+
+    public void setWhiteDateTermAsValid(WhiteDateTermDto whiteDateTermAsValid) {
+        this._whiteDateTermAsValid = whiteDateTermAsValid;
     }
 
     // ===================================================================================
