@@ -202,7 +202,7 @@ public abstract class BsSimpleVendorCheckDtoMapper implements DtoMapper<SimpleVe
      * @return The determination, true or false.
      */
     protected boolean needsMapping(SimpleVendorCheckDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

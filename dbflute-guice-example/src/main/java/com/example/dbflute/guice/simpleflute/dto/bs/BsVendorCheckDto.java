@@ -187,7 +187,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     // ===================================================================================
     //                                                                 Modified Properties
     //                                                                 ===================
-    public Set<String> modifiedProperties() {
+    public Set<String> mymodifiedProperties() {
         return __modifiedProperties;
     }
 

@@ -244,7 +244,7 @@ public abstract class BsMemberStatusDtoMapper implements DtoMapper<MemberStatus,
      * @return The determination, true or false.
      */
     protected boolean needsMapping(MemberStatusDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

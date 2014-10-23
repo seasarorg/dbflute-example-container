@@ -102,7 +102,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     // ===================================================================================
     //                                                                 Modified Properties
     //                                                                 ===================
-    public Set<String> modifiedProperties() {
+    public Set<String> mymodifiedProperties() {
         return __modifiedProperties;
     }
 

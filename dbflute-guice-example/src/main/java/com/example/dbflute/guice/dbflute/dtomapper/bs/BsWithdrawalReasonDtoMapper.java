@@ -211,7 +211,7 @@ public abstract class BsWithdrawalReasonDtoMapper implements DtoMapper<Withdrawa
      * @return The determination, true or false.
      */
     protected boolean needsMapping(WithdrawalReasonDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

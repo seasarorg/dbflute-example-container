@@ -150,7 +150,7 @@ public abstract class BsVendorCheckDecimalSumDtoMapper implements DtoMapper<Vend
      * @return The determination, true or false.
      */
     protected boolean needsMapping(VendorCheckDecimalSumDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

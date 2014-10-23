@@ -207,7 +207,7 @@ public abstract class BsRegionDtoMapper implements DtoMapper<Region, RegionDto>,
      * @return The determination, true or false.
      */
     protected boolean needsMapping(RegionDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

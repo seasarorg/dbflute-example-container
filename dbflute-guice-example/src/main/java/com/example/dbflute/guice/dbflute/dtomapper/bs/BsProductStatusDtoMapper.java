@@ -240,7 +240,7 @@ public abstract class BsProductStatusDtoMapper implements DtoMapper<ProductStatu
      * @return The determination, true or false.
      */
     protected boolean needsMapping(ProductStatusDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }

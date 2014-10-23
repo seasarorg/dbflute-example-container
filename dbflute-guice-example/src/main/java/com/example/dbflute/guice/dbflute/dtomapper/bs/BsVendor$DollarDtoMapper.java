@@ -154,7 +154,7 @@ public abstract class BsVendor$DollarDtoMapper implements DtoMapper<Vendor$Dolla
      * @return The determination, true or false.
      */
     protected boolean needsMapping(Vendor$DollarDto dto, Object value, String propName) {
-        Set<String> modifiedProperties = dto.modifiedProperties();
+        Set<String> modifiedProperties = dto.mymodifiedProperties();
         if (modifiedProperties.isEmpty()) {
             return isMappingToEntityContainsNull() || value != null;
         }
