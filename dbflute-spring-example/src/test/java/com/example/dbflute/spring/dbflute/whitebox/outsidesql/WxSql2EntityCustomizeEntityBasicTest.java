@@ -17,10 +17,10 @@ public class WxSql2EntityCustomizeEntityBasicTest extends PlainTestCase {
         // ## Arrange ##
         UndetectableClassificationHint hint = new UndetectableClassificationHint();
 
-//        // ## Act ##
-//        hint.setMemberStatusCode_Formalized(); // expects generated
-//
-//        // ## Assert ##
-//        assertTrue(hint.isMemberStatusCodeFormalized());
+        // ## Act ##
+        hint.setMemberStatusCode_Formalized(); // expects generated
+
+        // ## Assert ##
+        assertTrue(hint.isMemberStatusCodeFormalized());
     }
 }
