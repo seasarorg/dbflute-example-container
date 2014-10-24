@@ -1,7 +1,7 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
 import org.seasar.dbflute.cbean.ListResultBean;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
@@ -31,7 +31,7 @@ public class WxAdditionalForeignKeyFixedOnlyJoinTest extends UnitContainerTestCa
         // ## Assert ##
         assertHasAnyElement(purchaseList);
         for (final Purchase purchase : purchaseList) {
-            purchase.getWhiteDateTermAsValid().alwaysPresent(new OptionalObjectConsumer<WhiteDateTerm>() {
+            purchase.getWhiteDateTermAsValid().alwaysPresent(new OptionalThingConsumer<WhiteDateTerm>() {
                 public void accept(WhiteDateTerm term) {
                     log(purchase.getPurchaseId(), purchase.getPurchaseDatetime(), term);
                 }
@@ -55,7 +55,7 @@ public class WxAdditionalForeignKeyFixedOnlyJoinTest extends UnitContainerTestCa
         // ## Assert ##
         assertHasAnyElement(purchaseList);
         for (final Purchase purchase : purchaseList) {
-            purchase.getWhiteDateTermAsValid().alwaysPresent(new OptionalObjectConsumer<WhiteDateTerm>() {
+            purchase.getWhiteDateTermAsValid().alwaysPresent(new OptionalThingConsumer<WhiteDateTerm>() {
                 public void accept(WhiteDateTerm term) {
                     log(purchase.getPurchaseId(), purchase.getPurchaseDatetime(), term);
                 }

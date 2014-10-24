@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.exception.SelectEntityConditionNotFoundException;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
@@ -136,7 +136,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotSame(0, memberList.size());
         for (final Member member : memberList) {
-            member.getMemberStatus().required(new OptionalObjectConsumer<MemberStatus>() {
+            member.getMemberStatus().alwaysPresent(new OptionalThingConsumer<MemberStatus>() {
                 public void accept(MemberStatus status) {
                     assertNotNull("NotNull制約のFKなのでnullはありえない", status);
                     log(member.getMemberName() + ", " + status.getMemberStatusName());
@@ -177,7 +177,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalThingConsumer<MemberWithdrawal>() {
                 public void accept(MemberWithdrawal withdrawal) { // {1 : 0...1}の関連なのでnullチェック
                     log("    [MEMBER_WITHDRAWAL]: " + withdrawal);
                     markHere("exists");

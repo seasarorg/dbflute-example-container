@@ -1,6 +1,6 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
@@ -43,7 +43,7 @@ public class WxCheckSelectedClassificationTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(actual.getPaymentCompleteFlg());
         assertTrue(actual.isPaymentCompleteFlgTrue());
-        actual.getMember().alwaysPresent(new OptionalObjectConsumer<Member>() {
+        actual.getMember().alwaysPresent(new OptionalThingConsumer<Member>() {
             public void accept(Member member) {
                 assertNotNull(member.getMemberStatusCode());
                 assertNotNull(member.getMemberStatusCodeAsMemberStatus());

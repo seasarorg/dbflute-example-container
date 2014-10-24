@@ -18,7 +18,7 @@ import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.exception.NonSpecifiedColumnAccessException;
 import org.seasar.dbflute.jdbc.StatementConfig;
 import org.seasar.dbflute.optional.OptionalEntity;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 import org.seasar.dbflute.util.DfStringUtil;
 
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -1127,7 +1127,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
             final String memberName = member.getMemberName();
-            member.getMemberAddressAsValid().ifPresent(new OptionalObjectConsumer<MemberAddress>() {
+            member.getMemberAddressAsValid().ifPresent(new OptionalThingConsumer<MemberAddress>() {
                 public void accept(MemberAddress address) {
                     assertNotNull(address.getValidBeginDate());
                     assertNotNull(address.getValidEndDate());

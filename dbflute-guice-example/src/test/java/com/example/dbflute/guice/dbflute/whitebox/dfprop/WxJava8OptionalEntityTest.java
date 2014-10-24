@@ -17,7 +17,7 @@ package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.optional.OptionalEntity;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.exbhv.MemberBhv;
@@ -45,7 +45,7 @@ public class WxJava8OptionalEntityTest extends UnitContainerTestCase {
         final Member member = entity.get();
         assertEquals((Integer) 3, member.getMemberId());
         assertTrue(entity.isPresent());
-        entity.ifPresent(new OptionalObjectConsumer<Member>() {
+        entity.ifPresent(new OptionalThingConsumer<Member>() {
             public void accept(Member value) {
                 assertEquals(member, value);
             }

@@ -1,13 +1,8 @@
 package com.example.dbflute.guice.dbflute.whitebox.dfprop;
 
-import java.lang.reflect.Field;
-
-import org.seasar.dbflute.dbmeta.info.ColumnInfo;
 import org.seasar.dbflute.exception.UndefinedClassificationCodeException;
 import org.seasar.dbflute.optional.OptionalThingConsumer;
-import org.seasar.dbflute.util.DfReflectionUtil;
 
-import com.example.dbflute.guice.dbflute.bsentity.dbmeta.PurchaseDbm;
 import com.example.dbflute.guice.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.guice.dbflute.exbhv.PurchaseBhv;
 import com.example.dbflute.guice.dbflute.exentity.Member;

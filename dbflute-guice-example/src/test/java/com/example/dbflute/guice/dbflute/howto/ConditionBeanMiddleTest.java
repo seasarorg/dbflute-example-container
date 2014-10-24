@@ -16,7 +16,7 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.UnionQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.optional.OptionalEntity;
-import org.seasar.dbflute.optional.OptionalObjectConsumer;
+import org.seasar.dbflute.optional.OptionalThingConsumer;
 
 import com.example.dbflute.guice.dbflute.cbean.MemberCB;
 import com.example.dbflute.guice.dbflute.cbean.MemberLoginCB;
@@ -101,7 +101,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         assertNotSame(0, memberList.size());
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalThingConsumer<MemberWithdrawal>() {
                 public void accept(MemberWithdrawal withdrawal) {
                     OptionalEntity<WithdrawalReason> optReason = withdrawal.getWithdrawalReason();
                     if (optReason.isPresent()) { // NullableなFKなのでnullチェック
@@ -151,9 +151,9 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             assertNotNull(member);
             assertNotNull(member.getMemberStatus());
 
-            member.getMemberWithdrawalAsOne().ifPresent(new OptionalObjectConsumer<MemberWithdrawal>() {
+            member.getMemberWithdrawalAsOne().ifPresent(new OptionalThingConsumer<MemberWithdrawal>() {
                 public void accept(MemberWithdrawal withdrawal) {
-                    withdrawal.getWithdrawalReason().ifPresent(new OptionalObjectConsumer<WithdrawalReason>() {
+                    withdrawal.getWithdrawalReason().ifPresent(new OptionalThingConsumer<WithdrawalReason>() {
                         public void accept(WithdrawalReason reason) {
                             String reasonText = reason.getWithdrawalReasonText();
                             log("    [MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", "
