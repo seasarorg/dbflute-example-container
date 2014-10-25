@@ -517,11 +517,11 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
         { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
         if (_memberAddressAsValid != null && _memberAddressAsValid.isPresent())
         { sb.append(li).append(xbRDS(_memberAddressAsValid, "memberAddressAsValid")); }
-        if (_memberSecurityAsOne != null)
+        if (_memberSecurityAsOne != null && _memberSecurityAsOne.isPresent())
         { sb.append(li).append(xbRDS(_memberSecurityAsOne, "memberSecurityAsOne")); }
-        if (_memberServiceAsOne != null)
+        if (_memberServiceAsOne != null && _memberServiceAsOne.isPresent())
         { sb.append(li).append(xbRDS(_memberServiceAsOne, "memberServiceAsOne")); }
-        if (_memberWithdrawalAsOne != null)
+        if (_memberWithdrawalAsOne != null && _memberWithdrawalAsOne.isPresent())
         { sb.append(li).append(xbRDS(_memberWithdrawalAsOne, "memberWithdrawalAsOne")); }
         if (_memberAddressList != null) { for (MemberAddress et : _memberAddressList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberAddressList")); } } }
