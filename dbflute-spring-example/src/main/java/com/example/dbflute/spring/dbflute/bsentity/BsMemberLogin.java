@@ -437,8 +437,10 @@ public abstract class BsMemberLogin extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
-        if (_memberStatus != null) { sb.append(dm).append("memberStatus"); }
+        if (_member != null)
+        { sb.append(dm).append("member"); }
+        if (_memberStatus != null)
+        { sb.append(dm).append("memberStatus"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

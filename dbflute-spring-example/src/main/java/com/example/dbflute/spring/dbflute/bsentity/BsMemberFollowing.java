@@ -242,8 +242,10 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_memberByMyMemberId != null) { sb.append(dm).append("memberByMyMemberId"); }
-        if (_memberByYourMemberId != null) { sb.append(dm).append("memberByYourMemberId"); }
+        if (_memberByMyMemberId != null)
+        { sb.append(dm).append("memberByMyMemberId"); }
+        if (_memberByYourMemberId != null)
+        { sb.append(dm).append("memberByYourMemberId"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

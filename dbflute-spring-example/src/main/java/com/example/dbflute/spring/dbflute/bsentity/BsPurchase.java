@@ -467,9 +467,12 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
-        if (_product != null) { sb.append(dm).append("product"); }
-        if (_summaryProduct != null) { sb.append(dm).append("summaryProduct"); }
+        if (_member != null)
+        { sb.append(dm).append("member"); }
+        if (_product != null)
+        { sb.append(dm).append("product"); }
+        if (_summaryProduct != null)
+        { sb.append(dm).append("summaryProduct"); }
         if (_purchasePaymentList != null && !_purchasePaymentList.isEmpty())
         { sb.append(dm).append("purchasePaymentList"); }
         if (sb.length() > dm.length()) {

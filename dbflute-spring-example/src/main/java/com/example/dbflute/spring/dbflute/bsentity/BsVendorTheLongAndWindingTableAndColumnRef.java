@@ -207,7 +207,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_vendorTheLongAndWindingTableAndColumn != null) { sb.append(dm).append("vendorTheLongAndWindingTableAndColumn"); }
+        if (_vendorTheLongAndWindingTableAndColumn != null)
+        { sb.append(dm).append("vendorTheLongAndWindingTableAndColumn"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

@@ -611,12 +611,18 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_memberStatus != null) { sb.append(dm).append("memberStatus"); }
-        if (_memberAddressAsValid != null) { sb.append(dm).append("memberAddressAsValid"); }
-        if (_memberLoginAsLatest != null) { sb.append(dm).append("memberLoginAsLatest"); }
-        if (_memberSecurityAsOne != null) { sb.append(dm).append("memberSecurityAsOne"); }
-        if (_memberServiceAsOne != null) { sb.append(dm).append("memberServiceAsOne"); }
-        if (_memberWithdrawalAsOne != null) { sb.append(dm).append("memberWithdrawalAsOne"); }
+        if (_memberStatus != null)
+        { sb.append(dm).append("memberStatus"); }
+        if (_memberAddressAsValid != null)
+        { sb.append(dm).append("memberAddressAsValid"); }
+        if (_memberLoginAsLatest != null)
+        { sb.append(dm).append("memberLoginAsLatest"); }
+        if (_memberSecurityAsOne != null)
+        { sb.append(dm).append("memberSecurityAsOne"); }
+        if (_memberServiceAsOne != null)
+        { sb.append(dm).append("memberServiceAsOne"); }
+        if (_memberWithdrawalAsOne != null)
+        { sb.append(dm).append("memberWithdrawalAsOne"); }
         if (_memberAddressList != null && !_memberAddressList.isEmpty())
         { sb.append(dm).append("memberAddressList"); }
         if (_memberFollowingByMyMemberIdList != null && !_memberFollowingByMyMemberIdList.isEmpty())

@@ -422,8 +422,10 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_productCategory != null) { sb.append(dm).append("productCategory"); }
-        if (_productStatus != null) { sb.append(dm).append("productStatus"); }
+        if (_productCategory != null)
+        { sb.append(dm).append("productCategory"); }
+        if (_productStatus != null)
+        { sb.append(dm).append("productStatus"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {
