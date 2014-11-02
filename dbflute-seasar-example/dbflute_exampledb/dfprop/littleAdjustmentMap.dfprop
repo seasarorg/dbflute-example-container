@@ -64,6 +64,7 @@ map:{
     ; isCompatibleReferrerCBMethodIdentityNameListSuffix = true
     ; isCompatibleOutsideSqlFacadeChainOldStyle = true
     ; isCompatibleOutsideSqlSqlCommentCheckDefault = true
+    ; isCompatibleSelectScalarOldName = true
 
     # compile compatible (false if compatible)
     ; isMakeCallbackConditionBeanSetup = false
