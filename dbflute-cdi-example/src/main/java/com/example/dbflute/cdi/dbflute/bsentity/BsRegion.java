@@ -330,7 +330,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     public void setRegionId(Integer regionId) {
-        __modifiedProperties.addPropertyName("regionId");
+        registerModifiedProperty("regionId");
         _regionId = regionId;
     }
 
@@ -350,7 +350,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @param regionName The value of the column 'REGION_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setRegionName(String regionName) {
-        __modifiedProperties.addPropertyName("regionName");
+        registerModifiedProperty("regionName");
         _regionName = regionName;
     }
 }

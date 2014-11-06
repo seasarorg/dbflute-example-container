@@ -194,7 +194,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @param dateTermId The value of the column 'DATE_TERM_ID'. (basically NotNull if update: for the constraint)
      */
     public void setDateTermId(Long dateTermId) {
-        __modifiedProperties.addPropertyName("dateTermId");
+        registerModifiedProperty("dateTermId");
         _dateTermId = dateTermId;
     }
 
@@ -212,7 +212,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @param dateTermValue The value of the column 'DATE_TERM_VALUE'. (basically NotNull if update: for the constraint)
      */
     public void setDateTermValue(String dateTermValue) {
-        __modifiedProperties.addPropertyName("dateTermValue");
+        registerModifiedProperty("dateTermValue");
         _dateTermValue = dateTermValue;
     }
 
@@ -230,7 +230,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @param beginDate The value of the column 'BEGIN_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setBeginDate(org.joda.time.LocalDate beginDate) {
-        __modifiedProperties.addPropertyName("beginDate");
+        registerModifiedProperty("beginDate");
         _beginDate = beginDate;
     }
 
@@ -248,7 +248,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity {
      * @param endDate The value of the column 'END_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setEndDate(org.joda.time.LocalDate endDate) {
-        __modifiedProperties.addPropertyName("endDate");
+        registerModifiedProperty("endDate");
         _endDate = endDate;
     }
 }

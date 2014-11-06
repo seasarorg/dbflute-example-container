@@ -678,7 +678,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             assertNotNull(member.getMemberId()); // PK
             assertNotNull(member.getMemberName()); // Specified
             try {
-                assertNull(member.getMemberAccount());
+                member.getMemberAccount();
                 fail();
             } catch (NonSpecifiedColumnAccessException e) {
                 log(e.getMessage());
@@ -687,7 +687,12 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             MemberStatus status = member.getMemberStatus().get();
             assertNotNull(status.getMemberStatusCode()); // PK
             assertNotNull(status.getMemberStatusName()); // Specified
-            assertNull(status.getDisplayOrder());
+            try {
+                status.getDisplayOrder();
+                fail();
+            } catch (NonSpecifiedColumnAccessException e) {
+                log(e.getMessage());
+            }
         }
 
         // [Description]

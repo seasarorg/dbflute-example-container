@@ -206,7 +206,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -224,7 +224,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
-        __modifiedProperties.addPropertyName("memberName");
+        registerModifiedProperty("memberName");
         _memberName = memberName;
     }
 
@@ -242,7 +242,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setBirthdate(org.joda.time.LocalDate birthdate) {
-        __modifiedProperties.addPropertyName("birthdate");
+        registerModifiedProperty("birthdate");
         _birthdate = birthdate;
     }
 
@@ -260,7 +260,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
-        __modifiedProperties.addPropertyName("formalizedDatetime");
+        registerModifiedProperty("formalizedDatetime");
         _formalizedDatetime = formalizedDatetime;
     }
 
@@ -278,7 +278,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param purchaseSummary The value of the column 'PURCHASE_SUMMARY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseSummary(Long purchaseSummary) {
-        __modifiedProperties.addPropertyName("purchaseSummary");
+        registerModifiedProperty("purchaseSummary");
         _purchaseSummary = purchaseSummary;
     }
 }

@@ -351,7 +351,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity {
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
-        __modifiedProperties.addPropertyName("withdrawalReasonCode");
+        registerModifiedProperty("withdrawalReasonCode");
         _withdrawalReasonCode = withdrawalReasonCode;
     }
 
@@ -373,7 +373,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity {
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
-        __modifiedProperties.addPropertyName("withdrawalReasonText");
+        registerModifiedProperty("withdrawalReasonText");
         _withdrawalReasonText = withdrawalReasonText;
     }
 
@@ -391,7 +391,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity {
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (basically NotNull if update: for the constraint)
      */
     public void setDisplayOrder(Integer displayOrder) {
-        __modifiedProperties.addPropertyName("displayOrder");
+        registerModifiedProperty("displayOrder");
         _displayOrder = displayOrder;
     }
 

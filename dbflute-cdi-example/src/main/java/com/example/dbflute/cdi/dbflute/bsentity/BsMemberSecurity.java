@@ -263,7 +263,8 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
+        if (_member != null)
+        { sb.append(dm).append("member"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -294,7 +295,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -316,7 +317,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param loginPassword The value of the column 'LOGIN_PASSWORD'. (basically NotNull if update: for the constraint)
      */
     public void setLoginPassword(String loginPassword) {
-        __modifiedProperties.addPropertyName("loginPassword");
+        registerModifiedProperty("loginPassword");
         _loginPassword = loginPassword;
     }
 
@@ -336,7 +337,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderQuestion The value of the column 'REMINDER_QUESTION'. (basically NotNull if update: for the constraint)
      */
     public void setReminderQuestion(String reminderQuestion) {
-        __modifiedProperties.addPropertyName("reminderQuestion");
+        registerModifiedProperty("reminderQuestion");
         _reminderQuestion = reminderQuestion;
     }
 
@@ -356,7 +357,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderAnswer The value of the column 'REMINDER_ANSWER'. (basically NotNull if update: for the constraint)
      */
     public void setReminderAnswer(String reminderAnswer) {
-        __modifiedProperties.addPropertyName("reminderAnswer");
+        registerModifiedProperty("reminderAnswer");
         _reminderAnswer = reminderAnswer;
     }
 
@@ -380,7 +381,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderUseCount The value of the column 'REMINDER_USE_COUNT'. (basically NotNull if update: for the constraint)
      */
     public void setReminderUseCount(Integer reminderUseCount) {
-        __modifiedProperties.addPropertyName("reminderUseCount");
+        registerModifiedProperty("reminderUseCount");
         _reminderUseCount = reminderUseCount;
     }
 
@@ -398,7 +399,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
-        __modifiedProperties.addPropertyName("registerDatetime");
+        registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
 
@@ -416,7 +417,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
-        __modifiedProperties.addPropertyName("registerUser");
+        registerModifiedProperty("registerUser");
         _registerUser = registerUser;
     }
 
@@ -434,7 +435,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
-        __modifiedProperties.addPropertyName("updateDatetime");
+        registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }
 
@@ -452,7 +453,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {
-        __modifiedProperties.addPropertyName("updateUser");
+        registerModifiedProperty("updateUser");
         _updateUser = updateUser;
     }
 
@@ -470,7 +471,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */
     public void setVersionNo(Long versionNo) {
-        __modifiedProperties.addPropertyName("versionNo");
+        registerModifiedProperty("versionNo");
         _versionNo = versionNo;
     }
 }

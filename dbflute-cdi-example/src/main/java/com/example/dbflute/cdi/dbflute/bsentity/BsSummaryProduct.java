@@ -322,7 +322,8 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_productStatus != null) { sb.append(dm).append("productStatus"); }
+        if (_productStatus != null)
+        { sb.append(dm).append("productStatus"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {
@@ -353,7 +354,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductId(Integer productId) {
-        __modifiedProperties.addPropertyName("productId");
+        registerModifiedProperty("productId");
         _productId = productId;
     }
 
@@ -371,7 +372,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @param productName The value of the column 'PRODUCT_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductName(String productName) {
-        __modifiedProperties.addPropertyName("productName");
+        registerModifiedProperty("productName");
         _productName = productName;
     }
 
@@ -389,7 +390,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @param productHandleCode The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductHandleCode(String productHandleCode) {
-        __modifiedProperties.addPropertyName("productHandleCode");
+        registerModifiedProperty("productHandleCode");
         _productHandleCode = productHandleCode;
     }
 
@@ -407,7 +408,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductStatusCode(String productStatusCode) {
-        __modifiedProperties.addPropertyName("productStatusCode");
+        registerModifiedProperty("productStatusCode");
         _productStatusCode = productStatusCode;
     }
 
@@ -425,7 +426,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * @param latestPurchaseDatetime The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setLatestPurchaseDatetime(java.sql.Timestamp latestPurchaseDatetime) {
-        __modifiedProperties.addPropertyName("latestPurchaseDatetime");
+        registerModifiedProperty("latestPurchaseDatetime");
         _latestPurchaseDatetime = latestPurchaseDatetime;
     }
 }

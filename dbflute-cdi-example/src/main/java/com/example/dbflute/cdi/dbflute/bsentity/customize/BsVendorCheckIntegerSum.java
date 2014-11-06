@@ -177,7 +177,7 @@ public abstract class BsVendorCheckIntegerSum extends AbstractEntity {
      * @param integerNonDigitSum The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed: null update allowed for no constraint)
      */
     public void setIntegerNonDigitSum(Integer integerNonDigitSum) {
-        __modifiedProperties.addPropertyName("integerNonDigitSum");
+        registerModifiedProperty("integerNonDigitSum");
         _integerNonDigitSum = integerNonDigitSum;
     }
 }

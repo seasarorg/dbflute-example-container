@@ -229,7 +229,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param purchaseId The value of the column 'PURCHASE_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseId(Long purchaseId) {
-        __modifiedProperties.addPropertyName("purchaseId");
+        registerModifiedProperty("purchaseId");
         _purchaseId = purchaseId;
     }
 
@@ -251,7 +251,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -273,7 +273,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
-        __modifiedProperties.addPropertyName("memberName");
+        registerModifiedProperty("memberName");
         _memberName = memberName;
     }
 
@@ -293,7 +293,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductId(Integer productId) {
-        __modifiedProperties.addPropertyName("productId");
+        registerModifiedProperty("productId");
         _productId = productId;
     }
 
@@ -315,7 +315,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param productName The value of the column 'PRODUCT_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductName(String productName) {
-        __modifiedProperties.addPropertyName("productName");
+        registerModifiedProperty("productName");
         _productName = productName;
     }
 
@@ -335,7 +335,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {
-        __modifiedProperties.addPropertyName("purchaseDatetime");
+        registerModifiedProperty("purchaseDatetime");
         _purchaseDatetime = purchaseDatetime;
     }
 }

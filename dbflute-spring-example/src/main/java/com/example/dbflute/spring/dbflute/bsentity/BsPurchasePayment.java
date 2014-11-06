@@ -421,7 +421,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param purchasePaymentId The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchasePaymentId(Long purchasePaymentId) {
-        __modifiedProperties.addPropertyName("purchasePaymentId");
+        registerModifiedProperty("purchasePaymentId");
         _purchasePaymentId = purchasePaymentId;
     }
 
@@ -441,7 +441,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param purchaseId The value of the column 'PURCHASE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchaseId(Long purchaseId) {
-        __modifiedProperties.addPropertyName("purchaseId");
+        registerModifiedProperty("purchaseId");
         _purchaseId = purchaseId;
     }
 
@@ -461,7 +461,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param paymentAmount The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentAmount(java.math.BigDecimal paymentAmount) {
-        __modifiedProperties.addPropertyName("paymentAmount");
+        registerModifiedProperty("paymentAmount");
         _paymentAmount = paymentAmount;
     }
 
@@ -481,7 +481,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentDatetime(java.sql.Timestamp paymentDatetime) {
-        __modifiedProperties.addPropertyName("paymentDatetime");
+        registerModifiedProperty("paymentDatetime");
         _paymentDatetime = paymentDatetime;
     }
 
@@ -502,7 +502,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      */
     public void setPaymentMethodCode(String paymentMethodCode) {
         checkClassificationCode("PAYMENT_METHOD_CODE", CDef.DefMeta.PaymentMethod, paymentMethodCode);
-        __modifiedProperties.addPropertyName("paymentMethodCode");
+        registerModifiedProperty("paymentMethodCode");
         _paymentMethodCode = paymentMethodCode;
     }
 
@@ -520,7 +520,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
-        __modifiedProperties.addPropertyName("registerDatetime");
+        registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
 
@@ -538,7 +538,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
-        __modifiedProperties.addPropertyName("registerUser");
+        registerModifiedProperty("registerUser");
         _registerUser = registerUser;
     }
 
@@ -556,7 +556,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
-        __modifiedProperties.addPropertyName("updateDatetime");
+        registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }
 
@@ -574,7 +574,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {
-        __modifiedProperties.addPropertyName("updateUser");
+        registerModifiedProperty("updateUser");
         _updateUser = updateUser;
     }
 }

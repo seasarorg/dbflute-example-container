@@ -353,7 +353,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param vendorCheckId The value of the column 'VENDOR_CHECK_ID'. (basically NotNull if update: for the constraint)
      */
     public void setVendorCheckId(Long vendorCheckId) {
-        __modifiedProperties.addPropertyName("vendorCheckId");
+        registerModifiedProperty("vendorCheckId");
         _vendorCheckId = vendorCheckId;
     }
 
@@ -371,7 +371,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfChar The value of the column 'TYPE_OF_CHAR'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfChar(String typeOfChar) {
-        __modifiedProperties.addPropertyName("typeOfChar");
+        registerModifiedProperty("typeOfChar");
         _typeOfChar = typeOfChar;
     }
 
@@ -389,7 +389,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfVarchar The value of the column 'TYPE_OF_VARCHAR'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfVarchar(String typeOfVarchar) {
-        __modifiedProperties.addPropertyName("typeOfVarchar");
+        registerModifiedProperty("typeOfVarchar");
         _typeOfVarchar = typeOfVarchar;
     }
 
@@ -407,7 +407,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfClob The value of the column 'TYPE_OF_CLOB'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfClob(String typeOfClob) {
-        __modifiedProperties.addPropertyName("typeOfClob");
+        registerModifiedProperty("typeOfClob");
         _typeOfClob = typeOfClob;
     }
 
@@ -425,7 +425,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfText The value of the column 'TYPE_OF_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfText(String typeOfText) {
-        __modifiedProperties.addPropertyName("typeOfText");
+        registerModifiedProperty("typeOfText");
         _typeOfText = typeOfText;
     }
 
@@ -443,7 +443,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericInteger The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericInteger(Integer typeOfNumericInteger) {
-        __modifiedProperties.addPropertyName("typeOfNumericInteger");
+        registerModifiedProperty("typeOfNumericInteger");
         _typeOfNumericInteger = typeOfNumericInteger;
     }
 
@@ -461,7 +461,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericBigint The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigint(Long typeOfNumericBigint) {
-        __modifiedProperties.addPropertyName("typeOfNumericBigint");
+        registerModifiedProperty("typeOfNumericBigint");
         _typeOfNumericBigint = typeOfNumericBigint;
     }
 
@@ -479,7 +479,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericDecimal The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericDecimal(java.math.BigDecimal typeOfNumericDecimal) {
-        __modifiedProperties.addPropertyName("typeOfNumericDecimal");
+        registerModifiedProperty("typeOfNumericDecimal");
         _typeOfNumericDecimal = typeOfNumericDecimal;
     }
 
@@ -497,7 +497,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericIntegerMin The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericIntegerMin(Integer typeOfNumericIntegerMin) {
-        __modifiedProperties.addPropertyName("typeOfNumericIntegerMin");
+        registerModifiedProperty("typeOfNumericIntegerMin");
         _typeOfNumericIntegerMin = typeOfNumericIntegerMin;
     }
 
@@ -515,7 +515,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericIntegerMax The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericIntegerMax(Integer typeOfNumericIntegerMax) {
-        __modifiedProperties.addPropertyName("typeOfNumericIntegerMax");
+        registerModifiedProperty("typeOfNumericIntegerMax");
         _typeOfNumericIntegerMax = typeOfNumericIntegerMax;
     }
 
@@ -533,7 +533,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericBigintMin The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigintMin(Long typeOfNumericBigintMin) {
-        __modifiedProperties.addPropertyName("typeOfNumericBigintMin");
+        registerModifiedProperty("typeOfNumericBigintMin");
         _typeOfNumericBigintMin = typeOfNumericBigintMin;
     }
 
@@ -551,7 +551,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericBigintMax The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigintMax(Long typeOfNumericBigintMax) {
-        __modifiedProperties.addPropertyName("typeOfNumericBigintMax");
+        registerModifiedProperty("typeOfNumericBigintMax");
         _typeOfNumericBigintMax = typeOfNumericBigintMax;
     }
 
@@ -569,7 +569,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericSuperintMin The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericSuperintMin(java.math.BigDecimal typeOfNumericSuperintMin) {
-        __modifiedProperties.addPropertyName("typeOfNumericSuperintMin");
+        registerModifiedProperty("typeOfNumericSuperintMin");
         _typeOfNumericSuperintMin = typeOfNumericSuperintMin;
     }
 
@@ -587,7 +587,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericSuperintMax The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericSuperintMax(java.math.BigDecimal typeOfNumericSuperintMax) {
-        __modifiedProperties.addPropertyName("typeOfNumericSuperintMax");
+        registerModifiedProperty("typeOfNumericSuperintMax");
         _typeOfNumericSuperintMax = typeOfNumericSuperintMax;
     }
 
@@ -605,7 +605,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfNumericMaxdecimal The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericMaxdecimal(java.math.BigDecimal typeOfNumericMaxdecimal) {
-        __modifiedProperties.addPropertyName("typeOfNumericMaxdecimal");
+        registerModifiedProperty("typeOfNumericMaxdecimal");
         _typeOfNumericMaxdecimal = typeOfNumericMaxdecimal;
     }
 
@@ -623,7 +623,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfInteger The value of the column 'TYPE_OF_INTEGER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfInteger(Integer typeOfInteger) {
-        __modifiedProperties.addPropertyName("typeOfInteger");
+        registerModifiedProperty("typeOfInteger");
         _typeOfInteger = typeOfInteger;
     }
 
@@ -641,7 +641,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfBigint The value of the column 'TYPE_OF_BIGINT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBigint(Long typeOfBigint) {
-        __modifiedProperties.addPropertyName("typeOfBigint");
+        registerModifiedProperty("typeOfBigint");
         _typeOfBigint = typeOfBigint;
     }
 
@@ -659,7 +659,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfDate The value of the column 'TYPE_OF_DATE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfDate(java.util.Date typeOfDate) {
-        __modifiedProperties.addPropertyName("typeOfDate");
+        registerModifiedProperty("typeOfDate");
         _typeOfDate = typeOfDate;
     }
 
@@ -677,7 +677,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfTimestamp The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfTimestamp(java.sql.Timestamp typeOfTimestamp) {
-        __modifiedProperties.addPropertyName("typeOfTimestamp");
+        registerModifiedProperty("typeOfTimestamp");
         _typeOfTimestamp = typeOfTimestamp;
     }
 
@@ -695,7 +695,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfTime The value of the column 'TYPE_OF_TIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfTime(java.sql.Time typeOfTime) {
-        __modifiedProperties.addPropertyName("typeOfTime");
+        registerModifiedProperty("typeOfTime");
         _typeOfTime = typeOfTime;
     }
 
@@ -713,7 +713,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfBoolean The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBoolean(Boolean typeOfBoolean) {
-        __modifiedProperties.addPropertyName("typeOfBoolean");
+        registerModifiedProperty("typeOfBoolean");
         _typeOfBoolean = typeOfBoolean;
     }
 
@@ -731,7 +731,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfBinary The value of the column 'TYPE_OF_BINARY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBinary(byte[] typeOfBinary) {
-        __modifiedProperties.addPropertyName("typeOfBinary");
+        registerModifiedProperty("typeOfBinary");
         _typeOfBinary = typeOfBinary;
     }
 
@@ -749,7 +749,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfBlob The value of the column 'TYPE_OF_BLOB'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBlob(byte[] typeOfBlob) {
-        __modifiedProperties.addPropertyName("typeOfBlob");
+        registerModifiedProperty("typeOfBlob");
         _typeOfBlob = typeOfBlob;
     }
 
@@ -767,7 +767,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfUuid The value of the column 'TYPE_OF_UUID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfUuid(byte[] typeOfUuid) {
-        __modifiedProperties.addPropertyName("typeOfUuid");
+        registerModifiedProperty("typeOfUuid");
         _typeOfUuid = typeOfUuid;
     }
 
@@ -785,7 +785,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfArray The value of the column 'TYPE_OF_ARRAY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfArray(String typeOfArray) {
-        __modifiedProperties.addPropertyName("typeOfArray");
+        registerModifiedProperty("typeOfArray");
         _typeOfArray = typeOfArray;
     }
 
@@ -803,7 +803,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param typeOfOther The value of the column 'TYPE_OF_OTHER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfOther(String typeOfOther) {
-        __modifiedProperties.addPropertyName("typeOfOther");
+        registerModifiedProperty("typeOfOther");
         _typeOfOther = typeOfOther;
     }
 
@@ -821,7 +821,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param jAVABeansProperty The value of the column 'J_A_V_A_BEANS_PROPERTY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setJAVABeansProperty(String jAVABeansProperty) {
-        __modifiedProperties.addPropertyName("JAVABeansProperty");
+        registerModifiedProperty("JAVABeansProperty");
         _jAVABeansProperty = jAVABeansProperty;
     }
 
@@ -839,7 +839,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * @param jPopBeansProperty The value of the column 'J_POP_BEANS_PROPERTY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setJPopBeansProperty(String jPopBeansProperty) {
-        __modifiedProperties.addPropertyName("JPopBeansProperty");
+        registerModifiedProperty("JPopBeansProperty");
         _jPopBeansProperty = jPopBeansProperty;
     }
 }

@@ -174,7 +174,7 @@ public abstract class BsForcedType extends AbstractEntity {
      * @param maxMemberId The value of the column 'MAX_MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMaxMemberId(java.math.BigInteger maxMemberId) {
-        __modifiedProperties.addPropertyName("maxMemberId");
+        registerModifiedProperty("maxMemberId");
         _maxMemberId = maxMemberId;
     }
 }

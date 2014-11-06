@@ -242,8 +242,10 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_memberByMyMemberId != null) { sb.append(dm).append("memberByMyMemberId"); }
-        if (_memberByYourMemberId != null) { sb.append(dm).append("memberByYourMemberId"); }
+        if (_memberByMyMemberId != null)
+        { sb.append(dm).append("memberByMyMemberId"); }
+        if (_memberByYourMemberId != null)
+        { sb.append(dm).append("memberByYourMemberId"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -274,7 +276,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @param memberFollowingId The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberFollowingId(Long memberFollowingId) {
-        __modifiedProperties.addPropertyName("memberFollowingId");
+        registerModifiedProperty("memberFollowingId");
         _memberFollowingId = memberFollowingId;
     }
 
@@ -294,7 +296,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMyMemberId(Integer myMemberId) {
-        __modifiedProperties.addPropertyName("myMemberId");
+        registerModifiedProperty("myMemberId");
         _myMemberId = myMemberId;
     }
 
@@ -314,7 +316,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setYourMemberId(Integer yourMemberId) {
-        __modifiedProperties.addPropertyName("yourMemberId");
+        registerModifiedProperty("yourMemberId");
         _yourMemberId = yourMemberId;
     }
 
@@ -334,7 +336,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setFollowDatetime(java.sql.Timestamp followDatetime) {
-        __modifiedProperties.addPropertyName("followDatetime");
+        registerModifiedProperty("followDatetime");
         _followDatetime = followDatetime;
     }
 }

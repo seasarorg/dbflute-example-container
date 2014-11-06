@@ -469,7 +469,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @param memberLoginId The value of the column 'MEMBER_LOGIN_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberLoginId(Long memberLoginId) {
-        __modifiedProperties.addPropertyName("memberLoginId");
+        registerModifiedProperty("memberLoginId");
         _memberLoginId = memberLoginId;
     }
 
@@ -487,7 +487,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -509,7 +509,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setLoginDatetime(java.sql.Timestamp loginDatetime) {
-        __modifiedProperties.addPropertyName("loginDatetime");
+        registerModifiedProperty("loginDatetime");
         _loginDatetime = loginDatetime;
     }
 
@@ -530,7 +530,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      */
     public void setMobileLoginFlg(Integer mobileLoginFlg) {
         checkClassificationCode("MOBILE_LOGIN_FLG", CDef.DefMeta.Flg, mobileLoginFlg);
-        __modifiedProperties.addPropertyName("mobileLoginFlg");
+        registerModifiedProperty("mobileLoginFlg");
         _mobileLoginFlg = mobileLoginFlg;
     }
 
@@ -550,7 +550,7 @@ public abstract class BsMemberLogin extends AbstractEntity {
      * @param loginMemberStatusCode The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setLoginMemberStatusCode(String loginMemberStatusCode) {
-        __modifiedProperties.addPropertyName("loginMemberStatusCode");
+        registerModifiedProperty("loginMemberStatusCode");
         _loginMemberStatusCode = loginMemberStatusCode;
     }
 }

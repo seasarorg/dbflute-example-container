@@ -191,7 +191,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
      * @param primaryKeyOnlyId The value of the column 'PRIMARY_KEY_ONLY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPrimaryKeyOnlyId(Long primaryKeyOnlyId) {
-        __modifiedProperties.addPropertyName("primaryKeyOnlyId");
+        registerModifiedProperty("primaryKeyOnlyId");
         _primaryKeyOnlyId = primaryKeyOnlyId;
     }
 }

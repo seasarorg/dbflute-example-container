@@ -536,7 +536,7 @@ abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef} with D
     //                                                                        ============
     protected def toScalaList[ENTITY](javaList: Collection[ENTITY]): immutable.List[ENTITY] = {
         if (javaList == null) { return immutable.List(); }
-        return immutable.List.fromArray(javaList.toArray).asInstanceOf[immutable.List[ENTITY]];
+        return javaList.toArray.toList.asInstanceOf[immutable.List[ENTITY]];
     }
 
     // ===================================================================================
@@ -587,7 +587,7 @@ abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef} with D
 #end
 #foreach ($referrer in $table.referrerAsOneList)
 #set ($referrerVariableName = "_${referrer.referrerPropertyNameAsOne}")
-#if ($fk.isForeignPropertyOptionalEntity())
+#if ($referrer.isReferrerPropertyOptionalEntityAsOne())
         if (${referrerVariableName} != null && ${referrerVariableName}.isEmpty)
 #else
         if (${referrerVariableName} != null)
@@ -632,11 +632,21 @@ abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef} with D
         val sb: StringBuilder = new StringBuilder();
 #foreach ($fk in $table.foreignKeys)
 #set ($foreignVariableName = "_${fk.foreignPropertyName}")
-        if (${foreignVariableName} != null) { sb.append(dm).append("${fk.foreignPropertyName}"); }
+#if ($fk.isForeignPropertyOptionalEntity())
+        if (${foreignVariableName} != null && ${foreignVariableName}.isEmpty)
+#else
+        if (${foreignVariableName} != null)
+#end
+        { sb.append(dm).append("${fk.foreignPropertyName}"); }
 #end
 #foreach ($referrer in $table.referrerAsOneList)
 #set ($referrerVariableName = "_${referrer.referrerPropertyNameAsOne}")
-        if (${referrerVariableName} != null) { sb.append(dm).append("${referrer.referrerPropertyNameAsOne}"); }
+#if ($referrer.isReferrerPropertyOptionalEntityAsOne())
+        if (${referrerVariableName} != null && ${referrerVariableName}.isEmpty)
+#else
+        if (${referrerVariableName} != null)
+#end
+        { sb.append(dm).append("${referrer.referrerPropertyNameAsOne}"); }
 #end
 #foreach ($referrer in $table.referrerAsManyList)
 #set ($referrerVariableName = "_${referrer.referrerPropertyName}")
@@ -705,7 +715,7 @@ abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef} with D
 #if ($col.hasCheckClassificationCodeOnEntity())
         checkClassificationCode("${col.name}", ${glCDef}.DefMeta.${col.classificationName}, ${col.uncapitalisedJavaName});
 #end
-        __modifiedProperties.addPropertyName("${col.javaBeansRulePropertyName}");
+        registerModifiedProperty("${col.javaBeansRulePropertyName}");
         _${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
     }
 #set ($propertyLoopIndex = $propertyLoopIndex + 1)
