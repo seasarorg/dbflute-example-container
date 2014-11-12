@@ -6,10 +6,13 @@ package com.example.dbflute.cdi.dbflute.allcommon;
 import javax.sql.DataSource;
 
 import org.seasar.dbflute.DBDef;
+import org.seasar.dbflute.bhv.core.BehaviorCommand;
 import org.seasar.dbflute.bhv.core.InvokerAssistant;
 import org.seasar.dbflute.bhv.core.supplement.SequenceCacheHandler;
 import org.seasar.dbflute.bhv.core.supplement.SequenceCacheKeyGenerator;
 import org.seasar.dbflute.cbean.cipher.GearedCipherManager;
+import org.seasar.dbflute.cbean.ConditionBean;
+import org.seasar.dbflute.cbean.ConditionBeanContext;
 import org.seasar.dbflute.cbean.sqlclause.SqlClauseCreator;
 import org.seasar.dbflute.dbmeta.DBMetaProvider;
 import org.seasar.dbflute.exception.factory.SQLExceptionHandlerFactory;
@@ -23,6 +26,7 @@ import org.seasar.dbflute.jdbc.StatementFactory;
 import org.seasar.dbflute.optional.RelationOptionalFactory;
 import org.seasar.dbflute.outsidesql.factory.DefaultOutsideSqlExecutorFactory;
 import org.seasar.dbflute.outsidesql.factory.OutsideSqlExecutorFactory;
+import org.seasar.dbflute.resource.ResourceContext;
 import org.seasar.dbflute.resource.ResourceParameter;
 import org.seasar.dbflute.s2dao.extension.TnBeanMetaDataFactoryExtension;
 import org.seasar.dbflute.s2dao.jdbc.TnStatementFactoryImpl;
@@ -165,7 +169,50 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected TnStatementFactoryImpl newStatementFactoryImpl() {
-        return new TnStatementFactoryImpl();
+        final Integer entitySelectFetchSize = DBFluteConfig.getInstance().getEntitySelectFetchSize();
+        final TnStatementFactoryImpl factory;
+        if (entitySelectFetchSize != null) {
+            factory = new TnStatementFactoryImpl() { // patch for 1.0.5M #hope: should be embedded at next version
+
+                @Override
+                protected Integer getActualFetchSize(StatementConfig config, boolean existsRequest, Integer cursorSelectFetchSize,
+                    boolean existsCursor, StatementConfig defaultConfig, boolean existsDefault) {
+                    Integer superSize = super.getActualFetchSize(config, existsRequest, cursorSelectFetchSize, existsCursor, defaultConfig, existsDefault);
+                    if (superSize != null) {
+                        return superSize;
+                    }
+                    return canUseEntitySelectFetchSizeCommand() ? entitySelectFetchSize : null;
+                }
+
+                protected boolean canUseEntitySelectFetchSizeCommand() {
+                    if (!ResourceContext.isExistResourceContextOnThread()) {
+                        return false;
+                    }
+                    final BehaviorCommand<?> command = ResourceContext.behaviorCommand();
+                    return isConditionBeanSafetyMaxOneSelectCommand(command);
+                }
+
+                protected boolean isConditionBeanSafetyMaxOneSelectCommand(BehaviorCommand<?> command) {
+                    if (command.isConditionBean() && command.isSelect() && !command.isSelectCount()) {
+                        if (ConditionBeanContext.isExistConditionBeanOnThread()) {
+                            final ConditionBean cb = ConditionBeanContext.getConditionBeanOnThread();
+                            final int safetyMaxResultSize = cb.getSafetyMaxResultSize();
+            
+                            // cannot determine entity or list by command so it determines from safety max result size
+                            // the logic is not bad, should be checked if size is one
+                            //
+                            // selectEntity() or can be treated as selectEntity()
+                            // selectByPK(), selectByUniqueOf() calls selectEntity() internally so OK
+                            return safetyMaxResultSize == 1;
+                        }
+                    }
+                    return false;
+                }
+            };
+        } else {
+            factory = new TnStatementFactoryImpl();
+        }
+        return factory;
     }
 
     // -----------------------------------------------------
