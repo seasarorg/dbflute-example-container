@@ -1075,7 +1075,7 @@ public class DBFluteConfig {
     //                                                                         Hyper Patch
     //                                                                         ===========
     // patch for 1.0.5M #hope: should be embedded at next version
-    public static class SelectListCBCommandHyperPatch<ENTITY extends org.seasar.dbflute.Entity> extends org.seasar.dbflute.bhv.core.command.SelectListCBCommand<ENTITY> {
+    public static class SelectCursorCBCommandHyperPatch<ENTITY extends org.seasar.dbflute.Entity> extends org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<ENTITY> {
 
         @Override
         protected TnRelationRowCreatorHyperPatch createRelationRowCreator(org.seasar.dbflute.s2dao.metadata.TnBeanMetaData bmd) {
@@ -1083,7 +1083,7 @@ public class DBFluteConfig {
         }
     }
 
-    public static class SelectCursorCBCommandHyperPatch<ENTITY extends org.seasar.dbflute.Entity> extends org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<ENTITY> {
+    public static class SelectListCBCommandHyperPatch<ENTITY extends org.seasar.dbflute.Entity> extends org.seasar.dbflute.bhv.core.command.SelectListCBCommand<ENTITY> {
 
         @Override
         protected TnRelationRowCreatorHyperPatch createRelationRowCreator(org.seasar.dbflute.s2dao.metadata.TnBeanMetaData bmd) {

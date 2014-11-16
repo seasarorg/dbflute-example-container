@@ -466,7 +466,7 @@ dl.procedurelist dd.column pre {
 	</tbody>
 </table>
 
-  <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
+<h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
 &nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=20)</a></span>
 </h2>
@@ -691,7 +691,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="member_address" title="type=TABLE, primaryKey={MEMBER_ADDRESS_ID}, nameLength=14, columnCount=11">
+<h2 id="member_address" title="type=TABLE, primaryKey={MEMBER_ADDRESS_ID}, nameLength=14, columnCount=11">
 (会員住所情報)MEMBER_ADDRESS
 </h2>
 <p class="tablecomment">会員の住所に関する情報で、同時に有効期間ごとに履歴管理されている。<br />会員を基点に考えた場合、構造的にはone-to-many&nbsp;だが、業務的な定型条件でone-to-one&nbsp;になる。このような構造を「業務的one-to-one」と呼ぶ。<br />有効期間は隙間なく埋められるが、ここでは住所情報のない会員も存在し、厳密には(業務的な)&nbsp;"1&nbsp;:&nbsp;0...1"&nbsp;である。</p>
@@ -915,7 +915,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">
+<h2 id="member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">
 (会員ログイン)MEMBER_LOGIN
 </h2>
 <p class="tablecomment">ログインするたびに登録されるログイン履歴。<br />登録されたら更新されるも削除されることもない。さらには登録する人もプログラムもはっきりしているので、ここでは共通カラムは(紙面の都合上もあって)省略している。</p>
@@ -1031,7 +1031,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">String</td>
 	</tr>
 </table>
-  <h2 id="member_security" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=15, columnCount=10">
+<h2 id="member_security" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=15, columnCount=10">
 (会員セキュリティ情報)MEMBER_SECURITY
 </h2>
 <p class="tablecomment">会員とは&nbsp;one-to-one&nbsp;で、会員一人につき必ず一つのセキュリティ情報がある</p>
@@ -1237,7 +1237,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="member_service" title="type=TABLE, primaryKey={MEMBER_SERVICE_ID}, nameLength=14, columnCount=9">
+<h2 id="member_service" title="type=TABLE, primaryKey={MEMBER_SERVICE_ID}, nameLength=14, columnCount=9">
 (会員サービス)MEMBER_SERVICE
 </h2>
 <p class="tablecomment">会員のサービス情報（ポイントサービスなど）。<br />ExampleDBとして、あえて統一性を崩してユニーク制約経由の&nbsp;one-to-one&nbsp;を表現している。</p>
@@ -1425,7 +1425,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="member_status" title="type=TABLE, primaryKey={MEMBER_STATUS_CODE}, nameLength=13, columnCount=4">
+<h2 id="member_status" title="type=TABLE, primaryKey={MEMBER_STATUS_CODE}, nameLength=13, columnCount=4">
 (会員ステータス)MEMBER_STATUS
 &nbsp;<span class="bqpcount"><a href="#member_status_sql">(outsideSql=2)</a></span>
 </h2>
@@ -1524,7 +1524,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-  <h2 id="member_withdrawal" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=17, columnCount=9">
+<h2 id="member_withdrawal" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=17, columnCount=9">
 (会員退会情報)MEMBER_WITHDRAWAL
 </h2>
 <p class="tablecomment">退会会員の退会に関する詳細な情報。<br />退会会員のみデータが存在する。<br />（"1&nbsp;:&nbsp;0...1"&nbsp;のパターンの&nbsp;one-to-one）</p>
@@ -1712,7 +1712,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">
+<h2 id="product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">
 (商品)PRODUCT
 </h2>
 <table summary="Columns in PRODUCT">
@@ -1935,7 +1935,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="product_category" title="type=TABLE, primaryKey={PRODUCT_CATEGORY_CODE}, nameLength=16, columnCount=3">
+<h2 id="product_category" title="type=TABLE, primaryKey={PRODUCT_CATEGORY_CODE}, nameLength=16, columnCount=3">
 (商品カテゴリ)PRODUCT_CATEGORY
 </h2>
 <p class="tablecomment">商品のカテゴリを表現するマスタ。<br />自己参照の階層になっている。</p>
@@ -2015,7 +2015,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">String</td>
 	</tr>
 </table>
-  <h2 id="product_status" title="type=TABLE, primaryKey={PRODUCT_STATUS_CODE}, nameLength=14, columnCount=3">
+<h2 id="product_status" title="type=TABLE, primaryKey={PRODUCT_STATUS_CODE}, nameLength=14, columnCount=3">
 (商品ステータス)PRODUCT_STATUS
 </h2>
 <p class="tablecomment">商品のステータスを表現する固定的なマスタ。</p>
@@ -2095,7 +2095,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-  <h2 id="purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">
+<h2 id="purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">
 (購入)PURCHASE
 </h2>
 <p class="tablecomment">一つの商品に対する一回の購入を表現する。<br />一回の購入で一つの商品を複数個買うことも。<br /><br />実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。</p>
@@ -2337,7 +2337,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Long</td>
 	</tr>
 </table>
-  <h2 id="region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">
+<h2 id="region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">
 (地域)REGION
 </h2>
 <p class="tablecomment">主に会員の住所に対応する地域。<br />かなりざっくりした感じではある。<br />業務的one-to-oneの親テーブル。</p>
@@ -2399,7 +2399,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">String</td>
 	</tr>
 </table>
-  <h2 id="service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">
+<h2 id="service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">
 (サービスランク)SERVICE_RANK
 </h2>
 <p class="tablecomment">会員のサービスレベルを表現するランク。<br />（ゴールドとかプラチナとか）</p>
@@ -2533,7 +2533,7 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-  <h2 id="vendor_check" title="type=TABLE, primaryKey={VENDOR_CHECK_ID}, nameLength=12, columnCount=17">
+<h2 id="vendor_check" title="type=TABLE, primaryKey={VENDOR_CHECK_ID}, nameLength=12, columnCount=17">
 VENDOR_CHECK
 &nbsp;<span class="bqpcount"><a href="#vendor_check_sql">(outsideSql=4)</a></span>
 </h2>
@@ -2847,7 +2847,7 @@ VENDOR_CHECK
 		<td class="subcell">String</td>
 	</tr>
 </table>
-  <h2 id="withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">
+<h2 id="withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">
 (退会理由)WITHDRAWAL_REASON
 </h2>
 <p class="tablecomment">会員に選ばせる定型的な退会理由のマスタ。</p>
@@ -2927,7 +2927,7 @@ VENDOR_CHECK
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-  <h2 id="summary_product" title="type=VIEW, primaryKey={PRODUCT_ID}, nameLength=15, columnCount=5">
+<h2 id="summary_product" title="type=VIEW, primaryKey={PRODUCT_ID}, nameLength=15, columnCount=5">
 SUMMARY_PRODUCT
 </h2>
 <table summary="Columns in SUMMARY_PRODUCT">
@@ -3036,7 +3036,7 @@ SUMMARY_PRODUCT
 		<td class="subcell">Timestamp</td>
 	</tr>
 </table>
-  <h2 id="summary_withdrawal" title="type=VIEW, primaryKey={}, nameLength=18, columnCount=9">
+<h2 id="summary_withdrawal" title="type=VIEW, primaryKey={}, nameLength=18, columnCount=9">
 SUMMARY_WITHDRAWAL
 </h2>
 <table summary="Columns in SUMMARY_WITHDRAWAL">
@@ -3760,6 +3760,10 @@ SUMMARY_WITHDRAWAL
 		<span class="ctet">(VendorCheckIntegerSum)</span>
 	</dd>
 </dl>
+<h2>Thanks</h2>
+<p>
+	Created by DBFlute(AutoGenerator)
+</p>
 <script>
 /**
  * Incremental Search contributed by makotot (Thanks!)

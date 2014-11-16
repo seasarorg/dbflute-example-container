@@ -940,13 +940,13 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
     //                                                                         Hyper Patch
     //                                                                         ===========
     @Override
-    protected <RESULT extends MemberLogin> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends MemberLogin> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
     }
 
     @Override
-    protected <RESULT extends MemberLogin> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends MemberLogin> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
     }
 
     // ===================================================================================

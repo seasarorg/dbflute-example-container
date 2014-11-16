@@ -1289,13 +1289,13 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     //                                                                         Hyper Patch
     //                                                                         ===========
     @Override
-    protected <RESULT extends Purchase> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.spring.dbflute.allcommon.DBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends Purchase> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.spring.dbflute.allcommon.DBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
     }
 
     @Override
-    protected <RESULT extends Purchase> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.spring.dbflute.allcommon.DBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends Purchase> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.spring.dbflute.allcommon.DBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
     }
 
     // ===================================================================================

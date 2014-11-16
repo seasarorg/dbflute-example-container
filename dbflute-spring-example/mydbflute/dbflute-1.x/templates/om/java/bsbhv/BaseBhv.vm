@@ -1631,13 +1631,13 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     //                                                                         Hyper Patch
     //                                                                         ===========
     @Override
-    protected <RESULT extends ${myExtendedObjectClassName}> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new ${glPackageBaseCommon}.${glDBFluteConfig}.SelectListCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends ${myExtendedObjectClassName}> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new ${glPackageBaseCommon}.${glDBFluteConfig}.SelectCursorCBCommandHyperPatch<RESULT>();
     }
 
     @Override
-    protected <RESULT extends ${myExtendedObjectClassName}> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new ${glPackageBaseCommon}.${glDBFluteConfig}.SelectCursorCBCommandHyperPatch<RESULT>();
+    protected <RESULT extends ${myExtendedObjectClassName}> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new ${glPackageBaseCommon}.${glDBFluteConfig}.SelectListCBCommandHyperPatch<RESULT>();
     }
 
     // ===================================================================================
