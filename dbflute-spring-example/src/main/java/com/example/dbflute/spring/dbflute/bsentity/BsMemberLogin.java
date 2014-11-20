@@ -46,13 +46,13 @@ import com.example.dbflute.spring.dbflute.exentity.*;
  *     
  * 
  * [foreign table]
- *     MEMBER, MEMBER_STATUS
+ *     MEMBER_STATUS, MEMBER
  * 
  * [referrer table]
  *     
  * 
  * [foreign property]
- *     member, memberStatus
+ *     memberStatus, member
  * 
  * [referrer property]
  *     
@@ -343,25 +343,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
-
-    /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public Member getMember() {
-        return _member;
-    }
-
-    /**
-     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param member The entity of foreign property 'member'. (NullAllowed)
-     */
-    public void setMember(Member member) {
-        _member = member;
-    }
-
     /** (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'. */
     protected MemberStatus _memberStatus;
 
@@ -379,6 +360,25 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
      */
     public void setMemberStatus(MemberStatus memberStatus) {
         _memberStatus = memberStatus;
+    }
+
+    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
+    protected Member _member;
+
+    /**
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public Member getMember() {
+        return _member;
+    }
+
+    /**
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @param member The entity of foreign property 'member'. (NullAllowed)
+     */
+    public void setMember(Member member) {
+        _member = member;
     }
 
     // ===================================================================================
@@ -413,10 +413,10 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null)
-        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_memberStatus != null)
         { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
+        if (_member != null)
+        { sb.append(li).append(xbRDS(_member, "member")); }
         return sb.toString();
     }
 
@@ -438,10 +438,10 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null)
-        { sb.append(dm).append("member"); }
         if (_memberStatus != null)
         { sb.append(dm).append("memberStatus"); }
+        if (_member != null)
+        { sb.append(dm).append("member"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

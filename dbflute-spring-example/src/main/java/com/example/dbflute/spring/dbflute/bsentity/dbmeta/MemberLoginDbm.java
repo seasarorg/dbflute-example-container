@@ -87,16 +87,16 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
     {
-        setupEfpg(_efpgMap, new EfpgMember(), "member");
         setupEfpg(_efpgMap, new EfpgMemberStatus(), "memberStatus");
-    }
-    public class EfpgMember implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMember(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMember((Member)vl); }
+        setupEfpg(_efpgMap, new EfpgMember(), "member");
     }
     public class EfpgMemberStatus implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getMemberStatus(); }
         public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberStatus((MemberStatus)vl); }
+    }
+    public class EfpgMember implements PropertyGateway {
+        public Object read(Entity et) { return ((MemberLogin)et).getMember(); }
+        public void write(Entity et, Object vl) { ((MemberLogin)et).setMember((Member)vl); }
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -182,20 +182,20 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @return The information object of foreign property. (NotNull)
-     */
-    public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MemberDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "memberLoginList");
-    }
-    /**
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignMemberStatus() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLoginMemberStatusCode(), MemberStatusDbm.getInstance().columnMemberStatusCode());
-        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MemberStatusDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberLoginList");
+        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MemberStatusDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "memberLoginList");
+    }
+    /**
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMember() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MemberDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "memberLoginList");
     }
 
     // -----------------------------------------------------

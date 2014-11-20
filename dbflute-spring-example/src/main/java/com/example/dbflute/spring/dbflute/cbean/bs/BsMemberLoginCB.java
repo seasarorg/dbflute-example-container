@@ -292,6 +292,25 @@ public class BsMemberLoginCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br />
+     * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * <pre>
+     * MemberLoginCB cb = new MemberLoginCB();
+     * cb.<span style="color: #DD4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.query().setFoo...(value);
+     * MemberLogin memberLogin = memberLoginBhv.selectEntityWithDeletedCheck(cb);
+     * ... = memberLogin.<span style="color: #DD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * </pre>
+     */
+    public void setupSelect_MemberStatus() {
+        assertSetupSelectPurpose("memberStatus");
+        if (hasSpecifiedColumn()) { // if reverse call
+            specify().columnLoginMemberStatusCode();
+        }
+        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberStatus(); } });
+    }
+
     protected MemberNss _nssMember;
     public MemberNss getNssMember() {
         if (_nssMember == null) { _nssMember = new MemberNss(null); }
@@ -318,25 +337,6 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         if (_nssMember == null || !_nssMember.hasConditionQuery())
         { _nssMember = new MemberNss(query().queryMember()); }
         return _nssMember;
-    }
-
-    /**
-     * Set up relation columns to select clause. <br />
-     * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
-     * <pre>
-     * MemberLoginCB cb = new MemberLoginCB();
-     * cb.<span style="color: #DD4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     * cb.query().setFoo...(value);
-     * MemberLogin memberLogin = memberLoginBhv.selectEntityWithDeletedCheck(cb);
-     * ... = memberLogin.<span style="color: #DD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * </pre>
-     */
-    public void setupSelect_MemberStatus() {
-        assertSetupSelectPurpose("memberStatus");
-        if (hasSpecifiedColumn()) { // if reverse call
-            specify().columnLoginMemberStatusCode();
-        }
-        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberStatus(); } });
     }
 
     // [DBFlute-0.7.4]
@@ -381,8 +381,8 @@ public class BsMemberLoginCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MemberLoginCQ> {
-        protected MemberCB.HpSpecification _member;
         protected MemberStatusCB.HpSpecification _memberStatus;
+        protected MemberCB.HpSpecification _member;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MemberLoginCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
@@ -416,38 +416,17 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnMemberLoginId(); // PK
-            if (qyCall().qy().hasConditionQueryMember()
-                    || qyCall().qy().xgetReferrerQuery() instanceof MemberCQ) {
-                columnMemberId(); // FK or one-to-one referrer
-            }
             if (qyCall().qy().hasConditionQueryMemberStatus()
                     || qyCall().qy().xgetReferrerQuery() instanceof MemberStatusCQ) {
                 columnLoginMemberStatusCode(); // FK or one-to-one referrer
             }
+            if (qyCall().qy().hasConditionQueryMember()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MemberCQ) {
+                columnMemberId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "MEMBER_LOGIN"; }
-        /**
-         * Prepare to specify functions about relation table. <br />
-         * (会員)MEMBER by my MEMBER_ID, named 'member'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public MemberCB.HpSpecification specifyMember() {
-            assertRelation("member");
-            if (_member == null) {
-                _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
-                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
-                    public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
-                    , _purpose, _dbmetaProvider);
-                if (xhasSyncQyCall()) { // inherits it
-                    _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
-                        public MemberCQ qy() { return xsyncQyCall().qy().queryMember(); }
-                    });
-                }
-            }
-            return _member;
-        }
         /**
          * Prepare to specify functions about relation table. <br />
          * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
@@ -468,6 +447,27 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 }
             }
             return _memberStatus;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br />
+         * (会員)MEMBER by my MEMBER_ID, named 'member'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MemberCB.HpSpecification specifyMember() {
+            assertRelation("member");
+            if (_member == null) {
+                _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
+                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
+                    public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
+                    , _purpose, _dbmetaProvider);
+                if (xhasSyncQyCall()) { // inherits it
+                    _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
+                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
+                        public MemberCQ qy() { return xsyncQyCall().qy().queryMember(); }
+                    });
+                }
+            }
+            return _member;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

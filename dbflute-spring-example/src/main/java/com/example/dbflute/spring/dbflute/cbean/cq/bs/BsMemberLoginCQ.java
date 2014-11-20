@@ -241,37 +241,17 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MemberLoginCQ bq = (MemberLoginCQ)bqs;
         MemberLoginCQ uq = (MemberLoginCQ)uqs;
-        if (bq.hasConditionQueryMember()) {
-            uq.queryMember().reflectRelationOnUnionQuery(bq.queryMember(), uq.queryMember());
-        }
         if (bq.hasConditionQueryMemberStatus()) {
             uq.queryMemberStatus().reflectRelationOnUnionQuery(bq.queryMemberStatus(), uq.queryMemberStatus());
+        }
+        if (bq.hasConditionQueryMember()) {
+            uq.queryMember().reflectRelationOnUnionQuery(bq.queryMember(), uq.queryMember());
         }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
-    /**
-     * Get the condition-query for relation table. <br />
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @return The instance of condition-query. (NotNull)
-     */
-    public MemberCQ queryMember() {
-        return getConditionQueryMember();
-    }
-    public MemberCQ getConditionQueryMember() {
-        String prop = "member";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
-        return xgetQueRlMap(prop);
-    }
-    protected MemberCQ xcreateQueryMember() {
-        String nrp = xresolveNRP("MEMBER_LOGIN", "member"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "member", nrp);
-    }
-    protected void xsetupOuterJoinMember() { xregOutJo("member"); }
-    public boolean hasConditionQueryMember() { return xhasQueRlMap("member"); }
-
     /**
      * Get the condition-query for relation table. <br />
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
@@ -291,6 +271,26 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     }
     protected void xsetupOuterJoinMemberStatus() { xregOutJo("memberStatus"); }
     public boolean hasConditionQueryMemberStatus() { return xhasQueRlMap("memberStatus"); }
+
+    /**
+     * Get the condition-query for relation table. <br />
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MemberCQ queryMember() {
+        return getConditionQueryMember();
+    }
+    public MemberCQ getConditionQueryMember() {
+        String prop = "member";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MemberCQ xcreateQueryMember() {
+        String nrp = xresolveNRP("MEMBER_LOGIN", "member"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MemberCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "member", nrp);
+    }
+    protected void xsetupOuterJoinMember() { xregOutJo("member"); }
+    public boolean hasConditionQueryMember() { return xhasQueRlMap("member"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

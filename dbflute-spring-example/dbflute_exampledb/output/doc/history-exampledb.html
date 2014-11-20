@@ -118,16 +118,132 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2014/11/20 19:10:10</h2>
+	<p class="tablecount"><span class="dt">table count: </span>15&nbsp;-&gt;&nbsp;24</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li><a href="./schema-exampledb.html#purchase_payment">PURCHASE_PAYMENT</a></li>
+		<li><a href="./schema-exampledb.html#region">REGION</a></li>
+		<li><a href="./schema-exampledb.html#service_rank">SERVICE_RANK</a></li>
+		<li><a href="./schema-exampledb.html#vendor_$_dollar">VENDOR_$_DOLLAR</a></li>
+		<li><a href="./schema-exampledb.html#vendor_identity_only">VENDOR_IDENTITY_ONLY</a></li>
+		<li><a href="./schema-exampledb.html#vendor_primary_key_only">VENDOR_PRIMARY_KEY_ONLY</a></li>
+		<li><a href="./schema-exampledb.html#vendor_the_long_and_winding_table_and_column">VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</a></li>
+		<li><a href="./schema-exampledb.html#vendor_the_long_and_winding_table_and_column_ref">VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</a></li>
+		<li><a href="./schema-exampledb.html#withdrawal_reason">WITHDRAWAL_REASON</a></li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-exampledb.html#member_address">MEMBER_ADDRESS</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_ADDRESS_REGION</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-exampledb.html#member_service">MEMBER_SERVICE</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_SERVICE_SERVICE_RANK_CODE</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-exampledb.html#member_withdrawal">MEMBER_WITHDRAWAL</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2014/11/20 19:03:30</h2>
+	<p class="tablecount"><span class="dt">table count: </span>1&nbsp;-&gt;&nbsp;15</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER</li>
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_FOLLOWING</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_SERVICE</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_CATEGORY</li>
+		<li>PRODUCT_STATUS</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+		<li>VENDOR_CHECK</li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PURCHASE</h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_PURCHASE_MEMBER</li>
+				<li>FK_PURCHASE_PRODUCT</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2014/11/20 18:26:09</h2>
+	<p class="tablecount"><span class="dt">table count: </span>24&nbsp;-&gt;&nbsp;1</p>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PURCHASE</h4>
+		<div class="change-table-content">
+			<h5>Delete FK</h5>
+			<ul class="column-content">
+				<li>FK_PURCHASE_MEMBER</li>
+				<li>FK_PURCHASE_PRODUCT</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>MEMBER</li>
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_FOLLOWING</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_SERVICE</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_CATEGORY</li>
+		<li>PRODUCT_STATUS</li>
+		<li>PURCHASE_PAYMENT</li>
+		<li>REGION</li>
+		<li>SERVICE_RANK</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_IDENTITY_ONLY</li>
+		<li>VENDOR_PRIMARY_KEY_ONLY</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>WITHDRAWAL_REASON</li>
+	</ul>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2014/06/16 23:42:26</h2>
 	<p class="tablecount"><span class="dt">table count: </span>23&nbsp;-&gt;&nbsp;24</p>
 
 	<h3>Add Table</h3>
 	<ul class="table-content">
-		<li><a href="./schema-exampledb.html#product_category">PRODUCT_CATEGORY</a></li>
+		<li>PRODUCT_CATEGORY</li>
 	</ul>
 	<h3>Change Table</h3>
 	<div class="table-content">
-		<h4><a href="./schema-exampledb.html#product">PRODUCT</a></h4>
+		<h4>PRODUCT</h4>
 		<div class="change-table-content">
 			<h5>Add FK</h5>
 			<ul class="column-content">
