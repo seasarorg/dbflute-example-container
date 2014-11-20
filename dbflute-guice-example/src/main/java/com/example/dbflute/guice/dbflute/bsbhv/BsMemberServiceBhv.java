@@ -286,10 +286,10 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
     //                                                                       Scalar Select
     //                                                                       =============
     /**
-     * Select the scalar value derived by a function from uniquely-selected records. <br />
+     * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * memberServiceBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * memberServiceBhv.<span style="color: #DD4747">selectScalar</span>(Date.class).max(new ScalarQuery() {
      *     public void query(MemberServiceCB cb) {
      *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
@@ -300,7 +300,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<MemberServiceCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<MemberServiceCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
@@ -1088,7 +1088,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
      * @param cb The condition-bean of MemberService. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
@@ -1142,19 +1142,6 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
     //                                                                ====================
     @Override
     protected boolean hasVersionNoValue(Entity et) { return downcast(et).getVersionNo() != null; }
-
-    // ===================================================================================
-    //                                                                         Hyper Patch
-    //                                                                         ===========
-    @Override
-    protected <RESULT extends MemberService> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
-    }
-
-    @Override
-    protected <RESULT extends MemberService> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.guice.dbflute.allcommon.DBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
-    }
 
     // ===================================================================================
     //                                                                         Type Helper

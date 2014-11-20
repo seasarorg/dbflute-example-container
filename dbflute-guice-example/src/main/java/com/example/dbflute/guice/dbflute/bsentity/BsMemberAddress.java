@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
@@ -70,7 +71,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberAddress extends AbstractEntity implements EntityDefinedCommonColumn {
+public abstract class BsMemberAddress extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition

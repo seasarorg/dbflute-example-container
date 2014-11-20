@@ -119,12 +119,114 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2014/11/19 14:08:55</h2>
+	<p class="tablecount"><span class="dt">table count: </span>1&nbsp;-&gt;&nbsp;25</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li><a href="./schema-exampledb.html#member_address">MEMBER_ADDRESS</a></li>
+		<li><a href="./schema-exampledb.html#member_following">MEMBER_FOLLOWING</a></li>
+		<li><a href="./schema-exampledb.html#member_login">MEMBER_LOGIN</a></li>
+		<li><a href="./schema-exampledb.html#member_security">MEMBER_SECURITY</a></li>
+		<li><a href="./schema-exampledb.html#member_service">MEMBER_SERVICE</a></li>
+		<li><a href="./schema-exampledb.html#member_status">MEMBER_STATUS</a></li>
+		<li><a href="./schema-exampledb.html#member_withdrawal">MEMBER_WITHDRAWAL</a></li>
+		<li><a href="./schema-exampledb.html#product">PRODUCT</a></li>
+		<li><a href="./schema-exampledb.html#product_category">PRODUCT_CATEGORY</a></li>
+		<li><a href="./schema-exampledb.html#product_status">PRODUCT_STATUS</a></li>
+		<li><a href="./schema-exampledb.html#purchase">PURCHASE</a></li>
+		<li><a href="./schema-exampledb.html#purchase_payment">PURCHASE_PAYMENT</a></li>
+		<li><a href="./schema-exampledb.html#region">REGION</a></li>
+		<li><a href="./schema-exampledb.html#service_rank">SERVICE_RANK</a></li>
+		<li><a href="./schema-exampledb.html#summary_product">SUMMARY_PRODUCT</a></li>
+		<li><a href="./schema-exampledb.html#summary_withdrawal">SUMMARY_WITHDRAWAL</a></li>
+		<li><a href="./schema-exampledb.html#vendor_$_dollar">VENDOR_$_DOLLAR</a></li>
+		<li><a href="./schema-exampledb.html#vendor_check">VENDOR_CHECK</a></li>
+		<li><a href="./schema-exampledb.html#vendor_identity_only">VENDOR_IDENTITY_ONLY</a></li>
+		<li><a href="./schema-exampledb.html#vendor_primary_key_only">VENDOR_PRIMARY_KEY_ONLY</a></li>
+		<li><a href="./schema-exampledb.html#vendor_the_long_and_winding_table_and_column">VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</a></li>
+		<li><a href="./schema-exampledb.html#vendor_the_long_and_winding_table_and_column_ref">VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</a></li>
+		<li><a href="./schema-exampledb.html#white_date_term">WHITE_DATE_TERM</a></li>
+		<li><a href="./schema-exampledb.html#withdrawal_reason">WITHDRAWAL_REASON</a></li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-exampledb.html#member">MEMBER</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_MEMBER_STATUS</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Add TableCls</h3>
+	<ul class="table-content">
+		<li>MEMBER_STATUS::PRV</li>
+		<li>MEMBER_STATUS::FML</li>
+		<li>MEMBER_STATUS::WDL</li>
+		<li>PRODUCT_STATUS::ONS</li>
+		<li>PRODUCT_STATUS::PST</li>
+		<li>PRODUCT_STATUS::SST</li>
+	</ul>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2014/11/19 14:07:24</h2>
+	<p class="tablecount"><span class="dt">table count: </span>25&nbsp;-&gt;&nbsp;1</p>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Delete FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_MEMBER_STATUS</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_FOLLOWING</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_SERVICE</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_CATEGORY</li>
+		<li>PRODUCT_STATUS</li>
+		<li>PURCHASE</li>
+		<li>PURCHASE_PAYMENT</li>
+		<li>REGION</li>
+		<li>SERVICE_RANK</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_IDENTITY_ONLY</li>
+		<li>VENDOR_PRIMARY_KEY_ONLY</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>WHITE_DATE_TERM</li>
+		<li>WITHDRAWAL_REASON</li>
+	</ul>
+	<h3>Delete TableCls</h3>
+	<ul class="table-content">
+		<li>MEMBER_STATUS::PRV</li>
+		<li>MEMBER_STATUS::FML</li>
+		<li>MEMBER_STATUS::WDL</li>
+		<li>PRODUCT_STATUS::ONS</li>
+		<li>PRODUCT_STATUS::PST</li>
+		<li>PRODUCT_STATUS::SST</li>
+	</ul>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2014/10/22 22:36:03</h2>
 	<p class="tablecount"><span class="dt">table count: </span>24&nbsp;-&gt;&nbsp;25</p>
 
 	<h3>Add Table</h3>
 	<ul class="table-content">
-		<li><a href="./schema-exampledb.html#white_date_term">WHITE_DATE_TERM</a></li>
+		<li>WHITE_DATE_TERM</li>
 	</ul>
 </div>
 <div class="section">
@@ -137,5 +239,9 @@ p.tablecount {
 	</ul>
 </div>
 
+<h2>Thanks</h2>
+<p>
+	Created by <a href="http://dbflute.seasar.org/">DBFlute(AutoGenerator)</a>
+</p>
 </body>
 </html>

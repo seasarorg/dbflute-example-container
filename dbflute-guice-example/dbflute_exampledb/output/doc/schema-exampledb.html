@@ -329,7 +329,7 @@ dl.procedurelist dd.column pre {
 		<td class="aliascell">会員ログイン</td>
 		<td><a href="#member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">MEMBER_LOGIN</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell"><a href="#member" title="FK_MEMBER_LOGIN_MEMBER">MEMBER</a>, <a href="#member_status" title="FK_MEMBER_LOGIN_MEMBER_STATUS">MEMBER_STATUS</a></td>
+		<td class="relcell"><a href="#member_status" title="FK_MEMBER_LOGIN_MEMBER_STATUS">MEMBER_STATUS</a>, <a href="#member" title="FK_MEMBER_LOGIN_MEMBER">MEMBER</a></td>
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell"> ログインするたびに登録されるログイン履歴。<br />登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。</td>
 		<td class="subcell">MemberLogin</td>
@@ -549,7 +549,7 @@ dl.procedurelist dd.column pre {
 
 <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
-&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=24)</a></span>
+&nbsp;<span class="bqpcount"><a href="#member_sql">(outsideSql=21)</a></span>
 </h2>
 <p class="tablecomment">会員のプロフィールやアカウントなどの基本情報を保持する。<br />基本的に物理削除はなく、退会したらステータスが退会会員になる。<br />ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。</p>
 <table summary="Columns in MEMBER">
@@ -4476,6 +4476,16 @@ SUMMARY_WITHDRAWAL
 <h2 id="outsidesql">OutsideSql List</h2>
 <h3 id="member_sql"><a href="#member">MEMBER</a></h3>
 <dl class="bqplist">
+	<dt>(The&nbsp;example&nbsp;for&nbsp;select&nbsp;using&nbsp;domain&nbsp;entity)selectDomainMember</dt>
+	<dd>
+		<pre class="commentdesc"> You can use a domain entity as result type
+ if a selected column is one of a domain table.</pre>
+	</dd>
+	<dd class="subinfo">
+		<span class="file">MemberBhv_selectDomainMember.sql</span>
+		<span class="ctet">(df:entity)</span>
+		<span class="pmb">(df:pmb)</span>
+	</dd>
 	<dt>&nbsp;selectLatestFormalizedDatetime</dt>
 	<dd class="subinfo">
 		<span class="file">MemberBhv_selectLatestFormalizedDatetime.sql</span>
@@ -4590,36 +4600,6 @@ SUMMARY_WITHDRAWAL
 	<dd class="subinfo">
 		<span class="file">MemberBhv_selectIfCommentWrongExpression.sql</span>
 	</dd>
-	<dt>(Simple&nbsp;Member&nbsp;Select)selectSqlApBasicMember</dt>
-	<dd>
-		<pre class="commentdesc"> This SQL is the most basic example for outsideSql.
- It uses CustomizeEntity and ParameterBean.</pre>
-	</dd>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApBasicMember.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApCursorMember</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApCursorMember.sql</span>
-		<span class="ctet">(df:entity *cursor)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
-	<dt>&nbsp;selectSqlApNoMark</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApNoMark.sql</span>
-	</dd>
-	<dt>&nbsp;subdirectory_selectSqlApSubDirectoryCheck</dt>
-	<dd class="subinfo">
-        <span class="sqlap">(dbflute-sqlap-example)</span>
-		<span class="file">MemberBhv_selectSqlApSubDirectoryCheck.sql</span>
-		<span class="ctet">(df:entity)</span>
-		<span class="pmb">(df:pmb)</span>
-	</dd>
 </dl>
 <h3 id="member_status_sql"><a href="#member_status">MEMBER_STATUS</a></h3>
 <dl class="bqplist">
@@ -4651,9 +4631,10 @@ SUMMARY_WITHDRAWAL
 		<span class="ctet">(VendorCheckIntegerSum)</span>
 	</dd>
 </dl>
+
 <h2>Thanks</h2>
 <p>
-	Created by DBFlute(AutoGenerator)
+	Created by <a href="http://dbflute.seasar.org/">DBFlute(AutoGenerator)</a>
 </p>
 <script>
 /**

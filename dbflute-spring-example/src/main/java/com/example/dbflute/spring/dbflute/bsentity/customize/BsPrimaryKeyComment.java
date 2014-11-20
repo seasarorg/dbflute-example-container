@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.spring.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
@@ -72,7 +73,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsPrimaryKeyComment extends AbstractEntity implements EntityDefinedCommonColumn {
+public abstract class BsPrimaryKeyComment extends AbstractEntity implements CustomizeEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition

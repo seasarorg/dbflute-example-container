@@ -28,13 +28,13 @@ import com.example.dbflute.guice.simpleflute.dto.*;
  *     
  * 
  * [foreign-table]
- *     MEMBER, MEMBER_STATUS
+ *     MEMBER_STATUS, MEMBER
  * 
  * [referrer-table]
  *     
  * 
  * [foreign-property]
- *     member, memberStatus
+ *     memberStatus, member
  * 
  * [referrer-property]
  *     
@@ -233,16 +233,6 @@ public abstract class BsMemberLoginDto implements Serializable {
     // ===================================================================================
     //                                                                       Foreign Table
     //                                                                       =============
-    protected MemberDto _member;
-
-    public MemberDto getMember() {
-        return _member;
-    }
-
-    public void setMember(MemberDto member) {
-        this._member = member;
-    }
-
     protected MemberStatusDto _memberStatus;
 
     public MemberStatusDto getMemberStatus() {
@@ -251,6 +241,16 @@ public abstract class BsMemberLoginDto implements Serializable {
 
     public void setMemberStatus(MemberStatusDto memberStatus) {
         this._memberStatus = memberStatus;
+    }
+
+    protected MemberDto _member;
+
+    public MemberDto getMember() {
+        return _member;
+    }
+
+    public void setMember(MemberDto member) {
+        this._member = member;
     }
 
     // ===================================================================================

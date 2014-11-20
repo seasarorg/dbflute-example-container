@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.allcommon.CDef;
@@ -30,13 +31,13 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  *     
  * 
  * [foreign table]
- *     MEMBER, MEMBER_STATUS
+ *     MEMBER_STATUS, MEMBER
  * 
  * [referrer table]
  *     
  * 
  * [foreign property]
- *     member, memberStatus
+ *     memberStatus, member
  * 
  * [referrer property]
  *     
@@ -57,7 +58,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberLogin extends AbstractEntity {
+public abstract class BsMemberLogin extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -307,25 +308,6 @@ public abstract class BsMemberLogin extends AbstractEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected OptionalEntity<Member> _member;
-
-    /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<Member> getMember() {
-        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
-    }
-
-    /**
-     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
-     * @param member The entity of foreign property 'member'. (NullAllowed)
-     */
-    public void setMember(OptionalEntity<Member> member) {
-        _member = member;
-    }
-
     /** (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'. */
     protected OptionalEntity<MemberStatus> _memberStatus;
 
@@ -343,6 +325,25 @@ public abstract class BsMemberLogin extends AbstractEntity {
      */
     public void setMemberStatus(OptionalEntity<MemberStatus> memberStatus) {
         _memberStatus = memberStatus;
+    }
+
+    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
+    protected OptionalEntity<Member> _member;
+
+    /**
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<Member> getMember() {
+        if (_member != null) { return _member; } else { return OptionalEntity.relationEmpty(this, "member"); }
+    }
+
+    /**
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * @param member The entity of foreign property 'member'. (NullAllowed)
+     */
+    public void setMember(OptionalEntity<Member> member) {
+        _member = member;
     }
 
     // ===================================================================================
@@ -377,10 +378,10 @@ public abstract class BsMemberLogin extends AbstractEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null && _member.isPresent())
-        { sb.append(li).append(xbRDS(_member, "member")); }
         if (_memberStatus != null && _memberStatus.isPresent())
         { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
+        if (_member != null && _member.isPresent())
+        { sb.append(li).append(xbRDS(_member, "member")); }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.seasar.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -405,10 +406,10 @@ public abstract class BsMemberLogin extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null && _member.isPresent())
-        { sb.append(dm).append("member"); }
         if (_memberStatus != null && _memberStatus.isPresent())
         { sb.append(dm).append("memberStatus"); }
+        if (_member != null && _member.isPresent())
+        { sb.append(dm).append("member"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

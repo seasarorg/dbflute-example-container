@@ -9,7 +9,6 @@ import org.seasar.dbflute.util.Srl;
 
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
 import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
-import com.example.dbflute.spring.dbflute.exbhv.pmbean.DomainMemberPmb;
 import com.example.dbflute.spring.dbflute.exbhv.pmbean.MemberChangedToWithdrawalForcedlyPmb;
 import com.example.dbflute.spring.dbflute.exbhv.pmbean.MemberNamePmb;
 import com.example.dbflute.spring.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -76,26 +75,6 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
             assertNotNull(memberName);
             assertNotNull(memberStatusName);
             assertTrue(memberName.startsWith("S"));
-        }
-    }
-
-    // ===================================================================================
-    //                                                                              Domain
-    //                                                                              ======
-    public void test_outsideSql_selectList_domain_typedCall() {
-        // ## Arrange ##
-        DomainMemberPmb pmb = new DomainMemberPmb();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.outsideSql().selectList(pmb);
-
-        // ## Assert ##
-        assertFalse(memberList.isEmpty());
-        for (Member member : memberList) {
-            log(member.toString());
-            assertNotNull(member.getMemberId());
-            assertNotNull(member.getMemberName());
-            assertFalse(member.hasModification());
         }
     }
 

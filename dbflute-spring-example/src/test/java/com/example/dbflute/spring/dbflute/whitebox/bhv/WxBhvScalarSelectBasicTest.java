@@ -2,9 +2,12 @@ package com.example.dbflute.spring.dbflute.whitebox.bhv;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.seasar.dbflute.CallbackContext;
+import org.seasar.dbflute.bhv.ConditionBeanSetupper;
+import org.seasar.dbflute.bhv.ReferrerLoaderHandler;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.OrQuery;
 import org.seasar.dbflute.cbean.ScalarQuery;
@@ -15,15 +18,16 @@ import org.seasar.dbflute.cbean.coption.ScalarSelectOption;
 import org.seasar.dbflute.exception.SpecifyColumnTwoOrMoreColumnException;
 import org.seasar.dbflute.exception.SpecifyColumnWithDerivedReferrerException;
 import org.seasar.dbflute.exception.SpecifyDerivedReferrerTwoOrMoreException;
-import org.seasar.dbflute.exception.SpecifyRelationIllegalPurposeException;
 import org.seasar.dbflute.jdbc.SqlLogHandler;
 import org.seasar.dbflute.jdbc.SqlLogInfo;
 import org.seasar.dbflute.util.DfTypeUtil;
 import org.seasar.dbflute.util.Srl;
 
+import com.example.dbflute.spring.dbflute.bsbhv.loader.LoaderOfMember;
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.MemberServiceDbm;
 import com.example.dbflute.spring.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm;
 import com.example.dbflute.spring.dbflute.cbean.MemberCB;
+import com.example.dbflute.spring.dbflute.cbean.MemberLoginCB;
 import com.example.dbflute.spring.dbflute.cbean.MemberServiceCB;
 import com.example.dbflute.spring.dbflute.cbean.PurchaseCB;
 import com.example.dbflute.spring.dbflute.cbean.SummaryWithdrawalCB;
@@ -31,6 +35,7 @@ import com.example.dbflute.spring.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.spring.dbflute.exbhv.MemberServiceBhv;
 import com.example.dbflute.spring.dbflute.exbhv.SummaryWithdrawalBhv;
 import com.example.dbflute.spring.dbflute.exentity.Member;
+import com.example.dbflute.spring.dbflute.exentity.MemberLogin;
 import com.example.dbflute.spring.unit.UnitContainerTestCase;
 
 /**
@@ -356,6 +361,159 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                     Relation Column
+    //                                                                     ===============
+    public void test_ScalarSelect_relation_basic() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        int expected = 0;
+        for (Member member : memberList) {
+            expected = expected + member.getMemberStatus().getDisplayOrder();
+        }
+
+        // ## Act ##
+        Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
+            public void query(MemberCB cb) {
+                cb.specify().specifyMemberStatus().columnDisplayOrder();
+            }
+        });
+
+        // ## Assert ##
+        assertEquals(expected, sum);
+    }
+
+    public void test_ScalarSelect_relation_union() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        int expected = 0;
+        for (Member member : memberList) {
+            expected = expected + member.getMemberStatus().getDisplayOrder();
+        }
+
+        // ## Act ##
+        Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
+            public void query(MemberCB cb) {
+                cb.specify().specifyMemberStatus().columnDisplayOrder();
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                    }
+                });
+            }
+        });
+
+        // ## Assert ##
+        assertEquals(expected, sum);
+    }
+
+    public void test_ScalarSelect_relation_DerivedReferrer_basic() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
+            public void handle(LoaderOfMember loader) {
+                loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                    public void setup(MemberLoginCB refCB) {
+                        refCB.query().addOrderBy_MemberLoginId_Desc();
+                    }
+                });
+            }
+        });
+        Long expected = 0L;
+        for (Member member : memberList) {
+            List<MemberLogin> loginList = member.getMemberStatus().getMemberLoginList();
+            long currentId = !loginList.isEmpty() ? loginList.get(0).getMemberLoginId() : 0;
+            expected = expected + currentId;
+        }
+        final Set<String> sqlSet = new HashSet<String>();
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                sqlSet.add(info.getDisplaySql());
+            }
+        });
+
+        // ## Act ##
+        try {
+            Long sum = memberBhv.scalarSelect(Long.class).sum(new ScalarQuery<MemberCB>() {
+                public void query(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                        public void query(MemberLoginCB subCB) {
+                            subCB.specify().columnMemberLoginId();
+                        }
+                    }, null);
+                }
+            });
+
+            // ## Assert ##
+            assertEquals(expected, sum);
+            String sql = sqlSet.iterator().next();
+            assertContains(sql, "select sum((select max(sub1loc.MEMBER_LOGIN_ID)");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_ScalarSelect_relation_DerivedReferrer_union() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.setupSelect_MemberStatus();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
+            public void handle(LoaderOfMember loader) {
+                loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                    public void setup(MemberLoginCB refCB) {
+                        refCB.query().addOrderBy_MemberLoginId_Desc();
+                    }
+                });
+            }
+        });
+        Long expected = 0L;
+        for (Member member : memberList) {
+            List<MemberLogin> loginList = member.getMemberStatus().getMemberLoginList();
+            long currentId = !loginList.isEmpty() ? loginList.get(0).getMemberLoginId() : 0;
+            expected = expected + currentId;
+        }
+        final Set<String> sqlSet = new HashSet<String>();
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                sqlSet.add(info.getDisplaySql());
+            }
+        });
+
+        // ## Act ##
+        try {
+            Long sum = memberBhv.scalarSelect(Long.class).sum(new ScalarQuery<MemberCB>() {
+                public void query(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                        public void query(MemberLoginCB subCB) {
+                            subCB.specify().columnMemberLoginId();
+                            subCB.query().setMobileLoginFlg_Equal_True();
+                            subCB.unionAll(new UnionQuery<MemberLoginCB>() {
+                                public void query(MemberLoginCB unionCB) {
+                                    unionCB.query().setMobileLoginFlg_Equal_False();
+                                }
+                            });
+                        }
+                    }, null);
+                }
+            });
+
+            // ## Assert ##
+            assertEquals(expected, sum);
+            String sql = sqlSet.iterator().next();
+            assertContains(sql, "select sum((select max(sub1main.MEMBER_LOGIN_ID)");
+            assertContains(sql, "union all ");
+            assertContains(sql, "from (select sub1loc.LOGIN_MEMBER_STATUS_CODE, sub1loc.MEMBER_LOGIN_ID");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    // ===================================================================================
     //                                                                             Illegal
     //                                                                             =======
     public void test_ScalarSelect_duplicated_basic() {
@@ -422,24 +580,6 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             // ## Assert ##
             fail();
         } catch (SpecifyDerivedReferrerTwoOrMoreException e) {
-            // OK
-            log(e.getMessage());
-        }
-    }
-
-    public void test_ScalarSelect_specifyRelation() {
-        // ## Arrange ##
-        // ## Act ##
-        try {
-            memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-                public void query(MemberCB cb) {
-                    cb.specify().specifyMemberStatus();
-                }
-            });
-
-            // ## Assert ##
-            fail();
-        } catch (SpecifyRelationIllegalPurposeException e) {
             // OK
             log(e.getMessage());
         }

@@ -3,10 +3,12 @@ package com.example.dbflute.guice.dbflute.howto;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.seasar.dbflute.bhv.ConditionBeanSetupper;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.PagingResultBean;
+import org.seasar.dbflute.cbean.ScalarQuery;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.util.DfTypeUtil;
 
@@ -122,6 +124,42 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // C. 枝分かれの子テーブルを取得することも可能。
         // D. 子テーブルの親テーブルを取得することも可能。詳しくはBehaviorPlatinumTestにて
         // E. 子テーブルの子テーブル(孫テーブル)を取得することも可能。詳しくはBehaviorPlatinumTestにて
+    }
+
+    // ===================================================================================
+    //                                                                       Scalar Select
+    //                                                                       =============
+    /**
+     * カラムの最大値検索(ScalarSelect): scalarSelect(), max().
+     * 正式会員で一番最近(最大)の誕生日を検索。
+     * @since 0.8.6
+     */
+    public void test_scalarSelect_max() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.specify().columnBirthdate();
+        cb.query().setMemberStatusCode_Equal_Formalized();
+        cb.query().setBirthdate_IsNotNull();
+        cb.query().addOrderBy_Birthdate_Desc();
+        cb.fetchFirst(1);
+        LocalDate expected = memberBhv.selectEntityWithDeletedCheck(cb).getBirthdate();
+
+        // ## Act ##
+        LocalDate birthday = memberBhv.selectScalar(LocalDate.class).max(new ScalarQuery<MemberCB>() {
+            public void query(MemberCB cb) {
+                cb.specify().columnBirthdate(); // *Point!
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            }
+        });
+
+        // ## Assert ##
+        assertEquals(expected, birthday);
+
+        // [Description]
+        // A. max()/min()/sum()/avg()をサポート
+        // B. サポートされない型を指定された場合は例外発生(例えばsum()に日付型を指定など)
+        // C. コールバックのConditionBeanにて対象のカラムを指定。
+        //    --> 必ず「一つだけ」を指定すること(無しもしくは複数の場合は例外発生)
     }
 
     // ===================================================================================

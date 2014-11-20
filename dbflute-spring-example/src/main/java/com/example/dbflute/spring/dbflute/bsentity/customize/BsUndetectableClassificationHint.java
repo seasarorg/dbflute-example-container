@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.spring.dbflute.allcommon.CDef;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
@@ -63,7 +64,7 @@ import com.example.dbflute.spring.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsUndetectableClassificationHint extends AbstractEntity {
+public abstract class BsUndetectableClassificationHint extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import org.seasar.dbflute.optional.OptionalEntity;
 import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
@@ -54,7 +55,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends AbstractEntity {
+public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition

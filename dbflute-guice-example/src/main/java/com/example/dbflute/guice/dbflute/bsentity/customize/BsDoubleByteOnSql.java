@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
@@ -49,7 +50,7 @@ import com.example.dbflute.guice.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsDoubleByteOnSql extends AbstractEntity {
+public abstract class BsDoubleByteOnSql extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition

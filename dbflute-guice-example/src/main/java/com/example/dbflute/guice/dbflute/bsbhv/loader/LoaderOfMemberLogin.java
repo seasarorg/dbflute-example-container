@@ -25,13 +25,13 @@ import com.example.dbflute.guice.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     MEMBER, MEMBER_STATUS
+ *     MEMBER_STATUS, MEMBER
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     member, memberStatus
+ *     memberStatus, member
  *
  * [referrer property]
  *     
@@ -59,20 +59,20 @@ public class LoaderOfMemberLogin {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
-    protected LoaderOfMember _foreignMemberLoader;
-    public LoaderOfMember pulloutMember() {
-        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
-        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
-        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
-        return _foreignMemberLoader;
-    }
-
     protected LoaderOfMemberStatus _foreignMemberStatusLoader;
     public LoaderOfMemberStatus pulloutMemberStatus() {
         if (_foreignMemberStatusLoader != null) { return _foreignMemberStatusLoader; }
         List<MemberStatus> pulledList = myBhv().pulloutMemberStatus(_selectedList);
         _foreignMemberStatusLoader = new LoaderOfMemberStatus().ready(pulledList, _selector);
         return _foreignMemberStatusLoader;
+    }
+
+    protected LoaderOfMember _foreignMemberLoader;
+    public LoaderOfMember pulloutMember() {
+        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
+        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
+        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
+        return _foreignMemberLoader;
     }
 
     // ===================================================================================
