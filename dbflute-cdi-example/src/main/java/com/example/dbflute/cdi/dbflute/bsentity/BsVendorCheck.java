@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import com.example.dbflute.cdi.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.cdi.dbflute.exentity.*;
 
@@ -81,7 +82,7 @@ import com.example.dbflute.cdi.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorCheck extends AbstractEntity {
+public abstract class BsVendorCheck extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
