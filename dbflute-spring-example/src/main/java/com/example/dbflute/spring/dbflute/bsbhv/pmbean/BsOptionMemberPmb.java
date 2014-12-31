@@ -393,7 +393,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * reference option (including classification)
+     * // reference option (including classification)
      * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
@@ -402,7 +402,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * reference option (including classification)
+     * // reference option (including classification)
      * @param memberStatusCode The value of memberStatusCode. (NullAllowed)
      */
     public void setMemberStatusCode(String memberStatusCode) {
@@ -411,7 +411,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Formalized] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * reference option (including classification) <br />
+     * // reference option (including classification) <br />
      * as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -420,7 +420,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Withdrawal] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * reference option (including classification) <br />
+     * // reference option (including classification) <br />
      * withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -429,7 +429,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Provisional] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * reference option (including classification) <br />
+     * // reference option (including classification) <br />
      * first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {
@@ -454,7 +454,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
-     * several options
+     * // several options
      * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getBirthdate() {
@@ -463,7 +463,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as fromDate] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br />
-     * several options
+     * // several options
      * @param birthdate The value of birthdate. (NullAllowed)
      */
     public void setBirthdate_FromDate(Date birthdate) {
@@ -472,7 +472,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] status:cls(MemberStatus) <br />
-     * direct classification setting
+     * // direct classification setting
      * @return The value of status. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatus() {
@@ -481,7 +481,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set] status:cls(MemberStatus) <br />
-     * direct classification setting
+     * // direct classification setting
      * @param status The value of status. (NullAllowed)
      */
     public void setStatus(String status) {
@@ -490,7 +490,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Formalized] status:cls(MemberStatus) <br />
-     * direct classification setting <br />
+     * // direct classification setting <br />
      * as formal member, allowed to use all service
      */
     public void setStatus_Formalized() {
@@ -499,7 +499,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Withdrawal] status:cls(MemberStatus) <br />
-     * direct classification setting <br />
+     * // direct classification setting <br />
      * withdrawal is fixed, not allowed to use service
      */
     public void setStatus_Withdrawal() {
@@ -508,7 +508,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as Provisional] status:cls(MemberStatus) <br />
-     * direct classification setting <br />
+     * // direct classification setting <br />
      * first status after entry, allowed to use only part of service
      */
     public void setStatus_Provisional() {
@@ -517,7 +517,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] statusFormalized:cls(MemberStatus.Formalized) <br />
-     * fixed classification setting
+     * // fixed classification setting
      * @return The value of statusFormalized. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getStatusFormalized() {
@@ -526,7 +526,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * classification to list
+     * // classification to list
      * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
@@ -535,7 +535,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set] statusList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * classification to list
+     * // classification to list
      * @param statusList The value of statusList. (NullAllowed)
      */
     public void setStatusList(List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> statusList) {
@@ -544,7 +544,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] statusFixedList:cls(MemberStatus.Formalized, Withdrawal) <br />
-     * fixed classification list
+     * // fixed classification list
      * @return The value of statusFixedList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getStatusFixedList() {
@@ -553,7 +553,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] paymentCompleteFlg:cls(Flg) <br />
-     * direct one as Integer
+     * // direct one as Integer
      * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
@@ -562,7 +562,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set] paymentCompleteFlg:cls(Flg) <br />
-     * direct one as Integer
+     * // direct one as Integer
      * @param paymentCompleteFlg The value of paymentCompleteFlg. (NullAllowed)
      */
     public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
@@ -571,7 +571,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as True] paymentCompleteFlg:cls(Flg) <br />
-     * direct one as Integer <br />
+     * // direct one as Integer <br />
      * means yes
      */
     public void setPaymentCompleteFlg_True() {
@@ -580,7 +580,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [set as False] paymentCompleteFlg:cls(Flg) <br />
-     * direct one as Integer <br />
+     * // direct one as Integer <br />
      * means no
      */
     public void setPaymentCompleteFlg_False() {
@@ -589,7 +589,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
 
     /**
      * [get] paymentCompleteTrue:cls(Flg.True) <br />
-     * fixed one as Integer
+     * // fixed one as Integer
      * @return The value of paymentCompleteTrue. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteTrue() {

@@ -320,7 +320,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     //                                                                            ========
     /**
      * [get] normalInteger <br />
-     * memberId's comment
+     * // memberId's comment
      * @return The value of normalInteger. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getNormalInteger() {
@@ -329,7 +329,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [set] normalInteger <br />
-     * memberId's comment
+     * // memberId's comment
      * @param normalInteger The value of normalInteger. (NullAllowed)
      */
     public void setNormalInteger(Integer normalInteger) {
@@ -404,7 +404,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] containSearchOption:likeContain <br />
-     * comment with implicit(likeContain)
+     * // comment with implicit(likeContain)
      * @return The value of containSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getContainSearchOption() {
@@ -413,7 +413,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [set as containSearch] containSearchOption:likeContain <br />
-     * comment with implicit(likeContain)
+     * // comment with implicit(likeContain)
      * @param containSearchOption The value of containSearchOption. (NullAllowed)
      */
     public void setContainSearchOption_ContainSearch(String containSearchOption) {
@@ -458,7 +458,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
 
     /**
      * [get] normalCls:cls(MemberStatus.Withdrawal) <br />
-     * fixed classification
+     * // fixed classification
      * @return The value of normalCls. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getNormalCls() {
