@@ -186,6 +186,16 @@ public abstract class BsOptionMember extends AbstractEntity implements Customize
         setDummyFlg(cdef != null ? toNumber(cdef.code(), Integer.class) : null);
     }
 
+    /**
+     * Set the value of dummyFlg as boolean. <br />
+     * DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
+     * general boolean classification for every flg-column
+     * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
+     */
+    public void setDummyFlgAsBoolean(Boolean determination) {
+        setDummyFlgAsFlg(CDef.Flg.codeOf(determination));
+    }
+
     // ===================================================================================
     //                                                              Classification Setting
     //                                                              ======================

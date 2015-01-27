@@ -163,6 +163,16 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     }
 
     /**
+     * Set the value of mobileLoginFlg as boolean. <br />
+     * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * general boolean classification for every flg-column
+     * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
+     */
+    public void setMobileLoginFlgAsBoolean(Boolean determination) {
+        setMobileLoginFlgAsFlg(CDef.Flg.codeOf(determination));
+    }
+
+    /**
      * Get the value of loginMemberStatusCode as the classification of MemberStatus. <br />
      * (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
      * status of member from entry to withdrawal

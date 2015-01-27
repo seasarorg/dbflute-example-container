@@ -206,6 +206,16 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
         setPaymentCompleteFlg(cdef != null ? toNumber(cdef.code(), Integer.class) : null);
     }
 
+    /**
+     * Set the value of paymentCompleteFlg as boolean. <br />
+     * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * general boolean classification for every flg-column
+     * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
+     */
+    public void setPaymentCompleteFlgAsBoolean(Boolean determination) {
+        setPaymentCompleteFlgAsFlg(CDef.Flg.codeOf(determination));
+    }
+
     // ===================================================================================
     //                                                              Classification Setting
     //                                                              ======================

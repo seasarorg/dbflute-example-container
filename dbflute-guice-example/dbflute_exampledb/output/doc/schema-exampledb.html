@@ -60,11 +60,15 @@ h4 {
 }
 .sisterlink {
 	margin-top: 0.6em;
-	font-size: 110%;
+	font-size: 120%;
 }
 .sistersublink {
 	margin-top: 0.6em;
-	font-size: 80%;
+	font-size: 85%;
+}
+.sisterneighborlink {
+	margin-top: 0.6em;
+	font-size: 100%;
 }
 
 /* keyword search */
@@ -268,10 +272,18 @@ dl.procedurelist dd.column pre {
 <h1>Schema for exampledb (h2)</h1>
 <p class="mainschema">generated from <strong>EXAMPLEDB.PUBLIC</strong></p>
 <div class="navilinkarea">
-<p class="sublink"><a href="#cdef">Classification Definition</a></p>
-<p class="sublink"><a href="#outsidesql">OutsideSql List</a></p>
+<p class="sublink">
+ <a href="#cdef">Classification Definition</a>
+| <a href="#outsidesql">OutsideSql List</a>
+| <a href="#diagram">Schema Diagram</a>
+</p>
+<p>
 <p class="sisterlink"><a href="./history-exampledb.html">to HistoryHTML</a></p>
 <p class="sistersublink"><a href="./properties-exampledb.html">to PropertiesHTML</a></p>
+</p>
+<p class="sisterneighborlink">
+ <a href="../../../../dbflute-spring-example/dbflute_exampledb/output/doc/schema-exampledb.html">to dockside_maihama</a>
+</p>
 </div>
 
 <h2>Table List</h2>
@@ -4206,6 +4218,7 @@ SUMMARY_WITHDRAWAL
 				<th>Name</th>
 				<th>Alias</th>
 				<th>Comment</th>
+				<th>Sisters</th>
 				<th>SubItem</th>
 			</tr>
 			<tr>
@@ -4213,6 +4226,7 @@ SUMMARY_WITHDRAWAL
 				<td>True</td>
 				<td>Yes</td>
 				<td class="commentcell">means&nbsp;valid</td>
+				<td>true</td>
 				<td>key1=value1</td>
 			</tr>
 			<tr>
@@ -4220,6 +4234,7 @@ SUMMARY_WITHDRAWAL
 				<td>False</td>
 				<td>No</td>
 				<td class="commentcell">means&nbsp;invalid</td>
+				<td>false</td>
 				<td>key1=value1</td>
 			</tr>
 			</table>
@@ -4341,26 +4356,31 @@ SUMMARY_WITHDRAWAL
 				<th id="WithdrawalReasonCls">Code</th>
 				<th>Name</th>
 				<th>Comment</th>
+				<th>Sisters</th>
 			</tr>
 			<tr>
 				<td>SIT</td>
 				<td>Sit</td>
 				<td class="commentcell">サイトが使いにくいから</td>
+				<td>1</td>
 			</tr>
 			<tr>
 				<td>PRD</td>
 				<td>Prd</td>
 				<td class="commentcell">商品に魅力がないから</td>
+				<td>2</td>
 			</tr>
 			<tr>
 				<td>FRT</td>
 				<td>Frt</td>
 				<td class="commentcell">フリテンだから</td>
+				<td>3</td>
 			</tr>
 			<tr>
 				<td>OTH</td>
 				<td>Oth</td>
 				<td class="commentcell">その他理由</td>
+				<td>4</td>
 			</tr>
 			</table>
 		</td>
@@ -4632,7 +4652,13 @@ SUMMARY_WITHDRAWAL
 	</dd>
 </dl>
 
-<h2>Thanks</h2>
+<h2 id="diagram">Schema Diagram</h2>
+<h3>maihama_erd</h3>
+<p>
+	<a href="../../../etc/erd/maihamadb.png"><img src="../../../etc/erd/maihamadb.png" width="100%" height="100%"/></a>
+</p>
+
+<h2 id="thanks">Thanks</h2>
 <p>
 	Created by <a href="http://dbflute.seasar.org/">DBFlute(AutoGenerator)</a>
 </p>

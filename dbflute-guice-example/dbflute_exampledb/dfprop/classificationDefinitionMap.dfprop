@@ -33,8 +33,8 @@ map:{
             ; topComment=general boolean classification for every flg-column
             ; codeType=Number ; undefinedHandlingType=EXCEPTION
         }
-        ; map:{code=1;name=True ;alias=Yes ;comment=means valid; subItemMap=map:{key1=value1}}
-        ; map:{code=0;name=False;alias=No  ;comment=means invalid; subItemMap=map:{key1=value1}}
+        ; map:{code=1;name=True ;alias=Yes ;comment=means valid; subItemMap=map:{key1=value1}; sisterCode=true}
+        ; map:{code=0;name=False;alias=No  ;comment=means invalid; subItemMap=map:{key1=value1}; sisterCode=false}
     }
 
     # ====================================================================================
@@ -77,11 +77,15 @@ map:{
         }
     }
     ; WithdrawalReason = list:{
-        ; map:{topComment=reason for member withdrawal; codeType=String}
+        ; map:{
+            ; topComment=reason for member withdrawal; codeType=String
+        }
         ; map:{
             ; table=WITHDRAWAL_REASON
             ; code=WITHDRAWAL_REASON_CODE; name=WITHDRAWAL_REASON_CODE
             ; comment=WITHDRAWAL_REASON_TEXT; orderBy=DISPLAY_ORDER
+            # the test of sisterCode for table classification
+            ; sisterCode=DISPLAY_ORDER
         }
     }
 

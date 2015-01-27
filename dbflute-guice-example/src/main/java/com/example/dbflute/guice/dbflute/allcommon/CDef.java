@@ -25,10 +25,10 @@ public interface CDef extends Classification {
      */
     public enum Flg implements CDef {
         /** Yes: means valid */
-        True("1", "Yes", EMPTY_SISTERS)
+        True("1", "Yes", new String[] {"true"})
         ,
         /** No: means invalid */
-        False("0", "No", EMPTY_SISTERS)
+        False("0", "No", new String[] {"false"})
         ;
         private static final Map<String, Flg> _codeValueMap = new HashMap<String, Flg>();
         static {
@@ -369,16 +369,16 @@ public interface CDef extends Classification {
      */
     public enum WithdrawalReason implements CDef {
         /** SIT: サイトが使いにくいから */
-        Sit("SIT", "SIT", EMPTY_SISTERS)
+        Sit("SIT", "SIT", new String[] {"1"})
         ,
         /** PRD: 商品に魅力がないから */
-        Prd("PRD", "PRD", EMPTY_SISTERS)
+        Prd("PRD", "PRD", new String[] {"2"})
         ,
         /** FRT: フリテンだから */
-        Frt("FRT", "FRT", EMPTY_SISTERS)
+        Frt("FRT", "FRT", new String[] {"3"})
         ,
         /** OTH: その他理由 */
-        Oth("OTH", "OTH", EMPTY_SISTERS)
+        Oth("OTH", "OTH", new String[] {"4"})
         ;
         private static final Map<String, WithdrawalReason> _codeValueMap = new HashMap<String, WithdrawalReason>();
         static {

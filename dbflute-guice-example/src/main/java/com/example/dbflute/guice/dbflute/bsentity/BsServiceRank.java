@@ -184,6 +184,16 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
         setNewAcceptableFlg(cdef != null ? toNumber(cdef.code(), Integer.class) : null);
     }
 
+    /**
+     * Set the value of newAcceptableFlg as boolean. <br />
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * general boolean classification for every flg-column
+     * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
+     */
+    public void setNewAcceptableFlgAsBoolean(Boolean determination) {
+        setNewAcceptableFlgAsFlg(CDef.Flg.codeOf(determination));
+    }
+
     // ===================================================================================
     //                                                              Classification Setting
     //                                                              ======================
