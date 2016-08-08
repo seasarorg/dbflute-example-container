@@ -109,7 +109,7 @@ public class DBFluteInitializer {
         }
     }
 
-    protected void loadCoolClasses() { // for S2Container 
+    protected void loadCoolClasses() { // for S2Container
         ConditionBeanContext.loadCoolClasses(); // against the ClassLoader Headache!
     }
 
@@ -131,10 +131,15 @@ public class DBFluteInitializer {
         if (dataSourceHandler != null) {
             return;
         }
-        if (dataSourceFqcn.startsWith("org.apache.commons.dbcp.")) {
+        if (needsSpringTransactionalDataSource(dataSourceFqcn)) {
             config.unlock();
             config.setDataSourceHandler(new DBFluteConfig.SpringTransactionalDataSourceHandler());
         }
+    }
+
+    protected boolean needsSpringTransactionalDataSource(String dataSourceFqcn) {
+        return dataSourceFqcn.startsWith("org.apache.commons.dbcp.")
+            || dataSourceFqcn.startsWith("org.apache.tomcat.jdbc.pool.");
     }
 
     // ===================================================================================
