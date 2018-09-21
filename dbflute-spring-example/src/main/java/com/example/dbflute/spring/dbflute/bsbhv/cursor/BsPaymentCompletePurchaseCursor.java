@@ -22,7 +22,7 @@ import org.seasar.dbflute.jdbc.ValueType;
 import org.seasar.dbflute.s2dao.valuetype.TnValueTypes;
 
 /**
- * The cursor of PaymentCompletePurchase. <br />
+ * The cursor of PaymentCompletePurchase. <br>
  * @author DBFlute(AutoGenerator)
  */
 public class BsPaymentCompletePurchaseCursor {
@@ -117,7 +117,7 @@ public class BsPaymentCompletePurchaseCursor {
     //                                                                  Type Safe Accessor
     //                                                                  ==================
     /**
-     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br />
+     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br>
      * @return The value of purchaseId. (NullAllowed)
      * @throws java.sql.SQLException
      */
@@ -126,7 +126,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br>
      * 会員を参照するID。<br />
      * 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。
      * @return The value of memberId. (NullAllowed)
@@ -137,7 +137,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br />
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of memberName. (NullAllowed)
@@ -148,7 +148,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br />
+     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br>
      * あなたは何を買ったのか？
      * @return The value of productId. (NullAllowed)
      * @throws java.sql.SQLException
@@ -158,7 +158,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br />
+     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br>
      * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br />
      * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @return The value of productName. (NullAllowed)
@@ -169,7 +169,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @return The value of purchaseDatetime. (NullAllowed)
      * @throws java.sql.SQLException

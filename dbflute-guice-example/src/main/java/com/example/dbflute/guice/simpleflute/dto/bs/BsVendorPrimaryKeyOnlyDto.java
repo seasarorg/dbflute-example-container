@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br />
+ * The simple DTO of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PRIMARY_KEY_ONLY_ID
@@ -134,7 +134,7 @@ public abstract class BsVendorPrimaryKeyOnlyDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [get] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'PRIMARY_KEY_ONLY_ID'. (NullAllowed)
      */
     public Long getPrimaryKeyOnlyId() {
@@ -142,7 +142,7 @@ public abstract class BsVendorPrimaryKeyOnlyDto implements Serializable {
     }
 
     /**
-     * [set] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [set] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br>
      * @param primaryKeyOnlyId The value of the column 'PRIMARY_KEY_ONLY_ID'. (NullAllowed)
      */
     public void setPrimaryKeyOnlyId(Long primaryKeyOnlyId) {

@@ -8,7 +8,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (商品ステータス)PRODUCT_STATUS as TABLE. <br />
+ * The simple DTO of (商品ステータス)PRODUCT_STATUS as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PRODUCT_STATUS_CODE
@@ -82,7 +82,7 @@ public abstract class BsProductStatusDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of productStatusCode as the classification of ProductStatus. <br />
+     * Set the value of productStatusCode as the classification of ProductStatus. <br>
      * status for product
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -91,7 +91,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * Get the value of productStatusCode as the classification of ProductStatus. <br />
+     * Get the value of productStatusCode as the classification of ProductStatus. <br>
      * status for product
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -104,7 +104,7 @@ public abstract class BsProductStatusDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of productStatusCode as 生産販売可能. <br />
+     * Set the value of productStatusCode as 生産販売可能. <br>
      * 生産販売可能
      */
     public void setProductStatusCode_生産販売可能() {
@@ -112,7 +112,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * Set the value of productStatusCode as 生産中止. <br />
+     * Set the value of productStatusCode as 生産中止. <br>
      * 生産中止
      */
     public void setProductStatusCode_生産中止() {
@@ -120,7 +120,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * Set the value of productStatusCode as 販売中止. <br />
+     * Set the value of productStatusCode as 販売中止. <br>
      * 販売中止
      */
     public void setProductStatusCode_販売中止() {
@@ -131,7 +131,7 @@ public abstract class BsProductStatusDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of productStatusCode '生産販売可能'? <br />
+     * Is the value of productStatusCode '生産販売可能'? <br>
      * 生産販売可能
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -142,7 +142,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * Is the value of productStatusCode '生産中止'? <br />
+     * Is the value of productStatusCode '生産中止'? <br>
      * 生産中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -153,7 +153,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * Is the value of productStatusCode '販売中止'? <br />
+     * Is the value of productStatusCode '販売中止'? <br>
      * 販売中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -253,7 +253,7 @@ public abstract class BsProductStatusDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br />
+     * [get] (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public String getProductStatusCode() {
@@ -261,7 +261,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * [set] (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br />
+     * [set] (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public void setProductStatusCode(String productStatusCode) {
@@ -270,7 +270,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * [get] (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br />
+     * [get] (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * @return The value of the column 'PRODUCT_STATUS_NAME'. (NullAllowed)
      */
     public String getProductStatusName() {
@@ -278,7 +278,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * [set] (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br />
+     * [set] (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * @param productStatusName The value of the column 'PRODUCT_STATUS_NAME'. (NullAllowed)
      */
     public void setProductStatusName(String productStatusName) {
@@ -287,7 +287,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public Integer getDisplayOrder() {
@@ -295,7 +295,7 @@ public abstract class BsProductStatusDto implements Serializable {
     }
 
     /**
-     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public void setDisplayOrder(Integer displayOrder) {

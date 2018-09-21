@@ -24,7 +24,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
 /**
- * The entity of ForcedType. <br />
+ * The entity of ForcedType. <br>
  * <pre>
  * [primary-key]
  *     
@@ -177,7 +177,7 @@ public abstract class BsForcedType extends AbstractEntity implements CustomizeEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MAX_MEMBER_ID: {INTEGER(10)} <br />
+     * [get] MAX_MEMBER_ID: {INTEGER(10)} <br>
      * @return The value of the column 'MAX_MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigInteger getMaxMemberId() {
@@ -186,7 +186,7 @@ public abstract class BsForcedType extends AbstractEntity implements CustomizeEn
     }
 
     /**
-     * [set] MAX_MEMBER_ID: {INTEGER(10)} <br />
+     * [set] MAX_MEMBER_ID: {INTEGER(10)} <br>
      * @param maxMemberId The value of the column 'MAX_MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMaxMemberId(java.math.BigInteger maxMemberId) {

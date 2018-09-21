@@ -10,7 +10,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (購入)PURCHASE as TABLE. <br />
+ * The simple DTO of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PURCHASE_ID
@@ -120,7 +120,7 @@ public abstract class BsPurchaseDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of paymentCompleteFlg as the classification of Flg. <br />
+     * Set the value of paymentCompleteFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -129,7 +129,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * Get the value of paymentCompleteFlg as the classification of Flg. <br />
+     * Get the value of paymentCompleteFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -142,7 +142,7 @@ public abstract class BsPurchaseDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of paymentCompleteFlg as True. <br />
+     * Set the value of paymentCompleteFlg as True. <br>
      * Yes: means valid
      */
     public void setPaymentCompleteFlg_True() {
@@ -150,7 +150,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * Set the value of paymentCompleteFlg as False. <br />
+     * Set the value of paymentCompleteFlg as False. <br>
      * No: means invalid
      */
     public void setPaymentCompleteFlg_False() {
@@ -161,7 +161,7 @@ public abstract class BsPurchaseDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of paymentCompleteFlg 'True'? <br />
+     * Is the value of paymentCompleteFlg 'True'? <br>
      * Yes: means valid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -172,7 +172,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * Is the value of paymentCompleteFlg 'False'? <br />
+     * Is the value of paymentCompleteFlg 'False'? <br>
      * No: means invalid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -320,7 +320,7 @@ public abstract class BsPurchaseDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [get] PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'PURCHASE_ID'. (NullAllowed)
      */
     public Long getPurchaseId() {
@@ -328,7 +328,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [set] PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @param purchaseId The value of the column 'PURCHASE_ID'. (NullAllowed)
      */
     public void setPurchaseId(Long purchaseId) {
@@ -337,7 +337,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -345,7 +345,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -354,7 +354,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [get] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br>
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public Integer getProductId() {
@@ -362,7 +362,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br />
+     * [set] (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT} <br>
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public void setProductId(Integer productId) {
@@ -371,7 +371,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -381,7 +381,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)} <br>
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed)
      */
     public void setPurchaseDatetime(org.joda.time.LocalDateTime purchaseDatetime) {
@@ -390,7 +390,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} <br />
+     * [get] (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} <br>
      * @return The value of the column 'PURCHASE_COUNT'. (NullAllowed)
      */
     public Integer getPurchaseCount() {
@@ -398,7 +398,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} <br />
+     * [set] (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)} <br>
      * @param purchaseCount The value of the column 'PURCHASE_COUNT'. (NullAllowed)
      */
     public void setPurchaseCount(Integer purchaseCount) {
@@ -407,7 +407,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)} <br />
+     * [get] (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'PURCHASE_PRICE'. (NullAllowed)
      */
     public Integer getPurchasePrice() {
@@ -415,7 +415,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)} <br />
+     * [set] (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)} <br>
      * @param purchasePrice The value of the column 'PURCHASE_PRICE'. (NullAllowed)
      */
     public void setPurchasePrice(Integer purchasePrice) {
@@ -424,7 +424,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [get] (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @return The value of the column 'PAYMENT_COMPLETE_FLG'. (NullAllowed)
      */
     public Integer getPaymentCompleteFlg() {
@@ -432,7 +432,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set] (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @param paymentCompleteFlg The value of the column 'PAYMENT_COMPLETE_FLG'. (NullAllowed)
      */
     public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
@@ -441,7 +441,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -451,7 +451,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
@@ -460,7 +460,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public String getRegisterUser() {
@@ -468,7 +468,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public void setRegisterUser(String registerUser) {
@@ -477,7 +477,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -487,7 +487,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
@@ -496,7 +496,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public String getUpdateUser() {
@@ -504,7 +504,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public void setUpdateUser(String updateUser) {
@@ -513,7 +513,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @return The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public Long getVersionNo() {
@@ -521,7 +521,7 @@ public abstract class BsPurchaseDto implements Serializable {
     }
 
     /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @param versionNo The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public void setVersionNo(Long versionNo) {

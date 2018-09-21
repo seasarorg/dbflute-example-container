@@ -10,7 +10,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (商品)PRODUCT as TABLE. <br />
+ * The simple DTO of (商品)PRODUCT as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PRODUCT_ID
@@ -116,7 +116,7 @@ public abstract class BsProductDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of productStatusCode as the classification of ProductStatus. <br />
+     * Set the value of productStatusCode as the classification of ProductStatus. <br>
      * status for product
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -125,7 +125,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * Get the value of productStatusCode as the classification of ProductStatus. <br />
+     * Get the value of productStatusCode as the classification of ProductStatus. <br>
      * status for product
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -138,7 +138,7 @@ public abstract class BsProductDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of productStatusCode as 生産販売可能. <br />
+     * Set the value of productStatusCode as 生産販売可能. <br>
      * 生産販売可能
      */
     public void setProductStatusCode_生産販売可能() {
@@ -146,7 +146,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * Set the value of productStatusCode as 生産中止. <br />
+     * Set the value of productStatusCode as 生産中止. <br>
      * 生産中止
      */
     public void setProductStatusCode_生産中止() {
@@ -154,7 +154,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * Set the value of productStatusCode as 販売中止. <br />
+     * Set the value of productStatusCode as 販売中止. <br>
      * 販売中止
      */
     public void setProductStatusCode_販売中止() {
@@ -165,7 +165,7 @@ public abstract class BsProductDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of productStatusCode '生産販売可能'? <br />
+     * Is the value of productStatusCode '生産販売可能'? <br>
      * 生産販売可能
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -176,7 +176,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * Is the value of productStatusCode '生産中止'? <br />
+     * Is the value of productStatusCode '生産中止'? <br>
      * 生産中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -187,7 +187,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * Is the value of productStatusCode '販売中止'? <br />
+     * Is the value of productStatusCode '販売中止'? <br>
      * 販売中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -304,7 +304,7 @@ public abstract class BsProductDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [get] PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public Integer getProductId() {
@@ -312,7 +312,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [set] PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed)
      */
     public void setProductId(Integer productId) {
@@ -321,7 +321,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br />
+     * [get] (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br>
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed)
      */
     public String getProductName() {
@@ -329,7 +329,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br />
+     * [set] (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br>
      * @param productName The value of the column 'PRODUCT_NAME'. (NullAllowed)
      */
     public void setProductName(String productName) {
@@ -338,7 +338,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br />
+     * [get] (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br>
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed)
      */
     public String getProductHandleCode() {
@@ -346,7 +346,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br />
+     * [set] (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br>
      * @param productHandleCode The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed)
      */
     public void setProductHandleCode(String productHandleCode) {
@@ -355,7 +355,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY} <br />
+     * [get] PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY} <br>
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (NullAllowed)
      */
     public String getProductCategoryCode() {
@@ -363,7 +363,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY} <br />
+     * [set] PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY} <br>
      * @param productCategoryCode The value of the column 'PRODUCT_CATEGORY_CODE'. (NullAllowed)
      */
     public void setProductCategoryCode(String productCategoryCode) {
@@ -372,7 +372,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * [get] PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public String getProductStatusCode() {
@@ -380,7 +380,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * [set] PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed)
      */
     public void setProductStatusCode(String productStatusCode) {
@@ -389,7 +389,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] (定価)REGULAR_PRICE: {NotNull, INTEGER(10)} <br />
+     * [get] (定価)REGULAR_PRICE: {NotNull, INTEGER(10)} <br>
      * @return The value of the column 'REGULAR_PRICE'. (NullAllowed)
      */
     public Integer getRegularPrice() {
@@ -397,7 +397,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] (定価)REGULAR_PRICE: {NotNull, INTEGER(10)} <br />
+     * [set] (定価)REGULAR_PRICE: {NotNull, INTEGER(10)} <br>
      * @param regularPrice The value of the column 'REGULAR_PRICE'. (NullAllowed)
      */
     public void setRegularPrice(Integer regularPrice) {
@@ -406,7 +406,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -416,7 +416,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
@@ -425,7 +425,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public String getRegisterUser() {
@@ -433,7 +433,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public void setRegisterUser(String registerUser) {
@@ -442,7 +442,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -452,7 +452,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
@@ -461,7 +461,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public String getUpdateUser() {
@@ -469,7 +469,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public void setUpdateUser(String updateUser) {
@@ -478,7 +478,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @return The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public Long getVersionNo() {
@@ -486,7 +486,7 @@ public abstract class BsProductDto implements Serializable {
     }
 
     /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @param versionNo The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public void setVersionNo(Long versionNo) {

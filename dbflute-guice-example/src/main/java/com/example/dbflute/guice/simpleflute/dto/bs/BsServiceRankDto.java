@@ -8,7 +8,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (サービスランク)SERVICE_RANK as TABLE. <br />
+ * The simple DTO of (サービスランク)SERVICE_RANK as TABLE. <br>
  * <pre>
  * [primary-key]
  *     SERVICE_RANK_CODE
@@ -94,7 +94,7 @@ public abstract class BsServiceRankDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of serviceRankCode as the classification of ServiceRank. <br />
+     * Set the value of serviceRankCode as the classification of ServiceRank. <br>
      * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -103,7 +103,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Get the value of serviceRankCode as the classification of ServiceRank. <br />
+     * Get the value of serviceRankCode as the classification of ServiceRank. <br>
      * rank of service member gets
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -113,7 +113,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of newAcceptableFlg as the classification of Flg. <br />
+     * Set the value of newAcceptableFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -122,7 +122,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Get the value of newAcceptableFlg as the classification of Flg. <br />
+     * Get the value of newAcceptableFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -135,7 +135,7 @@ public abstract class BsServiceRankDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of serviceRankCode as Platinum. <br />
+     * Set the value of serviceRankCode as Platinum. <br>
      * PLATINUM: platinum rank
      */
     public void setServiceRankCode_Platinum() {
@@ -143,7 +143,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Gold. <br />
+     * Set the value of serviceRankCode as Gold. <br>
      * GOLD: gold rank
      */
     public void setServiceRankCode_Gold() {
@@ -151,7 +151,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Silver. <br />
+     * Set the value of serviceRankCode as Silver. <br>
      * SILVER: silver rank
      */
     public void setServiceRankCode_Silver() {
@@ -159,7 +159,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Bronze. <br />
+     * Set the value of serviceRankCode as Bronze. <br>
      * BRONZE: bronze rank
      */
     public void setServiceRankCode_Bronze() {
@@ -167,7 +167,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Plastic. <br />
+     * Set the value of serviceRankCode as Plastic. <br>
      * PLASTIC: plastic rank
      */
     public void setServiceRankCode_Plastic() {
@@ -175,7 +175,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of newAcceptableFlg as True. <br />
+     * Set the value of newAcceptableFlg as True. <br>
      * Yes: means valid
      */
     public void setNewAcceptableFlg_True() {
@@ -183,7 +183,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Set the value of newAcceptableFlg as False. <br />
+     * Set the value of newAcceptableFlg as False. <br>
      * No: means invalid
      */
     public void setNewAcceptableFlg_False() {
@@ -194,7 +194,7 @@ public abstract class BsServiceRankDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of serviceRankCode 'Platinum'? <br />
+     * Is the value of serviceRankCode 'Platinum'? <br>
      * PLATINUM: platinum rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -205,7 +205,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Gold'? <br />
+     * Is the value of serviceRankCode 'Gold'? <br>
      * GOLD: gold rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -216,7 +216,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Silver'? <br />
+     * Is the value of serviceRankCode 'Silver'? <br>
      * SILVER: silver rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -227,7 +227,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Bronze'? <br />
+     * Is the value of serviceRankCode 'Bronze'? <br>
      * BRONZE: bronze rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -238,7 +238,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Plastic'? <br />
+     * Is the value of serviceRankCode 'Plastic'? <br>
      * PLASTIC: plastic rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -249,7 +249,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of newAcceptableFlg 'True'? <br />
+     * Is the value of newAcceptableFlg 'True'? <br>
      * Yes: means valid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -260,7 +260,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * Is the value of newAcceptableFlg 'False'? <br />
+     * Is the value of newAcceptableFlg 'False'? <br>
      * No: means invalid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -352,7 +352,7 @@ public abstract class BsServiceRankDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * [get] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * @return The value of the column 'SERVICE_RANK_CODE'. (NullAllowed)
      */
     public String getServiceRankCode() {
@@ -360,7 +360,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * [set] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (NullAllowed)
      */
     public void setServiceRankCode(String serviceRankCode) {
@@ -369,7 +369,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [get] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br />
+     * [get] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
      * @return The value of the column 'SERVICE_RANK_NAME'. (NullAllowed)
      */
     public String getServiceRankName() {
@@ -377,7 +377,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br />
+     * [set] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
      * @param serviceRankName The value of the column 'SERVICE_RANK_NAME'. (NullAllowed)
      */
     public void setServiceRankName(String serviceRankName) {
@@ -386,7 +386,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [get] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br />
+     * [get] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br>
      * @return The value of the column 'SERVICE_POINT_INCIDENCE'. (NullAllowed)
      */
     public java.math.BigDecimal getServicePointIncidence() {
@@ -394,7 +394,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br />
+     * [set] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br>
      * @param servicePointIncidence The value of the column 'SERVICE_POINT_INCIDENCE'. (NullAllowed)
      */
     public void setServicePointIncidence(java.math.BigDecimal servicePointIncidence) {
@@ -403,7 +403,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [get] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [get] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @return The value of the column 'NEW_ACCEPTABLE_FLG'. (NullAllowed)
      */
     public Integer getNewAcceptableFlg() {
@@ -411,7 +411,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (NullAllowed)
      */
     public void setNewAcceptableFlg(Integer newAcceptableFlg) {
@@ -420,7 +420,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [get] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br />
+     * [get] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'DESCRIPTION'. (NullAllowed)
      */
     public String getDescription() {
@@ -428,7 +428,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br />
+     * [set] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * @param description The value of the column 'DESCRIPTION'. (NullAllowed)
      */
     public void setDescription(String description) {
@@ -437,7 +437,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public Integer getDisplayOrder() {
@@ -445,7 +445,7 @@ public abstract class BsServiceRankDto implements Serializable {
     }
 
     /**
-     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public void setDisplayOrder(Integer displayOrder) {

@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of VendorCheckIntegerSum. <br />
+ * The simple DTO of VendorCheckIntegerSum. <br>
  * <pre>
  * [primary-key]
  *     
@@ -134,7 +134,7 @@ public abstract class BsVendorCheckIntegerSumDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br />
+     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
      * @return The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed)
      */
     public Integer getIntegerNonDigitSum() {
@@ -142,7 +142,7 @@ public abstract class BsVendorCheckIntegerSumDto implements Serializable {
     }
 
     /**
-     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br />
+     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
      * @param integerNonDigitSum The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed)
      */
     public void setIntegerNonDigitSum(Integer integerNonDigitSum) {

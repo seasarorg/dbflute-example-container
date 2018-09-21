@@ -34,7 +34,7 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from VENDOR_PRIMARY_KEY_ONLY) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
@@ -57,7 +57,7 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join VENDOR_PRIMARY_KEY_ONLY on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
@@ -80,14 +80,14 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     protected ConditionValue getCValuePrimaryKeyOnlyId() { return getPrimaryKeyOnlyId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsVendorPrimaryKeyOnlyCQ addOrderBy_PrimaryKeyOnlyId_Asc() { regOBA("PRIMARY_KEY_ONLY_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */

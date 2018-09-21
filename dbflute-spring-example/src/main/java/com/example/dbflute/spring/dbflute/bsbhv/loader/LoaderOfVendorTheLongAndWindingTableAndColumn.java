@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br />
+ * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
  * <pre>
  * [primary key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID

@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of (会員ステータス)MEMBER_STATUS as TABLE. <br />
+ * The referrer loader of (会員ステータス)MEMBER_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_STATUS_CODE

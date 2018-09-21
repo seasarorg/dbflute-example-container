@@ -8,7 +8,7 @@ import net.vvakame.util.jsonpullparser.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * The simple DTO of WHITE_DATE_TERM as TABLE. <br />
+ * The simple DTO of WHITE_DATE_TERM as TABLE. <br>
  * <pre>
  * [primary-key]
  *     DATE_TERM_ID
@@ -151,7 +151,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [get] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @return The value of the column 'DATE_TERM_ID'. (NullAllowed)
      */
     public Long getDateTermId() {
@@ -159,7 +159,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [set] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [set] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @param dateTermId The value of the column 'DATE_TERM_ID'. (NullAllowed)
      */
     public void setDateTermId(Long dateTermId) {
@@ -168,7 +168,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [get] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br />
+     * [get] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'DATE_TERM_VALUE'. (NullAllowed)
      */
     public String getDateTermValue() {
@@ -176,7 +176,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [set] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br />
+     * [set] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br>
      * @param dateTermValue The value of the column 'DATE_TERM_VALUE'. (NullAllowed)
      */
     public void setDateTermValue(String dateTermValue) {
@@ -185,7 +185,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [get] BEGIN_DATE: {NotNull, DATE(8)} <br />
+     * [get] BEGIN_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'BEGIN_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -195,7 +195,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [set] BEGIN_DATE: {NotNull, DATE(8)} <br />
+     * [set] BEGIN_DATE: {NotNull, DATE(8)} <br>
      * @param beginDate The value of the column 'BEGIN_DATE'. (NullAllowed)
      */
     public void setBeginDate(org.joda.time.LocalDate beginDate) {
@@ -204,7 +204,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [get] END_DATE: {NotNull, DATE(8)} <br />
+     * [get] END_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'END_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -214,7 +214,7 @@ public abstract class BsWhiteDateTermDto implements Serializable {
     }
 
     /**
-     * [set] END_DATE: {NotNull, DATE(8)} <br />
+     * [set] END_DATE: {NotNull, DATE(8)} <br>
      * @param endDate The value of the column 'END_DATE'. (NullAllowed)
      */
     public void setEndDate(org.joda.time.LocalDate endDate) {

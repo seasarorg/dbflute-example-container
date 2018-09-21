@@ -22,7 +22,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_CHECK as TABLE. <br />
+ * The referrer loader of VENDOR_CHECK as TABLE. <br>
  * <pre>
  * [primary key]
  *     VENDOR_CHECK_ID

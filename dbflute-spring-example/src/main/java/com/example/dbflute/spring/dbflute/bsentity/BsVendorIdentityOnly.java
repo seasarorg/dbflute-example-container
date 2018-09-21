@@ -25,7 +25,7 @@ import com.example.dbflute.spring.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_IDENTITY_ONLY as TABLE. <br />
+ * The entity of VENDOR_IDENTITY_ONLY as TABLE. <br>
  * <pre>
  * [primary-key]
  *     IDENTITY_ONLY_ID
@@ -179,7 +179,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity implements Dom
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [get] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getIdentityOnlyId() {
@@ -188,7 +188,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity implements Dom
     }
 
     /**
-     * [set] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [set] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @param identityOnlyId The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setIdentityOnlyId(Long identityOnlyId) {

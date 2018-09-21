@@ -7,7 +7,7 @@ import net.vvakame.util.jsonpullparser.annotation.*;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br />
+ * The simple DTO of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
  * <pre>
  * [primary-key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
@@ -161,7 +161,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (NullAllowed)
      */
     public Long getTheLongAndWindingTableAndColumnId() {
@@ -169,7 +169,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br>
      * @param theLongAndWindingTableAndColumnId The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (NullAllowed)
      */
     public void setTheLongAndWindingTableAndColumnId(Long theLongAndWindingTableAndColumnId) {
@@ -178,7 +178,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME'. (NullAllowed)
      */
     public String getTheLongAndWindingTableAndColumnName() {
@@ -186,7 +186,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * @param theLongAndWindingTableAndColumnName The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME'. (NullAllowed)
      */
     public void setTheLongAndWindingTableAndColumnName(String theLongAndWindingTableAndColumnName) {
@@ -195,7 +195,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [get] SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * [get] SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'SHORT_NAME'. (NullAllowed)
      */
     public String getShortName() {
@@ -203,7 +203,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [set] SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * [set] SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * @param shortName The value of the column 'SHORT_NAME'. (NullAllowed)
      */
     public void setShortName(String shortName) {
@@ -212,7 +212,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [get] SHORT_SIZE: {NotNull, INTEGER(10)} <br />
+     * [get] SHORT_SIZE: {NotNull, INTEGER(10)} <br>
      * @return The value of the column 'SHORT_SIZE'. (NullAllowed)
      */
     public Integer getShortSize() {
@@ -220,7 +220,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDto implements Seri
     }
 
     /**
-     * [set] SHORT_SIZE: {NotNull, INTEGER(10)} <br />
+     * [set] SHORT_SIZE: {NotNull, INTEGER(10)} <br>
      * @param shortSize The value of the column 'SHORT_SIZE'. (NullAllowed)
      */
     public void setShortSize(Integer shortSize) {

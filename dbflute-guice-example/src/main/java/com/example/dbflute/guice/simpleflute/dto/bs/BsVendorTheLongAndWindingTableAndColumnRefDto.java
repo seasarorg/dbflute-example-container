@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE. <br />
+ * The simple DTO of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE. <br>
  * <pre>
  * [primary-key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID
@@ -162,7 +162,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID'. (NullAllowed)
      */
     public Long getTheLongAndWindingTableAndColumnRefId() {
@@ -170,7 +170,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)} <br>
      * @param theLongAndWindingTableAndColumnRefId The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID'. (NullAllowed)
      */
     public void setTheLongAndWindingTableAndColumnRefId(Long theLongAndWindingTableAndColumnRefId) {
@@ -179,7 +179,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (NullAllowed)
      */
     public Long getTheLongAndWindingTableAndColumnId() {
@@ -187,7 +187,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN} <br>
      * @param theLongAndWindingTableAndColumnId The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (NullAllowed)
      */
     public void setTheLongAndWindingTableAndColumnId(Long theLongAndWindingTableAndColumnId) {
@@ -196,7 +196,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -206,7 +206,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br>
      * @param theLongAndWindingTableAndColumnRefDate The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (NullAllowed)
      */
     public void setTheLongAndWindingTableAndColumnRefDate(org.joda.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
@@ -215,7 +215,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [get] SHORT_DATE: {NotNull, DATE(8)} <br />
+     * [get] SHORT_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'SHORT_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -225,7 +225,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefDto implements S
     }
 
     /**
-     * [set] SHORT_DATE: {NotNull, DATE(8)} <br />
+     * [set] SHORT_DATE: {NotNull, DATE(8)} <br>
      * @param shortDate The value of the column 'SHORT_DATE'. (NullAllowed)
      */
     public void setShortDate(org.joda.time.LocalDate shortDate) {

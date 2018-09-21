@@ -34,7 +34,7 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from VENDOR_CHECK) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
@@ -57,7 +57,7 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join VENDOR_CHECK on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
@@ -80,14 +80,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueVendorCheckId() { return getVendorCheckId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_VendorCheckId_Asc() { regOBA("VENDOR_CHECK_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
      * @return this. (NotNull)
      */
@@ -100,14 +100,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfChar() { return getTypeOfChar(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_CHAR: {CHAR(3)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfChar_Asc() { regOBA("TYPE_OF_CHAR"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_CHAR: {CHAR(3)}
      * @return this. (NotNull)
      */
@@ -120,14 +120,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfVarchar() { return getTypeOfVarchar(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_VARCHAR: {VARCHAR(32)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfVarchar_Asc() { regOBA("TYPE_OF_VARCHAR"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_VARCHAR: {VARCHAR(32)}
      * @return this. (NotNull)
      */
@@ -140,7 +140,7 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfClob() { return getTypeOfClob(); }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_CLOB: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
@@ -153,7 +153,7 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfText() { return getTypeOfText(); }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
@@ -166,14 +166,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericInteger() { return getTypeOfNumericInteger(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericInteger_Asc() { regOBA("TYPE_OF_NUMERIC_INTEGER"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
      * @return this. (NotNull)
      */
@@ -186,14 +186,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericBigint() { return getTypeOfNumericBigint(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigint_Asc() { regOBA("TYPE_OF_NUMERIC_BIGINT"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
      * @return this. (NotNull)
      */
@@ -206,14 +206,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericDecimal() { return getTypeOfNumericDecimal(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericDecimal_Asc() { regOBA("TYPE_OF_NUMERIC_DECIMAL"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
      * @return this. (NotNull)
      */
@@ -226,14 +226,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericIntegerMin() { return getTypeOfNumericIntegerMin(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericIntegerMin_Asc() { regOBA("TYPE_OF_NUMERIC_INTEGER_MIN"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
      * @return this. (NotNull)
      */
@@ -246,14 +246,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericIntegerMax() { return getTypeOfNumericIntegerMax(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericIntegerMax_Asc() { regOBA("TYPE_OF_NUMERIC_INTEGER_MAX"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
      * @return this. (NotNull)
      */
@@ -266,14 +266,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericBigintMin() { return getTypeOfNumericBigintMin(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigintMin_Asc() { regOBA("TYPE_OF_NUMERIC_BIGINT_MIN"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
      * @return this. (NotNull)
      */
@@ -286,14 +286,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericBigintMax() { return getTypeOfNumericBigintMax(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigintMax_Asc() { regOBA("TYPE_OF_NUMERIC_BIGINT_MAX"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
      * @return this. (NotNull)
      */
@@ -306,14 +306,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericSuperintMin() { return getTypeOfNumericSuperintMin(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericSuperintMin_Asc() { regOBA("TYPE_OF_NUMERIC_SUPERINT_MIN"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
      * @return this. (NotNull)
      */
@@ -326,14 +326,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericSuperintMax() { return getTypeOfNumericSuperintMax(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericSuperintMax_Asc() { regOBA("TYPE_OF_NUMERIC_SUPERINT_MAX"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
      * @return this. (NotNull)
      */
@@ -346,14 +346,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfNumericMaxdecimal() { return getTypeOfNumericMaxdecimal(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfNumericMaxdecimal_Asc() { regOBA("TYPE_OF_NUMERIC_MAXDECIMAL"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
      * @return this. (NotNull)
      */
@@ -366,14 +366,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfInteger() { return getTypeOfInteger(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfInteger_Asc() { regOBA("TYPE_OF_INTEGER"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
      * @return this. (NotNull)
      */
@@ -386,14 +386,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfBigint() { return getTypeOfBigint(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfBigint_Asc() { regOBA("TYPE_OF_BIGINT"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
      * @return this. (NotNull)
      */
@@ -406,14 +406,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfDate() { return getTypeOfDate(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_DATE: {DATE(8)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfDate_Asc() { regOBA("TYPE_OF_DATE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_DATE: {DATE(8)}
      * @return this. (NotNull)
      */
@@ -426,14 +426,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfTimestamp() { return getTypeOfTimestamp(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTimestamp_Asc() { regOBA("TYPE_OF_TIMESTAMP"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
@@ -446,14 +446,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfTime() { return getTypeOfTime(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_TIME: {TIME(6)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTime_Asc() { regOBA("TYPE_OF_TIME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_TIME: {TIME(6)}
      * @return this. (NotNull)
      */
@@ -466,14 +466,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfBoolean() { return getTypeOfBoolean(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_BOOLEAN: {BOOLEAN(1)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfBoolean_Asc() { regOBA("TYPE_OF_BOOLEAN"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_BOOLEAN: {BOOLEAN(1)}
      * @return this. (NotNull)
      */
@@ -486,14 +486,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfBinary() { return getTypeOfBinary(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_BINARY: {VARBINARY(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfBinary_Asc() { regOBA("TYPE_OF_BINARY"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_BINARY: {VARBINARY(2147483647)}
      * @return this. (NotNull)
      */
@@ -506,14 +506,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfBlob() { return getTypeOfBlob(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_BLOB: {BLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfBlob_Asc() { regOBA("TYPE_OF_BLOB"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_BLOB: {BLOB(2147483647)}
      * @return this. (NotNull)
      */
@@ -526,14 +526,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfUuid() { return getTypeOfUuid(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_UUID: {UUID(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Asc() { regOBA("TYPE_OF_UUID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_UUID: {UUID(2147483647)}
      * @return this. (NotNull)
      */
@@ -546,14 +546,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfArray() { return getTypeOfArray(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_ARRAY: {ARRAY}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Asc() { regOBA("TYPE_OF_ARRAY"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_ARRAY: {ARRAY}
      * @return this. (NotNull)
      */
@@ -566,14 +566,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfOther() { return getTypeOfOther(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * TYPE_OF_OTHER: {OTHER(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfOther_Asc() { regOBA("TYPE_OF_OTHER"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * TYPE_OF_OTHER: {OTHER(2147483647)}
      * @return this. (NotNull)
      */
@@ -586,14 +586,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueJAVABeansProperty() { return getJAVABeansProperty(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_JAVABeansProperty_Asc() { regOBA("J_A_V_A_BEANS_PROPERTY"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
      * @return this. (NotNull)
      */
@@ -606,14 +606,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     protected ConditionValue getCValueJPopBeansProperty() { return getJPopBeansProperty(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_JPopBeansProperty_Asc() { regOBA("J_POP_BEANS_PROPERTY"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
      * @return this. (NotNull)
      */

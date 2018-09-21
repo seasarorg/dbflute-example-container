@@ -13,7 +13,7 @@ import com.example.dbflute.guice.dbflute.allcommon.CDef;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The entity of SUMMARY_PRODUCT as VIEW. <br />
+ * The entity of SUMMARY_PRODUCT as VIEW. <br>
  * <pre>
  * [primary-key]
  *     PRODUCT_ID
@@ -129,8 +129,8 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Get the value of productStatusCode as the classification of ProductStatus. <br />
-     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * Get the value of productStatusCode as the classification of ProductStatus. <br>
+     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * status for product
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -140,8 +140,8 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * Set the value of productStatusCode as the classification of ProductStatus. <br />
-     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * Set the value of productStatusCode as the classification of ProductStatus. <br>
+     * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * status for product
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -153,7 +153,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of productStatusCode as 生産販売可能 (ONS). <br />
+     * Set the value of productStatusCode as 生産販売可能 (ONS). <br>
      * 生産販売可能
      */
     public void setProductStatusCode_生産販売可能() {
@@ -161,7 +161,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * Set the value of productStatusCode as 生産中止 (PST). <br />
+     * Set the value of productStatusCode as 生産中止 (PST). <br>
      * 生産中止
      */
     public void setProductStatusCode_生産中止() {
@@ -169,7 +169,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * Set the value of productStatusCode as 販売中止 (SST). <br />
+     * Set the value of productStatusCode as 販売中止 (SST). <br>
      * 販売中止
      */
     public void setProductStatusCode_販売中止() {
@@ -180,7 +180,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of productStatusCode 生産販売可能? <br />
+     * Is the value of productStatusCode 生産販売可能? <br>
      * 生産販売可能
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -191,7 +191,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * Is the value of productStatusCode 生産中止? <br />
+     * Is the value of productStatusCode 生産中止? <br>
      * 生産中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -202,7 +202,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * Is the value of productStatusCode 販売中止? <br />
+     * Is the value of productStatusCode 販売中止? <br>
      * 販売中止
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -333,7 +333,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PRODUCT_ID: {PK, INTEGER(10)} <br />
+     * [get] PRODUCT_ID: {PK, INTEGER(10)} <br>
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getProductId() {
@@ -342,7 +342,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] PRODUCT_ID: {PK, INTEGER(10)} <br />
+     * [set] PRODUCT_ID: {PK, INTEGER(10)} <br>
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductId(Integer productId) {
@@ -351,7 +351,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] PRODUCT_NAME: {VARCHAR(50)} <br />
+     * [get] PRODUCT_NAME: {VARCHAR(50)} <br>
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductName() {
@@ -360,7 +360,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] PRODUCT_NAME: {VARCHAR(50)} <br />
+     * [set] PRODUCT_NAME: {VARCHAR(50)} <br>
      * @param productName The value of the column 'PRODUCT_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductName(String productName) {
@@ -369,7 +369,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] PRODUCT_HANDLE_CODE: {VARCHAR(100)} <br />
+     * [get] PRODUCT_HANDLE_CODE: {VARCHAR(100)} <br>
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductHandleCode() {
@@ -378,7 +378,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] PRODUCT_HANDLE_CODE: {VARCHAR(100)} <br />
+     * [set] PRODUCT_HANDLE_CODE: {VARCHAR(100)} <br>
      * @param productHandleCode The value of the column 'PRODUCT_HANDLE_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductHandleCode(String productHandleCode) {
@@ -387,7 +387,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * [get] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getProductStatusCode() {
@@ -396,7 +396,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
+     * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setProductStatusCode(String productStatusCode) {
@@ -406,7 +406,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
+     * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDateTime getLatestPurchaseDatetime() {
@@ -415,7 +415,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
+     * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br>
      * @param latestPurchaseDatetime The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setLatestPurchaseDatetime(org.joda.time.LocalDateTime latestPurchaseDatetime) {

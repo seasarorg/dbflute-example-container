@@ -8,7 +8,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (地域)REGION as TABLE. <br />
+ * The simple DTO of (地域)REGION as TABLE. <br>
  * <pre>
  * [primary-key]
  *     REGION_ID
@@ -78,7 +78,7 @@ public abstract class BsRegionDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of regionId as the classification of Region. <br />
+     * Set the value of regionId as the classification of Region. <br>
      * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -87,7 +87,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Get the value of regionId as the classification of Region. <br />
+     * Get the value of regionId as the classification of Region. <br>
      * mainly region of member address
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -100,7 +100,7 @@ public abstract class BsRegionDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of regionId as America. <br />
+     * Set the value of regionId as America. <br>
      * AMERICA
      */
     public void setRegionId_America() {
@@ -108,7 +108,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as Canada. <br />
+     * Set the value of regionId as Canada. <br>
      * CANADA
      */
     public void setRegionId_Canada() {
@@ -116,7 +116,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as China. <br />
+     * Set the value of regionId as China. <br>
      * CHINA
      */
     public void setRegionId_China() {
@@ -124,7 +124,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as Chiba. <br />
+     * Set the value of regionId as Chiba. <br>
      * CHIBA
      */
     public void setRegionId_Chiba() {
@@ -135,7 +135,7 @@ public abstract class BsRegionDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of regionId 'America'? <br />
+     * Is the value of regionId 'America'? <br>
      * AMERICA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -146,7 +146,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'Canada'? <br />
+     * Is the value of regionId 'Canada'? <br>
      * CANADA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -157,7 +157,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'China'? <br />
+     * Is the value of regionId 'China'? <br>
      * CHINA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -168,7 +168,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'Chiba'? <br />
+     * Is the value of regionId 'Chiba'? <br>
      * CHIBA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -256,7 +256,7 @@ public abstract class BsRegionDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
+     * [get] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * @return The value of the column 'REGION_ID'. (NullAllowed)
      */
     public Integer getRegionId() {
@@ -264,7 +264,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * [set] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
+     * [set] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * @param regionId The value of the column 'REGION_ID'. (NullAllowed)
      */
     public void setRegionId(Integer regionId) {
@@ -273,7 +273,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * [get] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br />
+     * [get] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * @return The value of the column 'REGION_NAME'. (NullAllowed)
      */
     public String getRegionName() {
@@ -281,7 +281,7 @@ public abstract class BsRegionDto implements Serializable {
     }
 
     /**
-     * [set] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br />
+     * [set] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * @param regionName The value of the column 'REGION_NAME'. (NullAllowed)
      */
     public void setRegionName(String regionName) {

@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE. <br />
+ * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE. <br>
  * <pre>
  * [primary key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID

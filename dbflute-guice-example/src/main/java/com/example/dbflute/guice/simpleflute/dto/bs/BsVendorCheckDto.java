@@ -8,7 +8,7 @@ import net.vvakame.util.jsonpullparser.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * The simple DTO of VENDOR_CHECK as TABLE. <br />
+ * The simple DTO of VENDOR_CHECK as TABLE. <br>
  * <pre>
  * [primary-key]
  *     VENDOR_CHECK_ID
@@ -274,7 +274,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [get] VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @return The value of the column 'VENDOR_CHECK_ID'. (NullAllowed)
      */
     public Long getVendorCheckId() {
@@ -282,7 +282,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [set] VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @param vendorCheckId The value of the column 'VENDOR_CHECK_ID'. (NullAllowed)
      */
     public void setVendorCheckId(Long vendorCheckId) {
@@ -291,7 +291,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_CHAR: {CHAR(3)} <br />
+     * [get] TYPE_OF_CHAR: {CHAR(3)} <br>
      * @return The value of the column 'TYPE_OF_CHAR'. (NullAllowed)
      */
     public String getTypeOfChar() {
@@ -299,7 +299,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_CHAR: {CHAR(3)} <br />
+     * [set] TYPE_OF_CHAR: {CHAR(3)} <br>
      * @param typeOfChar The value of the column 'TYPE_OF_CHAR'. (NullAllowed)
      */
     public void setTypeOfChar(String typeOfChar) {
@@ -308,7 +308,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_VARCHAR: {VARCHAR(32)} <br />
+     * [get] TYPE_OF_VARCHAR: {VARCHAR(32)} <br>
      * @return The value of the column 'TYPE_OF_VARCHAR'. (NullAllowed)
      */
     public String getTypeOfVarchar() {
@@ -316,7 +316,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_VARCHAR: {VARCHAR(32)} <br />
+     * [set] TYPE_OF_VARCHAR: {VARCHAR(32)} <br>
      * @param typeOfVarchar The value of the column 'TYPE_OF_VARCHAR'. (NullAllowed)
      */
     public void setTypeOfVarchar(String typeOfVarchar) {
@@ -325,7 +325,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_CLOB: {CLOB(2147483647)} <br />
+     * [get] TYPE_OF_CLOB: {CLOB(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_CLOB'. (NullAllowed)
      */
     public String getTypeOfClob() {
@@ -333,7 +333,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_CLOB: {CLOB(2147483647)} <br />
+     * [set] TYPE_OF_CLOB: {CLOB(2147483647)} <br>
      * @param typeOfClob The value of the column 'TYPE_OF_CLOB'. (NullAllowed)
      */
     public void setTypeOfClob(String typeOfClob) {
@@ -342,7 +342,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_TEXT: {CLOB(2147483647)} <br />
+     * [get] TYPE_OF_TEXT: {CLOB(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_TEXT'. (NullAllowed)
      */
     public String getTypeOfText() {
@@ -350,7 +350,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_TEXT: {CLOB(2147483647)} <br />
+     * [set] TYPE_OF_TEXT: {CLOB(2147483647)} <br>
      * @param typeOfText The value of the column 'TYPE_OF_TEXT'. (NullAllowed)
      */
     public void setTypeOfText(String typeOfText) {
@@ -359,7 +359,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed)
      */
     public Integer getTypeOfNumericInteger() {
@@ -367,7 +367,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)} <br>
      * @param typeOfNumericInteger The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed)
      */
     public void setTypeOfNumericInteger(Integer typeOfNumericInteger) {
@@ -376,7 +376,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed)
      */
     public Long getTypeOfNumericBigint() {
@@ -384,7 +384,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)} <br>
      * @param typeOfNumericBigint The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed)
      */
     public void setTypeOfNumericBigint(Long typeOfNumericBigint) {
@@ -393,7 +393,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)} <br />
+     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericDecimal() {
@@ -401,7 +401,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)} <br />
+     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)} <br>
      * @param typeOfNumericDecimal The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed)
      */
     public void setTypeOfNumericDecimal(java.math.BigDecimal typeOfNumericDecimal) {
@@ -410,7 +410,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed)
      */
     public Integer getTypeOfNumericIntegerMin() {
@@ -418,7 +418,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)} <br>
      * @param typeOfNumericIntegerMin The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericIntegerMin(Integer typeOfNumericIntegerMin) {
@@ -427,7 +427,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed)
      */
     public Integer getTypeOfNumericIntegerMax() {
@@ -435,7 +435,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)} <br>
      * @param typeOfNumericIntegerMax The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericIntegerMax(Integer typeOfNumericIntegerMax) {
@@ -444,7 +444,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed)
      */
     public Long getTypeOfNumericBigintMin() {
@@ -452,7 +452,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)} <br>
      * @param typeOfNumericBigintMin The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericBigintMin(Long typeOfNumericBigintMin) {
@@ -461,7 +461,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed)
      */
     public Long getTypeOfNumericBigintMax() {
@@ -469,7 +469,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)} <br>
      * @param typeOfNumericBigintMax The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericBigintMax(Long typeOfNumericBigintMax) {
@@ -478,7 +478,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMin() {
@@ -486,7 +486,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)} <br>
      * @param typeOfNumericSuperintMin The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericSuperintMin(java.math.BigDecimal typeOfNumericSuperintMin) {
@@ -495,7 +495,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMax() {
@@ -503,7 +503,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)} <br>
      * @param typeOfNumericSuperintMax The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericSuperintMax(java.math.BigDecimal typeOfNumericSuperintMax) {
@@ -512,7 +512,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)} <br />
+     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericMaxdecimal() {
@@ -520,7 +520,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)} <br />
+     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)} <br>
      * @param typeOfNumericMaxdecimal The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed)
      */
     public void setTypeOfNumericMaxdecimal(java.math.BigDecimal typeOfNumericMaxdecimal) {
@@ -529,7 +529,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_INTEGER: {INTEGER(10)} <br />
+     * [get] TYPE_OF_INTEGER: {INTEGER(10)} <br>
      * @return The value of the column 'TYPE_OF_INTEGER'. (NullAllowed)
      */
     public Integer getTypeOfInteger() {
@@ -537,7 +537,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_INTEGER: {INTEGER(10)} <br />
+     * [set] TYPE_OF_INTEGER: {INTEGER(10)} <br>
      * @param typeOfInteger The value of the column 'TYPE_OF_INTEGER'. (NullAllowed)
      */
     public void setTypeOfInteger(Integer typeOfInteger) {
@@ -546,7 +546,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BIGINT: {BIGINT(19)} <br />
+     * [get] TYPE_OF_BIGINT: {BIGINT(19)} <br>
      * @return The value of the column 'TYPE_OF_BIGINT'. (NullAllowed)
      */
     public Long getTypeOfBigint() {
@@ -554,7 +554,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BIGINT: {BIGINT(19)} <br />
+     * [set] TYPE_OF_BIGINT: {BIGINT(19)} <br>
      * @param typeOfBigint The value of the column 'TYPE_OF_BIGINT'. (NullAllowed)
      */
     public void setTypeOfBigint(Long typeOfBigint) {
@@ -563,7 +563,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_DATE: {DATE(8)} <br />
+     * [get] TYPE_OF_DATE: {DATE(8)} <br>
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -573,7 +573,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_DATE: {DATE(8)} <br />
+     * [set] TYPE_OF_DATE: {DATE(8)} <br>
      * @param typeOfDate The value of the column 'TYPE_OF_DATE'. (NullAllowed)
      */
     public void setTypeOfDate(org.joda.time.LocalDate typeOfDate) {
@@ -582,7 +582,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
+     * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -592,7 +592,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
+     * [set] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br>
      * @param typeOfTimestamp The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed)
      */
     public void setTypeOfTimestamp(org.joda.time.LocalDateTime typeOfTimestamp) {
@@ -601,7 +601,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_TIME: {TIME(6)} <br />
+     * [get] TYPE_OF_TIME: {TIME(6)} <br>
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed)
      */
     @JSONHint(format="HH:mm:ss")
@@ -611,7 +611,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_TIME: {TIME(6)} <br />
+     * [set] TYPE_OF_TIME: {TIME(6)} <br>
      * @param typeOfTime The value of the column 'TYPE_OF_TIME'. (NullAllowed)
      */
     public void setTypeOfTime(org.joda.time.LocalTime typeOfTime) {
@@ -620,7 +620,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1)} <br />
+     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1)} <br>
      * @return The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed)
      */
     public Boolean getTypeOfBoolean() {
@@ -628,7 +628,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1)} <br />
+     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1)} <br>
      * @param typeOfBoolean The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed)
      */
     public void setTypeOfBoolean(Boolean typeOfBoolean) {
@@ -637,7 +637,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BINARY: {VARBINARY(2147483647)} <br />
+     * [get] TYPE_OF_BINARY: {VARBINARY(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_BINARY'. (NullAllowed)
      */
     public byte[] getTypeOfBinary() {
@@ -645,7 +645,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BINARY: {VARBINARY(2147483647)} <br />
+     * [set] TYPE_OF_BINARY: {VARBINARY(2147483647)} <br>
      * @param typeOfBinary The value of the column 'TYPE_OF_BINARY'. (NullAllowed)
      */
     public void setTypeOfBinary(byte[] typeOfBinary) {
@@ -654,7 +654,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BLOB: {BLOB(2147483647)} <br />
+     * [get] TYPE_OF_BLOB: {BLOB(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_BLOB'. (NullAllowed)
      */
     public byte[] getTypeOfBlob() {
@@ -662,7 +662,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BLOB: {BLOB(2147483647)} <br />
+     * [set] TYPE_OF_BLOB: {BLOB(2147483647)} <br>
      * @param typeOfBlob The value of the column 'TYPE_OF_BLOB'. (NullAllowed)
      */
     public void setTypeOfBlob(byte[] typeOfBlob) {
@@ -671,7 +671,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_UUID: {UUID(2147483647)} <br />
+     * [get] TYPE_OF_UUID: {UUID(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_UUID'. (NullAllowed)
      */
     public byte[] getTypeOfUuid() {
@@ -679,7 +679,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_UUID: {UUID(2147483647)} <br />
+     * [set] TYPE_OF_UUID: {UUID(2147483647)} <br>
      * @param typeOfUuid The value of the column 'TYPE_OF_UUID'. (NullAllowed)
      */
     public void setTypeOfUuid(byte[] typeOfUuid) {
@@ -688,7 +688,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_ARRAY: {ARRAY} <br />
+     * [get] TYPE_OF_ARRAY: {ARRAY} <br>
      * @return The value of the column 'TYPE_OF_ARRAY'. (NullAllowed)
      */
     public String getTypeOfArray() {
@@ -696,7 +696,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_ARRAY: {ARRAY} <br />
+     * [set] TYPE_OF_ARRAY: {ARRAY} <br>
      * @param typeOfArray The value of the column 'TYPE_OF_ARRAY'. (NullAllowed)
      */
     public void setTypeOfArray(String typeOfArray) {
@@ -705,7 +705,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_OTHER: {OTHER(2147483647)} <br />
+     * [get] TYPE_OF_OTHER: {OTHER(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_OTHER'. (NullAllowed)
      */
     public String getTypeOfOther() {
@@ -713,7 +713,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_OTHER: {OTHER(2147483647)} <br />
+     * [set] TYPE_OF_OTHER: {OTHER(2147483647)} <br>
      * @param typeOfOther The value of the column 'TYPE_OF_OTHER'. (NullAllowed)
      */
     public void setTypeOfOther(String typeOfOther) {
@@ -722,7 +722,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br />
+     * [get] J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br>
      * @return The value of the column 'J_A_V_A_BEANS_PROPERTY'. (NullAllowed)
      */
     public String getJAVABeansProperty() {
@@ -730,7 +730,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br />
+     * [set] J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br>
      * @param jAVABeansProperty The value of the column 'J_A_V_A_BEANS_PROPERTY'. (NullAllowed)
      */
     public void setJAVABeansProperty(String jAVABeansProperty) {
@@ -739,7 +739,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br />
+     * [get] J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br>
      * @return The value of the column 'J_POP_BEANS_PROPERTY'. (NullAllowed)
      */
     public String getJPopBeansProperty() {
@@ -747,7 +747,7 @@ public abstract class BsVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br />
+     * [set] J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br>
      * @param jPopBeansProperty The value of the column 'J_POP_BEANS_PROPERTY'. (NullAllowed)
      */
     public void setJPopBeansProperty(String jPopBeansProperty) {

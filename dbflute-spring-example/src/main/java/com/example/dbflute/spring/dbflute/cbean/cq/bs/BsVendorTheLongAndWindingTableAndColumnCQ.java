@@ -49,7 +49,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
@@ -115,14 +115,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object pm) { return xkeepSQuePm("theLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList", pm); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnCQ addOrderBy_TheLongAndWindingTableAndColumnId_Asc() { regOBA("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
@@ -135,14 +135,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnName() { return getTheLongAndWindingTableAndColumnName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnCQ addOrderBy_TheLongAndWindingTableAndColumnName_Asc() { regOBA("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
@@ -155,14 +155,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     protected ConditionValue getCValueShortName() { return getShortName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnCQ addOrderBy_ShortName_Asc() { regOBA("SHORT_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
@@ -175,14 +175,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     protected ConditionValue getCValueShortSize() { return getShortSize(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnCQ addOrderBy_ShortSize_Asc() { regOBA("SHORT_SIZE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */

@@ -22,7 +22,7 @@ import com.example.dbflute.guice.simpleflute.dto.*;
 import com.example.dbflute.guice.dbflute.dtomapper.*;
 
 /**
- * The DTO mapper of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br />
+ * The DTO mapper of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
  * <pre>
  * [primary-key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
@@ -205,7 +205,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDtoMapper implement
     }
 
     /**
-     * Does the property need to be mapped to an entity? <br />
+     * Does the property need to be mapped to an entity? <br>
      * If modified info of DTO has at least one property, only modified properties are mapped.
      * And if no property is modified, all properties are mapped (but the other option exists).
      * @param dto The instance of DTO. (NotNull)
@@ -222,7 +222,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnDtoMapper implement
     }
 
     /**
-     * Does the mapping to an entity contain null values? (when no property is modified) <br />
+     * Does the mapping to an entity contain null values? (when no property is modified) <br>
      * Default is true that means a setter is called if the value is null.
      * But this method is valid only when no property is modified. 
      * @return The determination, true or false.

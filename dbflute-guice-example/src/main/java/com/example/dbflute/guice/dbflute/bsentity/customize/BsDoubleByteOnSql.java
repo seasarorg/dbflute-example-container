@@ -9,7 +9,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
- * The entity of DoubleByteOnSql. <br />
+ * The entity of DoubleByteOnSql. <br>
  * <pre>
  * [primary-key]
  *     
@@ -178,7 +178,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -187,7 +187,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -196,7 +196,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     }
 
     /**
-     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberNameWithSpace() {
@@ -205,7 +205,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     }
 
     /**
-     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @param memberNameWithSpace The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberNameWithSpace(String memberNameWithSpace) {
@@ -214,7 +214,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
@@ -223,7 +223,7 @@ public abstract class BsDoubleByteOnSql extends AbstractEntity implements Custom
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberStatusName(String memberStatusName) {

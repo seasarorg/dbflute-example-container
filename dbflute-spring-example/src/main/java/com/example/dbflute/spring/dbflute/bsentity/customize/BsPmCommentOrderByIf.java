@@ -24,7 +24,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
 /**
- * The entity of PmCommentOrderByIf. <br />
+ * The entity of PmCommentOrderByIf. <br>
  * <pre>
  * [primary-key]
  *     
@@ -193,7 +193,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
@@ -203,7 +203,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
@@ -213,7 +213,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br />
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
@@ -224,7 +224,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br />
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
@@ -235,7 +235,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     /**
-     * [get] (会員アカウント)MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br />
+     * [get] (会員アカウント)MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br>
      * ログインIDとして利用する。<br />
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @return The value of the column 'MEMBER_ACCOUNT'. (NullAllowed even if selected: for no constraint)
@@ -246,7 +246,7 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     /**
-     * [set] (会員アカウント)MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br />
+     * [set] (会員アカウント)MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br>
      * ログインIDとして利用する。<br />
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @param memberAccount The value of the column 'MEMBER_ACCOUNT'. (NullAllowed: null update allowed for no constraint)

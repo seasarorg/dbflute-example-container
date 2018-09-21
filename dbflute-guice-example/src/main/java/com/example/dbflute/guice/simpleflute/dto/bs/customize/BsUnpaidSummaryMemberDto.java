@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of UnpaidSummaryMember. <br />
+ * The simple DTO of UnpaidSummaryMember. <br>
  * <pre>
  * [primary-key]
  *     
@@ -155,7 +155,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -163,7 +163,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -172,7 +172,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public String getMemberName() {
@@ -180,7 +180,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public void setMemberName(String memberName) {
@@ -189,7 +189,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [get] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br />
+     * [get] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br>
      * @return The value of the column 'UNPAID_PRICE_SUMMARY'. (NullAllowed)
      */
     public Long getUnpaidPriceSummary() {
@@ -197,7 +197,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [set] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br />
+     * [set] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br>
      * @param unpaidPriceSummary The value of the column 'UNPAID_PRICE_SUMMARY'. (NullAllowed)
      */
     public void setUnpaidPriceSummary(Long unpaidPriceSummary) {
@@ -206,7 +206,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public String getMemberStatusName() {
@@ -214,7 +214,7 @@ public abstract class BsUnpaidSummaryMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public void setMemberStatusName(String memberStatusName) {

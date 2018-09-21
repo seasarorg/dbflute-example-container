@@ -10,7 +10,7 @@ import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The entity of WHITE_DATE_TERM as TABLE. <br />
+ * The entity of WHITE_DATE_TERM as TABLE. <br>
  * <pre>
  * [primary-key]
  *     DATE_TERM_ID
@@ -182,7 +182,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [get] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @return The value of the column 'DATE_TERM_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getDateTermId() {
@@ -191,7 +191,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [set] DATE_TERM_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @param dateTermId The value of the column 'DATE_TERM_ID'. (basically NotNull if update: for the constraint)
      */
     public void setDateTermId(Long dateTermId) {
@@ -200,7 +200,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br />
+     * [get] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'DATE_TERM_VALUE'. (basically NotNull if selected: for the constraint)
      */
     public String getDateTermValue() {
@@ -209,7 +209,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br />
+     * [set] DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br>
      * @param dateTermValue The value of the column 'DATE_TERM_VALUE'. (basically NotNull if update: for the constraint)
      */
     public void setDateTermValue(String dateTermValue) {
@@ -218,7 +218,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] BEGIN_DATE: {NotNull, DATE(8)} <br />
+     * [get] BEGIN_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getBeginDate() {
@@ -227,7 +227,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] BEGIN_DATE: {NotNull, DATE(8)} <br />
+     * [set] BEGIN_DATE: {NotNull, DATE(8)} <br>
      * @param beginDate The value of the column 'BEGIN_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setBeginDate(org.joda.time.LocalDate beginDate) {
@@ -236,7 +236,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] END_DATE: {NotNull, DATE(8)} <br />
+     * [get] END_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'END_DATE'. (basically NotNull if selected: for the constraint)
      */
     public org.joda.time.LocalDate getEndDate() {
@@ -245,7 +245,7 @@ public abstract class BsWhiteDateTerm extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] END_DATE: {NotNull, DATE(8)} <br />
+     * [set] END_DATE: {NotNull, DATE(8)} <br>
      * @param endDate The value of the column 'END_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setEndDate(org.joda.time.LocalDate endDate) {

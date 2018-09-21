@@ -30,7 +30,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PurchaseMaxPriceMember. <br />
+ * The base class for typed parameter-bean of PurchaseMaxPriceMember. <br>
  * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -55,7 +55,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PurchaseMaxPriceMember. <br />
+     * Constructor for the typed parameter-bean of PurchaseMaxPriceMember. <br>
      * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv.
      */
     public BsPurchaseMaxPriceMemberPmb() {
@@ -177,7 +177,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] memberId <br />
+     * [get] memberId <br>
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -185,7 +185,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [set] memberId <br />
+     * [set] memberId <br>
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -193,7 +193,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [get] memberNameList:likePrefix <br />
+     * [get] memberNameList:likePrefix <br>
      * @return The value of memberNameList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getMemberNameList() {
@@ -201,7 +201,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [set as prefixSearch] memberNameList:likePrefix <br />
+     * [set as prefixSearch] memberNameList:likePrefix <br>
      * @param memberNameList The value of memberNameList. (NullAllowed)
      */
     public void setMemberNameList_PrefixSearch(List<String> memberNameList) {
@@ -218,7 +218,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [get] memberStatusCodeList:cls(MemberStatus) <br />
+     * [get] memberStatusCodeList:cls(MemberStatus) <br>
      * @return The value of memberStatusCodeList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getMemberStatusCodeList() {
@@ -226,7 +226,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [set] memberStatusCodeList:cls(MemberStatus) <br />
+     * [set] memberStatusCodeList:cls(MemberStatus) <br>
      * @param memberStatusCodeList The value of memberStatusCodeList. (NullAllowed)
      */
     public void setMemberStatusCodeList(List<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> memberStatusCodeList) {

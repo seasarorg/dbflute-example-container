@@ -8,7 +8,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (退会理由)WITHDRAWAL_REASON as TABLE. <br />
+ * The simple DTO of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
  * <pre>
  * [primary-key]
  *     WITHDRAWAL_REASON_CODE
@@ -82,7 +82,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br />
+     * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
      * reason for member withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -91,7 +91,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br />
+     * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
      * reason for member withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -104,7 +104,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of withdrawalReasonCode as Sit. <br />
+     * Set the value of withdrawalReasonCode as Sit. <br>
      * SIT: サイトが使いにくいから
      */
     public void setWithdrawalReasonCode_Sit() {
@@ -112,7 +112,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Set the value of withdrawalReasonCode as Prd. <br />
+     * Set the value of withdrawalReasonCode as Prd. <br>
      * PRD: 商品に魅力がないから
      */
     public void setWithdrawalReasonCode_Prd() {
@@ -120,7 +120,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Set the value of withdrawalReasonCode as Frt. <br />
+     * Set the value of withdrawalReasonCode as Frt. <br>
      * FRT: フリテンだから
      */
     public void setWithdrawalReasonCode_Frt() {
@@ -128,7 +128,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Set the value of withdrawalReasonCode as Oth. <br />
+     * Set the value of withdrawalReasonCode as Oth. <br>
      * OTH: その他理由
      */
     public void setWithdrawalReasonCode_Oth() {
@@ -139,7 +139,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of withdrawalReasonCode 'Sit'? <br />
+     * Is the value of withdrawalReasonCode 'Sit'? <br>
      * SIT: サイトが使いにくいから
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -150,7 +150,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Is the value of withdrawalReasonCode 'Prd'? <br />
+     * Is the value of withdrawalReasonCode 'Prd'? <br>
      * PRD: 商品に魅力がないから
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -161,7 +161,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Is the value of withdrawalReasonCode 'Frt'? <br />
+     * Is the value of withdrawalReasonCode 'Frt'? <br>
      * FRT: フリテンだから
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -172,7 +172,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * Is the value of withdrawalReasonCode 'Oth'? <br />
+     * Is the value of withdrawalReasonCode 'Oth'? <br>
      * OTH: その他理由
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -261,7 +261,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br />
+     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public String getWithdrawalReasonCode() {
@@ -269,7 +269,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br />
+     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -278,7 +278,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * [get] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br />
+     * [get] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed)
      */
     public String getWithdrawalReasonText() {
@@ -286,7 +286,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * [set] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br />
+     * [set] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
@@ -295,7 +295,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * [get] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [get] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public Integer getDisplayOrder() {
@@ -303,7 +303,7 @@ public abstract class BsWithdrawalReasonDto implements Serializable {
     }
 
     /**
-     * [set] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [set] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (NullAllowed)
      */
     public void setDisplayOrder(Integer displayOrder) {

@@ -27,7 +27,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The base class for typed parameter-bean of DomainMember. <br />
+ * The base class for typed parameter-bean of DomainMember. <br>
  * This is related to "<span style="color: #AD4747">selectDomainMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -43,7 +43,7 @@ public class BsDomainMemberPmb implements ListHandlingPmb<MemberBhv, Member>, En
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of DomainMember. <br />
+     * Constructor for the typed parameter-bean of DomainMember. <br>
      * This is related to "<span style="color: #AD4747">selectDomainMember</span>" on MemberBhv.
      */
     public BsDomainMemberPmb() {

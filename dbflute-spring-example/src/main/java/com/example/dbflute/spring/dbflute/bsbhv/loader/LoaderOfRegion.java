@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of (地域)REGION as TABLE. <br />
+ * The referrer loader of (地域)REGION as TABLE. <br>
  * <pre>
  * [primary key]
  *     REGION_ID

@@ -9,7 +9,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
- * The entity of VendorCheckIntegerSum. <br />
+ * The entity of VendorCheckIntegerSum. <br>
  * <pre>
  * [primary-key]
  *     
@@ -162,7 +162,7 @@ public abstract class BsVendorCheckIntegerSum extends AbstractEntity implements 
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br />
+     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
      * @return The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getIntegerNonDigitSum() {
@@ -171,7 +171,7 @@ public abstract class BsVendorCheckIntegerSum extends AbstractEntity implements 
     }
 
     /**
-     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br />
+     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
      * @param integerNonDigitSum The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed: null update allowed for no constraint)
      */
     public void setIntegerNonDigitSum(Integer integerNonDigitSum) {

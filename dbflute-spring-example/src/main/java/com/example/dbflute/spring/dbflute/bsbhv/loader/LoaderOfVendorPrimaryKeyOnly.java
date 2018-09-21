@@ -22,7 +22,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br />
+ * The referrer loader of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRIMARY_KEY_ONLY_ID

@@ -9,7 +9,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 
 /**
- * The referrer loader of SUMMARY_PRODUCT as VIEW. <br />
+ * The referrer loader of SUMMARY_PRODUCT as VIEW. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID

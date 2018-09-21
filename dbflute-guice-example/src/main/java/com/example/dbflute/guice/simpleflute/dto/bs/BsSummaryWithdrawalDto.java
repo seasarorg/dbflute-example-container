@@ -8,7 +8,7 @@ import net.vvakame.util.jsonpullparser.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * The simple DTO of SUMMARY_WITHDRAWAL as VIEW. <br />
+ * The simple DTO of SUMMARY_WITHDRAWAL as VIEW. <br>
  * <pre>
  * [primary-key]
  *     
@@ -192,7 +192,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MEMBER_ID: {INTEGER(10)} <br />
+     * [get] MEMBER_ID: {INTEGER(10)} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -200,7 +200,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] MEMBER_ID: {INTEGER(10)} <br />
+     * [set] MEMBER_ID: {INTEGER(10)} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -209,7 +209,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] MEMBER_NAME: {VARCHAR(200)} <br />
+     * [get] MEMBER_NAME: {VARCHAR(200)} <br>
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public String getMemberName() {
@@ -217,7 +217,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] MEMBER_NAME: {VARCHAR(200)} <br />
+     * [set] MEMBER_NAME: {VARCHAR(200)} <br>
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public void setMemberName(String memberName) {
@@ -226,7 +226,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_CODE: {CHAR(3)} <br />
+     * [get] WITHDRAWAL_REASON_CODE: {CHAR(3)} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public String getWithdrawalReasonCode() {
@@ -234,7 +234,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_CODE: {CHAR(3)} <br />
+     * [set] WITHDRAWAL_REASON_CODE: {CHAR(3)} <br>
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed)
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -243,7 +243,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br />
+     * [get] WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed)
      */
     public String getWithdrawalReasonText() {
@@ -251,7 +251,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br />
+     * [set] WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br>
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
@@ -260,7 +260,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br />
+     * [get] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed)
      */
     public String getWithdrawalReasonInputText() {
@@ -268,7 +268,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br />
+     * [set] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
      * @param withdrawalReasonInputText The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed)
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
@@ -277,7 +277,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
+     * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -287,7 +287,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
+     * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br>
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed)
      */
     public void setWithdrawalDatetime(org.joda.time.LocalDateTime withdrawalDatetime) {
@@ -296,7 +296,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] MEMBER_STATUS_CODE: {CHAR(3)} <br />
+     * [get] MEMBER_STATUS_CODE: {CHAR(3)} <br>
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public String getMemberStatusCode() {
@@ -304,7 +304,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] MEMBER_STATUS_CODE: {CHAR(3)} <br />
+     * [set] MEMBER_STATUS_CODE: {CHAR(3)} <br>
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public void setMemberStatusCode(String memberStatusCode) {
@@ -313,7 +313,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] MEMBER_STATUS_NAME: {VARCHAR(50)} <br />
+     * [get] MEMBER_STATUS_NAME: {VARCHAR(50)} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public String getMemberStatusName() {
@@ -321,7 +321,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] MEMBER_STATUS_NAME: {VARCHAR(50)} <br />
+     * [set] MEMBER_STATUS_NAME: {VARCHAR(50)} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public void setMemberStatusName(String memberStatusName) {
@@ -330,7 +330,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [get] MAX_PURCHASE_PRICE: {INTEGER(10)} <br />
+     * [get] MAX_PURCHASE_PRICE: {INTEGER(10)} <br>
      * @return The value of the column 'MAX_PURCHASE_PRICE'. (NullAllowed)
      */
     public Integer getMaxPurchasePrice() {
@@ -338,7 +338,7 @@ public abstract class BsSummaryWithdrawalDto implements Serializable {
     }
 
     /**
-     * [set] MAX_PURCHASE_PRICE: {INTEGER(10)} <br />
+     * [set] MAX_PURCHASE_PRICE: {INTEGER(10)} <br>
      * @param maxPurchasePrice The value of the column 'MAX_PURCHASE_PRICE'. (NullAllowed)
      */
     public void setMaxPurchasePrice(Integer maxPurchasePrice) {

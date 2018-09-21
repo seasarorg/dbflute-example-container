@@ -9,7 +9,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 
 /**
- * The referrer loader of (サービスランク)SERVICE_RANK as TABLE. <br />
+ * The referrer loader of (サービスランク)SERVICE_RANK as TABLE. <br>
  * <pre>
  * [primary key]
  *     SERVICE_RANK_CODE

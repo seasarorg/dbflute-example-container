@@ -27,7 +27,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PmCommentCollection. <br />
+ * The base class for typed parameter-bean of PmCommentCollection. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentCollection</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -49,7 +49,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PmCommentCollection. <br />
+     * Constructor for the typed parameter-bean of PmCommentCollection. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentCollection</span>" on MemberBhv.
      */
     public BsPmCommentCollectionPmb() {
@@ -172,7 +172,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] emptyMethodCheck <br />
+     * [get] emptyMethodCheck <br>
      * @return The value of emptyMethodCheck. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getEmptyMethodCheck() {
@@ -180,7 +180,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [set] emptyMethodCheck <br />
+     * [set] emptyMethodCheck <br>
      * @param emptyMethodCheck The value of emptyMethodCheck. (NullAllowed)
      */
     public void setEmptyMethodCheck(boolean emptyMethodCheck) {
@@ -188,7 +188,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [get] statusList <br />
+     * [get] statusList <br>
      * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Collection<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
@@ -196,7 +196,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [set] statusList <br />
+     * [set] statusList <br>
      * @param statusList The value of statusList. (NullAllowed)
      */
     public void setStatusList(Collection<com.example.dbflute.spring.dbflute.allcommon.CDef.MemberStatus> statusList) {

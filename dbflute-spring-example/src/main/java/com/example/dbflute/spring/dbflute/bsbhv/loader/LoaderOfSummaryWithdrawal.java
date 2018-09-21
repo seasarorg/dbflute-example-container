@@ -22,7 +22,7 @@ import com.example.dbflute.spring.dbflute.exbhv.*;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The referrer loader of SUMMARY_WITHDRAWAL as VIEW. <br />
+ * The referrer loader of SUMMARY_WITHDRAWAL as VIEW. <br>
  * <pre>
  * [primary key]
  *     

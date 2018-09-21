@@ -26,7 +26,7 @@ import com.example.dbflute.spring.dbflute.allcommon.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of LatestFormalizedDatetime. <br />
+ * The base class for typed parameter-bean of LatestFormalizedDatetime. <br>
  * This is related to "<span style="color: #AD4747">selectLatestFormalizedDatetime</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -42,7 +42,7 @@ public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv,
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of LatestFormalizedDatetime. <br />
+     * Constructor for the typed parameter-bean of LatestFormalizedDatetime. <br>
      * This is related to "<span style="color: #AD4747">selectLatestFormalizedDatetime</span>" on MemberBhv.
      */
     public BsLatestFormalizedDatetimePmb() {

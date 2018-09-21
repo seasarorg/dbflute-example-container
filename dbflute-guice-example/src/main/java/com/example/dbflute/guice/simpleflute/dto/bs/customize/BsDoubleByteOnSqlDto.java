@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of DoubleByteOnSql. <br />
+ * The simple DTO of DoubleByteOnSql. <br>
  * <pre>
  * [primary-key]
  *     
@@ -148,7 +148,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -156,7 +156,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -165,7 +165,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     }
 
     /**
-     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed)
      */
     public String getMemberNameWithSpace() {
@@ -173,7 +173,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     }
 
     /**
-     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @param memberNameWithSpace The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed)
      */
     public void setMemberNameWithSpace(String memberNameWithSpace) {
@@ -182,7 +182,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public String getMemberStatusName() {
@@ -190,7 +190,7 @@ public abstract class BsDoubleByteOnSqlDto implements Serializable {
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public void setMemberStatusName(String memberStatusName) {

@@ -9,7 +9,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
- * The entity of PurchaseSummaryMember. <br />
+ * The entity of PurchaseSummaryMember. <br>
  * <pre>
  * [primary-key]
  *     
@@ -194,7 +194,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -203,7 +203,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -212,7 +212,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
@@ -221,7 +221,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
@@ -230,7 +230,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
+     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDate getBirthdate() {
@@ -239,7 +239,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
+     * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setBirthdate(org.joda.time.LocalDate birthdate) {
@@ -248,7 +248,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
+     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public org.joda.time.LocalDateTime getFormalizedDatetime() {
@@ -257,7 +257,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
+     * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
@@ -266,7 +266,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [get] PURCHASE_SUMMARY: {BIGINT(10)} <br />
+     * [get] PURCHASE_SUMMARY: {BIGINT(10)} <br>
      * @return The value of the column 'PURCHASE_SUMMARY'. (NullAllowed even if selected: for no constraint)
      */
     public Long getPurchaseSummary() {
@@ -275,7 +275,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     /**
-     * [set] PURCHASE_SUMMARY: {BIGINT(10)} <br />
+     * [set] PURCHASE_SUMMARY: {BIGINT(10)} <br>
      * @param purchaseSummary The value of the column 'PURCHASE_SUMMARY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseSummary(Long purchaseSummary) {

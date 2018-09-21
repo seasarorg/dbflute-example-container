@@ -96,7 +96,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -198,7 +198,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -277,7 +277,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -353,7 +353,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -429,7 +429,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -508,7 +508,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -581,7 +581,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -621,8 +621,8 @@ public interface CDef extends Classification {
         public ClassificationMeta meta() { return CDef.DefMeta.PaymentMethod; }
 
         /**
-         * Is the classification in the group? <br />
-         * the most recommended method <br />
+         * Is the classification in the group? <br>
+         * the most recommended method <br>
          * The group elements:[ByHand]
          * @return The determination, true or false.
          */
@@ -665,8 +665,8 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of group classification elements. (returns new copied list) <br />
-         * the most recommended method <br />
+         * Get the list of group classification elements. (returns new copied list) <br>
+         * the most recommended method <br>
          * The group elements:[ByHand]
          * @return The list of classification elements in the group. (NotNull)
          */
@@ -675,7 +675,7 @@ public interface CDef extends Classification {
         }
 
         /**
-         * Get the list of classification elements in the specified group. (returns new copied list) <br />
+         * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */

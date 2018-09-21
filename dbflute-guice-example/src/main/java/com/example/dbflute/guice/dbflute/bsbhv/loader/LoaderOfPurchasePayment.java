@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of (購入支払)PURCHASE_PAYMENT as TABLE. <br />
+ * The referrer loader of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_PAYMENT_ID

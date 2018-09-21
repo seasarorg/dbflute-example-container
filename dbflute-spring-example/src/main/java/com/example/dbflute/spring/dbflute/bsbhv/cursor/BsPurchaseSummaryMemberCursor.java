@@ -22,7 +22,7 @@ import org.seasar.dbflute.jdbc.ValueType;
 import org.seasar.dbflute.s2dao.valuetype.TnValueTypes;
 
 /**
- * The cursor of PurchaseSummaryMember. <br />
+ * The cursor of PurchaseSummaryMember. <br>
  * @author DBFlute(AutoGenerator)
  */
 public class BsPurchaseSummaryMemberCursor {
@@ -113,7 +113,7 @@ public class BsPurchaseSummaryMemberCursor {
     //                                                                  Type Safe Accessor
     //                                                                  ==================
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of memberId. (NullAllowed)
      * @throws java.sql.SQLException
@@ -123,7 +123,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br />
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of memberName. (NullAllowed)
@@ -134,7 +134,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
+     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @return The value of birthdate. (NullAllowed)
      * @throws java.sql.SQLException
@@ -144,7 +144,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
+     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * 会員が正式に確定した(正式会員になった)日時。<br />
      * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of formalizedDatetime. (NullAllowed)
@@ -155,7 +155,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] PURCHASE_SUMMARY: {BIGINT(10)} <br />
+     * [get] PURCHASE_SUMMARY: {BIGINT(10)} <br>
      * @return The value of purchaseSummary. (NullAllowed)
      * @throws java.sql.SQLException
      */

@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_CHECK as TABLE. <br />
+ * The referrer loader of VENDOR_CHECK as TABLE. <br>
  * <pre>
  * [primary key]
  *     VENDOR_CHECK_ID

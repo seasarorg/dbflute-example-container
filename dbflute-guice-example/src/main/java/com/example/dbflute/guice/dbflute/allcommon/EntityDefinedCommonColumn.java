@@ -57,13 +57,13 @@ public interface EntityDefinedCommonColumn extends Entity {
     void setUpdateUser(String updateUser);
 
     /**
-	 * Enable common column auto set up. <br />
+	 * Enable common column auto set up. <br>
 	 * It's only for after disable because the default is enabled.
 	 */
     void enableCommonColumnAutoSetup();
 
     /**
-	 * Disable common column auto set up. <br />
+	 * Disable common column auto set up. <br>
 	 * This is an old style. You can get the same process
 	 * by varyingInsert() and varyingUpdate() and so on.
 	 */

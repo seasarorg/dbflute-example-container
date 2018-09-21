@@ -25,7 +25,7 @@ import com.example.dbflute.spring.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The entity of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br />
+ * The entity of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br>
  * とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。
  * <pre>
  * [primary-key]
@@ -134,7 +134,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * To be unique by the unique column. <br />
+     * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
      * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
@@ -262,7 +262,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [get] (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * 連番
      * @return The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -272,7 +272,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [set] (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * 連番
      * @param memberFollowingId The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if update: for the constraint)
      */
@@ -282,7 +282,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * 気になった人がいて...勇気を振り絞った会員のID。
      * @return The value of the column 'MY_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -292,7 +292,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * 気になった人がいて...勇気を振り絞った会員のID。
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
@@ -302,7 +302,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @return The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -312,7 +312,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
      * いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
@@ -322,7 +322,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br>
      * ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @return The value of the column 'FOLLOW_DATETIME'. (basically NotNull if selected: for the constraint)
      */
@@ -332,7 +332,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} <br>
      * ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (basically NotNull if update: for the constraint)
      */

@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of ForcedType. <br />
+ * The simple DTO of ForcedType. <br>
  * <pre>
  * [primary-key]
  *     
@@ -134,7 +134,7 @@ public abstract class BsForcedTypeDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MAX_MEMBER_ID: {INTEGER(10)} <br />
+     * [get] MAX_MEMBER_ID: {INTEGER(10)} <br>
      * @return The value of the column 'MAX_MEMBER_ID'. (NullAllowed)
      */
     public java.math.BigInteger getMaxMemberId() {
@@ -142,7 +142,7 @@ public abstract class BsForcedTypeDto implements Serializable {
     }
 
     /**
-     * [set] MAX_MEMBER_ID: {INTEGER(10)} <br />
+     * [set] MAX_MEMBER_ID: {INTEGER(10)} <br>
      * @param maxMemberId The value of the column 'MAX_MEMBER_ID'. (NullAllowed)
      */
     public void setMaxMemberId(java.math.BigInteger maxMemberId) {

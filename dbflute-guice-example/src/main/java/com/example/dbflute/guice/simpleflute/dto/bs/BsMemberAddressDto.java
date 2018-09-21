@@ -10,7 +10,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (会員住所情報)MEMBER_ADDRESS as TABLE. <br />
+ * The simple DTO of (会員住所情報)MEMBER_ADDRESS as TABLE. <br>
  * <pre>
  * [primary-key]
  *     MEMBER_ADDRESS_ID
@@ -116,7 +116,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of regionId as the classification of Region. <br />
+     * Set the value of regionId as the classification of Region. <br>
      * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -125,7 +125,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Get the value of regionId as the classification of Region. <br />
+     * Get the value of regionId as the classification of Region. <br>
      * mainly region of member address
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -138,7 +138,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of regionId as America. <br />
+     * Set the value of regionId as America. <br>
      * AMERICA
      */
     public void setRegionId_America() {
@@ -146,7 +146,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as Canada. <br />
+     * Set the value of regionId as Canada. <br>
      * CANADA
      */
     public void setRegionId_Canada() {
@@ -154,7 +154,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as China. <br />
+     * Set the value of regionId as China. <br>
      * CHINA
      */
     public void setRegionId_China() {
@@ -162,7 +162,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Set the value of regionId as Chiba. <br />
+     * Set the value of regionId as Chiba. <br>
      * CHIBA
      */
     public void setRegionId_Chiba() {
@@ -173,7 +173,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of regionId 'America'? <br />
+     * Is the value of regionId 'America'? <br>
      * AMERICA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -184,7 +184,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'Canada'? <br />
+     * Is the value of regionId 'Canada'? <br>
      * CANADA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -195,7 +195,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'China'? <br />
+     * Is the value of regionId 'China'? <br>
      * CHINA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -206,7 +206,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * Is the value of regionId 'Chiba'? <br />
+     * Is the value of regionId 'Chiba'? <br>
      * CHIBA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -312,7 +312,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [get] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'MEMBER_ADDRESS_ID'. (NullAllowed)
      */
     public Integer getMemberAddressId() {
@@ -320,7 +320,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [set] (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @param memberAddressId The value of the column 'MEMBER_ADDRESS_ID'. (NullAllowed)
      */
     public void setMemberAddressId(Integer memberAddressId) {
@@ -329,7 +329,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -337,7 +337,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -346,7 +346,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
+     * [get] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br>
      * @return The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -356,7 +356,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br />
+     * [set] (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} <br>
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (NullAllowed)
      */
     public void setValidBeginDate(org.joda.time.LocalDate validBeginDate) {
@@ -365,7 +365,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
+     * [get] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br>
      * @return The value of the column 'VALID_END_DATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -375,7 +375,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br />
+     * [set] (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} <br>
      * @param validEndDate The value of the column 'VALID_END_DATE'. (NullAllowed)
      */
     public void setValidEndDate(org.joda.time.LocalDate validEndDate) {
@@ -384,7 +384,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br />
+     * [get] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'ADDRESS'. (NullAllowed)
      */
     public String getAddress() {
@@ -392,7 +392,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br />
+     * [set] (住所)ADDRESS: {NotNull, VARCHAR(200)} <br>
      * @param address The value of the column 'ADDRESS'. (NullAllowed)
      */
     public void setAddress(String address) {
@@ -401,7 +401,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
+     * [get] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * @return The value of the column 'REGION_ID'. (NullAllowed)
      */
     public Integer getRegionId() {
@@ -409,7 +409,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br />
+     * [set] (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * @param regionId The value of the column 'REGION_ID'. (NullAllowed)
      */
     public void setRegionId(Integer regionId) {
@@ -418,7 +418,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -428,7 +428,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
@@ -437,7 +437,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public String getRegisterUser() {
@@ -445,7 +445,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public void setRegisterUser(String registerUser) {
@@ -454,7 +454,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -464,7 +464,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
@@ -473,7 +473,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public String getUpdateUser() {
@@ -481,7 +481,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public void setUpdateUser(String updateUser) {
@@ -490,7 +490,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @return The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public Long getVersionNo() {
@@ -498,7 +498,7 @@ public abstract class BsMemberAddressDto implements Serializable {
     }
 
     /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @param versionNo The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public void setVersionNo(Long versionNo) {

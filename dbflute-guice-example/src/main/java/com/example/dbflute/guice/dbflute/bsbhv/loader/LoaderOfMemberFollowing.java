@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br />
+ * The referrer loader of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_FOLLOWING_ID

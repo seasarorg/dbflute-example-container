@@ -50,7 +50,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     //                                                                               Query
     //                                                                               =====
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as equal. (NullAllowed: if null, no condition)
      */
@@ -63,7 +63,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as notEqual. (NullAllowed: if null, no condition)
      */
@@ -76,7 +76,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -85,7 +85,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as lessThan. (NullAllowed: if null, no condition)
      */
@@ -94,7 +94,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -103,7 +103,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermId The value of dateTermId as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -112,9 +112,9 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param minNumber The min number of dateTermId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of dateTermId. (NullAllowed: if null, no to-condition)
@@ -125,7 +125,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermIdList The collection of dateTermId as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -138,7 +138,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @param dateTermIdList The collection of dateTermId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -151,13 +151,13 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br />
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      */
     public void setDateTermId_IsNull() { regDateTermId(CK_ISN, DOBJ); }
 
     /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      */
     public void setDateTermId_IsNotNull() { regDateTermId(CK_ISNN, DOBJ); }
@@ -166,7 +166,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     protected abstract ConditionValue getCValueDateTermId();
 
     /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValue The value of dateTermValue as equal. (NullAllowed: if null (or empty), no condition)
      */
@@ -179,7 +179,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValue The value of dateTermValue as notEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -192,7 +192,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValueList The collection of dateTermValue as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -205,7 +205,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValueList The collection of dateTermValue as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -218,7 +218,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValue The value of dateTermValue as prefixSearch. (NullAllowed: if null (or empty), no condition)
      */
@@ -227,8 +227,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br />
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * DATE_TERM_VALUE: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setDateTermValue_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param dateTermValue The value of dateTermValue as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -238,8 +238,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @param dateTermValue The value of dateTermValue as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
@@ -252,7 +252,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     protected abstract ConditionValue getCValueDateTermValue();
 
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @param beginDate The value of beginDate as equal. (NullAllowed: if null, no condition)
      */
@@ -261,7 +261,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @param beginDate The value of beginDate as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -270,7 +270,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @param beginDate The value of beginDate as lessThan. (NullAllowed: if null, no condition)
      */
@@ -279,7 +279,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @param beginDate The value of beginDate as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -288,7 +288,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @param beginDate The value of beginDate as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -297,8 +297,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * <pre>e.g. setBeginDate_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of beginDate. (NullAllowed: if null, no from-condition)
@@ -310,8 +310,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
@@ -328,7 +328,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     protected abstract ConditionValue getCValueBeginDate();
 
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @param endDate The value of endDate as equal. (NullAllowed: if null, no condition)
      */
@@ -337,7 +337,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @param endDate The value of endDate as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -346,7 +346,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @param endDate The value of endDate as lessThan. (NullAllowed: if null, no condition)
      */
@@ -355,7 +355,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @param endDate The value of endDate as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -364,7 +364,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @param endDate The value of endDate as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -373,8 +373,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * <pre>e.g. setEndDate_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of endDate. (NullAllowed: if null, no from-condition)
@@ -386,8 +386,8 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * END_DATE: {NotNull, DATE(8)}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
@@ -407,7 +407,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     //                                                                     ScalarCondition
     //                                                                     ===============
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO = (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {
@@ -424,7 +424,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {
@@ -441,7 +441,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Prepare ScalarCondition as greaterThan. <br />
+     * Prepare ScalarCondition as greaterThan. <br>
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {
@@ -458,7 +458,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Prepare ScalarCondition as lessThan. <br />
+     * Prepare ScalarCondition as lessThan. <br>
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {
@@ -475,7 +475,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Prepare ScalarCondition as greaterEqual. <br />
+     * Prepare ScalarCondition as greaterEqual. <br>
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {
@@ -492,7 +492,7 @@ public abstract class AbstractBsWhiteDateTermCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Prepare ScalarCondition as lessEqual. <br />
+     * Prepare ScalarCondition as lessEqual. <br>
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;WhiteDateTermCB&gt;() {

@@ -28,7 +28,7 @@ import com.example.dbflute.spring.dbflute.allcommon.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of MapLikeSearch. <br />
+ * The base class for typed parameter-bean of MapLikeSearch. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectMapLikeSearch</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -50,7 +50,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of MapLikeSearch. <br />
+     * Constructor for the typed parameter-bean of MapLikeSearch. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectMapLikeSearch</span>" on MemberBhv.
      */
     public BsMapLikeSearchPmb() {
@@ -176,7 +176,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] conditionMap:like <br />
+     * [get] conditionMap:like <br>
      * @return The value of conditionMap. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, Object> getConditionMap() {
@@ -184,7 +184,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     }
 
     /**
-     * [set as likeSearch] conditionMap:like <br />
+     * [set as likeSearch] conditionMap:like <br>
      * @param conditionMap The value of conditionMap. (NullAllowed)
      * @param conditionMapOption The option of likeSearch for conditionMap which is NOT split mode. (NotNull)
      */

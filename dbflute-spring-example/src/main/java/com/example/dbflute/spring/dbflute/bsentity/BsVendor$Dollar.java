@@ -25,7 +25,7 @@ import com.example.dbflute.spring.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.spring.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_$_DOLLAR as TABLE. <br />
+ * The entity of VENDOR_$_DOLLAR as TABLE. <br>
  * <pre>
  * [primary-key]
  *     VENDOR_$_DOLLAR_ID
@@ -185,7 +185,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getVendor$DollarId() {
@@ -194,7 +194,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @param vendor$DollarId The value of the column 'VENDOR_$_DOLLAR_ID'. (basically NotNull if update: for the constraint)
      */
     public void setVendor$DollarId(Integer vendor$DollarId) {
@@ -203,7 +203,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getVendor$DollarName() {
@@ -212,7 +212,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @param vendor$DollarName The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setVendor$DollarName(String vendor$DollarName) {

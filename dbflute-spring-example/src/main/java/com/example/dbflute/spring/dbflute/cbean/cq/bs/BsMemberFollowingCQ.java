@@ -49,7 +49,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from MEMBER_FOLLOWING) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join MEMBER_FOLLOWING on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
@@ -95,14 +95,14 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     protected ConditionValue getCValueMemberFollowingId() { return getMemberFollowingId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsMemberFollowingCQ addOrderBy_MemberFollowingId_Asc() { regOBA("MEMBER_FOLLOWING_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
@@ -121,14 +121,14 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ sq) { return xkeepSQue("myMemberId_NotInScopeRelation_MemberByMyMemberId", sq); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberFollowingCQ addOrderBy_MyMemberId_Asc() { regOBA("MY_MEMBER_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
@@ -147,14 +147,14 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ sq) { return xkeepSQue("yourMemberId_NotInScopeRelation_MemberByYourMemberId", sq); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberFollowingCQ addOrderBy_YourMemberId_Asc() { regOBA("YOUR_MEMBER_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
@@ -167,14 +167,14 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     protected ConditionValue getCValueFollowDatetime() { return getFollowDatetime(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsMemberFollowingCQ addOrderBy_FollowDatetime_Asc() { regOBA("FOLLOW_DATETIME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
@@ -233,7 +233,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                       Foreign Query
     //                                                                       =============
     /**
-     * Get the condition-query for relation table. <br />
+     * Get the condition-query for relation table. <br>
      * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @return The instance of condition-query. (NotNull)
      */
@@ -253,7 +253,7 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public boolean hasConditionQueryMemberByMyMemberId() { return xhasQueRlMap("memberByMyMemberId"); }
 
     /**
-     * Get the condition-query for relation table. <br />
+     * Get the condition-query for relation table. <br>
      * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @return The instance of condition-query. (NotNull)
      */

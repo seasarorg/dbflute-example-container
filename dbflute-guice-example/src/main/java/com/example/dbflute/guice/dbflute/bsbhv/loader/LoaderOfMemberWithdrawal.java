@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員退会情報)MEMBER_WITHDRAWAL as TABLE. <br />
+ * The referrer loader of (会員退会情報)MEMBER_WITHDRAWAL as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID

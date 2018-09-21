@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of SimpleVendorCheck. <br />
+ * The simple DTO of SimpleVendorCheck. <br>
  * <pre>
  * [primary-key]
  *     
@@ -228,7 +228,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br />
+     * [get] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br>
      * @return The value of the column 'VENDOR_CHECK_ID'. (NullAllowed)
      */
     public Long getVendorCheckId() {
@@ -236,7 +236,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br />
+     * [set] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br>
      * @param vendorCheckId The value of the column 'VENDOR_CHECK_ID'. (NullAllowed)
      */
     public void setVendorCheckId(Long vendorCheckId) {
@@ -245,7 +245,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br />
+     * [get] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br>
      * @return The value of the column 'TYPE_OF_TEXT'. (NullAllowed)
      */
     public String getTypeOfText() {
@@ -253,7 +253,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br />
+     * [set] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br>
      * @param typeOfText The value of the column 'TYPE_OF_TEXT'. (NullAllowed)
      */
     public void setTypeOfText(String typeOfText) {
@@ -262,7 +262,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br />
+     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br>
      * @return The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed)
      */
     public Boolean getTypeOfBoolean() {
@@ -270,7 +270,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br />
+     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br>
      * @param typeOfBoolean The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed)
      */
     public void setTypeOfBoolean(Boolean typeOfBoolean) {
@@ -279,7 +279,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed)
      */
     public Integer getTypeOfNumericInteger() {
@@ -287,7 +287,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br>
      * @param typeOfNumericInteger The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed)
      */
     public void setTypeOfNumericInteger(Integer typeOfNumericInteger) {
@@ -296,7 +296,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed)
      */
     public Long getTypeOfNumericBigint() {
@@ -304,7 +304,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br>
      * @param typeOfNumericBigint The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed)
      */
     public void setTypeOfNumericBigint(Long typeOfNumericBigint) {
@@ -313,7 +313,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br />
+     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericDecimal() {
@@ -321,7 +321,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br />
+     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br>
      * @param typeOfNumericDecimal The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed)
      */
     public void setTypeOfNumericDecimal(java.math.BigDecimal typeOfNumericDecimal) {
@@ -330,7 +330,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed)
      */
     public Integer getTypeOfNumericIntegerMin() {
@@ -338,7 +338,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br>
      * @param typeOfNumericIntegerMin The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericIntegerMin(Integer typeOfNumericIntegerMin) {
@@ -347,7 +347,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed)
      */
     public Integer getTypeOfNumericIntegerMax() {
@@ -355,7 +355,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br>
      * @param typeOfNumericIntegerMax The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericIntegerMax(Integer typeOfNumericIntegerMax) {
@@ -364,7 +364,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed)
      */
     public Long getTypeOfNumericBigintMin() {
@@ -372,7 +372,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br>
      * @param typeOfNumericBigintMin The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericBigintMin(Long typeOfNumericBigintMin) {
@@ -381,7 +381,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed)
      */
     public Long getTypeOfNumericBigintMax() {
@@ -389,7 +389,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br>
      * @param typeOfNumericBigintMax The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericBigintMax(Long typeOfNumericBigintMax) {
@@ -398,7 +398,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMin() {
@@ -406,7 +406,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br>
      * @param typeOfNumericSuperintMin The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed)
      */
     public void setTypeOfNumericSuperintMin(java.math.BigDecimal typeOfNumericSuperintMin) {
@@ -415,7 +415,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMax() {
@@ -423,7 +423,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br>
      * @param typeOfNumericSuperintMax The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed)
      */
     public void setTypeOfNumericSuperintMax(java.math.BigDecimal typeOfNumericSuperintMax) {
@@ -432,7 +432,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br />
+     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed)
      */
     public java.math.BigDecimal getTypeOfNumericMaxdecimal() {
@@ -440,7 +440,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br />
+     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br>
      * @param typeOfNumericMaxdecimal The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed)
      */
     public void setTypeOfNumericMaxdecimal(java.math.BigDecimal typeOfNumericMaxdecimal) {
@@ -449,7 +449,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [get] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br />
+     * [get] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br>
      * @return The value of the column 'TYPE_OF_BLOB'. (NullAllowed)
      */
     public byte[] getTypeOfBlob() {
@@ -457,7 +457,7 @@ public abstract class BsSimpleVendorCheckDto implements Serializable {
     }
 
     /**
-     * [set] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br />
+     * [set] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br>
      * @param typeOfBlob The value of the column 'TYPE_OF_BLOB'. (NullAllowed)
      */
     public void setTypeOfBlob(byte[] typeOfBlob) {

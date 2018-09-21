@@ -34,7 +34,7 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from WHITE_DATE_TERM) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">inline()</span>.setFoo...;
@@ -57,7 +57,7 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join WHITE_DATE_TERM on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #DD4747">on()</span>.setFoo...;
@@ -80,14 +80,14 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     protected ConditionValue getCValueDateTermId() { return getDateTermId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @return this. (NotNull)
      */
     public BsWhiteDateTermCQ addOrderBy_DateTermId_Asc() { regOBA("DATE_TERM_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * DATE_TERM_ID: {PK, NotNull, DECIMAL(16)}
      * @return this. (NotNull)
      */
@@ -100,14 +100,14 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     protected ConditionValue getCValueDateTermValue() { return getDateTermValue(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsWhiteDateTermCQ addOrderBy_DateTermValue_Asc() { regOBA("DATE_TERM_VALUE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * DATE_TERM_VALUE: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
@@ -120,14 +120,14 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     protected ConditionValue getCValueBeginDate() { return getBeginDate(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)
      */
     public BsWhiteDateTermCQ addOrderBy_BeginDate_Asc() { regOBA("BEGIN_DATE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * BEGIN_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)
      */
@@ -140,14 +140,14 @@ public class BsWhiteDateTermCQ extends AbstractBsWhiteDateTermCQ {
     protected ConditionValue getCValueEndDate() { return getEndDate(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)
      */
     public BsWhiteDateTermCQ addOrderBy_EndDate_Asc() { regOBA("END_DATE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * END_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)
      */

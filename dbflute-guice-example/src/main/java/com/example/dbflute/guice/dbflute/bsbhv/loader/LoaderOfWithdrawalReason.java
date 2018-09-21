@@ -9,7 +9,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 
 /**
- * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE. <br />
+ * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
  * <pre>
  * [primary key]
  *     WITHDRAWAL_REASON_CODE

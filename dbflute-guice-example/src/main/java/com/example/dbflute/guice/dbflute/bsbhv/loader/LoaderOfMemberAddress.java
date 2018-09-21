@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員住所情報)MEMBER_ADDRESS as TABLE. <br />
+ * The referrer loader of (会員住所情報)MEMBER_ADDRESS as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ADDRESS_ID

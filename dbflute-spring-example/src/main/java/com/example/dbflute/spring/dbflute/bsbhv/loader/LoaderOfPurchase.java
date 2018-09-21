@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of (購入)PURCHASE as TABLE. <br />
+ * The referrer loader of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_ID

@@ -28,7 +28,7 @@ import com.example.dbflute.spring.dbflute.allcommon.*;
 import com.example.dbflute.spring.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of PurchaseChangedToPaymentComplete. <br />
+ * The base class for typed parameter-bean of PurchaseChangedToPaymentComplete. <br>
  * This is related to "<span style="color: #AD4747">whitebox:runtime:updatePurchaseChangedToPaymentComplete</span>" on PurchaseBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -53,7 +53,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PurchaseChangedToPaymentComplete. <br />
+     * Constructor for the typed parameter-bean of PurchaseChangedToPaymentComplete. <br>
      * This is related to "<span style="color: #AD4747">whitebox:runtime:updatePurchaseChangedToPaymentComplete</span>" on PurchaseBhv.
      */
     public BsPurchaseChangedToPaymentCompletePmb() {
@@ -180,7 +180,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [get] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
@@ -188,7 +188,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @param paymentCompleteFlg The value of paymentCompleteFlg. (NullAllowed)
      */
     public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
@@ -196,7 +196,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * means yes
      */
     public void setPaymentCompleteFlg_True() {
@@ -204,7 +204,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as False] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set as False] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * means no
      */
     public void setPaymentCompleteFlg_False() {
@@ -212,7 +212,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [get] memberName:likePrefix <br />
+     * [get] memberName:likePrefix <br>
      * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
@@ -220,7 +220,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as prefixSearch] memberName:likePrefix <br />
+     * [set as prefixSearch] memberName:likePrefix <br>
      * @param memberName The value of memberName. (NullAllowed)
      */
     public void setMemberName_PrefixSearch(String memberName) {

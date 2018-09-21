@@ -9,7 +9,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品)PRODUCT as TABLE. <br />
+ * The referrer loader of (商品)PRODUCT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID

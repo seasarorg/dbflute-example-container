@@ -10,7 +10,7 @@ import com.example.dbflute.guice.dbflute.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br />
+ * The entity of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
  * <pre>
  * [primary-key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
@@ -118,7 +118,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * To be unique by the unique column. <br />
+     * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
      * @param theLongAndWindingTableAndColumnName : UQ, NotNull, VARCHAR(200). (NotNull)
      */
@@ -222,7 +222,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getTheLongAndWindingTableAndColumnId() {
@@ -231,7 +231,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)} <br>
      * @param theLongAndWindingTableAndColumnId The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID'. (basically NotNull if update: for the constraint)
      */
     public void setTheLongAndWindingTableAndColumnId(Long theLongAndWindingTableAndColumnId) {
@@ -240,7 +240,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getTheLongAndWindingTableAndColumnName() {
@@ -249,7 +249,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * @param theLongAndWindingTableAndColumnName The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setTheLongAndWindingTableAndColumnName(String theLongAndWindingTableAndColumnName) {
@@ -258,7 +258,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [get] SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * [get] SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'SHORT_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getShortName() {
@@ -267,7 +267,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [set] SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * [set] SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * @param shortName The value of the column 'SHORT_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setShortName(String shortName) {
@@ -276,7 +276,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [get] SHORT_SIZE: {NotNull, INTEGER(10)} <br />
+     * [get] SHORT_SIZE: {NotNull, INTEGER(10)} <br>
      * @return The value of the column 'SHORT_SIZE'. (basically NotNull if selected: for the constraint)
      */
     public Integer getShortSize() {
@@ -285,7 +285,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     }
 
     /**
-     * [set] SHORT_SIZE: {NotNull, INTEGER(10)} <br />
+     * [set] SHORT_SIZE: {NotNull, INTEGER(10)} <br>
      * @param shortSize The value of the column 'SHORT_SIZE'. (basically NotNull if update: for the constraint)
      */
     public void setShortSize(Integer shortSize) {

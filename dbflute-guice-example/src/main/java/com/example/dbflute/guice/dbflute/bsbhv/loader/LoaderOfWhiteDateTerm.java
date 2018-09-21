@@ -7,7 +7,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.*;
 
 /**
- * The referrer loader of WHITE_DATE_TERM as TABLE. <br />
+ * The referrer loader of WHITE_DATE_TERM as TABLE. <br>
  * <pre>
  * [primary key]
  *     DATE_TERM_ID

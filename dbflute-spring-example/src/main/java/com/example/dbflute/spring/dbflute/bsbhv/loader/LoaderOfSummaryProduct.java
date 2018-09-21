@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of SUMMARY_PRODUCT as VIEW. <br />
+ * The referrer loader of SUMMARY_PRODUCT as VIEW. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID

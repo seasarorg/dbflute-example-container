@@ -15,7 +15,7 @@ import com.example.dbflute.guice.dbflute.allcommon.*;
 import com.example.dbflute.guice.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of PmCommentPossible. <br />
+ * The base class for typed parameter-bean of PmCommentPossible. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentPossible</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -61,7 +61,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PmCommentPossible. <br />
+     * Constructor for the typed parameter-bean of PmCommentPossible. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentPossible</span>" on MemberBhv.
      */
     public BsPmCommentPossiblePmb() {
@@ -199,7 +199,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] string <br />
+     * [get] string <br>
      * @return The value of string. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getString() {
@@ -207,7 +207,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] string <br />
+     * [set] string <br>
      * @param string The value of string. (NullAllowed)
      */
     public void setString(String string) {
@@ -215,7 +215,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] integer <br />
+     * [get] integer <br>
      * @return The value of integer. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getInteger() {
@@ -223,7 +223,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] integer <br />
+     * [set] integer <br>
      * @param integer The value of integer. (NullAllowed)
      */
     public void setInteger(Integer integer) {
@@ -231,7 +231,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] bigDecimal <br />
+     * [get] bigDecimal <br>
      * @return The value of bigDecimal. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.math.BigDecimal getBigDecimal() {
@@ -239,7 +239,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] bigDecimal <br />
+     * [set] bigDecimal <br>
      * @param bigDecimal The value of bigDecimal. (NullAllowed)
      */
     public void setBigDecimal(java.math.BigDecimal bigDecimal) {
@@ -247,7 +247,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] date <br />
+     * [get] date <br>
      * @return The value of date. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDate getDate() {
@@ -255,7 +255,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] date <br />
+     * [set] date <br>
      * @param date The value of date. (NullAllowed)
      */
     public void setDate(org.joda.time.LocalDate date) {
@@ -263,7 +263,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] timestamp <br />
+     * [get] timestamp <br>
      * @return The value of timestamp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public org.joda.time.LocalDateTime getTimestamp() {
@@ -271,7 +271,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] timestamp <br />
+     * [set] timestamp <br>
      * @param timestamp The value of timestamp. (NullAllowed)
      */
     public void setTimestamp(org.joda.time.LocalDateTime timestamp) {
@@ -279,7 +279,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] exists <br />
+     * [get] exists <br>
      * @return The value of exists. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getExists() {
@@ -287,7 +287,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] exists <br />
+     * [set] exists <br>
      * @param exists The value of exists. (NullAllowed)
      */
     public void setExists(boolean exists) {
@@ -295,7 +295,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] notExists <br />
+     * [get] notExists <br>
      * @return The value of notExists. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getNotExists() {
@@ -303,7 +303,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] notExists <br />
+     * [set] notExists <br>
      * @param notExists The value of notExists. (NullAllowed)
      */
     public void setNotExists(boolean notExists) {
@@ -311,7 +311,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] list <br />
+     * [get] list <br>
      * @return The value of list. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getList() {
@@ -319,7 +319,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] list <br />
+     * [set] list <br>
      * @param list The value of list. (NullAllowed)
      */
     public void setList(List<String> list) {
@@ -327,7 +327,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] map <br />
+     * [get] map <br>
      * @return The value of map. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, Integer> getMap() {
@@ -335,7 +335,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] map <br />
+     * [set] map <br>
      * @param map The value of map. (NullAllowed)
      */
     public void setMap(Map<String, Integer> map) {
@@ -343,7 +343,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] cdef <br />
+     * [get] cdef <br>
      * @return The value of cdef. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public com.example.dbflute.guice.dbflute.allcommon.CDef getCdef() {
@@ -351,7 +351,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] cdef <br />
+     * [set] cdef <br>
      * @param cdef The value of cdef. (NullAllowed)
      */
     public void setCdef(com.example.dbflute.guice.dbflute.allcommon.CDef cdef) {

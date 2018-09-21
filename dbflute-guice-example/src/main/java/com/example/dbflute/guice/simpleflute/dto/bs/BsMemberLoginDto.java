@@ -10,7 +10,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (会員ログイン)MEMBER_LOGIN as TABLE. <br />
+ * The simple DTO of (会員ログイン)MEMBER_LOGIN as TABLE. <br>
  * <pre>
  * [primary-key]
  *     MEMBER_LOGIN_ID
@@ -92,7 +92,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of mobileLoginFlg as the classification of Flg. <br />
+     * Set the value of mobileLoginFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -101,7 +101,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Get the value of mobileLoginFlg as the classification of Flg. <br />
+     * Get the value of mobileLoginFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -111,7 +111,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Set the value of loginMemberStatusCode as the classification of MemberStatus. <br />
+     * Set the value of loginMemberStatusCode as the classification of MemberStatus. <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -120,7 +120,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Get the value of loginMemberStatusCode as the classification of MemberStatus. <br />
+     * Get the value of loginMemberStatusCode as the classification of MemberStatus. <br>
      * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -133,7 +133,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of mobileLoginFlg as True. <br />
+     * Set the value of mobileLoginFlg as True. <br>
      * Yes: means valid
      */
     public void setMobileLoginFlg_True() {
@@ -141,7 +141,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Set the value of mobileLoginFlg as False. <br />
+     * Set the value of mobileLoginFlg as False. <br>
      * No: means invalid
      */
     public void setMobileLoginFlg_False() {
@@ -149,7 +149,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Set the value of loginMemberStatusCode as Formalized. <br />
+     * Set the value of loginMemberStatusCode as Formalized. <br>
      * Formalized: as formal member, allowed to use all service
      */
     public void setLoginMemberStatusCode_Formalized() {
@@ -157,7 +157,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Set the value of loginMemberStatusCode as Withdrawal. <br />
+     * Set the value of loginMemberStatusCode as Withdrawal. <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      */
     public void setLoginMemberStatusCode_Withdrawal() {
@@ -165,7 +165,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Set the value of loginMemberStatusCode as Provisional. <br />
+     * Set the value of loginMemberStatusCode as Provisional. <br>
      * Provisional: first status after entry, allowed to use only part of service
      */
     public void setLoginMemberStatusCode_Provisional() {
@@ -176,7 +176,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of mobileLoginFlg 'True'? <br />
+     * Is the value of mobileLoginFlg 'True'? <br>
      * Yes: means valid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -187,7 +187,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Is the value of mobileLoginFlg 'False'? <br />
+     * Is the value of mobileLoginFlg 'False'? <br>
      * No: means invalid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -198,7 +198,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Is the value of loginMemberStatusCode 'Formalized'? <br />
+     * Is the value of loginMemberStatusCode 'Formalized'? <br>
      * Formalized: as formal member, allowed to use all service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -209,7 +209,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Is the value of loginMemberStatusCode 'Withdrawal'? <br />
+     * Is the value of loginMemberStatusCode 'Withdrawal'? <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -220,7 +220,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * Is the value of loginMemberStatusCode 'Provisional'? <br />
+     * Is the value of loginMemberStatusCode 'Provisional'? <br>
      * Provisional: first status after entry, allowed to use only part of service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -320,7 +320,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [get] (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'MEMBER_LOGIN_ID'. (NullAllowed)
      */
     public Long getMemberLoginId() {
@@ -328,7 +328,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [set] (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @param memberLoginId The value of the column 'MEMBER_LOGIN_ID'. (NullAllowed)
      */
     public void setMemberLoginId(Long memberLoginId) {
@@ -337,7 +337,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -345,7 +345,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -354,7 +354,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -364,7 +364,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)} <br>
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (NullAllowed)
      */
     public void setLoginDatetime(org.joda.time.LocalDateTime loginDatetime) {
@@ -373,7 +373,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [get] (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @return The value of the column 'MOBILE_LOGIN_FLG'. (NullAllowed)
      */
     public Integer getMobileLoginFlg() {
@@ -381,7 +381,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set] (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @param mobileLoginFlg The value of the column 'MOBILE_LOGIN_FLG'. (NullAllowed)
      */
     public void setMobileLoginFlg(Integer mobileLoginFlg) {
@@ -390,7 +390,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [get] (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * [get] (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @return The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public String getLoginMemberStatusCode() {
@@ -398,7 +398,7 @@ public abstract class BsMemberLoginDto implements Serializable {
     }
 
     /**
-     * [set] (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * [set] (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @param loginMemberStatusCode The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public void setLoginMemberStatusCode(String loginMemberStatusCode) {

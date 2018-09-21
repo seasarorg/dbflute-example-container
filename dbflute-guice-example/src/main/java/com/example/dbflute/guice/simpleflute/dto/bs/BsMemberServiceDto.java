@@ -10,7 +10,7 @@ import com.example.dbflute.guice.simpleflute.AppCDef;
 import com.example.dbflute.guice.simpleflute.dto.*;
 
 /**
- * The simple DTO of (会員サービス)MEMBER_SERVICE as TABLE. <br />
+ * The simple DTO of (会員サービス)MEMBER_SERVICE as TABLE. <br>
  * <pre>
  * [primary-key]
  *     MEMBER_SERVICE_ID
@@ -108,7 +108,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of serviceRankCode as the classification of ServiceRank. <br />
+     * Set the value of serviceRankCode as the classification of ServiceRank. <br>
      * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -117,7 +117,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Get the value of serviceRankCode as the classification of ServiceRank. <br />
+     * Get the value of serviceRankCode as the classification of ServiceRank. <br>
      * rank of service member gets
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -130,7 +130,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of serviceRankCode as Platinum. <br />
+     * Set the value of serviceRankCode as Platinum. <br>
      * PLATINUM: platinum rank
      */
     public void setServiceRankCode_Platinum() {
@@ -138,7 +138,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Gold. <br />
+     * Set the value of serviceRankCode as Gold. <br>
      * GOLD: gold rank
      */
     public void setServiceRankCode_Gold() {
@@ -146,7 +146,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Silver. <br />
+     * Set the value of serviceRankCode as Silver. <br>
      * SILVER: silver rank
      */
     public void setServiceRankCode_Silver() {
@@ -154,7 +154,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Bronze. <br />
+     * Set the value of serviceRankCode as Bronze. <br>
      * BRONZE: bronze rank
      */
     public void setServiceRankCode_Bronze() {
@@ -162,7 +162,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Set the value of serviceRankCode as Plastic. <br />
+     * Set the value of serviceRankCode as Plastic. <br>
      * PLASTIC: plastic rank
      */
     public void setServiceRankCode_Plastic() {
@@ -173,7 +173,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of serviceRankCode 'Platinum'? <br />
+     * Is the value of serviceRankCode 'Platinum'? <br>
      * PLATINUM: platinum rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -184,7 +184,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Gold'? <br />
+     * Is the value of serviceRankCode 'Gold'? <br>
      * GOLD: gold rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -195,7 +195,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Silver'? <br />
+     * Is the value of serviceRankCode 'Silver'? <br>
      * SILVER: silver rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -206,7 +206,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Bronze'? <br />
+     * Is the value of serviceRankCode 'Bronze'? <br>
      * BRONZE: bronze rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -217,7 +217,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * Is the value of serviceRankCode 'Plastic'? <br />
+     * Is the value of serviceRankCode 'Plastic'? <br>
      * PLASTIC: plastic rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -321,7 +321,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [get] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'MEMBER_SERVICE_ID'. (NullAllowed)
      */
     public Integer getMemberServiceId() {
@@ -329,7 +329,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br />
+     * [set] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @param memberServiceId The value of the column 'MEMBER_SERVICE_ID'. (NullAllowed)
      */
     public void setMemberServiceId(Integer memberServiceId) {
@@ -338,7 +338,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -346,7 +346,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br />
+     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -355,7 +355,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br />
+     * [get] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed)
      */
     public Integer getServicePointCount() {
@@ -363,7 +363,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br />
+     * [set] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
      * @param servicePointCount The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed)
      */
     public void setServicePointCount(Integer servicePointCount) {
@@ -372,7 +372,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br />
+     * [get] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * @return The value of the column 'SERVICE_RANK_CODE'. (NullAllowed)
      */
     public String getServiceRankCode() {
@@ -380,7 +380,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br />
+     * [set] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (NullAllowed)
      */
     public void setServiceRankCode(String serviceRankCode) {
@@ -389,7 +389,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -399,7 +399,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed)
      */
     public void setRegisterDatetime(org.joda.time.LocalDateTime registerDatetime) {
@@ -408,7 +408,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public String getRegisterUser() {
@@ -416,7 +416,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed)
      */
     public void setRegisterUser(String registerUser) {
@@ -425,7 +425,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -435,7 +435,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed)
      */
     public void setUpdateDatetime(org.joda.time.LocalDateTime updateDatetime) {
@@ -444,7 +444,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public String getUpdateUser() {
@@ -452,7 +452,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br />
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed)
      */
     public void setUpdateUser(String updateUser) {
@@ -461,7 +461,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @return The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public Long getVersionNo() {
@@ -469,7 +469,7 @@ public abstract class BsMemberServiceDto implements Serializable {
     }
 
     /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br />
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @param versionNo The value of the column 'VERSION_NO'. (NullAllowed)
      */
     public void setVersionNo(Long versionNo) {

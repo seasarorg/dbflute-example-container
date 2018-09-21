@@ -19,7 +19,7 @@ import com.example.dbflute.guice.dbflute.exbhv.*;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PurchaseMaxPriceMember. <br />
+ * The base class for typed parameter-bean of PurchaseMaxPriceMember. <br>
  * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -41,7 +41,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PurchaseMaxPriceMember. <br />
+     * Constructor for the typed parameter-bean of PurchaseMaxPriceMember. <br>
      * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv.
      */
     public BsPurchaseMaxPriceMemberPmb() {
@@ -177,7 +177,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] memberId <br />
+     * [get] memberId <br>
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -185,7 +185,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [set] memberId <br />
+     * [set] memberId <br>
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -193,7 +193,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [get] memberName:likeContain <br />
+     * [get] memberName:likeContain <br>
      * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
@@ -201,7 +201,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     }
 
     /**
-     * [set as containSearch] memberName:likeContain <br />
+     * [set as containSearch] memberName:likeContain <br>
      * @param memberName The value of memberName. (NullAllowed)
      */
     public void setMemberName_ContainSearch(String memberName) {

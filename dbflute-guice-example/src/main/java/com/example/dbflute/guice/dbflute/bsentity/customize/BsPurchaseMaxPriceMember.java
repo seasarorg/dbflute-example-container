@@ -9,7 +9,7 @@ import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.guice.dbflute.exentity.customize.*;
 
 /**
- * The entity of PurchaseMaxPriceMember. <br />
+ * The entity of PurchaseMaxPriceMember. <br>
  * <pre>
  * [primary-key]
  *     
@@ -186,7 +186,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -195,7 +195,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -204,7 +204,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
@@ -213,7 +213,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
@@ -222,7 +222,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [get] PURCHASE_MAX_PRICE: {INTEGER(10)} <br />
+     * [get] PURCHASE_MAX_PRICE: {INTEGER(10)} <br>
      * @return The value of the column 'PURCHASE_MAX_PRICE'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getPurchaseMaxPrice() {
@@ -231,7 +231,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [set] PURCHASE_MAX_PRICE: {INTEGER(10)} <br />
+     * [set] PURCHASE_MAX_PRICE: {INTEGER(10)} <br>
      * @param purchaseMaxPrice The value of the column 'PURCHASE_MAX_PRICE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseMaxPrice(Integer purchaseMaxPrice) {
@@ -240,7 +240,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
@@ -249,7 +249,7 @@ public abstract class BsPurchaseMaxPriceMember extends AbstractEntity implements
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberStatusName(String memberStatusName) {

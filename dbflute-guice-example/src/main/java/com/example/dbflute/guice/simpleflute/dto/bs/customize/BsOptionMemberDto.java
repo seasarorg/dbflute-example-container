@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.dbflute.guice.simpleflute.AppCDef;
 
 /**
- * The simple DTO of OptionMember. <br />
+ * The simple DTO of OptionMember. <br>
  * <pre>
  * [primary-key]
  *     
@@ -107,7 +107,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Set the value of memberStatusCode as the classification of MemberStatus. <br />
+     * Set the value of memberStatusCode as the classification of MemberStatus. <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -116,7 +116,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Get the value of memberStatusCode as the classification of MemberStatus. <br />
+     * Get the value of memberStatusCode as the classification of MemberStatus. <br>
      * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -126,7 +126,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Set the value of dummyFlg as the classification of Flg. <br />
+     * Set the value of dummyFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed)
      */
@@ -135,7 +135,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Get the value of dummyFlg as the classification of Flg. <br />
+     * Get the value of dummyFlg as the classification of Flg. <br>
      * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed)
@@ -148,7 +148,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of memberStatusCode as Formalized. <br />
+     * Set the value of memberStatusCode as Formalized. <br>
      * Formalized: as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -156,7 +156,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Set the value of memberStatusCode as Withdrawal. <br />
+     * Set the value of memberStatusCode as Withdrawal. <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -164,7 +164,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Set the value of memberStatusCode as Provisional. <br />
+     * Set the value of memberStatusCode as Provisional. <br>
      * Provisional: first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {
@@ -172,7 +172,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Set the value of dummyFlg as True. <br />
+     * Set the value of dummyFlg as True. <br>
      * Yes: means valid
      */
     public void setDummyFlg_True() {
@@ -180,7 +180,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Set the value of dummyFlg as False. <br />
+     * Set the value of dummyFlg as False. <br>
      * No: means invalid
      */
     public void setDummyFlg_False() {
@@ -191,7 +191,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of memberStatusCode 'Formalized'? <br />
+     * Is the value of memberStatusCode 'Formalized'? <br>
      * Formalized: as formal member, allowed to use all service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -202,7 +202,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Is the value of memberStatusCode 'Withdrawal'? <br />
+     * Is the value of memberStatusCode 'Withdrawal'? <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -213,7 +213,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Is the value of memberStatusCode 'Provisional'? <br />
+     * Is the value of memberStatusCode 'Provisional'? <br>
      * Provisional: first status after entry, allowed to use only part of service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -224,7 +224,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Is the value of dummyFlg 'True'? <br />
+     * Is the value of dummyFlg 'True'? <br>
      * Yes: means valid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -235,7 +235,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * Is the value of dummyFlg 'False'? <br />
+     * Is the value of dummyFlg 'False'? <br>
      * No: means invalid
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -335,7 +335,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public Integer getMemberId() {
@@ -343,7 +343,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -352,7 +352,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public String getMemberName() {
@@ -360,7 +360,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed)
      */
     public void setMemberName(String memberName) {
@@ -369,7 +369,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
+     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
      * @return The value of the column 'BIRTHDATE'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd")
@@ -379,7 +379,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br />
+     * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed)
      */
     public void setBirthdate(org.joda.time.LocalDate birthdate) {
@@ -388,7 +388,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
+     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
     @JSONHint(format="yyyy-MM-dd HH:mm:ss.SSS")
@@ -398,7 +398,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br />
+     * [set] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed)
      */
     public void setFormalizedDatetime(org.joda.time.LocalDateTime formalizedDatetime) {
@@ -407,7 +407,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br />
+     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br>
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public String getMemberStatusCode() {
@@ -415,7 +415,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br />
+     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} <br>
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed)
      */
     public void setMemberStatusCode(String memberStatusCode) {
@@ -424,7 +424,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public String getMemberStatusName() {
@@ -432,7 +432,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed)
      */
     public void setMemberStatusName(String memberStatusName) {
@@ -441,7 +441,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} <br />
+     * [get] (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} <br>
      * @return The value of the column 'STATUS_DISPLAY_ORDER'. (NullAllowed)
      */
     public Integer getStatusDisplayOrder() {
@@ -449,7 +449,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} <br />
+     * [set] (表示順)STATUS_DISPLAY_ORDER: {INTEGER(10), refers to MEMBER_STATUS.DISPLAY_ORDER} <br>
      * @param statusDisplayOrder The value of the column 'STATUS_DISPLAY_ORDER'. (NullAllowed)
      */
     public void setStatusDisplayOrder(Integer statusDisplayOrder) {
@@ -458,7 +458,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
+     * [get] DUMMY_FLG: {INTEGER(10), classification=Flg} <br>
      * @return The value of the column 'DUMMY_FLG'. (NullAllowed)
      */
     public Integer getDummyFlg() {
@@ -466,7 +466,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] DUMMY_FLG: {INTEGER(10), classification=Flg} <br />
+     * [set] DUMMY_FLG: {INTEGER(10), classification=Flg} <br>
      * @param dummyFlg The value of the column 'DUMMY_FLG'. (NullAllowed)
      */
     public void setDummyFlg(Integer dummyFlg) {
@@ -475,7 +475,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [get] DUMMY_NOFLG: {INTEGER(10)} <br />
+     * [get] DUMMY_NOFLG: {INTEGER(10)} <br>
      * @return The value of the column 'DUMMY_NOFLG'. (NullAllowed)
      */
     public Integer getDummyNoflg() {
@@ -483,7 +483,7 @@ public abstract class BsOptionMemberDto implements Serializable {
     }
 
     /**
-     * [set] DUMMY_NOFLG: {INTEGER(10)} <br />
+     * [set] DUMMY_NOFLG: {INTEGER(10)} <br>
      * @param dummyNoflg The value of the column 'DUMMY_NOFLG'. (NullAllowed)
      */
     public void setDummyNoflg(Integer dummyNoflg) {

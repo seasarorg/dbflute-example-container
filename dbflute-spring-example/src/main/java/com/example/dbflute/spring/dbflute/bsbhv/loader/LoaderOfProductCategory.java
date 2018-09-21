@@ -24,7 +24,7 @@ import com.example.dbflute.spring.dbflute.exentity.*;
 import com.example.dbflute.spring.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br />
+ * The referrer loader of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_CATEGORY_CODE

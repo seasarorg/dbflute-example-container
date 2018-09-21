@@ -6,7 +6,7 @@ import java.util.*;
 import net.vvakame.util.jsonpullparser.annotation.*;
 
 /**
- * The simple DTO of VENDOR_$_DOLLAR as TABLE. <br />
+ * The simple DTO of VENDOR_$_DOLLAR as TABLE. <br>
  * <pre>
  * [primary-key]
  *     VENDOR_$_DOLLAR_ID
@@ -139,7 +139,7 @@ public abstract class BsVendor$DollarDto implements Serializable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_ID'. (NullAllowed)
      */
     public Integer getVendor$DollarId() {
@@ -147,7 +147,7 @@ public abstract class BsVendor$DollarDto implements Serializable {
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @param vendor$DollarId The value of the column 'VENDOR_$_DOLLAR_ID'. (NullAllowed)
      */
     public void setVendor$DollarId(Integer vendor$DollarId) {
@@ -156,7 +156,7 @@ public abstract class BsVendor$DollarDto implements Serializable {
     }
 
     /**
-     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed)
      */
     public String getVendor$DollarName() {
@@ -164,7 +164,7 @@ public abstract class BsVendor$DollarDto implements Serializable {
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @param vendor$DollarName The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed)
      */
     public void setVendor$DollarName(String vendor$DollarName) {

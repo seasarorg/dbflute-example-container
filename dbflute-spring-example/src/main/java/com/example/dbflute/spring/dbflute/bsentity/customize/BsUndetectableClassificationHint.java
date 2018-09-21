@@ -25,7 +25,7 @@ import com.example.dbflute.spring.dbflute.allcommon.CDef;
 import com.example.dbflute.spring.dbflute.exentity.customize.*;
 
 /**
- * The entity of UndetectableClassificationHint. <br />
+ * The entity of UndetectableClassificationHint. <br>
  * <pre>
  * [primary-key]
  *     
@@ -125,8 +125,8 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Get the value of memberStatusCode as the classification of MemberStatus. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br />
+     * Get the value of memberStatusCode as the classification of MemberStatus. <br>
+     * MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -136,8 +136,8 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * Set the value of memberStatusCode as the classification of MemberStatus. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br />
+     * Set the value of memberStatusCode as the classification of MemberStatus. <br>
+     * MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -149,7 +149,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of memberStatusCode as Formalized (FML). <br />
+     * Set the value of memberStatusCode as Formalized (FML). <br>
      * Formalized: as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -157,7 +157,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * Set the value of memberStatusCode as Withdrawal (WDL). <br />
+     * Set the value of memberStatusCode as Withdrawal (WDL). <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -165,7 +165,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * Set the value of memberStatusCode as Provisional (PRV). <br />
+     * Set the value of memberStatusCode as Provisional (PRV). <br>
      * Provisional: first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {
@@ -176,7 +176,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of memberStatusCode Formalized? <br />
+     * Is the value of memberStatusCode Formalized? <br>
      * Formalized: as formal member, allowed to use all service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -187,7 +187,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * Is the value of memberStatusCode Withdrawal? <br />
+     * Is the value of memberStatusCode Withdrawal? <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -198,7 +198,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * Is the value of memberStatusCode Provisional? <br />
+     * Is the value of memberStatusCode Provisional? <br>
      * Provisional: first status after entry, allowed to use only part of service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -209,7 +209,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * means member that can use services <br />
+     * means member that can use services <br>
      * The group elements:[Formalized, Provisional]
      * @return The determination, true or false.
      */
@@ -283,7 +283,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MEMBER_ID: {INTEGER(10)} <br />
+     * [get] MEMBER_ID: {INTEGER(10)} <br>
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -292,7 +292,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * [set] MEMBER_ID: {INTEGER(10)} <br />
+     * [set] MEMBER_ID: {INTEGER(10)} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -301,7 +301,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * [get] MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br />
+     * [get] MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br>
      * // undetectable classification so cls(MemberStatus)
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
@@ -311,7 +311,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     }
 
     /**
-     * [set] MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br />
+     * [set] MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus} <br>
      * // undetectable classification so cls(MemberStatus)
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */

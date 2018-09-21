@@ -9,7 +9,7 @@ import com.example.dbflute.guice.dbflute.exentity.*;
 import com.example.dbflute.guice.dbflute.cbean.*;
 
 /**
- * The referrer loader of (会員)MEMBER as TABLE. <br />
+ * The referrer loader of (会員)MEMBER as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
