@@ -273,7 +273,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -309,7 +309,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *

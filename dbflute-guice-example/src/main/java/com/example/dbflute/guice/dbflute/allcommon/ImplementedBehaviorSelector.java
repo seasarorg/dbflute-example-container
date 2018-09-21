@@ -171,7 +171,7 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
      * Assert that the object is not null.
      * @param variableName Variable name. (NotNull)
      * @param value Value. (NotNull)
-     * @exception IllegalArgumentException
+     * @exception IllegalArgumentException When the value is null.
      */
     protected void assertObjectNotNull(String variableName, Object value) {
         if (variableName == null) {

@@ -325,7 +325,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -361,7 +361,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -548,14 +548,14 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * vendorIdentityOnlyBhv.<span style="color: #DD4747">batchUpdate</span>(vendorIdentityOnlyList, new SpecifyQuery<VendorIdentityOnlyCB>() {
+     * vendorIdentityOnlyBhv.<span style="color: #DD4747">batchUpdate</span>(vendorIdentityOnlyList, new SpecifyQuery&lt;VendorIdentityOnlyCB&gt;() {
      *     public void specify(VendorIdentityOnlyCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * vendorIdentityOnlyBhv.<span style="color: #DD4747">batchUpdate</span>(vendorIdentityOnlyList, new SpecifyQuery<VendorIdentityOnlyCB>() {
+     * vendorIdentityOnlyBhv.<span style="color: #DD4747">batchUpdate</span>(vendorIdentityOnlyList, new SpecifyQuery&lt;VendorIdentityOnlyCB&gt;() {
      *     public void specify(VendorIdentityOnlyCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
@@ -675,7 +675,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * vendorIdentityOnly.setFoo...(value);
      * vendorIdentityOnly.setBar...(value);
-     * InsertOption<VendorIdentityOnlyCB> option = new InsertOption<VendorIdentityOnlyCB>();
+     * InsertOption&lt;VendorIdentityOnlyCB&gt; option = new InsertOption&lt;VendorIdentityOnlyCB&gt;();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
      * vendorIdentityOnlyBhv.<span style="color: #DD4747">varyingInsert</span>(vendorIdentityOnly, option);

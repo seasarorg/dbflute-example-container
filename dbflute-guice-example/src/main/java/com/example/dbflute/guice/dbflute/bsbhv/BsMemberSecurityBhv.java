@@ -302,7 +302,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -338,7 +338,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -587,14 +587,14 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberSecurityBhv.<span style="color: #DD4747">batchUpdate</span>(memberSecurityList, new SpecifyQuery<MemberSecurityCB>() {
+     * memberSecurityBhv.<span style="color: #DD4747">batchUpdate</span>(memberSecurityList, new SpecifyQuery&lt;MemberSecurityCB&gt;() {
      *     public void specify(MemberSecurityCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberSecurityBhv.<span style="color: #DD4747">batchUpdate</span>(memberSecurityList, new SpecifyQuery<MemberSecurityCB>() {
+     * memberSecurityBhv.<span style="color: #DD4747">batchUpdate</span>(memberSecurityList, new SpecifyQuery&lt;MemberSecurityCB&gt;() {
      *     public void specify(MemberSecurityCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
@@ -784,7 +784,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * memberSecurity.setFoo...(value);
      * memberSecurity.setBar...(value);
-     * InsertOption<MemberSecurityCB> option = new InsertOption<MemberSecurityCB>();
+     * InsertOption&lt;MemberSecurityCB&gt; option = new InsertOption&lt;MemberSecurityCB&gt;();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
      * memberSecurityBhv.<span style="color: #DD4747">varyingInsert</span>(memberSecurity, option);

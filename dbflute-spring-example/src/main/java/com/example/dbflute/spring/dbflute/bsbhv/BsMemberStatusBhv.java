@@ -352,7 +352,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -388,7 +388,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         purchaseCB.query().set...
      *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -424,7 +424,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         cb.query().addOrderBy_Bar...();
      *     }
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
      * for (MemberStatus memberStatus : memberStatusList) {
@@ -457,7 +457,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         cb.query().addOrderBy_Bar...();
      *     }
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
      * ... = memberStatus.<span style="color: #DD4747">getMemberList()</span>;
@@ -516,7 +516,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         cb.query().addOrderBy_Bar...();
      *     }
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
      * for (MemberStatus memberStatus : memberStatusList) {
@@ -549,7 +549,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      *         cb.query().addOrderBy_Bar...();
      *     }
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
      * ... = memberStatus.<span style="color: #DD4747">getMemberLoginList()</span>;
@@ -767,14 +767,14 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberStatusBhv.<span style="color: #DD4747">batchUpdate</span>(memberStatusList, new SpecifyQuery<MemberStatusCB>() {
+     * memberStatusBhv.<span style="color: #DD4747">batchUpdate</span>(memberStatusList, new SpecifyQuery&lt;MemberStatusCB&gt;() {
      *     public void specify(MemberStatusCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberStatusBhv.<span style="color: #DD4747">batchUpdate</span>(memberStatusList, new SpecifyQuery<MemberStatusCB>() {
+     * memberStatusBhv.<span style="color: #DD4747">batchUpdate</span>(memberStatusList, new SpecifyQuery&lt;MemberStatusCB&gt;() {
      *     public void specify(MemberStatusCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
@@ -894,7 +894,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * memberStatus.setFoo...(value);
      * memberStatus.setBar...(value);
-     * InsertOption<MemberStatusCB> option = new InsertOption<MemberStatusCB>();
+     * InsertOption&lt;MemberStatusCB&gt; option = new InsertOption&lt;MemberStatusCB&gt;();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
      * memberStatusBhv.<span style="color: #DD4747">varyingInsert</span>(memberStatus, option);
