@@ -13,7 +13,7 @@
 	<properties>
 		<seasar.version>2.4.46</seasar.version>
 		<dbflute.version>1.0.5N</dbflute.version>
-		<h2.jdbc.version>1.4.178</h2.jdbc.version>
+		<h2.jdbc.version>2.1.210</h2.jdbc.version>
 		<utflute.version>0.4.6</utflute.version>
 	</properties>
 
