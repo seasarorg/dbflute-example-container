@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dbflute.version>1.0.5N</dbflute.version>
-		<slf4j.version>1.6.1</slf4j.version>
+		<slf4j.version>1.7.26</slf4j.version>
 	</properties>
 
 	<url>http://dbflute.sandbox.seasar.org</url>
